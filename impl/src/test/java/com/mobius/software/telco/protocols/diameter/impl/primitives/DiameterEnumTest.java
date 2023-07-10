@@ -26,7 +26,7 @@ public class DiameterEnumTest
 		Integer value=DiameterTestingEnum.ONE.getValue();
 		
 		avpSet.addAvp(1234, value);
-		DiameterEnum<DiameterTestingEnum> integer=new DiameterEnum<DiameterTestingEnum>(DiameterTestingEnum.ONE, null, null);
+		DiameterEnumeratedImpl<DiameterTestingEnum> integer=new DiameterEnumeratedImpl<DiameterTestingEnum>(DiameterTestingEnum.ONE, null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -42,9 +42,9 @@ public class DiameterEnumTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterEnum<DiameterTestingEnum>();
+		integer=new DiameterEnumeratedImpl<DiameterTestingEnum>();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(integer.getRealValue(DiameterTestingEnum.class),DiameterTestingEnum.ONE);
+		assertEquals(integer.getEnumerated(DiameterTestingEnum.class),DiameterTestingEnum.ONE);
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -52,7 +52,7 @@ public class DiameterEnumTest
 		value=DiameterTestingEnum.TWO.getValue();
 		
 		avpSet.addAvp(1234, value, 2335L, true, false);
-		integer=new DiameterEnum<DiameterTestingEnum>(DiameterTestingEnum.TWO, null, null);
+		integer=new DiameterEnumeratedImpl<DiameterTestingEnum>(DiameterTestingEnum.TWO, null, null);
 		
 		ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -68,8 +68,8 @@ public class DiameterEnumTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterEnum<DiameterTestingEnum>();
+		integer=new DiameterEnumeratedImpl<DiameterTestingEnum>();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(integer.getRealValue(DiameterTestingEnum.class),DiameterTestingEnum.TWO);				
+		assertEquals(integer.getEnumerated(DiameterTestingEnum.class),DiameterTestingEnum.TWO);				
 	}
 }

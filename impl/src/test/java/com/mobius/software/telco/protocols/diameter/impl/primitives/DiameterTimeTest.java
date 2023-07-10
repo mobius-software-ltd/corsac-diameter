@@ -31,62 +31,62 @@ public class DiameterTimeTest
 		calendar.set(2036, Calendar.FEBRUARY, 7, 6, 28, 16);
 		calendar.set(Calendar.MILLISECOND, 0);
 		Long timestamp1=calendar.getTimeInMillis();
-		Long dateTimeValue=DiameterTime.fromDate(calendar.getTime());
+		Long dateTimeValue=DiameterTimeImpl.fromDate(calendar.getTime());
 		assertEquals(dateTimeValue,new Long(0L));
 	
 		calendar.set(2036, Calendar.FEBRUARY, 7, 6, 28, 15);
 		calendar.set(Calendar.MILLISECOND, 0);
 		Long timestamp2=calendar.getTimeInMillis();
-		dateTimeValue=DiameterTime.fromDate(calendar.getTime());
+		dateTimeValue=DiameterTimeImpl.fromDate(calendar.getTime());
 		assertEquals(dateTimeValue,new Long(4294967295L));
 		
 		calendar.set(2147, Calendar.SEPTEMBER, 3, 6, 28, 15);
 		calendar.set(Calendar.MILLISECOND, 0);
 		Long timestamp3=calendar.getTimeInMillis();
-		dateTimeValue=DiameterTime.fromDate(calendar.getTime());		
+		dateTimeValue=DiameterTimeImpl.fromDate(calendar.getTime());		
 		assertEquals(dateTimeValue,new Long(3520799999L));
 		
 		calendar.set(2011, Calendar.JULY, 28, 0, 0, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 		Long timestamp4=calendar.getTimeInMillis();
-		dateTimeValue=DiameterTime.fromDate(calendar.getTime());
+		dateTimeValue=DiameterTimeImpl.fromDate(calendar.getTime());
 		assertEquals(dateTimeValue,new Long(3520800000L));
 		
-		DiameterTime dateTime=new DiameterTime();
+		DiameterTimeImpl dateTime=new DiameterTimeImpl();
 		byte[] data=new byte[8];
 		ByteBuf buffer=Unpooled.wrappedBuffer(data);
 		buffer.resetWriterIndex();
 		buffer.writeInt(Long.valueOf(0L).intValue());
 		dateTime.decode(Unpooled.wrappedBuffer(data), 8);
-		assertEquals(sf.format(dateTime.getRealValue()),"07/02/2036 06:28:16");
-		assertEquals(new Long(dateTime.getRealValue().getTime()),timestamp1);
+		assertEquals(sf.format(dateTime.getDateTime()),"07/02/2036 06:28:16");
+		assertEquals(new Long(dateTime.getDateTime().getTime()),timestamp1);
 		
-		dateTime=new DiameterTime();
+		dateTime=new DiameterTimeImpl();
 		data=new byte[8];
 		buffer=Unpooled.wrappedBuffer(data);
 		buffer.resetWriterIndex();
 		buffer.writeInt(Long.valueOf(4294967295L).intValue());
 		dateTime.decode(Unpooled.wrappedBuffer(data), 8);
-		assertEquals(sf.format(dateTime.getRealValue()),"07/02/2036 06:28:15");
-		assertEquals(new Long(dateTime.getRealValue().getTime()),timestamp2);
+		assertEquals(sf.format(dateTime.getDateTime()),"07/02/2036 06:28:15");
+		assertEquals(new Long(dateTime.getDateTime().getTime()),timestamp2);
 		
-		dateTime=new DiameterTime();
+		dateTime=new DiameterTimeImpl();
 		data=new byte[8];
 		buffer=Unpooled.wrappedBuffer(data);
 		buffer.resetWriterIndex();
 		buffer.writeInt(Long.valueOf(3520799999L).intValue());
 		dateTime.decode(Unpooled.wrappedBuffer(data), 8);
-		assertEquals(sf.format(dateTime.getRealValue()),"03/09/2147 06:28:15");
-		assertEquals(new Long(dateTime.getRealValue().getTime()),timestamp3);
+		assertEquals(sf.format(dateTime.getDateTime()),"03/09/2147 06:28:15");
+		assertEquals(new Long(dateTime.getDateTime().getTime()),timestamp3);
 		
-		dateTime=new DiameterTime();
+		dateTime=new DiameterTimeImpl();
 		data=new byte[8];
 		buffer=Unpooled.wrappedBuffer(data);
 		buffer.resetWriterIndex();
 		buffer.writeInt(Long.valueOf(3520800000L).intValue());
 		dateTime.decode(Unpooled.wrappedBuffer(data), 8);
-		assertEquals(sf.format(dateTime.getRealValue()),"28/07/2011 00:00:00");
-		assertEquals(new Long(dateTime.getRealValue().getTime()),timestamp4);
+		assertEquals(sf.format(dateTime.getDateTime()),"28/07/2011 00:00:00");
+		assertEquals(new Long(dateTime.getDateTime().getTime()),timestamp4);
 	}
 	
 	@Test
@@ -104,7 +104,7 @@ public class DiameterTimeTest
 		calendar.set(Calendar.MILLISECOND, 0);
 		
 		avpSet.addAvp(1234, calendar.getTime());
-		DiameterTime octetString=new DiameterTime(calendar.getTime(), null, null);
+		DiameterTimeImpl octetString=new DiameterTimeImpl(calendar.getTime(), null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -120,9 +120,9 @@ public class DiameterTimeTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterTime();
+		octetString=new DiameterTimeImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(new Long(calendar.getTimeInMillis()), new Long(octetString.getRealValue().getTime()));
+		assertEquals(new Long(calendar.getTimeInMillis()), new Long(octetString.getDateTime().getTime()));
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -131,7 +131,7 @@ public class DiameterTimeTest
 		calendar.set(Calendar.MILLISECOND, 0);
 		
 		avpSet.addAvp(1234, calendar.getTime(), 2335L, true, false);
-		octetString=new DiameterTime(calendar.getTime(), null, null);
+		octetString=new DiameterTimeImpl(calendar.getTime(), null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -147,9 +147,9 @@ public class DiameterTimeTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterTime();
+		octetString=new DiameterTimeImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(calendar.getTimeInMillis(), octetString.getRealValue().getTime());
+		assertEquals(calendar.getTimeInMillis(), octetString.getDateTime().getTime());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -158,7 +158,7 @@ public class DiameterTimeTest
 		calendar.set(Calendar.MILLISECOND, 0);
 		
 		avpSet.addAvp(1234, calendar.getTime(), 2335L, true, false);
-		octetString=new DiameterTime(calendar.getTime(), null, null);
+		octetString=new DiameterTimeImpl(calendar.getTime(), null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -174,9 +174,9 @@ public class DiameterTimeTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterTime();
+		octetString=new DiameterTimeImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(calendar.getTimeInMillis(), octetString.getRealValue().getTime());
+		assertEquals(calendar.getTimeInMillis(), octetString.getDateTime().getTime());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -185,7 +185,7 @@ public class DiameterTimeTest
 		calendar.set(Calendar.MILLISECOND, 0);
 		
 		avpSet.addAvp(1234, calendar.getTime(), 2335L, true, false);
-		octetString=new DiameterTime(calendar.getTime(), null, null);
+		octetString=new DiameterTimeImpl(calendar.getTime(), null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -201,8 +201,8 @@ public class DiameterTimeTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterTime();
+		octetString=new DiameterTimeImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(calendar.getTimeInMillis(), octetString.getRealValue().getTime());				
+		assertEquals(calendar.getTimeInMillis(), octetString.getDateTime().getTime());				
 	}
 }

@@ -15,7 +15,7 @@ import io.netty.buffer.Unpooled;
 public class DiameterIdentityTest 
 {
 	@Test
-	public void testOctetStringCoding()
+	public void testIdentityCoding()
 	{
 		MessageParser messageParser = new MessageParser();
 		ElementParser elementParser=new ElementParser();
@@ -26,7 +26,7 @@ public class DiameterIdentityTest
 		String data="a.google.com";
 		
 		avpSet.addAvp(1234, data, false);
-		DiameterUTF8String octetString=new DiameterUTF8String(data, null, null);
+		DiameterIdentityImpl octetString=new DiameterIdentityImpl(data, null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -42,10 +42,10 @@ public class DiameterIdentityTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUTF8String();
+		octetString=new DiameterIdentityImpl();
 		ByteBuf encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 12);
-		assertEquals(octetString.getRealValue(), data);
+		assertEquals(octetString.getIdentity(), data);
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -53,7 +53,7 @@ public class DiameterIdentityTest
 		data="mobius-software.com";
 		
 		avpSet.addAvp(1234, data, 2335L, true, false, false);
-		octetString=new DiameterUTF8String(data, null, null);
+		octetString=new DiameterIdentityImpl(data, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -69,9 +69,9 @@ public class DiameterIdentityTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUTF8String();
+		octetString=new DiameterIdentityImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 19);
-		assertEquals(octetString.getRealValue(), data);
+		assertEquals(octetString.getIdentity(), data);
 	}
 }

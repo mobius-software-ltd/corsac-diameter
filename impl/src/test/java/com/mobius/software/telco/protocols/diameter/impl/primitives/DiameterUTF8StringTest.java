@@ -26,7 +26,7 @@ public class DiameterUTF8StringTest
 		String data="Hello world";
 		
 		avpSet.addAvp(1234, data, false);
-		DiameterUTF8String octetString=new DiameterUTF8String(data, null, null);
+		DiameterUTF8StringImpl octetString=new DiameterUTF8StringImpl(data, null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -42,10 +42,10 @@ public class DiameterUTF8StringTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUTF8String();
+		octetString=new DiameterUTF8StringImpl();
 		ByteBuf encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 11);
-		assertEquals(octetString.getRealValue(), data);
+		assertEquals(octetString.getString(), data);
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -53,7 +53,7 @@ public class DiameterUTF8StringTest
 		data="Путин хуйло,роССия нацистьі";
 		
 		avpSet.addAvp(1234, data, 2335L, true, false, false);
-		octetString=new DiameterUTF8String(data, null, null);
+		octetString=new DiameterUTF8StringImpl(data, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -69,9 +69,9 @@ public class DiameterUTF8StringTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUTF8String();
+		octetString=new DiameterUTF8StringImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 51);
-		assertEquals(octetString.getRealValue(), data);
+		assertEquals(octetString.getString(), data);
 	}
 }

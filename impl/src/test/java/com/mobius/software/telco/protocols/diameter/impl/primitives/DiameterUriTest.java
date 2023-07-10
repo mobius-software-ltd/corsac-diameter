@@ -12,6 +12,9 @@ import org.jdiameter.client.impl.parser.ElementParser;
 import org.jdiameter.client.impl.parser.MessageParser;
 import org.junit.Test;
 
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterProtocol;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterTransport;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -35,7 +38,7 @@ public class DiameterUriTest
 		Integer port2=1813;
 		
 		avpSet.addAvp(1234, "aaa://host.example.com;transport=tcp", false);
-		DiameterUri octetString=new DiameterUri(host,null,false,transport, null, null, null);
+		DiameterUriImpl octetString=new DiameterUriImpl(host,null,false,transport, null, null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -51,7 +54,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		ByteBuf encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 36);
 		
@@ -65,7 +68,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaa://host.example.com:6666;transport=tcp", 2335L, true, false, false);
-		octetString=new DiameterUri(host,port,false,transport, null, null, null);
+		octetString=new DiameterUriImpl(host,port,false,transport, null, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -81,7 +84,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 41);
 		
@@ -95,7 +98,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaas://host.example.com:6666;transport=tcp", 2335L, true, false, false);
-		octetString=new DiameterUri(host,port,true,transport, null, null, null);
+		octetString=new DiameterUriImpl(host,port,true,transport, null, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -111,7 +114,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 42);
 		
@@ -125,7 +128,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaa://host.example.com;protocol=diameter", 2335L, true, false, false);
-		octetString=new DiameterUri(host,null,false,null, protocol, null, null);
+		octetString=new DiameterUriImpl(host,null,false,null, protocol, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -141,7 +144,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 40);
 		
@@ -155,7 +158,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaa://host.example.com:6666;protocol=diameter", 2335L, true, false, false);
-		octetString=new DiameterUri(host,port,false,null, protocol, null, null);
+		octetString=new DiameterUriImpl(host,port,false,null, protocol, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -171,7 +174,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 45);
 		
@@ -185,7 +188,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaa://host.example.com:6666;transport=tcp;protocol=diameter", 2335L, true, false, false);
-		octetString=new DiameterUri(host,port,false,transport, protocol, null, null);
+		octetString=new DiameterUriImpl(host,port,false,transport, protocol, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -201,7 +204,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 59);
 		
@@ -215,7 +218,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaas://host.example.com:6666;transport=tcp;protocol=diameter", 2335L, true, false, false);
-		octetString=new DiameterUri(host,port,true,transport, protocol, null, null);
+		octetString=new DiameterUriImpl(host,port,true,transport, protocol, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -231,7 +234,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 60);
 		
@@ -245,7 +248,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaa://host.example.com:1813;transport=udp;protocol=radius", 2335L, true, false, false);
-		octetString=new DiameterUri(host,port2,false,transport2, protocol2, null, null);
+		octetString=new DiameterUriImpl(host,port2,false,transport2, protocol2, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -261,7 +264,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 57);
 		
@@ -275,7 +278,7 @@ public class DiameterUriTest
 		avpSet = dummyMessage.getAvps();
 		
 		avpSet.addAvp(1234, "aaas://host.example.com:1813;transport=udp;protocol=radius", 2335L, true, false, false);
-		octetString=new DiameterUri(host,port2,true,transport2, protocol2, null, null);
+		octetString=new DiameterUriImpl(host,port2,true,transport2, protocol2, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -291,7 +294,7 @@ public class DiameterUriTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterUri();
+		octetString=new DiameterUriImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 58);
 		

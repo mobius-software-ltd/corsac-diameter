@@ -26,7 +26,7 @@ public class DiameterInteger64Test
 		Long value=0L;
 		
 		avpSet.addAvp(1234, value);
-		DiameterInteger64 integer=new DiameterInteger64(value, null, null);
+		DiameterInteger64Impl integer=new DiameterInteger64Impl(value, null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -42,9 +42,9 @@ public class DiameterInteger64Test
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterInteger64();
+		integer=new DiameterInteger64Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 8);
-		assertEquals(integer.getValue(),value);	
+		assertEquals(integer.getLong(),value);	
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -52,7 +52,7 @@ public class DiameterInteger64Test
 		value=1L;
 		
 		avpSet.addAvp(1234, value, 2335L, true, false);
-		integer=new DiameterInteger64(value, null, null);
+		integer=new DiameterInteger64Impl(value, null, null);
 		
 		ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -66,9 +66,9 @@ public class DiameterInteger64Test
 		theirRealData=new byte[theirData.length-12];
 		System.arraycopy(theirData, 12, theirRealData, 0, theirRealData.length);
 		
-		integer=new DiameterInteger64();
+		integer=new DiameterInteger64Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 8);
-		assertEquals(integer.getValue(),value);	
+		assertEquals(integer.getLong(),value);	
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -78,7 +78,7 @@ public class DiameterInteger64Test
 		value=-1L;
 		
 		avpSet.addAvp(1234, value, 2335L, true, false);
-		integer=new DiameterInteger64(value, null, null);
+		integer=new DiameterInteger64Impl(value, null, null);
 		
 		ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -94,9 +94,9 @@ public class DiameterInteger64Test
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterInteger64();
+		integer=new DiameterInteger64Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 8);
-		assertEquals(integer.getValue(),value);	
+		assertEquals(integer.getLong(),value);	
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -104,7 +104,7 @@ public class DiameterInteger64Test
 		value=Long.MAX_VALUE;
 		
 		avpSet.addAvp(1234, value, 2335L, true, false);
-		integer=new DiameterInteger64(value, null, null);
+		integer=new DiameterInteger64Impl(value, null, null);
 		
 		ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -120,9 +120,9 @@ public class DiameterInteger64Test
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterInteger64();
+		integer=new DiameterInteger64Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 8);
-		assertEquals(integer.getValue(),value);	
+		assertEquals(integer.getLong(),value);	
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -130,7 +130,7 @@ public class DiameterInteger64Test
 		value=Long.MIN_VALUE;
 		
 		avpSet.addAvp(1234, value, 2335L, true, false);
-		integer=new DiameterInteger64(value, null, null);
+		integer=new DiameterInteger64Impl(value, null, null);
 		
 		ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -146,8 +146,8 @@ public class DiameterInteger64Test
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterInteger64();
+		integer=new DiameterInteger64Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 8);
-		assertEquals(integer.getValue(),value);					
+		assertEquals(integer.getLong(),value);					
 	}
 }

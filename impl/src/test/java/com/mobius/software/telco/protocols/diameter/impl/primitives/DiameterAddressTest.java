@@ -30,7 +30,7 @@ public class DiameterAddressTest
 		InetAddress inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress);
-		DiameterAddress octetString=new DiameterAddress(inetAddress, null, null);
+		DiameterAddressImpl octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -46,9 +46,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 6);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -57,7 +57,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -73,9 +73,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -84,7 +84,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -100,9 +100,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 6);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -111,7 +111,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -127,9 +127,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 6);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -138,7 +138,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -154,9 +154,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 6);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -165,7 +165,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -181,9 +181,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -192,7 +192,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -208,9 +208,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -219,7 +219,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -235,9 +235,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -246,7 +246,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -262,9 +262,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -273,7 +273,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -289,9 +289,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -300,7 +300,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -316,9 +316,9 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());
+		assertEquals(inetAddress, octetString.getAddress());
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -327,7 +327,7 @@ public class DiameterAddressTest
 		inetAddress=InetAddress.getByName(address);
 		
 		avpSet.addAvp(1234, inetAddress, 2335L, true, false);
-		octetString=new DiameterAddress(inetAddress, null, null);
+		octetString=new DiameterAddressImpl(inetAddress, null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -343,8 +343,8 @@ public class DiameterAddressTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterAddress();
+		octetString=new DiameterAddressImpl();
 		octetString.decode(Unpooled.wrappedBuffer(ourData), 18);
-		assertEquals(inetAddress, octetString.getRealValue());				
+		assertEquals(inetAddress, octetString.getAddress());				
 	}
 }

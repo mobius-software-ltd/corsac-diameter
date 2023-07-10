@@ -26,7 +26,7 @@ public class DiameterOctetStringTest
 		byte[] data=new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05};
 		
 		avpSet.addAvp(1234, data);
-		DiameterOctetString octetString=new DiameterOctetString(Unpooled.wrappedBuffer(data), null, null);
+		DiameterOctetStringImpl octetString=new DiameterOctetStringImpl(Unpooled.wrappedBuffer(data), null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -42,7 +42,7 @@ public class DiameterOctetStringTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterOctetString();
+		octetString=new DiameterOctetStringImpl();
 		ByteBuf encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 5);
 		ByteBuf decodedValue = octetString.getValue();
@@ -57,7 +57,7 @@ public class DiameterOctetStringTest
 		data=new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
 		
 		avpSet.addAvp(1234, data, 2335L, true, false);
-		octetString=new DiameterOctetString(Unpooled.wrappedBuffer(data), null, null);
+		octetString=new DiameterOctetStringImpl(Unpooled.wrappedBuffer(data), null, null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -73,7 +73,7 @@ public class DiameterOctetStringTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterOctetString();
+		octetString=new DiameterOctetStringImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 6);
 		decodedValue = octetString.getValue();

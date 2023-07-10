@@ -28,7 +28,7 @@ public class DiameterUnsigned32Test
 		Long value=0L;
 		
 		avpSet.addAvp(1234, value, true);
-		DiameterUnsigned32 integer=new DiameterUnsigned32(value, null, null);
+		DiameterUnsigned32Impl integer=new DiameterUnsigned32Impl(value, null, null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -44,9 +44,9 @@ public class DiameterUnsigned32Test
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterUnsigned32();
+		integer=new DiameterUnsigned32Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(integer.getValue(),value);	
+		assertEquals(integer.getUnsigned(),value);	
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -54,7 +54,7 @@ public class DiameterUnsigned32Test
 		value=1L;
 		
 		avpSet.addAvp(1234, value, 2335L, true, false, true);
-		integer=new DiameterUnsigned32(value, null, null);
+		integer=new DiameterUnsigned32Impl(value, null, null);
 		
 		ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -68,9 +68,9 @@ public class DiameterUnsigned32Test
 		theirRealData=new byte[theirData.length-12];
 		System.arraycopy(theirData, 12, theirRealData, 0, theirRealData.length);
 		
-		integer=new DiameterUnsigned32();
+		integer=new DiameterUnsigned32Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(integer.getValue(),value);	
+		assertEquals(integer.getUnsigned(),value);	
 		
 		dummyMessage = messageParser.createEmptyMessage(-1,-1L);
 		avpSet = dummyMessage.getAvps();
@@ -80,7 +80,7 @@ public class DiameterUnsigned32Test
 		value=MAX_UINT_32_VALUE;
 		
 		avpSet.addAvp(1234, value, 2335L, true, false, true);
-		integer=new DiameterUnsigned32(value, null, null);
+		integer=new DiameterUnsigned32Impl(value, null, null);
 		
 		ourResult = Unpooled.buffer();
 		integer.encode(ourResult);
@@ -96,8 +96,8 @@ public class DiameterUnsigned32Test
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		integer=new DiameterUnsigned32();
+		integer=new DiameterUnsigned32Impl();
 		integer.decode(Unpooled.wrappedBuffer(ourData), 4);
-		assertEquals(integer.getValue(),value);						
+		assertEquals(integer.getUnsigned(),value);						
 	}
 }

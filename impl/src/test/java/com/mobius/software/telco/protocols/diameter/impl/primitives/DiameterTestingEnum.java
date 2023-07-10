@@ -3,6 +3,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors

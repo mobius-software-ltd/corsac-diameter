@@ -17,6 +17,16 @@ import org.jdiameter.client.impl.parser.ElementParser;
 import org.jdiameter.client.impl.parser.MessageParser;
 import org.junit.Test;
 
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleIcmpType;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleIpOption;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleOption;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpFlag;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpOption;
+import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -34,13 +44,13 @@ public class DiameterIpFilterRuleTest
 		DiameterIpAction action=DiameterIpAction.PERMIT;
 		DiameterRuleDirection direction=DiameterRuleDirection.IN;
 		InternetProtocol protocol=InternetProtocol.TCP;
-		DiameterRuleAddress fromAddress=new DiameterRuleAddress(InetAddress.getByName("10.98.254.0"), 24, false);
-		List<DiameterRulePorts> fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(5061)});
-		DiameterRuleAddress toddress=new DiameterRuleAddress(InetAddress.getByName("10.98.0.0"), 24, false);
-		List<DiameterRulePorts> toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(5060)});
+		DiameterRuleAddressImpl fromAddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.254.0"), 24, false);
+		List<DiameterRulePorts> fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(5061)});
+		DiameterRuleAddressImpl toddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.0.0"), 24, false);
+		List<DiameterRulePorts> toPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(5060)});
 		
 		avpSet.addAvp(1234, "permit in 6 from 10.98.254.0/24 5061 to 10.98.0.0/24 5060", false);
-		DiameterIpFilterRule octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,null,null,null,null,null,null,null,null,null);
+		DiameterIpFilterRuleImpl octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,null,null,null,null,null,null,null,null,null);
 		
 		ByteBuf ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -56,7 +66,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		ByteBuf encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 57);
 		
@@ -88,13 +98,13 @@ public class DiameterIpFilterRuleTest
 		action=DiameterIpAction.PERMIT;
 		direction=DiameterRuleDirection.OUT;
 		protocol=InternetProtocol.TCP;
-		fromAddress=new DiameterRuleAddress(InetAddress.getByName("10.98.254.0"), 24, false);
-		fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(5060)});
-		toddress=new DiameterRuleAddress(InetAddress.getByName("10.98.0.0"), 24, false);
-		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(5061)});
+		fromAddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.254.0"), 24, false);
+		fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(5060)});
+		toddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.0.0"), 24, false);
+		toPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(5061)});
 		List<DiameterRuleOption> options=Arrays.asList(new DiameterRuleOption[] { DiameterRuleOption.FRAGMENT, DiameterRuleOption.SETUP});
 		avpSet.addAvp(1234, "permit out 6 from 10.98.254.0/24 5060 to 10.98.0.0/24 5061 frag setup", false);
-		octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,null,null,null,null,null,null,null);
+		octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,null,null,null,null,null,null,null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -110,7 +120,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 69);
 		
@@ -145,15 +155,15 @@ public class DiameterIpFilterRuleTest
 		action=DiameterIpAction.DENY;
 		direction=DiameterRuleDirection.IN;
 		protocol=InternetProtocol.TCP;
-		fromAddress=new DiameterRuleAddress(false, true, false);
-		fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(80)});
-		toddress=new DiameterRuleAddress(InetAddress.getByName("172.16.1.1"), null, false);
-		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(80)});
+		fromAddress=new DiameterRuleAddressImpl(false, true, false);
+		fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(80)});
+		toddress=new DiameterRuleAddressImpl(InetAddress.getByName("172.16.1.1"), null, false);
+		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePortsImpl(80)});
 		options=Arrays.asList(new DiameterRuleOption[] { DiameterRuleOption.ESTABLISHED });
 		List<DiameterRuleTcpOption> tcpOptions=Arrays.asList(new DiameterRuleTcpOption[] { DiameterRuleTcpOption.MSS, DiameterRuleTcpOption.SACK});
 		List<DiameterRuleTcpOption> negativeTcpOptions=Arrays.asList(new DiameterRuleTcpOption[] { DiameterRuleTcpOption.CC});
 		avpSet.addAvp(1234, "deny in 6 from any 80 to 172.16.1.1 80 established tcpoptions mss,sack,!cc", false);
-		octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,tcpOptions,negativeTcpOptions,null,null,null,null,null);
+		octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,tcpOptions,negativeTcpOptions,null,null,null,null,null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -169,7 +179,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 74);
 		
@@ -208,17 +218,17 @@ public class DiameterIpFilterRuleTest
 		action=DiameterIpAction.PERMIT;
 		direction=DiameterRuleDirection.OUT;
 		protocol=InternetProtocol.TCP;
-		fromAddress=new DiameterRuleAddress(InetAddress.getByName("172.16.1.1"), null, false);
-		fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(80)});
-		toddress=new DiameterRuleAddress(false,true,false);
-		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(80)});
+		fromAddress=new DiameterRuleAddressImpl(InetAddress.getByName("172.16.1.1"), null, false);
+		fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(80)});
+		toddress=new DiameterRuleAddressImpl(false,true,false);
+		toPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(80)});
 		options=Arrays.asList(new DiameterRuleOption[] { DiameterRuleOption.SETUP });
 		tcpOptions=null;
 		negativeTcpOptions=null;
 		List<DiameterRuleTcpFlag> tcpFlags=Arrays.asList(new DiameterRuleTcpFlag[] { DiameterRuleTcpFlag.FIN, DiameterRuleTcpFlag.RST });
 		List<DiameterRuleTcpFlag> negativeTcpFlags=Arrays.asList(new DiameterRuleTcpFlag[] { DiameterRuleTcpFlag.SYN, DiameterRuleTcpFlag.PSH });
 		avpSet.addAvp(1234, "permit out 6 from 172.16.1.1 80 to any 80 setup tcpflags fin,rst,!syn,!psh", false);
-		octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,null,null,tcpFlags,negativeTcpFlags,null,null,null);
+		octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,null,null,tcpFlags,negativeTcpFlags,null,null,null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -234,7 +244,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 74);
 		
@@ -274,10 +284,10 @@ public class DiameterIpFilterRuleTest
 		action=DiameterIpAction.PERMIT;
 		direction=DiameterRuleDirection.IN;
 		protocol=InternetProtocol.UDP;
-		fromAddress=new DiameterRuleAddress(InetAddress.getByName("10.98.254.0"), 24, false);
-		fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(50000,60100)});
-		toddress=new DiameterRuleAddress(InetAddress.getByName("10.98.0.0"), 24, false);
-		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(50000,60100)});
+		fromAddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.254.0"), 24, false);
+		fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(50000,60100)});
+		toddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.0.0"), 24, false);
+		toPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(50000,60100)});
 		options=Arrays.asList(new DiameterRuleOption[] { DiameterRuleOption.ESTABLISHED });
 		tcpOptions=null;
 		negativeTcpOptions=null;
@@ -285,7 +295,7 @@ public class DiameterIpFilterRuleTest
 		negativeTcpFlags=null;
 		List<DiameterRuleIcmpType> icmpTypes=Arrays.asList(new DiameterRuleIcmpType[] { DiameterRuleIcmpType.TIMESTAMP_REQUEST,DiameterRuleIcmpType.ADDRESS_MASK_REPLY ,DiameterRuleIcmpType.REDIRECT, DiameterRuleIcmpType.IP_HEADER_BAD });
 		avpSet.addAvp(1234, "permit in 17 from 10.98.254.0/24 50000-60100 to 10.98.0.0/24 50000-60100 established icmptypes 13,18,5,12", false);
-		octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,null,null,null,null,icmpTypes,null,null);
+		octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,options,null,null,null,null,null,null,icmpTypes,null,null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -301,7 +311,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		byte[] data = "permit in 17 from 10.98.254.0/24 50000-60100 to 10.98.0.0/24 50000-60100 icmptypes timestamp request,address mask reply ,5, 12 established".getBytes();		
 		octetString.decode(Unpooled.wrappedBuffer(data), 138);
@@ -341,10 +351,10 @@ public class DiameterIpFilterRuleTest
 		action=DiameterIpAction.DENY;
 		direction=DiameterRuleDirection.OUT;
 		protocol=InternetProtocol.UDP;
-		fromAddress=new DiameterRuleAddress(InetAddress.getByName("10.98.254.0"), 24, false);
-		fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(50000,60100)});
-		toddress=new DiameterRuleAddress(InetAddress.getByName("10.98.0.0"), 24, false);
-		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(50000,60100)});
+		fromAddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.254.0"), 24, false);
+		fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(50000,60100)});
+		toddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.0.0"), 24, false);
+		toPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(50000,60100)});
 		options=null;
 		List<DiameterRuleIpOption> ipOptions=Arrays.asList(new DiameterRuleIpOption[] { DiameterRuleIpOption.SSSRR});
 		List<DiameterRuleIpOption> negativeIpOptions=Arrays.asList(new DiameterRuleIpOption[] { DiameterRuleIpOption.RR});
@@ -354,7 +364,7 @@ public class DiameterIpFilterRuleTest
 		negativeTcpFlags=null;
 		icmpTypes=null;
 		avpSet.addAvp(1234, "deny out 17 from 10.98.254.0/24 50000-60100 to 10.98.0.0/24 50000-60100 ipoptions ssrr,!rr", false);
-		octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,ipOptions,negativeIpOptions,null,null,null,null,null,null,null);
+		octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,ipOptions,negativeIpOptions,null,null,null,null,null,null,null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -370,7 +380,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		encodedValue = Unpooled.wrappedBuffer(ourData);
 		octetString.decode(encodedValue, 90);
 		
@@ -406,10 +416,10 @@ public class DiameterIpFilterRuleTest
 		action=DiameterIpAction.PERMIT;
 		direction=DiameterRuleDirection.IN;
 		protocol=InternetProtocol.UDP;
-		fromAddress=new DiameterRuleAddress(false,true,true);
-		fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(5061),new DiameterRulePorts(5064)});
-		toddress=new DiameterRuleAddress(InetAddress.getByName("10.98.0.0"), 24, false);
-		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(50000,60100),new DiameterRulePorts(5061),new DiameterRulePorts(5064)});
+		fromAddress=new DiameterRuleAddressImpl(false,true,true);
+		fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(5061),new DiameterRulePortsImpl(5064)});
+		toddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.0.0"), 24, false);
+		toPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(50000,60100),new DiameterRulePortsImpl(5061),new DiameterRulePortsImpl(5064)});
 		options=null;
 		ipOptions=null;
 		negativeIpOptions=null;
@@ -419,7 +429,7 @@ public class DiameterIpFilterRuleTest
 		negativeTcpFlags=null;
 		icmpTypes=null;
 		avpSet.addAvp(1234, "permit in 17 from !any 5061,5064 to 10.98.0.0/24 50000-60100,5061,5064", false);
-		octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,ipOptions,negativeIpOptions,null,null,null,null,null,null,null);
+		octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,ipOptions,negativeIpOptions,null,null,null,null,null,null,null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -435,7 +445,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		octetString.decode(Unpooled.wrappedBuffer("permit in 17 from !any 5061, 5064 to 10.98.0.0/24 50000-60100 ,5061, 5064".getBytes()), 73);
 		
 		assertEquals(octetString.getAction(), action);
@@ -472,10 +482,10 @@ public class DiameterIpFilterRuleTest
 		action=DiameterIpAction.PERMIT;
 		direction=DiameterRuleDirection.OUT;
 		protocol=InternetProtocol.UDP;
-		fromAddress=new DiameterRuleAddress(InetAddress.getByName("10.98.254.0"), 24, false);
-		fromPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(5061),new DiameterRulePorts(5064)});
-		toddress=new DiameterRuleAddress(InetAddress.getByName("10.98.0.0"), 24, false);
-		toPorts=Arrays.asList(new DiameterRulePorts[] { new DiameterRulePorts(50000,60100),new DiameterRulePorts(5061),new DiameterRulePorts(5064)});
+		fromAddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.254.0"), 24, false);
+		fromPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(5061),new DiameterRulePortsImpl(5064)});
+		toddress=new DiameterRuleAddressImpl(InetAddress.getByName("10.98.0.0"), 24, false);
+		toPorts=Arrays.asList(new DiameterRulePortsImpl[] { new DiameterRulePortsImpl(50000,60100),new DiameterRulePortsImpl(5061),new DiameterRulePortsImpl(5064)});
 		options=null;
 		ipOptions=null;
 		negativeIpOptions=null;
@@ -485,7 +495,7 @@ public class DiameterIpFilterRuleTest
 		negativeTcpFlags=null;
 		icmpTypes=null;
 		avpSet.addAvp(1234, "permit out 17 from 10.98.254.0/24 5061,5064 to 10.98.0.0/24 50000-60100,5061,5064", false);
-		octetString=new DiameterIpFilterRule(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,ipOptions,negativeIpOptions,null,null,null,null,null,null,null);
+		octetString=new DiameterIpFilterRuleImpl(action,direction,protocol,fromAddress,fromPorts,toddress,toPorts,null,ipOptions,negativeIpOptions,null,null,null,null,null,null,null);
 		
 		ourResult = Unpooled.buffer();
 		octetString.encode(ourResult);
@@ -501,7 +511,7 @@ public class DiameterIpFilterRuleTest
 		
 		assertArrayEquals(theirRealData, ourData);
 		
-		octetString=new DiameterIpFilterRule();
+		octetString=new DiameterIpFilterRuleImpl();
 		octetString.decode(Unpooled.wrappedBuffer("permit out 17 from 10.98.254.0/24 5061, 5064 to 10.98.0.0/24 50000-60100 ,5061 ,5064".getBytes()), 84);
 		
 		assertEquals(octetString.getAction(), action);
