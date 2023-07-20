@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.MultiRound
 @DiameterAvpImplementation(code = 272L, vendorId = -1L)
 public class MultiRoundTimeOutImpl extends DiameterUnsigned32Impl implements MultiRoundTimeOut
 {
-	public MultiRoundTimeOutImpl() 
+	protected MultiRoundTimeOutImpl() 
 	{
 		super();
 	}
 	
-	public MultiRoundTimeOutImpl(Long minValue,Long maxValue) 
+	protected MultiRoundTimeOutImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

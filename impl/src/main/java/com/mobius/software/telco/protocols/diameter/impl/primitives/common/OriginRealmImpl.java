@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.OriginReal
 @DiameterAvpImplementation(code = 296L, vendorId = -1L)
 public class OriginRealmImpl extends DiameterIdentityImpl implements OriginRealm
 {
-	public OriginRealmImpl() 
+	protected OriginRealmImpl() 
 	{
 		super();
 	}
 		
-	public OriginRealmImpl(Integer minLength,Integer maxLength) 
+	protected OriginRealmImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

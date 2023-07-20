@@ -44,12 +44,12 @@ public class DiameterInteger64Impl implements DiameterInteger64
 	private Long maxValue;
 	
 	//required for parser
-	public DiameterInteger64Impl() 
+	protected DiameterInteger64Impl() 
 	{
 		
 	}
 	
-	public DiameterInteger64Impl(Long minValue,Long maxValue) 
+	protected DiameterInteger64Impl(Long minValue,Long maxValue) 
 	{
 		this.minValue = minValue;
 		this.maxValue = maxValue;

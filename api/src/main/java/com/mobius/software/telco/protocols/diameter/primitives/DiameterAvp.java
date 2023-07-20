@@ -22,6 +22,7 @@ package com.mobius.software.telco.protocols.diameter.primitives;
 * @author yulian oifa
 *
 */
+
 public interface DiameterAvp 
 {
 	

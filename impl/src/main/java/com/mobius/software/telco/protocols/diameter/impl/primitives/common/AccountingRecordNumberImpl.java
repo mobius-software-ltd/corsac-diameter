@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 @DiameterAvpImplementation(code = 485L, vendorId = -1L)
 public class AccountingRecordNumberImpl extends DiameterUnsigned32Impl implements AccountingRecordNumber
 {
-	public AccountingRecordNumberImpl() 
+	protected AccountingRecordNumberImpl() 
 	{
 		super();
 	}
 	
-	public AccountingRecordNumberImpl(Long minValue,Long maxValue) 
+	protected AccountingRecordNumberImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

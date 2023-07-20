@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 293L, vendorId = -1L, name = "Destination-Host")
+@DiameterAvpDefinition(code = 293L, position = 6, vendorId = -1L, name = "Destination-Host")
 public interface DestinationHost extends DiameterIdentity
 {
 }

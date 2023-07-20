@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStat
 @DiameterAvpImplementation(code = 278L, vendorId = -1L)
 public class OriginStateIdImpl extends DiameterUnsigned32Impl implements OriginStateId
 {
-	public OriginStateIdImpl() 
+	protected OriginStateIdImpl() 
 	{
 		super();
 	}
 	
-	public OriginStateIdImpl(Long minValue,Long maxValue) 
+	protected OriginStateIdImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

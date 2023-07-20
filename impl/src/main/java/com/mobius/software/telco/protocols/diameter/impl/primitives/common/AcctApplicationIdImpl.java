@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AcctApplic
 @DiameterAvpImplementation(code = 259L, vendorId = -1L)
 public class AcctApplicationIdImpl extends DiameterUnsigned32Impl implements AcctApplicationId
 {
-	public AcctApplicationIdImpl() 
+	protected AcctApplicationIdImpl() 
 	{
 		super();
 	}
 	
-	public AcctApplicationIdImpl(Long minValue,Long maxValue) 
+	protected AcctApplicationIdImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

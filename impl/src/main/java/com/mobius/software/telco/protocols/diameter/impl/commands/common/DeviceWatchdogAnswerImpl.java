@@ -33,15 +33,19 @@ public class DeviceWatchdogAnswerImpl extends DiameterAnswerBase implements Devi
 {
 	protected DeviceWatchdogAnswerImpl() 
 	{
+		super();
+		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setExperimentalResultAllowed(false);
+		setErrorReportingHostAllowed(false);
 	}
 	
 	public DeviceWatchdogAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode);
+		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setExperimentalResultAllowed(false);
+		setErrorReportingHostAllowed(false);
 	}
-	
-	public DeviceWatchdogAnswerImpl(String originHost,String originRealm,Boolean isError,Boolean isRetransmit, Long resultCode)
-	{
-		super(originHost, originRealm, isError, isRetransmit, resultCode);
-	}	
 }

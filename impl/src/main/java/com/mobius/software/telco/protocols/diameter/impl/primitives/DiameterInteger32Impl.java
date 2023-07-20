@@ -44,12 +44,12 @@ public class DiameterInteger32Impl implements DiameterInteger32
 	private Integer maxValue;
 	
 	//required for parser
-	public DiameterInteger32Impl() 
+	protected DiameterInteger32Impl() 
 	{
 		
 	}
 	
-	public DiameterInteger32Impl(Integer minValue,Integer maxValue) 
+	protected DiameterInteger32Impl(Integer minValue,Integer maxValue) 
 	{
 		this.minValue = minValue;
 		this.maxValue = maxValue;

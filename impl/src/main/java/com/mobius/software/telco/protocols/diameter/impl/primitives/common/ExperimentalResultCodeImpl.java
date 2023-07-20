@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Experiment
 @DiameterAvpImplementation(code = 298L, vendorId = -1L)
 public class ExperimentalResultCodeImpl extends DiameterUnsigned32Impl implements ExperimentalResultCode
 {
-	public ExperimentalResultCodeImpl() 
+	protected ExperimentalResultCodeImpl() 
 	{
 		super();
 	}
 	
-	public ExperimentalResultCodeImpl(Long minValue,Long maxValue) 
+	protected ExperimentalResultCodeImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

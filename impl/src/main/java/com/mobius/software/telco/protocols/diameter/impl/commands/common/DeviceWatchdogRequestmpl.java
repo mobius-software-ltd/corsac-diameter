@@ -37,11 +37,14 @@ public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements Dev
 	
 	protected DeviceWatchdogRequestmpl() 
 	{
+		super();
+		setSessionIdAllowed(false);
 	}
 		
 	public DeviceWatchdogRequestmpl(String originHost,String originRealm,Boolean isRetransmit)
 	{
 		super(originHost, originRealm, isRetransmit);
+		setSessionIdAllowed(false);
 	}
 
 	@Override

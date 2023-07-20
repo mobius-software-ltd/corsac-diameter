@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiS
 @DiameterAvpImplementation(code = 50L, vendorId = -1L)
 public class AcctMultiSessionIdImpl extends DiameterUTF8StringImpl implements AcctMultiSessionId
 {
-	public AcctMultiSessionIdImpl() 
+	protected AcctMultiSessionIdImpl() 
 	{
 		super();
 	}
 	
-	public AcctMultiSessionIdImpl(Integer minLength,Integer maxLength) 
+	protected AcctMultiSessionIdImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

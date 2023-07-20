@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ProductNam
 @DiameterAvpImplementation(code = 269L, vendorId = -1L)
 public class ProductNameImpl extends DiameterUTF8StringImpl implements ProductName
 {
-	public ProductNameImpl() 
+	protected ProductNameImpl() 
 	{
 		super();
 	}
 	
-	public ProductNameImpl(Integer minLength,Integer maxLength) 
+	protected ProductNameImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGraceP
 @DiameterAvpImplementation(code = 276L, vendorId = -1L)
 public class AuthGracePeriodImpl extends DiameterUnsigned32Impl implements AuthGracePeriod
 {
-	public AuthGracePeriodImpl() 
+	protected AuthGracePeriodImpl() 
 	{
 		super();
 	}
 	
-	public AuthGracePeriodImpl(Long minValue,Long maxValue) 
+	protected AuthGracePeriodImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

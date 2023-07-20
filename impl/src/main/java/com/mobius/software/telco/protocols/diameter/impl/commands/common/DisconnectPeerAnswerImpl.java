@@ -33,15 +33,13 @@ public class DisconnectPeerAnswerImpl extends DiameterAnswerBase implements Disc
 {
 	protected DisconnectPeerAnswerImpl() 
 	{
+		super();
+		setSessionIdAllowed(false);
 	}
 	
 	public DisconnectPeerAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode);
+		setSessionIdAllowed(false);
 	}
-	
-	public DisconnectPeerAnswerImpl(String originHost,String originRealm,Boolean isError,Boolean isRetransmit, Long resultCode)
-	{
-		super(originHost, originRealm, isError, isRetransmit, resultCode);
-	}	
 }

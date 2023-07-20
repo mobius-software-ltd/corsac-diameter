@@ -36,12 +36,12 @@ public class DiameterUTF8StringImpl extends DiameterOctetStringImpl implements D
 	private String value;
 	
 	//required for parser
-	public DiameterUTF8StringImpl() 
+	protected DiameterUTF8StringImpl() 
 	{
 		super();
 	}
 	
-	public DiameterUTF8StringImpl(Integer minLength,Integer maxLength) 
+	protected DiameterUTF8StringImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

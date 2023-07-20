@@ -28,12 +28,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 public class DiameterUnsigned64Impl extends DiameterInteger64Impl implements DiameterUnsigned64 
 {
 	//required for parser
-	public DiameterUnsigned64Impl() 
+	protected DiameterUnsigned64Impl() 
 	{
 		super();
 	}
 	
-	public DiameterUnsigned64Impl(Long minValue,Long maxValue) 
+	protected DiameterUnsigned64Impl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

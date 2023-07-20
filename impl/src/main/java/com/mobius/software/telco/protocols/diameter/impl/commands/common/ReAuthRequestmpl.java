@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionHostAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 *
 */
 @DiameterCommandImplementation(applicationId = -1, commandCode = 258, request = true)
-public class ReAuthRequestmpl extends DiameterRequestBase implements ReAuthRequest
+public class ReAuthRequestmpl extends DiameterRequestWithSessionHostAndRealmBase implements ReAuthRequest
 {
 	private AuthApplicationId authApplicationId;
 	
@@ -62,9 +63,19 @@ public class ReAuthRequestmpl extends DiameterRequestBase implements ReAuthReque
 	{
 	}
 		
-	public ReAuthRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit)
+	public ReAuthRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType)
 	{
-		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit);
+		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
+		
+		if(authApplicationID==null)
+			throw new IllegalArgumentException("Auth-Application-Id is required");
+		
+		if(reAuthRequestType==null)
+			throw new IllegalArgumentException("Re-Auth-Request-Type is required");
+		
+		this.authApplicationId = new AuthApplicationIdImpl(authApplicationID, null, null);
+		
+		this.reAuthRequestType = new ReAuthRequestTypeImpl(reAuthRequestType, null, null);
 	}
 
 	@Override
@@ -156,9 +167,9 @@ public class ReAuthRequestmpl extends DiameterRequestBase implements ReAuthReque
 	public void setAuthApplicationIds(Long value) 
 	{
 		if(value==null)
-			this.authApplicationId = null;
-		else
-			this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
+			throw new IllegalArgumentException("Auth-Application-Id is required");
+		
+		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -174,8 +185,20 @@ public class ReAuthRequestmpl extends DiameterRequestBase implements ReAuthReque
 	public void setReAuthRequestType(ReAuthRequestTypeEnum value) 
 	{
 		if(value==null)
-			this.reAuthRequestType = null;
-		else
-			this.reAuthRequestType = new ReAuthRequestTypeImpl(value, null, null);
+			throw new IllegalArgumentException("Re-Auth-Request-Type is required");
+		
+		this.reAuthRequestType = new ReAuthRequestTypeImpl(value, null, null);
+	}		
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authApplicationId==null)
+			return "Auth-Application-Id is required";
+		
+		if(reAuthRequestType==null)
+			return "Re-Auth-Request-Type is required";
+		
+		return super.validate();
 	}
 }

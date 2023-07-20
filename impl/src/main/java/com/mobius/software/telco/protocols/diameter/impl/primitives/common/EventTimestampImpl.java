@@ -32,12 +32,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimes
 @DiameterAvpImplementation(code = 55L, vendorId = -1L)
 public class EventTimestampImpl extends DiameterTimeImpl implements EventTimestamp
 {
-	public EventTimestampImpl() 
+	protected EventTimestampImpl() 
 	{
 		super();
 	}
 	
-	public EventTimestampImpl(Long minValue,Long maxValue) 
+	protected EventTimestampImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
@@ -72,16 +73,38 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	
 	protected CapabilitiesExchangeAnswerImpl() 
 	{
+		super();
+		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setExperimentalResultAllowed(false);
+		setErrorReportingHostAllowed(false);
 	}
 	
-	public CapabilitiesExchangeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
+	public CapabilitiesExchangeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, List<InetAddress> hostIpAddresses, Long vendorId, String productName)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode);
-	}
-	
-	public CapabilitiesExchangeAnswerImpl(String originHost,String originRealm,Boolean isError,Boolean isRetransmit, Long resultCode)
-	{
-		super(originHost, originRealm, isError, isRetransmit, resultCode);
+		
+		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setExperimentalResultAllowed(false);
+		setErrorReportingHostAllowed(false);
+
+		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
+			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
+		
+		if(vendorId==null)
+			throw new IllegalArgumentException("Vendor-Id is required");
+		
+		if(productName==null)
+			throw new IllegalArgumentException("Product-Name is required");
+		
+		this.hostIpAddresses = new ArrayList<HostIpAddress>();
+		for(InetAddress curr:hostIpAddresses)
+			this.hostIpAddresses.add(new HostIpAddressImpl(curr, null, null));		
+		
+		this.vendorId = new VendorIdImpl(vendorId, null, null);
+		
+		this.productName = new ProductNameImpl(productName, null, null);
 	}
 
 	@Override
@@ -102,14 +125,12 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	@Override
 	public void setHostIpAddress(List<InetAddress> value) 
 	{
-		if(value==null || value.size()==0)
-			this.hostIpAddresses = null;
-		else
-		{
-			this.hostIpAddresses = new ArrayList<HostIpAddress>();
-			for(InetAddress curr:value)
-				this.hostIpAddresses.add(new HostIpAddressImpl(curr, null, null));
-		}
+		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
+			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
+		
+		this.hostIpAddresses = new ArrayList<HostIpAddress>();
+		for(InetAddress curr:value)
+			this.hostIpAddresses.add(new HostIpAddressImpl(curr, null, null));		
 	}
 
 	@Override
@@ -124,10 +145,10 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	@Override
 	public void setVendorId(Long value) 
 	{
-		if(value == null)
-			this.vendorId = null;
-		else
-			this.vendorId = new VendorIdImpl(value, null, null);
+		if(vendorId==null)
+			throw new IllegalArgumentException("Vendor-Id is required");
+		
+		this.vendorId = new VendorIdImpl(value, null, null);
 	}
 
 	@Override
@@ -142,10 +163,10 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	@Override
 	public void setProductName(String value) 
 	{
-		if(value==null)
-			this.productName = null;
-		else
-			this.productName = new ProductNameImpl(value, null, null);
+		if(productName==null)
+			throw new IllegalArgumentException("Product-Name is required");
+		
+		this.productName = new ProductNameImpl(value, null, null);
 	}
 
 	@Override
@@ -291,5 +312,20 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 			this.firmwareRevision = null;
 		else
 			this.firmwareRevision = new FirmwareRevisionImpl(value, null, null);
-	}	
+	}		
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
+			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
+		
+		if(vendorId==null)
+			return "Vendor-Id is required";
+		
+		if(productName==null)
+			return "Product-Name is required";
+		
+		return super.validate();
+	}
 }

@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionTim
 @DiameterAvpImplementation(code = 27L, vendorId = -1L)
 public class SessionTimeoutImpl extends DiameterUnsigned32Impl implements SessionTimeout
 {
-	public SessionTimeoutImpl() 
+	protected SessionTimeoutImpl() 
 	{
 		super();
 	}
 	
-	public SessionTimeoutImpl(Long minValue,Long maxValue) 
+	protected SessionTimeoutImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

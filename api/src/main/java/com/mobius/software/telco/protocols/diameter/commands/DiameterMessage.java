@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.commands;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -47,7 +48,7 @@ public interface DiameterMessage extends DiameterGroupedAvp
 	
 	void setOriginRealm(String value);
 	
-	public String getSessionId();
+	public String getSessionId() throws AvpNotSupportedException;
 	
-	void setSessionId(String value);
+	void setSessionId(String value) throws AvpNotSupportedException;
 }

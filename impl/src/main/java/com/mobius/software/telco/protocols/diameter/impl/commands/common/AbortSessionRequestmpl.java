@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionHostAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 *
 */
 @DiameterCommandImplementation(applicationId = -1, commandCode = 274, request = true)
-public class AbortSessionRequestmpl extends DiameterRequestBase implements AbortSessionRequest
+public class AbortSessionRequestmpl extends DiameterRequestWithSessionHostAndRealmBase implements AbortSessionRequest
 {
 	private AuthApplicationId authApplicationId;
 	
@@ -55,11 +56,17 @@ public class AbortSessionRequestmpl extends DiameterRequestBase implements Abort
 	
 	protected AbortSessionRequestmpl() 
 	{
+		super();
 	}
 		
-	public AbortSessionRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit)
+	public AbortSessionRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId)
 	{
-		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit);
+		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessonID);
+		
+		if(authApplicationId==null)
+			throw new IllegalArgumentException("Auth-Application-Id is required");
+		
+		this.authApplicationId = new AuthApplicationIdImpl(authApplicationId, null, null);
 	}
 
 	@Override
@@ -150,9 +157,18 @@ public class AbortSessionRequestmpl extends DiameterRequestBase implements Abort
 	@Override
 	public void setAuthApplicationIds(Long value) 
 	{
-		if(value==null)
-			this.authApplicationId = null;
-		else
-			this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
+		if(authApplicationId==null)
+			throw new IllegalArgumentException("Auth-Application-Id is required");
+		
+		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
+	}	
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authApplicationId==null)
+			return "Auth-Application-Id is required";
+		
+		return super.validate();
 	}
 }

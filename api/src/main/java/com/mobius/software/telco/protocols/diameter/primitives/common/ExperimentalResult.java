@@ -26,7 +26,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 297L, vendorId = -1L, name = "Experimental-Result")
+
+/*
+ * The Experimental-Result AVP (AVP Code 297) is of type Grouped, and
+   indicates whether a particular vendor-specific request was completed
+   successfully or whether an error occurred.  This AVP has the
+   following structure:
+
+   AVP Format
+
+         Experimental-Result ::= < AVP Header: 297 >
+                                 { Vendor-Id }
+                                 { Experimental-Result-Code }
+ */
+
+@DiameterAvpDefinition(code = 297L, position = 3, vendorId = -1L, name = "Experimental-Result")
 public interface ExperimentalResult extends DiameterAvp 
 {
 	Long getVendorId();

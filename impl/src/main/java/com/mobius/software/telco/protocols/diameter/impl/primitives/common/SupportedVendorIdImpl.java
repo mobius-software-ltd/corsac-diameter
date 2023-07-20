@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SupportedV
 @DiameterAvpImplementation(code = 265L, vendorId = -1L)
 public class SupportedVendorIdImpl extends DiameterUnsigned32Impl implements SupportedVendorId
 {
-	public SupportedVendorIdImpl() 
+	protected SupportedVendorIdImpl() 
 	{
 		super();
 	}
 	
-	public SupportedVendorIdImpl(Long minValue,Long maxValue) 
+	protected SupportedVendorIdImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

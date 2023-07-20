@@ -26,6 +26,24 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 * @author yulian oifa
 *
 */
+
+/*
+ * The Device-Watchdog-Answer (DWA), indicated by the Command Code set
+   to 280 and the Command Flags' 'R' bit cleared, is sent as a response
+   to the Device-Watchdog-Request message.
+
+      Message Format
+
+         <DWA>  ::= < Diameter Header: 280 >
+                    { Result-Code }
+                    { Origin-Host }
+                    { Origin-Realm }
+                    [ Error-Message ]
+                    [ Failed-AVP ]
+                    [ Origin-State-Id ]
+                  * [ AVP ]
+ */
+
 @DiameterCommandDefinition(applicationId = -1, commandCode = 280, request = false, proxyable = false, name="Device-Watchdog-Answer")
 public interface DeviceWatchdogAnswer extends DiameterAnswer
 {	

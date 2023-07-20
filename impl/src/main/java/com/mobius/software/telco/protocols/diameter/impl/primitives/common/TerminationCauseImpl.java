@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
 @DiameterAvpImplementation(code = 295L, vendorId = -1L)
 public class TerminationCauseImpl extends DiameterEnumeratedImpl<TerminationCauseEnum> implements TerminationCause
 {
-	public TerminationCauseImpl() 
+	protected TerminationCauseImpl() 
 	{
 		super();
 	}
 	
-	public TerminationCauseImpl(Integer minValue,Integer maxValue) 
+	protected TerminationCauseImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives;
+package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -17,6 +17,8 @@ import org.jdiameter.client.impl.parser.ElementParser;
 import org.jdiameter.client.impl.parser.MessageParser;
 import org.junit.Test;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterRuleAddressImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterRulePortsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterQosAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts;

@@ -41,6 +41,11 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 	private Boolean isAny;
 	
 	//required for parser
+	protected DiameterRuleAddressImpl()
+	{
+		
+	}
+	
 	public DiameterRuleAddressImpl(String value) throws ParseException
 	{
 		this.value = value;

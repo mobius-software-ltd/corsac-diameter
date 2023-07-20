@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Destinatio
 @DiameterAvpImplementation(code = 283L, vendorId = -1L)
 public class DestinationRealmImpl extends DiameterIdentityImpl implements DestinationRealm
 {
-	public DestinationRealmImpl() 
+	protected DestinationRealmImpl() 
 	{
 		super();
 	}
 		
-	public DestinationRealmImpl(Integer minLength,Integer maxLength) 
+	protected DestinationRealmImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

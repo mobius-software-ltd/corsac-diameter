@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+
 /**
 *
 * @author yulian oifa
@@ -25,11 +27,11 @@ package com.mobius.software.telco.protocols.diameter.commands;
 */
 public interface DiameterRequest extends DiameterMessage
 {
-	public String getDestinationHost();
+	public String getDestinationHost() throws AvpNotSupportedException;
 	
-	void setDestinationHost(String value);
+	void setDestinationHost(String value) throws AvpNotSupportedException;
 	
-	public String getDestinationRealm();
+	public String getDestinationRealm() throws AvpNotSupportedException;
 	
-	void setDestinationRealm(String value);
+	void setDestinationRealm(String value) throws AvpNotSupportedException;
 }

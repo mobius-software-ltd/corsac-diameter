@@ -30,6 +30,30 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
 * @author yulian oifa
 *
 */
+
+/*
+ *  The Re-Auth-Request (RAR), indicated by the Command Code set to 258
+   and the message flags' 'R' bit set, may be sent by any server to the
+   access device that is providing session service, to request that the
+   user be re-authenticated and/or re-authorized.
+
+
+    Message Format
+
+         <RAR>  ::= < Diameter Header: 258, REQ, PXY >
+                    < Session-Id >
+                    { Origin-Host }
+                    { Origin-Realm }
+                    { Destination-Realm }
+                    { Destination-Host }
+                    { Auth-Application-Id }
+                    { Re-Auth-Request-Type }
+                    [ User-Name ]
+                    [ Origin-State-Id ]
+                  * [ Proxy-Info ]
+                  * [ Route-Record ]
+                  * [ AVP ]
+ */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 258, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends DiameterRequest
 {  

@@ -44,12 +44,12 @@ public class DiameterUnsigned32Impl implements DiameterUnsigned32
 	private Long maxValue;
 	
 	//required for parser
-	public DiameterUnsigned32Impl() 
+	protected DiameterUnsigned32Impl() 
 	{
 		
 	}
 	
-	public DiameterUnsigned32Impl(Long minValue,Long maxValue) 
+	protected DiameterUnsigned32Impl(Long minValue,Long maxValue) 
 	{
 		this.minValue = minValue;
 		this.maxValue = maxValue;

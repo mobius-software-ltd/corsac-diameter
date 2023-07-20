@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.InbandSecu
 @DiameterAvpImplementation(code = 299L, vendorId = -1L)
 public class InbandSecurityIdImpl extends DiameterUnsigned32Impl implements InbandSecurityId
 {
-	public InbandSecurityIdImpl() 
+	protected InbandSecurityIdImpl() 
 	{
 		super();
 	}
 	
-	public InbandSecurityIdImpl(Long minValue,Long maxValue) 
+	protected InbandSecurityIdImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

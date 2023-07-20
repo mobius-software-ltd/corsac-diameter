@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
@@ -35,6 +36,40 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
+
+/*
+ * The Accounting-Request (ACR) command, indicated by the Command Code
+   field set to 271 and the Command Flags' 'R' bit set, is sent by a
+   Diameter node, acting as a client, in order to exchange accounting
+   information with a peer.
+
+   In addition to the AVPs listed below, Accounting-Request messages
+   SHOULD include service-specific accounting AVPs.
+
+   Message Format
+
+         <ACR> ::= < Diameter Header: 271, REQ, PXY >
+                   < Session-Id >
+                   { Origin-Host }
+                   { Origin-Realm }
+                   { Destination-Realm }
+                   { Accounting-Record-Type }
+                   { Accounting-Record-Number }
+                   [ Acct-Application-Id ]
+                   [ Vendor-Specific-Application-Id ]
+                   [ User-Name ]
+                   [ Destination-Host ]
+                   [ Accounting-Sub-Session-Id ]
+                   [ Acct-Session-Id ]
+                   [ Acct-Multi-Session-Id ]
+                   [ Acct-Interim-Interval ]
+                   [ Accounting-Realtime-Required ]
+                   [ Origin-State-Id ]
+                   [ Event-Timestamp ]
+                 * [ Proxy-Info ]
+                 * [ Route-Record ]
+                 * [ AVP ]
+ */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 271, request = true, proxyable = true, name="Accounting-Request")
 public interface AccountingRequest extends DiameterRequest
 {
@@ -48,35 +83,35 @@ public interface AccountingRequest extends DiameterRequest
 	
 	public Long getAcctApplicationId();
 	
-	void setAcctApplicationIds(Long value);
+	void setAcctApplicationId(Long value);
 	
-	public VendorSpecificApplicationId getVendorSpecificApplicationId();
+	public VendorSpecificApplicationId getVendorSpecificApplicationId() throws AvpNotSupportedException;
 	
-	void setVendorSpecificApplicationId(VendorSpecificApplicationId value);
+	void setVendorSpecificApplicationId(VendorSpecificApplicationId value) throws AvpNotSupportedException;
 	
 	public String getUsername();
 	
 	void setUsername(String value);
 	
-	public Long getAccountingSubSessionId();
+	public Long getAccountingSubSessionId() throws AvpNotSupportedException;
 	
-	void setAccountingSubSessionId(Long value);
+	void setAccountingSubSessionId(Long value) throws AvpNotSupportedException;
 	
-	public ByteBuf getAcctSessionId();
+	public ByteBuf getAcctSessionId() throws AvpNotSupportedException;
 	
-	void setAcctSessionId(ByteBuf value);
+	void setAcctSessionId(ByteBuf value) throws AvpNotSupportedException;
 	
-	public String getAcctMultiSessionId();
+	public String getAcctMultiSessionId() throws AvpNotSupportedException;
 	
-	void setAcctMultiSessionId(String value);
+	void setAcctMultiSessionId(String value) throws AvpNotSupportedException;
 	
 	public Long getAcctInterimInterval();
 	
 	void setAcctInterimInterval(Long value);
 	
-	AccountingRealtimeRequiredEnum getAccountingRealtimeRequired();
+	AccountingRealtimeRequiredEnum getAccountingRealtimeRequired() throws AvpNotSupportedException;
 	
-	void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum accountingRealtimeRequiredEnum);
+	void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum accountingRealtimeRequiredEnum) throws AvpNotSupportedException;
 		  
 	public Long getOriginStateId();
 	

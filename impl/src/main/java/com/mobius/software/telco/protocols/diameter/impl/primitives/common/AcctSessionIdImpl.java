@@ -32,12 +32,12 @@ import io.netty.buffer.ByteBuf;
 @DiameterAvpImplementation(code = 44L, vendorId = -1L)
 public class AcctSessionIdImpl extends DiameterOctetStringImpl implements AcctSessionId
 {
-	public AcctSessionIdImpl() 
+	protected AcctSessionIdImpl() 
 	{
 		super();
 	}
 	
-	public AcctSessionIdImpl(Integer minLength,Integer maxLength) 
+	protected AcctSessionIdImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength, maxLength);
 	}

@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 269L, vendorId = -1L, name = "Product-Name")
+@DiameterAvpDefinition(code = 269L, vendorId = -1L, must = false, name = "Product-Name")
 public interface ProductName extends DiameterUTF8String
 {
 }

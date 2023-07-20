@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginRealmImpl;
@@ -51,6 +53,8 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	
 	private OriginRealm originRealm;
 	
+	private boolean sessionIdAllowed = true;
+	
 	protected DiameterMessageBase() 
 	{
 	}
@@ -59,15 +63,20 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	{
 		this.isRetransmit=isRetransmit;
 		
-		if(originHost!=null)
-			this.originHost=new OriginHostImpl(originHost, null, null);	
-		else
-			this.originHost=null;
+		if(originHost==null)
+			throw new IllegalArgumentException("Origin-Host is required");
 		
-		if(originRealm!=null)
-			this.originRealm=new OriginRealmImpl(originRealm, null, null);	
-		else
-			this.originRealm=null;
+		if(originRealm==null)
+			throw new IllegalArgumentException("Origin-Realm is required");
+		
+		this.originHost=new OriginHostImpl(originHost, null, null);	
+		
+		this.originRealm=new OriginRealmImpl(originRealm, null, null);			
+	}
+
+	protected void setSessionIdAllowed(boolean allowed) 
+	{
+		this.sessionIdAllowed = allowed;
 	}
 	
 	@Override
@@ -145,10 +154,10 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	@Override
 	public void setOriginHost(String originHost) 
 	{
-		if(originHost == null)
-			this.originHost = null;
-		else
-			this.originHost = new OriginHostImpl(originHost, null, null);
+		if(originHost==null)
+			throw new IllegalArgumentException("Origin-Host is required");
+		
+		this.originHost = new OriginHostImpl(originHost, null, null);
 	}
 
 	@Override
@@ -163,15 +172,18 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	@Override
 	public void setOriginRealm(String originRealm) 
 	{
-		if(originRealm == null)
-			this.originRealm = null;
-		else
-			this.originRealm = new OriginRealmImpl(originRealm, null, null);
+		if(originRealm==null)
+			throw new IllegalArgumentException("Origin-Realm is required");
+		
+		this.originRealm = new OriginRealmImpl(originRealm, null, null);
 	}
 	
 	@Override
-	public String getSessionId()
+	public String getSessionId() throws AvpNotSupportedException
 	{
+		if(!sessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(sessionId == null)
 			return null;
 		
@@ -179,8 +191,11 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 	
 	@Override
-	public void setSessionId(String value)
+	public void setSessionId(String value) throws AvpNotSupportedException
 	{
+		if(!sessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(value == null)
 			this.sessionId = null;
 		else
@@ -273,4 +288,16 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 		
 		return true;
 	}	
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(originHost==null)
+			return "Origin-Host is required";
+		
+		if(originRealm==null)
+			return "Origin-Realm is required";
+		
+		return null;
+	}
 }

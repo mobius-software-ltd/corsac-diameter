@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
 @DiameterAvpImplementation(code = 273L, vendorId = -1L)
 public class DisconnectCauseImpl extends DiameterEnumeratedImpl<DisconnectCauseEnum> implements DisconnectCause
 {
-	public DisconnectCauseImpl() 
+	protected DisconnectCauseImpl() 
 	{
 		super();
 	}
 	
-	public DisconnectCauseImpl(Integer minValue,Integer maxValue) 
+	protected DisconnectCauseImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorRepor
 @DiameterAvpImplementation(code = 294L, vendorId = -1L)
 public class ErrorReportingHostImpl extends DiameterIdentityImpl implements ErrorReportingHost
 {
-	public ErrorReportingHostImpl() 
+	protected ErrorReportingHostImpl() 
 	{
 		super();
 	}
 		
-	public ErrorReportingHostImpl(Integer minLength,Integer maxLength) 
+	protected ErrorReportingHostImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

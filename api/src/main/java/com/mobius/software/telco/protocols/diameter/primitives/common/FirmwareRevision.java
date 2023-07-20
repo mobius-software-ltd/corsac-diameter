@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 267L, vendorId = -1L, name = "Firmware-Revision")
+@DiameterAvpDefinition(code = 267L, vendorId = -1L, must = false, name = "Firmware-Revision")
 public interface FirmwareRevision extends DiameterUnsigned32
 {
 		

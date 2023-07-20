@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
@@ -38,7 +39,7 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 	
 	private AcctApplicationId acctAppicationId;
 	
-	public VendorSpecificApplicationIdImpl()
+	protected VendorSpecificApplicationIdImpl()
 	{
 		
 	}
@@ -108,5 +109,17 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 			this.acctAppicationId = new AcctApplicationIdImpl(acctApplicationId, null, null);
 		else
 			this.acctAppicationId = null;
+	}	
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authApplicationId!=null && acctAppicationId!=null)
+			return "Auth Application Id and Acct Application Id can not be set both";
+
+		if(authApplicationId==null && acctAppicationId==null)
+			return "Either Auth Application Id or Acct Application Id should be set";
+		
+		return null;
 	}
 }

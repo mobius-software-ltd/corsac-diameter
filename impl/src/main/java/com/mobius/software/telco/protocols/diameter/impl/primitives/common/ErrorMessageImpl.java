@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorMessa
 @DiameterAvpImplementation(code = 281L, vendorId = -1L)
 public class ErrorMessageImpl extends DiameterUTF8StringImpl implements ErrorMessage
 {
-	public ErrorMessageImpl() 
+	protected ErrorMessageImpl() 
 	{
 		super();
 	}
 	
-	public ErrorMessageImpl(Integer minLength,Integer maxLength) 
+	protected ErrorMessageImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

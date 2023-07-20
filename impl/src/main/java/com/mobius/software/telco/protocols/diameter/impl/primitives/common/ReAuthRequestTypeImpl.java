@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
 @DiameterAvpImplementation(code = 285L, vendorId = -1L)
 public class ReAuthRequestTypeImpl extends DiameterEnumeratedImpl<ReAuthRequestTypeEnum> implements ReAuthRequestType
 {
-	public ReAuthRequestTypeImpl() 
+	protected ReAuthRequestTypeImpl() 
 	{
 		super();
 	}
 	
-	public ReAuthRequestTypeImpl(Integer minValue,Integer maxValue) 
+	protected ReAuthRequestTypeImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

@@ -29,7 +29,31 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 274, request = true, proxyable = true, name="Re-Auth-Request")
+
+/*
+ * The Abort-Session-Request (ASR), indicated by the Command Code set to
+   274 and the message flags' 'R' bit set, may be sent by any Diameter
+   server or any Diameter proxy to the access device that is providing
+   session service, to request that the session identified by the
+   Session-Id be stopped.
+
+    Message Format
+
+         <ASR>  ::= < Diameter Header: 274, REQ, PXY >
+                    < Session-Id >
+                    { Origin-Host }
+                    { Origin-Realm }
+                    { Destination-Realm }
+                    { Destination-Host }
+                    { Auth-Application-Id }
+                    [ User-Name ]
+                    [ Origin-State-Id ]
+                  * [ Proxy-Info ]
+                  * [ Route-Record ]
+                  * [ AVP ]
+
+ */
+@DiameterCommandDefinition(applicationId = -1, commandCode = 274, request = true, proxyable = true, name="Abort-Session-Request")
 public interface AbortSessionRequest extends DiameterRequest
 {  
 	public Long getAuthApplicationId();

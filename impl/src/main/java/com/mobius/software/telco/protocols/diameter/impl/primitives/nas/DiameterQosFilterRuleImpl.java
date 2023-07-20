@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives;
+package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -23,13 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAsciiStringImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterRuleAddressImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterRulePortsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterQosAction;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterQosFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleOption;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts;
 import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
+import com.mobius.software.telco.protocols.diameter.primitives.nas.DiameterQosFilterRule;
 
 import io.netty.buffer.ByteBuf;
 /**
@@ -53,12 +56,12 @@ public class DiameterQosFilterRuleImpl extends DiameterAsciiStringImpl implement
 	private String colorOver;
 	
 	//required for parser
-	public DiameterQosFilterRuleImpl() 
+	protected DiameterQosFilterRuleImpl() 
 	{
 		super();
 	}
 		
-	public DiameterQosFilterRuleImpl(Integer minLength,Integer maxLength) 
+	protected DiameterQosFilterRuleImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

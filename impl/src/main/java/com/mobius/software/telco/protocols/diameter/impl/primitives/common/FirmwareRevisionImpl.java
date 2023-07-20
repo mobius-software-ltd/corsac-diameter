@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.FirmwareRe
 @DiameterAvpImplementation(code = 267L, vendorId = -1)
 public class FirmwareRevisionImpl extends DiameterUnsigned32Impl implements FirmwareRevision
 {
-	public FirmwareRevisionImpl() 
+	protected FirmwareRevisionImpl() 
 	{
 		super();
 	}
 	
-	public FirmwareRevisionImpl(Long minValue,Long maxValue) 
+	protected FirmwareRevisionImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

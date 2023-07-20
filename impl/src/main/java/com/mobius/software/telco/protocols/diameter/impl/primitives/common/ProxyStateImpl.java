@@ -32,12 +32,12 @@ import io.netty.buffer.ByteBuf;
 @DiameterAvpImplementation(code = 33L, vendorId = -1L)
 public class ProxyStateImpl extends DiameterOctetStringImpl implements ProxyState
 {
-	public ProxyStateImpl() 
+	protected ProxyStateImpl() 
 	{
 		super();
 	}
 		
-	public ProxyStateImpl(Integer minLength,Integer maxLength) 
+	protected ProxyStateImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

@@ -28,6 +28,18 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
+
+/*
+ * The Proxy-Info AVP (AVP Code 284) is of type Grouped.  This AVP
+   contains the identity and local state information of the Diameter
+   node that creates and adds it to a message.  The Grouped Data field
+   has the following CCF grammar:
+
+         Proxy-Info ::= < AVP Header: 284 >
+                        { Proxy-Host }
+                        { Proxy-State }
+                      * [ AVP ]
+ */
 @DiameterAvpDefinition(code = 284L, vendorId = -1L, name = "Proxy-Info")
 public interface ProxyInfo extends DiameterGroupedAvp 
 {

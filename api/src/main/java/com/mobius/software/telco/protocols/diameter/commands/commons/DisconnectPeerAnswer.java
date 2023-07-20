@@ -26,6 +26,23 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 * @author yulian oifa
 *
 */
+
+/*
+ * The Disconnect-Peer-Answer (DPA), indicated by the Command Code set
+   to 282 and the Command Flags' 'R' bit cleared, is sent as a response
+   to the Disconnect-Peer-Request message.  Upon receipt of this
+   message, the transport connection is shut down.
+   
+   Message Format
+
+         <DPA>  ::= < Diameter Header: 282 >
+                    { Result-Code }
+                    { Origin-Host }
+                    { Origin-Realm }
+                    [ Error-Message ]
+                    [ Failed-AVP ]
+                  * [ AVP ]
+ */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 282, request = false, proxyable = false, name="Disconnect-Peer-Answer")
 public interface DisconnectPeerAnswer extends DiameterAnswer
 {	

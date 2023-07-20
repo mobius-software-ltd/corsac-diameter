@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DisconnectPeerRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DisconnectCauseImpl;
@@ -38,17 +39,25 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 	
 	protected DisconnectPeerRequestmpl() 
 	{
+		super();
+		setSessionIdAllowed(false);
 	}
 		
-	public DisconnectPeerRequestmpl(String originHost,String originRealm,Boolean isRetransmit)
+	public DisconnectPeerRequestmpl(String originHost,String originRealm,Boolean isRetransmit, DisconnectCauseEnum disconnectCause)
 	{
 		super(originHost, originRealm, isRetransmit);
+		setSessionIdAllowed(false);
+		
+		if(disconnectCause==null)
+			throw new IllegalArgumentException("Disconnect-Cause is required");
+	
+		this.disconnectCause = new DisconnectCauseImpl(disconnectCause, null, null);				
 	}
 
 	@Override
 	public DisconnectCauseEnum getDisconnectCause() 
 	{
-		if(this.disconnectCause == null)
+		if(this.disconnectCause == null)			
 			return null;
 		
 		return this.disconnectCause.getEnumerated(DisconnectCauseEnum.class);
@@ -57,9 +66,18 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 	@Override
 	public void setDisconnectCause(DisconnectCauseEnum value) 
 	{
-		if(value == null)
-			this.disconnectCause = null;
-		else
-			this.disconnectCause = new DisconnectCauseImpl(value, null, null);
+		if(disconnectCause==null)
+			throw new IllegalArgumentException("Disconnect-Cause is required");
+	
+		this.disconnectCause = new DisconnectCauseImpl(value, null, null);	
+	}		
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(disconnectCause==null)
+			return "Disconnect-Cause is required";
+	
+		return super.validate();
 	}
 }

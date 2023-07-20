@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
@@ -45,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 *
 */
 @DiameterCommandImplementation(applicationId = -1, commandCode = 274, request = false)
-public class AbortSessionAnswerImpl extends DiameterAnswerBase implements AbortSessionAnswer
+public class AbortSessionAnswerImpl extends DiameterAnswerWithSessionBase implements AbortSessionAnswer
 {
 	private UserName username;
 	
@@ -61,16 +61,12 @@ public class AbortSessionAnswerImpl extends DiameterAnswerBase implements AbortS
 	
 	protected AbortSessionAnswerImpl() 
 	{
+		super();
 	}
 	
-	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
+	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode);
-	}
-	
-	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isError,Boolean isRetransmit, Long resultCode)
-	{
-		super(originHost, originRealm, isError, isRetransmit, resultCode);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);		
 	}
 
 	@Override

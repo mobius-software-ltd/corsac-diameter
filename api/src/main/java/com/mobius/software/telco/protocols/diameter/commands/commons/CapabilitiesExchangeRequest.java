@@ -30,6 +30,36 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
+
+/*
+ * The Capabilities-Exchange-Request (CER), indicated by the Command
+   Code set to 257 and the Command Flags' 'R' bit set, is sent to
+   exchange local capabilities.  Upon detection of a transport failure,
+   this message MUST NOT be sent to an alternate peer.
+
+   When Diameter is run over SCTP [RFC4960] or DTLS/SCTP [RFC6083],
+   which allow for connections to span multiple interfaces and multiple
+   IP addresses, the Capabilities-Exchange-Request message MUST contain
+   one Host-IP-Address AVP for each potential IP address that MAY be
+   locally used when transmitting Diameter messages.
+
+      Message Format
+
+         <CER> ::= < Diameter Header: 257, REQ >
+                   { Origin-Host }
+                   { Origin-Realm }
+                1* { Host-IP-Address }
+                   { Vendor-Id }
+                   { Product-Name }
+                   [ Origin-State-Id ]
+                 * [ Supported-Vendor-Id ]
+                 * [ Auth-Application-Id ]
+                 * [ Inband-Security-Id ]
+                 * [ Acct-Application-Id ]
+                 * [ Vendor-Specific-Application-Id ]
+                   [ Firmware-Revision ]
+                 * [ AVP ]
+ */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 257, request = true, proxyable = false, name="Capabilities-Exchange-Request")
 public interface CapabilitiesExchangeRequest extends DiameterMessage
 {

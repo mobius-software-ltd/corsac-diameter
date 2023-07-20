@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ErrorMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ErrorReportingHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.FailedAvpImpl;
@@ -62,30 +64,42 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	
 	private List<ProxyInfo> proxyInfo;
 	
+	private boolean experimentalResultAllowed = true;
+	private boolean proxyInfoAllowed = true;
+	private boolean errorReportingHostAllowed = true;
+	
 	protected DiameterAnswerBase() 
 	{
+		super();
 	}
 	
 	public DiameterAnswerBase(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
 	{
 		super(originHost, originRealm, isRetransmit);
-		this.isError=false;
-		if(resultCode!=null)
-			this.resultCode = new ResultCodeImpl(resultCode, null, null);
-		else
-			this.resultCode = null;
-	}
-	
-	public DiameterAnswerBase(String originHost,String originRealm,Boolean isError,Boolean isRetransmit, Long resultCode)
-	{
-		super(originHost, originRealm, isRetransmit);
-		this.isError=isError;
-		if(resultCode!=null)
-			this.resultCode = new ResultCodeImpl(resultCode, null, null);
-		else
-			this.resultCode = null;
+		if(resultCode==null)
+			throw new IllegalArgumentException("Result-Code is required");
+		
+		if(resultCode>=3000)
+			this.isError = true;
+		
+		this.resultCode = new ResultCodeImpl(resultCode, null, null);		
 	}
 
+	protected void setExperimentalResultAllowed(boolean allowed) 
+	{
+		this.experimentalResultAllowed = allowed;
+	}
+
+	protected void setProxyInfoAllowed(boolean allowed) 
+	{
+		this.proxyInfoAllowed = allowed;
+	}
+
+	protected void setErrorReportingHostAllowed(boolean allowed) 
+	{
+		this.errorReportingHostAllowed = allowed;
+	}
+	
 	@Override
 	public Boolean getIsError() 
 	{
@@ -153,8 +167,11 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public String getErrorReportingHost()
+	public String getErrorReportingHost() throws AvpNotSupportedException
 	{
+		if(!errorReportingHostAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(errorReportingHost==null)
 			return null;
 		
@@ -162,8 +179,11 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void setErrorReportingHost(String host)
+	public void setErrorReportingHost(String host) throws AvpNotSupportedException
 	{
+		if(!errorReportingHostAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(host==null)
 			this.errorReportingHost = null;
 		else
@@ -198,35 +218,59 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public ExperimentalResult getExperimentalResult()
+	public ExperimentalResult getExperimentalResult() throws AvpNotSupportedException
 	{
-		return this.experimentalResult;
+		if(!experimentalResultAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		else
+			return this.experimentalResult;
 	}
 	
 	@Override
-	public void setExperimentalResult(ExperimentalResult experimentalResult)
+	public void setExperimentalResult(ExperimentalResult experimentalResult) throws AvpNotSupportedException
 	{
-		this.experimentalResult = experimentalResult;
+		if(!experimentalResultAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		else
+			this.experimentalResult = experimentalResult;
 	}
 	
 	@Override
-	public List<ProxyInfo> getProxyInfo() 
+	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException 
 	{
+		if(!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return proxyInfo;
 	}
 
 	@Override
-	public void setProxyInfo(List<ProxyInfo> proxyInfo)
+	public void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException
 	{
+		if(!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		this.proxyInfo = proxyInfo;
 	}
 	
 	@Override
-	public void addProxyInfo(ProxyInfo proxyInfo) 
+	public void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException 
 	{
+		if(!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(this.proxyInfo==null)
 			this.proxyInfo=new ArrayList<ProxyInfo>();			
 		
 		this.proxyInfo.add(proxyInfo);
+	}	
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(resultCode==null)
+			return "Result-Code is required";
+		
+		return super.validate();
 	}
 }

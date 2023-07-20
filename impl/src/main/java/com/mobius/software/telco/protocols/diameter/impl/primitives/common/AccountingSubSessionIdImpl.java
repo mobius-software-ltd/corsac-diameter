@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 @DiameterAvpImplementation(code = 287L, vendorId = -1L)
 public class AccountingSubSessionIdImpl extends DiameterUnsigned64Impl implements AccountingSubSessionId
 {
-	public AccountingSubSessionIdImpl() 
+	protected AccountingSubSessionIdImpl() 
 	{
 		super();
 	}
 	
-	public AccountingSubSessionIdImpl(Long minValue,Long maxValue) 
+	protected AccountingSubSessionIdImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

@@ -53,12 +53,12 @@ public class DiameterOctetStringImpl implements DiameterOctetString
 	private Integer maxLength;
 	
 	//required for parser
-	public DiameterOctetStringImpl() 
+	protected DiameterOctetStringImpl() 
 	{
 		
 	}
 	
-	public DiameterOctetStringImpl(Integer minLength,Integer maxLength) 
+	protected DiameterOctetStringImpl(Integer minLength,Integer maxLength) 
 	{
 		this.minLength = minLength;
 		this.maxLength = maxLength;

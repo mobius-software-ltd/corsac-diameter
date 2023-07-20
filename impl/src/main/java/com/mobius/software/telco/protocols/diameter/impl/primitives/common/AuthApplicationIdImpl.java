@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplic
 @DiameterAvpImplementation(code = 258L, vendorId = -1L)
 public class AuthApplicationIdImpl extends DiameterUnsigned32Impl implements AuthApplicationId
 {
-	public AuthApplicationIdImpl() 
+	protected AuthApplicationIdImpl() 
 	{
 		super();
 	}
 	
-	public AuthApplicationIdImpl(Long minValue,Long maxValue) 
+	protected AuthApplicationIdImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

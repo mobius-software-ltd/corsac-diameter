@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.FailedAvp;
 * @author yulian oifa
 *
 */
+
+/*
+ * AVP Format
+
+         <Failed-AVP> ::= < AVP Header: 279 >
+                       1* {AVP}
+ */
 @DiameterAvpImplementation(code = 279L, vendorId = -1L)
 public class FailedAvpImpl extends DiameterGroupedAvpImpl implements FailedAvp
 {

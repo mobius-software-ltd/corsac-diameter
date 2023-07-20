@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ResultCode
 @DiameterAvpImplementation(code = 268L, vendorId = -1L)
 public class ResultCodeImpl extends DiameterUnsigned32Impl implements ResultCode
 {
-	public ResultCodeImpl() 
+	protected ResultCodeImpl() 
 	{
 		super();
 	}
 	
-	public ResultCodeImpl(Long minValue,Long maxValue) 
+	protected ResultCodeImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

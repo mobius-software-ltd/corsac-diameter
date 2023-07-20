@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Authorizat
 @DiameterAvpImplementation(code = 291L, vendorId = -1L)
 public class AuthorizationLifetimeImpl extends DiameterUnsigned32Impl implements AuthorizationLifetime
 {
-	public AuthorizationLifetimeImpl() 
+	protected AuthorizationLifetimeImpl() 
 	{
 		super();
 	}
 	
-	public AuthorizationLifetimeImpl(Long minValue,Long maxValue) 
+	protected AuthorizationLifetimeImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

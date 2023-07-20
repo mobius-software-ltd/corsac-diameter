@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.OriginHost
 @DiameterAvpImplementation(code = 264L, vendorId = -1L)
 public class OriginHostImpl extends DiameterIdentityImpl implements OriginHost
 {
-	public OriginHostImpl() 
+	protected OriginHostImpl() 
 	{
 		super();
 	}
 		
-	public OriginHostImpl(Integer minLength,Integer maxLength) 
+	protected OriginHostImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

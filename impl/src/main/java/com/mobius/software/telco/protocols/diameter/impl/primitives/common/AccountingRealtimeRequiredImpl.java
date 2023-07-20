@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 @DiameterAvpImplementation(code = 483L, vendorId = -1L)
 public class AccountingRealtimeRequiredImpl extends DiameterEnumeratedImpl<AccountingRealtimeRequiredEnum> implements AccountingRealtimeRequired
 {
-	public AccountingRealtimeRequiredImpl() 
+	protected AccountingRealtimeRequiredImpl() 
 	{
 		super();
 	}
 	
-	public AccountingRealtimeRequiredImpl(Integer minValue,Integer maxValue) 
+	protected AccountingRealtimeRequiredImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

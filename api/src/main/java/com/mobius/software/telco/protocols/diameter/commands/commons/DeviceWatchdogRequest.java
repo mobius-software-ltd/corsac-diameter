@@ -26,6 +26,22 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 * @author yulian oifa
 *
 */
+
+/*
+ * The Device-Watchdog-Request (DWR), indicated by the Command Code set
+   to 280 and the Command Flags' 'R' bit set, is sent to a peer when no
+   traffic has been exchanged between two peers (see Section 5.5.3).
+   Upon detection of a transport failure, this message MUST NOT be sent
+   to an alternate peer.
+
+      Message Format
+
+         <DWR>  ::= < Diameter Header: 280, REQ >
+                    { Origin-Host }
+                    { Origin-Realm }
+                    [ Origin-State-Id ]
+                  * [ AVP ]
+ */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 280, request = true, proxyable = false, name="Device-Watchdog-Request")
 public interface DeviceWatchdogRequest extends DiameterMessage
 {

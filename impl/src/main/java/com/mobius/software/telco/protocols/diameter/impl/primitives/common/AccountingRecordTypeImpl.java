@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 @DiameterAvpImplementation(code = 480L, vendorId = -1L)
 public class AccountingRecordTypeImpl extends DiameterEnumeratedImpl<AccountingRecordTypeEnum> implements AccountingRecordType
 {
-	public AccountingRecordTypeImpl() 
+	protected AccountingRecordTypeImpl() 
 	{
 		super();
 	}
 	
-	public AccountingRecordTypeImpl(Integer minValue,Integer maxValue) 
+	protected AccountingRecordTypeImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

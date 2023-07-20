@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionId;
 @DiameterAvpImplementation(code = 263L, vendorId = -1L)
 public class SessionIdImpl extends DiameterUTF8StringImpl implements SessionId
 {
-	public SessionIdImpl() 
+	protected SessionIdImpl() 
 	{
 		super();
 	}
 	
-	public SessionIdImpl(Integer minLength,Integer maxLength) 
+	protected SessionIdImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

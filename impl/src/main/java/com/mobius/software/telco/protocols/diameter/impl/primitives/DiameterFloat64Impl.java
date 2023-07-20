@@ -44,12 +44,12 @@ public class DiameterFloat64Impl implements DiameterFloat64
 	private Double maxValue;
 	
 	//required for parser
-	public DiameterFloat64Impl() 
+	protected DiameterFloat64Impl() 
 	{
 		
 	}
 	
-	public DiameterFloat64Impl(Double minValue,Double maxValue) 
+	protected DiameterFloat64Impl(Double minValue,Double maxValue) 
 	{
 		this.minValue = minValue;
 		this.maxValue = maxValue;

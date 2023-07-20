@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 50L, vendorId = -1L, name = "Acct-Multi-Session-Id")
+@DiameterAvpDefinition(code = 50L, vendorId = -1L, name = "Subscription-Id-Data")
 public interface AcctMultiSessionId extends DiameterUTF8String
 {
 }

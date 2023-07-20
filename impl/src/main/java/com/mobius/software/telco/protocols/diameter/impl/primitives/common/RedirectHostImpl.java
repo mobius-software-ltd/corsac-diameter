@@ -32,12 +32,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 @DiameterAvpImplementation(code = 292L, vendorId = -1L)
 public class RedirectHostImpl extends DiameterUriImpl implements RedirectHost
 {
-	public RedirectHostImpl() 
+	protected RedirectHostImpl() 
 	{
 		super();
 	}
 		
-	public RedirectHostImpl(Integer minLength,Integer maxLength) 
+	protected RedirectHostImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

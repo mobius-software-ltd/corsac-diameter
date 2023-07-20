@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 268L, vendorId = -1L, name = "Result-Code")
+@DiameterAvpDefinition(code = 268L, position = 2, vendorId = -1L, name = "Result-Code")
 public interface ResultCode extends DiameterUnsigned32
 {
 }

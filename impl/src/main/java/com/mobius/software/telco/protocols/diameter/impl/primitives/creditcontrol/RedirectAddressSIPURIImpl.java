@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.primitives;
+package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,37 +18,30 @@ package com.mobius.software.telco.protocols.diameter.primitives;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.List;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressSIPURI;
 
 /**
 *
 * @author yulian oifa
 *
 */
-
-public interface DiameterQosFilterRule extends DiameterAvp 
+@DiameterAvpImplementation(code = 668L, vendorId = -1L)
+public class RedirectAddressSIPURIImpl extends DiameterUTF8StringImpl implements RedirectAddressSIPURI
 {
-	public String getRule();
+	protected RedirectAddressSIPURIImpl() 
+	{
+		super();
+	}
 	
-	public DiameterQosAction getAction();
-
-	public DiameterRuleDirection getDirection();
-
-	public InternetProtocol getProtocol();
-
-	public DiameterRuleAddress getFrom();
-
-	public List<DiameterRulePorts> getFromPorts();
-
-	public DiameterRuleAddress getTo();
-
-	public List<DiameterRulePorts> getToPorts();
-
-	public String getDscpColor();
-
-	public Long getMeteringRate();
-
-	public String getColorUnder();
-
-	public String getColorOver();
+	protected RedirectAddressSIPURIImpl(Integer minLength,Integer maxLength) 
+	{
+		super(minLength,maxLength);		
+	}
+	
+	public RedirectAddressSIPURIImpl(String value,Integer minLength,Integer maxLength) 
+	{
+		super(value,minLength,maxLength);
+	}
 }

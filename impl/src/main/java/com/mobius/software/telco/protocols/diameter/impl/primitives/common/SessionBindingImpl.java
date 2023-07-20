@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionBin
 @DiameterAvpImplementation(code = 270L, vendorId = -1L)
 public class SessionBindingImpl extends DiameterUnsigned32Impl implements SessionBinding
 {
-	public SessionBindingImpl() 
+	protected SessionBindingImpl() 
 	{
 		super();
 	}
 	
-	public SessionBindingImpl(Long minValue,Long maxValue) 
+	protected SessionBindingImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

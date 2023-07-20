@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectMa
 @DiameterAvpImplementation(code = 262L, vendorId = -1L)
 public class RedirectMaxCacheTimeImpl extends DiameterUnsigned32Impl implements RedirectMaxCacheTime
 {
-	public RedirectMaxCacheTimeImpl() 
+	protected RedirectMaxCacheTimeImpl() 
 	{
 		super();
 	}
 	
-	public RedirectMaxCacheTimeImpl(Long minValue,Long maxValue) 
+	protected RedirectMaxCacheTimeImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

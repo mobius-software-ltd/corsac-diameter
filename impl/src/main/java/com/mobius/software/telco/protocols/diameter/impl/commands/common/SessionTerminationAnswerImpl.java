@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
@@ -48,8 +48,8 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 275, request = false)
-public class SessionTerminationAnswerImpl extends DiameterAnswerBase implements SessionTerminationAnswer
+@DiameterCommandImplementation(applicationId = 3, commandCode = 275, request = false)
+public class SessionTerminationAnswerImpl extends DiameterAnswerWithSessionBase implements SessionTerminationAnswer
 {
 	private UserName username;
 	
@@ -69,14 +69,9 @@ public class SessionTerminationAnswerImpl extends DiameterAnswerBase implements 
 	{
 	}
 	
-	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
+	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode);
-	}
-	
-	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isError,Boolean isRetransmit, Long resultCode)
-	{
-		super(originHost, originRealm, isError, isRetransmit, resultCode);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}
 
 	@Override

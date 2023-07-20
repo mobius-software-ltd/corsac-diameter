@@ -30,6 +30,34 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 * @author yulian oifa
 *
 */
+
+/*
+ * The Re-Auth-Answer (RAA), indicated by the Command Code set to 258
+   and the message flags' 'R' bit clear, is sent in response to the RAR.
+   The Result-Code AVP MUST be present, and it indicates the disposition
+   of the request.
+   
+   A successful RAA message MUST be followed by an application-specific
+   authentication and/or authorization message.
+
+    Message Format
+
+         <RAA>  ::= < Diameter Header: 258, PXY >
+                    < Session-Id >
+                    { Result-Code }
+                    { Origin-Host }
+                    { Origin-Realm }
+                    [ User-Name ]
+                    [ Origin-State-Id ]
+                    [ Error-Message ]
+                    [ Error-Reporting-Host ]
+                    [ Failed-AVP ]
+                  * [ Redirect-Host ]
+                    [ Redirect-Host-Usage ]
+                    [ Redirect-Max-Cache-Time ]
+                  * [ Proxy-Info ]
+                  * [ AVP ]
+ */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends DiameterAnswer
 {  

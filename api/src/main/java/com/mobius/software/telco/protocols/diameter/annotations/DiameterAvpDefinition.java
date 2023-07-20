@@ -36,9 +36,13 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface DiameterAvpDefinition 
 {
+	public boolean must() default true;
+	
 	public long code();
 	
 	public long vendorId();	
+	
+	public int position() default -1;
 	
 	public String name();
 }

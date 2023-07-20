@@ -34,6 +34,11 @@ public class DiameterRulePortsImpl implements DiameterRulePorts
 	private Integer max;
 	
 	//required for parser
+	protected DiameterRulePortsImpl()
+	{
+		
+	}
+	
 	public DiameterRulePortsImpl(String value) throws ParseException
 	{
 		this.value = value;

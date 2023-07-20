@@ -36,12 +36,12 @@ public class DiameterAddressImpl extends DiameterOctetStringImpl implements Diam
 	private InetAddress value;
 	
 	//required for parser
-	public DiameterAddressImpl() 
+	protected DiameterAddressImpl() 
 	{
 		super();
 	}
 	
-	public DiameterAddressImpl(Integer minLength,Integer maxLength) 
+	protected DiameterAddressImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

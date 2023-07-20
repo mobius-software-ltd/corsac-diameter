@@ -44,12 +44,12 @@ public class DiameterFloat32Impl implements DiameterFloat32
 	private Float maxValue;
 	
 	//required for parser
-	public DiameterFloat32Impl() 
+	protected DiameterFloat32Impl() 
 	{
 		
 	}
 	
-	public DiameterFloat32Impl(Float minValue,Float maxValue) 
+	protected DiameterFloat32Impl(Float minValue,Float maxValue) 
 	{
 		this.minValue = minValue;
 		this.maxValue = maxValue;

@@ -39,12 +39,12 @@ public class DiameterTimeImpl extends DiameterUnsigned32Impl implements Diameter
 	private Date date;
 	
 	//required for parser
-	public DiameterTimeImpl() 
+	protected DiameterTimeImpl() 
 	{
 		super();
 	}
 	
-	public DiameterTimeImpl(Long minValue,Long maxValue) 
+	protected DiameterTimeImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

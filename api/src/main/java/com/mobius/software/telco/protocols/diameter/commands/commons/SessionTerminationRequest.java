@@ -32,7 +32,31 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 275, request = true, proxyable = true, name="Re-Auth-Request")
+
+/*
+ * The Session-Termination-Request (STR), indicated by the Command Code
+   set to 275 and the Command Flags' 'R' bit set, is sent by a Diameter
+   client or by a Diameter proxy to inform the Diameter server that an
+   authenticated and/or authorized session is being terminated.
+
+    Message Format
+
+        <STR>  ::= < Diameter Header: 275, REQ, PXY >
+                   < Session-Id >
+                   { Origin-Host }
+                   { Origin-Realm }
+                   { Destination-Realm }
+                   { Auth-Application-Id }
+                   { Termination-Cause }
+                   [ User-Name ]
+                   [ Destination-Host ]
+                 * [ Class ]
+                   [ Origin-State-Id ]
+                 * [ Proxy-Info ]
+                 * [ Route-Record ]
+                 * [ AVP ]
+ */
+@DiameterCommandDefinition(applicationId = -1, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends DiameterRequest
 {  
 	public Long getAuthApplicationId();

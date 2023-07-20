@@ -31,12 +31,12 @@ public class DiameterEnumeratedImpl<T extends Enum<T> & IntegerEnum> extends Dia
 	private T value;
 	
 	//required for parser
-	public DiameterEnumeratedImpl() 
+	protected DiameterEnumeratedImpl() 
 	{
 		super();
 	}
 	
-	public DiameterEnumeratedImpl(Integer minValue,Integer maxValue) 
+	protected DiameterEnumeratedImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

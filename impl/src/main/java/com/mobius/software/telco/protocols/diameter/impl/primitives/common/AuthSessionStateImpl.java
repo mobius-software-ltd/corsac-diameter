@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 @DiameterAvpImplementation(code = 277L, vendorId = -1L)
 public class AuthSessionStateImpl extends DiameterEnumeratedImpl<AuthSessionStateEnum> implements AuthSessionState
 {
-	public AuthSessionStateImpl() 
+	protected AuthSessionStateImpl() 
 	{
 		super();
 	}
 	
-	public AuthSessionStateImpl(Integer minValue,Integer maxValue) 
+	protected AuthSessionStateImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

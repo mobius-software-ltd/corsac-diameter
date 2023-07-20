@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthReques
 @DiameterAvpImplementation(code = 274L, vendorId = -1L)
 public class AuthRequestTypeImpl extends DiameterEnumeratedImpl<AuthRequestTypeEnum> implements AuthRequestType
 {
-	public AuthRequestTypeImpl() 
+	protected AuthRequestTypeImpl() 
 	{
 		super();
 	}
 	
-	public AuthRequestTypeImpl(Integer minValue,Integer maxValue) 
+	protected AuthRequestTypeImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

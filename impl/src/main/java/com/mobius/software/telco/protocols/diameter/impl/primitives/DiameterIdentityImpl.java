@@ -27,12 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 public class DiameterIdentityImpl extends DiameterAsciiStringImpl implements DiameterIdentity
 {
 	//required for parser
-	public DiameterIdentityImpl() 
+	protected DiameterIdentityImpl() 
 	{
 		super();
 	}
 		
-	public DiameterIdentityImpl(Integer minLength,Integer maxLength) 
+	protected DiameterIdentityImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

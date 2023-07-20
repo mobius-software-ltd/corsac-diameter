@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
@@ -48,7 +49,7 @@ import io.netty.buffer.ByteBuf;
 *
 */
 @DiameterCommandImplementation(applicationId = -1, commandCode = 275, request = true)
-public class SessionTerminationRequestmpl extends DiameterRequestBase implements SessionTerminationRequest
+public class SessionTerminationRequestmpl extends DiameterRequestWithSessionAndRealmBase implements SessionTerminationRequest
 {
 	private AuthApplicationId authApplicationId;
 	
@@ -66,11 +67,24 @@ public class SessionTerminationRequestmpl extends DiameterRequestBase implements
 	
 	protected SessionTerminationRequestmpl() 
 	{
+		super();
+		setDestinationHostAllowed(false);
 	}
 		
-	public SessionTerminationRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit)
+	public SessionTerminationRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause)
 	{
-		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit);
+		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
+		setDestinationHostAllowed(false);
+		
+		if(authApplicationID==null)
+			throw new IllegalArgumentException("Auth-Application-Id is required");
+		
+		if(terminationCause==null)
+			throw new IllegalArgumentException("Termination-Cause is required");
+		
+		this.authApplicationId = new AuthApplicationIdImpl(authApplicationID, null, null);
+		
+		this.terminationCause = new TerminationCauseImpl(terminationCause, null, null);
 	}
 
 	@Override
@@ -162,9 +176,9 @@ public class SessionTerminationRequestmpl extends DiameterRequestBase implements
 	public void setAuthApplicationIds(Long value) 
 	{
 		if(value==null)
-			this.authApplicationId = null;
-		else
-			this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
+			throw new IllegalArgumentException("Auth-Application-Id is required");
+		
+		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -180,7 +194,7 @@ public class SessionTerminationRequestmpl extends DiameterRequestBase implements
 	public void setTerminationCause(TerminationCauseEnum value) 
 	{
 		if(value==null)
-			this.terminationCause = null;
+			throw new IllegalArgumentException("Termination-Cause is required");
 		
 		this.terminationCause = new TerminationCauseImpl(value, null, null);
 	}
@@ -209,5 +223,17 @@ public class SessionTerminationRequestmpl extends DiameterRequestBase implements
 			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
+	}		
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authApplicationId==null)
+			return "Auth-Application-Id is required";
+		
+		if(terminationCause==null)
+			return "Termination-Cause is required";
+		
+		return super.validate();
 	}
 }

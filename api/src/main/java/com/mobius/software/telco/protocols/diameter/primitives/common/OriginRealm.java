@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 296L, vendorId = -1L, name = "Origin-Realm")
+@DiameterAvpDefinition(code = 296L, position = 5, vendorId = -1L, name = "Origin-Realm")
 public interface OriginRealm extends DiameterIdentity
 {
 }

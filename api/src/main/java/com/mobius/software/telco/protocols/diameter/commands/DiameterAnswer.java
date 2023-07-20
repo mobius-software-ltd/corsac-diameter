@@ -3,6 +3,7 @@ package com.mobius.software.telco.protocols.diameter.commands;
 import java.util.List;
 import java.util.Map;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
@@ -47,9 +48,9 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	void setErrorMessage(String value);
 	
-	public String getErrorReportingHost();
+	public String getErrorReportingHost() throws AvpNotSupportedException;
 	
-	void setErrorReportingHost(String host);
+	void setErrorReportingHost(String host) throws AvpNotSupportedException;
 
 	public Map<DiameterAvpKey,List<DiameterAvp>> getFailedAvp();
 	
@@ -57,13 +58,13 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	void setFailedAvp(Map<DiameterAvpKey,List<DiameterAvp>> failedAvp);
 	
-	public ExperimentalResult getExperimentalResult();
+	public ExperimentalResult getExperimentalResult() throws AvpNotSupportedException;
 	
-	void setExperimentalResult(ExperimentalResult experimentalResult);
+	void setExperimentalResult(ExperimentalResult experimentalResult) throws AvpNotSupportedException;
 	
-	public List<ProxyInfo> getProxyInfo();
+	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException;
 	
-	void setProxyInfo(List<ProxyInfo> proxyInfo);	
+	void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException;	
 	
-	void addProxyInfo(ProxyInfo proxyInfo);
+	void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException;
 }

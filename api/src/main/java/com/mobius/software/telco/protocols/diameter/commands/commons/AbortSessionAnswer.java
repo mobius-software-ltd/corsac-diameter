@@ -30,7 +30,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 274, request = false, proxyable = true, name="Re-Auth-Answer")
+
+/*The Abort-Session-Answer (ASA), indicated by the Command Code set to
+   274 and the message flags' 'R' bit clear, is sent in response to the
+   ASR.  The Result-Code AVP MUST be present and indicates the
+   disposition of the request.
+
+   If the session identified by Session-Id in the ASR was successfully
+   terminated, the Result-Code is set to DIAMETER_SUCCESS.  If the
+   session is not currently active, the Result-Code is set to
+   DIAMETER_UNKNOWN_SESSION_ID.  If the access device does not stop the
+   session for any other reason, the Result-Code is set to
+   DIAMETER_UNABLE_TO_COMPLY.
+
+   Message Format
+
+         <ASA>  ::= < Diameter Header: 274, PXY >
+                    < Session-Id >
+                    { Result-Code }
+                    { Origin-Host }
+                    { Origin-Realm }
+                    [ User-Name ]
+                    [ Origin-State-Id ]
+                    [ Error-Message ]
+                    [ Error-Reporting-Host ]
+                    [ Failed-AVP ]
+                  * [ Redirect-Host ]
+                    [ Redirect-Host-Usage ]
+                    [ Redirect-Max-Cache-Time ]
+                  * [ Proxy-Info ]
+                  * [ AVP ]
+*/
+
+@DiameterCommandDefinition(applicationId = -1, commandCode = 274, request = false, proxyable = true, name="Abort-Session-Answer")
 public interface AbortSessionAnswer extends DiameterAnswer
 {    		   
 	public String getUsername();

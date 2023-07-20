@@ -31,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionSer
 @DiameterAvpImplementation(code = 271L, vendorId = -1L)
 public class SessionServerFailoverImpl extends DiameterEnumeratedImpl<SessionServerFailoverEnum> implements SessionServerFailover
 {
-	public SessionServerFailoverImpl() 
+	protected SessionServerFailoverImpl() 
 	{
 		super();
 	}
 	
-	public SessionServerFailoverImpl(Integer minValue,Integer maxValue) 
+	protected SessionServerFailoverImpl(Integer minValue,Integer maxValue) 
 	{
 		super(minValue, maxValue);
 	}

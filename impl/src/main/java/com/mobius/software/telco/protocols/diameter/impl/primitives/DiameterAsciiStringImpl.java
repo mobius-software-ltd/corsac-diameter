@@ -36,12 +36,12 @@ public class DiameterAsciiStringImpl extends DiameterOctetStringImpl implements 
 	private String value;
 	
 	//required for parser
-	public DiameterAsciiStringImpl() 
+	protected DiameterAsciiStringImpl() 
 	{
 		super();
 	}
 		
-	public DiameterAsciiStringImpl(Integer minLength,Integer maxLength) 
+	protected DiameterAsciiStringImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

@@ -32,12 +32,12 @@ import io.netty.buffer.ByteBuf;
 @DiameterAvpImplementation(code = 25L, vendorId = -1L)
 public class DiameterClassImpl extends DiameterOctetStringImpl implements DiameterClass
 {
-	public DiameterClassImpl() 
+	protected DiameterClassImpl() 
 	{
 		super();
 	}
 	
-	public DiameterClassImpl(Integer minLength,Integer maxLength) 
+	protected DiameterClassImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength, maxLength);
 	}

@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
@@ -45,15 +46,15 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	
 	public ProxyInfoImpl(String proxyHost,ByteBuf proxyState)
 	{
-		if(proxyHost!=null)
-			this.proxyHost=new ProxyHostImpl(proxyHost, null, null);	
-		else
-			this.proxyHost=null;
+		if(proxyHost==null)
+			throw new IllegalArgumentException("Proxy-Host is required");
+
+		if(proxyState==null)
+			throw new IllegalArgumentException("Proxy-State is required");
+
+		this.proxyHost=new ProxyHostImpl(proxyHost, null, null);	
 		
-		if(proxyState!=null)
-			this.proxyState=new ProxyStateImpl(proxyState, null, null);	
-		else
-			this.proxyState=null;
+		this.proxyState=new ProxyStateImpl(proxyState, null, null);			
 	}
 
 	@Override
@@ -68,10 +69,10 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	@Override
 	public void setProxyHost(String proxyHost) 
 	{
-		if(proxyHost == null)
-			this.proxyHost = null;
-		else
-			this.proxyHost = new ProxyHostImpl(proxyHost, null, null);
+		if(proxyHost==null)
+			throw new IllegalArgumentException("Proxy-Host is required");
+
+		this.proxyHost = new ProxyHostImpl(proxyHost, null, null);
 	}
 
 	@Override
@@ -86,10 +87,10 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	@Override
 	public void setProxyState(ByteBuf proxyState) 
 	{
-		if(proxyState == null)
-			this.proxyState = null;
-		else
-			this.proxyState = new ProxyStateImpl(proxyState, null, null);
+		if(proxyState==null)
+			throw new IllegalArgumentException("Proxy-State is required");
+
+		this.proxyState = new ProxyStateImpl(proxyState, null, null);
 	}
 
 	@Override
@@ -132,5 +133,17 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 			return false;
 		
 		return true;
+	}	
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(proxyHost==null)
+			return "Proxy-Host is required";
+
+		if(proxyState==null)
+			return "Proxy-State is required";
+		
+		return null;
 	}
 }

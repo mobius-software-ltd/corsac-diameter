@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 294L, vendorId = -1L, name = "Error-Reporting-Host")
+@DiameterAvpDefinition(code = 294L, vendorId = -1L, must = false, name = "Error-Reporting-Host")
 public interface ErrorReportingHost extends DiameterIdentity
 {
 }

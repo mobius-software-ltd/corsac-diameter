@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 @DiameterAvpImplementation(code = 282L, vendorId = -1L)
 public class RouteRecordImpl extends DiameterIdentityImpl implements RouteRecord
 {
-	public RouteRecordImpl() 
+	protected RouteRecordImpl() 
 	{
 		super();
 	}
 		
-	public RouteRecordImpl(Integer minLength,Integer maxLength) 
+	protected RouteRecordImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

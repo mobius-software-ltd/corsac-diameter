@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInteri
 @DiameterAvpImplementation(code = 85L, vendorId = -1L)
 public class AcctInterimIntervalImpl extends DiameterUnsigned32Impl implements AcctInterimInterval
 {
-	public AcctInterimIntervalImpl() 
+	protected AcctInterimIntervalImpl() 
 	{
 		super();
 	}
 	
-	public AcctInterimIntervalImpl(Long minValue,Long maxValue) 
+	protected AcctInterimIntervalImpl(Long minValue,Long maxValue) 
 	{
 		super(minValue, maxValue);
 	}

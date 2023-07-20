@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Destinatio
 @DiameterAvpImplementation(code = 293L, vendorId = -1L)
 public class DestinationHostImpl extends DiameterIdentityImpl implements DestinationHost
 {
-	public DestinationHostImpl() 
+	protected DestinationHostImpl() 
 	{
 		super();
 	}
 		
-	public DestinationHostImpl(Integer minLength,Integer maxLength) 
+	protected DestinationHostImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

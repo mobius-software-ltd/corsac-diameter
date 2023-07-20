@@ -42,7 +42,7 @@ public @interface DiameterCommandDefinition
 	
 	public int commandCode();
 	
-	public long applicationId();	
+	public long applicationId();
 	
 	public String name();
 }

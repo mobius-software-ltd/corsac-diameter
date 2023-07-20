@@ -27,6 +27,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
 * @author yulian oifa
 *
 */
+
+/*
+ *  The Disconnect-Peer-Request (DPR), indicated by the Command Code set
+   to 282 and the Command Flags' 'R' bit set, is sent to a peer to
+   inform it of its intentions to shut down the transport connection.
+   Upon detection of a transport failure, this message MUST NOT be sent
+   to an alternate peer.
+
+      Message Format
+
+         <DPR>  ::= < Diameter Header: 282, REQ >
+                    { Origin-Host }
+                    { Origin-Realm }
+                    { Disconnect-Cause }
+                  * [ AVP ]
+ */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 282, request = true, proxyable = false, name="Disconnect-Peer-Request")
 public interface DisconnectPeerRequest extends DiameterMessage
 {

@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 @DiameterAvpImplementation(code = 1L, vendorId = -1L)
 public class UserNameImpl extends DiameterUTF8StringImpl implements UserName
 {
-	public UserNameImpl() 
+	protected UserNameImpl() 
 	{
 		super();
 	}
 	
-	public UserNameImpl(Integer minLength,Integer maxLength) 
+	protected UserNameImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

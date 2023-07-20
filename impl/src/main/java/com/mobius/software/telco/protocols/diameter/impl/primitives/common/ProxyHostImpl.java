@@ -30,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyHost;
 @DiameterAvpImplementation(code = 280L, vendorId = -1L)
 public class ProxyHostImpl extends DiameterIdentityImpl implements ProxyHost
 {
-	public ProxyHostImpl() 
+	protected ProxyHostImpl() 
 	{
 		super();
 	}
 		
-	public ProxyHostImpl(Integer minLength,Integer maxLength) 
+	protected ProxyHostImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

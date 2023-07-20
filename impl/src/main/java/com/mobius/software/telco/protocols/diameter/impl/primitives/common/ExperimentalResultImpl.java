@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResultCode;
@@ -43,15 +44,15 @@ public class ExperimentalResultImpl extends DiameterGroupedAvpImpl implements Ex
 	
 	public ExperimentalResultImpl(Long vendorId,Long experimentalResultCode)
 	{
-		if(vendorId!=null)
-			this.vendorId=new VendorIdImpl(vendorId, null, null);	
-		else
-			this.vendorId=null;
+		if(vendorId==null)
+			throw new IllegalArgumentException("Vendor-Id is required");
+
+		if(experimentalResultCode==null)
+			throw new IllegalArgumentException("Experimental-Result-Code is required");
+
+		this.vendorId=new VendorIdImpl(vendorId, null, null);	
 		
-		if(experimentalResultCode!=null)
-			this.experimentalResultCode=new ExperimentalResultCodeImpl(experimentalResultCode, null, null);	
-		else
-			this.experimentalResultCode=null;
+		this.experimentalResultCode=new ExperimentalResultCodeImpl(experimentalResultCode, null, null);			
 	}
 
 	@Override
@@ -66,10 +67,10 @@ public class ExperimentalResultImpl extends DiameterGroupedAvpImpl implements Ex
 	@Override
 	public void setVendorId(Long vendorId) 
 	{
-		if(vendorId == null)
-			this.vendorId = null;
-		else
-			this.vendorId = new VendorIdImpl(vendorId, null, null);
+		if(vendorId==null)
+			throw new IllegalArgumentException("Vendor-Id is required");
+
+		this.vendorId = new VendorIdImpl(vendorId, null, null);
 	}
 
 	@Override
@@ -84,10 +85,10 @@ public class ExperimentalResultImpl extends DiameterGroupedAvpImpl implements Ex
 	@Override
 	public void setExperimentalResultCode(Long experimentalResultCode) 
 	{
-		if(experimentalResultCode == null)
-			this.experimentalResultCode = null;
-		else
-			this.experimentalResultCode = new ExperimentalResultCodeImpl(experimentalResultCode, null, null);
+		if(experimentalResultCode==null)
+			throw new IllegalArgumentException("Experimental-Result-Code is required");
+
+		this.experimentalResultCode = new ExperimentalResultCodeImpl(experimentalResultCode, null, null);
 	}
 
 	@Override
@@ -130,5 +131,17 @@ public class ExperimentalResultImpl extends DiameterGroupedAvpImpl implements Ex
 			return false;
 		
 		return true;
+	}	
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(vendorId==null)
+			return "Vendor-Id is required";
+
+		if(experimentalResultCode==null)
+			return "Experimental-Result-Code is required";
+
+		return null;
 	}
 }

@@ -32,7 +32,39 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 275, request = false, proxyable = true, name="Re-Auth-Answer")
+
+/*
+ * The Session-Termination-Answer (STA), indicated by the Command Code
+   set to 275 and the message flags' 'R' bit clear, is sent by the
+   Diameter server to acknowledge the notification that the session has
+   been terminated.  The Result-Code AVP MUST be present, and it MAY
+   contain an indication that an error occurred while servicing the STR.
+
+   Upon sending or receipt of the STA, the Diameter server MUST release
+   all resources for the session indicated by the Session-Id AVP.  Any
+   intermediate server in the Proxy-Chain MAY also release any
+   resources, if necessary.
+
+    Message Format
+
+         <STA> ::= < Diameter Header: 275, PXY >
+                    < Session-Id >
+                    { Result-Code }
+                    { Origin-Host }
+                    { Origin-Realm }
+                    [ User-Name ]
+                  * [ Class ]
+                    [ Error-Message ]
+                    [ Error-Reporting-Host ]
+                    [ Failed-AVP ]
+                    [ Origin-State-Id ]
+                  * [ Redirect-Host ]
+                    [ Redirect-Host-Usage ]
+                    [ Redirect-Max-Cache-Time ]
+                  * [ Proxy-Info ]
+                  * [ AVP ]
+ */
+@DiameterCommandDefinition(applicationId = -1, commandCode = 275, request = false, proxyable = true, name="Session-Termination-Answer")
 public interface SessionTerminationAnswer extends DiameterAnswer
 {  
 	public String getUsername();

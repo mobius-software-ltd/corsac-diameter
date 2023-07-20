@@ -32,12 +32,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.HostIpAddr
 @DiameterAvpImplementation(code = 257, vendorId = -1L)
 public class HostIpAddressImpl extends DiameterAddressImpl implements HostIpAddress
 {
-	public HostIpAddressImpl() 
+	protected HostIpAddressImpl() 
 	{
 		super();
 	}
 	
-	public HostIpAddressImpl(Integer minLength,Integer maxLength) 
+	protected HostIpAddressImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

@@ -61,12 +61,12 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 	private List<DiameterRuleIcmpType> icmpTypes;
 	
 	//required for parser
-	public DiameterIpFilterRuleImpl() 
+	protected DiameterIpFilterRuleImpl() 
 	{
 		super();
 	}
 		
-	public DiameterIpFilterRuleImpl(Integer minLength,Integer maxLength) 
+	protected DiameterIpFilterRuleImpl(Integer minLength,Integer maxLength) 
 	{
 		super(minLength,maxLength);		
 	}

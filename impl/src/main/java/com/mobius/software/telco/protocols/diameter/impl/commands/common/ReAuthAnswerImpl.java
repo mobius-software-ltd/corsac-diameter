@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
@@ -45,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 *
 */
 @DiameterCommandImplementation(applicationId = -1, commandCode = 258, request = false)
-public class ReAuthAnswerImpl extends DiameterAnswerBase implements ReAuthAnswer
+public class ReAuthAnswerImpl extends DiameterAnswerWithSessionBase implements ReAuthAnswer
 {
 	private UserName username;
 	
@@ -63,14 +63,9 @@ public class ReAuthAnswerImpl extends DiameterAnswerBase implements ReAuthAnswer
 	{
 	}
 	
-	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
+	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode);
-	}
-	
-	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isError,Boolean isRetransmit, Long resultCode)
-	{
-		super(originHost, originRealm, isError, isRetransmit, resultCode);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}
 
 	@Override
