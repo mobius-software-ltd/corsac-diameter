@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 282, request = true)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 282, request = true)
 public class DisconnectPeerRequestmpl extends DiameterMessageBase implements DisconnectPeerRequest
 {
 	private DisconnectCause disconnectCause;
@@ -41,12 +41,18 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 	{
 		super();
 		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setUsernameAllowed(false);
+		setOriginStateIdAllowedAllowed(false);
 	}
 		
 	public DisconnectPeerRequestmpl(String originHost,String originRealm,Boolean isRetransmit, DisconnectCauseEnum disconnectCause)
 	{
 		super(originHost, originRealm, isRetransmit);
 		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setUsernameAllowed(false);
+		setOriginStateIdAllowedAllowed(false);
 		
 		if(disconnectCause==null)
 			throw new IllegalArgumentException("Disconnect-Cause is required");

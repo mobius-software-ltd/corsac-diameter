@@ -43,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
                     [ Failed-AVP ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 282, request = false, proxyable = false, name="Disconnect-Peer-Answer")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 282, request = false, proxyable = false, name="Disconnect-Peer-Answer")
 public interface DisconnectPeerAnswer extends DiameterAnswer
 {	
 }

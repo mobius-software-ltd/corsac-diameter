@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAsciiStringImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterRuleAddressImpl;
@@ -40,6 +41,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
+@DiameterAvpImplementation(code = 407L, vendorId = -1L)
 public class DiameterQosFilterRuleImpl extends DiameterAsciiStringImpl implements DiameterQosFilterRule
 {
 	private DiameterQosAction action;

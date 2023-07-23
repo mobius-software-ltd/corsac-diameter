@@ -43,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
                     { Disconnect-Cause }
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 282, request = true, proxyable = false, name="Disconnect-Peer-Request")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 282, request = true, proxyable = false, name="Disconnect-Peer-Request")
 public interface DisconnectPeerRequest extends DiameterMessage
 {
 	public DisconnectCauseEnum getDisconnectCause();

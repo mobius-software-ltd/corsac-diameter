@@ -67,7 +67,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoS
                                     [ Final-Unit-Indication ]
                                     [ QoS-Final-Unit-Indication ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 272, request = false, proxyable = true, name="Accounting-Answer")
+@DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Accounting-Answer")
 public interface CreditControlAnswer extends DiameterAnswer
 {
     public Long getAuthApplicationId();
@@ -80,10 +80,6 @@ public interface CreditControlAnswer extends DiameterAnswer
 	
 	void setCcRequestNumber(Long ccRequestNumber);
 	
-	public String getUsername();
-	
-	void setUsername(String value);
-	
 	public CcSessionFailoverEnum getCcSessionFailover();
 	
 	void setCcSessionFailover(CcSessionFailoverEnum ccSessionFailover);
@@ -95,10 +91,6 @@ public interface CreditControlAnswer extends DiameterAnswer
 	public String getAcctMultiSessionId() throws AvpNotSupportedException;
 	
 	void setAcctMultiSessionId(String value) throws AvpNotSupportedException;
-	
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long value);			
 	
 	public Date getEventTimestamp();
 	

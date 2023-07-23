@@ -10,12 +10,17 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginRealmImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginRealm;
+import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
+import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SessionId;
+import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -53,7 +58,16 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	
 	private OriginRealm originRealm;
 	
+	private OriginStateId originStateId;
+	
+	private UserName username;
+	
+	private List<ProxyInfo> proxyInfo;
+	
 	private boolean sessionIdAllowed = true;
+	private boolean proxyInfoAllowed = true;
+	private boolean originStateIdAllowed = true;
+	private boolean usernameAllowed = true;
 	
 	protected DiameterMessageBase() 
 	{
@@ -77,6 +91,21 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	protected void setSessionIdAllowed(boolean allowed) 
 	{
 		this.sessionIdAllowed = allowed;
+	}
+
+	protected void setProxyInfoAllowed(boolean allowed) 
+	{
+		this.proxyInfoAllowed = allowed;
+	}
+
+	protected void setUsernameAllowed(boolean allowed) 
+	{
+		this.usernameAllowed = allowed;
+	}
+
+	protected void setOriginStateIdAllowedAllowed(boolean allowed) 
+	{
+		this.originStateIdAllowed = allowed;
 	}
 	
 	@Override
@@ -201,6 +230,84 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 		else
 			this.sessionId = new SessionIdImpl(value, null, null);
 	}
+
+	@Override
+	public Long getOriginStateId() throws AvpNotSupportedException
+	{
+		if(!originStateIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(originStateId==null)
+			return null;
+		
+		return originStateId.getUnsigned();
+	}
+	
+	@Override
+	public void setOriginStateId(Long originStateId) throws AvpNotSupportedException
+	{
+		if(!originStateIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(originStateId==null)
+			this.originStateId = null;
+		else
+			this.originStateId = new OriginStateIdImpl(originStateId, null, null);
+	}
+
+	@Override
+	public String getUsername() throws AvpNotSupportedException 
+	{
+		if(!usernameAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(this.username==null)
+			return null;
+		
+		return this.username.getString();
+	}
+
+	@Override
+	public void setUsername(String value) throws AvpNotSupportedException 
+	{
+		if(!usernameAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(value==null)
+			this.username = null;
+		else
+			this.username = new UserNameImpl(value, null, null);
+	}
+	
+	@Override
+	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException 
+	{
+		if(!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		return proxyInfo;
+	}
+
+	@Override
+	public void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException
+	{
+		if(!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		this.proxyInfo = proxyInfo;
+	}
+	
+	@Override
+	public void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException 
+	{
+		if(!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(this.proxyInfo==null)
+			this.proxyInfo=new ArrayList<ProxyInfo>();			
+		
+		this.proxyInfo.add(proxyInfo);
+	}	
 
 	@Override
 	public int hashCode() 

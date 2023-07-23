@@ -3,8 +3,6 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -30,38 +28,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStat
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 280, request = true)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 280, request = true)
 public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements DeviceWatchdogRequest
 {
-	private OriginStateId originStateId;
-	
 	protected DeviceWatchdogRequestmpl() 
 	{
 		super();
 		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setUsernameAllowed(false);		
 	}
 		
 	public DeviceWatchdogRequestmpl(String originHost,String originRealm,Boolean isRetransmit)
 	{
 		super(originHost, originRealm, isRetransmit);
 		setSessionIdAllowed(false);
-	}
-
-	@Override
-	public Long getOriginStateId() 
-	{
-		if(this.originStateId == null)
-			return null;
-		
-		return this.originStateId.getUnsigned();
-	}
-
-	@Override
-	public void setOriginStateId(Long value) 
-	{
-		if(value == null)
-			this.originStateId = null;
-		else
-			this.originStateId = new OriginStateIdImpl(value, null, null);
+		setProxyInfoAllowed(false);
+		setUsernameAllowed(false);
 	}
 }

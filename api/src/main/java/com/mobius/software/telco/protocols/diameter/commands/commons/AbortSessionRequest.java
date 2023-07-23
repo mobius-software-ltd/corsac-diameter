@@ -18,11 +18,7 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 
 /**
 *
@@ -54,25 +50,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 
  */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 274, request = true, proxyable = true, name="Abort-Session-Request")
-public interface AbortSessionRequest extends DiameterRequest
-{  
-	public Long getAuthApplicationId();
-	
-	void setAuthApplicationIds(Long value);
-	
-	public String getUsername();
-	
-	void setUsername(String value);
-	
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long value);			
-	
-	public List<ProxyInfo> getProxyInfo();
-	
-	void setProxyInfo(List<ProxyInfo> value);
-
-	public List<String> getRouteRecords();
-	
-	void setRouteRecords(List<String> value);
+public interface AbortSessionRequest extends AuthenticationRequest
+{	
 }

@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 
 /*
  * Mobius Software LTD
@@ -40,10 +39,6 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	void setResultCode(Long resultCode);
 	
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long originStateId);	
-	
 	public String getErrorMessage();
 	
 	void setErrorMessage(String value);
@@ -60,11 +55,5 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	public ExperimentalResult getExperimentalResult() throws AvpNotSupportedException;
 	
-	void setExperimentalResult(ExperimentalResult experimentalResult) throws AvpNotSupportedException;
-	
-	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException;
-	
-	void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException;	
-	
-	void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException;
+	void setExperimentalResult(ExperimentalResult experimentalResult) throws AvpNotSupportedException;		
 }

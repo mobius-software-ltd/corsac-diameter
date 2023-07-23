@@ -21,8 +21,6 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -57,33 +55,13 @@ import io.netty.buffer.ByteBuf;
                  * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = -1, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
-public interface SessionTerminationRequest extends DiameterRequest
-{  
-	public Long getAuthApplicationId();
-	
-	void setAuthApplicationIds(Long value);
-	
+public interface SessionTerminationRequest extends AuthenticationRequest
+{ 
 	public TerminationCauseEnum getTerminationCause();
 	
 	void setTerminationCause(TerminationCauseEnum value);
 	
-	public String getUsername();
-	
-	void setUsername(String value);
-	
 	public List<ByteBuf> getDiameterClass();
 	
-	void setDiameterClass(List<ByteBuf> value);
-	
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long value);			
-	
-	public List<ProxyInfo> getProxyInfo();
-	
-	void setProxyInfo(List<ProxyInfo> value);
-
-	public List<String> getRouteRecords();
-	
-	void setRouteRecords(List<String> value);
+	void setDiameterClass(List<ByteBuf> value);		
 }

@@ -85,15 +85,11 @@ public interface AccountingAnswer extends DiameterAnswer
 	
 	public Long getAcctApplicationId();
 	
-	void setAcctApplicationIds(Long value);
+	void setAcctApplicationId(Long value);
 	
 	public VendorSpecificApplicationId getVendorSpecificApplicationId() throws AvpNotSupportedException;
 	
 	void setVendorSpecificApplicationId(VendorSpecificApplicationId value) throws AvpNotSupportedException;
-	
-	public String getUsername();
-	
-	void setUsername(String value);
 	
 	public Long getAccountingSubSessionId() throws AvpNotSupportedException;
 	
@@ -115,10 +111,6 @@ public interface AccountingAnswer extends DiameterAnswer
 	
 	void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum accountingRealtimeRequiredEnum) throws AvpNotSupportedException;
 		  
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long value);			
-	
 	public Date getEventTimestamp();
 	
 	void setEventTimestamp(Date value);

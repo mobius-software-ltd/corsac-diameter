@@ -1,26 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectMaxCacheTimeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
-import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHost;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsage;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectMaxCacheTime;
-import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 
 import io.netty.buffer.ByteBuf;
 
@@ -48,22 +34,10 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 3, commandCode = 275, request = false)
-public class SessionTerminationAnswerImpl extends DiameterAnswerWithSessionBase implements SessionTerminationAnswer
+@DiameterCommandImplementation(applicationId = -1, commandCode = 275, request = false)
+public class SessionTerminationAnswerImpl extends AuthenticationAnswerImpl implements SessionTerminationAnswer
 {
-	private UserName username;
-	
 	private List<DiameterClass> diameterClass;
-	
-	private List<RedirectHost> redirectHost;
-	
-	private RedirectHostUsage redirectHostUsage;
-	
-	private RedirectMaxCacheTime redirectMaxCacheTime;
-	
-	private OriginStateId originStateId;
-	
-	private List<ProxyInfo> proxyInfo;
 	
 	protected SessionTerminationAnswerImpl() 
 	{
@@ -72,118 +46,6 @@ public class SessionTerminationAnswerImpl extends DiameterAnswerWithSessionBase 
 	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
-	}
-
-	@Override
-	public String getUsername() 
-	{
-		if(this.username==null)
-			return null;
-		
-		return this.username.getString();
-	}
-
-	@Override
-	public void setUsername(String value) 
-	{
-		if(value==null)
-			this.username = null;
-		else
-			this.username = new UserNameImpl(value, null, null);
-	}
-
-	@Override
-	public Long getOriginStateId() 
-	{
-		if(this.originStateId == null)
-			return null;
-		
-		return this.originStateId.getUnsigned();
-	}
-
-	@Override
-	public void setOriginStateId(Long value) 
-	{
-		if(value == null)
-			this.originStateId = null;
-		else
-			this.originStateId = new OriginStateIdImpl(value, null, null);
-	}
-
-	@Override
-	public List<ProxyInfo> getProxyInfo() 
-	{
-		return this.proxyInfo;
-	}
-
-	@Override
-	public void setProxyInfo(List<ProxyInfo> value) 
-	{
-		this.proxyInfo = value;
-	}
-
-	@Override
-	public List<String> getRedirectHost() 
-	{
-		if(this.redirectHost==null)
-			return null;
-		else
-		{
-			List<String> result = new ArrayList<String>();
-			for(RedirectHost curr:redirectHost)
-				result.add(curr.getUri());
-			
-			return result;
-		}
-	}
-
-	@Override
-	public void setRedirectHost(List<String> value) throws ParseException 
-	{
-		if(value == null || value.size()==0)
-			this.redirectHost = null;
-		else
-		{
-			this.redirectHost = new ArrayList<RedirectHost>();
-			for(String curr:value)
-				this.redirectHost.add(new RedirectHostImpl(curr, null, null));
-		}
-	}
-
-	@Override
-	public RedirectHostUsageEnum getRedirectHostUsage() 
-	{
-		if(this.redirectHost == null)
-			return null;
-		
-		return this.redirectHostUsage.getEnumerated(RedirectHostUsageEnum.class);
-	}
-
-	@Override
-	public void setRedirectHostUsage(RedirectHostUsageEnum value) 
-	{
-		if(value==null)
-			this.redirectHostUsage = null;
-		else 
-			this.redirectHostUsage = new RedirectHostUsageImpl(value, null, null);
-	}
-
-	@Override
-	public Long getRedirectMaxCacheTime() 
-	{
-		if(this.redirectMaxCacheTime==null)
-			return null;
-		
-		return this.redirectMaxCacheTime.getUnsigned();
-	}
-
-	@Override
-	public void setRedirectMaxCacheTime(Long value) 
-	{
-		if(value==null)
-			this.redirectMaxCacheTime = null;
-		else 
-			this.redirectMaxCacheTime = new RedirectMaxCacheTimeImpl(value, null, null);
 	}
 
 	@Override

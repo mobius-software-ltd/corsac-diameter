@@ -26,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
 import io.netty.buffer.ByteBuf;
@@ -89,10 +88,6 @@ public interface AccountingRequest extends DiameterRequest
 	
 	void setVendorSpecificApplicationId(VendorSpecificApplicationId value) throws AvpNotSupportedException;
 	
-	public String getUsername();
-	
-	void setUsername(String value);
-	
 	public Long getAccountingSubSessionId() throws AvpNotSupportedException;
 	
 	void setAccountingSubSessionId(Long value) throws AvpNotSupportedException;
@@ -113,18 +108,10 @@ public interface AccountingRequest extends DiameterRequest
 	
 	void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum accountingRealtimeRequiredEnum) throws AvpNotSupportedException;
 		  
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long value);			
-	
 	public Date getEventTimestamp();
 	
 	void setEventTimestamp(Date value);
 	
-	public List<ProxyInfo> getProxyInfo();
-	
-	void setProxyInfo(List<ProxyInfo> value);
-
 	public List<String> getRouteRecords();
 	
 	void setRouteRecords(List<String> value);

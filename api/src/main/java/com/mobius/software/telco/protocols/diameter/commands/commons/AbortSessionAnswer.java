@@ -18,12 +18,7 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
 
 /**
 *
@@ -63,21 +58,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 */
 
 @DiameterCommandDefinition(applicationId = -1, commandCode = 274, request = false, proxyable = true, name="Abort-Session-Answer")
-public interface AbortSessionAnswer extends DiameterAnswer
-{    		   
-	public String getUsername();
-	
-	void setUsername(String value);
-	
-	public List<String> getRedirectHost();
-	
-	void setRedirectHost(List<String> value) throws ParseException;
-
-	public RedirectHostUsageEnum getRedirectHostUsage();
-	
-	void setRedirectHostUsage(RedirectHostUsageEnum value);
-	
-	public Long getRedirectMaxCacheTime();
-	
-	void setRedirectMaxCacheTime(Long value);
+public interface AbortSessionAnswer extends AuthenticationAnswer
+{    		   	
 }

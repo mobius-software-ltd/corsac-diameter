@@ -16,8 +16,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequired;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordNumber;
@@ -29,8 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInteri
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
 import io.netty.buffer.ByteBuf;
@@ -70,8 +66,6 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 	
 	private VendorSpecificApplicationId vendorSpecificApplicationId;
 	
-	private UserName username;
-	
 	private AccountingSubSessionId accountingSubSessionId;
 	
 	private AcctSessionId acctSessionId;
@@ -81,8 +75,6 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 	private AcctInterimInterval acctInterimInterval;
 	
 	private AccountingRealtimeRequired accountingRealtimeRequired;
-	
-	private OriginStateId originStateId;
 	
 	private EventTimestamp eventTimestamp;
 	
@@ -185,7 +177,7 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 	}
 
 	@Override
-	public void setAcctApplicationIds(Long value) 
+	public void setAcctApplicationId(Long value) 
 	{
 		if(value==null)
 			this.acctApplicationId = null;
@@ -209,24 +201,6 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		else
 			this.vendorSpecificApplicationId = value;
-	}
-
-	@Override
-	public String getUsername() 
-	{
-		if(this.username==null)
-			return null;
-		
-		return this.username.getString();
-	}
-
-	@Override
-	public void setUsername(String value) 
-	{
-		if(value==null)
-			this.username = null;
-		else
-			this.username = new UserNameImpl(value, null, null);
 	}
 
 	@Override
@@ -342,23 +316,6 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 			this.accountingRealtimeRequired = null;
 		else 
 			this.accountingRealtimeRequired = new AccountingRealtimeRequiredImpl(accountingRealtimeRequiredEnum, null, null);
-	}
-
-	public Long getOriginStateId() 
-	{
-		if(this.originStateId == null)
-			return null;
-		
-		return this.originStateId.getUnsigned();
-	}
-
-	@Override
-	public void setOriginStateId(Long value) 
-	{
-		if(value == null)
-			this.originStateId = null;
-		else
-			this.originStateId = new OriginStateIdImpl(value, null, null);
 	}
 	
 	@Override

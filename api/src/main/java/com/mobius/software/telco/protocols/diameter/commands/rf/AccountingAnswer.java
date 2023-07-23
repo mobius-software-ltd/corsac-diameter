@@ -25,7 +25,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = 3, commandCode = 257, request = false, proxyable = false, name="Accounting-Answer")
+@DiameterCommandDefinition(applicationId = 3, commandCode = 271, request = false, proxyable = true, name="Accounting-Answer")
 public interface AccountingAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer
 {
 		

@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 3, commandCode = 257, request = true)
+@DiameterCommandImplementation(applicationId = 3, commandCode = 271, request = true)
 public class AccountingRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AccountingRequestImpl implements AccountingRequest
 {
 	private ServiceInformation serviceInformation;

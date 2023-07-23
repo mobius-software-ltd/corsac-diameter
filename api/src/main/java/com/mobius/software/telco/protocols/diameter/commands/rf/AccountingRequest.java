@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Servic
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = 3, commandCode = 257, request = true, proxyable = false, name="Accounting-Request")
+@DiameterCommandDefinition(applicationId = 3, commandCode = 271, request = true, proxyable = true, name="Accounting-Request")
 public interface AccountingRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest
 {
 	ServiceInformation getServiceInformation();

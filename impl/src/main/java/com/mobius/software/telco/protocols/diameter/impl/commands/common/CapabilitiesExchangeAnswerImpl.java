@@ -50,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 257, request = false)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 257, request = false)
 public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implements CapabilitiesExchangeAnswer
 {
 	private List<HostIpAddress> hostIpAddresses;
@@ -78,6 +78,7 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 		setProxyInfoAllowed(false);
 		setExperimentalResultAllowed(false);
 		setErrorReportingHostAllowed(false);
+		setUsernameAllowed(false);
 	}
 	
 	public CapabilitiesExchangeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, List<InetAddress> hostIpAddresses, Long vendorId, String productName)
@@ -88,7 +89,8 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 		setProxyInfoAllowed(false);
 		setExperimentalResultAllowed(false);
 		setErrorReportingHostAllowed(false);
-
+		setUsernameAllowed(false);
+		
 		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
 			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
 		

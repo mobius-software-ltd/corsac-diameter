@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.impl.commands;
+package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -27,23 +27,23 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 * @author yulian oifa
 *
 */
-public abstract class DiameterRequestWithSessionBase extends DiameterRequestBase
+public abstract class AuthenticationRequestWithHostBase extends AuthenticationRequestmpl
 {
-	protected DiameterRequestWithSessionBase()
+	protected AuthenticationRequestWithHostBase()
 	{
 		super();
 	}
 	
-	public DiameterRequestWithSessionBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID)
+	public AuthenticationRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId)
 	{	
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID, authApplicationId);
 		
-		if(sessionID==null)
-			throw new IllegalArgumentException("Session-ID is required");
+		if(destinationHost==null)
+			throw new IllegalArgumentException("Destination-Host is required");
 		
 		try
 		{
-			setSessionId(sessionID);
+			setDestinationHost(destinationHost);
 		}
 		catch(AvpNotSupportedException ex)
 		{
@@ -52,12 +52,12 @@ public abstract class DiameterRequestWithSessionBase extends DiameterRequestBase
 	}
 
 	@Override
-	public void setSessionId(String value) throws AvpNotSupportedException
+	public void setDestinationHost(String destinationHost) throws AvpNotSupportedException
 	{
-		if(value==null)
-			throw new IllegalArgumentException("Session-ID is required");
+		if(destinationHost==null)
+			throw new IllegalArgumentException("Destination-Host is required");
 		
-		super.setSessionId(value);
+		super.setDestinationHost(destinationHost);
 	}	
 	
 	@DiameterValidate
@@ -65,8 +65,8 @@ public abstract class DiameterRequestWithSessionBase extends DiameterRequestBase
 	{
 		try
 		{
-			if(getSessionId()==null)
-				return "Session-ID is required";
+			if(getDestinationHost()==null)
+				return "Destination-Host is required";
 		}
 		catch(AvpNotSupportedException ex)
 		{

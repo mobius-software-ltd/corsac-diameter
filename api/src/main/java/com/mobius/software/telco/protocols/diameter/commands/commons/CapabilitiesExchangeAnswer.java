@@ -62,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
                    [ Firmware-Revision ]
                  * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 257, request = false, proxyable = false, name="Capabilities-Exchange-Answer")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 257, request = false, proxyable = false, name="Capabilities-Exchange-Answer")
 public interface CapabilitiesExchangeAnswer extends DiameterAnswer
 {
 	public List<InetAddress> getHostIpAddress();

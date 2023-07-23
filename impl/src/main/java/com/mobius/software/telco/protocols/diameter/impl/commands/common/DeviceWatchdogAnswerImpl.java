@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswer
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 280, request = false)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 280, request = false)
 public class DeviceWatchdogAnswerImpl extends DiameterAnswerBase implements DeviceWatchdogAnswer
 {
 	protected DeviceWatchdogAnswerImpl() 
@@ -38,6 +38,7 @@ public class DeviceWatchdogAnswerImpl extends DiameterAnswerBase implements Devi
 		setProxyInfoAllowed(false);
 		setExperimentalResultAllowed(false);
 		setErrorReportingHostAllowed(false);
+		setUsernameAllowed(false);
 	}
 	
 	public DeviceWatchdogAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
@@ -47,5 +48,6 @@ public class DeviceWatchdogAnswerImpl extends DiameterAnswerBase implements Devi
 		setProxyInfoAllowed(false);
 		setExperimentalResultAllowed(false);
 		setErrorReportingHostAllowed(false);
+		setUsernameAllowed(false);
 	}
 }

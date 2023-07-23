@@ -27,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 * @author yulian oifa
 *
 */
-public abstract class DiameterRequestWithSessionAndRealmBase extends DiameterRequestWithSessionBase
+public abstract class DiameterRequestWithSessionAndRealmBase extends DiameterRequestBase
 {
 	protected DiameterRequestWithSessionAndRealmBase()
 	{
@@ -36,10 +36,22 @@ public abstract class DiameterRequestWithSessionAndRealmBase extends DiameterReq
 	
 	public DiameterRequestWithSessionAndRealmBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID)
 	{	
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit);
+		
+		if(sessionID==null)
+			throw new IllegalArgumentException("Session-ID is required");
 		
 		if(destinationRealm==null)
 			throw new IllegalArgumentException("Destination-Realm is required");
+		
+		try
+		{
+			setSessionId(sessionID);
+		}
+		catch(AvpNotSupportedException ex)
+		{
+			
+		}
 		
 		try
 		{
@@ -50,6 +62,15 @@ public abstract class DiameterRequestWithSessionAndRealmBase extends DiameterReq
 			
 		}
 	}
+
+	@Override
+	public void setSessionId(String value) throws AvpNotSupportedException
+	{
+		if(value==null)
+			throw new IllegalArgumentException("Session-ID is required");
+		
+		super.setSessionId(value);
+	}	
 
 	@Override
 	public void setDestinationRealm(String destinationRealm) throws AvpNotSupportedException
@@ -63,6 +84,16 @@ public abstract class DiameterRequestWithSessionAndRealmBase extends DiameterReq
 	@DiameterValidate
 	public String validate()
 	{
+		try
+		{
+			if(getSessionId()==null)
+				return "Session-ID is required";
+		}
+		catch(AvpNotSupportedException ex)
+		{
+			return ex.getMessage();
+		}
+		
 		try
 		{
 			if(getDestinationRealm()==null)

@@ -13,7 +13,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthA
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.FirmwareRevisionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.HostIpAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.InbandSecurityIdImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ProductNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SupportedVendorIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorIdImpl;
@@ -22,7 +21,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplic
 import com.mobius.software.telco.protocols.diameter.primitives.common.FirmwareRevision;
 import com.mobius.software.telco.protocols.diameter.primitives.common.HostIpAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.common.InbandSecurityId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProductName;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SupportedVendorId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
@@ -52,11 +50,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 257, request = true)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 257, request = true)
 public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implements CapabilitiesExchangeRequest
 {
-	private OriginStateId originStateId;
-	
 	private List<HostIpAddress> hostIpAddresses;
 	
 	private VendorId vendorId;
@@ -79,12 +75,16 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 	{
 		super();
 		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);		
+		setUsernameAllowed(false);
 	}
 	
 	public CapabilitiesExchangeRequestmpl(String originHost,String originRealm,Boolean isRetransmit, List<InetAddress> hostIpAddresses, Long vendorId, String productName)
 	{
 		super(originHost, originRealm, isRetransmit);
 		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setUsernameAllowed(false);
 		
 		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
 			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
@@ -309,25 +309,7 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 			this.firmwareRevision = null;
 		else
 			this.firmwareRevision = new FirmwareRevisionImpl(value, null, null);
-	}
-
-	@Override
-	public Long getOriginStateId() 
-	{
-		if(this.originStateId == null)
-			return null;
-		
-		return this.originStateId.getUnsigned();
-	}
-
-	@Override
-	public void setOriginStateId(Long value) 
-	{
-		if(value == null)
-			this.originStateId = null;
-		else
-			this.originStateId = new OriginStateIdImpl(value, null, null);
-	}		
+	}	
 	
 	@DiameterValidate
 	public String validate()

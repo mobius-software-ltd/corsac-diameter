@@ -42,10 +42,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
                     [ Origin-State-Id ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 280, request = true, proxyable = false, name="Device-Watchdog-Request")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 280, request = true, proxyable = false, name="Device-Watchdog-Request")
 public interface DeviceWatchdogRequest extends DiameterMessage
-{
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long value);		
+{		
 }

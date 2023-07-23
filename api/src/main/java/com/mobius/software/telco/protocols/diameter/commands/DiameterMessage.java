@@ -18,8 +18,11 @@ package com.mobius.software.telco.protocols.diameter.commands;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 
 /**
 *
@@ -51,4 +54,18 @@ public interface DiameterMessage extends DiameterGroupedAvp
 	public String getSessionId() throws AvpNotSupportedException;
 	
 	void setSessionId(String value) throws AvpNotSupportedException;
+	
+	public Long getOriginStateId() throws AvpNotSupportedException;
+	
+	void setOriginStateId(Long originStateId) throws AvpNotSupportedException;	
+	
+	public String getUsername() throws AvpNotSupportedException;
+	
+	void setUsername(String value) throws AvpNotSupportedException;
+	
+	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException;
+	
+	void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException;	
+	
+	void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException;
 }

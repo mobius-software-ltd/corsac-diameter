@@ -1,6 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ErrorMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ErrorReportingHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.FailedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ResultCodeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
@@ -18,8 +16,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorMessa
 import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorReportingHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
 import com.mobius.software.telco.protocols.diameter.primitives.common.FailedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ResultCode;
 
 /*
@@ -52,8 +48,6 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	
 	private ResultCode resultCode;
 	
-	private OriginStateId originStateId;
-	
 	private ErrorMessage errorMessage;
 	
 	private ErrorReportingHost errorReportingHost;
@@ -62,10 +56,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	
 	private ExperimentalResult experimentalResult;
 	
-	private List<ProxyInfo> proxyInfo;
-	
 	private boolean experimentalResultAllowed = true;
-	private boolean proxyInfoAllowed = true;
 	private boolean errorReportingHostAllowed = true;
 	
 	protected DiameterAnswerBase() 
@@ -88,11 +79,6 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	protected void setExperimentalResultAllowed(boolean allowed) 
 	{
 		this.experimentalResultAllowed = allowed;
-	}
-
-	protected void setProxyInfoAllowed(boolean allowed) 
-	{
-		this.proxyInfoAllowed = allowed;
 	}
 
 	protected void setErrorReportingHostAllowed(boolean allowed) 
@@ -128,24 +114,6 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	public Map<DiameterAvpKey, List<DiameterAvp>> getOptionalAvps() 
 	{
 		return optionalAvps;
-	}
-
-	@Override
-	public Long getOriginStateId()
-	{
-		if(originStateId==null)
-			return null;
-		
-		return originStateId.getUnsigned();
-	}
-	
-	@Override
-	public void setOriginStateId(Long originStateId)
-	{
-		if(originStateId==null)
-			this.originStateId = null;
-		else
-			this.originStateId = new OriginStateIdImpl(originStateId, null, null);
 	}
 	
 	@Override
@@ -234,36 +202,6 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 		else
 			this.experimentalResult = experimentalResult;
 	}
-	
-	@Override
-	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException 
-	{
-		if(!proxyInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
-		return proxyInfo;
-	}
-
-	@Override
-	public void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException
-	{
-		if(!proxyInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
-		this.proxyInfo = proxyInfo;
-	}
-	
-	@Override
-	public void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException 
-	{
-		if(!proxyInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
-		if(this.proxyInfo==null)
-			this.proxyInfo=new ArrayList<ProxyInfo>();			
-		
-		this.proxyInfo.add(proxyInfo);
-	}	
 	
 	@DiameterValidate
 	public String validate()

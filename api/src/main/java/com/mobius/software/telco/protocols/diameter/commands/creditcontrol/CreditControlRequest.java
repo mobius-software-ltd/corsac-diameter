@@ -24,7 +24,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
@@ -93,7 +92,7 @@ import io.netty.buffer.ByteBuf;
                                *[ Route-Record ]
                                *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 272, request = true, proxyable = true, name="Credit-Control-Request")
+@DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = true, proxyable = true, name="Credit-Control-Request")
 public interface CreditControlRequest extends DiameterRequest
 {
 	public Long getAuthApplicationId();
@@ -110,10 +109,6 @@ public interface CreditControlRequest extends DiameterRequest
 	
 	void setCcRequestNumber(Long accountingRecordNumber);
 	
-	public String getUsername();
-	
-	void setUsername(String value);
-	
 	public Long getCcSubSessionId() throws AvpNotSupportedException;
 	
 	void setCcSubSessionId(Long value) throws AvpNotSupportedException;
@@ -121,10 +116,6 @@ public interface CreditControlRequest extends DiameterRequest
 	public String getAcctMultiSessionId() throws AvpNotSupportedException;
 	
 	void setAcctMultiSessionId(String value) throws AvpNotSupportedException;
-	
-	public Long getOriginStateId();
-	
-	void setOriginStateId(Long value);			
 	
 	public Date getEventTimestamp();
 	
@@ -182,10 +173,6 @@ public interface CreditControlRequest extends DiameterRequest
 	
 	void setUserEquipmentInfoExtension(UserEquipmentInfoExtension value);
 	
-	public List<ProxyInfo> getProxyInfo();
-	
-	void setProxyInfo(List<ProxyInfo> value);
-
 	public List<String> getRouteRecords();
 	
 	void setRouteRecords(List<String> value);	  	

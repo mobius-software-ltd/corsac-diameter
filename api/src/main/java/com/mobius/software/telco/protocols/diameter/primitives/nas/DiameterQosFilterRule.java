@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterQosAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
@@ -33,6 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
 *
 */
 
+@DiameterAvpDefinition(code = 407L, vendorId = -1L, name = "QoS-Filter-Rule")
 public interface DiameterQosFilterRule extends DiameterAvp 
 {
 	public String getRule();

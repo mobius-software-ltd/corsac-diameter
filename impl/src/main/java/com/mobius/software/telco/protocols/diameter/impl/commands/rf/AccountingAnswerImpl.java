@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 257, request = false)
+@DiameterCommandImplementation(applicationId = 3, commandCode = 271, request = false)
 public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AccountingAnswerImpl implements AccountingAnswer
 {
 	protected AccountingAnswerImpl() 

@@ -6,21 +6,13 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
-import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 
 import io.netty.buffer.ByteBuf;
 
@@ -49,90 +41,27 @@ import io.netty.buffer.ByteBuf;
 *
 */
 @DiameterCommandImplementation(applicationId = -1, commandCode = 275, request = true)
-public class SessionTerminationRequestmpl extends DiameterRequestWithSessionAndRealmBase implements SessionTerminationRequest
+public class SessionTerminationRequestImpl extends AuthenticationRequestmpl implements SessionTerminationRequest
 {
-	private AuthApplicationId authApplicationId;
-	
 	private TerminationCause terminationCause;
-	
-	private UserName username;
 	
 	private List<DiameterClass> diameterClass;
 	
-	private OriginStateId originStateId;
-	
-	private List<ProxyInfo> proxyInfo;
-	
-	public List<RouteRecord> routeRecords;
-	
-	protected SessionTerminationRequestmpl() 
+	protected SessionTerminationRequestImpl() 
 	{
 		super();
 		setDestinationHostAllowed(false);
 	}
 		
-	public SessionTerminationRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause)
+	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause)
 	{
-		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
+		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID, authApplicationID);
 		setDestinationHostAllowed(false);
-		
-		if(authApplicationID==null)
-			throw new IllegalArgumentException("Auth-Application-Id is required");
 		
 		if(terminationCause==null)
 			throw new IllegalArgumentException("Termination-Cause is required");
 		
-		this.authApplicationId = new AuthApplicationIdImpl(authApplicationID, null, null);
-		
 		this.terminationCause = new TerminationCauseImpl(terminationCause, null, null);
-	}
-
-	@Override
-	public String getUsername() 
-	{
-		if(this.username==null)
-			return null;
-		
-		return this.username.getString();
-	}
-
-	@Override
-	public void setUsername(String value) 
-	{
-		if(value==null)
-			this.username = null;
-		else
-			this.username = new UserNameImpl(value, null, null);
-	}
-
-	@Override
-	public Long getOriginStateId() 
-	{
-		if(this.originStateId == null)
-			return null;
-		
-		return this.originStateId.getUnsigned();
-	}
-
-	@Override
-	public void setOriginStateId(Long value) 
-	{
-		if(value == null)
-			this.originStateId = null;
-		else
-			this.originStateId = new OriginStateIdImpl(value, null, null);
-	}
-
-	@Override
-	public List<ProxyInfo> getProxyInfo() 
-	{
-		return this.proxyInfo;
-	}
-
-	@Override
-	public void setProxyInfo(List<ProxyInfo> value) 
-	{
-		this.proxyInfo = value;
 	}
 
 	@Override
@@ -161,24 +90,6 @@ public class SessionTerminationRequestmpl extends DiameterRequestWithSessionAndR
 			for(String curr:value)
 				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
 		}
-	}
-
-	@Override
-	public Long getAuthApplicationId() 
-	{
-		if(authApplicationId==null)
-			return null;
-		
-		return authApplicationId.getUnsigned();
-	}
-
-	@Override
-	public void setAuthApplicationIds(Long value) 
-	{
-		if(value==null)
-			throw new IllegalArgumentException("Auth-Application-Id is required");
-		
-		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -228,9 +139,6 @@ public class SessionTerminationRequestmpl extends DiameterRequestWithSessionAndR
 	@DiameterValidate
 	public String validate()
 	{
-		if(authApplicationId==null)
-			return "Auth-Application-Id is required";
-		
 		if(terminationCause==null)
 			return "Termination-Cause is required";
 		

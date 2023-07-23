@@ -28,18 +28,24 @@ import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswer
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 282, request = false)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 282, request = false)
 public class DisconnectPeerAnswerImpl extends DiameterAnswerBase implements DisconnectPeerAnswer
 {
 	protected DisconnectPeerAnswerImpl() 
 	{
 		super();
 		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setUsernameAllowed(false);
+		setOriginStateIdAllowedAllowed(false);
 	}
 	
 	public DisconnectPeerAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode);
 		setSessionIdAllowed(false);
+		setProxyInfoAllowed(false);
+		setUsernameAllowed(false);
+		setOriginStateIdAllowedAllowed(false);
 	}
 }

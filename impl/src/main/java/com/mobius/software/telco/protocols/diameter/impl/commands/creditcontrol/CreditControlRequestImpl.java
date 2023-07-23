@@ -12,10 +12,8 @@ import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterReques
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginStateIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcCorrelationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
@@ -27,12 +25,9 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcCorrelationId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
@@ -90,13 +85,9 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	
 	private CcRequestNumber ccRequestNumber;
 	
-	private UserName username;
-	
 	private CcSubSessionId accountingSubSessionId;
 	
 	private AcctMultiSessionId acctMultiSessionId;
-	
-	private OriginStateId originStateId;
 	
 	private EventTimestamp eventTimestamp;
 	
@@ -125,8 +116,6 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	private UserEquipmentInfo userEquipmentInfo;
 
 	private UserEquipmentInfoExtension userEquipmentInfoExtension;
-	
-	private List<ProxyInfo> proxyInfo;
 	
 	public List<RouteRecord> routeRecords;
 	
@@ -248,24 +237,6 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public String getUsername() 
-	{
-		if(this.username==null)
-			return null;
-		
-		return this.username.getString();
-	}
-
-	@Override
-	public void setUsername(String value) 
-	{
-		if(value==null)
-			this.username = null;
-		else
-			this.username = new UserNameImpl(value, null, null);
-	}
-
-	@Override
 	public Long getCcSubSessionId() throws AvpNotSupportedException
 	{
 		if(this.accountingSubSessionId==null)
@@ -299,24 +270,6 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 			this.acctMultiSessionId = null;
 		else
 			this.acctMultiSessionId = new AcctMultiSessionIdImpl(value, null, null);			
-	}
-
-	@Override
-	public Long getOriginStateId() 
-	{
-		if(this.originStateId == null)
-			return null;
-		
-		return this.originStateId.getUnsigned();
-	}
-
-	@Override
-	public void setOriginStateId(Long value) 
-	{
-		if(value == null)
-			this.originStateId = null;
-		else
-			this.originStateId = new OriginStateIdImpl(value, null, null);
 	}
 
 	@Override
@@ -494,18 +447,6 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public void setUserEquipmentInfoExtension(UserEquipmentInfoExtension userEquipmentInfoExtension) 
 	{
 		this.userEquipmentInfoExtension = userEquipmentInfoExtension;
-	}
-	
-	@Override
-	public List<ProxyInfo> getProxyInfo() 
-	{
-		return this.proxyInfo;
-	}
-
-	@Override
-	public void setProxyInfo(List<ProxyInfo> value) 
-	{
-		this.proxyInfo = value;
 	}
 
 	@Override
