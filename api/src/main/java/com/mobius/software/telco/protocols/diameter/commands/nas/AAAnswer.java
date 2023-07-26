@@ -142,7 +142,7 @@ import io.netty.buffer.ByteBuf;
                        * [ Proxy-Info ]
                        * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 258, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = 1, commandCode = 265, request = false, proxyable = true, name="AA-Answer")
 public interface AAAnswer extends AuthenticationAnswer
 {
 	public Long getAuthApplicationId();

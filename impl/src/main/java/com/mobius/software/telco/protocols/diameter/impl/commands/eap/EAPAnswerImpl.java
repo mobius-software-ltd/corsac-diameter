@@ -1,14 +1,13 @@
-package com.mobius.software.telco.protocols.diameter.impl.commands.nas;
+package com.mobius.software.telco.protocols.diameter.impl.commands.eap;
 
 import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.commands.nas.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctInterimIntervalImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
@@ -19,11 +18,11 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Diame
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.MultiRoundTimeOutImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionTimeoutImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ARAPChallengeResponseImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ARAPFeaturesImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ARAPSecurityDataImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ARAPSecurityImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ARAPZoneAccessImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.AccountingEAPAuthMethodImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPKeyNameImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPMasterSessionKeyImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPPayloadImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPReissuedPayloadImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CallbackIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CallbackNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ConfigurationTokenImpl;
@@ -45,18 +44,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedPr
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedRouteImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedRoutingImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.IdleTimeoutImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginIPHostImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginIPv6HostImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginLATGroupImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginLATNodeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginLATPortImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginLATServiceImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginServiceImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.LoginTCPPortImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAAAProtocolImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PasswordRetryImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PortLimitImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PromptImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ReplyMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
@@ -73,12 +61,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.MultiRound
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SessionTimeout;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.ARAPChallengeResponse;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.ARAPFeatures;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.ARAPSecurity;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.ARAPSecurityData;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.ARAPZoneAccess;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.ARAPZoneAccessEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.eap.AccountingEAPAuthMethod;
+import com.mobius.software.telco.protocols.diameter.primitives.eap.EAPKeyName;
+import com.mobius.software.telco.protocols.diameter.primitives.eap.EAPMasterSessionKey;
+import com.mobius.software.telco.protocols.diameter.primitives.eap.EAPPayload;
+import com.mobius.software.telco.protocols.diameter.primitives.eap.EAPReissuedPayload;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CallbackId;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CallbackNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.ConfigurationToken;
@@ -104,22 +91,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedRoute;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedRouting;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedRoutingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.IdleTimeout;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginIPHost;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginIPv6Host;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginLATGroup;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginLATNode;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginLATPort;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginLATService;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginService;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginServiceEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginTCPPort;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASFilterRule;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocol;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.PasswordRetry;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.PortLimit;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.Prompt;
-import com.mobius.software.telco.protocols.diameter.primitives.nas.PromptEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.ReplyMessage;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.ServiceType;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.ServiceTypeEnum;
@@ -153,12 +126,24 @@ import io.netty.buffer.ByteBuf;
 *
 */
 @DiameterCommandImplementation(applicationId = 1, commandCode = 271, request = false)
-public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl implements AAAnswer
+public class EAPAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl implements EAPAnswer
 {
 	private AuthApplicationId authApplicationId;
 	
 	private AuthRequestType authRequestType;
 	
+	private EAPPayload eapPayload;
+	
+	private EAPReissuedPayload eapReissuedPayload;
+	
+	private EAPMasterSessionKey eapMasterSessionKey;
+	
+	private EAPKeyName eapKeyName;
+	
+	private MultiRoundTimeOut multiRoundTimeOut;
+
+	private AccountingEAPAuthMethod accountingEAPAuthMethod;
+
 	private ServiceType serviceType;
 	
 	private List<DiameterClass> diameterClass;
@@ -177,33 +162,15 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	
 	private ReAuthRequestType reAuthRequestType;
 	
-	private MultiRoundTimeOut multiRoundTimeOut;
-
 	private SessionTimeout sessionTimeout;
 	
 	private State state;
 	
 	private List<ReplyMessage> replyMessage;
 	
-	private OriginAAAProtocol originAAAProtocol;
-	
 	private List<FilterId> filterId;
 	
-	private PasswordRetry passwordRetry;
-	
 	private PortLimit portLimit;
-	
-	private Prompt prompt;
-	
-	private ARAPChallengeResponse arapChallengeResponse;
-	
-	private ARAPFeatures arapFeatures;
-	
-	private ARAPSecurity arapSecurity;
-	
-	private List<ARAPSecurityData> arapSecurityData;
-	
-	private ARAPZoneAccess arapZoneAccess;
 	
 	private CallbackId callbackId;
 	
@@ -241,35 +208,19 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	
 	private FramedRouting framedRouting;
 	
-	private List<LoginIPHost> loginIPHost;
-	
-	private List<LoginIPv6Host> loginIPv6Host;
-	
-	private LoginLATGroup loginLATGroup;
-	
-	private LoginLATNode loginLATNode;
-	
-	private LoginLATPort loginLATPort;
-	
-	private LoginLATService loginLATService;
-	
-	private LoginService loginService;
-	
-	private LoginTCPPort loginTCPPort;
-	
 	private List<NASFilterRule> nasFilterRule;
 	
 	private List<DiameterQosFilterRule> qosFilterRule;
 	
 	private List<Tunneling> tunneling;
 	
-	protected AAAnswerImpl() 
+	protected EAPAnswerImpl() 
 	{
 		super();
 		setExperimentalResultAllowed(false);
 	}
 	
-	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType)
+	public EAPAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(false);
@@ -313,6 +264,114 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 		this.authRequestType = new AuthRequestTypeImpl(authRequestType, null, null);
 	}
 
+	@Override
+	public ByteBuf getEAPPayload() 
+	{
+		if(eapPayload==null)
+			return null;
+		
+		return eapPayload.getValue();
+	}
+
+	@Override
+	public void setEAPPayload(ByteBuf eapPayload) 
+	{
+		if(eapPayload == null)
+			this.eapPayload = null;
+		else
+			this.eapPayload = new EAPPayloadImpl(eapPayload, null, null);
+	}
+
+	@Override
+	public ByteBuf getEAPReissuedPayload() 
+	{
+		if(eapReissuedPayload==null)
+			return null;
+		
+		return eapReissuedPayload.getValue();
+	}
+
+	@Override
+	public void setEAPReissuedPayload(ByteBuf eapReissuedPayload) 
+	{
+		if(eapPayload == null)
+			this.eapReissuedPayload = null;
+		else
+			this.eapReissuedPayload = new EAPReissuedPayloadImpl(eapReissuedPayload, null, null);
+	}
+
+	@Override
+	public ByteBuf getEAPMasterSessionKey() 
+	{
+		if(eapMasterSessionKey==null)
+			return null;
+		
+		return eapMasterSessionKey.getValue();
+	}
+
+	@Override
+	public void setEAPMasterSessionKey(ByteBuf eapMasterSessionKey) 
+	{
+		if(eapMasterSessionKey == null)
+			this.eapMasterSessionKey = null;
+		else
+			this.eapMasterSessionKey = new EAPMasterSessionKeyImpl(eapMasterSessionKey, null, null);
+	}
+
+	@Override
+	public ByteBuf getEAPKeyName() 
+	{
+		if(eapKeyName==null)
+			return null;
+		
+		return eapKeyName.getValue();
+	}
+
+	@Override
+	public void setEAPKeyName(ByteBuf eapKeyName) 
+	{
+		if(eapKeyName == null)
+			this.eapKeyName = null;
+		else
+			this.eapKeyName = new EAPKeyNameImpl(eapKeyName, null, null);
+	}
+	
+	@Override
+	public Long getAccountingEAPAuthMethod() 
+	{
+		if(accountingEAPAuthMethod == null)
+			return null;
+		
+		return accountingEAPAuthMethod.getLong();
+	}
+
+	@Override
+	public void setAccountingEAPAuthMethod(Long accountingEAPAuthMethod) 
+	{
+		if(accountingEAPAuthMethod == null)
+			this.accountingEAPAuthMethod = null;
+		else
+			this.accountingEAPAuthMethod = new AccountingEAPAuthMethodImpl(accountingEAPAuthMethod, null, null);
+	}
+	
+	@Override
+	public Long getMultiRoundTimeOut() 
+	{
+		if(multiRoundTimeOut == null)
+			return null;
+		
+		return multiRoundTimeOut.getUnsigned();
+	}
+
+	@Override
+	public void setMultiRoundTimeOut(Long multiRoundTimeOut) 
+	{
+		if(accountingEAPAuthMethod == null)
+			this.multiRoundTimeOut = null;
+		else
+			this.multiRoundTimeOut = new MultiRoundTimeOutImpl(multiRoundTimeOut, null, null);
+	}
+	
 	@Override
 	public ServiceTypeEnum getServiceType() 
 	{
@@ -492,24 +551,6 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public Long getMultiRoundTimeOut() 
-	{
-		if(multiRoundTimeOut == null)
-			return null;
-		
-		return multiRoundTimeOut.getUnsigned();
-	}
-
-	@Override
-	public void setMultiRoundTimeOut(Long multiRoundTimeOut) 
-	{
-		if(multiRoundTimeOut == null)
-			this.multiRoundTimeOut = null;
-		else
-			this.multiRoundTimeOut = new MultiRoundTimeOutImpl(multiRoundTimeOut, null, null);
-	}
-
-	@Override
 	public Long getSessionTimeout() 
 	{
 		if(sessionTimeout == null)
@@ -572,24 +613,6 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public OriginAAAProtocolEnum getOriginAAAProtocol() 
-	{
-		if(originAAAProtocol == null)
-			return null;
-		
-		return originAAAProtocol.getEnumerated(OriginAAAProtocolEnum.class);
-	}
-
-	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
-	{
-		if(originAAAProtocol == null)
-			this.originAAAProtocol = null;
-		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
-	}
-
-	@Override
 	public List<String> getFilterId() 
 	{
 		if(filterId == null || filterId.size()==0)
@@ -616,24 +639,6 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public Long getPasswordRetry() 
-	{
-		if(passwordRetry == null)
-			return null;
-		
-		return passwordRetry.getUnsigned();
-	}
-
-	@Override
-	public void setPasswordRetry(Long passwordRetry) 
-	{
-		if(passwordRetry == null)
-			this.passwordRetry = null;
-		else
-			this.passwordRetry = new PasswordRetryImpl(passwordRetry, null, null);
-	}
-
-	@Override
 	public Long getPortLimit() 
 	{
 		if(portLimit == null)
@@ -649,122 +654,6 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 			this.portLimit = null;
 		else
 			this.portLimit = new PortLimitImpl(portLimit, null, null);
-	}
-
-	@Override
-	public PromptEnum getPrompt() 
-	{
-		if(prompt == null)
-			return null;
-		
-		return prompt.getEnumerated(PromptEnum.class);
-	}
-
-	@Override
-	public void setPrompt(PromptEnum prompt) 
-	{
-		if(prompt == null)
-			this.prompt = null;
-		else
-			this.prompt = new PromptImpl(prompt, null, null);	
-	}
-	
-	@Override
-	public ByteBuf getARAPChallengeResponse() 
-	{
-		if(arapChallengeResponse == null)
-			return null;
-		
-		return arapChallengeResponse.getValue();
-	}
-
-	@Override
-	public void setARAPChallengeResponse(ByteBuf arapChallengeResponse) 
-	{
-		if(arapChallengeResponse == null)
-			this.arapChallengeResponse = null;
-		else
-			this.arapChallengeResponse = new ARAPChallengeResponseImpl(arapChallengeResponse, null, null);
-	}
-	
-	@Override
-	public ByteBuf getARAPFeatures() 
-	{
-		if(arapFeatures == null)
-			return null;
-		
-		return arapFeatures.getValue();
-	}
-
-	@Override
-	public void setARAPFeatures(ByteBuf arapFeatures) 
-	{
-		if(arapFeatures == null)
-			this.arapFeatures = null;
-		else
-			this.arapFeatures = new ARAPFeaturesImpl(arapFeatures, null, null);
-	}
-
-	@Override
-	public Long getARAPSecurity() 
-	{
-		if(arapSecurity == null)
-			return null;
-		
-		return arapSecurity.getUnsigned();
-	}
-
-	@Override
-	public void setARAPSecurity(Long arapSecurity) 
-	{
-		if(arapSecurity == null)
-			this.arapSecurity = null;
-		else
-			this.arapSecurity = new ARAPSecurityImpl(arapSecurity, null, null);
-	}
-
-	@Override
-	public List<ByteBuf> getARAPSecurityData() 
-	{
-		if(arapSecurityData == null || arapSecurityData.size()==0)
-			return null;
-		
-		List<ByteBuf> result = new ArrayList<ByteBuf>();
-		for(ARAPSecurityData curr: arapSecurityData)
-			result.add(curr.getValue());
-		
-		return result;
-	}
-
-	@Override
-	public void setARAPSecurityData(List<ByteBuf> arapSecurityData) 
-	{
-		if(arapSecurityData == null || arapSecurityData.size()==0)
-			this.arapSecurityData = null;
-		else
-		{
-			this.arapSecurityData = new ArrayList<ARAPSecurityData>();
-			for(ByteBuf curr:arapSecurityData)
-				this.arapSecurityData.add(new ARAPSecurityDataImpl(curr, null, null));
-		}
-	}
-	
-	@Override
-	public ARAPZoneAccessEnum getARAPZoneAccess() 
-	{
-		if(arapZoneAccess == null)
-			return null;
-		
-		return arapZoneAccess.getEnumerated(ARAPZoneAccessEnum.class);
-	}
-
-	@Override
-	public void setARAPZoneAccess(ARAPZoneAccessEnum arapZoneAccess) 
-	{
-		if(arapZoneAccess == null)
-			this.arapZoneAccess = null;
-		else
-			this.arapZoneAccess = new ARAPZoneAccessImpl(arapZoneAccess, null, null);
 	}
 	
 	@Override
@@ -1129,166 +1018,6 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 			this.framedRouting = null;
 		else
 			this.framedRouting = new FramedRoutingImpl(framedRouting, null, null);
-	}
-
-	@Override
-	public List<InetAddress> getLoginIPHost() 
-	{
-		if(loginIPHost==null || loginIPHost.size()==0)
-			return null;
-		
-		List<InetAddress> result = new ArrayList<InetAddress>();
-		for(LoginIPHost curr:loginIPHost)
-			result.add(curr.getAddress());
-		
-		return result;
-	}
-
-	@Override
-	public void setLoginIPHost(List<Inet4Address> loginIPHost) 
-	{
-		if(loginIPHost == null || loginIPHost.size()==0)
-			this.loginIPHost = null;
-		else
-		{
-			this.loginIPHost = new ArrayList<LoginIPHost>();
-			for(Inet4Address curr:loginIPHost)
-				this.loginIPHost.add(new LoginIPHostImpl(curr));
-		}
-	}
-
-	@Override
-	public List<InetAddress> getLoginIPv6Host() 
-	{
-		if(loginIPv6Host==null || loginIPv6Host.size()==0)
-			return null;
-		
-		List<InetAddress> result = new ArrayList<InetAddress>();
-		for(LoginIPv6Host curr:loginIPv6Host)
-			result.add(curr.getAddress());
-		
-		return result;
-	}
-
-	@Override
-	public void setLoginIPv6Host(List<Inet6Address> loginIPv6Host) 
-	{
-		if(loginIPv6Host == null || loginIPv6Host.size()==0)
-			this.loginIPv6Host = null;
-		else
-		{
-			this.loginIPv6Host = new ArrayList<LoginIPv6Host>();
-			for(Inet6Address curr:loginIPv6Host)
-				this.loginIPv6Host.add(new LoginIPv6HostImpl(curr));
-		}
-	}
-
-	@Override
-	public ByteBuf getLoginLATGroup() 
-	{
-		if(loginLATGroup==null)
-			return null;
-		
-		return loginLATGroup.getValue();
-	}
-
-	@Override
-	public void setLoginLATGroup(ByteBuf loginLATGroup) 
-	{
-		if(loginLATGroup == null)
-			this.loginLATGroup = null;
-		else
-			this.loginLATGroup = new LoginLATGroupImpl(loginLATGroup, null, null);
-	}
-
-	@Override
-	public ByteBuf getLoginLATNode() 
-	{
-		if(loginLATNode==null)
-			return null;
-		
-		return loginLATNode.getValue();
-	}
-
-	@Override
-	public void setLoginLATNode(ByteBuf loginLATNode) 
-	{
-		if(loginLATNode == null)
-			this.loginLATNode = null;
-		else
-			this.loginLATNode = new LoginLATNodeImpl(loginLATNode, null, null);
-	}
-
-	@Override
-	public ByteBuf getLoginLATPort() 
-	{
-		if(loginLATPort==null)
-			return null;
-		
-		return loginLATPort.getValue();
-	}
-
-	@Override
-	public void setLoginLATPort(ByteBuf loginLATPort) 
-	{
-		if(loginLATPort == null)
-			this.loginLATPort = null;
-		else
-			this.loginLATPort = new LoginLATPortImpl(loginLATPort, null, null);
-	}
-
-	@Override
-	public ByteBuf getLoginLATService() 
-	{
-		if(loginLATService==null)
-			return null;
-		
-		return loginLATService.getValue();
-	}
-
-	@Override
-	public void setLoginLATService(ByteBuf loginLATService) 
-	{
-		if(loginLATService == null)
-			this.loginLATService = null;
-		else
-			this.loginLATService = new LoginLATServiceImpl(loginLATService, null, null);
-	}
-
-	@Override
-	public LoginServiceEnum getLoginService() 
-	{
-		if(loginService==null)
-			return null;
-		
-		return loginService.getEnumerated(LoginServiceEnum.class);
-	}
-
-	@Override
-	public void setLoginService(LoginServiceEnum loginService) 
-	{
-		if(loginService == null)
-			this.loginService = null;
-		else
-			this.loginService = new LoginServiceImpl(loginService, null, null);
-	}
-
-	@Override
-	public Long getLoginTCPPort() 
-	{
-		if(loginTCPPort==null)
-			return null;
-		
-		return loginTCPPort.getUnsigned();
-	}
-
-	@Override
-	public void setLoginTCPPort(Long loginTCPPort) 
-	{
-		if(loginTCPPort == null)
-			this.loginTCPPort = null;
-		else
-			this.loginTCPPort = new LoginTCPPortImpl(loginTCPPort, null, null);
 	}
 
 	@Override
