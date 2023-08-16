@@ -26,7 +26,36 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
 *
 */
 
-/*The Cost-Information AVP is defined as follows (per grouped-avp-def
+/*8.7.  Cost-Information AVP
+
+   The Cost-Information AVP (AVP Code 423) is of type Grouped, and it is
+   used to return the cost information of a service, which the
+   credit-control client can transfer transparently to the end user.
+   The included Unit-Value AVP contains the cost estimate (always of
+   type "money") of the service in the case of price inquiries, or the
+   accumulated cost estimation in the case of a credit-control session.
+
+   The Currency-Code AVP specifies in which currency the cost was given.
+   The Cost-Unit AVP specifies the unit when the service cost is a cost
+   per unit (e.g., cost for the service is $1 per minute).
+
+   When the Requested-Action AVP with the value PRICE_ENQUIRY is
+   included in the Credit-Control-Request command, the Cost-Information
+   AVP sent in the succeeding Credit-Control-Answer command contains the
+   cost estimation for the requested service, without any reservations
+   being made.
+   
+   The Cost-Information AVP included in the Credit-Control-Answer
+   command with the CC-Request-Type set to UPDATE_REQUEST contains the
+   accumulated cost estimation for the session, without taking any
+   credit reservations into account.
+
+   The Cost-Information AVP included in the Credit-Control-Answer
+   command with the CC-Request-Type set to EVENT_REQUEST or
+   TERMINATION_REQUEST contains the estimated total cost for the
+   requested service.
+
+   The Cost-Information AVP is defined as follows (per grouped-avp-def
    as defined in [RFC6733]):
 
                    Cost-Information ::= < AVP Header: 423 >

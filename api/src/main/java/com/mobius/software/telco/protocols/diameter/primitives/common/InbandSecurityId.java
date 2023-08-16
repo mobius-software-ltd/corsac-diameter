@@ -26,6 +26,29 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 6.10.  Inband-Security-Id AVP
+
+   The Inband-Security-Id AVP (AVP Code 299) is of type Unsigned32 and
+   is used in order to advertise support of the security portion of the
+   application.  The use of this AVP in CER and CEA messages is NOT
+   RECOMMENDED.  Instead, discovery of a Diameter entity's security
+   capabilities can be done either through static configuration or via
+   Diameter Peer Discovery as described in Section 5.2.
+
+   The following values are supported:
+
+
+   NO_INBAND_SECURITY 0
+
+      This peer does not support TLS/TCP and DTLS/SCTP.  This is the
+      default value, if the AVP is omitted.
+
+   TLS 1
+
+      This node supports TLS/TCP [RFC5246] and DTLS/SCTP [RFC6083]
+      security.
+ */
 @DiameterAvpDefinition(code = 299L, vendorId = -1L, name = "Inband-Security-Id")
 public interface InbandSecurityId extends DiameterUnsigned32
 {

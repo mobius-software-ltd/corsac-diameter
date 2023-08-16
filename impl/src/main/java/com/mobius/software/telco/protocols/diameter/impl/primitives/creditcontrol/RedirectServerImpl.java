@@ -63,12 +63,12 @@ public class RedirectServerImpl implements RedirectServer
 		return redirectAddressType.getEnumerated(RedirectAddressTypeEnum.class);
 	}
 	
-	public void setRedirectAddressType(RedirectAddressTypeEnum redirectAddressType)
+	public void setRedirectAddressType(RedirectAddressTypeEnum value)
 	{
-		if(redirectAddressType==null)
+		if(value==null)
 			throw new IllegalArgumentException("Redirect-Address-Type is required");
 		
-		this.redirectAddressType = new RedirectAddressTypeImpl(redirectAddressType, null, null);		
+		this.redirectAddressType = new RedirectAddressTypeImpl(value, null, null);		
 	}
 	
 	public String getRedirectServerAddress()
@@ -79,12 +79,12 @@ public class RedirectServerImpl implements RedirectServer
 		return redirectServerAddress.getString();
 	}
 	
-	public void setRedirectServerAddress(String redirectServerAddress)
+	public void setRedirectServerAddress(String value)
 	{
-		if(redirectServerAddress==null)
+		if(value==null)
 			throw new IllegalArgumentException("Redirect-Server-Address is required");
 		
-		this.redirectServerAddress = new RedirectServerAddressImpl(redirectServerAddress, null, null);
+		this.redirectServerAddress = new RedirectServerAddressImpl(value, null, null);
 	}
 	
 	@DiameterValidate

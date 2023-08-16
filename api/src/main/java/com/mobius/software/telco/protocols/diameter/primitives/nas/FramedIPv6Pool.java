@@ -26,6 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.5.8.  Framed-IPv6-Pool AVP
+
+   The Framed-IPv6-Pool AVP (AVP Code 100) is of type OctetString and
+   contains the name of an assigned pool that SHOULD be used to assign
+   an IPv6 prefix for the user.  If the access device does not support
+   multiple prefix pools, it MUST ignore this AVP.
+
+   Although specified as type OctetString for compatibility with RADIUS
+   [RFC3162], the encoding of the Data field SHOULD also conform to the
+   rules for the UTF8String Data Format.
+ */
 @DiameterAvpDefinition(code = 100L, vendorId = -1L, name = "Framed-IPv6-Pool")
 public interface FramedIPv6Pool extends DiameterOctetString
 {

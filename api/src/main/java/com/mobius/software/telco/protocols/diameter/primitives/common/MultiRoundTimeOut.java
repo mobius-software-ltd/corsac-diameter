@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.19.  Multi-Round-Time-Out AVP
+
+   The Multi-Round-Time-Out AVP (AVP Code 272) is of type Unsigned32 and
+   SHOULD be present in application-specific authorization answer
+   messages whose Result-Code AVP is set to DIAMETER_MULTI_ROUND_AUTH.
+   This AVP contains the maximum number of seconds that the access
+   device MUST provide the user in responding to an authentication
+   request.
+ */
 @DiameterAvpDefinition(code = 272L, vendorId = -1L, name = "Multi-Round-Time-Out")
 public interface MultiRoundTimeOut extends DiameterUnsigned32
 {

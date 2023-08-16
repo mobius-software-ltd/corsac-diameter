@@ -23,7 +23,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Address;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -32,7 +32,7 @@ import io.netty.buffer.Unpooled;
 * @author yulian oifa
 *
 */
-public class DiameterIpv6AddressImpl extends DiameterOctetStringImpl implements DiameterAddress
+public class DiameterIpv6AddressImpl extends DiameterOctetStringImpl implements DiameterIpv6Address
 {
 	private Inet6Address value;
 	
@@ -48,7 +48,7 @@ public class DiameterIpv6AddressImpl extends DiameterOctetStringImpl implements 
 		this.value = value;
 	}
 	
-	public InetAddress getAddress() 
+	public Inet6Address getAddress() 
 	{
 		return value;
 	}

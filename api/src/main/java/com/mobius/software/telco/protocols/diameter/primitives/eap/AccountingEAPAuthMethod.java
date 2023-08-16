@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 4.1.5.  Accounting-EAP-Auth-Method AVP
+
+   The Accounting-EAP-Auth-Method AVP (AVP Code 465) is of type
+   Unsigned64.  In case of expanded types [EAP, Section 5.7], this AVP
+   contains the value ((Vendor-Id * 2^32) + Vendor-Type).
+
+   The use of this AVP is described in Section 2.7.
+ */
 @DiameterAvpDefinition(code = 465L, vendorId = -1L, name = "Accounting-EAP-Auth-Method")
 public interface AccountingEAPAuthMethod extends DiameterUnsigned64
 {

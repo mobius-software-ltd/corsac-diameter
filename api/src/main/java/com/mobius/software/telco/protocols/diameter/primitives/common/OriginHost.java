@@ -26,6 +26,23 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
+/*
+ * 6.3.  Origin-Host AVP
+
+   The Origin-Host AVP (AVP Code 264) is of type DiameterIdentity, and
+   it MUST be present in all Diameter messages.  This AVP identifies the
+   endpoint that originated the Diameter message.  Relay agents MUST NOT
+   modify this AVP.
+   
+   The value of the Origin-Host AVP is guaranteed to be unique within a
+   single host.
+
+   Note that the Origin-Host AVP may resolve to more than one address as
+   the Diameter peer may support more than one address.
+
+   This AVP SHOULD be placed as close to the Diameter header as
+   possible.
+ */
 @DiameterAvpDefinition(code = 264L, position = 4, vendorId = -1L, name = "Origin-Host")
 public interface OriginHost extends DiameterIdentity
 {

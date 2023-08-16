@@ -26,6 +26,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.7.2.  Framed-Appletalk-Network AVP
+
+   The Framed-Appletalk-Network AVP (AVP Code 38) is of type Unsigned32
+   and contains the AppleTalk network number that the NAS should probe
+   to allocate an AppleTalk node for the user.  This AVP MUST only be
+   present in an authorization response and is never used when the user
+   is not another router.  Multiple instances of this AVP indicate that
+   the NAS may probe, using any of the network numbers specified.
+
+   Despite the size of the field, values range from 0 to 65,535.  The
+   special value 0 indicates that the NAS should assign a network for
+   the user, using its default cable range.  A value between 1 and
+   65,535 (inclusive) indicates to the AppleTalk network that the NAS
+   should probe to find an address for the user.
+ */
 @DiameterAvpDefinition(code = 38L, vendorId = -1L, name = "Framed-Appletalk-Network")
 public interface FramedAppletalkNetwork extends DiameterUnsigned32
 {

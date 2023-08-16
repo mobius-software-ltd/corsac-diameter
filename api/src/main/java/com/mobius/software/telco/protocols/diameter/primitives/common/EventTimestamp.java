@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 * @author yulian oifa
 *
 */
+/*
+ * 8.21.  Event-Timestamp AVP
+
+   The Event-Timestamp (AVP Code 55) is of type Time and MAY be included
+   in an Accounting-Request and Accounting-Answer messages to record the
+   time that the reported event occurred, in seconds since January 1,
+   1900 00:00 UTC.
+ */
 @DiameterAvpDefinition(code = 55L, vendorId = -1L, name = "Event-Timestamp")
 public interface EventTimestamp extends DiameterTime
 {

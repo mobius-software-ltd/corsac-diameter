@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.59.  Subscription-Id-E164 AVP
+
+   The Subscription-Id-E164 AVP (AVP Code 660) is of type UTF8String.
+   The Subscription-Id-E164 AVP contains the international E.164 format
+   (e.g., MSISDN), according to the ITU-T E.164 numbering plan defined
+   in [E164] and [CE164].
+ */
 @DiameterAvpDefinition(code = 660L, vendorId = -1L, must = false, name = "Subscription-Id-E164")
 public interface SubscriptionIdE164 extends DiameterUTF8String
 {

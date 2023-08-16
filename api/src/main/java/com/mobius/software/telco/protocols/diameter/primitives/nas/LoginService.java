@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.11.3.  Login-Service AVP
+
+   The Login-Service AVP (AVP Code 15) is of type Enumerated and
+   contains the service that should be used to connect the user to the
+   login host.  This AVP SHOULD only be present in authorization
+   responses.  The supported values are listed in RFC 2869.
+ */
 @DiameterAvpDefinition(code = 15L, vendorId = -1L, name = "Login-Service")
 public interface LoginService extends DiameterEnumerated<LoginServiceEnum>
 {

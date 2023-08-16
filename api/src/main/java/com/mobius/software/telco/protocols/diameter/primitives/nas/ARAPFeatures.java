@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.8.1.  ARAP-Features AVP
+
+   The ARAP-Features AVP (AVP Code 71) is of type OctetString and MAY be
+   present in the AA-Accept message if the Framed-Protocol AVP is set to
+   the value of ARAP.  See RFC 2869 for more information about the
+   format of this AVP.
+ */
 @DiameterAvpDefinition(code = 71L, vendorId = -1L, name = "ARAP-Features")
 public interface ARAPFeatures extends DiameterOctetString
 {

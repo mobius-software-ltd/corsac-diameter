@@ -26,6 +26,24 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.2.  CC-Request-Number AVP
+
+   The CC-Request-Number AVP (AVP Code 415) is of type Unsigned32 and
+   identifies this request within one session.  As Session-Id AVPs are
+   globally unique, the combination of the Session-Id AVP and the
+   CC-Request-Number AVP is also globally unique and can be used in
+   matching credit-control messages with confirmations.  An easy way to
+   produce unique numbers is to set the value of the CC-Request-Number
+   AVP to 0 for a credit-control request with a CC-Request-Type AVP of
+   INITIAL_REQUEST (the initial request in a session).  The value of the
+   CC-Request-Number AVP should be set to 1 for the first
+   UPDATE_REQUEST, to 2 for the second, and so on until the value for
+   TERMINATION_REQUEST is one more than the value for the last
+   UPDATE_REQUEST.  In the case of event charging (when the CC-Request-
+   Type AVP has the value EVENT_REQUEST), the CC-Request-Number AVP
+   should be set to 0 for a credit-control request.
+ */
 @DiameterAvpDefinition(code = 415L, vendorId = -1L, name = "Cc-Request-Number")
 public interface CcRequestNumber extends DiameterUnsigned32
 {

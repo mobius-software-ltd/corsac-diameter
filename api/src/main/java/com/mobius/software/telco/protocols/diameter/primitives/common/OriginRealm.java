@@ -26,6 +26,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
+
+/*
+ * 6.4.  Origin-Realm AVP
+
+   The Origin-Realm AVP (AVP Code 296) is of type DiameterIdentity.
+   This AVP contains the Realm of the originator of any Diameter message
+   and MUST be present in all messages.
+
+   This AVP SHOULD be placed as close to the Diameter header as
+   possible.
+ */
 @DiameterAvpDefinition(code = 296L, position = 5, vendorId = -1L, name = "Origin-Realm")
 public interface OriginRealm extends DiameterIdentity
 {

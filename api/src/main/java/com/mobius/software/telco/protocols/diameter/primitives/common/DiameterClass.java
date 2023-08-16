@@ -26,6 +26,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 8.20.  Class AVP
+
+   The Class AVP (AVP Code 25) is of type OctetString and is used by
+   Diameter servers to return state information to the access device.
+   When one or more Class AVPs are present in application-specific
+   authorization answer messages, they MUST be present in subsequent re-
+   authorization, session termination and accounting messages.  Class
+   AVPs found in a re-authorization answer message override the ones
+   found in any previous authorization answer message.  Diameter server
+   implementations SHOULD NOT return Class AVPs that require more than
+   4096 bytes of storage on the Diameter client.  A Diameter client that
+   receives Class AVPs whose size exceeds local available storage MUST
+   terminate the session.
+ */
 @DiameterAvpDefinition(code = 25L, vendorId = -1L, name = "Class")
 public interface DiameterClass extends DiameterOctetString
 {

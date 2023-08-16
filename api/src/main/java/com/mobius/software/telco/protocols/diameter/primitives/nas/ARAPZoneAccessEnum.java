@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.8.2.  ARAP-Zone-Access AVP
+
+   The ARAP-Zone-Access AVP (AVP Code 72) is of type Enumerated and MAY
+   be present in the AA-Accept message if the Framed-Protocol AVP is set
+   to the value of ARAP.
+
+   The supported values are listed in [RADIUSAttrVals] and defined in
+   [RFC2869].
+ */
 public enum ARAPZoneAccessEnum implements IntegerEnum
 {
 	DEFAULT_ZONE(0),ZONE_FILTER_INCLUSIVELY(1),NOT_USED(2),ZONE_FILTER_EXCLUSIVELY(3);

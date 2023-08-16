@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 9.8.4.  Acct-Session-Id AVP
+
+   The Acct-Session-Id AVP (AVP Code 44) is of type OctetString is only
+   used when RADIUS/Diameter translation occurs.  This AVP contains the
+   contents of the RADIUS Acct-Session-Id attribute.
+ */
 @DiameterAvpDefinition(code = 44L, vendorId = -1L, name = "Acct-Session-Id")
 public interface AcctSessionId extends DiameterOctetString
 {

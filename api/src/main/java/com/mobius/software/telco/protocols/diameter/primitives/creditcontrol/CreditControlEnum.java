@@ -28,6 +28,35 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 8.13.  Credit-Control AVP
+
+   The Credit-Control AVP (AVP Code 426) is of type Enumerated and MUST
+   be included in AA-Request messages when the Service Element has
+   credit-control capabilities.  The following values are defined for
+   the Credit-Control AVP:
+
+   CREDIT_AUTHORIZATION   0
+
+   If the home Diameter AAA server determines that the user has a
+   prepaid subscription, this value indicates that the credit-control
+   server MUST be contacted to perform the first interrogation.  The
+   value of the Credit-Control AVP MUST always be set to 0 in an
+   AA-Request sent to perform the first interrogation and to initiate a
+   new credit-control session.
+
+   RE_AUTHORIZATION       1
+
+   This value indicates to the Diameter AAA server that a credit-control
+   session is ongoing for the subscriber and that the credit-control
+   server MUST NOT be contacted.  The Credit-Control AVP set to the
+   value of 1 is to be used only when the first interrogation has been
+   successfully performed and the credit-control session is ongoing
+   
+   (i.e., re-authorization triggered by authorization lifetime).  This
+   value MUST NOT be used in an AA-Request sent to perform the first
+   interrogation.
+ */
 public enum CreditControlEnum implements IntegerEnum
 {
 	CREDIT_AUTHORIZATION(0),RE_AUTHORIZATION(1);

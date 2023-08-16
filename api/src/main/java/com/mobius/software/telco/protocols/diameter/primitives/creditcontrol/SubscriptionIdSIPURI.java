@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.61.  Subscription-Id-SIP-URI AVP
+
+   The Subscription-Id-SIP-URI AVP (AVP Code 662) is of type UTF8String.
+   The Subscription-Id-SIP-URI AVP contains the identifier in the form
+   of a SIP URI, as defined in [RFC3261].
+ */
 @DiameterAvpDefinition(code = 662L, vendorId = -1L, must = false, name = "Subscription-Id-SIP-URI")
 public interface SubscriptionIdSIPURI extends DiameterUTF8String
 {

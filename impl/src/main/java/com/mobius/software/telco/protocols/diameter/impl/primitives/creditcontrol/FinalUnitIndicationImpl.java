@@ -68,12 +68,12 @@ public class FinalUnitIndicationImpl implements FinalUnitIndication
 		return finalUnitAction.getEnumerated(FinalUnitActionEnum.class);
 	}
 	
-	public void setFinalUnitAction(FinalUnitActionEnum finalUnitAction)
+	public void setFinalUnitAction(FinalUnitActionEnum value)
 	{
-		if(finalUnitAction==null)
+		if(value==null)
 			throw new IllegalArgumentException("Final-Unit-Action is required");		
 		
-		this.finalUnitAction = new FinalUnitActionImpl(finalUnitAction, null, null);
+		this.finalUnitAction = new FinalUnitActionImpl(value, null, null);
 	}
 	
 	public List<RestrictionFilterRule> getRestrictionFilterRule()
@@ -81,9 +81,9 @@ public class FinalUnitIndicationImpl implements FinalUnitIndication
 		return this.restrictionFilterRule;
 	}
 	
-	public void setRestrictionFilterRule(List<RestrictionFilterRule> restrictionFilterRule)
+	public void setRestrictionFilterRule(List<RestrictionFilterRule> value)
 	{
-		this.restrictionFilterRule = restrictionFilterRule;
+		this.restrictionFilterRule = value;
 	}
 	
 	public List<String> getFilterId()
@@ -98,14 +98,14 @@ public class FinalUnitIndicationImpl implements FinalUnitIndication
 		return result;
 	}
 	
-	public void setFilterId(List<String> filterId)
+	public void setFilterId(List<String> value)
 	{
-		if(filterId==null || filterId.size()==0)
+		if(value==null || value.size()==0)
 			this.filterId = null;
 		else
 		{
-			this.filterId = new ArrayList<FilterId>(filterId.size());
-			for(String curr:filterId)
+			this.filterId = new ArrayList<FilterId>(value.size());
+			for(String curr:value)
 				this.filterId.add(new FilterIdImpl(curr, null, null));			
 		}
 	}
@@ -115,9 +115,9 @@ public class FinalUnitIndicationImpl implements FinalUnitIndication
 		return redirectServer;
 	}
 	
-	public void setRedirectServer(RedirectServer redirectServer)
+	public void setRedirectServer(RedirectServer value)
 	{
-		this.redirectServer = redirectServer;
+		this.redirectServer = value;
 	}
 	
 	@DiameterValidate

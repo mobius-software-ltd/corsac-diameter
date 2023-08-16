@@ -26,6 +26,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 8.32.  CC-Unit-Type AVP
+
+   The CC-Unit-Type AVP (AVP Code 454) is of type Enumerated and
+   specifies the type of units considered to be pooled into a
+   credit pool.
+
+   The following values are defined for the CC-Unit-Type AVP:
+
+         TIME                         0
+         MONEY                        1
+         TOTAL-OCTETS                 2
+         INPUT-OCTETS                 3
+         OUTPUT-OCTETS                4
+         SERVICE-SPECIFIC-UNITS       5
+ */
 @DiameterAvpDefinition(code = 454L, vendorId = -1L, name = "CC-Unit-Type")
 public interface CcUnitType extends DiameterEnumerated<CcUnitTypeEnum>
 {

@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.10.  Auth-Grace-Period AVP
+
+   The Auth-Grace-Period AVP (AVP Code 276) is of type Unsigned32 and
+   contains the number of seconds the Diameter server will wait
+   following the expiration of the Authorization-Lifetime AVP before
+   cleaning up resources for the session.
+ */
 @DiameterAvpDefinition(code = 276L, vendorId = -1L, name = "Auth-Grace-Period")
 public interface AuthGracePeriod extends DiameterUnsigned32
 {

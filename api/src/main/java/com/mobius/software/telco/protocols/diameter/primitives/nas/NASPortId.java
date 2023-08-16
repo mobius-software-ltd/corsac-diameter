@@ -26,6 +26,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAsciiStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.2.3.  NAS-Port-Id AVP
+
+   The NAS-Port-Id AVP (AVP Code 87) is of type UTF8String and consists
+   of 7-bit US-ASCII text identifying the port of the NAS authenticating
+   the user.  Note that "port" is meant in its sense as a service
+   connection on the NAS, not as an IP protocol identifier.
+
+   Either the NAS-Port-Id AVP or the NAS-Port AVP (Section 4.2.2) SHOULD
+   be present in the AA-Request (AAR, Section 3.1) command if the NAS
+   differentiates among its ports.  NAS-Port-Id is intended for use by
+   NASes that cannot conveniently number their ports.
+ */
 @DiameterAvpDefinition(code = 87L, vendorId = -1L, name = "NAS-Port-Id")
 public interface NASPortId extends DiameterAsciiString
 {

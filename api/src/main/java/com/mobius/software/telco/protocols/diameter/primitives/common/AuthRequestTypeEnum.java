@@ -28,6 +28,35 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 8.7.  Auth-Request-Type AVP
+
+   The Auth-Request-Type AVP (AVP Code 274) is of type Enumerated and is
+   included in application-specific auth requests to inform the peers
+   whether a user is to be authenticated only, authorized only, or both.
+   Note any value other than both MAY cause RADIUS interoperability
+   issues.  The following values are defined:
+
+   AUTHENTICATE_ONLY 1
+
+      The request being sent is for authentication only, and it MUST
+      contain the relevant application-specific authentication AVPs that
+      are needed by the Diameter server to authenticate the user.
+
+   AUTHORIZE_ONLY 2
+
+      The request being sent is for authorization only, and it MUST
+      contain the application-specific authorization AVPs that are
+      necessary to identify the service being requested/offered.
+
+   AUTHORIZE_AUTHENTICATE 3
+
+      The request contains a request for both authentication and
+      authorization.  The request MUST include both the relevant
+      application-specific authentication information and authorization
+      information necessary to identify the service being requested/
+      offered.
+ */
 public enum AuthRequestTypeEnum implements IntegerEnum
 {
 	AUTHENTICATE_ONLY(1),AUTHORIZE_ONLY(2),AUTHORIZE_AUTHENTICATE(3);

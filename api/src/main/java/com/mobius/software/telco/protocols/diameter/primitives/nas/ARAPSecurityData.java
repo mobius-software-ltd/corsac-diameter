@@ -26,6 +26,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.12.  ARAP-Security-Data AVP
+
+   The ARAP-Security-Data AVP (AVP Code 74) is of type OctetString and
+   MAY be present in the AA-Request or AA-Answer message if the Framed-
+   Protocol AVP (Section 4.4.10.1) is set to the value of ARAP and the
+   Result-Code AVP ([RFC6733], Section 7.1) is set to
+   DIAMETER_MULTI_ROUND_AUTH.  This AVP contains the security module
+   challenge or response associated with the ARAP Security Module
+   specified in the ARAP-Security AVP (Section 4.3.11).
+ */
 @DiameterAvpDefinition(code = 74L, vendorId = -1L, name = "ARAP-Security-Data")
 public interface ARAPSecurityData extends DiameterOctetString
 {

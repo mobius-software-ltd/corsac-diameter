@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.5.  Port-Limit AVP
+
+   The Port-Limit AVP (AVP Code 62) is of type Unsigned32 and sets the
+   maximum number of ports the NAS provides to the user.  It MAY be used
+   in an authentication and/or authorization request as a hint to the
+   server that multilink PPP [RFC1990] service is desired, but the
+   server is not required to honor the hint in the corresponding
+   response.
+ */
 @DiameterAvpDefinition(code = 62L, vendorId = -1L, name = "Port-Limit")
 public interface PortLimit extends DiameterUnsigned32
 {

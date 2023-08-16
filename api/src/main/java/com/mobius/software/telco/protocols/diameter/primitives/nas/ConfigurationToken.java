@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.8.  Configuration-Token AVP
+
+   The Configuration-Token AVP (AVP Code 78) is of type OctetString and
+   is sent by a Diameter server to a Diameter Proxy Agent in an AA-
+   Answer command to indicate a type of user profile to be used.  It
+   should not be sent to a Diameter client (NAS).
+
+   The format of the Data field of this AVP is site specific.
+ */
 @DiameterAvpDefinition(code = 78L, vendorId = -1L, name = "Configuration-Token")
 public interface ConfigurationToken extends DiameterOctetString
 {

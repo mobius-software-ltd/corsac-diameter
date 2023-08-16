@@ -26,9 +26,38 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Servic
 * @author yulian oifa
 *
 */
+
+/*
+ * 	The ACR messages, indicated by the Command-Code field set to 271 is sent by the CTF to the CDF in order to send
+	charging information for the requested bearer / subsystem /service.
+	The ACR message format is defined according to the Diameter Base Protocol in RFC 6733 [401] as follows:
+ 	<ACR> ::= < Diameter Header: 271, REQ, PXY >
+ 
+			 < Session-Id >
+			 { Origin-Host }
+			 { Origin-Realm }
+			 { Destination-Realm }
+			 { Accounting-Record-Type }
+			 { Accounting-Record-Number }
+			 [ Acct-Application-Id ]
+			 [ User-Name ]
+			 [ Destination-Host ]			 
+			 [ Acct-Interim-Interval ]
+			 [ Origin-State-Id ]
+			 [ Event-Timestamp ]
+			 * [ Proxy-Info ]
+			 * [ Route-Record ]
+			 [ Service-Context-Id ]
+			 [ Service-Information ]
+			 * [ AVP ] 
+ */
 @DiameterCommandDefinition(applicationId = 3, commandCode = 271, request = true, proxyable = true, name="Accounting-Request")
 public interface AccountingRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest
 {
+	String getServiceContextId();
+	
+	void setServiceContextId(String serviceContextId);
+	
 	ServiceInformation getServiceInformation();
 	
 	void setServiceInformation(ServiceInformation serviceInformation);

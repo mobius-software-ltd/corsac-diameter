@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
+/*
+ * 6.7.1.  Route-Record AVP
+
+   The Route-Record AVP (AVP Code 282) is of type DiameterIdentity.  The
+   identity added in this AVP MUST be the same as the one received in
+   the Origin-Host of the Capabilities Exchange message.
+ */
 @DiameterAvpDefinition(code = 282L, vendorId = -1L, name = "Route-Record")
 public interface RouteRecord extends DiameterIdentity
 {

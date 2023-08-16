@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 8.23.  CC-Total-Octets AVP
+
+   The CC-Total-Octets AVP (AVP Code 421) is of type Unsigned64 and
+   contains the total number of requested, granted, or used octets
+   regardless of the direction (sent or received).
+ */
 @DiameterAvpDefinition(code = 421L, vendorId = -1L, name = "Cc-Total-Octets")
 public interface CcTotalOctets extends DiameterUnsigned64
 {

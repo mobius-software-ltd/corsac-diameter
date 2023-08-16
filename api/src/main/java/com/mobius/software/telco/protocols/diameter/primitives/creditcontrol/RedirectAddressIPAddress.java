@@ -26,6 +26,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 * @author yulian oifa
 *
 */
+/*
+ * 8.65.  Redirect-Address-IPAddress AVP
+
+   The Redirect-Address-IPAddress AVP (AVP Code 666) is of type Address
+   and defines the IPv4 or IPv6 address of the redirect server with
+   which the end user is to be connected when the account cannot cover
+   the service cost.
+
+   When encoded as an IPv6 address in 16 bytes, the IPv4-mapped IPv6
+   format [RFC4291] MAY be used to indicate an IPv4 address.
+
+   The interpretation of Redirect-Address-IPAddress by the Diameter
+   Credit-Control client is a matter of local policy.
+ */
 @DiameterAvpDefinition(code = 666L, vendorId = -1L, must = false, name = "Redirect-Address-IP-Address")
 public interface RedirectAddressIPAddress extends DiameterAddress
 {

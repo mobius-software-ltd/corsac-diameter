@@ -27,7 +27,17 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
 */
 
 /*
- * The Used-Service-Unit AVP is defined as follows (per grouped-avp-def
+ * 8.19.  Used-Service-Unit AVP
+
+   The Used-Service-Unit AVP is of type Grouped (AVP Code 446) and
+   contains the amount of used units measured from the point when the
+   service became active or, if interim interrogations are used during
+   the session, from the point when the previous measurement ended.
+   Note: The value reported in a Used-Service-Unit AVP is not
+   necessarily related to the grant provided in a Granted-Service-Unit
+   AVP, e.g., the value in this AVP may exceed the value in the grant.
+
+   The Used-Service-Unit AVP is defined as follows (per grouped-avp-def
    as defined in [RFC6733]):
 
          Used-Service-Unit ::= < AVP Header: 446 >

@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.4.  Idle-Timeout AVP
+
+   The Idle-Timeout AVP (AVP Code 28) is of type Unsigned32 and sets the
+   maximum number of consecutive seconds of idle connection allowable to
+   the user before termination of the session or before a prompt is
+   issued.  The default is none or system specific.
+ */
 @DiameterAvpDefinition(code = 28L, vendorId = -1L, name = "Idle-Timeout")
 public interface IdleTimeout extends DiameterUnsigned32
 {

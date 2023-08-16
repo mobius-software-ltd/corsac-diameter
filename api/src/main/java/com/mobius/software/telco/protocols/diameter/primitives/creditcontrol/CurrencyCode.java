@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.11.  Currency-Code AVP
+
+   The Currency-Code AVP (AVP Code 425) is of type Unsigned32 and
+   contains a currency code that specifies in which currency the values
+   of AVPs containing monetary units were given.  It is specified by
+   using the numeric values defined in the ISO 4217 standard [ISO4217].
+ */
 @DiameterAvpDefinition(code = 425L, vendorId = -1L, name = "Currency-Code")
 public interface CurrencyCode extends DiameterUnsigned32
 {

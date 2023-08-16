@@ -26,6 +26,29 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 8.12.  Re-Auth-Request-Type AVP
+
+   The Re-Auth-Request-Type AVP (AVP Code 285) is of type Enumerated and
+   is included in application-specific auth answers to inform the client
+   of the action expected upon expiration of the Authorization-Lifetime.
+   
+   If the answer message contains an Authorization-Lifetime AVP with a
+   positive value, the Re-Auth-Request-Type AVP MUST be present in an
+   answer message.  The following values are defined:
+
+   AUTHORIZE_ONLY 0
+
+      An authorization only re-auth is expected upon expiration of the
+      Authorization-Lifetime.  This is the default value if the AVP is
+      not present in answer messages that include the Authorization-
+      Lifetime.
+
+   AUTHORIZE_AUTHENTICATE 1
+
+      An authentication and authorization re-auth is expected upon
+      expiration of the Authorization-Lifetime.
+ */
 @DiameterAvpDefinition(code = 285L, vendorId = -1L, name = "Re-Auth-Request-Type")
 public interface ReAuthRequestType extends DiameterEnumerated<ReAuthRequestTypeEnum>
 {

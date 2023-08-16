@@ -26,6 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.3.  Callback-Id AVP
+
+   The Callback-Id AVP (AVP Code 20) is of type UTF8String and contains
+   the name of a place to be called, to be interpreted by the NAS.  This
+   AVP MAY be present in an authentication and/or authorization
+   response.
+
+   This AVP is not roaming-friendly as it assumes that the Callback-Id
+   is configured on the NAS.  Using the Callback-Number AVP
+   (Section 4.4.2) is therefore RECOMMENDED.
+ */
 @DiameterAvpDefinition(code = 20L, vendorId = -1L, name = "Callback-Id")
 public interface CallbackId extends DiameterUTF8String
 {

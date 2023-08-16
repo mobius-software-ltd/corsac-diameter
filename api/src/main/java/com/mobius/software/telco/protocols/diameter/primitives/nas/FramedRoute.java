@@ -26,6 +26,31 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.5.3.  Framed-Route AVP
+
+   The Framed-Route AVP (AVP Code 22) is of type UTF8String and contains
+   the 7-bit US-ASCII routing information to be configured for the user
+   on the NAS.  Zero or more of these AVPs MAY be present in an
+   authorization response.
+
+   The string MUST contain a destination prefix in dotted quad form
+   optionally followed by a slash and a decimal-length specifier stating
+   how many high-order bits of the prefix should be used.  This is
+   followed by a space, a gateway address in dotted quad form, a space,
+   and one or more metrics separated by spaces; for example,
+
+      "192.0.2.0/24 192.0.2.1 1"
+
+   The length specifier may be omitted, in which case it should default
+   to 8 bits for class A prefixes, 16 bits for class B prefixes, and 24
+   bits for class C prefixes; for example,
+
+      "192.0.2.0 192.0.2.1 1"
+
+   Whenever the gateway address is specified as "0.0.0.0", the IP
+   address of the user SHOULD be used as the gateway address.
+ */
 @DiameterAvpDefinition(code = 22L, vendorId = -1L, name = "Framed-Route")
 public interface FramedRoute extends DiameterOctetString
 {

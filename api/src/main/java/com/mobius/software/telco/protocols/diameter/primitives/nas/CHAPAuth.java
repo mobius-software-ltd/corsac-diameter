@@ -30,7 +30,9 @@ import io.netty.buffer.ByteBuf;
 */
 
 /*
- * The CHAP-Auth AVP (AVP Code 402) is of type Grouped and contains the
+ * 4.3.4.  CHAP-Auth AVP
+
+   The CHAP-Auth AVP (AVP Code 402) is of type Grouped and contains the
    information necessary to authenticate a user using the PPP Challenge-
    Handshake Authentication Protocol (CHAP) [RFC1994].  If the CHAP-Auth
    AVP is found in a message, the CHAP-Challenge AVP (Section 4.3.8)

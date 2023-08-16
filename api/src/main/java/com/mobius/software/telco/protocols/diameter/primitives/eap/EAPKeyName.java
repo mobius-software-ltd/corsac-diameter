@@ -26,6 +26,25 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.1.4.  EAP-Key-Name AVP
+
+   The EAP-Key-Name AVP (Radius Attribute Type 102) is of type
+   OctetString.  It contains an opaque key identifier (name) generated
+   by the EAP method.  Exactly how this name is used depends on the link
+   layer in question, and is beyond the scope of this document (see
+   [EAPKey] for more discussion).
+
+   Note that not all link layers use this name, and currently most EAP
+   methods do not generate it.  Since the NAS operates in pass-through
+   mode, it cannot know the Key-Name before receiving it from the AAA
+   server.  As a result, a Key-Name AVP sent in a Diameter-EAP-Request
+   MUST NOT contain any data.  A home Diameter server receiving a
+   Diameter-EAP-Request with a Key-Name AVP with non-empty data MUST
+   silently discard the AVP.  In addition, the home Diameter server
+   SHOULD include this AVP in Diameter-EAP-Response only if an empty
+   EAP-Key-Name AVP was present in Diameter-EAP-Request.
+ */
 @DiameterAvpDefinition(code = 102L, vendorId = -1L, name = "EAP-Key-Name")
 public interface EAPKeyName extends DiameterOctetString
 {

@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 8.24.  CC-Input-Octets AVP
+
+   The CC-Input-Octets AVP (AVP Code 412) is of type Unsigned64 and
+   contains the number of requested, granted, or used octets that
+   can be / have been received from the end user.
+ */
 @DiameterAvpDefinition(code = 412L, vendorId = -1L, name = "Cc-Input-Octets")
 public interface CcInputOctets extends DiameterUnsigned64
 {

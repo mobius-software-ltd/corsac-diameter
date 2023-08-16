@@ -26,6 +26,30 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.11.5.3.  Login-LAT-Group AVP
+
+   The Login-LAT-Group AVP (AVP Code 36) is of type OctetString and
+   contains a string identifying the LAT group codes this user is
+   authorized to use.  It MAY be used in an authorization request as a
+   hint to the server that a specific group is desired, but the server
+   is not required to honor the hint in the corresponding response.
+   This AVP MUST only be present in a response if the Login-Service-Type
+   AVP is set to LAT.
+
+   LAT supports 256 different group codes, which LAT uses as a form of
+   access rights.  LAT encodes the group codes as a 256-bit bitmap.
+
+   Administrators can assign one or more of the group code bits at the
+   LAT service provider; it will only accept LAT connections that have
+   these group codes set in the bitmap.  The administrators assign a
+   bitmap of authorized group codes to each user.  LAT gets these from
+   the operating system and uses them in its requests to the service
+   providers.
+
+   The codification of the range of allowed usage of this field is
+   outside the scope of this specification.
+ */
 @DiameterAvpDefinition(code = 36L, vendorId = -1L, name = "Login-LAT-Group")
 public interface LoginLATGroup extends DiameterOctetString
 {

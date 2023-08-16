@@ -28,7 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 */
 
 /*
- * The Redirect-Server AVP is defined as follows (per grouped-avp-def as
+ * 8.37.  Redirect-Server AVP
+
+   The Redirect-Server AVP (AVP Code 434) is of type Grouped and
+   contains the address information of the redirect server (e.g., HTTP
+   redirect server, SIP Server) with which the end user is to be
+   connected when the account cannot cover the service cost.  It MUST be
+   present when the Final-Unit-Action AVP is set to REDIRECT.
+
+   The Redirect-Server AVP is defined as follows (per grouped-avp-def as
    defined in [RFC6733]):
 
          Redirect-Server ::= < AVP Header: 434 >

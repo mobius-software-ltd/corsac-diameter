@@ -28,7 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 */
 
 /*
- * The Subscription-Id AVP is defined as follows (per grouped-avp-def as
+ * 8.46.  Subscription-Id AVP
+
+   The Subscription-Id AVP (AVP Code 443) is used to identify the
+   end user's subscription and is of type Grouped.  The Subscription-Id
+   AVP includes a Subscription-Id-Data AVP that holds the identifier and
+   a Subscription-Id-Type AVP that defines the identifier type.
+
+   The Subscription-Id AVP is defined as follows (per grouped-avp-def as
    defined in [RFC6733]):
 
          Subscription-Id ::= < AVP Header: 443 >

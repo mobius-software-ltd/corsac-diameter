@@ -97,12 +97,12 @@ public class UserEquipmentInfoExtensionImpl extends DiameterGroupedAvpImpl imple
 		return imeiSV.getValue();
 	}
 	
-	public void setIMEISV(ByteBuf imeiSV)
+	public void setIMEISV(ByteBuf value)
 	{
-		if(this.imeiSV!=null && imeiSV==null)
+		if(this.imeiSV!=null && value==null)
 			throw new IllegalArgumentException("User-Equipment-Info-Extension requires exactly one child to be defined");
 		
-		this.imeiSV = new UserEquipmentInfoIMEISVImpl(imeiSV, null, null);				
+		this.imeiSV = new UserEquipmentInfoIMEISVImpl(value, null, null);				
 		this.mac = null;
 		this.eui64 = null;
 		this.modifiedEUI64 = null;
@@ -117,12 +117,12 @@ public class UserEquipmentInfoExtensionImpl extends DiameterGroupedAvpImpl imple
 		return mac.getValue();
 	}
 	
-	public void setMAC(ByteBuf mac)
+	public void setMAC(ByteBuf value)
 	{
-		if(this.mac!=null && mac==null)
+		if(this.mac!=null && value==null)
 			throw new IllegalArgumentException("User-Equipment-Info-Extension requires exactly one child to be defined");
 		
-		this.mac = new UserEquipmentInfoMACImpl(mac, null, null);				
+		this.mac = new UserEquipmentInfoMACImpl(value, null, null);				
 		this.imeiSV = null;
 		this.eui64 = null;
 		this.modifiedEUI64 = null;
@@ -137,12 +137,12 @@ public class UserEquipmentInfoExtensionImpl extends DiameterGroupedAvpImpl imple
 		return eui64.getValue();
 	}
 	
-	public void setEUI64(ByteBuf eui64)
+	public void setEUI64(ByteBuf value)
 	{
-		if(this.eui64!=null && eui64==null)
+		if(this.eui64!=null && value==null)
 			throw new IllegalArgumentException("User-Equipment-Info-Extension requires exactly one child to be defined");
 		
-		this.eui64 = new UserEquipmentInfoEUI64Impl(eui64, null, null);				
+		this.eui64 = new UserEquipmentInfoEUI64Impl(value, null, null);				
 		this.imeiSV = null;
 		this.mac = null;
 		this.modifiedEUI64 = null;
@@ -157,12 +157,12 @@ public class UserEquipmentInfoExtensionImpl extends DiameterGroupedAvpImpl imple
 		return modifiedEUI64.getValue();
 	}
 	
-	public void setModifiedEUI64(ByteBuf modifiedEUI64)
+	public void setModifiedEUI64(ByteBuf value)
 	{
-		if(this.modifiedEUI64!=null && modifiedEUI64==null)
+		if(this.modifiedEUI64!=null && value==null)
 			throw new IllegalArgumentException("User-Equipment-Info-Extension requires exactly one child to be defined");
 		
-		this.modifiedEUI64 = new UserEquipmentInfoModifiedEUI64Impl(modifiedEUI64, null, null);				
+		this.modifiedEUI64 = new UserEquipmentInfoModifiedEUI64Impl(value, null, null);				
 		this.imeiSV = null;
 		this.mac = null;
 		this.eui64 = null;
@@ -177,12 +177,12 @@ public class UserEquipmentInfoExtensionImpl extends DiameterGroupedAvpImpl imple
 		return imei.getValue();
 	}
 	
-	public void setIMEI(ByteBuf imei)
+	public void setIMEI(ByteBuf value)
 	{
-		if(this.imei!=null && imei==null)
+		if(this.imei!=null && value==null)
 			throw new IllegalArgumentException("User-Equipment-Info-Extension requires exactly one child to be defined");
 		
-		this.imei = new UserEquipmentInfoIMEIImpl(imei, null, null);				
+		this.imei = new UserEquipmentInfoIMEIImpl(value, null, null);				
 		this.imeiSV = null;
 		this.mac = null;
 		this.eui64 = null;

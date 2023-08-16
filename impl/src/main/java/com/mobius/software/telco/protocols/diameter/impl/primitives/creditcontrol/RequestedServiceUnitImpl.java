@@ -83,12 +83,12 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 		return this.ccTime.getDateTime();
 	}
 	
-	public void setCCTime(Date ccTime)
+	public void setCCTime(Date value)
 	{
-		if(ccTime == null)
+		if(value == null)
 			this.ccTime = null;
 		else
-			this.ccTime = new CcTimeImpl(ccTime, null, null);
+			this.ccTime = new CcTimeImpl(value, null, null);
 	}
 	
 	public CCMoney getCCMoney()
@@ -96,9 +96,9 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 		return ccMoney;
 	}
 	
-	public void setCCMoney(CCMoney ccMoney)
+	public void setCCMoney(CCMoney value)
 	{
-		this.ccMoney = ccMoney;
+		this.ccMoney = value;
 	}
 	
 	public Long getCCTotalOctets()
@@ -109,12 +109,12 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 		return this.ccTotalOctets.getLong();
 	}
 	
-	public void setCCTotalOctets(Long ccTotalOctets)
+	public void setCCTotalOctets(Long value)
 	{
-		if(ccTotalOctets == null)
+		if(value == null)
 			this.ccTotalOctets = null;
 		else
-			this.ccTotalOctets = new CcTotalOctetsImpl(ccTotalOctets, null, null);
+			this.ccTotalOctets = new CcTotalOctetsImpl(value, null, null);
 	}
 	
 	public Long getCCInputOctets()
@@ -125,12 +125,12 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 		return this.ccInputOctets.getLong();
 	}
 	
-	public void setCCInputOctets(Long ccInputOctets)
+	public void setCCInputOctets(Long value)
 	{
-		if(ccInputOctets == null)
+		if(value == null)
 			this.ccInputOctets = null;
 		else
-			this.ccInputOctets = new CcInputOctetsImpl(ccInputOctets, null, null);
+			this.ccInputOctets = new CcInputOctetsImpl(value, null, null);
 	}
 	
 	public Long getCCOutputOctets()
@@ -141,12 +141,12 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 		return this.ccOutputOctets.getLong();
 	}
 	
-	public void setCCOutputOctets(Long ccOutputOctets)
+	public void setCCOutputOctets(Long value)
 	{
-		if(ccOutputOctets == null)
+		if(value == null)
 			this.ccOutputOctets = null;
 		else
-			this.ccOutputOctets = new CcOutputOctetsImpl(ccOutputOctets, null, null);
+			this.ccOutputOctets = new CcOutputOctetsImpl(value, null, null);
 	}
 	
 	public Long getCCServiceSpecificUnits()
@@ -157,11 +157,11 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 		return this.ccServiceSpecificUnits.getLong();
 	}
 	
-	public void setCCServiceSpecificUnits(Long ccServiceSpecificUnits)
+	public void setCCServiceSpecificUnits(Long value)
 	{
-		if(ccServiceSpecificUnits == null)
+		if(value == null)
 			this.ccServiceSpecificUnits = null;
 		else
-			this.ccServiceSpecificUnits = new CcServiceSpecificUnitsImpl(ccServiceSpecificUnits, null, null);
+			this.ccServiceSpecificUnits = new CcServiceSpecificUnitsImpl(value, null, null);
 	}
 }

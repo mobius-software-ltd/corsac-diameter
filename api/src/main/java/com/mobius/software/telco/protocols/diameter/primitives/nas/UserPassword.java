@@ -26,6 +26,24 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.1.  User-Password AVP
+
+   The User-Password AVP (AVP Code 2) is of type OctetString and
+   contains the password of the user to be authenticated or the user's
+   input in a multi-round authentication exchange.
+
+   The User-Password AVP contains a user password or one-time password
+   and therefore represents sensitive information.  As required by the
+   Diameter Base protocol [RFC6733], Diameter messages are encrypted by
+   using IPsec [RFC4301] or Transport Layer Security (TLS) [RFC5246].
+   Unless this AVP is used for one-time passwords, the User-Password AVP
+   SHOULD NOT be used in untrusted proxy environments without encrypting
+   it by using end-to-end security techniques.
+
+   The clear-text password (prior to encryption) MUST NOT be longer than
+   128 bytes in length.
+ */
 @DiameterAvpDefinition(code = 2L, vendorId = -1L, name = "User-Password")
 public interface UserPassword extends DiameterOctetString
 {

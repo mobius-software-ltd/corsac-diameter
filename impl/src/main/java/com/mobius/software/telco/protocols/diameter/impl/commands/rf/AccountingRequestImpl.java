@@ -2,8 +2,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rf;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ServiceContextId;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -32,6 +34,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 @DiameterCommandImplementation(applicationId = 3, commandCode = 271, request = true)
 public class AccountingRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AccountingRequestImpl implements AccountingRequest
 {
+	private ServiceContextId serviceContextId;
+	
 	private ServiceInformation serviceInformation;
 	
 	protected AccountingRequestImpl() 
@@ -41,7 +45,7 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 		setAccountingSubSessionIdAllowed(false);
 		setAcctSessionIdAllowed(false);
 		setAcctMultiSessionIdAllowed(false);
-		setAccountingRealtimeRequiredAllowed(true);			
+		setAccountingRealtimeRequiredAllowed(false);			
 	}
 	
 	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber)
@@ -51,9 +55,27 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 		setAccountingSubSessionIdAllowed(false);
 		setAcctSessionIdAllowed(false);
 		setAcctMultiSessionIdAllowed(false);
-		setAccountingRealtimeRequiredAllowed(true);		
+		setAccountingRealtimeRequiredAllowed(false);		
 	}
 
+	@Override
+	public String getServiceContextId()
+	{
+		if(this.serviceContextId==null)
+			return null;
+		
+		return serviceContextId.getString();
+	}
+	
+	@Override
+	public void setServiceContextId(String serviceContextId)
+	{
+		if(serviceContextId==null)
+			this.serviceContextId = null;
+		else
+			this.serviceContextId = new ServiceContextIdImpl(serviceContextId, null, null);
+	}
+	
 	@Override
 	public ServiceInformation getServiceInformation() 
 	{

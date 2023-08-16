@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 8.15.  Termination-Cause AVP
+
+   The Termination-Cause AVP (AVP Code 295) is of type Enumerated, and
+   is used to indicate the reason why a session was terminated on the
+   access device.  The currently assigned values for this AVP can be
+   found in the IANA registry for Termination-Cause AVP Values
+   [IANATCV].
+ */
 public enum TerminationCauseEnum implements IntegerEnum
 {
 	RESERVED(0),DIAMETER_LOGOUT(1),DIAMETER_SERVICE_NOT_PROVIDED(2),DIAMETER_BAD_ANSWER(3),DIAMETER_ADMINISTRATIVE(4),DIAMETER_LINK_BROKEN(5),DIAMETER_AUTH_EXPIRED(6),DIAMETER_USER_MOVED(7),DIAMETER_SESSION_TIMEOUT(8),USER_REQUEST(11),LOST_CARRIER(12),LOST_SERVICE(13),IDLE_TIMEOUT(14),SESSION_TIMEOUT(15),ADMIN_RESET(16),ADMIN_REBOOT(17),PORT_ERROR(18),NAS_ERROR(19),NAS_REQUEST(20),NAS_REBOOT(21),PORT_UNNEEDED(22),PORT_PREEMPTED(23),PORT_SUSPENDED(24),SERVICE_UNAVAILABLE(25),CALLBACK(26),USER_ERROR(27),HOST_REQUEST(28),SUPPLICANT_RESTART(29),REAUTHENTICATION_FAILURE(30),PORT_REINITIALIZED(31),PORT_ADMINISTRATIVELY_DISABLED(32);

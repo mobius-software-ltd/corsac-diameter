@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64
 * @author yulian oifa
 *
 */
+/*
+ * 8.10.  Value-Digits AVP
+
+   The Value-Digits AVP is of type Integer64 (AVP Code 447) and contains
+   the significant digits of the number.  If decimal values are needed
+   to present the units, the scaling MUST be indicated with the related
+   Exponent AVP.  For example, for the monetary amount $0.05, the value
+   of the Value-Digits AVP MUST be set to 5, and the scaling MUST be
+   indicated with the Exponent AVP set to -2.
+ */
 @DiameterAvpDefinition(code = 447L, vendorId = -1L, name = "Value-Digits")
 public interface ValueDigits extends DiameterInteger64
 {

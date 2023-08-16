@@ -30,7 +30,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 */
 
 /*
- * The Requested-Service-Unit AVP is defined as follows (per
+ * 8.18.  Requested-Service-Unit AVP
+
+   The Requested-Service-Unit AVP (AVP Code 437) is of type Grouped and
+   contains the amount of requested units specified by the Diameter
+   Credit-Control client.  A server is not required to implement all the
+   unit types, and it must treat unknown or unsupported unit types as
+   invalid AVPs.
+
+   The Requested-Service-Unit AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):
 
          Requested-Service-Unit ::= < AVP Header: 437 >

@@ -67,12 +67,12 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	}
 
 	@Override
-	public void setProxyHost(String proxyHost) 
+	public void setProxyHost(String value) 
 	{
-		if(proxyHost==null)
+		if(value==null)
 			throw new IllegalArgumentException("Proxy-Host is required");
 
-		this.proxyHost = new ProxyHostImpl(proxyHost, null, null);
+		this.proxyHost = new ProxyHostImpl(value, null, null);
 	}
 
 	@Override
@@ -85,12 +85,12 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	}
 
 	@Override
-	public void setProxyState(ByteBuf proxyState) 
+	public void setProxyState(ByteBuf value) 
 	{
-		if(proxyState==null)
+		if(value==null)
 			throw new IllegalArgumentException("Proxy-State is required");
 
-		this.proxyState = new ProxyStateImpl(proxyState, null, null);
+		this.proxyState = new ProxyStateImpl(value, null, null);
 	}
 
 	@Override

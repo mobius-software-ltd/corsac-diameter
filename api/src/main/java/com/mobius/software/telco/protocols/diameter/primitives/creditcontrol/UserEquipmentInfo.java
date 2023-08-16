@@ -30,7 +30,14 @@ import io.netty.buffer.ByteBuf;
 */
 
 /*
- * The User-Equipment-Info AVP is defined as follows (per
+ * 8.49.  User-Equipment-Info AVP
+
+   The User-Equipment-Info AVP (AVP Code 458) is of type Grouped and
+   allows the credit-control client to indicate the identity and
+   capability of the terminal the subscriber is using for the connection
+   to the network.
+
+   The User-Equipment-Info AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):
 
          User-Equipment-Info ::= < AVP Header: 458 >

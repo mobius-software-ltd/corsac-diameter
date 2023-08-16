@@ -25,6 +25,31 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 * @author yulian oifa
 *
 */
+
+/*
+ *  The ACA messages, indicated by the Command-Code field set to 271 is sent by the CDF to the CTF in order to reply to
+	the ACR.
+	The ACA message format is defined according to the Diameter Base Protocol in RFC 6733 [401] as follows:
+ 	<ACA> ::= < Diameter Header: 271, PXY >
+
+			 < Session-Id >
+			 { Result-Code }
+			 [ Experimental-Result ]
+			 { Origin-Host }
+			 { Origin-Realm }
+			 { Accounting-Record-Type }
+			 { Accounting-Record-Number }
+			 [ Acct-Application-Id ]
+			 [ User-Name ]			 
+			 [ Error-Message ]
+			 [ Error-Reporting-Host ]
+			 [ Acct-Interim-Interval ]
+			 [ Failed-AVP ]
+			 [ Origin-State-Id ]
+			 [ Event-Timestamp ]
+			 * [ Proxy-Info ]
+			 * [ AVP ] 
+ */
 @DiameterCommandDefinition(applicationId = 3, commandCode = 271, request = false, proxyable = true, name="Accounting-Answer")
 public interface AccountingAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer
 {

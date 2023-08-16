@@ -26,6 +26,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.33.  Validity-Time AVP
+
+   The Validity-Time AVP is of type Unsigned32 (AVP Code 448).  It is
+   sent from the credit-control server to the credit-control client.
+   The Validity-Time AVP contains the validity time of the granted
+   service units.  The measurement of the Validity-Time is started upon
+   receipt of the Credit-Control-Answer message containing this AVP.  If
+   the granted service units have not been consumed within the validity
+   time specified in this AVP, the credit-control client MUST send a
+   Credit-Control-Request message to the server, with CC-Request-Type
+   set to UPDATE_REQUEST.  The value field of the Validity-Time AVP is
+   given in seconds.
+   
+   The Validity-Time AVP is also used for graceful service termination
+   (see Section 5.6) to indicate to the credit-control client how long
+   the subscriber is allowed to use network resources after the
+   specified action (i.e., REDIRECT or RESTRICT_ACCESS) started.  When
+   the Validity-Time elapses, a new intermediate interrogation is sent
+   to the server.
+ */
 @DiameterAvpDefinition(code = 448L, vendorId = -1L, name = "Validity-Time")
 public interface ValidityTime extends DiameterUnsigned32
 {

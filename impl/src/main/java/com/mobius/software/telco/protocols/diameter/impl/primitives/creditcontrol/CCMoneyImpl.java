@@ -57,9 +57,9 @@ public class CCMoneyImpl implements CCMoney
 		return this.unitValue;
 	}
 	
-	public void setUnitValue(UnitValue unitValue)
+	public void setUnitValue(UnitValue value)
 	{
-		this.unitValue = unitValue;
+		this.unitValue = value;
 	}
 	
 	public Long getCurrencyCode()
@@ -70,10 +70,10 @@ public class CCMoneyImpl implements CCMoney
 		return this.currencyCode.getUnsigned();
 	}
 	
-	public void setCurrencyCode(Long currencyCode)
+	public void setCurrencyCode(Long value)
 	{
-		if(currencyCode!=null)
-			this.currencyCode = new CurrencyCodeImpl(currencyCode, null, null);
+		if(value!=null)
+			this.currencyCode = new CurrencyCodeImpl(value, null, null);
 		else
 			this.currencyCode = null;
 	}

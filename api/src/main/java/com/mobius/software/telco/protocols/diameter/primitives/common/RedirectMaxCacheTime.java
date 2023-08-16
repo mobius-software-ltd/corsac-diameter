@@ -26,6 +26,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 6.14.  Redirect-Max-Cache-Time AVP
+
+   The Redirect-Max-Cache-Time AVP (AVP Code 262) is of type Unsigned32.
+   This AVP MUST be present in answer messages whose 'E' bit is set,
+   whose Result-Code AVP is set to DIAMETER_REDIRECT_INDICATION, and
+   whose Redirect-Host-Usage AVP set to a non-zero value.
+
+   This AVP contains the maximum number of seconds the peer and route
+   table entries, created as a result of the Redirect-Host, SHOULD be
+   cached.  Note that once a host is no longer reachable, any associated
+   cache, peer, and routing table entries MUST be deleted.
+ */
 @DiameterAvpDefinition(code = 262L, vendorId = -1L, name = "Redirect-Max-Cache-Time")
 public interface RedirectMaxCacheTime extends DiameterUnsigned32
 {

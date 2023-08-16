@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 8.54.  User-Equipment-Info-MAC AVP
+
+   The User-Equipment-Info-MAC AVP (AVP Code 655) is of type
+   OctetString.  The User-Equipment-Info-MAC AVP contains the 48-bit MAC
+   address; the MAC address is formatted as described in Section 4.1.7.8
+   of [RFC5777].
+ */
 @DiameterAvpDefinition(code = 655L, vendorId = -1L, must = false, name = "User-Equipment-Info-MAC")
 public interface UserEquipmentInfoMAC extends DiameterOctetString
 {

@@ -26,6 +26,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 * @author yulian oifa
 *
 */
+/*
+ * 8.21.  CC-Time AVP
+
+   The CC-Time AVP (AVP Code 420) is of type Unsigned32 and indicates
+   the length of the requested, granted, or used time in seconds.
+ */
 @DiameterAvpDefinition(code = 420L, vendorId = -1L, name = "Cc-Time")
 public interface CcTime extends DiameterTime
 {

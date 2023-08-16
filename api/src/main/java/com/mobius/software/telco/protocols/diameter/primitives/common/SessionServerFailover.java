@@ -26,6 +26,43 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 8.18.  Session-Server-Failover AVP
+
+   The Session-Server-Failover AVP (AVP Code 271) is of type Enumerated
+   and MAY be present in application-specific authorization answer
+   messages that either do not include the Session-Binding AVP or
+   include the Session-Binding AVP with any of the bits set to a zero
+   value.  If present, this AVP MAY inform the Diameter client that if a
+   re-auth or STR message fails due to a delivery problem, the Diameter
+   client SHOULD issue a subsequent message without the Destination-Host
+   AVP.  When absent, the default value is REFUSE_SERVICE.
+
+   The following values are supported:
+
+   REFUSE_SERVICE 0
+
+      If either the re-auth or the STR message delivery fails, terminate
+      service with the user and do not attempt any subsequent attempts.
+      
+   TRY_AGAIN 1
+
+      If either the re-auth or the STR message delivery fails, resend
+      the failed message without the Destination-Host AVP present.
+
+   ALLOW_SERVICE 2
+
+      If re-auth message delivery fails, assume that re-authorization
+      succeeded.  If STR message delivery fails, terminate the session.
+
+   TRY_AGAIN_ALLOW_SERVICE 3
+
+      If either the re-auth or the STR message delivery fails, resend
+      the failed message without the Destination-Host AVP present.  If
+      the second delivery fails for re-auth, assume re-authorization
+      succeeded.  If the second delivery fails for STR, terminate the
+      session.            
+ */
 @DiameterAvpDefinition(code = 271L, vendorId = -1L, name = "Session-Server-Failover")
 public interface SessionServerFailover extends DiameterEnumerated<SessionServerFailoverEnum>
 {

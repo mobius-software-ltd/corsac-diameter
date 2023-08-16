@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.1.1.  EAP-Payload AVP
+
+   The EAP-Payload AVP (AVP Code 462) is of type OctetString and is used
+   to encapsulate the actual EAP packet that is being exchanged between
+   the EAP client and the home Diameter server.
+ */
 @DiameterAvpDefinition(code = 462L, vendorId = -1L, name = "EAP-Payload")
 public interface EAPPayload extends DiameterOctetString
 {

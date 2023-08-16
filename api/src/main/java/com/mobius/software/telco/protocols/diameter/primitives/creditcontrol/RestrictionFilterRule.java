@@ -26,6 +26,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterR
 * @author yulian oifa
 *
 */
+/*
+ * 8.36.  Restriction-Filter-Rule AVP
+
+   The Restriction-Filter-Rule AVP (AVP Code 438) is of type
+   IPFilterRule and provides filter rules corresponding to services that
+   are to remain accessible even if there are no more service units
+   granted.  The access device has to configure the specified filter
+   rules for the subscriber and MUST drop all the packets not matching
+   these filters.  Zero, one, or more such AVPs MAY be present in a
+   Credit-Control-Answer message or in an AA-Answer message.
+ */
 @DiameterAvpDefinition(code = 438L, vendorId = -1L, name = "Restriction-Filter-Rule")
 public interface RestrictionFilterRule extends DiameterIpFilterRule
 {

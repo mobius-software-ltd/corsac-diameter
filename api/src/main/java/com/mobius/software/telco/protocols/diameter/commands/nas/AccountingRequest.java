@@ -24,9 +24,9 @@ import java.net.InetAddress;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccountingAuthMethodEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.accounting.AcctAuthenticEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.nas.AccountingAuthMethodEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.nas.AcctAuthenticEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.DiameterQosFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedCompressionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedProtocolEnum;

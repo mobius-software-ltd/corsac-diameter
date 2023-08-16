@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.3.  Framed-MTU AVP
+
+   The Framed-MTU AVP (AVP Code 12) is of type Unsigned32 and contains
+   the Maximum Transmission Unit (MTU) to be configured for the user,
+   when it is not negotiated by some other means (such as PPP).  This
+   AVP SHOULD only be present in authorization responses.  The MTU value
+   MUST be in the range from 64 to 65535.
+ */
 @DiameterAvpDefinition(code = 12L, vendorId = -1L, name = "Framed-MTU")
 public interface FramedMTU extends DiameterUnsigned32
 {

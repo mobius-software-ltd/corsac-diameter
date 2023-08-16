@@ -28,7 +28,28 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 */
 
 /*
- * Exactly one sub-AVP MUST be included inside the Subscription-Id-
+ * 8.58.  Subscription-Id-Extension AVP
+
+   The Subscription-Id-Extension AVP (AVP Code 659) is used to identify
+   the end user's subscription and is of type Grouped.  The
+   Subscription-Id-Extension group AVP MUST include an AVP holding the
+   subscription identifier.  The type of this included AVP indicates the
+   type of the subscription identifier.  For each of the enumerated
+   values of the Subscription-Id-Type AVP, there is a corresponding
+   sub-AVP for use within the Subscription-Id-Extension group AVP.  If a
+   new identifier type is required, a corresponding new sub-AVP SHOULD
+   be defined for use within the Subscription-Id-Extension group AVP.
+
+   If full backward compatibility with [RFC4006] is required, then the
+   Subscription-Id AVP MUST be used to indicate identifier types
+   enumerated in the Subscription-Id-Type AVP, whereas the Subscription-
+   Id-Extension AVP MUST be used only for newly defined identifier
+   types.  If full backward compatibility with [RFC4006] is not
+   required, then the Subscription-Id-Extension AVP MAY be used to carry
+   the existing identifier types.  In this case, the Subscription-Id-
+   Extension AVP MAY be sent together with the Subscription-Id AVP.
+
+   Exactly one sub-AVP MUST be included inside the Subscription-Id-
    Extension AVP.
 
    The Subscription-Id-Extension AVP is defined as follows (per

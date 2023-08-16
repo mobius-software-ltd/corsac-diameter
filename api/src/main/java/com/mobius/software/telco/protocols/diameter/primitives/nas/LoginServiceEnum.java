@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.11.3.  Login-Service AVP
+
+   The Login-Service AVP (AVP Code 15) is of type Enumerated and
+   contains the service that should be used to connect the user to the
+   login host.  This AVP SHOULD only be present in authorization
+   responses.  The supported values are listed in RFC 2869.
+ */
 public enum LoginServiceEnum implements IntegerEnum
 {
 	TELNET(0),RLOGIN(1),TCP_CLEAR(2),PORT_MASTER(3),LAT(4),X25_PAD(5),X25_T3POS(6),TCP_CLEAR_QUIET(7);

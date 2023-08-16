@@ -26,6 +26,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.7.3.  Framed-Appletalk-Zone AVP
+
+   The Framed-Appletalk-Zone AVP (AVP Code 39) is of type OctetString
+   and contains the AppleTalk Default Zone to be used for this user.
+   This AVP MUST only be present in an authorization response.  Multiple
+   instances of this AVP in the same message are not allowed.
+
+   The codification of this field's allowed range is outside the scope
+   of this specification.
+ */
 @DiameterAvpDefinition(code = 39L, vendorId = -1L, name = "Framed-Appletalk-Zone")
 public interface FramedAppletalkZone extends DiameterOctetString
 {

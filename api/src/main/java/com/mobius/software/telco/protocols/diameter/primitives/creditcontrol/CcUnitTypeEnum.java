@@ -28,6 +28,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 8.32.  CC-Unit-Type AVP
+
+   The CC-Unit-Type AVP (AVP Code 454) is of type Enumerated and
+   specifies the type of units considered to be pooled into a
+   credit pool.
+
+   The following values are defined for the CC-Unit-Type AVP:
+
+         TIME                         0
+         MONEY                        1
+         TOTAL-OCTETS                 2
+         INPUT-OCTETS                 3
+         OUTPUT-OCTETS                4
+         SERVICE-SPECIFIC-UNITS       5
+ */
 public enum CcUnitTypeEnum implements IntegerEnum
 {
 	TIME(0),MONEY(1),TOTAL_OCTETS(2),INPUT_OCTETS(3),OUTPUT_OCTETS(4),SERVICE_SPECIFIC_UNITS(5);

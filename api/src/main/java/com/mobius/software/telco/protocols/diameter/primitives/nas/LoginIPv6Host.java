@@ -19,14 +19,30 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Address;
 
 /**
 *
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.11.2.  Login-IPv6-Host AVP
+
+   The Login-IPv6-Host AVP (AVP Code 98) [RFC3162] is of type
+   OctetString and contains the IPv6 address of a host with which to
+   connect the user when the Login-Service AVP is included.  It MAY be
+   used in an AA-Request command as a hint to the Diameter server that a
+   specific host is desired, but the Diameter server is not required to
+   honor the hint in the AA-Answer.
+
+   Two addresses have special significance,
+   0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF and 0.  The value
+   0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF indicates that the NAS SHOULD
+   allow the user to select an address.  The value 0 indicates that the
+   NAS SHOULD select a host to connect the user to.
+ */
 @DiameterAvpDefinition(code = 98L, vendorId = -1L, name = "Login-IPv6-Host")
-public interface LoginIPv6Host extends DiameterAddress
+public interface LoginIPv6Host extends DiameterIpv6Address
 {
 }

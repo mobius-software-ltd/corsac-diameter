@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.7.  CHAP-Response AVP
+
+   The CHAP-Response AVP (AVP Code 405) is of type OctetString and
+   contains the 16-octet authentication data provided by the user in
+   response to the CHAP challenge [RFC1994].
+ */
 @DiameterAvpDefinition(code = 405L, vendorId = -1L, name = "CHAP-Response")
 public interface CHAPResponse extends DiameterOctetString
 {

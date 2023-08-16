@@ -26,6 +26,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 4.2.6.  Calling-Station-Id AVP
+
+   The Calling-Station-Id AVP (AVP Code 31) is of type UTF8String and
+   contains a 7-bit US-ASCII string sent by the NAS to describe the
+   Layer 2 address from which the user connected in the request.  For
+   dialup access, this is the phone number the call came from, using
+   Automatic Number Identification (ANI) or a similar technology.  For
+   use with IEEE 802 access, the Calling-Station-Id AVP MAY contain a
+   MAC address, formatted as described in RFC 3580.
+
+   If the Calling-Station-Id AVP is present in an AAR message, the Auth-
+   Request-Type AVP is set to AUTHORIZE_ONLY, and the User-Name AVP is
+   absent, the Diameter server MAY perform authorization based on the
+   value of this AVP.  This can be used by a NAS to request whether a
+   call should be answered based on the Layer 2 address (ANI, MAC
+   Address, etc.)
+   
+   Further codification of this field's allowed content and usage is
+   outside the scope of this specification.
+ */
 @DiameterAvpDefinition(code = 31L, vendorId = -1L, name = "Calling-Station-Id")
 public interface CallingStationId extends DiameterUTF8String
 {

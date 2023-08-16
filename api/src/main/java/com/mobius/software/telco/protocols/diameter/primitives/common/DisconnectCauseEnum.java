@@ -28,6 +28,30 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 5.4.3.   Disconnect-Cause AVP
+
+   The Disconnect-Cause AVP (AVP Code 273) is of type Enumerated.  A
+   Diameter node MUST include this AVP in the Disconnect-Peer-Request
+   message to inform the peer of the reason for its intention to shut
+   down the transport connection.  The following values are supported:
+
+      REBOOTING                         0
+         A scheduled reboot is imminent.  A receiver of a DPR with
+         above result code MAY attempt reconnection.
+
+      BUSY                              1
+         The peer's internal resources are constrained, and it has
+         determined that the transport connection needs to be closed.
+         A receiver of a DPR with above result code SHOULD NOT attempt
+         reconnection.
+
+      DO_NOT_WANT_TO_TALK_TO_YOU        2
+         The peer has determined that it does not see a need for the
+         transport connection to exist, since it does not expect any
+         messages to be exchanged in the near future.  A receiver of a
+         DPR with above result code SHOULD NOT attempt reconnection.
+ */
 public enum DisconnectCauseEnum implements IntegerEnum
 {
 	REBOOTING(0),BUSY(1),DO_NOT_WANT_TO_TALK_TO_YOU(2);

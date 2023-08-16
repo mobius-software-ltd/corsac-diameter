@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterR
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.6.  NAS-Filter-Rule AVP
+
+   The NAS-Filter-Rule AVP (AVP Code 400) is of type IPFilterRule and
+   provides filter rules that need to be configured on the NAS for the
+   user.  One or more of these AVPs MAY be present in an authorization
+   response.
+ */
 @DiameterAvpDefinition(code = 400L, vendorId = -1L, name = "NAS-Filter-Rule")
 public interface NASFilterRule extends DiameterIpFilterRule
 {

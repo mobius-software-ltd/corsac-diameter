@@ -26,6 +26,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 5.3.4.  Firmware-Revision AVP
+
+   The Firmware-Revision AVP (AVP Code 267) is of type Unsigned32 and is
+   used to inform a Diameter peer of the firmware revision of the
+   issuing device.
+
+   For devices that do not have a firmware revision (general-purpose
+   computers running Diameter software modules, for instance), the
+   revision of the Diameter software module may be reported instead.
+ */
 @DiameterAvpDefinition(code = 267L, vendorId = -1L, must = false, name = "Firmware-Revision")
 public interface FirmwareRevision extends DiameterUnsigned32
 {

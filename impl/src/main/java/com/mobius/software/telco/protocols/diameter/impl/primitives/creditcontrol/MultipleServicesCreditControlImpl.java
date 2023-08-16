@@ -144,12 +144,12 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.tariffChangeUsage.getEnumerated(TariffChangeUsageEnum.class);
 	}
 
-	public void setTariffChangeUsage(TariffChangeUsageEnum tariffChangeUsage)
+	public void setTariffChangeUsage(TariffChangeUsageEnum value)
 	{
-		if(tariffChangeUsage == null)
+		if(value == null)
 			this.tariffChangeUsage = null;
 		else
-			this.tariffChangeUsage = new TariffChangeUsageImpl(tariffChangeUsage, null, null);
+			this.tariffChangeUsage = new TariffChangeUsageImpl(value, null, null);
 	}
 	
 	public List<Long> getServiceIdentifier()
@@ -164,14 +164,14 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return result;
 	}
 
-	public void setServiceIdentifier(List<Long> serviceIdentifier)
+	public void setServiceIdentifier(List<Long> value)
 	{
 		if(serviceIdentifier == null || serviceIdentifier.size()==0)
-			this.tariffChangeUsage = null;
+			this.serviceIdentifier = null;
 		else
 		{
-			this.serviceIdentifier = new ArrayList<ServiceIdentifier>(serviceIdentifier.size());
-			for(Long curr:serviceIdentifier)
+			this.serviceIdentifier = new ArrayList<ServiceIdentifier>(value.size());
+			for(Long curr:value)
 				this.serviceIdentifier.add(new ServiceIdentifierImpl(curr, null, null));
 		}
 	}
@@ -184,12 +184,12 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.ratingGroup.getUnsigned();
 	}
 
-	public void setRatingGroup(Long ratingGroup)
+	public void setRatingGroup(Long value)
 	{
-		if(ratingGroup == null)
+		if(value == null)
 			this.ratingGroup = null;
 		else
-			this.ratingGroup = new RatingGroupImpl(ratingGroup, null, null);
+			this.ratingGroup = new RatingGroupImpl(value, null, null);
 	}
 			
 	public List<GSUPoolReference> getGSUPoolReference()
@@ -197,9 +197,9 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.gsuPoolReference;
 	}
 
-	public void setGSUPoolReference(List<GSUPoolReference> gsuPoolReference)
+	public void setGSUPoolReference(List<GSUPoolReference> value)
 	{
-		this.gsuPoolReference = gsuPoolReference;
+		this.gsuPoolReference = value;
 	}
 	
 	public Long getValidityTime()
@@ -210,12 +210,12 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.validityTime.getUnsigned();
 	}
 
-	public void setValidityTime(Long validityTime)
+	public void setValidityTime(Long value)
 	{
-		if(validityTime == null)
+		if(value == null)
 			this.validityTime = null;
 		else
-			this.validityTime = new ValidityTimeImpl(validityTime, null, null);
+			this.validityTime = new ValidityTimeImpl(value, null, null);
 	}
 			
 	public Long getResultCode()
@@ -226,12 +226,12 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.resultCode.getUnsigned();
 	}
 
-	public void setResultCode(Long resultCode)
+	public void setResultCode(Long value)
 	{
-		if(resultCode == null)
+		if(value == null)
 			this.resultCode = null;
 		else
-			this.resultCode = new ResultCodeImpl(resultCode, null, null);
+			this.resultCode = new ResultCodeImpl(value, null, null);
 	}
 			
 	public FinalUnitIndication getFinalUnitIndication()
@@ -239,9 +239,9 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.finalUnitIndication;
 	}
 
-	public void setFinalUnitIndication(FinalUnitIndication finalUnitIndication)
+	public void setFinalUnitIndication(FinalUnitIndication value)
 	{
-		this.finalUnitIndication = finalUnitIndication;
+		this.finalUnitIndication = value;
 	}
 
 	public QoSFinalUnitIndication getQoSFinalUnitIndication()
@@ -249,8 +249,8 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.qosFinalUnitIndication;
 	}
 
-	public void setQoSFinalUnitIndication(QoSFinalUnitIndication qosFinalUnitIndication)
+	public void setQoSFinalUnitIndication(QoSFinalUnitIndication value)
 	{
-		this.qosFinalUnitIndication = qosFinalUnitIndication;
+		this.qosFinalUnitIndication = value;
 	}
 }

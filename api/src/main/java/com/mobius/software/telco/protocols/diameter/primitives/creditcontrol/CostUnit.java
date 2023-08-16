@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.12.  Cost-Unit AVP
+
+   The Cost-Unit AVP (AVP Code 424) is of type UTF8String, and it is
+   used to display a human-readable string to the end user.  It
+   specifies the applicable unit to the Cost-Information AVP when the
+   service cost is a cost per unit (e.g., cost of the service is $1 per
+   minute).  The Cost-Unit setting can be minutes, hours, days,
+   kilobytes, megabytes, etc.
+ */
 @DiameterAvpDefinition(code = 424L, vendorId = -1L, name = "Cost-Unit")
 public interface CostUnit extends DiameterUTF8String
 {

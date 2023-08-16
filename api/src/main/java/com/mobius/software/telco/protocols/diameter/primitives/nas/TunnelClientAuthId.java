@@ -26,6 +26,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 4.5.10.  Tunnel-Client-Auth-Id AVP
+
+   The Tunnel-Client-Auth-Id AVP (AVP Code 90) is of type UTF8String and
+   specifies the 7-bit US-ASCII name used by the tunnel initiator during
+   the authentication phase of tunnel establishment.  It MAY be used in
+   an authorization request as a hint to the server that a specific
+   preference is desired, but the server is not required to honor the
+   hint in the corresponding response.  This AVP MUST be present in the
+   authorization response if an authentication name other than the
+   default is desired.  This AVP SHOULD be included in the ACR messages
+   pertaining to the tunneled session.
+ */
 @DiameterAvpDefinition(code = 90L, vendorId = -1L, name = "Tunnel-Client-Auth-Id")
 public interface TunnelClientAuthId extends DiameterUTF8String
 {

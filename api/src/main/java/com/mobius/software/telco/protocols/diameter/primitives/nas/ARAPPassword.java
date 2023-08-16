@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.9.  ARAP-Password AVP
+
+   The ARAP-Password AVP (AVP Code 70) is of type OctetString and is
+   only present when the Framed-Protocol AVP (Section 4.4.10.1) is
+   included in the message and is set to ARAP.  This AVP MUST NOT be
+   present if either the User-Password or the CHAP-Auth AVP is present.
+   See [RFC2869] for more information on the contents of this AVP.
+ */
 @DiameterAvpDefinition(code = 70L, vendorId = -1L, name = "ARAP-Password")
 public interface ARAPPassword extends DiameterOctetString
 {

@@ -26,6 +26,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
+
+/*
+ * 6.6.  Destination-Realm AVP
+
+   The Destination-Realm AVP (AVP Code 283) is of type DiameterIdentity
+   and contains the realm to which the message is to be routed.  The
+   Destination-Realm AVP MUST NOT be present in answer messages.
+   Diameter clients insert the realm portion of the User-Name AVP.
+   Diameter servers initiating a request message use the value of the
+   Origin-Realm AVP from a previous message received from the intended
+   target host (unless it is known a priori).  When present, the
+   Destination-Realm AVP is used to perform message routing decisions.
+
+   The CCF for a request message that includes the Destination-Realm AVP
+   SHOULD list the Destination-Realm AVP as a required AVP (an AVP
+   indicated as {AVP}); otherwise, the message is inherently a non-
+   routable message.
+   
+   This AVP SHOULD be placed as close to the Diameter header as
+   possible.
+ */
 @DiameterAvpDefinition(code = 283L, position = 7, vendorId = -1L, name = "Destination-Realm")
 public interface DestinationRealm extends DiameterIdentity
 {

@@ -26,6 +26,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.2.2.  NAS-Port AVP
+
+   The NAS-Port AVP (AVP Code 5) is of type Unsigned32 and contains the
+   physical or virtual port number of the NAS, which authenticates the
+   user.  Note that "port" is meant in its sense as a service connection
+   on the NAS, not as an IP protocol identifier; hence, the format and
+   contents of the string that identifies the port are specific to the
+   NAS implementation.
+
+   Either the NAS-Port AVP or the NAS-Port-Id AVP (Section 4.2.3) SHOULD
+   be present in the AA-Request (AAR, Section 3.1) command if the NAS
+   differentiates among its ports.
+ */
 @DiameterAvpDefinition(code = 5L, vendorId = -1L, name = "NAS-Port")
 public interface NASPort extends DiameterUnsigned32
 {

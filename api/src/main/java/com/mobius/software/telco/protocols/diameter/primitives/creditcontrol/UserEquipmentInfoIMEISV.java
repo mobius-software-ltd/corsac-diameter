@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 8.53.  User-Equipment-Info-IMEISV AVP
+
+   The User-Equipment-Info-IMEISV AVP (AVP Code 654) is of type
+   OctetString.  The User-Equipment-Info-IMEISV AVP contains the
+   International Mobile Equipment Identifier and Software Version in the
+   IMEISV format according to 3GPP TS 23.003 [TGPPIMEI].
+ */
 @DiameterAvpDefinition(code = 654L, vendorId = -1L, must = false, name = "User-Equipment-Info-IMEISV")
 public interface UserEquipmentInfoIMEISV extends DiameterOctetString
 {

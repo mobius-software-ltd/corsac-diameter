@@ -26,6 +26,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 9.8.6.  Accounting-Sub-Session-Id AVP
+
+   The Accounting-Sub-Session-Id AVP (AVP Code 287) is of type
+   Unsigned64 and contains the accounting sub-session identifier.  The
+   combination of the Session-Id and this AVP MUST be unique per sub-
+   session, and the value of this AVP MUST be monotonically increased by
+   one for all new sub-sessions.  The absence of this AVP implies no
+   sub-sessions are in use, with the exception of an Accounting-Request
+   whose Accounting-Record-Type is set to STOP_RECORD.  A STOP_RECORD
+   message with no Accounting-Sub-Session-Id AVP present will signal the
+   termination of all sub-sessions for a given Session-Id.
+ */
 @DiameterAvpDefinition(code = 287L, vendorId = -1L, name = "Accounting-Sub-Session-Id")
 public interface AccountingSubSessionId extends DiameterUnsigned64
 {

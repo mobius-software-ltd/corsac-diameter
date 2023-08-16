@@ -28,6 +28,46 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 8.41.  Requested-Action AVP
+
+   The Requested-Action AVP (AVP Code 436) is of type Enumerated and
+   contains the requested action being sent in a Credit-Control-Request
+   command where the CC-Request-Type is set to EVENT_REQUEST.  The
+   following values are defined for the Requested-Action AVP:
+
+   DIRECT_DEBITING   0
+
+   This indicates a request to decrease the end user's account according
+   to information specified in the Requested-Service-Unit AVP and/or
+   Service-Identifier AVP (additional rating information may be included
+   in service-specific AVPs or in the Service-Parameter-Info AVP).  The
+   Granted-Service-Unit AVP in the Credit-Control-Answer command
+   contains the debited units.
+   
+    REFUND_ACCOUNT    1
+
+   This indicates a request to increase the end user's account according
+   to information specified in the Requested-Service-Unit AVP and/or
+   Service-Identifier AVP (additional rating information may be included
+   in service-specific AVPs or in the Service-Parameter-Info AVP).  The
+   Granted-Service-Unit AVP in the Credit-Control-Answer command
+   contains the refunded units.
+
+   CHECK_BALANCE     2
+
+   This indicates a balance-check request.  In this case, the checking
+   of the account balance is done without any credit reservations from
+   the account.  The Check-Balance-Result AVP in the Credit-Control-
+   Answer command contains the result of the balance check.
+
+   PRICE_ENQUIRY     3
+
+   This indicates a price-inquiry request.  In this case, neither
+   checking of the account balance nor reservation from the account will
+   be done; only the price of the service will be returned in the
+   Cost-Information AVP in the Credit-Control-Answer command.
+ */
 public enum RequestedActionEnum implements IntegerEnum
 {
 	REFUND_ACCOUNT(1),CHECK_BALANCE(2),PRICE_ENQUIRY(3);

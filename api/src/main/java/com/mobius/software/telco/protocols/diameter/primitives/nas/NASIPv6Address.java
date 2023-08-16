@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Address;
 
 /**
 *
@@ -27,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 *
 */
 @DiameterAvpDefinition(code = 95L, vendorId = -1L, name = "NAS-IPv6-Address")
-public interface NASIPv6Address extends DiameterAddress
-{
+public interface NASIPv6Address extends DiameterIpv6Address
+{	
 }

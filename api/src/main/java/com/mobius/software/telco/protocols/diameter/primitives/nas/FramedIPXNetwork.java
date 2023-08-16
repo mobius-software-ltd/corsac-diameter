@@ -26,6 +26,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.6.1.  Framed-IPX-Network AVP
+
+   The Framed-IPX-Network AVP (AVP Code 23) is of type Unsigned32 and
+   contains the IPX Network number to be configured for the user.  It
+   MAY be used in an authorization request as a hint to the server that
+   a specific address is desired, but the server is not required to
+   honor the hint in the corresponding response.
+
+   Two addresses have special significance: 0xFFFFFFFF and 0xFFFFFFFE.
+   The value 0xFFFFFFFF indicates that the NAS should allow the user to
+   select an address (i.e., Negotiated).  The value 0xFFFFFFFE indicates
+   that the NAS should select an address for the user (e.g., assign it
+   from a pool of one or more IPX networks kept by the NAS).
+ */
 @DiameterAvpDefinition(code = 23L, vendorId = -1L, name = "Framed-IPX-Network")
 public interface FramedIPXNetwork extends DiameterUnsigned32
 {

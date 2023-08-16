@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 8.1.  CC-Correlation-Id AVP
+
+   The CC-Correlation-Id AVP (AVP Code 411) is of type OctetString and
+   contains information to correlate credit-control requests generated
+   for different components of the service, e.g., transport and service
+   level.  Whoever allocates the Service-Context-Id (i.e., a unique
+   identifier of a service-specific document) is also responsible for
+   defining the content and encoding of the CC-Correlation-Id AVP.
+ */
 @DiameterAvpDefinition(code = 411L, vendorId = -1L, must = false, name = "Cc-Correlation-Id")
 public interface CcCorrelationId extends DiameterOctetString
 {

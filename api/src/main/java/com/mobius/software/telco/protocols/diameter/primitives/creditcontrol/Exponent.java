@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.9.  Exponent AVP
+
+   The Exponent AVP is of type Integer32 (AVP Code 429) and contains the
+   exponent value to be applied for the Value-Digits AVP within the
+   Unit-Value AVP.
+ */
 @DiameterAvpDefinition(code = 429L, vendorId = -1L, name = "Exponent")
 public interface Exponent extends DiameterUnsigned32
 {

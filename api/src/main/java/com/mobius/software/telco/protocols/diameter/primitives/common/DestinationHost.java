@@ -26,6 +26,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
+/*
+ * 6.5.  Destination-Host AVP
+
+   The Destination-Host AVP (AVP Code 293) is of type DiameterIdentity.
+   This AVP MUST be present in all unsolicited agent initiated messages,
+   MAY be present in request messages, and MUST NOT be present in answer
+   messages.
+
+   The absence of the Destination-Host AVP will cause a message to be
+   sent to any Diameter server supporting the application within the
+   realm specified in Destination-Realm AVP.
+
+   This AVP SHOULD be placed as close to the Diameter header as
+   possible.
+ */
 @DiameterAvpDefinition(code = 293L, position = 6, vendorId = -1L, name = "Destination-Host")
 public interface DestinationHost extends DiameterIdentity
 {

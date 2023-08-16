@@ -26,6 +26,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.44.  Service-Parameter-Type AVP
+
+   The Service-Parameter-Type AVP is of type Unsigned32 (AVP Code 441)
+   and defines the type of the service-event-specific parameter (e.g.,
+   it can be the end-user location or service name).  The different
+   parameters and their types are service specific, and the meanings of
+   these parameters are not defined in this document.  Whoever allocates
+   the Service-Context-Id (i.e., a unique identifier of a service-
+   specific document) is also responsible for assigning Service-
+   Parameter-Type values for the service and ensuring their uniqueness
+   within the given service.  The Service-Parameter-Value AVP contains
+   the value associated with the service parameter type.
+
+ */
 @DiameterAvpDefinition(code = 441L, vendorId = -1L, must = false, name = "Service-Parameter-Type")
 public interface ServiceParameterType extends DiameterUnsigned32
 {

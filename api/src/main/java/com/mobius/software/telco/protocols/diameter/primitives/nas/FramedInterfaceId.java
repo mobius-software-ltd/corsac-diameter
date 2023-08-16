@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.5.5.  Framed-Interface-Id AVP
+
+   The Framed-Interface-Id AVP (AVP Code 96) is of type Unsigned64 and
+   contains the IPv6 interface identifier to be configured for the user.
+   It MAY be used in authorization requests as a hint to the server that
+   a specific interface identifier is desired, but the server is not
+   required to honor the hint in the corresponding response.
+ */
 @DiameterAvpDefinition(code = 96L, vendorId = -1L, name = "Framed-Interface-Id")
 public interface FramedInterfaceId extends DiameterUnsigned64
 {

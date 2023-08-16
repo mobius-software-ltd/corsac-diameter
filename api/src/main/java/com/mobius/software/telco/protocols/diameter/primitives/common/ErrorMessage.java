@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 7.3.  Error-Message AVP
+
+   The Error-Message AVP (AVP Code 281) is of type UTF8String.  It MAY
+   accompany a Result-Code AVP as a human-readable error message.  The
+   Error-Message AVP is not intended to be useful in an environment
+   where error messages are processed automatically.  It SHOULD NOT be
+   expected that the content of this AVP be parsed by network entities.
+ */
 @DiameterAvpDefinition(code = 281L, vendorId = -1L, must = false, name = "Error-Message")
 public interface ErrorMessage extends DiameterUTF8String
 {

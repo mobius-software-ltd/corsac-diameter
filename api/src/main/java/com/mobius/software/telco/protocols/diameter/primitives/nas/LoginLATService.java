@@ -26,6 +26,36 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.11.5.1.  Login-LAT-Service AVP
+
+   The Login-LAT-Service AVP (AVP Code 34) is of type OctetString and
+   contains the system with which the user is to be connected by LAT.
+   It MAY be used in an authorization request as a hint to the server
+   that a specific service is desired, but the server is not required to
+   honor the hint in the corresponding response.  This AVP MUST only be
+   present in the response if the Login-Service AVP states that LAT is
+   desired.
+
+   Administrators use this service attribute when dealing with clustered
+   systems.  In these environments, several different time-sharing hosts
+   share the same resources (disks, printers, etc.), and administrators
+   often configure each host to offer access (service) to each of the
+   shared resources.  In this case, each host in the cluster advertises
+   its services through LAT broadcasts.
+
+   Sophisticated users often know which service providers (machines) are
+   faster and tend to use a node name when initiating a LAT connection.
+   Some administrators want particular users to use certain machines as
+   a primitive form of load balancing (although LAT knows how to do load
+   balancing itself).
+
+   The String field contains the identity of the LAT service to use.
+   The LAT Architecture allows this string to contain $ (dollar), -
+   (hyphen), . (period), _ (underscore), numerics, upper- and lower-case
+   alphabetics, and the ISO Latin-1 character set extension
+   [ISO.8859-1.1987].  All LAT string comparisons are case insensitive.
+ */
 @DiameterAvpDefinition(code = 34L, vendorId = -1L, name = "Login-LAT-Service")
 public interface LoginLATService extends DiameterOctetString
 {

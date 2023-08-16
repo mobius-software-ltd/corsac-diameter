@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.2.  Framed-Routing AVP
+
+   The Framed-Routing AVP (AVP Code 10) is of type Enumerated and
+   contains the routing method for the user when the user is a router to
+   a network.  This AVP SHOULD only be present in authorization
+   responses.  The supported values are listed in [RADIUSAttrVals].
+ */
 public enum FramedRoutingEnum implements IntegerEnum
 {
 	NONE(0),SEND(1),LISTEN(2),SEND_AND_LISTEN(3);

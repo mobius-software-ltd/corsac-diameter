@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.5.6.  Tunnel-Password AVP
+
+   The Tunnel-Password AVP (AVP Code 69) is of type OctetString and may
+   contain a password to be used to authenticate to a remote server.
+
+   The Tunnel-Password AVP SHOULD NOT be used in untrusted proxy
+   environments without encrypting it by using end-to-end security
+   techniques.
+ */
 @DiameterAvpDefinition(code = 69L, vendorId = -1L, name = "Tunnel-Password")
 public interface TunnelPassword extends DiameterOctetString
 {

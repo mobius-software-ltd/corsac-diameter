@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.6.  CHAP-Ident AVP
+
+   The CHAP-Ident AVP (AVP Code 404) is of type OctetString and contains
+   the 1 octet CHAP Identifier used in the computation of the CHAP
+   response [RFC1994].
+ */
 @DiameterAvpDefinition(code = 404L, vendorId = -1L, name = "CHAP-Ident")
 public interface CHAPIdent extends DiameterOctetString
 {

@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 12.17.  Tariff-Change-Usage AVP
+
+   As defined in Section 8.27, the Tariff-Change-Usage AVP includes
+   Enumerated type values 0-2.  IANA has created and is maintaining a
+   namespace for this AVP.  The definition of new values is subject to
+   the Specification Required policy [RFC8126] and conditions for
+   enumerated values described in [RFC7423], Section 5.6.
+ */
 public enum TariffChangeUsageEnum implements IntegerEnum
 {
 	UNIT_BEFORE_TARIFF_CHANGE(0),UNIT_AFTER_TARIFF_CHANGE(1),UNIT_INDETERMINATE(2);

@@ -26,6 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*5.3.6.  Supported-Vendor-Id AVP
+
+   The Supported-Vendor-Id AVP (AVP Code 265) is of type Unsigned32 and
+   contains the IANA "SMI Network Management Private Enterprise Codes"
+   [ENTERPRISE] value assigned to a vendor other than the device vendor
+   but including the application vendor.  This is used in the CER and
+   CEA messages in order to inform the peer that the sender supports (a
+   subset of) the Vendor-Specific AVPs defined by the vendor identified
+   in this AVP.  The value of this AVP MUST NOT be set to zero.
+   Multiple instances of this AVP containing the same value SHOULD NOT
+   be sent.
+*/
 @DiameterAvpDefinition(code = 265L, vendorId = -1L, name = "Supported-Vendor-Id")
 public interface SupportedVendorId extends DiameterUnsigned32
 {

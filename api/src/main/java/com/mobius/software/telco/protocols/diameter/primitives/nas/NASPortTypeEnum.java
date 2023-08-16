@@ -28,6 +28,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 4.2.4.  NAS-Port-Type AVP
+
+   The NAS-Port-Type AVP (AVP Code 61) is of type Enumerated and
+   contains the type of the port on which the NAS is authenticating the
+   user.  This AVP SHOULD be present if the NAS uses the same NAS-Port
+   number ranges for different service types concurrently.
+
+   The currently supported values of the NAS-Port-Type AVP are listed in
+   [RADIUSAttrVals].
+ */
 public enum NASPortTypeEnum implements IntegerEnum
 {
 	ASYNC(0),SYNC(1),ISDN_SYNC(2),ISDN_ASYNC_V120(3),ISDN_ASYNC_V110(4),VIRTUAL(5),PIAFS(6),HDLC_CLEAR_CHANNEL(7),

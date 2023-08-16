@@ -117,12 +117,12 @@ public class TunnelingImpl implements Tunneling
 		return tunnelType.getEnumerated(TunnelTypeEnum.class);
 	}
 	
-	public void setTunnelType(TunnelTypeEnum tunnelType)
+	public void setTunnelType(TunnelTypeEnum value)
 	{
-		if(tunnelType==null)
+		if(value==null)
 			throw new IllegalArgumentException("Tunnel-Type is required");
 		
-		this.tunnelType = new TunnelTypeImpl(tunnelType, null, null);				
+		this.tunnelType = new TunnelTypeImpl(value, null, null);				
 	}
 	
 	public TunnelMediumTypeEnum getTunnelMediumType()
@@ -133,12 +133,12 @@ public class TunnelingImpl implements Tunneling
 		return tunnelMediumType.getEnumerated(TunnelMediumTypeEnum.class);
 	}
 	
-	public void setTunnelMediumType(TunnelMediumTypeEnum tunnelMediumType)
+	public void setTunnelMediumType(TunnelMediumTypeEnum value)
 	{
-		if(tunnelMediumType==null)
+		if(value==null)
 			throw new IllegalArgumentException("Tunnel-Medium-Type is required");	
 		
-		this.tunnelMediumType = new TunnelMediumTypeImpl(tunnelMediumType, null, null);				
+		this.tunnelMediumType = new TunnelMediumTypeImpl(value, null, null);				
 	}
 	
 	public String getTunnelClientEndpoint()

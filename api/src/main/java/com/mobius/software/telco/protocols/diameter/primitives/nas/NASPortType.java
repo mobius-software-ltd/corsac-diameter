@@ -26,6 +26,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.2.4.  NAS-Port-Type AVP
+
+   The NAS-Port-Type AVP (AVP Code 61) is of type Enumerated and
+   contains the type of the port on which the NAS is authenticating the
+   user.  This AVP SHOULD be present if the NAS uses the same NAS-Port
+   number ranges for different service types concurrently.
+
+   The currently supported values of the NAS-Port-Type AVP are listed in
+   [RADIUSAttrVals].
+ */
 @DiameterAvpDefinition(code = 61L, vendorId = -1L, name = "NAS-Port-Type")
 public interface NASPortType extends DiameterEnumerated<NASPortTypeEnum>
 {

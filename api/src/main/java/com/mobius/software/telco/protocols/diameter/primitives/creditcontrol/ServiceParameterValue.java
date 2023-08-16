@@ -26,6 +26,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 8.45.  Service-Parameter-Value AVP
+
+   The Service-Parameter-Value AVP is of type OctetString (AVP Code 442)
+   and contains the value of the service parameter type.
+ */
 @DiameterAvpDefinition(code = 442L, vendorId = -1L, must = false, name = "Service-Parameter-Value")
 public interface ServiceParameterValue extends DiameterOctetString
 {

@@ -60,12 +60,12 @@ public class UnitValueImpl implements UnitValue
 		return valueDigits.getLong();
 	}
 	
-	public void setValueDigits(Long valueDigits)
+	public void setValueDigits(Long value)
 	{
-		if(valueDigits==null)
+		if(value==null)
 			throw new IllegalArgumentException("Value-Digits is required");
 		
-		this.valueDigits = new ValueDigitsImpl(valueDigits, null, null);		
+		this.valueDigits = new ValueDigitsImpl(value, null, null);		
 	}
 	
 	public Long getExponent()
@@ -76,10 +76,10 @@ public class UnitValueImpl implements UnitValue
 		return exponent.getUnsigned();
 	}
 	
-	public void setExponent(Long exponent)
+	public void setExponent(Long value)
 	{
-		if(exponent!=null)
-			this.exponent = new ExponentImpl(exponent, null, null);
+		if(value!=null)
+			this.exponent = new ExponentImpl(value, null, null);
 		else
 			this.exponent = null;
 	}

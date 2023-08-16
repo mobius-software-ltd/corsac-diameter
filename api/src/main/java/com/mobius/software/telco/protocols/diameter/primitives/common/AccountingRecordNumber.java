@@ -26,6 +26,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 9.8.3.   Accounting-Record-Number AVP
+
+   The Accounting-Record-Number AVP (AVP Code 485) is of type Unsigned32
+   and identifies this record within one session.  As Session-Id AVPs
+   are globally unique, the combination of Session-Id and Accounting-
+   Record-Number AVPs is also globally unique and can be used in
+   matching accounting records with confirmations.  An easy way to
+   produce unique numbers is to set the value to 0 for records of type
+   EVENT_RECORD and START_RECORD and set the value to 1 for the first
+   INTERIM_RECORD, 2 for the second, and so on until the value for
+   STOP_RECORD is one more than for the last INTERIM_RECORD.
+ */
 @DiameterAvpDefinition(code = 485L, vendorId = -1L, name = "Accounting-Record-Number")
 public interface AccountingRecordNumber extends DiameterUnsigned32
 {

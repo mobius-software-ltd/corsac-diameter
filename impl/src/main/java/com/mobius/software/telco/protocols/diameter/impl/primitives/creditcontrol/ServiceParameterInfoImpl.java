@@ -64,12 +64,12 @@ public class ServiceParameterInfoImpl implements ServiceParameterInfo
 		return serviceParameterType.getUnsigned();
 	}
 	
-	public void setServiceParameterType(Long serviceParameterType)
+	public void setServiceParameterType(Long value)
 	{
-		if(serviceParameterType==null)
+		if(value==null)
 			throw new IllegalArgumentException("Service-Parameter-Type is required");
 		
-		this.serviceParameterType = new ServiceParameterTypeImpl(serviceParameterType, null, null);		
+		this.serviceParameterType = new ServiceParameterTypeImpl(value, null, null);		
 	}
 	
 	public ByteBuf getServiceParameterValue()
@@ -80,12 +80,12 @@ public class ServiceParameterInfoImpl implements ServiceParameterInfo
 		return serviceParameterValue.getValue();
 	}
 	
-	public void setServiceParameterValue(ByteBuf serviceParameterValue)
+	public void setServiceParameterValue(ByteBuf value)
 	{
-		if(serviceParameterValue==null)
+		if(value==null)
 			throw new IllegalArgumentException("Service-Parameter-Value is required");
 		
-		this.serviceParameterValue = new ServiceParameterValueImpl(serviceParameterValue, null, null);
+		this.serviceParameterValue = new ServiceParameterValueImpl(value, null, null);
 	}
 	
 	@DiameterValidate

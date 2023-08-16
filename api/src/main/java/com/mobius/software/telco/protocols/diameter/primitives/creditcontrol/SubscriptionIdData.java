@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.48.  Subscription-Id-Data AVP
+
+   The Subscription-Id-Data AVP (AVP Code 444) is used to identify the
+   end user and is of type UTF8String.  The Subscription-Id-Type AVP
+   defines which type of identifier is used.
+ */
 @DiameterAvpDefinition(code = 444L, vendorId = -1L, name = "Subscription-Id-Data")
 public interface SubscriptionIdData extends DiameterUTF8String
 {

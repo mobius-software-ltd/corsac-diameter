@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.1.3.  EAP-Master-Session-Key AVP
+
+   The EAP-Master-Session-Key AVP (AVP Code 464) is of type OctetString.
+   It contains keying material for protecting the communications between
+   the user and the NAS.  Exactly how this keying material is used
+   depends on the link layer in question, and is beyond the scope of
+   this document.
+ */
 @DiameterAvpDefinition(code = 464L, vendorId = -1L, name = "EAP-Master-Session-Key")
 public interface EAPMasterSessionKey extends DiameterOctetString
 {

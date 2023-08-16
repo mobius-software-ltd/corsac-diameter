@@ -37,4 +37,5 @@ public class KnownVendorIDs
 	public static final long ETSI_ID = 13019;
 	public static final long CABLE_LABS_ID = 4491;
 	public static final long HUAWEI_ID = 2011;	
+	public static final long ONEM2M_ID = 45687;	
 }

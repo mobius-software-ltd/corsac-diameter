@@ -30,7 +30,60 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 */
 
 /*
- * The Multiple-Services-Credit-Control AVP is defined as follows (per
+ * 8.16.  Multiple-Services-Credit-Control AVP
+
+   The Multiple-Services-Credit-Control AVP (AVP Code 456) is of type
+   Grouped and contains the AVPs related to the independent
+   credit-control of multiple services.  Note that each instance of this
+   AVP carries units related to one or more services or related to a
+   single rating-group.
+
+   The Service-Identifier AVP and the Rating-Group AVP are used to
+   associate the granted units to a given service or rating-group.  If
+   both the Service-Identifier AVP and the Rating-Group AVP are
+   included, the target of the service units is always the service(s)
+   indicated by the value of the Service-Identifier AVP(s).  If only the
+   
+   Rating-Group AVP is present, the Multiple-Services-Credit-Control AVP
+   relates to all the services that belong to the specified
+   rating-group.
+
+   The G-S-U-Pool-Reference AVP allows the server to specify a
+   G-S-U-Pool-Identifier identifying a credit pool within which the
+   units of the specified type are considered pooled.  If a G-S-U-Pool-
+   Reference AVP is present, then actual service units of the specified
+   type MUST also be present.  For example, if the G-S-U-Pool-Reference
+   AVP specifies a CC-Unit-Type value of TIME (Section 8.32), then the
+   CC-Time AVP MUST be present.
+
+   The Requested-Service-Unit AVP MAY contain the amount of requested
+   service units or the requested monetary value.  It MUST be present in
+   the initial interrogation and within the intermediate interrogations
+   in which a new quota is requested.  If the credit-control client does
+   not include the Requested-Service-Unit AVP in a request command --
+   because, for instance, it has determined that the end user terminated
+   the service -- the server MUST debit the used amount from the user's
+   account but MUST NOT return a new quota in the corresponding answer.
+   The Validity-Time, Result-Code, and Final-Unit-Indication or
+   QoS-Final-Unit-Indication AVPs MAY be present in a Credit-Control-
+   Answer command as defined in Sections 5.1.2 and 5.6 for graceful
+   service termination.
+
+   When both the Tariff-Time-Change AVP and the Tariff-Change-Usage AVP
+   are present, the server MUST include two separate instances of the
+   Multiple-Services-Credit-Control AVP with the Granted-Service-Unit
+   AVP associated to the same service-identifier and/or rating-group.
+   Where the two quotas are associated to the same pool or to different
+   pools, the credit-pooling mechanism defined in Section 5.1.2 applies.
+   When the client is reporting used units before and after the tariff
+   time change, it MUST use the Tariff-Change-Usage AVP inside the
+   Used-Service-Unit AVP.
+
+   A server not implementing the independent credit-control of multiple
+   services MUST treat the Multiple-Services-Credit-Control AVP as an
+   invalid AVP.
+   
+   The Multiple-Services-Credit-Control AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):
 
     Multiple-Services-Credit-Control ::= < AVP Header: 456 >

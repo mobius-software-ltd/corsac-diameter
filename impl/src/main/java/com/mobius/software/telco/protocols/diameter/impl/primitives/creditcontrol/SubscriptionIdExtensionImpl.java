@@ -95,12 +95,12 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return e164.getString();
 	}
 	
-	public void setE164(String e164)
+	public void setE164(String value)
 	{
 		if(this.e164!=null && e164==null)
 			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
 		
-		this.e164 = new SubscriptionIdE164Impl(e164, null, null);				
+		this.e164 = new SubscriptionIdE164Impl(value, null, null);				
 		this.imsi = null;
 		this.sipURI = null;
 		this.nai = null;
@@ -115,12 +115,12 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return imsi.getString();
 	}
 	
-	public void setIMSI(String imsi)
+	public void setIMSI(String value)
 	{
 		if(this.imsi!=null && imsi==null)
 			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
 		
-		this.imsi = new SubscriptionIdIMSIImpl(imsi, null, null);				
+		this.imsi = new SubscriptionIdIMSIImpl(value, null, null);				
 		this.e164 = null;
 		this.sipURI = null;
 		this.nai = null;
@@ -135,12 +135,12 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return sipURI.getString();
 	}
 	
-	public void setSIPURI(String sipURI)
+	public void setSIPURI(String value)
 	{
 		if(this.sipURI!=null && sipURI==null)
 			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
 		
-		this.sipURI = new SubscriptionIdSIPURIImpl(sipURI, null, null);				
+		this.sipURI = new SubscriptionIdSIPURIImpl(value, null, null);				
 		this.e164 = null;
 		this.imsi = null;
 		this.nai = null;
@@ -155,12 +155,12 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return nai.getString();
 	}
 	
-	public void setNAI(String nai)
+	public void setNAI(String value)
 	{
 		if(this.nai!=null && nai==null)
 			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
 		
-		this.nai = new SubscriptionIdNAIImpl(nai, null, null);				
+		this.nai = new SubscriptionIdNAIImpl(value, null, null);				
 		this.e164 = null;
 		this.imsi = null;
 		this.sipURI = null;
@@ -175,12 +175,12 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return uePrivate.getString();
 	}
 	
-	public void setPrivate(String uePrivate)
+	public void setPrivate(String value)
 	{
 		if(this.uePrivate!=null && uePrivate==null)
 			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
 		
-		this.uePrivate = new SubscriptionIdPrivateImpl(uePrivate, null, null);				
+		this.uePrivate = new SubscriptionIdPrivateImpl(value, null, null);				
 		this.e164 = null;
 		this.imsi = null;
 		this.sipURI = null;

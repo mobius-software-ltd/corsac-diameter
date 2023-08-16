@@ -30,7 +30,23 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 */
 
 /*
- * The Redirect-Server-Extension AVP is defined as follows (per
+ * 8.64.  Redirect-Server-Extension AVP
+
+   The Redirect-Server-Extension AVP (AVP Code 665) is of type Grouped
+   and contains the address information of the redirect server (e.g.,
+   HTTP redirect server, SIP Server) with which the end user is to be
+   connected when the account cannot cover the service cost.  It MUST be
+   present inside the QoS-Final-Unit-Indication AVP when the Final-Unit-
+   Action AVP is set to REDIRECT.  If the type of the redirect server is
+   one of the enumerated values of the Redirect-Address-Type AVP, then
+   the credit-control server SHOULD send the information in the
+   Redirect-Server AVP, in addition to or instead of the Redirect-
+   Server-Extension AVP.  This is done in order to preserve backward
+   compatibility with credit-control clients that support only
+   [RFC4006].  Exactly one AVP MUST be included inside the Redirect-
+   Server-Extension AVP.
+
+   The Redirect-Server-Extension AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):
 
         Redirect-Server-Extension ::= < AVP Header: 665 >

@@ -66,12 +66,12 @@ public class RedirectServerExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return this.ipAddress.getAddress();
 	}
 	
-	public void setIPAddress(InetAddress address)
+	public void setIPAddress(InetAddress value)
 	{
-		if(address == null)
+		if(value == null)
 			this.ipAddress = null;
 		else
-			this.ipAddress = new RedirectAddressIPAddressImpl(address, null, null);
+			this.ipAddress = new RedirectAddressIPAddressImpl(value, null, null);
 	}
 	
 	public String getURL()
@@ -82,10 +82,10 @@ public class RedirectServerExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return this.url.getString();
 	}
 	
-	public void setURL(String url)
+	public void setURL(String value)
 	{
-		if(url != null)
-			this.url = new RedirectAddressURLImpl(url, null, null);
+		if(value != null)
+			this.url = new RedirectAddressURLImpl(value, null, null);
 		else
 			this.url = null;
 	}
@@ -98,10 +98,10 @@ public class RedirectServerExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return this.sipURI.getString();
 	}
 	
-	public void setSIPURI(String sipURI)
+	public void setSIPURI(String value)
 	{
-		if(sipURI != null)
-			this.sipURI = new RedirectAddressSIPURIImpl(sipURI, null, null);
+		if(value != null)
+			this.sipURI = new RedirectAddressSIPURIImpl(value, null, null);
 		else
 			this.sipURI = null;
 	}

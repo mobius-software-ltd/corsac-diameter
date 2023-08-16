@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.2.  Framed-Routing AVP
+
+   The Framed-Routing AVP (AVP Code 10) is of type Enumerated and
+   contains the routing method for the user when the user is a router to
+   a network.  This AVP SHOULD only be present in authorization
+   responses.  The supported values are listed in [RADIUSAttrVals].
+ */
 @DiameterAvpDefinition(code = 10L, vendorId = -1L, name = "Framed-Routing")
 public interface FramedRouting extends DiameterEnumerated<FramedRoutingEnum>
 {

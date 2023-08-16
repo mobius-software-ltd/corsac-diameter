@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 12.17.  Tariff-Change-Usage AVP
+
+   As defined in Section 8.27, the Tariff-Change-Usage AVP includes
+   Enumerated type values 0-2.  IANA has created and is maintaining a
+   namespace for this AVP.  The definition of new values is subject to
+   the Specification Required policy [RFC8126] and conditions for
+   enumerated values described in [RFC7423], Section 5.6.
+ */
 @DiameterAvpDefinition(code = 452L, vendorId = -1L, name = "Tariff-Change-Usage")
 public interface TariffChangeUsage extends DiameterEnumerated<TariffChangeUsageEnum>
 {

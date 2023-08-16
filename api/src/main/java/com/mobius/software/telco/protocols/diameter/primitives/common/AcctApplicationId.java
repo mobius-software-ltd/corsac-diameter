@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 6.9.  Acct-Application-Id AVP
+
+   The Acct-Application-Id AVP (AVP Code 259) is of type Unsigned32 and
+   is used in order to advertise support of the accounting portion of an
+   application (see Section 2.4).  If present in a message other than
+   CER and CEA, the value of the Acct-Application-Id AVP MUST match the
+   Application Id present in the Diameter message header.
+ */
 @DiameterAvpDefinition(code = 259L, vendorId = -1L, name = "Acct-Application-Id")
 public interface AcctApplicationId extends DiameterUnsigned32
 {

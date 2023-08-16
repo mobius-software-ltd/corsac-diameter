@@ -26,7 +26,24 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 11L, vendorId = -1L, must = false, name = "Filter-Id")
+/*
+ * 4.4.7.  Filter-Id AVP
+
+   The Filter-Id AVP (AVP Code 11) is of type UTF8String and contains
+   the name of the filter list for this user.  It is intended to be
+   human readable.  Zero or more Filter-Id AVPs MAY be sent in an
+   authorization answer message.
+
+   Identifying a filter list by name allows the filter to be used on
+   different NASes without regard to filter-list implementation details.
+   However, this AVP is not roaming-friendly, as filter naming differs
+   from one service provider to another.
+
+   In environments where backward compatibility with RADIUS is not
+   required, it is RECOMMENDED that the NAS-Filter-Rule AVP
+   (Section 4.4.6) be used instead.
+ */
+@DiameterAvpDefinition(code = 11L, vendorId = -1L, name = "Filter-Id")
 public interface FilterId extends DiameterUTF8String
 {
 }

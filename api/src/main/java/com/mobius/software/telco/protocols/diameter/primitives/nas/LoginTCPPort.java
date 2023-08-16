@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.11.4.1.  Login-TCP-Port AVP
+
+   The Login-TCP-Port AVP (AVP Code 16) is of type Unsigned32 and
+   contains the TCP port with which the user is to be connected when the
+   Login-Service AVP is also present.  This AVP SHOULD only be present
+   in authorization responses.  The value MUST NOT be greater than
+   65,535.
+ */
 @DiameterAvpDefinition(code = 16L, vendorId = -1L, name = "Login-TCP-Port")
 public interface LoginTCPPort extends DiameterUnsigned32
 {

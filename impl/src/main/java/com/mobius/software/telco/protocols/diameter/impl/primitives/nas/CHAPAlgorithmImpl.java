@@ -19,10 +19,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterOctetStringImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAlgorithm;
-
-import io.netty.buffer.ByteBuf;
+import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAlgorithmEnum;
 
 /**
 *
@@ -30,7 +29,7 @@ import io.netty.buffer.ByteBuf;
 *
 */
 @DiameterAvpImplementation(code = 403L, vendorId = -1L)
-public class CHAPAlgorithmImpl extends DiameterOctetStringImpl implements CHAPAlgorithm
+public class CHAPAlgorithmImpl extends DiameterEnumeratedImpl<CHAPAlgorithmEnum> implements CHAPAlgorithm
 {
 	protected CHAPAlgorithmImpl() 
 	{
@@ -42,7 +41,7 @@ public class CHAPAlgorithmImpl extends DiameterOctetStringImpl implements CHAPAl
 		super(minLength, maxLength);
 	}
 	
-	public CHAPAlgorithmImpl(ByteBuf value,Integer minLength,Integer maxLength) 
+	public CHAPAlgorithmImpl(CHAPAlgorithmEnum value,Integer minLength,Integer maxLength) 
 	{
 		super(value, minLength, maxLength);
 	}

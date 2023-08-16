@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.60.  Subscription-Id-IMSI AVP
+
+   The Subscription-Id-IMSI AVP (AVP Code 661) is of type UTF8String.
+   The Subscription-Id-IMSI AVP contains the IMSI format, according to
+   the ITU-T E.212 identification plan as defined in [E212] and [CE212].
+ */
 @DiameterAvpDefinition(code = 661L, vendorId = -1L, must = false, name = "Subscription-Id-IMSI")
 public interface SubscriptionIdIMSI extends DiameterUTF8String
 {

@@ -71,10 +71,10 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 		return this.vendorId.getUnsigned();
 	}
 	
-	public void setVendorId(Long vendorId)
+	public void setVendorId(Long value)
 	{
-		if(vendorId!=null)
-			this.vendorId = new VendorIdImpl(vendorId, null, null);
+		if(value!=null)
+			this.vendorId = new VendorIdImpl(value, null, null);
 		else
 			this.vendorId = null;
 	}
@@ -87,10 +87,10 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 		return this.authApplicationId.getUnsigned();
 	}
 	
-	public void setAuthApplicationId(Long authApplicationId)
+	public void setAuthApplicationId(Long value)
 	{
-		if(authApplicationId!=null)
-			this.authApplicationId = new AuthApplicationIdImpl(authApplicationId, null, null);
+		if(value!=null)
+			this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 		else
 			this.authApplicationId = null;
 	}
@@ -103,10 +103,10 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 		return this.acctAppicationId.getUnsigned();
 	}
 	
-	public void setAcctApplicationId(Long acctApplicationId)
+	public void setAcctApplicationId(Long value)
 	{
-		if(acctApplicationId!=null)
-			this.acctAppicationId = new AcctApplicationIdImpl(acctApplicationId, null, null);
+		if(value!=null)
+			this.acctAppicationId = new AcctApplicationIdImpl(value, null, null);
 		else
 			this.acctAppicationId = null;
 	}	

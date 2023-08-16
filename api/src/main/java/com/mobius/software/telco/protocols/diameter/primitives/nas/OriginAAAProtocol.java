@@ -26,6 +26,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 9.3.6.  Origin-AAA-Protocol
+
+   The Origin-AAA-Protocol AVP (AVP Code 408) is of the type Enumerated
+   and should be inserted in a Diameter message translated by a gateway
+   system from another AAA protocol, such as RADIUS.  It identifies the
+   source protocol of the message to the Diameter system receiving the
+   message.
+
+   The supported values are:
+
+         1       RADIUS
+ */
 @DiameterAvpDefinition(code = 408L, vendorId = -1L, name = "Origin-AAA-Protocol")
 public interface OriginAAAProtocol extends DiameterEnumerated<OriginAAAProtocolEnum>
 {

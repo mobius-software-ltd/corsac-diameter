@@ -26,6 +26,41 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.42.  Service-Context-Id AVP
+
+   The Service-Context-Id AVP is of type UTF8String (AVP Code 461) and
+   contains a unique identifier of the Diameter Credit-Control service-
+   specific document (as defined in Section 4.1.2) that applies to the
+   request.  This is an identifier allocated by the service provider,
+   the Service Element manufacturer, or a standardization body, and MUST
+   uniquely identify a given Diameter Credit-Control service-specific
+   document.  The format of the Service-Context-Id is:
+
+   "service-context" "@" "domain"
+
+   service-context = Token
+
+   The Token is an arbitrary string of characters and digits.
+
+   "domain" represents the entity that allocated the Service-Context-Id.
+   It can be ietf.org, 3gpp.org, etc. if the identifier is allocated by
+   a standardization body, or it can be the Fully Qualified Domain Name
+   (FQDN) of the service provider (e.g., provider.example.com) or the
+   vendor (e.g., vendor.example.com) if the identifier is allocated by a
+   private entity.
+
+   This AVP SHOULD be placed as close to the Diameter header as
+   possible.
+   
+   Service-specific documents that are for private use only (i.e., for
+   one provider's own use, where no interoperability is deemed useful)
+   may define private identifiers without a need for coordination.
+   However, when interoperability is desired, coordination of the
+   identifiers via, for example, publication of an informational RFC is
+   RECOMMENDED in order to make the Service-Context-Id AVP globally
+   available.
+ */
 @DiameterAvpDefinition(code = 461L, vendorId = -1L, name = "Service-Context-Id")
 public interface ServiceContextId extends DiameterUTF8String
 {

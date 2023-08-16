@@ -26,6 +26,38 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.17.  Session-Binding AVP
+
+   The Session-Binding AVP (AVP Code 270) is of type Unsigned32, and it
+   MAY be present in application-specific authorization answer messages.
+   If present, this AVP MAY inform the Diameter client that all future
+   application-specific re-auth and Session-Termination-Request messages
+   for this session MUST be sent to the same authorization server.
+   
+   This field is a bit mask, and the following bits have been defined:
+
+   RE_AUTH 1
+
+      When set, future re-auth messages for this session MUST NOT
+      include the Destination-Host AVP.  When cleared, the default
+      value, the Destination-Host AVP MUST be present in all re-auth
+      messages for this session.
+
+   STR 2
+
+      When set, the STR message for this session MUST NOT include the
+      Destination-Host AVP.  When cleared, the default value, the
+      Destination-Host AVP MUST be present in the STR message for this
+      session.
+
+   ACCOUNTING 4
+
+      When set, all accounting messages for this session MUST NOT
+      include the Destination-Host AVP.  When cleared, the default
+      value, the Destination-Host AVP, if known, MUST be present in all
+      accounting messages for this session.   
+*/
 @DiameterAvpDefinition(code = 270L, vendorId = -1L, name = "Session-Binding")
 public interface SessionBinding extends DiameterUnsigned32
 {

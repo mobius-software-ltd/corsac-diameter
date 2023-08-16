@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 8.55.  User-Equipment-Info-EUI64 AVP
+
+   The User-Equipment-Info-EUI64 AVP (AVP Code 656) is of type
+   OctetString.  The User-Equipment-Info-EUI64 AVP contains the 64-bit
+   identifier used to identify the hardware instance of the product, as
+   defined in [EUI64].
+ */
 @DiameterAvpDefinition(code = 656L, vendorId = -1L, must = false, name = "User-Equipment-Info-EUI64")
 public interface UserEquipmentInfoEUI64 extends DiameterOctetString
 {

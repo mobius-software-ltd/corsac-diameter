@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.62.  Subscription-Id-NAI AVP
+
+   The Subscription-Id-NAI AVP (AVP Code 663) is of type UTF8String.
+   The Subscription-Id-NAI AVP contains the identifier in the form of a
+   Network Access Identifier, as defined in [RFC7542].
+ */
 @DiameterAvpDefinition(code = 663L, vendorId = -1L, must = false, name = "Subscription-Id-NAI")
 public interface SubscriptionIdNAI extends DiameterUTF8String
 {

@@ -26,6 +26,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.10.  ARAP-Challenge-Response AVP
+
+   The ARAP-Challenge-Response AVP (AVP Code 84) is of type OctetString
+   and is only present when the Framed-Protocol AVP (Section 4.4.10.1)
+   is included in the message and is set to ARAP.  This AVP contains an
+   8-octet response to the dial-in client's challenge.  The Diameter
+   server calculates this value by taking the dial-in client's challenge
+   from the high-order 8 octets of the ARAP-Password AVP and performing
+   DES encryption on this value with the authenticating user's password
+   as the key.  If the user's password is fewer than 8 octets in length,
+   the password is padded at the end with NULL octets to a length of 8
+   before it is used as a key.
+ */
 @DiameterAvpDefinition(code = 84L, vendorId = -1L, name = "ARAP-Challenge-Response")
 public interface ARAPChallengeResponse extends DiameterOctetString
 {

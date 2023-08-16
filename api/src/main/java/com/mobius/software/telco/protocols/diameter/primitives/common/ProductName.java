@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 5.3.7.  Product-Name AVP
+
+   The Product-Name AVP (AVP Code 269) is of type UTF8String and
+   contains the vendor-assigned name for the product.  The Product-Name
+   AVP SHOULD remain constant across firmware revisions for the same
+   product.
+ */
 @DiameterAvpDefinition(code = 269L, vendorId = -1L, must = false, name = "Product-Name")
 public interface ProductName extends DiameterUTF8String
 {

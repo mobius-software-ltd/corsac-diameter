@@ -26,6 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.5.2.  Framed-IP-Netmask AVP
+
+   The Framed-IP-Netmask AVP (AVP Code 9) is of type OctetString and
+   contains the four octets of the IPv4 netmask to be configured for the
+   user when the user is a router to a network.  It MAY be used in an
+   authorization request as a hint to the server that a specific netmask
+   
+   is desired, but the server is not required to honor the hint in the
+   corresponding response.  This AVP MUST be present in a response if
+   the request included this AVP with a value of 0xFFFFFFFF.
+ */
 @DiameterAvpDefinition(code = 9L, vendorId = -1L, name = "Framed-IP-Netmask")
 public interface FramedIPNetmask extends DiameterOctetString
 {

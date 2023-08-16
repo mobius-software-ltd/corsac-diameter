@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.1.  Framed-Protocol AVP
+
+   The Framed-Protocol AVP (AVP Code 7) is of type Enumerated and
+   contains the framing to be used for framed access.  This AVP MAY be
+   present in both requests and responses.  The supported values are
+   listed in [RADIUSAttrVals].
+ */
 public enum FramedProtocolEnum implements IntegerEnum
 {
 	PPP(1),SLIP(2),ARAP(3),GANDALF(4),IPX_SLIP(5),X_75_SYNCH(6),GPRS_PDP(7);

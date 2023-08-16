@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 8.25.  CC-Output-Octets AVP
+
+   The CC-Output-Octets AVP (AVP Code 414) is of type Unsigned64 and
+   contains the number of requested, granted, or used octets that
+   can be / have been sent to the end user.
+ */
 @DiameterAvpDefinition(code = 414L, vendorId = -1L, name = "Cc-Output-Octets")
 public interface CcOutputOctets extends DiameterUnsigned64
 {

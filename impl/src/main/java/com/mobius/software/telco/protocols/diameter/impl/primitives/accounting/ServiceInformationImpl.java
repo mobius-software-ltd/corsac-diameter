@@ -52,8 +52,8 @@ public class ServiceInformationImpl implements ServiceInformation
 	}
 
 	@Override
-	public void setSubscriptionId(List<SubscriptionId> subscriptionId) 
+	public void setSubscriptionId(List<SubscriptionId> value) 
 	{
-		this.subscriptionId = subscriptionId;
+		this.subscriptionId = value;
 	}
 }

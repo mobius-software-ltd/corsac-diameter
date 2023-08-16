@@ -28,7 +28,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 */
 
 /*
- * The Unit-Value AVP is defined as follows (per grouped-avp-def as
+ * 8.8.  Unit-Value AVP
+
+   The Unit-Value AVP is of type Grouped (AVP Code 445) and specifies
+   the cost as a floating-point value.  The Unit-Value is a significand
+   with an exponent; i.e., Unit-Value = Value-Digits AVP * 10^Exponent.
+   This representation avoids unwanted rounding off.  For example, the
+   value of 2,3 is represented as Value-Digits = 23 and Exponent = -1.
+   The absence of the exponent part MUST be interpreted as an exponent
+   equal to zero.
+
+   The Unit-Value AVP is defined as follows (per grouped-avp-def as
    defined in [RFC6733]):
 
                        Unit-Value ::= < AVP Header: 445 >

@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolIdentifier;
@@ -33,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 *
 */
 @DiameterAvpImplementation(code = 457L, vendorId = -1)
-public class GSUPoolReferenceImpl extends DiameterGroupedAvpImpl implements GSUPoolReference
+public class GSUPoolReferenceImpl implements GSUPoolReference
 {
 	private GSUPoolIdentifier gsuPoolIdentifier;
 	
@@ -71,12 +70,12 @@ public class GSUPoolReferenceImpl extends DiameterGroupedAvpImpl implements GSUP
 		return gsuPoolIdentifier.getUnsigned();
 	}
 	
-	public void setGSUPoolIdentifier(Long gsuPoolIdentifier)
+	public void setGSUPoolIdentifier(Long value)
 	{
-		if(gsuPoolIdentifier==null)
+		if(value==null)
 			throw new IllegalArgumentException("G-S-U-Pool-Identifier is required");
 		
-		this.gsuPoolIdentifier = new GSUPoolIdentifierImpl(gsuPoolIdentifier, null, null);		
+		this.gsuPoolIdentifier = new GSUPoolIdentifierImpl(value, null, null);		
 	}
 	
 	public CcUnitTypeEnum getCCUnitType()
@@ -87,12 +86,12 @@ public class GSUPoolReferenceImpl extends DiameterGroupedAvpImpl implements GSUP
 		return ccUnitType.getEnumerated(CcUnitTypeEnum.class);
 	}
 	
-	public void setCCUnitType(CcUnitTypeEnum ccUnitType)
+	public void setCCUnitType(CcUnitTypeEnum value)
 	{
-		if(ccUnitType==null)
+		if(value==null)
 			throw new IllegalArgumentException("CC-Unit-Type is required");
 		
-		this.ccUnitType = new CcUnitTypeImpl(ccUnitType, null, null);
+		this.ccUnitType = new CcUnitTypeImpl(value, null, null);
 	}
 	
 	public UnitValue getUnitValue()
@@ -100,12 +99,12 @@ public class GSUPoolReferenceImpl extends DiameterGroupedAvpImpl implements GSUP
 		return this.unitValue;
 	}
 	
-	public void setUnitValue(UnitValue unitValue)
+	public void setUnitValue(UnitValue value)
 	{
-		if(unitValue==null)
+		if(value==null)
 			throw new IllegalArgumentException("Unit-Value is required");
 		
-		this.unitValue = unitValue;
+		this.unitValue = value;
 	}
 	
 	@DiameterValidate

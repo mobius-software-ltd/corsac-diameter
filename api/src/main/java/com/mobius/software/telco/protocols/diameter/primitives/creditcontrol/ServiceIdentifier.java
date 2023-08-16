@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.28.  Service-Identifier AVP
+
+   The Service-Identifier AVP is of type Unsigned32 (AVP Code 439) and
+   contains the identifier of a service.  The specific service the
+   request relates to is uniquely identified by the combination of the
+   Service-Context-Id AVP and the Service-Identifier AVP.
+
+   A usage example of this AVP is illustrated in Appendix A.9.
+ */
 @DiameterAvpDefinition(code = 439L, vendorId = -1L, name = "Service-Identifier")
 public interface ServiceIdentifier extends DiameterUnsigned32
 {

@@ -26,6 +26,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.5.2.  Tunnel-Type AVP
+
+   The Tunnel-Type AVP (AVP Code 64) is of type Enumerated and contains
+   the tunneling protocol(s) to be used (in the case of a tunnel
+   initiator) or in use (in the case of a tunnel terminator).  It MAY be
+   used in an authorization request as a hint to the server that a
+   specific tunnel type is desired, but the server is not required to
+   honor the hint in the corresponding response.
+
+   The Tunnel-Type AVP SHOULD also be included in ACR messages.
+
+   A tunnel initiator is not required to implement any of these tunnel
+   types.  If a tunnel initiator receives a response that contains only
+   unknown or unsupported tunnel types, the tunnel initiator MUST behave
+   as though a response were received with the Result-Code indicating a
+   failure.
+
+   The supported values are listed in [RADIUSAttrVals].
+ */
 @DiameterAvpDefinition(code = 64L, vendorId = -1L, name = "Tunnel-Type")
 public interface TunnelType extends DiameterEnumerated<TunnelTypeEnum>
 {

@@ -28,6 +28,40 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 8.35.  Final-Unit-Action AVP
+
+   The Final-Unit-Action AVP (AVP Code 449) is of type Enumerated and
+   indicates to the credit-control client the action to be taken when
+   the user's account cannot cover the service cost.
+
+   Final-Unit-Action can be set to one of the following values:
+
+   TERMINATE         0
+
+   The credit-control client MUST terminate the service session.  This
+   is the default handling, applicable whenever the credit-control
+   client receives an unsupported Final-Unit-Action value, and it MUST
+   be supported by all the Diameter Credit-Control client
+   implementations conforming to this specification.
+   
+   REDIRECT          1
+
+   The Service Element MUST redirect the user to the address specified
+   in the Redirect-Server-Address AVP or one of the AVPs included in the
+   Redirect-Server-Extension AVP.  The redirect action is defined in
+   Section 5.6.2.
+
+   RESTRICT_ACCESS   2
+
+   The access device MUST restrict the user's access according to the
+   filter AVPs contained in the applied Grouped AVP: according to IP
+   packet filters defined in the Restriction-Filter-Rule AVP, according
+   to the packet classifier filters defined in the Filter-Rule AVP, or
+   according to the packet filters identified by the Filter-Id AVP.  All
+   of the packets not matching any restriction filters (see
+   Section 5.6.3) MUST be dropped.
+ */
 public enum FinalUnitActionEnum implements IntegerEnum
 {
 	TERMINATE(0),REDIRECT(1),RESTRICT_ACCESS(2);

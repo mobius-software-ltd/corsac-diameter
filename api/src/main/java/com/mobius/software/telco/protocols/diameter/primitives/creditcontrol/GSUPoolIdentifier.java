@@ -26,6 +26,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.31.  G-S-U-Pool-Identifier AVP
+
+   The G-S-U-Pool-Identifier AVP (AVP Code 453) is of type Unsigned32
+   and identifies a credit pool within the session.
+ */
 @DiameterAvpDefinition(code = 453L, vendorId = -1L, name = "G-S-U-Pool-Identifier")
 public interface GSUPoolIdentifier extends DiameterUnsigned32
 {

@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.67.  Redirect-Address-SIP-URI AVP
+
+   The Redirect-Address-SIP-URI AVP (AVP Code 668) is of type UTF8String
+   and defines the address of the redirect server with which the end
+   user is to be connected when the account cannot cover the service
+   cost.  The address type is in the form of a SIP Uniform Resource
+   Identifier, as defined in [RFC3261].
+ */
 @DiameterAvpDefinition(code = 668L, vendorId = -1L, must = false, name = "Redirect-Address-SIP-URI")
 public interface RedirectAddressSIPURI extends DiameterUTF8String
 {

@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 6.7.4.  Proxy-State AVP
+
+   The Proxy-State AVP (AVP Code 33) is of type OctetString.  It
+   contains state information that would otherwise be stored at the
+   Diameter entity that created it.  As such, this AVP MUST be treated
+   as opaque data by other Diameter entities.
+ */
 @DiameterAvpDefinition(code = 33L, vendorId = -1L, name = "Proxy-State")
 public interface ProxyState extends DiameterOctetString
 {

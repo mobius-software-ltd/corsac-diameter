@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.11.  ARAP-Security AVP
+
+   The ARAP-Security AVP (AVP Code 73) is of type Unsigned32 and MAY be
+   present in the AA-Answer message if the Framed-Protocol AVP
+   (Section 4.4.10.1) is set to the value of ARAP, and the Result-Code
+   AVP ([RFC6733], Section 7.1) is set to DIAMETER_MULTI_ROUND_AUTH.
+   See RFC 2869 for more information on the contents of this AVP.
+ */
 @DiameterAvpDefinition(code = 73L, vendorId = -1L, name = "ARAP-Security")
 public interface ARAPSecurity extends DiameterUnsigned32
 {

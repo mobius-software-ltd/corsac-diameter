@@ -26,6 +26,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.5.4.  Framed-Pool AVP
+
+   The Framed-Pool AVP (AVP Code 88) is of type OctetString and contains
+   the name of an assigned address pool that SHOULD be used to assign an
+   address for the user.  If a NAS does not support multiple address
+   pools, the NAS SHOULD ignore this AVP.  Address pools are usually
+   used for IP addresses but can be used for other protocols if the NAS
+   supports pools for those protocols.
+
+   Although specified as type OctetString for compatibility with RADIUS
+   [RFC2869], the encoding of the Data field SHOULD also conform to the
+   rules for the UTF8String Data Format.
+ */
 @DiameterAvpDefinition(code = 88L, vendorId = -1L, name = "Framed-Pool")
 public interface FramedPool extends DiameterOctetString
 {

@@ -30,7 +30,9 @@ import io.netty.buffer.ByteBuf;
 */
 
 /*
- * The Tunneling AVP (AVP Code 401) is of type Grouped and contains the
+ * 4.5.1.  Tunneling AVP
+
+   The Tunneling AVP (AVP Code 401) is of type Grouped and contains the
    following AVPs, used to describe a compulsory tunnel service
    [RFC2868] [RFC2867].  Its data field has the following ABNF grammar:
    

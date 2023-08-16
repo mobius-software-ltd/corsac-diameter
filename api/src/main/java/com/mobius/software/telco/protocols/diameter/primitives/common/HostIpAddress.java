@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 * @author yulian oifa
 *
 */
+/*
+ * 5.3.5.  Host-IP-Address AVP
+
+   The Host-IP-Address AVP (AVP Code 257) is of type Address and is used
+   to inform a Diameter peer of the sender's IP address.  All source
+   addresses that a Diameter node expects to use with SCTP [RFC4960] or
+   DTLS/SCTP [RFC6083] MUST be advertised in the CER and CEA messages by
+   including a Host-IP-Address AVP for each address.
+ */
 @DiameterAvpDefinition(code = 257, vendorId = -1L, name = "Host-IP-Address")
 public interface HostIpAddress extends DiameterAddress
 {

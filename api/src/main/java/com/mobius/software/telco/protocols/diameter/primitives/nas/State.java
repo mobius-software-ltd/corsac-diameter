@@ -26,6 +26,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 9.3.4.  State AVP
+
+   The State AVP (AVP Code 24) [RADIUS] is of type OctetString and has
+   two uses in the Diameter NAS application.
+
+   The State AVP MAY be sent by a Diameter Server to a NAS in an AA-
+   Response command that contains a Result-Code of
+   DIAMETER_MULTI_ROUND_AUTH.  If so, the NAS MUST return it unmodified
+   in the subsequent AA-Request command.
+   
+   The State AVP MAY also be sent by a Diameter Server to a NAS in an
+   AA-Response command that also includes a Termination-Action AVP with
+   the value of AA-REQUEST.  If the NAS performs the Termination-Action
+   by sending a new AA-Request command upon termination of the current
+   service, it MUST return the State AVP unmodified in the new request
+   command.
+
+   In either usage, the NAS MUST NOT interpret the AVP locally.  Usage
+   of the State AVP is implementation dependent.
+ */
 @DiameterAvpDefinition(code = 24L, vendorId = -1L, name = "State")
 public interface State extends DiameterOctetString
 {

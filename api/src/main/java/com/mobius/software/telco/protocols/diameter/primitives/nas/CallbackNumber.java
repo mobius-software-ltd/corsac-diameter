@@ -26,6 +26,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.2.  Callback-Number AVP
+
+   The Callback-Number AVP (AVP Code 19) is of type UTF8String and
+   contains a dialing string to be used for callback, the format of
+   which is deployment specific.  The Callback-Number AVP MAY be used in
+   an authentication and/or authorization request as a hint to the
+   server that a callback service is desired, but the server is not
+   required to honor the hint in the corresponding response.
+
+   Any further codification of this field's allowed usage range is
+   outside the scope of this specification.
+ */
 @DiameterAvpDefinition(code = 19L, vendorId = -1L, name = "Callback-Number")
 public interface CallbackNumber extends DiameterUTF8String
 {

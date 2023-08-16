@@ -27,7 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 *
 */
 
-/*The CC-Money AVP (AVP Code 413) is of type Grouped and specifies the
+/* 8.22.  CC-Money AVP
+
+   The CC-Money AVP (AVP Code 413) is of type Grouped and specifies the
    monetary amount in the given currency.  The Currency-Code AVP SHOULD
    be included.  The CC-Money AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):

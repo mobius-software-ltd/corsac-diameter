@@ -2,7 +2,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResultCode;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
@@ -32,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
 *
 */
 @DiameterAvpImplementation(code = 297L, vendorId = -1L)
-public class ExperimentalResultImpl extends DiameterGroupedAvpImpl implements ExperimentalResult
+public class ExperimentalResultImpl implements ExperimentalResult
 {
 	private VendorId vendorId;
 	
@@ -65,12 +64,12 @@ public class ExperimentalResultImpl extends DiameterGroupedAvpImpl implements Ex
 	}
 
 	@Override
-	public void setVendorId(Long vendorId) 
+	public void setVendorId(Long value) 
 	{
-		if(vendorId==null)
+		if(value==null)
 			throw new IllegalArgumentException("Vendor-Id is required");
 
-		this.vendorId = new VendorIdImpl(vendorId, null, null);
+		this.vendorId = new VendorIdImpl(value, null, null);
 	}
 
 	@Override
@@ -83,12 +82,12 @@ public class ExperimentalResultImpl extends DiameterGroupedAvpImpl implements Ex
 	}
 
 	@Override
-	public void setExperimentalResultCode(Long experimentalResultCode) 
+	public void setExperimentalResultCode(Long value) 
 	{
-		if(experimentalResultCode==null)
+		if(value==null)
 			throw new IllegalArgumentException("Experimental-Result-Code is required");
 
-		this.experimentalResultCode = new ExperimentalResultCodeImpl(experimentalResultCode, null, null);
+		this.experimentalResultCode = new ExperimentalResultCodeImpl(value, null, null);
 	}
 
 	@Override

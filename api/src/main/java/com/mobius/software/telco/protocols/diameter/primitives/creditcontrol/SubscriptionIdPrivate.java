@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.63.  Subscription-Id-Private AVP
+
+   The Subscription-Id-Private AVP (AVP Code 664) is of type UTF8String.
+   The Subscription-Id-Private AVP contains a credit-control server
+   private identifier.
+ */
 @DiameterAvpDefinition(code = 664L, vendorId = -1L, must = false, name = "Subscription-Id-Private")
 public interface SubscriptionIdPrivate extends DiameterUTF8String
 {

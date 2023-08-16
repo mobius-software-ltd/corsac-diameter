@@ -30,8 +30,21 @@ import io.netty.buffer.ByteBuf;
 */
 
 /*
- * Exactly one AVP MUST be included inside the User-Equipment-Info-Extension AVP.
- * The User-Equipment-Info-Extension AVP is defined as follows (per
+ * 8.52.  User-Equipment-Info-Extension AVP
+
+   The User-Equipment-Info-Extension AVP (AVP Code 653) is of type
+   Grouped and allows the credit-control client to indicate the identity
+   and capability of the terminal the subscriber is using for the
+   connection to the network.  If the type of the equipment is one of
+   the enumerated User-Equipment-Info-Type AVP values, then the
+   credit-control client SHOULD send the information in the
+   User-Equipment-Info AVP, in addition to or instead of the
+   User-Equipment-Info-Extension AVP.  This is done in order to preserve
+   backward compatibility with credit-control servers that support only
+   [RFC4006].  Exactly one AVP MUST be included inside the
+   User-Equipment-Info-Extension AVP.
+
+   The User-Equipment-Info-Extension AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):
 
     User-Equipment-Info-Extension ::= < AVP Header: 653 >
@@ -40,7 +53,7 @@ import io.netty.buffer.ByteBuf;
                                   [ User-Equipment-Info-EUI64 ]
                                   [ User-Equipment-Info-ModifiedEUI64 ]
                                   [ User-Equipment-Info-IMEI ]
-                                  [ AVP ]
+                                  [ AVP ]  
  */
 @DiameterAvpDefinition(code = 653L, vendorId = -1, must = false, name = "User-Equipment-Info-Extension")
 public interface UserEquipmentInfoExtension extends DiameterGroupedAvp 

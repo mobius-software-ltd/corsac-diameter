@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.14.  User-Name AVP
+
+   The User-Name AVP (AVP Code 1) [RFC2865] is of type UTF8String, which
+   contains the User-Name, in a format consistent with the NAI
+   specification [RFC4282].
+ */
 @DiameterAvpDefinition(code = 1L, vendorId = -1L, name = "User-Name")
 public interface UserName extends DiameterUTF8String
 {

@@ -27,7 +27,19 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
 */
 
 /*
- * The Granted-Service-Unit AVP is defined as follows (per
+ * 8.17.  Granted-Service-Unit AVP
+
+   The Granted-Service-Unit AVP (AVP Code 431) is of type Grouped and
+   contains the amount of units that the Diameter Credit-Control client
+   can provide to the end user until the service must be released or the
+   new Credit-Control-Request must be sent.  A client is not required to
+   implement all the unit types, and it must treat unknown or
+   unsupported unit types in the Answer message as an incorrect CCA.  In
+   this case, the client MUST terminate the credit-control session and
+   indicate the reason as DIAMETER_BAD_ANSWER in the Termination-Cause
+   AVP.
+
+   The Granted-Service-Unit AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):
 
          Granted-Service-Unit ::= < AVP Header: 431 >

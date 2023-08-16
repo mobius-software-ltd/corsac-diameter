@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.66.  Redirect-Address-URL AVP
+
+   The Redirect-Address-URL AVP (AVP Code 667) is of type UTF8String and
+   defines the address of the redirect server with which the end user is
+   to be connected when the account cannot cover the service cost.  The
+   address type is in the form of a Uniform Resource Locator, as defined
+   in [RFC3986].  Note that individual URL schemes may restrict the
+   contents of the UTF8String.
+ */
 @DiameterAvpDefinition(code = 667L, vendorId = -1L, must = false, name = "Redirect-Address-URL")
 public interface RedirectAddressURL extends DiameterUTF8String
 {

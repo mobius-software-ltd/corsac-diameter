@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.primitives;
 
 import java.net.InetAddress;
 
+import io.netty.buffer.ByteBuf;
+
 /**
 *
 * @author yulian oifa
@@ -28,5 +30,11 @@ import java.net.InetAddress;
 
 public interface DiameterAddress extends DiameterAvp
 {
+	public DiameterAddressTypeEnum getType();
+	
 	public InetAddress getAddress();
+	
+	public String getE164();
+	
+	public ByteBuf getAddressValue();
 }

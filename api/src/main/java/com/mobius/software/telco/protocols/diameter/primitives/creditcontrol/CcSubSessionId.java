@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 8.5.  CC-Sub-Session-Id AVP
+
+   The CC-Sub-Session-Id AVP (AVP Code 419) is of type Unsigned64 and
+   contains the credit-control sub-session identifier.  The combination
+   of the Session-Id AVP and this AVP MUST be unique per sub-session,
+   and the value of this AVP MUST be monotonically increased by one for
+   all new sub-sessions.  The absence of this AVP implies that no
+   sub-sessions are in use.
+ */
 @DiameterAvpDefinition(code = 419L, vendorId = -1L, name = "Cc-Sub-Session-Id")
 public interface CcSubSessionId extends DiameterUnsigned64
 {

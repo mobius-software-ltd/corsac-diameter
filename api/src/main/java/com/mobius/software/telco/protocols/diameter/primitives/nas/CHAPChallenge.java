@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.8.  CHAP-Challenge AVP
+
+   The CHAP-Challenge AVP (AVP Code 60) is of type OctetString and
+   contains the CHAP Challenge sent by the NAS to the CHAP peer
+   [RFC1994].
+ */
 @DiameterAvpDefinition(code = 60L, vendorId = -1L, name = "CHAP-Challenge")
 public interface CHAPChallenge extends DiameterOctetString
 {

@@ -26,6 +26,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 * @author yulian oifa
 *
 */
+/*
+ * 6.7.3.  Proxy-Host AVP
+
+   The Proxy-Host AVP (AVP Code 280) is of type DiameterIdentity.  This
+   AVP contains the identity of the host that added the Proxy-Info AVP.
+ */
 @DiameterAvpDefinition(code = 280L, vendorId = -1L, name = "Proxy-Host")
 public interface ProxyHost extends DiameterIdentity
 {

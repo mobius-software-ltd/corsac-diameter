@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.8.2.  ARAP-Zone-Access AVP
+
+   The ARAP-Zone-Access AVP (AVP Code 72) is of type Enumerated and MAY
+   be present in the AA-Accept message if the Framed-Protocol AVP is set
+   to the value of ARAP.
+
+   The supported values are listed in [RADIUSAttrVals] and defined in
+   [RFC2869].
+ */
 @DiameterAvpDefinition(code = 72L, vendorId = -1L, name = "ARAP-Zone-Access")
 public interface ARAPZoneAccess extends DiameterEnumerated<ARAPZoneAccessEnum>
 {

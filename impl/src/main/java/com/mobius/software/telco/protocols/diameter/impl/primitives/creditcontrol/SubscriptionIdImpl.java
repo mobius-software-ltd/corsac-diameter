@@ -63,12 +63,12 @@ public class SubscriptionIdImpl implements SubscriptionId
 		return subscriptionIdType.getEnumerated(SubscriptionIdTypeEnum.class);
 	}
 	
-	public void setSubscriptionIdType(SubscriptionIdTypeEnum subscriptionIdType)
+	public void setSubscriptionIdType(SubscriptionIdTypeEnum value)
 	{
-		if(subscriptionIdType==null)
+		if(value==null)
 			throw new IllegalArgumentException("Subscription-id-Type is required");
 		
-		this.subscriptionIdType = new SubscriptionIdTypeImpl(subscriptionIdType, null, null);		
+		this.subscriptionIdType = new SubscriptionIdTypeImpl(value, null, null);		
 	}
 	
 	public String getSubscriptionIdData()
@@ -79,12 +79,12 @@ public class SubscriptionIdImpl implements SubscriptionId
 		return subscriptionIdData.getString();
 	}
 	
-	public void setSubscriptionIdData(String subscriptionIdData)
+	public void setSubscriptionIdData(String value)
 	{
-		if(subscriptionIdData==null)
+		if(value==null)
 			throw new IllegalArgumentException("Subscription-Id-Data is required");
 		
-		this.subscriptionIdData = new SubscriptionIdDataImpl(subscriptionIdData, null, null);
+		this.subscriptionIdData = new SubscriptionIdDataImpl(value, null, null);
 	}
 	
 	@DiameterValidate

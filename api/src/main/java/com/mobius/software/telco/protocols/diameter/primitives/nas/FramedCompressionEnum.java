@@ -28,6 +28,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.4.  Framed-Compression AVP
+
+   The Framed-Compression AVP (AVP Code 13) is of type Enumerated and
+   contains the compression protocol to be used for the link.  It MAY be
+   used in an authorization request as a hint to the server that a
+   specific compression type is desired, but the server is not required
+   to honor the hint in the corresponding response.
+
+   More than one compression protocol AVP MAY be sent.  The NAS is
+   responsible for applying the proper compression protocol to the
+   appropriate link traffic.
+
+   The supported values are listed in [RADIUSAttrVals].
+ */
 public enum FramedCompressionEnum implements IntegerEnum
 {
 	NONE(0),VJ_TCP_IP(1),IPX(2),STAC_LZS(3);

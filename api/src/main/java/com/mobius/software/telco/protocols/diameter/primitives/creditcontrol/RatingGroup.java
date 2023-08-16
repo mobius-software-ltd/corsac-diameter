@@ -26,6 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 8.29.  Rating-Group AVP
+
+   The Rating-Group AVP is of type Unsigned32 (AVP Code 432) and
+   contains the identifier of a rating-group.  All the services subject
+   to the same rating type are part of the same rating-group.  The
+   specific rating-group the request relates to is uniquely identified
+   by the combination of the Service-Context-Id AVP and the Rating-Group
+   AVP.
+
+   A usage example of this AVP is illustrated in Appendix A.9.
+ */
 @DiameterAvpDefinition(code = 432L, vendorId = -1L, name = "Rating-Group")
 public interface RatingGroup extends DiameterUnsigned32
 {

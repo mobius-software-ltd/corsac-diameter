@@ -19,14 +19,28 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
 /**
 *
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.5.  CHAP-Algorithm AVP
+
+   The CHAP-Algorithm AVP (AVP Code 403) is of type Enumerated and
+   contains the algorithm identifier used in the computation of the CHAP
+   response [RFC1994].  The following values are currently supported:
+
+   CHAP with MD5       5
+
+      The CHAP response is computed by using the procedure described in
+      [RFC1994].  This algorithm requires that the CHAP-Response AVP
+      (Section 4.3.7) MUST be present in the CHAP-Auth AVP
+      (Section 4.3.4).
+ */
 @DiameterAvpDefinition(code = 403L, vendorId = -1L, name = "CHAP-Algorithm")
-public interface CHAPAlgorithm extends DiameterOctetString
+public interface CHAPAlgorithm extends DiameterEnumerated<CHAPAlgorithmEnum>
 {
 }

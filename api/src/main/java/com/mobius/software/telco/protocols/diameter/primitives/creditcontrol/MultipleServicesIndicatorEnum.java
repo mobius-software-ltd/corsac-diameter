@@ -28,6 +28,32 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 8.40.  Multiple-Services-Indicator AVP
+
+   The Multiple-Services-Indicator AVP (AVP Code 455) is of type
+   Enumerated and indicates whether the Diameter Credit-Control client
+   is capable of handling multiple services independently within a
+   (sub-)session.  The absence of this AVP means that independent
+   credit-control of multiple services is not supported.
+
+   A server not implementing the independent credit-control of multiple
+   services MUST treat the Multiple-Services-Indicator AVP as an
+   invalid AVP.
+
+   The following values are defined for the Multiple-Services-Indicator
+   AVP:
+
+   MULTIPLE_SERVICES_NOT_SUPPORTED   0
+
+   The client does not support independent credit-control of multiple
+   services within a (sub-)session.
+
+   MULTIPLE_SERVICES_SUPPORTED       1
+
+   The client supports independent credit-control of multiple services
+   within a (sub-)session.
+ */
 public enum MultipleServicesIndicatorEnum implements IntegerEnum
 {
 	MULTIPLE_SERVICES_NOT_SUPPORTED(0),MULTIPLE_SERVICES_SUPPORTED(1);

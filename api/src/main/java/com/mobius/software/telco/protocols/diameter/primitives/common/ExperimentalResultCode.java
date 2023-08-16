@@ -26,6 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 7.7.  Experimental-Result-Code AVP
+
+   The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32
+   and contains a vendor-assigned value representing the result of
+   processing the request.
+
+   It is recommended that vendor-specific result codes follow the same
+   conventions given for the Result-Code AVP regarding the different
+   types of result codes and the handling of errors (for non-2xxx
+   values).
+ */
 @DiameterAvpDefinition(code = 298L, vendorId = -1L, name = "Experimental-Result-Code")
 public interface ExperimentalResultCode extends DiameterUnsigned32
 {

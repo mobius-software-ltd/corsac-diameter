@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 8.39.  Redirect-Server-Address AVP
+
+   The Redirect-Server-Address AVP (AVP Code 435) is of type UTF8String
+   and defines the address of the redirect server (e.g., HTTP redirect
+   server, SIP Server) with which the end user is to be connected when
+   the account cannot cover the service cost.
+ */
 @DiameterAvpDefinition(code = 435L, vendorId = -1L, name = "Redirect-Server-Address")
 public interface RedirectServerAddress extends DiameterUTF8String
 {

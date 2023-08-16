@@ -26,6 +26,55 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.1.  Service-Type AVP
+
+   The Service-Type AVP (AVP Code 6) is of type Enumerated and contains
+   the type of service the user has requested or the type of service to
+   be provided.  One such AVP MAY be present in an authentication and/or
+   authorization request or response.  A NAS is not required to
+   implement all of these service types.  It MUST treat unknown or
+   unsupported Service-Type AVPs received in a response as a failure and
+   end the session with a DIAMETER_INVALID_AVP_VALUE Result-Code.
+
+   When used in a request, the Service-Type AVP SHOULD be considered a
+   hint to the server that the NAS believes the user would prefer the
+   kind of service indicated.  The server is not required to honor the
+   hint.  Furthermore, if the service specified by the server is
+   supported, but not compatible with the current mode of access, the
+   NAS MUST fail to start the session.  The NAS MUST also generate the
+   appropriate error message(s).
+
+   The complete list of defined values that the Service-Type AVP can
+   take can be found in [RFC2865] and the relevant IANA registry
+   [RADIUSAttrVals], but the following values require further
+   qualification here:
+
+      Login (1)
+
+         The user should be connected to a host.  The message MAY
+         include additional AVPs as defined in Sections 4.4.11.4 or
+         4.4.11.5.
+
+      Framed (2)
+
+         A Framed Protocol, such as PPP or SLIP, should be started for
+         the user.  The message MAY include additional AVPs defined in
+         Sections 4.4.10 or 4.5 for tunneling services.
+
+      Callback Login (3)
+
+         The user should be disconnected and called back, then connected
+         to a host.  The message MAY include additional AVPs defined in
+         this section.
+         
+	  Callback Framed (4)
+
+         The user should be disconnected and called back, and then a
+         Framed Protocol, such as PPP or SLIP, should be started for the
+         user.  The message MAY include additional AVPs defined in
+         Sections 4.4.10 or 4.5 for tunneling services.
+ */
 @DiameterAvpDefinition(code = 6L, vendorId = -1L, name = "Service-Type")
 public interface ServiceType extends DiameterEnumerated<ServiceTypeEnum>
 {

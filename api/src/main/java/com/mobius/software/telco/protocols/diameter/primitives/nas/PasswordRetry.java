@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.2.  Password-Retry AVP
+
+   The Password-Retry AVP (AVP Code 75) is of type Unsigned32 and MAY be
+   included in the AA-Answer if the Result-Code indicates an
+   authentication failure.  The value of this AVP indicates how many
+   authentication attempts a user is permitted before being
+   disconnected.  This AVP is primarily intended for use when the
+   Framed-Protocol AVP (Section 4.4.10.1) is set to ARAP.
+ */
 @DiameterAvpDefinition(code = 75L, vendorId = -1L, name = "Password-Retry")
 public interface PasswordRetry extends DiameterUnsigned32
 {

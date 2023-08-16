@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 8.15.  Termination-Cause AVP
+
+   The Termination-Cause AVP (AVP Code 295) is of type Enumerated, and
+   is used to indicate the reason why a session was terminated on the
+   access device.  The currently assigned values for this AVP can be
+   found in the IANA registry for Termination-Cause AVP Values
+   [IANATCV].
+ */
 @DiameterAvpDefinition(code = 295L, vendorId = -1L, name = "Termination-Cause")
 public interface TerminationCause extends DiameterEnumerated<TerminationCauseEnum>
 {

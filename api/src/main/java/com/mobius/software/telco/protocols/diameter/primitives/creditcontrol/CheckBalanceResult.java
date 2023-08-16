@@ -26,6 +26,24 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 8.6.  Check-Balance-Result AVP
+
+   The Check-Balance-Result AVP (AVP Code 422) is of type Enumerated and
+   contains the result of the balance check.  This AVP is applicable
+   only when the Requested-Action AVP indicates CHECK_BALANCE in the
+   Credit-Control-Request command.  The following values are defined for
+   the Check-Balance-Result AVP:
+
+   ENOUGH_CREDIT   0
+
+   There is enough credit in the account to cover the requested service.
+
+   NO_CREDIT       1
+
+   There isn't enough credit in the account to cover the requested
+   service.
+ */
 @DiameterAvpDefinition(code = 422L, vendorId = -1L, name = "Check-Balance-Result")
 public interface CheckBalanceResult extends DiameterEnumerated<CheckBalanceResultEnum>
 {

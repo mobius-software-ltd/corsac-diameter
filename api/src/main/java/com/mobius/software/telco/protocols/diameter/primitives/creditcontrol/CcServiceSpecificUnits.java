@@ -26,6 +26,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 * @author yulian oifa
 *
 */
+/*
+ * 8.26.  CC-Service-Specific-Units AVP
+
+   The CC-Service-Specific-Units AVP (AVP Code 417) is of type
+   Unsigned64 and specifies the number of service-specific units (e.g.,
+   number of events, points) given in a selected service.  The service-
+   specific units always refer to the service identified in the Service-
+   Identifier AVP (or Rating-Group AVP when the Multiple-Services-
+   Credit-Control AVP is used).
+ */
 @DiameterAvpDefinition(code = 417L, vendorId = -1L, name = "Cc-Service-Specific-Units")
 public interface CcServiceSpecificUnits extends DiameterUnsigned64
 {

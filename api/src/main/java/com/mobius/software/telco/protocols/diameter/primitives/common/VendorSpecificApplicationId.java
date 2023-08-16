@@ -28,7 +28,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 */
 
 /*
- * The Vendor-Specific-Application-Id AVP SHOULD be placed as close to
+ * 6.11.  Vendor-Specific-Application-Id AVP
+   
+   The Vendor-Specific-Application-Id AVP (AVP Code 260) is of type
+   Grouped and is used to advertise support of a vendor-specific
+   Diameter application.  Exactly one instance of either Auth-
+   Application-Id or Acct-Application-Id AVP MUST be present.  The
+   Application Id carried by either Auth-Application-Id or Acct-
+   Application-Id AVP MUST comply with vendor-specific Application Id
+   assignment described in Section 11.3.  It MUST also match the
+   Application Id present in the Diameter header except when used in a
+   CER or CEA message.
+   
+   The Vendor-Specific-Application-Id AVP SHOULD be placed as close to
    the Diameter header as possible.
 
       AVP Format

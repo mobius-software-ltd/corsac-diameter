@@ -26,6 +26,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.1.  Framed-Protocol AVP
+
+   The Framed-Protocol AVP (AVP Code 7) is of type Enumerated and
+   contains the framing to be used for framed access.  This AVP MAY be
+   present in both requests and responses.  The supported values are
+   listed in [RADIUSAttrVals].
+ */
 @DiameterAvpDefinition(code = 7L, vendorId = -1L, name = "Framed-Protocol")
 public interface FramedProtocol extends DiameterEnumerated<FramedProtocolEnum>
 {

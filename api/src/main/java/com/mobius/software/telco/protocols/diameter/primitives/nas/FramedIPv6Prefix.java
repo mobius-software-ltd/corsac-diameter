@@ -26,6 +26,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.5.6.  Framed-IPv6-Prefix AVP
+
+   The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and
+   contains the IPv6 prefix to be configured for the user.  One or more
+   AVPs MAY be used in authorization requests as a hint to the server
+   that specific IPv6 prefixes are desired, but the server is not
+   required to honor the hint in the corresponding response.
+ */
 @DiameterAvpDefinition(code = 97L, vendorId = -1L, name = "Framed-IPv6-Prefix")
 public interface FramedIPv6Prefix extends DiameterOctetString
 {

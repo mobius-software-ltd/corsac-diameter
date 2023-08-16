@@ -26,6 +26,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 * @author yulian oifa
 *
 */
+/*
+ * 9.8.5.  Acct-Multi-Session-Id AVP
+
+   The Acct-Multi-Session-Id AVP (AVP Code 50) is of type UTF8String,
+   following the format specified in Section 8.8.  The Acct-Multi-
+   Session-Id AVP is used to link multiple related accounting sessions,
+   where each session would have a unique Session-Id but the same Acct-
+   Multi-Session-Id AVP.  This AVP MAY be returned by the Diameter
+   server in an authorization answer, and it MUST be used in all
+   accounting messages for the given session.
+ */
 @DiameterAvpDefinition(code = 50L, vendorId = -1L, name = "Subscription-Id-Data")
 public interface AcctMultiSessionId extends DiameterUTF8String
 {

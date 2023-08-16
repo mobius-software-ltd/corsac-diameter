@@ -26,6 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 4.5.3.  Tunnel-Medium-Type AVP
+
+   The Tunnel-Medium-Type AVP (AVP Code 65) is of type Enumerated and
+   contains the transport medium to use when creating a tunnel for
+   protocols (such as L2TP [RFC3931]) that can operate over multiple
+   transports.  It MAY be used in an authorization request as a hint to
+   the server that a specific medium is desired, but the server is not
+   required to honor the hint in the corresponding response.
+
+   The supported values are listed in [RADIUSAttrVals].
+ */
 @DiameterAvpDefinition(code = 65L, vendorId = -1L, name = "Tunnel-Medium-Type")
 public interface TunnelMediumType extends DiameterEnumerated<TunnelMediumTypeEnum>
 {

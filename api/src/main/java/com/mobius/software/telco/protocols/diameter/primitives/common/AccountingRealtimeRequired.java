@@ -26,6 +26,40 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 * @author yulian oifa
 *
 */
+/*
+ * 9.8.7.   Accounting-Realtime-Required AVP
+
+   The Accounting-Realtime-Required AVP (AVP Code 483) is of type
+   Enumerated and is sent from the Diameter home authorization server to
+   the Diameter client or in the Accounting-Answer from the accounting
+   server.  The client uses information in this AVP to decide what to do
+   if the sending of accounting records to the accounting server has
+   been temporarily prevented due to, for instance, a network problem.
+
+   DELIVER_AND_GRANT 1
+
+      The AVP with Value field set to DELIVER_AND_GRANT means that the
+      service MUST only be granted as long as there is a connection to
+      an accounting server.  Note that the set of alternative accounting
+      servers are treated as one server in this sense.  Having to move
+      the accounting record stream to a backup server is not a reason to
+      discontinue the service to the user.
+
+   GRANT_AND_STORE 2
+
+      The AVP with Value field set to GRANT_AND_STORE means that service
+      SHOULD be granted if there is a connection, or as long as records
+      can still be stored as described in Section 9.4.
+
+      This is the default behavior if the AVP isn't included in the
+      reply from the authorization server.
+
+   GRANT_AND_LOSE 3
+
+      The AVP with Value field set to GRANT_AND_LOSE means that service
+      SHOULD be granted even if the records cannot be delivered or
+      stored.
+ */
 @DiameterAvpDefinition(code = 483L, vendorId = -1L, name = "Accounting-Realtime-Required")
 public interface AccountingRealtimeRequired extends DiameterEnumerated<AccountingRealtimeRequiredEnum>
 {

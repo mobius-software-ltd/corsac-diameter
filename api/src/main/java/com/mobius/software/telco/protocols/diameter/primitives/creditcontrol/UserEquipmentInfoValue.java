@@ -26,6 +26,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
+/*
+ * 8.51.  User-Equipment-Info-Value AVP
+
+   The User-Equipment-Info-Value AVP (AVP Code 460) is of type
+   OctetString.  The User-Equipment-Info-Type AVP defines which type of
+   identifier is used.
+ */
 @DiameterAvpDefinition(code = 460L, vendorId = -1L, must = false, name = "User-Equipment-Info-Value")
 public interface UserEquipmentInfoValue extends DiameterOctetString
 {

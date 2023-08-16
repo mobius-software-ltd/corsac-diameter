@@ -65,12 +65,12 @@ public class UserEquipmentInfoImpl implements UserEquipmentInfo
 		return userEquipmentInfoType.getEnumerated(UserEquipmentInfoTypeEnum.class);
 	}
 	
-	public void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum userEquipmentInfoType)
+	public void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum value)
 	{
-		if(userEquipmentInfoType==null)
+		if(value==null)
 			throw new IllegalArgumentException("User-Equipment-Info-Type is required");
 		
-		this.userEquipmentInfoType = new UserEquipmentInfoTypeImpl(userEquipmentInfoType, null, null);
+		this.userEquipmentInfoType = new UserEquipmentInfoTypeImpl(value, null, null);
 		
 	}
 	
@@ -82,12 +82,12 @@ public class UserEquipmentInfoImpl implements UserEquipmentInfo
 		return userEquipmentInfoValue.getValue();
 	}
 	
-	public void setUserEquipmentInfoValue(ByteBuf userEquipmentInfoValue)
+	public void setUserEquipmentInfoValue(ByteBuf value)
 	{
-		if(userEquipmentInfoValue==null)
+		if(value==null)
 			throw new IllegalArgumentException("User-Equipment-Info-Value is required");
 		
-		this.userEquipmentInfoValue = new UserEquipmentInfoValueImpl(userEquipmentInfoValue, null, null);
+		this.userEquipmentInfoValue = new UserEquipmentInfoValueImpl(value, null, null);
 	}
 	
 	@DiameterValidate

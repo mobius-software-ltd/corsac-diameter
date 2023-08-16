@@ -30,7 +30,24 @@ import io.netty.buffer.ByteBuf;
 */
 
 /*
- *  The Service-Parameter-Info AVP is defined as follows (per
+ * 8.43.  Service-Parameter-Info AVP
+
+   The Service-Parameter-Info AVP (AVP Code 440) is of type Grouped and
+   contains service-specific information used for price calculation or
+   rating.  The Service-Parameter-Type AVP defines the service parameter
+   type, and the Service-Parameter-Value AVP contains the parameter
+   value.  The actual contents of these AVPs are not within the scope of
+   this document and SHOULD be defined in another Diameter application,
+   in standards written by other standardization bodies, or in service-
+   specific documentation.
+
+   In the case of an unknown service request (e.g., unknown Service-
+   Parameter-Type), the corresponding Answer message MUST contain the
+   error code DIAMETER_RATING_FAILED.  A Credit-Control-Answer message
+   with this error MUST contain one or more Failed-AVP AVPs containing
+   the Service-Parameter-Info AVPs that caused the failure.
+
+   The Service-Parameter-Info AVP is defined as follows (per
    grouped-avp-def as defined in [RFC6733]):
 
          Service-Parameter-Info ::= < AVP Header: 440 >

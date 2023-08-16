@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 4.3.3.  Prompt AVP
+
+   The Prompt AVP (AVP Code 76) is of type Enumerated and MAY be present
+   in the AA-Answer message.  When present, it is used by the NAS to
+   determine whether the user's response, when entered, should be
+   echoed.
+
+   The supported values are listed in [RADIUSAttrVals].
+ */
 public enum PromptEnum implements IntegerEnum
 {
 	NO_ECHO(0),ECHO(1);

@@ -26,6 +26,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 4.4.10.7.1.  Framed-Appletalk-Link AVP
+
+   The Framed-Appletalk-Link AVP (AVP Code 37) is of type Unsigned32 and
+   contains the AppleTalk network number that should be used for the
+   serial link to the user, which is another AppleTalk router.  This AVP
+   MUST only be present in an authorization response and is never used
+   when the user is not another router.
+
+   Despite the size of the field, values range from 0 to 65,535.  The
+   special value of 0 indicates an unnumbered serial link.  A value of 1
+   to 65,535 means that the serial line between the NAS and the user
+   should be assigned that value as an AppleTalk network number.
+ */
 @DiameterAvpDefinition(code = 37L, vendorId = -1L, name = "Framed-Appletalk-Link")
 public interface FramedAppletalkLink extends DiameterUnsigned32
 {
