@@ -29,16 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Tariff
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.164	Real-Time-Tariff-Information AVP
-	The Real-Time-Tariff-Information AVP (AVP code 2305) is of type Grouped and holds the tariff information received in real time according to TS 29.658 [222] in the SIP signalling.
-	It has the following ABNF grammar:
-	
-	< Real-Time-Tariff-Information > :: =  < AVP Header: 2305 >
-			 [ Tariff-Information ]
-			 [ Tariff-XML ]
- */
 @DiameterAvpImplementation(code = 2305L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RealTimeTariffInformationImpl implements RealTimeTariffInformation
 {

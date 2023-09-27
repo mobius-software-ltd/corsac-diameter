@@ -31,17 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSResour
 * @author yulian oifa
 *
 */
-
-/*
- * 3.1.  QoS-Resources AVP
-
-   The QoS-Resources AVP (AVP Code 508) is of type Grouped and contains
-   a list of filter policy rules.
-
-   QoS-Resources ::= < AVP Header: 508 >
-                   1*{ Filter-Rule }
-                   * [ AVP ]
- */
 @DiameterAvpImplementation(code = 508L, vendorId = -1L)
 public class QoSResourcesImpl extends DiameterGroupedAvpImpl implements QoSResources
 {

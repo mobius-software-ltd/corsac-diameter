@@ -29,15 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANPL
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.251	WLAN-Operator-Id AVP
-	The WLAN-Operator-Id AVP (AVP code 1306) is of type Grouped and holds the identity of the trusted or untrusted WLAN Operator.
-
-	WLAN-Operator-Id :: = 	< AVP Header: 1306>
-		[ WLAN-PLMN-Id ]
-		[ WLAN-Operator-Name ]
- */
 @DiameterAvpImplementation(code = 1306L, vendorId = KnownVendorIDs.TGPP_ID)
 public class WLANOperatorIdImpl implements WLANOperatorId
 {

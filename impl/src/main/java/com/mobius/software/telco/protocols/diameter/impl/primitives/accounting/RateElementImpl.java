@@ -36,22 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.161	Rate-Element AVP
-	The Rate-Element AVP (AVP code 2058) is of type Grouped and holds simple rate element of one dimension. Possible dimensions are the CC-Unit-Type.
-	Example: CC-Unit-Type AVP TIME, Unit-Value AVP 6 and Unit-Cost AVP 10 with Exponent AVP 2 should read: 
-	10 cents per 6 seconds time. The currency is context dependent.
-	IF CC-Unit-Type AVP is MONEY, this is a fixed fee and Unit-Value is ignored.
-	It has the following ABNF grammar:
-
-	Rate-Element :: =  < AVP Header: 2058 >
-		 { CC-Unit-Type }
-		 [ Charge- Reason-Code ]
-		 [ Unit-Value ]
-		 [ Unit-Cost ]
-		 [ Unit-Quota-Threshold ]
- */
 @DiameterAvpImplementation(code = 2058L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RateElementImpl implements RateElement
 {

@@ -40,20 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.ReferenceNumb
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.205B	SM-Device-Trigger-Information AVP
-	The SM-Device-Trigger-Information AVP (AVP code 3405) is of type Grouped and holds the specific device trigger details for the Short Message.
-	It has the following ABNF grammar:
-	
-	SM-Device-Trigger-Information :: =   < AVP Header: 3405>
-		[ MTC-IWF-Address ]
-		[ Reference-Number ]
-		[ Serving-Node ]
-		[ Validity-Time ]
-		[ Priority-Indication ]
-		[ Application-Port-Identifier ] 
- */
 @DiameterAvpImplementation(code = 3405L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMDeviceTriggerInformationImpl implements SMDeviceTriggerInformation
 {

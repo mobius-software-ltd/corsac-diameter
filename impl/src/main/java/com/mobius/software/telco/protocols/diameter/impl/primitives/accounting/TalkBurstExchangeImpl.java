@@ -40,23 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBu
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.220	Talk-Burst-Exchange AVP
-	The Talk-Burst-Exchange AVP (AVP code 1255) is of type Grouped and holds the talk burst related charging data.
-	It has the following ABNF grammar:
-	 
-	Talk-Burst-Exchange ::	=	< AVP Header: 1255 >
-		{ PoC-Change-Time }
-		[ Number-Of-Talk-Bursts ]
-		[ Talk-Burst-Volume ]
-		[ Talk-Burst-Time ]
-		[ Number-Of-Received-Talk-Bursts ]
-		[ Received-Talk-Burst-Volume ]
-		[ Received-Talk-Burst-Time ]
-		[ Number-Of-Participants ]
-		[ PoC-Change-Condition ]
- */
 @DiameterAvpImplementation(code = 1255L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TalkBurstExchangeImpl implements TalkBurstExchange
 {

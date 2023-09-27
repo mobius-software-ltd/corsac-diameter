@@ -31,16 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPTim
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.185	SDP-TimeStamps AVP
-	The SDP-TimeStamps AVP (AVP code 1273) is of type Grouped and holds the time of the SDP offer and the SDP answer.
-	It has the following ABNF grammar:
-	
-	SDP-TimeStamps :: =  < AVP Header: 1273 >
-		  [ SDP-Offer-Timestamp ]
-		  [ SDP-Answer-Timestamp ]
- */
 @DiameterAvpImplementation(code = 1273L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SDPTimeStampsImpl implements SDPTimeStamps
 {

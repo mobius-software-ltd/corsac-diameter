@@ -32,16 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.178	Scale-Factor AVP
-	The Scale-Factor AVP (AVP code 2059) is of type Grouped and holds simple multiplication factor in the same format as Unit-Value.
-	It has the following ABNF grammar:
-
-	Scale-Factor :: = < AVP Header: 2059 >
-		{ Value-Digits }
-		[ Exponent ]
- */
 @DiameterAvpImplementation(code = 2059L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ScaleFactorImpl implements ScaleFactor
 {

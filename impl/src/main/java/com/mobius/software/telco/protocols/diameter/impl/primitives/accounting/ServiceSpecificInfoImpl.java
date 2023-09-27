@@ -29,16 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Servic
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.195	Service-Specific-Info AVP
-	The Service-Specific-Info AVP (AVP Code 1249) is of type Grouped and holds service specific data if and as provided by an Application Server, for IMS charging, a PCEF only for pre-defined PCC rules for PS domain charging, or a Proxy function for VCS charging.
-	It has the following ABNF grammar:
-	
-	Service-Specific-Info  ::=	   < AVP Header: 1249 >
-   		[ Service-Specific-Data ]
-   		[ Service-Specific-Type ]
- */
 @DiameterAvpImplementation(code = 1249L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServiceSpecificInfoImpl implements ServiceSpecificInfo
 {

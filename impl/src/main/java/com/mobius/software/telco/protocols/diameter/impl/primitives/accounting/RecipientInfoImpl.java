@@ -36,23 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.168	Recipient-Info AVP
-	The Recipient-Info AVP (AVP code 2026) is of type Grouped. Its purpose is to group information associated with a recipient. and contains the list of Recipient addresses of the message.
-	It has the following ABNF grammar:
-               
-	Recipient-Info :: = 	< AVP Header: 2026 >
-   			[ Destination-Interface ]
-		* 	[ Recipient-Address ]
-		* 	[ Recipient-Received-Address ]
-		   	[ Recipient-SCCP-Address ]
-		   	[ SM-Protocol-ID ]
-
-	NOTE 1: This Recipient-Info AVP allows charging for messages with multiple recipients by repeating this AVP for every recipient. The Recipient-Info AVP unambigiously associates the grouped information to one specific recipient. 
-	
-	NOTE 2: The SM-Protocol-ID AVP only relates to the recipient when charging MT SMS messages as specified in TS 23.040 [216].
- */
 @DiameterAvpImplementation(code = 2026L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RecipientInfoImpl implements RecipientInfo
 {

@@ -33,16 +33,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.233C	Transmitter-Info AVP
-	The Transmitter-Info AVP (AVP code 3468) is of type Grouped and provides information on a transmitter detected for direct communication. Each transmitter is identified by a source IP address and ProSe UE ID.
-	It has the following ABNF grammar:
-
-	Transmitter-Info :: = < AVP Header: 3468>
-			[ ProSe-Source-IP-Address ]
-			[ ProSe-UE-ID ]
- */
 @DiameterAvpImplementation(code = 3468L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TransmitterInfoImpl implements TransmitterInfo
 {

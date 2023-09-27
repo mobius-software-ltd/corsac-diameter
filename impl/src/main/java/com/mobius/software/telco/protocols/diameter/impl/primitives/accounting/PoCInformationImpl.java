@@ -47,29 +47,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBu
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.144	PoC-Information AVP
-	The PoC-Information AVP (AVP code 879) is of type Grouped. Its purpose is to allow the transmission of additional PoC service specific information elements. 
-	It has the following ABNF grammar:
-
-	PoC-Information :: = 		  < AVP Header: 879>
-			[ PoC-Server-Role ]
-			[ PoC-Session-Type ]
-			[ PoC-User-Role ]
-			[ PoC-Session-Initiation-type ]
-			[ PoC-Event-Type ]
-			[ Number-Of-Participants ]
-		* 	[ Participants-Involved ]
-		* 	[ Participant-Group ]
-		* 	[ Talk-Burst-Exchange ]
-			[ PoC-Controlling-Address ] 
-			[ PoC-Group-Name ]
-			[ PoC-Session-Id ] 
-			[ Charged-Party ]
-
-	NOTE:	In the ABNF definition of PoC-Information AVP, the Participants-Involved AVP is kept only for backward compatibility with Releases before the 3GPP Release 7.
- */
 @DiameterAvpImplementation(code = 879L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PoCInformationImpl implements PoCInformation
 {

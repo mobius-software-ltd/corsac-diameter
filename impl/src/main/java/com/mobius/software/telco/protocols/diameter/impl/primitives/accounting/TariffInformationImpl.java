@@ -34,17 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Tar
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.223	Tariff-Information AVP
-	The Tariff-Information AVP (AVP code 2060) is of type Grouped and holds a tariff definition either from the local provider or from 3rd party provider. It contains information about the operator and the ID of the service being provided, the current tariff and possible next tariff after tariff switch time. It may also chain to tariffs provided by intermediate operators in the chain.
-	It has the following ABNF grammar:
-
-	Tariff-Information :: =  < AVP Header: 2060 >
-  		{ Current-Tariff }
-		[ Tariff-Time-Change ]
-		[ Next-Tariff ]
- */
 @DiameterAvpImplementation(code = 2060L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TariffInformationImpl implements TariffInformation
 {

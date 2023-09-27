@@ -30,16 +30,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.PoCUse
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.149	PoC-User-Role AVP
-	The PoC-User-Role AVP (AVP code 1252) is of type Grouped. It specifies the role(s) related information of the PoC User that participating in the PoC Session.
-	It has the following grammar:
-	
-	PoC-User-Role ::  =  <AVP header: 1252>
-			[ PoC-User-Role-Ids ]
-			[ PoC-User-Role-info-Units ]
- */
 @DiameterAvpImplementation(code = 1252L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PoCUserRoleImpl implements PoCUserRole
 {

@@ -36,19 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.237C	TWAN-User-Location-Info AVP
-	The TWAN-User-Location-Info AVP (AVP code 2714) is of type Grouped and contains the UE location in a Trusted WLAN Access Network (TWAN) as TWAN Identifier defined in TS 29.274 [226]  .
-	It has the following ABNF grammar:
-
-	TWAN-User-Location-Info :: = 	< AVP Header: 2714>
-		{ SSID }
-		[ BSSID ] 
-		[ Civic-Address-Information ]
-		[ WLAN-Operator-Id ]
-		[ Logical-Access-ID ]
- */
 @DiameterAvpImplementation(code = 2714L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TWANUserLocationInfoImpl implements TWANUserLocationInfo
 {

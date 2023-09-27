@@ -32,16 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.239	Unit-Cost AVP
-	The Unit-Cost AVP (AVP code 2061) is of type Grouped and holds monetary value. It has the same format of Unit-Value AVP.
-	It has the following ABNF grammar:
-
-	Unit-Cost :: = < AVP Header: 2061 >
-		 	{ Value-Digits }
-		  	[ Exponent ]
- */
 @DiameterAvpImplementation(code = 2061L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UnitCostImpl implements UnitCost
 {

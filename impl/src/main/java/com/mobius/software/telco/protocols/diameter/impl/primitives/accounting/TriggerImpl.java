@@ -32,15 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Trigge
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.235	Trigger AVP
-	The Trigger AVP (AVP code 1264) is of type Grouped and holds the trigger types. The presence of the Trigger AVP without any Trigger-Type AVP in a CCA allows OCS to disable all the triggers. The presence of the Trigger AVP in the CCR identifies the event(s) triggering the CCR.
-	It has the following ABNF grammar:
-	
-	Trigger  :: = < AVP Header: 1264 >
- 		* [ Trigger-Type ]
- */
 @DiameterAvpImplementation(code = 1264L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TriggerImpl implements Trigger
 {

@@ -44,24 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.219	Supplementary-Service AVP
-	The Supplementary-Service AVP (AVP code 2048) is of type Grouped and holds the specific supplementary service details for one MMTel supplementary service.
-	It has the following ABNF grammar:
-
-	Supplementary-Service :: =   < AVP Header: 2048>
-			[ MMTel-SService-Type ]
-			[ Service-Mode ]
-			[ Number-Of-Diversions ]
-			[ Associated-Party-Address ]
-			[ Service-ID ]
-			[ Change-Time ]
-			[ Number-Of-Participants ]
-			[ Participant-Action-Type ]
-			[ CUG-Information ]
-			[ AoC-Information ]
- */
 @DiameterAvpImplementation(code = 2048L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SupplementaryServiceImpl implements SupplementaryService
 {

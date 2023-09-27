@@ -29,16 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TrunkG
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.237	Trunk-Group-ID AVP
-	The Trunk-Group-ID AVP (AVP code 851) is of type Grouped and identifies the incoming and outgoing PSTN legs.
-	It has the following ABNF grammar:
-	
-	Trunk-Group-ID :: =	 <AVP Header: 851>
-			[ Incoming-Trunk-Group-ID ]
-			[ Outgoing-Trunk-Group-ID ]
- */
 @DiameterAvpImplementation(code = 851L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TrunkGroupIDImpl implements TrunkGroupID
 {

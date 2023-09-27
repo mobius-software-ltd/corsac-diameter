@@ -44,22 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.242aaA	UWAN-User-Location-Info AVP
-	The UWAN-User-Location-Info AVP (AVP code 3918) is of type Grouped and contains the UE location in an Unrusted Wireless Access Network (UWAN). The UWAN User Location Information shall include the UE local IP address and optionally UDP source port number (if NAT is detected) or TCP source port number. It may also include WLAN Location Information as TWAN Identifier defined in  TS 29.274 [226] .
-	It has the following ABNF grammar:
-	
-	UWAN-User-Location-Info :: = 	< AVP Header: 3918>
-			{ UE-Local-IP-Address }
-			[ UDP-Source-Port ]
-			[ SSID ]
-			[ BSSID ]
-			[ TCP-Source-Port ]
-			[ Civic-Address-Information ]
-			[ WLAN-Operator-Id ]
-			[ Logical-Access-ID ]
- */
 @DiameterAvpImplementation(code = 3918L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UWANUserLocationInfoImpl implements UWANUserLocationInfo
 {

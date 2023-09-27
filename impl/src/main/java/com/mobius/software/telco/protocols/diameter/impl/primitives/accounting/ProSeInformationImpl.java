@@ -98,64 +98,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.154I	ProSe-Information AVP
-	The ProSe-Information AVP (AVP code 3447) is of type Grouped. Its purpose is to allow the transmission of additional ProSe service specific information elements. 
-	It has the following ABNF grammar:
-	
-	ProSe-Information :: = 	< AVP Header: 3447>
-		* 	[ Supported-Features ]
- 			[ Announcing-UE-HPLMN-Identifier ]
-			[ Announcing-UE-VPLMN-Identifier ]
-			[ Monitoring-UE-HPLMN-Identifier ]
-			[ Monitoring-UE-VPLMN-Identifier ]
-			[ Monitored-HPLMN-Identifier ]
-			[ Role-Of-ProSe-Function ]
-			[ ProSe-App-Id ]
-			[ ProSe-3rd-Party-Application-ID ]
-			[ Application-Specific-Data ]
-			[ ProSe-Event-Type ]
-			[ ProSe-Direct-Discovery-Model ]
-			[ ProSe-Function-IP-Address ]
-			[ ProSe-Function-ID ]
-			[ ProSe-Validity-Timer ]
-			[ ProSe-Role-Of-UE ]
-			[ ProSe-Request-Timestamp ] 
-			[ PC3-Control-Protocol-Cause ]
-			[ Monitoring-UE-Identifier ]
-			[ Prose-Function-PLMN-Identifier ]
-			[ Requestor-PLMN-Identifier ]
-			[ Origin-App-Layer-User-Id ]
-			[ WLAN-Link-Layer-Id ]
-			[ Requesting-EPUID ]
-			[ Target-App-Layer-User-Id ]
-			[ Requested-PLMN-Identifier ]
-			[ Time-Window ]
-			[ ProSe-Range-Class ]
-			[ Proximity-Alert-Indication ]
-			[ Proximity-Alert-Timestamp ]
-			[ Proximity-Cancellation-Timestamp ]
-			[ ProSe-Reason-For-Cancellation ]
-			[ PC3-EPC-Control-Protocol-Cause ]
-			[ ProSe-UE-ID ]
-			[ ProSe-Source-IP-Address ]
-			[ Layer-2-Group-ID ]
-			[ ProSe-Group-IP-Multicast-Address ]
- 		* 	[ Coverage-Info ]
- 		* 	[ Radio-Parameter-Set-Info ]
- 		* 	[ Transmitter-Info ]
-			[ Time-First-Transmission ]
-			[ Time-First-Reception ]
- 		* 	[ ProSe-Direct-Communication-Transmission-Data-Container ]
- 		* 	[ ProSe-Direct-Communication-Reception-Data-Container ] 
- 			[ Announcing-PLMN-ID]
-			[ ProSe-Target-Layer-2-ID ]
-			[ Relay-IP-address ]
-			[ ProSe-UE-to-Network-Relay-UE-ID ]
-			[ Target-IP-Address ]
-			[ PC5-Radio-Technology ]
- */
 @DiameterAvpImplementation(code = 3441L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeInformationImpl implements ProSeInformation
 {

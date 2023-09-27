@@ -31,16 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SCSRea
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.178B	SCS-AS-Address AVP
-	The SCS-AS-Address AVP (AVP code 3940) is of type Grouped and holds the Address of SCS/AS.
-	It has the following ABNF grammar:
-	
-	SCS-AS-Address :: = < AVP Header: 3940>
-		[ SCS-Realm ]
-		[ SCS-Address ]
- */
 @DiameterAvpImplementation(code = 3940L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SCSASAddressImpl implements SCSASAddress
 {

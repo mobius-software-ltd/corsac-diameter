@@ -31,16 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.172	Remaining-Balance AVP
-	The Remaining-Balance AVP (AVP code 2021) is of type Grouped and provides information about the remaining account balance of the subscriber.
-	It has the following ABNF grammar:
-	
-	Remaining-Balance :: = < AVP Header: 2021 >
-		{ Unit-Value }
-		{ Currency-Code }
- */
 @DiameterAvpImplementation(code = 2021L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RemainingBalanceImpl implements RemainingBalance
 {

@@ -49,26 +49,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.180	SDP-Media-Component AVP
-	The SDP-Media-Component AVP (AVP code 843) is of type Grouped and contains information about media used for a IMS session.
-	It has the following ABNF grammar:
-
-	SDP-Media-Component ::=	< AVP Header: 843 >
-			[ SDP-Media-Name ]
-		* 	[ SDP-Media-Description ]
-			[ Local-GW-Inserted-Indication ] 
-			[ IP-Realm-Default-Indication ]
-			[ Transcoder-Inserted-Indication ]
-			[ Media-Initiator-Flag ] 
-			[ Media-Initiator-Party ]
-			[ 3GPP-Charging-Id ]
-			[ Access-Network-Charging-Identifier-Value ]
-			[ SDP-Type ]
-
-	NOTE:	When populating the SDP-Media-Component, either the 3GPP-Charging-ID or the Access-Network-Charging-Identifier-Value should be present but not both. The 3GPP-Charging-ID is expected to be used for 3GPP defined IP-CANS (e.g. GPRS, EPS, 5GS) while the Access-Network-Charging-Identifier-Value is used for non-3GPP defined IP-CANs. 
- */
 @DiameterAvpImplementation(code = 843L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SDPMediaComponentImpl implements SDPMediaComponent
 {

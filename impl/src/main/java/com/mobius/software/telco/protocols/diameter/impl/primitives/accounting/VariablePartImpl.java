@@ -31,17 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Variab
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.242aA	Variable-Part AVP
-	The Variable-Part AVP (AVP code 3907) is of type Grouped and specifies the order, type, and value of a variable to be played back within the announcement.
-	It has the following ABNF grammar:
-
-	Variable-Part :: =  < AVP Header: 3907 >
-		[ Variable-Part-Order ]
-		{ Variable-Part-Type }
-		{ Variable-Part-Value }
- */
 @DiameterAvpImplementation(code = 3907L, vendorId = KnownVendorIDs.TGPP_ID)
 public class VariablePartImpl implements VariablePart
 {

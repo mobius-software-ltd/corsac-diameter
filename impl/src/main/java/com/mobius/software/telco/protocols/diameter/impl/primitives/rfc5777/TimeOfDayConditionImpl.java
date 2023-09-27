@@ -38,35 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TimezoneF
 * @author yulian oifa
 *
 */
-
-/*
- * 4.2.1.  Time-Of-Day-Condition AVP
-
-   The Time-Of-Day-Condition AVP (AVP Code 560) is of type Grouped and
-   specifies one or more time windows.
-   
-      Time-Of-Day-Condition ::= < AVP Header: 560 >
-                             [ Time-Of-Day-Start ]
-                             [ Time-Of-Day-End ]
-                             [ Day-Of-Week-Mask ]
-                             [ Day-Of-Month-Mask ]
-                             [ Month-Of-Year-Mask ]
-                             [ Absolute-Start-Time ]
-                             [ Absolute-End-Time ]
-                             [ Timezone-Flag ]
-                           * [ AVP ]
-
-   For example, a time window for 9 a.m. to 5 p.m. (local time) from
-   Monday to Friday would be expressed as:
-
-   Time-Of-Day-Condition = {
-       Time-Of-Day-Start = 32400;
-       Time-Of-Day-End = 61200;
-       Day-Of-Week-Mask =
-           ( MONDAY | TUESDAY | WEDNESDAY | THURSDAY | FRIDAY );
-       Timezone-Flag = LOCAL;
-   }
- */
 @DiameterAvpImplementation(code = 560L, vendorId = -1L)
 public class TimeOfDayConditionImpl extends DiameterGroupedAvpImpl implements TimeOfDayCondition
 {

@@ -46,24 +46,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.154Aa	ProSe-Direct-Communication-Reception-Data-Container AVP
-	The ProSe-Direct-Communication-Reception-Data-Container AVP (AVP code 3461) is of type Grouped. Its purpose is to allow the transmission of the container to be reported for ProSe Charging. On encountering change on ProSe charging condition, this container  identifies the volume count for receiving within a ProSe group communication.
-	It has the following ABNF grammar:
-            
-    ProSe-Direct-Communication-Reception-Data-Container :: =  < AVP Header: 3461>
-		[ Local-Sequence-Number ]
-		[ Coverage-Status ]
-		[ 3GPP-User-Location-Info ]
-		[ Accounting-Input-Octets ]
-		[ Change-Time ]
-		[ Change-Condition ]
-		[ Visited-PLMN-Id ]
-		[ Usage-Information-Report-Sequence-Number ]
-		[ Radio-Resources-Indicator]
-		[ Radio-Frequency ]
- */
 @DiameterAvpImplementation(code = 3461L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeDirectCommunicationReceptionDataContainerImpl implements ProSeDirectCommunicationReceptionDataContainer
 {

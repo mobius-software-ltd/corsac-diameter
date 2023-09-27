@@ -63,37 +63,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.211	SMS-Information AVP
-	The SMS-Information AVP (AVP code 2000) is of type Grouped. Its purpose is to allow the transmission of additional SMS service specific information elements. 
-	It has the following ABNF grammar:
-         
-	SMS-Information :: = < AVP Header: 2000>
-			[ SMS-Node ]
-			[ Client-Address ]
-			[ Originator-SCCP-Address ]
-			[ SMSC-Address ]
-			[ Data-Coding-Scheme ]
-			[ SM-Discharge-Time ]
-			[ SM-Message-Type ]
-			[ Originator-Interface ]
-			[ SM-Protocol-ID ]
-			[ Reply-Path-Requested ]
-			[ SM-Status ]
-			[ SM-User-Data-Header ]
-			[ Number-Of-Messages-Sent ] 
-			[ SM-Sequence-Number ]
- 		* 	[ Recipient-Info ]
-			[ Originator-Received-Address ]
-			[ SM-Service-Type ]
-			[ SMS-Result ]
-			[ SM-Device-Trigger-Indicator ]
-			[ SM-Device-Trigger-Information ]
-			[ MTC-IWF-Address ]
-			[ Application-Port-Identifier ]
-			[ External-Identifier ] 
- */
 @DiameterAvpImplementation(code = 2000L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMSInformationImpl implements SMSInformation
 {

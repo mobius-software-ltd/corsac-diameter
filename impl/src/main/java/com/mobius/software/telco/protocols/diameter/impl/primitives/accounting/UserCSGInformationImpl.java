@@ -34,17 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.CSGId;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.240A	User-CSG-Information AVP
-	The User-CSG-Information AVP (AVP code 2319) is of type Grouped and holds the user "Closed Subscriber Group" information associated to CSG cell access: it comprises CSG ID within the PLMN, access mode and indication on CSG membership for the user when hybrid access applies, as defined in TS 29.060 [225] for GPRS case, and in TS 29.274 [226] for EPC case.  
-	It has the following ABNF grammar:
-
-	User-CSG-Information :: = 	< AVP Header: 2319>
-		 	{ CSG-Id }
-		 	{ CSG-Access-Mode } 
-			[ CSG-Membership-Indication ]
- */
 @DiameterAvpImplementation(code = 2319L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UserCSGInformationImpl implements UserCSGInformation
 {

@@ -31,18 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQu
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.228	Time-Quota-Mechanism
-	The Time-Quota-Mechanism AVP (AVP code 1270) is of type Grouped.
-	It has the following syntax:
-
-	Time-Quota-Mechanism ::= < AVP Header: 1270>
-		{ Time-Quota-Type }
-		{ Base-Time-Interval }
-
-	The OCS may include this AVP in a Multiple-Services-Credit-Control AVP, when granting time quota. 
- */
 @DiameterAvpImplementation(code = 1270L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TimeQuotaMechanismImpl implements TimeQuotaMechanism
 {

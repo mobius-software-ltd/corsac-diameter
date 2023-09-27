@@ -29,16 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformat
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.242C	VoLTE-Information AVP
-	The VoLTE-Information AVP (AVP code 1323) is of type Grouped, and it contains the caller and callee Information of VoLTE. 
-	It has the following ABNF grammar:
-	
-	VoLTE-Information ::=	< AVP Header: 1323 >
-			[ Calling-Party-Address ]
-			[ Callee-Information ]
- */
 @DiameterAvpImplementation(code = 1323L, vendorId = KnownVendorIDs.TGPP_ID)
 public class VoLTEInformationImpl implements VoLTEInformation
 {

@@ -33,16 +33,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.160B	Radio-Parameter-Set-Info AVP
-	The Radio-Parameter-Set-Info AVP (AVP code 3463) is of type Grouped and provides information on a radio parameter set configured in the UE for direct communication use. Each set has an associated time stamp of when it became active.
-	It has the following ABNF grammar:
-	
-	Radio-Parameter-Set-Info :: = < AVP Header: 3463>
-		[ Radio-Parameter-Set-Values ]
-		[ Change-Time ]
- */
 @DiameterAvpImplementation(code = 3463L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RadioParameterSetInfoImpl implements RadioParameterSetInfo
 {

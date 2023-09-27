@@ -28,15 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.PSCell
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.255	PSCell-Info AVP
-	The PSCell-Info AVP (AVP code 1324) is of type Grouped and provides primary of Secondary Cell Group (SCG)) cell information.
-	It has the following ABNF grammar:
-
-	PSCell-Info :: = < AVP Header: 1324>
-		[ Nr-Cgi ]
- */
 @DiameterAvpImplementation(code = 1324L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PSCellInfoImpl implements PSCellInfo
 {

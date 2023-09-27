@@ -33,18 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Recipi
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.167	Recipient-Address AVP
-	The Recipient-Address AVP (AVP code 1201) is of type Grouped. Its purpose is to identify the recipient of a message.
-	It has the following ABNF grammar:
-
-	Recipient-Address :: = 	< AVP Header: 1201 >
-		[ Address-Type ]
-		[ Address-Data ]
-		[ Address-Domain ]
-		[ Addressee-Type ]
- */
 @DiameterAvpImplementation(code = 1201L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RecipientAddressImpl implements RecipientAddress
 {

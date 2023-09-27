@@ -35,17 +35,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.157	PS-Furnish-Charging-Information AVP
-	The PS-Furnish-Charging-Information AVP (AVP code 865) is of type Grouped. Its purpose is to add online charging session specific information, received via the Ro reference point, onto the Rf reference point in order to facilitate its inclusion in CDRs. This information element may be received in a CCA message via the Ro reference point. In situations where online and offline charging are active in parallel, the information element is transparently copied into an ACR to be sent on the Rf reference point. 
-	It has the following ABNF grammar:
-
-	PS-Furnish-Charging-Information :: = < AVP Header: 865>
-		{ 3GPP-Charging-Id }
-		{ PS-Free-Format-Data }
-		[ PS-Append-Free-Format-Data ]
- */
 @DiameterAvpImplementation(code = 865L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PSFurnishChargingInformationImpl implements PSFurnishChargingInformation
 {

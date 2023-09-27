@@ -46,24 +46,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.154B	ProSe-Direct-Communication-Transmission-Data-Container AVP
-	The ProSe-Direct-Communication- Transmission-Data-Container AVP (AVP code 3441) is of type Grouped. Its purpose is to allow the transmission of the container to be reported for ProSe Charging. On encountering change on ProSe charging condition, this container  identifies the volume count for transmitting within a ProSe group communication.
-	It has the following ABNF grammar:
-            
-	ProSe-Direct-Communication- Transmission-Data-Container :: =  < AVP Header: 3441>
-			[ Local-Sequence-Number ]
-			[ Coverage-status ]
-			[ 3GPP-User-Location-Info ]
-			[ Accounting-Output-Octets ]
-			[ Change-Time ]
-			[ Change-Condition ]
-			[ Visited-PLMN-Id ]
-			[ Usage-Information-Report-Sequence-Number ] 
-			[ Radio-Resources-Indicator ]
-			[ Radio-Frequency ]
- */
 @DiameterAvpImplementation(code = 3441L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeDirectCommunicationTransmissionDataContainerImpl implements ProSeDirectCommunicationTransmissionDataContainer
 {

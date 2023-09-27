@@ -32,17 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserPa
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.131	Participant-Group AVP
-	The Participant-Group AVP (AVP code 1260) is of type Grouped and holds detailed information, e.g. the address (Public User ID: SIP URI, Tel URI, MSISDN), the access priority parameters, etc, of the party who is involved into the PoC session.
-	It has the following ABNF grammar:
-
-	< Participant-Group > ::  =	< AVP Header: 1260>
-		[ Called-Party-Address ]
-		[ Participant-Access-Priority ]
-		[ User-Participating-Type ]
- */
 @DiameterAvpImplementation(code = 1260L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ParticipantGroupImpl implements ParticipantGroup
 {

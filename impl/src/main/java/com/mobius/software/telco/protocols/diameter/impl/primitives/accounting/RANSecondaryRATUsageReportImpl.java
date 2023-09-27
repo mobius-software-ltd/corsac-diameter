@@ -40,20 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.160Db	RAN-Secondary-RAT-Usage-Report AVP
-	The RAN-Secondary-RAT-Usage-Report AVP (AVP code 1302) is of type Grouped. This contains the volume count as reported by the RAN for the secondary RAT (separated for uplink and downlink) for the bearer including the time of the report. The 3GPP-Charging-Id AVP associated to this IP-CAN bearer is included when charging per IP-CAN session is active.
-	It has the following ABNF grammar:
-
-	RAN-Secondary-RAT-Usage-Report :: = 	  < AVP Header: 1302>
-		   [Secondary-RAT-Type ]
-		   [ RAN-Start-Timestamp ]
-		   [ RAN-End-Timestamp ]
-		   [ Accounting-Input-Octets ]
-		   [ Accounting-Output-Octets ] 
-		   [ 3GPP-Charging-Id ]
- */
 @DiameterAvpImplementation(code = 1302L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RANSecondaryRATUsageReportImpl implements RANSecondaryRATUsageReport
 {

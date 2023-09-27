@@ -41,25 +41,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.TGPPAAAServer
 * @author yulian oifa
 *
 */
-
-/*
- * 	6.4.3 Serving-Node
-	The Serving-Node AVP is of type Grouped. This AVP shall contain the information about the network node serving the
-	targeted user.
-	
-	AVP format
-		Serving-Node ::= <AVP header: 2401 10415> 
-			 [ SGSN-Number ]
-			 [ SGSN-Name ]
-			 [ SGSN-Realm ]
-			 [ MME-Name ]
-			 [ MME-Realm ]
-			 [ MSC-Number ]
-			 [ 3GPP-AAA-Server-Name ]
-			 [ LCS-Capabilities-Sets ]
-			 [ GMLC-Address ]
-			*[AVP]
- */
 @DiameterAvpImplementation(code = 2401L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServingNodeImpl extends DiameterGroupedAvpImpl implements ServingNode
 {

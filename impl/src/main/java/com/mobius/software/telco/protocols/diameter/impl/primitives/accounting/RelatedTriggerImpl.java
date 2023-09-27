@@ -32,15 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Trigge
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.171Ab	Related-Trigger AVP
-	The Related-Trigger AVP (AVP code 3926) is of type Grouped and holds the trigger types for a related trigger for another access in a multi-access PDN connection. This AVP is only included when the Trigger AVP contains a Trigger-Type AVP with value of "indirect change condition" which is applicable charging per IP can session for a multi-accessPDN connection.
-	It has the following ABNF grammar:
-	
-	Related-Trigger  :: = < AVP Header: 3926 >
- 		* [ Trigger-Type ]
- */
 @DiameterAvpImplementation(code = 3926L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RelatedTriggerImpl implements RelatedTrigger
 {

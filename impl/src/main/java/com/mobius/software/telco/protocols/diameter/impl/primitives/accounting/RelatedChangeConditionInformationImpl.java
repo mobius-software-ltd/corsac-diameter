@@ -45,22 +45,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.171Aa	Related-Change-Condition-Information AVP
-	The Related-Change-Condition-Information AVP (AVP code 3925) is of type Grouped. Its purpose is to allow the transmission of the change condition information that occurred on another access of a multi-access PDN connection that triggered an indirect change condition of the current access. In additional to the identification of the change condition(s) that occurred on the other access, the supplemental data for that event is also included (e.g., user location information).
-	It has the following ABNF grammar:
-            
-	Related-Change-Condition-Information :: =  < AVP Header: 3925>
-   			[ SGSN-Address ] 
- 		*	[ Change-Condition]
-		    [ 3GPP-User-Location-Info ]
-		    [ 3GPP2-BSID ]
-		    [ UWAN-User-Location-Info ]
-		    [ Presence-Reporting-Area-Status ]
-		    [ User-CSG-Information ]  
-			[ 3GPP-RAT-Type ]
- */
 @DiameterAvpImplementation(code = 3925L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RelatedChangeConditionInformationImpl implements RelatedChangeConditionInformation
 {

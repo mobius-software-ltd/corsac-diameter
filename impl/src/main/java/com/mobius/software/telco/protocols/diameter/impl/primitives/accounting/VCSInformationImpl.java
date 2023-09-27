@@ -44,26 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.242A	VCS-Information AVP
-	The VCS-Information AVP (AVP code 3410) is of type Grouped. Its purpose is to allow the transmission of additional VCS service specific information elements. 
-	It has the following ABNF grammar:
-
-	VCS-Information :: = 	  < AVP Header: 3410>
-			[ Bearer-Capability ]
-			[ Network-Call-Reference-Number ]
-			[ MSC-Address ]
-			[ Basic-Service-Code ]
-			[ ISUP-Location-Number ]
-			[ VLR-Number ]
-			[ Forwarding-Pending ]
-			[ ISUP-Cause ]
-			[ Start-Time ]
-			[ Start-of-Charging ]
-			[ Stop-Time ]
-			[ PS-Free-Format-Data ]
- */
 @DiameterAvpImplementation(code = 3410L, vendorId = KnownVendorIDs.TGPP_ID)
 public class VCSInformationImpl implements VCSInformation
 {

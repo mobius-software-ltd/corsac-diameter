@@ -33,18 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeSt
 * @author yulian oifa
 *
 */
-
-/*
- * 	7.2.231	Time-Stamps AVP
-	The Time-Stamps AVP (AVP code 833) is of type Grouped and holds the time stamp of the SIP REQUEST and the time stamp of the response to the SIP REQUEST.
-	It has the following ABNF grammar:
-	
-	Time-Stamps ::=	< AVP Header: 833 >
-		[ SIP-Request-Timestamp ]
-		[ SIP-Response-Timestamp ]
-		[ SIP-Request-Timestamp-Fraction ]
-		[ SIP-Response-Timestamp-Fraction ]
- */
 @DiameterAvpImplementation(code = 833L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TimeStampsImpl implements TimeStamps
 {
