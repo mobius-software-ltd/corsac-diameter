@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.130 Participants-Involved AVP
+	The Participants-Involved AVP (AVP code 887) is of type UTF8String and holds the list of address (Public User ID:
+	SIP URI, Tel URI, MSISDN) of the parties who are involved into the PoC session.
+ */
 @DiameterAvpDefinition(code = 887L, vendorId = KnownVendorIDs.TGPP_ID, name = "Participants-Involved")
 public interface ParticipantsInvolved extends DiameterUTF8String
 {

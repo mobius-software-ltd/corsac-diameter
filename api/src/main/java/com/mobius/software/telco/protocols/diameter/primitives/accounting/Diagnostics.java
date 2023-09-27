@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.54 Diagnostics AVP
+	The Diagnostics AVP (AVP code 2039) is of type Integer32 and provides a more detailed cause value from PCN node.
+	It complements the Change-Condition AVP for Offline Charging. 
+ */
 @DiameterAvpDefinition(code = 2039L, vendorId = KnownVendorIDs.TGPP_ID, name = "Diagnostics")
 public interface Diagnostics extends DiameterInteger32
 {

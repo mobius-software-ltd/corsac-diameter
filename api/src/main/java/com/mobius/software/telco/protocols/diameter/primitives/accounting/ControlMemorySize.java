@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.5.  Control-Memory-Size AVP
+	A.4.5. Control-Memory-Size AVP
 	The Control-Memory-Size AVP (AVP Code 1002) is of type Unsigned32 and represents the storage memory (in bytes) used to store control related information 
 	associated with the M2M event record (excludes data storage associated with container related operations).
  */

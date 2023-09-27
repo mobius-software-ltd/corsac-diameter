@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.109 MMBox-Storage-Requested AVP
+	The MMBox-Storage-Requested AVP (AVP code 1248) is of type Enumerated and indicates whether an
+	MMBoxstorage has been requested by the originator MMS User Agent or not. The values for whether an MMBox
+	Storage was requested are:
+ 	
+ 	0 No
+ 	1 Yes 
+ */
 public enum MMBoxStorageRequestedEnum implements IntegerEnum
 {
 	NO(0),YES(1);

@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111AaB Monitoring-Event-Functionality AVP
+	The Monitoring-Event-Functionality AVP (AVP code 3922) is of type Enumerated and indicates the Monitoring Event
+	functionality to be charged. The AVP may take the values as follows:
+
+	0 Configuration
+	1 Reporting 
+ */
 public enum MonitoringEventFunctionalityEnum implements IntegerEnum
 {
 	CONFIGURATION(0),REPORTING(1);

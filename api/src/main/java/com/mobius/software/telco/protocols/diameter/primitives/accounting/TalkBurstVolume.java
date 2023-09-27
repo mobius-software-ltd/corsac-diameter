@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.222 Talk-Burst-Volume AVP
+	The Talk-Burst-Volume AVP (AVP code 1287) is of type Unsigned32 and holds the volume in bytes of the sent talk
+	bursts. 
+ */
 @DiameterAvpDefinition(code = 1287L, vendorId = KnownVendorIDs.TGPP_ID, name = "Talk-Burst-Volume")
 public interface TalkBurstVolume extends DiameterUnsigned32
 {

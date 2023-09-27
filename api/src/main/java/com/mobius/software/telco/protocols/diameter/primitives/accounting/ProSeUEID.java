@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154O ProSe-UE-ID AVP
+	The ProSe-UE-ID AVP (AVP code 3453) is of type OctetString and carry a link layer identifier assigned by the EPS
+	that uniquely represents the UE in the context of ProSe Direct Communication. It is referred to as "ProSe UE ID" in TS
+	23.303 [235].
+ */
 @DiameterAvpDefinition(code = 3453L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-UE-ID")
 public interface ProSeUEID extends DiameterOctetString
 {

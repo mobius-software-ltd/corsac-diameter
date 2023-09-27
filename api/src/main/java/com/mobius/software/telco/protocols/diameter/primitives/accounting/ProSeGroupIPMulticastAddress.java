@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154H ProSe-Group-IP-Multicast-Address AVP
+	The ProSe- Group-IP-Multicast-Address AVP (AVP code 3446) is of type Address and holds The IP multicast address
+	to be used for performing ProSe direct communication. It is referred to as "ProSe Group IP multicast address" in TS
+	23.303 [235]. 
+ */
 @DiameterAvpDefinition(code = 3446L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Group-IP-Multicast-Address")
 public interface ProSeGroupIPMulticastAddress extends DiameterAddress
 {

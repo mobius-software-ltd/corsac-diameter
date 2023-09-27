@@ -43,6 +43,11 @@ public class MIPFAtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPFAtoH
 	
 	private MIPSessionKey mipSessionKey;
 	
+	protected MIPFAtoHAMSAImpl()
+	{
+		
+	}
+	
 	public MIPFAtoHAMSAImpl(Long mipFAtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey)
 	{
 		if(mipFAtoHASPI==null)

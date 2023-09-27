@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.218 Subscriber-Role AVP
+	The Subscriber-Role AVP (AVP code 2033) is of type Enumerated and indicates the role of the subscriber (originating
+	party or terminating party) in MMTel supplementary services. The role can be one of the following:
+	
+	0 Originating
+	1 Terminating
+	This AVP is not used. 
+ */
 @DiameterAvpDefinition(code = 2033L, vendorId = KnownVendorIDs.TGPP_ID, name = "Subscriber-Role")
 public interface SubscriberRole extends DiameterEnumerated<SubscriberRoleEnum>
 {

@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.178C SCS-Realm AVP
+	The SCS-Realm AVP (AVP code 3942) is of type DiameterIdentity and holds the Diameter Realm Identity of SCS/AS. 
+ */
 @DiameterAvpDefinition(code = 3942L, vendorId = KnownVendorIDs.TGPP_ID, name = "SCS-Realm")
 public interface SCSRealm extends DiameterIdentity
 {

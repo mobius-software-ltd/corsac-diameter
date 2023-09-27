@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.186 SDP-Type AVP
+	The SDP-Type AVP (AVP code 2036) is of type Enumerated and holds information if the SDP media component was
+	of type SDP offer or SDP answer. The values are:
+	
+	0 SDP Offer
+	1 SDP Answer 
+ */
 @DiameterAvpDefinition(code = 2036L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Type")
 public interface SDPType extends DiameterEnumerated<SDPTypeEnum>
 {

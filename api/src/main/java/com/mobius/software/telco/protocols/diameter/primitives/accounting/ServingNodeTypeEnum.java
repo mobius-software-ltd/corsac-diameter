@@ -28,6 +28,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.198 Serving-Node-Type AVP
+	The Serving-Node-Type AVP (AVP Code 2047) is of type Enumerated and identifies the type of Serving Node. It may
+	take the following values:
+
+	0 SGSN
+	1 PMIPSGW
+	2 GTPSGW
+	3 ePDG
+	4 hSGW
+	5 MME
+	6 TWAN
+ */
 public enum ServingNodeTypeEnum implements IntegerEnum
 {
 	INBOUND(0),OUTBOUND(1);

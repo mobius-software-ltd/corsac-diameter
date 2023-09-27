@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.152 Positioning-Data AVP
+	The Positioning-Data AVP (AVP code 1245) is of type UTF8String and indicates the usage of each positioning method
+	that was attempted to determine the location estimate either successfully or unsuccessfully. 
+ */
 @DiameterAvpDefinition(code = 1245L, vendorId = KnownVendorIDs.TGPP_ID, name = "Positioning-Data")
 public interface PositioningData extends DiameterUTF8String
 {

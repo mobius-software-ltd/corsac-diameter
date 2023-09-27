@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.46B CSG-Membership-Indication AVP
+	The CSG-Membership-Indication AVP (AVP code 2318) is of type Enumerated, and indicates the UE is a member of
+	the accessing CSG cell, if the access mode is Hybrid, as described in TS 29.060 [225], and in TS 29.274 [226]. If this
+	indication is not present, this means the UE is a Not member of the CSG cell for hybrid access mode. The following
+	values are defined:
+
+	0 Not CSG member
+	1 CSG Member 
+ */
 public enum CSGMembershipIndicationEnum implements IntegerEnum
 {
 	NOT_MEMBER(0),MEMBER(1);

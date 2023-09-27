@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.242B VLR-Number AVP
+	The VLR-Number AVP (AVP code 3420) is type OctetString and identifies the international E.164 address of the VLR
+	serving the user. It is encoded as a TBCD-string. See TS 29.002 [232] for encoding of TBCD-strings.
+	This AVP does not include leading indicators for the nature of address and the numbering plan; it contains only the
+	TBCD-encoded digits of the address. 
+ */
 @DiameterAvpDefinition(code = 3420L, vendorId = KnownVendorIDs.TGPP_ID, name = "VLR-Number")
 public interface VLRNumber extends DiameterE164Address
 {

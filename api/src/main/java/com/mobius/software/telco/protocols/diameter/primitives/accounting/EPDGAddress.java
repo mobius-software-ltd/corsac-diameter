@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.62A EPDG-Address AVP
+	The EPDG-Address AVP (AVP code 3425) is of type Address and holds the IP-address of the ePDG Node. 
+ */
 @DiameterAvpDefinition(code = 3425L, vendorId = KnownVendorIDs.TGPP_ID, name = "EPDG-Address")
 public interface EPDGAddress extends DiameterAddress
 {

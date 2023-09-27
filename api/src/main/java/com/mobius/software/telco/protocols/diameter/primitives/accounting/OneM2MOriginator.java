@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.11.  Originator AVP
+	A.4.11. Originator AVP
 	The Originator AVP (AVP Code 1008) is of type UTF8String and identifies the originator (i.e., from party) of the M2M request. 
 	This can be any M2M Node with format as per clause 6.2.3.
  */

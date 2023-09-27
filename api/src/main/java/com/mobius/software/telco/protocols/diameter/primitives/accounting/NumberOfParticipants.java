@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.117 Number-Of-Participants AVP
+	The Number-Of-Participants AVP (AVP code 885) is of type Unsigned32 and holds the number of invited parties of
+	the multi-party session when included in the initial charging request message, e.g. in PoC, CONFerence and SIMPLE
+	IM. When included in interim / update charging messages, it indicates the number of parties who are currently attached
+	in the session at the time the interim / update messages are sent. 
+ */
 @DiameterAvpDefinition(code = 885L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Participants")
 public interface NumberOfParticipants extends DiameterUnsigned32
 {

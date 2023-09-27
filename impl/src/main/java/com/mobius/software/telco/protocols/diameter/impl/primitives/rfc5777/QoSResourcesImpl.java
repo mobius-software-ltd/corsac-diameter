@@ -20,7 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.FilterRule;
@@ -42,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSResour
                    1*{ Filter-Rule }
                    * [ AVP ]
  */
-@DiameterAvpDefinition(code = 508L, vendorId = -1L, name = "Filter-Rule")
+@DiameterAvpImplementation(code = 508L, vendorId = -1L)
 public class QoSResourcesImpl extends DiameterGroupedAvpImpl implements QoSResources
 {
 	private List<FilterRule> filterRule;

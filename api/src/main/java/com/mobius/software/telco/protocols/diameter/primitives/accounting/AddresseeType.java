@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.10 Addressee-Type AVP
+	The Addressee-Type AVP (AVP code 1208) is of type Enumerated and identifies the how the recipient is addressed in
+	the header of an MM. The following values are defined:
+
+	0 TO
+	1 CC
+	2 BCC 
+*/
 @DiameterAvpDefinition(code = 1208L, vendorId = KnownVendorIDs.TGPP_ID, name = "Addressee-Type")
 public interface AddresseeType extends DiameterEnumerated<AddresseeTypeEnum>
 {

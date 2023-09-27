@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111B MSC-Address AVP
+	The MSC-Address AVP (AVP code 3417) is type OctetString and contains the international E.164 address of the MSC
+	that generated the network call reference number. It is encoded as a TBCD-string. See TS 29.002 [232] for encoding of
+	TBCD-strings. This AVP does not include leading indicators for the nature of address and the numbering plan; it
+	contains only the TBCD-encoded digits of the address. 
+ */
 @DiameterAvpDefinition(code = 3417L, vendorId = KnownVendorIDs.TGPP_ID, name = "MSC-Address")
 public interface MSCAddress extends DiameterE164Address
 {

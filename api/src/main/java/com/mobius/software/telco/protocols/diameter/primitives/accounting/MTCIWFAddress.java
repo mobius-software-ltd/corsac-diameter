@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111C MTC-IWF-Address AVP
+	The MTC-IWF-Address AVP (AVP code 3406) is of type Address and holds the address of MTC-IWF for Machine
+	Type Communcication, defined in TS 29.337 [231].
+ */
 @DiameterAvpDefinition(code = 3406L, vendorId = KnownVendorIDs.TGPP_ID, name = "MTC-IWF-Address")
 public interface MTCIWFAddress extends DiameterAddress
 {

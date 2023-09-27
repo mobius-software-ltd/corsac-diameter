@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.106 Message-Size AVP
+	The Message-Size AVP (AVP code 1212) is of type Unsigned32. For MMS, it holds the total size in bytes of the MM
+	calculated according to TS 23.140 [208]. For SMS, it holds the total size in octets of SM including any user data header. 
+ */
 @DiameterAvpDefinition(code = 1212L, vendorId = KnownVendorIDs.TGPP_ID, name = "Message-Size")
 public interface MessageSize extends DiameterUnsigned32
 {

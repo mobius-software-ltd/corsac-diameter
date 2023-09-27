@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.7.  Data-Memory-Size AVP
+	A.4.7. Data-Memory-Size AVP
 	The Data-Memory-Size AVP (AVP Code 1004) is of type Unsigned32 and represents the storage memory in bytes, 
 	where applicable, to store data  associated with container related operations. 
  */

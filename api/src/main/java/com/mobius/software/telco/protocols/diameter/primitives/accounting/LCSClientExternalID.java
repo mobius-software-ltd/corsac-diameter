@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.83 LCS-Client-External-ID AVP
+	The LCS-Client-External-ID AVP (AVP code 1234) is of type UTF8String and holds the identification of the external
+	LCS Client. 
+ */
 @DiameterAvpDefinition(code = 1234L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Client-External-ID")
 public interface LCSClientExternalID extends DiameterUTF8String
 {

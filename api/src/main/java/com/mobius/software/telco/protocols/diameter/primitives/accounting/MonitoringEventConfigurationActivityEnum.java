@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111AaA Monitoring-Event-Configuration-Activity AVP
+	The Monitoring-Event-Configuration-Activity AVP (AVP code3919) is of type Enumerated and indicates Monitoring
+	Event configuration action which triggers the Monitoring Event charging. The AVP may take the values as follows:
+
+	0 create
+	1 transfer
+	2 update
+	3 delete 
+ */
 public enum MonitoringEventConfigurationActivityEnum implements IntegerEnum
 {
 	CREATE(0),TRANSFER(1),UPDATE(2),DELETE(3);

@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.101 Media-Initiator-Flag AVP
+	The Media-Initiator-Flag AVP (AVP code 882) is of type Enumerated and indicates which party has requested the
+	session modification. The default value is '0' indicating the called party initiated the modification:
+	
+	0 called party
+	1 calling party
+	2 unknown
+ */
 @DiameterAvpDefinition(code = 882L, vendorId = KnownVendorIDs.TGPP_ID, name = "Media-Initiator-Flag")
 public interface MediaInitiatorFlag extends DiameterEnumerated<MediaInitiatorFlagEnum>
 {

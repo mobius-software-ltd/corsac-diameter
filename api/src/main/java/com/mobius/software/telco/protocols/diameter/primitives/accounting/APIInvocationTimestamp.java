@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.20dA API-Invocation-Timestamp AVP
+	The API-Invocation-Timestamp AVP (AVP code 1312) is of type Time, and holds the timestamp of the API invocation
+	request submitted to the SCEF from SCS/AS. 
+ */
 @DiameterAvpDefinition(code = 1312L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "API-Invocation-Timestamp")
 public interface APIInvocationTimestamp extends DiameterTime
 {

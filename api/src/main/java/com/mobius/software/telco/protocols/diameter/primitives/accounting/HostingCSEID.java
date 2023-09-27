@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.10.  Hosting-CSE-ID AVP
+	A.4.10. Hosting-CSE-ID AVP
 	The Hosting-CSE-ID AVP (AVP Code 1007) is of type UTF8String and represents the identity of the Hosting CSE 
 	for the request in case the receiver is not the host. The format of the CSE-ID is specified in clause 6.2.3.
  */

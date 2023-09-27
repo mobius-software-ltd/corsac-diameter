@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.241 User-Participating-Type AVP
+	The User-Participating-Type AVP(AVP code 1279) is of type Enumerated. It is a subfield of Participants-Group AVP
+	to indicate the user participating type when participating in the PoC session. The AVP may take the values as follows:
+	
+	0 Normal
+	1 NW PoC Box
+	2 UE PoC Box
+ */
 public enum UserParticipatingTypeEnum implements IntegerEnum
 {
 	NORMAL(0),NW_POC_BOX(1),UE_POC_BOX(2);

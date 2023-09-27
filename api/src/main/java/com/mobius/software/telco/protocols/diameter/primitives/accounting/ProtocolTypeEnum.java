@@ -30,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 */
 
 /*
-	A.4.17.  Protocol-Type AVP
+	A.4.17. Protocol-Type AVP
 
 	The Protocol-Type AVP (AVP Code 1013) is of type Enumerated and indicates the protocol used for the request. The values are given below:
 	0	HTTP

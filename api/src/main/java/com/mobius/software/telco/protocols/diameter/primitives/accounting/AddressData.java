@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.7 Address-Data AVP
+	The Address-Data AVP (AVP code 897) is of type UTF8String and indicates the address information and formatted
+	according type of address indicated in the Address-Type AVP and according to MMS encapsulation [209]. 
+ */
 @DiameterAvpDefinition(code = 897L, vendorId = KnownVendorIDs.TGPP_ID, name = "Address-Data")
 public interface AddressData extends DiameterUTF8String
 {

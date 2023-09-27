@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.28.  Subgroup-Name AVP
+	A.4.28. Subgroup-Name AVP
 	The Subgroup-Name AVP (AVP Code 1021) is of type UTF8String and identifies the subgroup associated with a request. 
 	It shall be included when the IN initiates a fanning operation and one of the members of the group is a. 
 	This is the same as the attribute "groupName" for the subgroup as described in Table 7.4.14.1-137.

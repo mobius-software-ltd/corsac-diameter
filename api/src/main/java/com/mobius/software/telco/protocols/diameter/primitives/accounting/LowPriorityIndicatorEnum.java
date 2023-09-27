@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.97A Low-Priority-Indicator AVP
+	The Low-Priority-Indicator AVP (AVP code 2602) is of type Enumerated and indicates if the PDN connection has a
+	low priority, i.e. for Machine Type Communications. It can be one of the following values:
+
+	0 NO
+	1 YES
+ */
 public enum LowPriorityIndicatorEnum implements IntegerEnum
 {
 	NO(0),YES(1);

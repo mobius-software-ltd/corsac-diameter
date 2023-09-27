@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.44 Content-Length AVP
+	The Content-Length AVP (AVP code 827) is of type Unsigned32 and holds the size of the message-body, as described
+	in RFC 3261 [405].
+ */
 @DiameterAvpDefinition(code = 827L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Length")
 public interface ContentLength extends DiameterUnsigned32
 {

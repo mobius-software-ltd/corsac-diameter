@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 7	.2.237Ba TWAG-Address AVP
+	The TWAG-Address AVP (AVP code 3903) is of type Address and holds the IP-address of the TWAG Node.
+ */
 @DiameterAvpDefinition(code = 3903L, vendorId = KnownVendorIDs.TGPP_ID, name = "TWAG-Address")
 public interface TWAGAddress extends DiameterAddress
 {

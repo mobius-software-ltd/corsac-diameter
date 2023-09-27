@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.140 PoC-Change-Time AVP
+	The PoC-Change-Time AVP (AVP code 1262) is of type Time and is a time stamp that defines the moment when a
+	container is closed or the CDR is closed.
+ */
 @DiameterAvpDefinition(code = 1262L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Change-Time")
 public interface PoCChangeTime extends DiameterTime
 {

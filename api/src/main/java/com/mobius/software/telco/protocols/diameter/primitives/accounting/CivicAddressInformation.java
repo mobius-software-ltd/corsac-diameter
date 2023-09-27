@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.35B Civic-Address-Information AVP
+	The Civic-Address-Information AVP (AVP code 1305) is of type OctetString and holds the Civic Address of the Access
+	Point to which the UE is attached when served under a trusted or untrusted WLAN, as specified for Location-Data in
+	TS 29.273 [237]. 
+ */
 @DiameterAvpDefinition(code = 1305L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Civic-Address-Information")
 public interface CivicAddressInformation extends DiameterOctetString
 {

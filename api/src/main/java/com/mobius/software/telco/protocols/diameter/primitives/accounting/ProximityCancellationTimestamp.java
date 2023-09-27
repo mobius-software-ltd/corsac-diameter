@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154R Proximity-Cancellation-Timestamp AVP
+	The Proximity-Cancellation-Timestamp AVP (AVP code 3456) is of type Time, and it holds the timestamp when
+	proximity request cancellation is requested. 
+ */
 @DiameterAvpDefinition(code = 3456L, vendorId = KnownVendorIDs.TGPP_ID, name = "Proximity-Cancellation-Timestamp")
 public interface ProximityCancellationTimestamp extends DiameterTime
 {

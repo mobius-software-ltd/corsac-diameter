@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.124 Originator AVP
+	The Originator AVP (AVP code 864) is of type Enumerated and indicates the originating party of the message body.
+	The following values are defined:
+ 	
+ 	0 Calling Party
+ 	1 Called Party
+ */
 public enum OriginatorEnum implements IntegerEnum
 {
 	CALLING_PARTY(0),CALLED_PART(1);

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111Ab Monitoring-UE-HPLMN-Identifier AVP
+	The Monitoring-UE-VPLMN-Identifier AVP (AVP code 3431) is of type UTF8String and contains identifier of
+	monitoring UE HPLMN. 
+ */
 @DiameterAvpDefinition(code = 3431L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-UE-HPLMN-Identifier")
 public interface MonitoringUEHPLMNIdentifier extends DiameterUTF8String
 {

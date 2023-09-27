@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.68 GGSN-Address AVP
+	The GGSN-Address AVP (AVP code 847) is of type Address and holds the IP-address of the GGSN/P-GW/SMF that
+	generated the GPRS/EPC/5GS Charging ID, as described in [1]. 
+ */
 @DiameterAvpDefinition(code = 847L, vendorId = KnownVendorIDs.TGPP_ID, name = "GGSN-Address")
 public interface GGSNAddress extends DiameterAddress
 {

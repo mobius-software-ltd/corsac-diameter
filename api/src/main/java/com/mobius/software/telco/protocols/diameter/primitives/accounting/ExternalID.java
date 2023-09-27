@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.8.  External-ID AVP
+	A.4.8. External-ID AVP
 	The External-ID AVP (AVP Code 1005) is of type UTF8String and contains the external ID used to communicate over Mcn where applicable. 
 	The format is the same as the M2M-Ext-ID in clause Addressing.
  */

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.87 LCS-Data-Coding-Scheme AVP
+	The LCS-Data-Coding-Scheme AVP (AVP code 1236) is of type UTF8String and contains the information of the
+	alphabet and the language used. 
+ */
 @DiameterAvpDefinition(code = 1236L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Data-Coding-Scheme")
 public interface LCSDataCodingScheme extends DiameterUTF8String
 {

@@ -28,6 +28,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.238 Type-Number AVP
+	The Type-Number AVP (AVP code 1204) is of type Enumerated and identifies the well-known media types. The values
+	are taken from OMNA WSP Content Type Numbers [210]. 
+ */
 public enum TypeNumberEnum implements IntegerEnum
 {
 	ANY(0),TEXT(1),TEXT_HTML(2),TEXT_PLAIN(3),TEXT_XHDML(4),TEXT_XTTML(5),TEXT_XVCALENDAR(6),TEXT_XVCARD(7),TEXT_VND_WAP_WML(8),TEXT_VND_WAP_WMLSCRIPT(9),

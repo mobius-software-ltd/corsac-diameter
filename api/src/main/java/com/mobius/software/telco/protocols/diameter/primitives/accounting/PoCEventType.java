@@ -27,6 +27,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.142 PoC-Event-Type AVP
+	The PoC-Event-Type AVP (AVP code 2025) is of type Enumerated and indicates PoC session unrelated charging event.
+	The AVP may take the values as follows:
+
+	0 Normal;
+	1 Instant Ppersonal Aalert event;
+	2 PoC Group Advertisement event;
+	3 Early Ssession Setting-up event;
+	4 PoC Talk Burst 
+ */
 @DiameterAvpDefinition(code = 2025L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Event-Type")
 public interface PoCEventType extends DiameterEnumerated<PoCEventTypeEnum>
 {

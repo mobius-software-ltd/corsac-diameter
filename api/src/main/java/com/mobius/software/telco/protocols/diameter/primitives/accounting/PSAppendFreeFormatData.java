@@ -27,6 +27,23 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.155 PS-Append-Free-Format-Data AVP
+	The PS-Append-Free-Format-Data AVP (AVP code 867) is of type enumerated and indicates if the information sent in
+	the PS-Free-Format-Data AVP shall be appended to the PS-free-format-data stored for the online-session. The
+	following values are defined:
+
+	0 'Append'
+
+	If this AVP is present and indicates 'Append', the P-GW shall append the received PS free format data to the PS
+	free format data stored for the online charging session.
+
+	1 'Overwrite'
+
+	If this AVP is absent or in value 'Overwrite', the P-GW shall overwrite all PS free format data already stored for
+	the online charging session.
+	The P-GW shall ignore this AVP if no PS free format data is stored for the online charging session.
+ */
 @DiameterAvpDefinition(code = 867L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Append-Free-Format-Data")
 public interface PSAppendFreeFormatData extends DiameterEnumerated<PSAppendFreeFormatDataEnum>
 {

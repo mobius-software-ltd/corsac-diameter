@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.14 AoC-Format AVP
+	The AoC-Format AVP (AVP code 2310) is of type Enumerated and holds the format on how the AoC information shall
+	be sent to the UE. It can be one of the following values:
+	
+	0 MONETARY
+	1 NON_MONETARY
+	2 CAI 
+ */
 public enum AoCFormatEnum implements IntegerEnum
 {
 	MONETARY(0),NON_MONETARY(1),CAI(2);

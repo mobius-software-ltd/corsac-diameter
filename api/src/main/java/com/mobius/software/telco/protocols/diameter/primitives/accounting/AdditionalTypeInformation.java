@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.6 Additional-Type-Information AVP
+	The Additional-Type-Information AVP (AVP code 1205) is of type UTF8String and identifies any additional
+	information beyond well-known media types or non-well-known media types. 
+ */
 @DiameterAvpDefinition(code = 1205L, vendorId = KnownVendorIDs.TGPP_ID, name = "Additional-Type-Information")
 public interface AdditionalTypeInformation extends DiameterUTF8String
 {

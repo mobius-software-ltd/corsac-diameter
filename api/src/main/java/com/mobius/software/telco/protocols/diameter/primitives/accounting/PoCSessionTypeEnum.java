@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.148 PoC-Session-Type AVP
+	The PoC-Session-Type AVP (AVP code 884) is of type Enumerated and specifies the type of the PoC session. The
+	identifier can be one of the following, refer Appendix C.5.1 in OMA PoC Control Plane specification [211]:
+
+	0 1 to 1 PoC session
+	1 Chat PoC group session
+	2 Pre-arranged PoC group session
+	3 Ad-hoc PoC group session 
+ */
 public enum PoCSessionTypeEnum implements IntegerEnum
 {
 	ONE_TO_ONE(0),CHAT(1),PREARRANGED(2),AD_HOC(3);

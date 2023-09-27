@@ -43,6 +43,11 @@ public class MIPMNtoFAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoF
 	
 	private MIPNonce mipNonce;
 	
+	protected MIPMNtoFAMSAImpl()
+	{
+		
+	}
+	
 	public MIPMNtoFAMSAImpl(Long mipMNtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipNonce)
 	{
 		if(mipMNtoFASPI==null)

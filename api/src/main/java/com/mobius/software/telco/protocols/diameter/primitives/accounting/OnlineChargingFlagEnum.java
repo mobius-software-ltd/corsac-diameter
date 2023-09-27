@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.122 Online-Charging-Flag AVP
+	The Online-Charging-Flag AVP (AVP code 2303) is of type Enumerated and indicates the Online Charging Request
+	was sent based on the provided ECF address from the SIP P-header "P-Charging-Function-Addresses". It has the
+	following values:
+
+	0 ECF address not provided
+	1 ECF address provided 
+ */
 public enum OnlineChargingFlagEnum implements IntegerEnum
 {
 	ECF_ADDRESS_NOT_PROVIDED(0),ECF_ADDRESS_PROVIDED(1);

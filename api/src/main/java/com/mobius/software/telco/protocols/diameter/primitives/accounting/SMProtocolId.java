@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.208 SM-Protocol-Id AVP
+	The SM-Protocol-ID AVP (AVP code 2013) is of type OctetString and holds an indication of the protocol used for the
+	SM. 
+ */
 @DiameterAvpDefinition(code = 2013L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Protocol-Id")
 public interface SMProtocolId extends DiameterOctetString
 {

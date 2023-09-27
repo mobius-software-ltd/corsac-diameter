@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.177aA Role-Of-ProSe-Function AVP
+	The Role-Of-ProSe-Function AVP (AVP code 3438) is of type Enumerated and indicates ProSe Function resides in
+	which PLMN. The AVP may take the values as follows:
+	
+	0 HPLMN
+	1 VPLMN
+	2 Local PLMN
+ */
 @DiameterAvpDefinition(code = 3438L, vendorId = KnownVendorIDs.TGPP_ID, name = "Role-Of-ProSe-Function")
 public interface RoleOfProSeFunction extends DiameterEnumerated<RoleOfProSeFunctionEnum>
 {

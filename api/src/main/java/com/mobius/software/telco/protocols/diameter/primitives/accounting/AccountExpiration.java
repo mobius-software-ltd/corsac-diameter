@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.2 Account-Expiration AVP
+	The Account-Expiration AVP (AVP code 2309) is of type Time and indicates the subscriber account expiration date and
+	time of day. 
+ */
 @DiameterAvpDefinition(code = 2309L, vendorId = KnownVendorIDs.TGPP_ID, name = "Account-Expiration")
 public interface AccountExpiration extends DiameterTime
 {

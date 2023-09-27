@@ -165,7 +165,7 @@ public class TgppMultipleServicesCreditControlImpl implements TGPPMultipleServic
 
 	public void setRatingGroup(Long value)
 	{
-		if(ratingGroup == null)
+		if(value == null)
 			this.ratingGroup = null;
 		else
 			this.ratingGroup = new RatingGroupImpl(value, null, null);
@@ -191,7 +191,7 @@ public class TgppMultipleServicesCreditControlImpl implements TGPPMultipleServic
 
 	public void setValidityTime(Long value)
 	{
-		if(validityTime == null)
+		if(value == null)
 			this.validityTime = null;
 		else
 			this.validityTime = new ValidityTimeImpl(value, null, null);
@@ -207,7 +207,7 @@ public class TgppMultipleServicesCreditControlImpl implements TGPPMultipleServic
 
 	public void setResultCode(Long value)
 	{
-		if(resultCode == null)
+		if(value == null)
 			this.resultCode = null;
 		else
 			this.resultCode = new ResultCodeImpl(value, null, null);

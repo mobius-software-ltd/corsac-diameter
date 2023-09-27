@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.80A IP-Realm-Default-Indication AVP
+	The IP-Realm-Default-Indication-Indication AVP (AVP code 2603) is of type Enumerated and indicates whether the IP
+	realm used for the SDP media component is the Default IP realm or not. The following values are defined:
+	
+	0 Default IP Realm Not used
+	1 Default IP realm used 
+ */
 public enum IPRealmDefaultIndicationEnum implements IntegerEnum
 {
 	NOT_USED(0),USED(1);

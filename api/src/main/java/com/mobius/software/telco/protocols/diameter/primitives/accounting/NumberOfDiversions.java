@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.115 Number-Of-Diversions AVP
+	The Number-of-Diversions AVP (AVP Code 2034) is of type Unsigned32 and holds the number of diversions related to
+	a CDIV service. When counting the number of diversions, all types of diversion are included. 
+ */
 @DiameterAvpDefinition(code = 2034L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Diversions")
 public interface NumberOfDiversions extends DiameterUnsigned32
 {

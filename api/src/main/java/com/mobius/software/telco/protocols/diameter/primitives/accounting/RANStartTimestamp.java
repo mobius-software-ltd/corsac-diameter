@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160Dc RAN-Start-Timestamp AVP
+	The RAN-Start-Timestamp AVP (AVP code 1303) is of type Time and holds the time in UTC format of the volume
+	container reported was collected, the start time of the reported usage. 
+ */
 @DiameterAvpDefinition(code = 1303L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RAN-Start-Timestamp")
 public interface RANStartTimestamp extends DiameterTime
 {

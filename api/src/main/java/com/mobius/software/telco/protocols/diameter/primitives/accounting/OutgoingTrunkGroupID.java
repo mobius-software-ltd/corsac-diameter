@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.129 Outgoing-Trunk-Group-ID AVP
+	The Outgoing-Trunk-Group-ID AVP (AVP code 853) is of type UTF8String and identifies the outgoing PSTN leg. 
+ */
 @DiameterAvpDefinition(code = 853L, vendorId = KnownVendorIDs.TGPP_ID, name = "Outgoing-Trunk-Group-ID")
 public interface OutgoingTrunkGroupID extends DiameterUTF8String
 {

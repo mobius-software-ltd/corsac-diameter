@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.56 DRM-Content AVP
+	The DRM-Content AVP (AVP code 1221) is of type Enumerated and indicates if the MM contains DRM-protected
+	content. The values are:
+	
+	0 No
+	1 Yes 
+ */
 @DiameterAvpDefinition(code = 1221L, vendorId = KnownVendorIDs.TGPP_ID, name = "DRM-Content")
 public interface DRMContent extends DiameterEnumerated<DRMContentEnum>
 {

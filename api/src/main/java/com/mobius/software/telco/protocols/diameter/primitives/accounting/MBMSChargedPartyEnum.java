@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.97B MBMS-Charged-Party AVP
+	The MBMS-Charged-Party AVP (AVP code 2323) is of type Enumerated and indicates which party is being charged by
+	the CDR generated. The following values are supported:
+	
+	0 Content Provider
+	1 Subscriber 
+ */
 public enum MBMSChargedPartyEnum implements IntegerEnum
 {
 	CONTENT_PROVIDER(0),SUBSCRIBER(1);

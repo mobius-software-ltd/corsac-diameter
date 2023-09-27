@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.73 Interface-Text AVP
+	The Interface-Text AVP (AVP code 2005) is of type UTF8String and is the consolidation information about the
+	application associated with the charging event. 
+ */
 @DiameterAvpDefinition(code = 2005L, vendorId = KnownVendorIDs.TGPP_ID, name = "Interface-Text")
 public interface InterfaceText extends DiameterUTF8String
 {

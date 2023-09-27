@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.62 Envelope-Start-Time AVP
+	The Envelope-Start-Time AVP (AVP code 1269) is of type Time. It is set to the time of the packet of user data which
+	caused the time envelope to start. 
+ */
 @DiameterAvpDefinition(code = 1269L, vendorId = KnownVendorIDs.TGPP_ID, name = "Envelope-Start-Time")
 public interface EnvelopeStartTime extends DiameterTime
 {

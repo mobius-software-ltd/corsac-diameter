@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.80F ISUP-Location-Number AVP
+	The ISUP-Location-Number AVP (AVP code 3414) is type OctetString and contains the international E.164 indicating
+	the location number of the served user. It contains an E.164 number as transported in ISUP and is encoded as a TBCDstring. See TS 29.002 [232] for encoding of TBCD-strings. This AVP does not include leading indicators for the nature
+	of address and the numbering plan; it contains only the TBCD-encoded digits of the address. 
+ */
 @DiameterAvpDefinition(code = 3414L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Location-Number")
 public interface ISUPLocationNumber extends DiameterE164Address
 {

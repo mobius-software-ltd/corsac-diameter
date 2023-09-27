@@ -28,6 +28,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.88 LCS-Format-Indicator AVP
+	The LCS-Format-Indicator AVP (AVP code 1237) is of type Enumerated and contains the format of the LCS Client
+	name. It can be one of the following values:
+	
+	0 LOGICAL_NAME
+	1 EMAIL_ADDRESS
+	2 MSISDN
+	3 URL
+	4 SIP_URL
+ */
 public enum LCSFormatIndicatorEnum implements IntegerEnum
 {
 	LOGICAL_NAME(0),EMAIL_ADDRESS(1),MSISDN(2),URL(3),SIP_URL(4);

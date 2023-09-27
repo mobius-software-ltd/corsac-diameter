@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.219A TAD-Identifier AVP
+	The TAD-Identifier AVP (AVP code 2717) is of type Enumerated and indicates the type of access network (CS or PS)
+	through which the session shall be terminated. It can be one of the following values:
+	
+	0 CS
+	1 PS 
+ */
 @DiameterAvpDefinition(code = 2717L, vendorId = KnownVendorIDs.TGPP_ID, name = "TAD-Identifier")
 public interface TADIdentifier extends DiameterEnumerated<TADIdentifierEnum>
 {

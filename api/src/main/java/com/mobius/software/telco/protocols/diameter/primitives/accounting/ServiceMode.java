@@ -27,6 +27,29 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.193 Service-Mode AVP
+	The Service-Mode AVP (AVP Code 2032) is of type Unsigned32 and provides the mode for CDIV, CB and ECT
+	MMTel supplementary services. The following values are defined:
+
+	0 Communication Forwarding Unconditional (CFU)
+	1 Communication Forwarding Busy (CFB)
+	2 Communication Forwarding No Reply (CRNR)
+	3 Communication Forwarding on Not Logged-In (CFNL)
+	4 Communication Deflection (CD
+	5 Communication Forwarding on Subscriber Not Reachable (CFNRc)
+	6 Incoming Call Barring (ICB)
+	7 Outgoing Call Barring (OCB)
+	8 Anonymous Communication Rejection (ACR)
+	9 Blind Transfer
+	10 Consultative Transfer
+	11 Three-Party (3PTY)
+	12 Advice of Charge -S (AoC-S)
+	13 Advice of Charge -D (AoC-D)
+	14 Advice of Charge -E (AoC-E)
+
+	Values ≥ 1024 are reserved for specific Network/Manufacturer variants 
+ */
 @DiameterAvpDefinition(code = 2032L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Mode")
 public interface ServiceMode extends DiameterEnumerated<ServiceModeEnum>
 {

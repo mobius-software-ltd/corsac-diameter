@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154F ProSe-Function-PLMN-Identifier AVP
+	The ProSe-Function-PLMN-Identifier AVP (AVP code 3457) is of type UTF8String and contains identifier of Prose
+	Function resided PLMN. 
+ */
 @DiameterAvpDefinition(code = 3457L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Function-PLMN-Identifier")
 public interface ProSeFunctionPLMNIdentifier extends DiameterUTF8String
 {

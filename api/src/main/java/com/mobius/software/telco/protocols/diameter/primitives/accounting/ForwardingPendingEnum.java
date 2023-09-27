@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.67aA Forwarding-Pending AVP
+	The Forwarding-Pending AVP (AVP code 3415) is of type Enumerated and indicates that a forwarded-to-number has
+	been received and the voice call will be forwarded. When it is not present, the voice call is not expected to be
+	forwarded. The values are:
+
+	0 Forwarding not pending
+	1 Forwarding pending
+ */
 public enum ForwardingPendingEnum implements IntegerEnum
 {
 	NOT_PENDING(0),PENDING(1);

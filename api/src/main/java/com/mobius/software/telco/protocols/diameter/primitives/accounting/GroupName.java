@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.9.  Group-Name AVP
+	A.4.9. Group-Name AVP
 	The Group-Name AVP (AVP Code 1006) is of type UTF8String and identifies the group associated with a request. 
 	It shall be included when the IN initiates a fanning operation. This is the same as the attribute "groupName" for 
 	the group as described in Table 7.4.14.1-137.

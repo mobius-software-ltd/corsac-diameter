@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.77A IMS-Visited-Network-Identifier AVP
+	The IMS-Visited-Network-Identifier AVP (AVP code 2713) is of type UTF8String and contains the contents of the SIP
+	P-header "P-Visited-Network-ID". with the value according to 3GPP TS 24.229 [202]
+	- For the roaming architecture for voice over IMS with local breakout, the value of IMS-Visited-NetworkIdentifier AVP is a pre-provisioned string that identifies the network of the P-CSCF at the home network.
+	- For the roaming architecture for voice over IMS with home routed traffic, IMS-Visited-Network-Identifier AVP
+	is a string that identifies the visited network of the UE including an indication that the P-CSCF is located in the
+	home network. 
+ */
 @DiameterAvpDefinition(code = 2713L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Visited-Network-Identifier")
 public interface IMSVisitedNetworkIdentifier extends DiameterUTF8String
 {

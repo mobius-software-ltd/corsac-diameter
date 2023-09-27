@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.208A SM-Sequence-Number AVP
+	The SM-Sequence-Number AVP (AVP code 3408) is of type Unsigned32 and includes the sequence number of the SM
+	within the concatenated short message when applicable for SMS Offline Charging. 
+ */
 @DiameterAvpDefinition(code = 3408L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Sequence-Number")
 public interface SMSequenceNumber extends DiameterUnsigned32
 {

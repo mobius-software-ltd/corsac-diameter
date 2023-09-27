@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.214 SMSC-Address AVP
+	The SMSC-Address AVP (AVP code 2017) is of type Address and carries the address of the SMSC, as contained in the
+	SM.
+ */
 @DiameterAvpDefinition(code = 2017L, vendorId = KnownVendorIDs.TGPP_ID, name = "SMSC-Address")
 public interface SMSCAddress extends DiameterAddress
 {

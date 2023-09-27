@@ -27,6 +27,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.38 Change-Time AVP
+	The Change-Time AVP (AVP code 2038) is of type Time.
+	In EPC Charging, it holds the time in UTC format when the volume counts associated to the IP-CAN bearer/TDF
+	session, or the service data container, is closed and reported due to charging condition change.
+	For IMS Charging, it holds the time in UTC format at which the access transfer occurred.
+	For MMTel Charging, it holds the time in UTC format and it is a time stamp that defines the moment when the
+	conference participant has an action (e.g. creating the conference, joining in the conference, being invited into the
+	conference and quiting the conference) triggering the Accounting Request message to CDF.
+	In ProSe Charging, it holds the time in UTC format when the volume counts associated to the ProSe group
+	communication container, is closed and reported due to ProSe charging condition change.
+ */
 @DiameterAvpDefinition(code = 2038L, vendorId = KnownVendorIDs.TGPP_ID, name = "Change-Time")
 public interface ChangeTime extends DiameterTime
 {

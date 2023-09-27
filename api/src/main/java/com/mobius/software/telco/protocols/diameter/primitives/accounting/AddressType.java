@@ -27,6 +27,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.9 Address-Type AVP
+	The Address-Type AVP (AVP code 899) is of type Enumerated and indicates the type of address carried within the
+	Address-Information AVP. It has the following values:
+
+	0 e-mail address
+	1 MSISDN
+	2 IPv4 Address
+	3 IPv6 Address
+	4 Numeric Shortcode
+	5 Alphanumeric Shortcode
+	6 Other
+	7 IMSI
+*/
 @DiameterAvpDefinition(code = 899L, vendorId = KnownVendorIDs.TGPP_ID, name = "Address-Type")
 public interface AddressType extends DiameterEnumerated<AddressTypeEnum>
 {

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.238 Type-Number AVP
+	The Type-Number AVP (AVP code 1204) is of type Enumerated and identifies the well-known media types. The values
+	are taken from OMNA WSP Content Type Numbers [210]. 
+ */
 @DiameterAvpDefinition(code = 1204L, vendorId = KnownVendorIDs.TGPP_ID, name = "Type-Number")
 public interface TypeNumber extends DiameterEnumerated<TypeNumberEnum>
 {

@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.196 Service-Specific-Type AVP
+	The Service-Specific-Type AVP (AVP Code 1257) is of type Unsigned32 and holds the type of the Service-SpecificData. 
+ */
 @DiameterAvpDefinition(code = 1257L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Specific-Type")
 public interface ServiceSpecificType extends DiameterUnsigned32
 {

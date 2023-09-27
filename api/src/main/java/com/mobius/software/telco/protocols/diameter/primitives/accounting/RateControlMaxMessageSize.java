@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160ERate-Control-Max-Message-Size AVP
+	The Rate-Control-Max-Message-Size AVP (AVP code 3937) is of type Unsigned32 and holds the maximum data PDU
+	size in octets.
+ */
 @DiameterAvpDefinition(code = 3937L, vendorId = KnownVendorIDs.TGPP_ID, name = "Rate-Control-Max-Message-Size")
 public interface RateControlMaxMessageSize extends DiameterUnsigned32
 {

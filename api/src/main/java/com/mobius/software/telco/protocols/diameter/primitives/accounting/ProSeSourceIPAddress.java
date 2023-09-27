@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154N ProSe-Source-IP-Address AVP
+	The ProSe-Source-IP-Address AVP (AVP code 3452) is of type Address and holds the IP address UE used as source
+	address for performing ProSe direct communication. It is referred to as "source IP address" in TS 23.303 [235]. 
+ */
 @DiameterAvpDefinition(code = 3452L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Source-IP-Address")
 public interface ProSeSourceIPAddress extends DiameterAddress
 {

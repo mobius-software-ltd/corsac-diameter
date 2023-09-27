@@ -39,6 +39,11 @@ public class MIPHomeAgentHostImpl extends DiameterGroupedAvpImpl implements MIPH
 	
 	private DestinationRealm destinationRealm;
 	
+	protected MIPHomeAgentHostImpl()
+	{
+		
+	}
+	
 	public MIPHomeAgentHostImpl(String destinationHost,String destinationRealm)
 	{
 		if(destinationHost==null)

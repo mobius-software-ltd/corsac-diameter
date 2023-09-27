@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.212A SMS-Result AVP
+	The SMS-Result AVP (AVP code 3409) is of type Unsigned32 and includes the result of an attempt for a Short Message
+	transaction (submission or delivery). 
+ */
 @DiameterAvpDefinition(code = 3409L, vendorId = KnownVendorIDs.TGPP_ID, name = "SMS-Result")
 public interface SMSResult extends DiameterUnsigned32
 {

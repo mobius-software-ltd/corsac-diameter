@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.80Fa Language AVP
+	The Language AVP (AVP code 3914) is of type UTF8String and contains a code defined in RFC 3066 [410] indicating
+	the language of the announcement that should be played.
+ */
 @DiameterAvpDefinition(code = 3914L, vendorId = KnownVendorIDs.TGPP_ID, name = "Language")
 public interface Language extends DiameterUTF8String
 {

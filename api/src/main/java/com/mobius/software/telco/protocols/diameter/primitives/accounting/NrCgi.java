@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.254 Nr-Cgi AVP
+	The Nr-Cgi AVP (AVP code 1325) is of type UTF8String and includes NR Global Cell Identity, with the format as
+	specified in clause 19.6A of TS 23.003 [224]. 
+ */
 @DiameterAvpDefinition(code = 1325L, vendorId = KnownVendorIDs.TGPP_ID, name = "Nr-Cgi")
 public interface NrCgi extends DiameterUTF8String
 {

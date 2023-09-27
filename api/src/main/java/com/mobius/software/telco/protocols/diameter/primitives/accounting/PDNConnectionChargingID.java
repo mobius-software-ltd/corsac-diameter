@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.136 PDN-Connection-Charging-ID AVP
+	The PDN-Connection-Charging-ID AVP (AVP code 2050) is of type Unsigned32 and contains the charging identifier
+	to identify different records belonging to same PDN connection. For a PDN connection that is limited to use a single
+	access at a time this field includes Charging Id of first IP-CAN bearer activated. Together with P-GW address this
+	uniquely identifies the PDN connection for charging.
+	Coding of this AVP is same as 3GPP-Charging-Id coding described in TS 29.061 [207]. 
+ */
 @DiameterAvpDefinition(code = 2050L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDN-Connection-Charging-ID")
 public interface PDNConnectionChargingID extends DiameterUnsigned32
 {

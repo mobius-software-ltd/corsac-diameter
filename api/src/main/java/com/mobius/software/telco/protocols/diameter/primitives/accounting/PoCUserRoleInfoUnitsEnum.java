@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.151 PoC-User-Role-Info-Units AVP
+	The PoC-User-Role-Info-Units (AVP code 1254) is of type Enumerated and specify the role type details of PoC users.
+	The identifier can be one of the following:
+	
+	1 Moderator
+	2 Dispatcher
+	3 Session-Owner
+	4 Session-Participant
+ */
 public enum PoCUserRoleInfoUnitsEnum implements IntegerEnum
 {
 	MODERATOR(1),DISPATCHER(2),SESSION_OWNER(3),SESSION_PARTICIPANTS(4);

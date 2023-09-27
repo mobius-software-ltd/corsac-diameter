@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.60 Envelope-End-Time AVP
+	This Envelope-End-Time AVP (AVP code 1267) is of type Time. It is set to the time of the end of the time envelope. 
+ */
 @DiameterAvpDefinition(code = 1267L, vendorId = KnownVendorIDs.TGPP_ID, name = "Envelope-End-Time")
 public interface EnvelopeEndTime extends DiameterTime
 {

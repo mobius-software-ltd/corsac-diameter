@@ -28,6 +28,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.38A Charge-Reason-Code AVP
+	The Charge-Reason-Code AVP (AVP code 2118) is of type Enumerated and identifies if the Rate-Element corresponds
+	to a specific charge type. It can be one of the following values:
+
+	0 UNKNOWN
+	1 USAGE
+	2 COMMUNICATION-ATTEMPT-CHARGE
+	3 SETUP-CHARGE
+	4 ADD-ON-CHARGE 
+ */
 public enum ChargeReasonCodeEnum implements IntegerEnum
 {
 	UNKNOWN(0),USAGE(1),COMMUNICATION_ATTEMPT_CHARGE(2),SETUP_CHARGE(3),ADD_ON_CHARGE(4);

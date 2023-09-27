@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.25 Associated-Party-Address AVP
+	The Associated-Party-Address AVP (AVP code 2035) is of type UTF8String and is used for MMTel supplementary
+	service. It holds the address (SIP URI or Tel URI) of the user, the MMTel supplementary service is provided to : the
+	"forwarding party" for CDIV, the "transferor" for ECT, the "Pilot Identity" for Flexible Alerting (FA), the "Initiator
+	party" for 3PTY. 
+ */
 @DiameterAvpDefinition(code = 2035L, vendorId = KnownVendorIDs.TGPP_ID, name = "Associated-Party-Address")
 public interface AssociatedPartyAddress extends DiameterUTF8String
 {

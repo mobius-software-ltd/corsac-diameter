@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.138A Play-Alternative AVP
+	The Play-Alternative AVP (AVP code 3913) is of type Enumerated and indicates the call party toward whom an
+	announcement is directed.
+	It has the following values:
+	
+	0 served party
+	1 remote party
+ */
 @DiameterAvpDefinition(code = 3913L, vendorId = KnownVendorIDs.TGPP_ID, name = "Play-Alternative")
 public interface PlayAlternative extends DiameterEnumerated<PlayAlternativeEnum>
 {

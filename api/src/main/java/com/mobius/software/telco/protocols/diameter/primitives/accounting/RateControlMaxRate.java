@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160F Rate-Control-Max-Rate AVP
+	The Rate-Control-Max-Rate AVP (AVP code 3938) is of type Unsigned32 and holds the maximum number of data
+	PDUs per time unit indicated in Rate-Control-Time-Unit AVP. 
+ */
 @DiameterAvpDefinition(code = 3938L, vendorId = KnownVendorIDs.TGPP_ID, name = "Rate-Control-Max-Rate")
 public interface RateControlMaxRate extends DiameterUnsigned32
 {

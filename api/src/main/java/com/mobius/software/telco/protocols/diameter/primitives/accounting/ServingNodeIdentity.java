@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.197a Serving-Node-Identity
+	The Serving-Node-Identity AVP (AVP code 3929) is of type DiameterIdentity and holds the identity of the Serving
+	Node (e.g. MME from the SCEF) that was used during a report. 
+ */
 @DiameterAvpDefinition(code = 3929L, vendorId = KnownVendorIDs.TGPP_ID, name = "Serving-Node-Identity")
 public interface ServingNodeIdentity extends DiameterUTF8String
 {

@@ -28,6 +28,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.142 PoC-Event-Type AVP
+	The PoC-Event-Type AVP (AVP code 2025) is of type Enumerated and indicates PoC session unrelated charging event.
+	The AVP may take the values as follows:
+
+	0 Normal;
+	1 Instant Ppersonal Aalert event;
+	2 PoC Group Advertisement event;
+	3 Early Ssession Setting-up event;
+	4 PoC Talk Burst 
+ */
 public enum PoCEventTypeEnum implements IntegerEnum
 {
 	NORMAL(0),INSTANT_PERSONAL_ALERT(1),POC_GROUP_ADVERTISEMENT(2),EARLY_SESSION_SETTING_UP(3),POC_TALK_BURST(4);

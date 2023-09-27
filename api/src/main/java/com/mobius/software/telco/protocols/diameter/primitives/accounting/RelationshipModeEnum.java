@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.171A Relationship-Mode AVP
+	The Relationship-Mode AVP (AVP code 2706) is of type Enumerated and indicates whether the other functional entity
+	(e.g. contact point of the neighbouring network) is regarded as part of the same trust domain. It has the following
+	values:
+	
+	0 trusted
+	1 non-trusted 
+ */
 public enum RelationshipModeEnum implements IntegerEnum
 {
 	TRUSTED(0),NON_TRUSTED(1);

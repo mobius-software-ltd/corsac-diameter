@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154D ProSe-Event-Type AVP
+	The ProSe-Event-Type AVP (AVP code 3443) is of type Enumerated and indicates ProSe charging event. The AVP
+	may take the values as follows:
+	
+	0 Annoucing
+	1 Monitoring
+	2 Match Report 
+ */
 public enum ProSeEventTypeEnum implements IntegerEnum
 {
 	ANNOUNCING(0),MONITORING(1),MATCH_REPORT(2);

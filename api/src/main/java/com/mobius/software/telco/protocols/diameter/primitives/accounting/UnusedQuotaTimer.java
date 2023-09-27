@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.240a Unused-Quota-Timer AVP
+	The Unused-Quota-Timer AVP (AVP code 4407) is of type Unsigned32 and contains a threshold time in seconds for
+	the time period without any quota granted or any quota being consumed for any rating group belonging to the Gy
+	session.
+ */
 @DiameterAvpDefinition(code = 4407L, vendorId = KnownVendorIDs.TGPP_ID, name = "Unused-Quota-Timer")
 public interface UnusedQuotaTimer extends DiameterUnsigned32
 {

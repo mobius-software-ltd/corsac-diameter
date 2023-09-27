@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154Ob ProSe-Target-Layer-2-ID AVP
+	The ProSe-Target-Layer-2-ID AVP (AVP code4410) is of type OctetString and carries the identifier of UE that
+	uniquely represents a specific one-to-one ProSe Direct Communication. 
+ */
 @DiameterAvpDefinition(code = 4410L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Target-Layer-2-ID")
 public interface ProSeTargetLayer2ID extends DiameterOctetString
 {

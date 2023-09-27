@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.226A Time-Indicator AVP
+	The Time-Indicator AVP (AVP code 3911) is of type Unsigned32 and instructs the announcement to be connected at
+	the specified time before granted quota is exhausted, which ranges from zero to a value smaller than the granted quota.
+	A value of zero means at the time quota is exhausted. Absence of this field indicates that the announcement is to be
+	played before the IMS session is allowed to continue. 
+ */
 @DiameterAvpDefinition(code = 3911L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Indicator")
 public interface TimeIndicator extends DiameterUnsigned32
 {

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.205 SIP-Response-Timestamp-Fraction AVP
+	The SIP-Response-Timestamp-Fraction AVP (AVP code 2302) is of type Unsigned32 and holds the miliseconds
+	fraction in relation to SIP-Response-Timestamp. 
+ */
 @DiameterAvpDefinition(code = 2302L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Response-Timestamp-Fraction")
 public interface SIPResponseTimestampFraction extends DiameterUnsigned32
 {

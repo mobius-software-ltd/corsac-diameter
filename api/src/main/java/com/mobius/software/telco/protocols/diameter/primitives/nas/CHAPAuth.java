@@ -50,9 +50,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterAvpDefinition(code = 402L, vendorId = -1L, name = "CHAP-Auth")
 public interface CHAPAuth extends DiameterGroupedAvp
 {
-	ByteBuf getCHAPAlgorithm();
+	CHAPAlgorithmEnum getCHAPAlgorithm();
 	
-	void setCHAPAlgorithm(ByteBuf value);
+	void setCHAPAlgorithm(CHAPAlgorithmEnum value);
 	
 	ByteBuf getCHAPIdent();
 	

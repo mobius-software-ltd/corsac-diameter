@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.45 Content-Size AVP
+	The Content-Size AVP (AVP code 1206) is of type Unsigned32 and indicates the size in bytes of the specified content
+	type. 
+ */
 @DiameterAvpDefinition(code = 1206L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Size")
 public interface ContentSize extends DiameterUnsigned32
 {

@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.5A Additional-Exception-Reports AVP
+	The Additional-Exception-Reports AVP (AVP code 3936) is of type Enumerated and indicates whether additional
+	exception reports are allowed when maximum rate is reached. It has the following values:
+	
+	0 Not allowed
+	1 Allowed
+ */
 public enum AdditionalExceptionReportsEnum implements IntegerEnum
 {
 	NOT_ALLOWED(0),ALLOWED(1);

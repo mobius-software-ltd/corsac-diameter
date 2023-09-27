@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.212 SMS-Node AVP
+	The SMS-Node AVP (AVP code 2016) is of type Enumerated and identifies the role which the SMS node performs in
+	relation to the charging event. It takes the following values:
+	
+	0 SMS Router
+	1 IP-SM-GW
+	2 SMS Router and IP-SM-GW
+	3 SMS-SC 
+ */
 public enum SMSNodeEnum implements IntegerEnum
 {
 	SMS_ROUTER(0),IP_SM_GW(1),SMS_ROUTER_AND_IP_SM_GW(2),SMS_SC(3);

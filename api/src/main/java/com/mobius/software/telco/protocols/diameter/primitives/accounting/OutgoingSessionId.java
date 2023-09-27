@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.128A Outgoing-Session-Id AVP
+	The Outgoing-Session-Id AVP (AVP code 2320) is of type UTF8String and holds the outgoing session identifier for an
+	AS acting as B2BUA. For a SIP session the Outgoing-Session-Id AVP contains the SIP Call ID of the outgoing leg, as
+	defined in RFC 3261 [405]. 
+ */
 @DiameterAvpDefinition(code = 2320L, vendorId = KnownVendorIDs.TGPP_ID, name = "Outgoing-Session-Id")
 public interface OutgoingSessionId extends DiameterUTF8String
 {

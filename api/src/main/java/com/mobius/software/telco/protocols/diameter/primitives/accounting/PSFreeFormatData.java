@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.156 PS-Free-Format-Data AVP
+	The PS-Free-Format-Data AVP (AVP code 866) is of type OctectString and holds online charging session specific
+	data. 
+ */
 @DiameterAvpDefinition(code = 866L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Free-Format-Data")
 public interface PSFreeFormatData extends DiameterOctetString
 {

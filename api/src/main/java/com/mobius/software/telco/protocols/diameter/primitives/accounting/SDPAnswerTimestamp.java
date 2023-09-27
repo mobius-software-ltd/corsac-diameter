@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.179 SDP-Answer-Timestamp AVP
+	The SDP-Answer-Timestamp AVP (AVP code 1275) is of type Time and holds the time in UTC format of the response
+	to the SDP offer. 
+ */
 @DiameterAvpDefinition(code = 1275L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Answer-Timestamp")
 public interface SDPAnswerTimestamp extends DiameterTime
 {

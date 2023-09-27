@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.27 Authorised-QoS AVP
+	The Authorised-QoS AVP (AVP code 849) is of type UTF8String and holds the Authorised QoS as defined in
+	TS 23.207 [200] / TS 29.207 [203] and applied via the Go reference point. This AVP is not used.
+ */
 @DiameterAvpDefinition(code = 849L, vendorId = KnownVendorIDs.TGPP_ID, name = "Authorised-QoS")
 public interface AuthorisedQoS extends DiameterUTF8String
 {

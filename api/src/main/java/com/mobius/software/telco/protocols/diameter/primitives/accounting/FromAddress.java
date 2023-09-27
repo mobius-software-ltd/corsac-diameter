@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.67A From-Address AVP
+	The From-Address AVP (AVP code 2708) is of type UTF8String and includes the information from the SIP From
+	header
+ */
 @DiameterAvpDefinition(code = 2708L, vendorId = KnownVendorIDs.TGPP_ID, name = "From-Address")
 public interface FromAddress extends DiameterUTF8String
 {

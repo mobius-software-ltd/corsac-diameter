@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.10 Addressee-Type AVP
+	The Addressee-Type AVP (AVP code 1208) is of type Enumerated and identifies the how the recipient is addressed in
+	the header of an MM. The following values are defined:
+
+	0 TO
+	1 CC
+	2 BCC 
+ */
 public enum AddressTypeEnum implements IntegerEnum
 {
 	EMAIL_ADDRESS(0),MSISDN(1),IP_V4(2),IP_V6(3),NUMERIC_SHORTCODE(4),ALPHA_SHORTCODE(5),OTHER(6),IMSI(7);

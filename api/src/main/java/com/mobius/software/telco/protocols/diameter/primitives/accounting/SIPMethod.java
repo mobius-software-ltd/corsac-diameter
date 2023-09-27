@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.201 SIP-Method AVP
+	The SIP-Method AVP (AVP code 824) is of type UTF8String and holds the name of the SIP Method (INVITE,
+	UPDATE etc.) causing a accounting request to be sent to the CDF or CCR to be sent to the OCF. 
+ */
 @DiameterAvpDefinition(code = 824L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Method")
 public interface SIPMethod extends DiameterUTF8String
 {

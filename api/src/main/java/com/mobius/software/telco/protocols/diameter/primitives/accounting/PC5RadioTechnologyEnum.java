@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.135C PC5-Radio-Technology AVP
+	The PC5-Radio-Technology AVP (AVP code 1300) is of type Enumerated and indicates the PC5 radio technology that
+	the UE used for ProSe Direct Discovery. This AVP may take the value from the following:
+	
+	0 EUTRA
+	1 WLAN
+	2 Both EUTRA and WLAN 
+ */
 public enum PC5RadioTechnologyEnum implements IntegerEnum
 {
 	EUTRA(0),WLAN(1),BOTH(2);

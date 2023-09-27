@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.204 SIP-Response-Timestamp AVP
+	The SIP-Response-Timestamp AVP (AVP code 835) is of type Time and holds the time in UTC format of the response
+	to the SIP request (e.g. 200 OK).
+ */
 @DiameterAvpDefinition(code = 835L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Response-Timestamp")
 public interface SIPResponseTimestamp extends DiameterTime
 {

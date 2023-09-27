@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154Q Proximity-Alert-Timestamp AVP
+	The Proximity-Alert-Timestamp AVP (AVP code 3455) is of type Time, and it holds the timestamp when proximity
+	alert is sent, to indicate two UEs are in proximity. 
+ */
 @DiameterAvpDefinition(code = 3455L, vendorId = KnownVendorIDs.TGPP_ID, name = "Proximity-Alert-Timestamp")
 public interface ProximityAlertTimestamp extends DiameterTime
 {

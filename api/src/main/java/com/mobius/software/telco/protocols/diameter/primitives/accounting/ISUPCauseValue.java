@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.80E ISUP-Cause-Value AVP
+	The ISUP-Cause-Value AVP (AVP code 3424) is of type Unsigned32 and identifies the reason a voice call service is
+	released. When used for IMS charging, this AVP indicates the reason a CS call is released. Refer to TS 29.078 [233]
+	for supported values.
+ */
 @DiameterAvpDefinition(code = 3424L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Cause-Value")
 public interface ISUPCauseValue extends DiameterUnsigned32
 {

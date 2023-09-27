@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.76 IMS-Communication-Service-Identifier AVP
+	The IMS-Communication-Service-Identifier AVP (AVP code 1281) is of type UTF8String and holds the IMS
+	Communication Service Identifier (ICSI) as contained in the P-Asserted-Service header of a SIP request to identify an
+	IMS Communication Service as defined in TS 24.229 [202]. 
+ */
 @DiameterAvpDefinition(code = 1281L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Communication-Service-Identifier")
 public interface IMSCommunicationServiceIdentifier extends DiameterUTF8String
 {

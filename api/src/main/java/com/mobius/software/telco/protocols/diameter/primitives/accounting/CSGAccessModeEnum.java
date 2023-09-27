@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.46A CSG-Access-Mode AVP
+	The CSG-Access-Mode AVP (AVP code 2317) is of type Enumerated and holds the mode in which the CSG cell User is
+	accessing to, operates. It has the following values:
+	
+	0 Closed mode
+	1 Hybrid Mode
+ */
 public enum CSGAccessModeEnum implements IntegerEnum
 {
 	CLOSED(0),HYBRID(1);

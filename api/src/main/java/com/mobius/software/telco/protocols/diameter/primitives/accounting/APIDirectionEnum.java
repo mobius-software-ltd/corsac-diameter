@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.20bA API-Direction AVP
+	The API-Direction AVP (AVP code 1310) is of type Enumerated and the direction to indicate the API invocation or
+	API notification. The following values are defined:
+	
+	0 invocation
+	1 notification
+ */
 public enum APIDirectionEnum implements IntegerEnum
 {
 	INVOCATION(0),NOTIFICATION(1);

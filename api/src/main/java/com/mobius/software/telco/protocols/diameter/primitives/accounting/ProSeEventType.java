@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154D ProSe-Event-Type AVP
+	The ProSe-Event-Type AVP (AVP code 3443) is of type Enumerated and indicates ProSe charging event. The AVP
+	may take the values as follows:
+	
+	0 Annoucing
+	1 Monitoring
+	2 Match Report 
+ */
 @DiameterAvpDefinition(code = 3443L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Event-Type")
 public interface ProSeEventType extends DiameterEnumerated<ProSeEventTypeEnum>
 {

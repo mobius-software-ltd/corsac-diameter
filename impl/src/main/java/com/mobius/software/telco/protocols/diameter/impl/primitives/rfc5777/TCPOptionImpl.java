@@ -23,6 +23,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Negated;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.NegatedEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TCPOption;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TCPOptionType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TCPOptionTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TCPOptionValue;
@@ -36,7 +37,7 @@ import io.netty.buffer.ByteBuf;
 */
 
 @DiameterAvpImplementation(code = 540L, vendorId = -1L)
-public class TCPOptionImpl extends DiameterGroupedAvpImpl
+public class TCPOptionImpl extends DiameterGroupedAvpImpl implements TCPOption
 {
 	private TCPOptionType tcpOptionType;
 	

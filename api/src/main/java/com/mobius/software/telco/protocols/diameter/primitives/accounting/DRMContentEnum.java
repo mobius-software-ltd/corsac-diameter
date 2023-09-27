@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.56 DRM-Content AVP
+	The DRM-Content AVP (AVP code 1221) is of type Enumerated and indicates if the MM contains DRM-protected
+	content. The values are:
+	
+	0 No
+	1 Yes 
+ */
 public enum DRMContentEnum implements IntegerEnum
 {
 	NO(0),YES(1);

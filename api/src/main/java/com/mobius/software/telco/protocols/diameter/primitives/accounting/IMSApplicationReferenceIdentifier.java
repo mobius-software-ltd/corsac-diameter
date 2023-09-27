@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.74A IMS-Application-Reference-Identifier AVP
+	The IMS-Application-Reference-Identifier AVP (AVP code 2601) is of type UTF8String and holds the IMS Application
+	Reference Identifier (IARI) as contained in a SIP request to identify an IMS Application as defined in TS 24.229 [202].
+	Editor's Note: The SIP parameter from which the IMS Application Reference ID (IARI) is to be extracted requires
+	further investigation in CT1. A mechanism to identify the IARI in use is FFS. 
+ */
 @DiameterAvpDefinition(code = 2601L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Application-Reference-Identifier")
 public interface IMSApplicationReferenceIdentifier extends DiameterUTF8String
 {

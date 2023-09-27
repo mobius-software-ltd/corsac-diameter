@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.199 SGSN-Address AVP
+	The SGSN-Address AVP (AVP code 1228) is of type Address and holds the IP-address of the SGSN/Serving Node (e.g.
+	S-GW, AGW, ePDG, TWAG from the P-GW/TDF and S4-SGSN, MME from the S-GW) that was used during a report.
+ */
 @DiameterAvpDefinition(code = 1228L, vendorId = KnownVendorIDs.TGPP_ID, name = "SGSN-Address")
 public interface SGSNAddress extends DiameterAddress
 {

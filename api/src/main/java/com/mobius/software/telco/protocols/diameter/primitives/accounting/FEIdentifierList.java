@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.66A FE-Identifier-List AVP
+	The FE-Identifier-List AVP (AVP code 4413) is of type UTF8String and holds the FE-Identifier-List as defined in TS
+	24.229 [210] of IMS Network Elements that generates charging information.
+	The FE-Identifier exchange via SIP signalling is defined in TS 24.229 [210]. 
+ */
 @DiameterAvpDefinition(code = 4413L, vendorId = KnownVendorIDs.TGPP_ID, name = "FE-Identifier-List")
 public interface FEIdentifierList extends DiameterUTF8String
 {

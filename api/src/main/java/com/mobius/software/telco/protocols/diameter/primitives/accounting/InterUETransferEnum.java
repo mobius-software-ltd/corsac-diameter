@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.74aA Inter-UE-Transfer AVP
+	The Inter-UE-Transfer AVP (AVP code 3902) is of type Enumerated and contains information about type of the
+	transfer. If this AVP is not present, this means that the type of transfer is Intra-UE transfer. The AVP can take the
+	following values:
+
+	0 Intra-UE transfer
+	1 Inter-UE transfer
+ */
 public enum InterUETransferEnum implements IntegerEnum
 {
 	INTRA(0),INTER(1);

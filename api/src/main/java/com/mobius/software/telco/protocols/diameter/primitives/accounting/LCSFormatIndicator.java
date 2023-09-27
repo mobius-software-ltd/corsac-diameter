@@ -27,6 +27,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.88 LCS-Format-Indicator AVP
+	The LCS-Format-Indicator AVP (AVP code 1237) is of type Enumerated and contains the format of the LCS Client
+	name. It can be one of the following values:
+	
+	0 LOGICAL_NAME
+	1 EMAIL_ADDRESS
+	2 MSISDN
+	3 URL
+	4 SIP_URL
+ */
 @DiameterAvpDefinition(code = 1237L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Format-Indicator")
 public interface LCSFormatIndicator extends DiameterEnumerated<LCSFormatIndicatorEnum>
 {

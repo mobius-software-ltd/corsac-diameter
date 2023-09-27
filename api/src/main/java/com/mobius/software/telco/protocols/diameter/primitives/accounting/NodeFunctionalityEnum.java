@@ -28,6 +28,34 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.113 Node-Functionality AVP
+	The Node-Functionality AVP (AVP code 862) is of type Enumerated and includes the functionality identifier of the
+	node. The functionality identifier can be one of the following:
+	
+	0 S-CSCF
+	1 P-CSCF
+	2 I-CSCF
+	3 MRFC
+	4 MGCF
+	5 BGCF
+	6 AS
+	7 IBCF
+	8 S-GW
+	9 P-GW
+	10 HSGW
+	11 E-CSCF
+	12 MME
+	13 TRF
+	14 TF
+	15 ATCF
+	16 Proxy Function
+	17 ePDG
+	18 TDF
+	19 TWAG
+	20 SCEF
+	21 IWK-SCEF 
+ */
 public enum NodeFunctionalityEnum implements IntegerEnum
 {
 	SCSCF(0),PCSCF(1),ICSCF(2),MRFC(3),MGCF(4),BGCF(5),AS(6),IBCF(7),SGW(8),PGW(9),HSGW(10),ECSCF(11),MME(12),TRF(13),TF(14),ATCF(15),PROXY(16),ePDG(17),TDF(18),TWAG(19),SCEF(20),IWK_SCEF(21);

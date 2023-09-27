@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.1B Access-Transfer-Type AVP
+	The Access-Transfer-Type AVP (AVP code 2710) is of type Enumerated and indicates which type of transfer occurred
+	for IMS service continuity. The following values are defined:
+
+	0 PS to CS Transfer
+	1 CS to PS Transfer
+	2 PS to PS Transfer
+	3 CS to CS Transfer
+ */
 public enum AccessTransferTypeEnum implements IntegerEnum
 {
 	PS_TO_CS(0),CS_TO_PS(1),PS_TO_PS(2),CS_TO_CS(3);

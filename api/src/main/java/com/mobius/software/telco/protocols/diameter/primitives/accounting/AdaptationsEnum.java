@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.4 Adaptations AVP
+	The Adaptations AVP (AVP code 1217) is of type Enumerated and indicates whether the originator allows adaptation
+	of the content (default Yes). The values indicating whether adaptations are allowed are:
+
+	0 Yes
+	1 No 
+ */
 public enum AdaptationsEnum implements IntegerEnum
 {
 	YES(0),NO(1);

@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.21.  Request-Headers-Size AVP
+	A.4.21. Request-Headers-Size AVP
 	The Request-Headers-Size AVP (AVP Code 1016) is of type Unsigned32 and represents the number of bytes 
 	in the control information header in the Request.
  */

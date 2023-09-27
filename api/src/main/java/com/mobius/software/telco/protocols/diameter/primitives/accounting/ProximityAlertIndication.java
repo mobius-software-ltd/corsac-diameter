@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154P Proximity-Alert-Indication AVP
+	The Proximity-Alert-Indication AVP (AVP code 3454) is of type Enumerated and indicates whether proximity alert has
+	been sent before proximity request cancellation. The AVP may take the values as follows:
+
+	0 Alert
+	1 No Alert 
+ */
 @DiameterAvpDefinition(code = 3454L, vendorId = KnownVendorIDs.TGPP_ID, name = "Proximity-Alert-Indication")
 public interface ProximityAlertIndication extends DiameterEnumerated<ProximityAlertIndicationEnum>
 {

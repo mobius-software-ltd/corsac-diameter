@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.29 Base-Time-Interval AVP
+	The Base-Time-Interval AVP (AVP code 1265) is of type Unsigned32. It contains the length of the base time interval,
+	for controlling the consumption of time quota, in seconds. 
+ */
 @DiameterAvpDefinition(code = 1265L, vendorId = KnownVendorIDs.TGPP_ID, name = "Base-Time-Interval")
 public interface BaseTimeInterval extends DiameterUnsigned32
 {

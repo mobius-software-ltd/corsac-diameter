@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.12 Alternate-Charged-Party-Address AVP
+	The Alternate-Charged-Party-Address AVP (AVP code 1280) is of type UTF8String and holds the address of the
+	alternate charged party determined by an AS at IMS session initiation. 
+*/
 @DiameterAvpDefinition(code = 1280L, vendorId = KnownVendorIDs.TGPP_ID, name = "Alternate-Charged-Party-Address")
 public interface AlternateChargedPartyAddress extends DiameterUTF8String
 {

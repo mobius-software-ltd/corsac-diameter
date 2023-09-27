@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.105 Message-ID AVP
+	The Message-ID AVP (AVP code 1210) is of type UTF8String and holds the identification of the message being
+	charged. 
+ */
 @DiameterAvpDefinition(code = 1210L, vendorId = KnownVendorIDs.TGPP_ID, name = "Message-ID")
 public interface MessageID extends DiameterUTF8String
 {

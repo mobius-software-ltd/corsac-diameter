@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154A ProSe-3rd-Party-Application-ID AVP
+	The ProSe-3rd-Party-Application-ID AVP (AVP code 3440) is of type UTF8String and carry A globally unique
+	identifier identifying a specific 3rd party application, as upper layer of ProSe. It is referred to as "Applicatoin Identity”
+	in TS 24.334 [236].
+ */
 @DiameterAvpDefinition(code = 3440L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-3rd-Party-Application-ID")
 public interface ProSe3rdPartyApplicationID extends DiameterUTF8String
 {

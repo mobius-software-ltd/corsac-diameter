@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.242 User-Session-Id AVP
+	The User-Session-Id AVP (AVP code 830) is of type UTF8String and holds the session identifier. For a SIP session the
+	User-Session-Id contains the SIP Call ID, as defined in RFC 3261 [405]. When the AS acts as B2BUA, the incoming
+	Session-ID leg is covered. 
+ */
 @DiameterAvpDefinition(code = 830L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Session-Id")
 public interface UserSessionId extends DiameterUTF8String
 {

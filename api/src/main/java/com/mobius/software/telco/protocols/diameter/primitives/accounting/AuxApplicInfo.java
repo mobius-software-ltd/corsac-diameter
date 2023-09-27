@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.28 Aux-Applic-Info AVP
+	The Aux-Applic-Info AVP (AVP code 1219) is of type UTF8String and holds additional application/implementation
+	specific control information. 
+ */
 @DiameterAvpDefinition(code = 1219L, vendorId = KnownVendorIDs.TGPP_ID, name = "Aux-Applic-Info")
 public interface AuxApplicInfo extends DiameterUTF8String
 {

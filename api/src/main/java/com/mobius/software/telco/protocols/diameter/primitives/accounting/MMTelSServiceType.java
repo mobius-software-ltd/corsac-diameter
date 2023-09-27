@@ -27,6 +27,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111A MMTel-SService-Type AVP
+	The MMTel-SService-Type AVP (AVP Code 2031) is of type Unsigned32 and identifies the type of MMTel
+	supplementary service. The following values are defined:
+	0 Originating Identification Presentation (OIP)
+	1 Originating Identification Restriction (OIR)
+	2 Terminating Identification Presentation (TIP)
+	3 Terminating Identification Restriction (TIR)
+	4 Communication HOLD (HOLD)
+	5 Communications Barring (CB )
+	6 Communication Diversion (CDIV)
+	8 Communication Waiting (CW)
+	9 Message Waiting Indication (MWI)
+	10 Conference (CONF)
+	11 Flexible Alerting (FA)
+	12 Completion of Communication to Busy Subscriber (CCBS)
+	13 Completion of Communications on No Reply (CCNR)
+	14 Malicious Communication Identification (MCID)
+	15 Customized Alerting Tone (CAT) 
+ */
 @DiameterAvpDefinition(code = 2031L, vendorId = KnownVendorIDs.TGPP_ID, name = "MMTel-SService-Type")
 public interface MMTelSServiceType extends DiameterEnumerated<MMTelSServiceTypeEnum>
 {

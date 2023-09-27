@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.98 MBMS-GW-Address AVP
+	The MBMS-GW-Address AVP (AVP code 2307) is of type Address and holds the IP-address.
+	This AVP of the MBMS GW that generated the MBMS Charging ID when MBMS GW is stand-alone. 
+ */
 @DiameterAvpDefinition(code = 2307L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-GW-Address")
 public interface MBMSGWAddress extends DiameterAddress
 {

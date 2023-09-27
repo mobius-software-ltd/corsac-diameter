@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154G ProSe-Functionality AVP
+	The ProSe-Functionality AVP (AVP code 3445) is of type Enumerated and indicates the ProSe functionality UE is
+	requesting. The AVP may take the values as follows:
+	
+	0 Direct discovery
+	1 EPC-level discovery
+	2 Direct communication
+ */
 @DiameterAvpDefinition(code = 3445L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Functionality")
 public interface ProSeFunctionality extends DiameterEnumerated<ProSeFunctionalityEnum>
 {

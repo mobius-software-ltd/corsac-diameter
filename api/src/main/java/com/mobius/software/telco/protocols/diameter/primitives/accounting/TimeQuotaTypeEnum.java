@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.230 Time-Quota-Type AVP
+	The Time-Quota-Type AVP (AVP code 1271) is of type Enumerated. It is used to indicate which time quota
+	consumption mechanism shall be used for the associated Rating Group. It has the following values:
+	
+	0 DISCRETE_TIME_PERIOD
+	1 CONTINUOUS_TIME_PERIOD
+ */
 public enum TimeQuotaTypeEnum implements IntegerEnum
 {
 	DISCRETE(0),CONTINUOUS(1);

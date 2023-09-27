@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.80D ISUP-Cause-Location AVP
+	The ISUP-Cause-Location AVP (AVP code 3423) is of type Unsigned32 and identifies the network in which the event
+	causing the call release. Refer to TS 29.078 [233] for supported values.
+ */
 @DiameterAvpDefinition(code = 3423L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Cause-Location")
 public interface ISUPCauseLocation extends DiameterUnsigned32
 {

@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.186 SDP-Type AVP
+	The SDP-Type AVP (AVP code 2036) is of type Enumerated and holds information if the SDP media component was
+	of type SDP offer or SDP answer. The values are:
+	
+	0 SDP Offer
+	1 SDP Answer 
+ */
 public enum SDPTypeEnum implements IntegerEnum
 {
 	OFFER(0),ANSWER(1);

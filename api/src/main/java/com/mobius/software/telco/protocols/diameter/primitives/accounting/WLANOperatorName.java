@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.252 WLAN-Operator-Name AVP
+	The WLAN-Operator-Name AVP (AVP code 1307) is of type UTF8String and holds the Name of the trusted or
+	untrusted WLAN Operator, as specified in subclause 19. 8 of 3GPP TS 23.003 [224]. 
+ */
 @DiameterAvpDefinition(code = 1307L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "WLAN-Operator-Name")
 public interface WLANOperatorName extends DiameterUTF8String
 {

@@ -27,6 +27,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.240 Unit-Quota-Threshold AVP
+	The Unit-Quota-Threshold AVP (AVP code 1226) is of type Unsigned32 and contains a threshold value in service
+	specific units. This AVP may be included within the Multiple-Services-Credit-Control AVP when this AVP also
+	contains a Granted-Service-Units AVP containing CC-Service-Specific-Units AVP (i.e. when the granted quota is
+	service specific) or within Rate-Element AVP..
+	If received in the context of Multiple-Service-Credit-Control AVP, the Credit-Control client shall seek re-authorization
+	from the server for the quota when the quota contents fall below the supplied threshold.
+	The client shall allow service to continue whilst the re-authorization is in progress, up to the volume indicated in the
+	original quota.
+	In the context of the Rating-Element AVP it denotes the durability of a Rating Element within a Tariff. I.e. if the service
+	consumed Unit-Quota-Threshold number of Unit-Types, the next Rating element becomes in effect. 
+ */
 @DiameterAvpDefinition(code = 1226L, vendorId = KnownVendorIDs.TGPP_ID, name = "Unit-Quota-Threshold")
 public interface UnitQuotaThreshold extends DiameterUnsigned32
 {

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.54A Discoveree-UE-HPLMN-Identifier AVP
+	The Discoveree-UE-HPLMN-Identifier AVP (AVP code 4402) of type UTF8String and contains identifier of
+	Discoveree UE HPLMN. 
+ */
 @DiameterAvpDefinition(code = 4402L, vendorId = KnownVendorIDs.TGPP_ID, name = "Discoveree-UE-HPLMN-Identifier")
 public interface DiscovereeUEHPLMNIdentifier extends DiameterUTF8String
 {

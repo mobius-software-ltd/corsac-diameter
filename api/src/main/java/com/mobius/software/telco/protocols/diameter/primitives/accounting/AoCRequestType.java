@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.16 AoC-Request-Type AVP
+	The AoC-Request-Type AVP (AVP code 2055) is of type enumerated and tags if the client is looking for AoCI in
+	conjunction to the Request-Type and Request-Action AVPs. It can be one of the following values:
+
+	0 AoC_NOT_REQUESTED
+	1 AoC_FULL
+	2 AoC_COST_ONLY
+	3 AoC_TARIFF_ONLY 
+ */
 @DiameterAvpDefinition(code = 2055L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Request-Type")
 public interface AoCRequestType extends DiameterEnumerated<AoCRequestTypeEnum>
 {

@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.119 Number-Of-Talk-Bursts AVP
+	The Number-Of-Talk-Bursts AVP (AVP code 1283) is of type Unsigned32 and holds the number of the sent talk bursts.
+ */
 @DiameterAvpDefinition(code = 1283L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Talk-Bursts")
 public interface NumberOfTalkBursts extends DiameterUnsigned32
 {

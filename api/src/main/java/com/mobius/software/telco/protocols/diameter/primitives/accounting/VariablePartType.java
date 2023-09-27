@@ -27,6 +27,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.242aC Variable-Part-Type AVP
+	The Variable-Part-Type AVP (AVP Code 3909) is of type Unsigned32 and holds the type of the variable part.
+	The following values are defined:
+
+	0 Integer
+	1 Number
+	2 Time
+	3 Date
+	4 Currency
+	5-127 Reserved for future standardization
+	128-255 Reserved for operator-defined types 
+ */
 @DiameterAvpDefinition(code = 3909L, vendorId = KnownVendorIDs.TGPP_ID, name = "Variable-Part-Type")
 public interface VariablePartType extends DiameterUnsigned32
 {

@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.46aA Coverage-Status AVP
+	The Coverage-Status AVP (AVP code 3428) is of type Enumerated and indicates whether UE is served by E-UTRAN
+	or not. The following values are defined:
+	
+	0 Out of coverage
+	1 In coverage
+ */
 @DiameterAvpDefinition(code = 3428L, vendorId = KnownVendorIDs.TGPP_ID, name = "Coverage-Status")
 public interface CoverageStatus extends DiameterEnumerated<CoverageStatusEnum>
 {

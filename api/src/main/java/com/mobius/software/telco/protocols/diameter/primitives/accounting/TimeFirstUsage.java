@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.226 Time-First-Usage AVP
+	The Time-First-Usage AVP (AVP code 2043) is of type Time and holds the time in UTC format for the first IP packet
+	to be transmitted and mapped to the current service data container. 
+ */
 @DiameterAvpDefinition(code = 2043L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-First-Usage")
 public interface TimeFirstUsage extends DiameterTime
 {

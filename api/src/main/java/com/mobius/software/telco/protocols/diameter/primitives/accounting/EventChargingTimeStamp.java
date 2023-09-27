@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.64 Event-Charging-TimeStamp AVP
+	The Event-Charging-TimeStamp AVP (AVP code 1258) is of type Time, and it holds the timestamp of the event
+	reported in the CC-Service-Specific-Units AVP when event based charging applies. 
+ */
 @DiameterAvpDefinition(code = 1258L, vendorId = KnownVendorIDs.TGPP_ID, name = "Event-Charging-TimeStamp")
 public interface EventChargingTimeStamp extends DiameterTime
 {

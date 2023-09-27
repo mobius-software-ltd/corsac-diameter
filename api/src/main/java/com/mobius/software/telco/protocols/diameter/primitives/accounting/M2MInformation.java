@@ -31,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
- * 	A.4.14.  M2M-Information AVP
+ * 	A.4.14. M2M-Information AVP
  *  The M2M-Information AVP (AVP code 1011) is of type Grouped. Its purpose is to allow the transmission of service information elements used for OneM2M specific charging.
 	It has the following ABNF grammar:
 	M2M-Information :: =  < AVP Header: 1011>
@@ -65,9 +65,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 1011L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "M2M-Information")
 public interface M2MInformation extends DiameterGroupedAvp
 {
-	Long getApplicationEntityID();
+	String getApplicationEntityID();
 	
-	void setApplicationEntityID(Long value);
+	void setApplicationEntityID(String value);
 	
 	String getExternalID();
 	

@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.81 LCS-APN AVP
+	The LCS-APN AVP (AVP code 1231) is of type UTF8String and contains the APN of the LCS Client. 
+ */
 @DiameterAvpDefinition(code = 1231L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-APN")
 public interface LCSAPN extends DiameterUTF8String
 {

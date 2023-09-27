@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -27,7 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.135B PC3-EPC-Control-Protocol-Cause AVP
+	The PC3-EPC-Control-Protocol-Cause AVP (AVP code 3435) is of type Integer32 and holds the particular reason why
+	a proximity request messages from the UE have been rejected by the ProSe Function. It is referred to as "PC3 EPC
+	Control Protocol cause value” in TS 24.334 [236]. 
+ */
 @DiameterAvpDefinition(code = 3435L, vendorId = KnownVendorIDs.TGPP_ID, name = "PC3-EPC-Control-Protocol-Cause")
-public interface PC3EPCControlProtocolCause extends DiameterUnsigned32
+public interface PC3EPCControlProtocolCause extends DiameterInteger32
 {
 }

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.21 Applic-ID AVP
+	The Applic-ID AVP (AVP code 1218) is of type UTF8String and holds the identification of the destination application
+	that the underlying MMS abstract message was addressed to. 
+ */
 @DiameterAvpDefinition(code = 1218L, vendorId = KnownVendorIDs.TGPP_ID, name = "Applic-ID")
 public interface ApplicID extends DiameterUTF8String
 {

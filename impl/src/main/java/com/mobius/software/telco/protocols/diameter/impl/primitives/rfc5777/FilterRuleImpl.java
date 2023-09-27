@@ -20,7 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Classifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ExcessTreatment;
@@ -39,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Treatment
 *
 */
 
-@DiameterAvpDefinition(code = 509L, vendorId = -1L, name = "Filter-Rule")
+@DiameterAvpImplementation(code = 509L, vendorId = -1L)
 public class FilterRuleImpl extends DiameterGroupedAvpImpl implements FilterRule
 {
 	private FilterRulePrecedence filterRulePrecedence;

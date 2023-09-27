@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160C Radio-Parameter-Set-Values AVP
+	The Radio-Parameter-Set-Values AVP (AVP code 3464) is of type OctetString and provides the radio parameter set
+	configured in the UE for direct communication. The format of the value is according to the SL-Preconfiguration-r12
+	ASN.1 data type described in TS 36.331 [241]. 
+ */
 @DiameterAvpDefinition(code = 3464L, vendorId = KnownVendorIDs.TGPP_ID, name = "Radio-Parameter-Set-Values")
 public interface RadioParameterSetValues extends DiameterOctetString
 {

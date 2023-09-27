@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.86 LCS-Client-Type AVP
+	The LCS-Client-Type AVP (AVP code 1241) is of type Enumerated and contains the type of services requested by the
+	LCS Client. It can be one of the following values:
+	
+	0 EMERGENCY_SERVICES
+	1 VALUE_ADDED_SERVICES
+	2 PLMN_OPERATOR_SERVICES
+	3 LAWFUL_INTERCEPT_SERVICES
+ */
 public enum LCSClientTypeEnum implements IntegerEnum
 {
 	EMERGENCY_SERVICES(0),VALUE_ADDED_SERVICES(1),PLMN_OPERATOR_SERVICES(2),LAWFUL_INTERCEPT_SERVICES(3);

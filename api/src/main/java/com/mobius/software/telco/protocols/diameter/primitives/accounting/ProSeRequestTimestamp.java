@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154L ProSe-Request-Timestamp AVP
+	The ProSe-Request-Timestamp AVP (AVP code 3450) is of type Time, and it holds the timestamp when ProSe Request
+	is received from UE. 
+ */
 @DiameterAvpDefinition(code = 3450L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Request-Timestamp")
 public interface ProSeRequestTimestamp extends DiameterTime
 {

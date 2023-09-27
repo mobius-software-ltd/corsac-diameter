@@ -28,6 +28,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.207 SM-Message-Type AVP
+	The SM-Message-Type AVP (AVP code 2007) is of type Enumerated and indicates the type of the message which
+	caused the charging interaction. The values are given below:
+	
+	0 SUBMISSION
+	1 DELIVERY_REPORT 
+	2. SM Service Request
+	3 T4 Device Trigger
+	4 SM Device Trigger
+	5 MO-SMS T4 submission
+ */
 public enum SMMessageTypeEnum implements IntegerEnum
 {
 	SUBMISSION(0),DELIVERY_REPORT(1),SERVICE_REQUEST(2),T4_DEVICE_TRIGGER(3),SM_DEVICE_TRIGGER(4),MO_SMS_T4_SUBMISSION(5);

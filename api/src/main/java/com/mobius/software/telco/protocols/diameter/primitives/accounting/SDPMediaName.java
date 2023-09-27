@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.182 SDP-Media-Name AVP
+	The SDP-Media-Name AVP (AVP code 844) is of type UTF8String and holds the content of the SDP "m=" line in a
+	media description, as described in RFC 4566 [406]. 
+ */
 @DiameterAvpDefinition(code = 844L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Media-Name")
 public interface SDPMediaName extends DiameterUTF8String
 {

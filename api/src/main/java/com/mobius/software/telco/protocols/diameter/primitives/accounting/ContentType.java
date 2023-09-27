@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.46 Content-Type AVP
+	The Content-Type AVP (AVP code 826) is of type UTF8String and holds the media type (e.g. application/sdp,
+	text/html) of the message-body, as described in RFC 3261 [405]. 
+ */
 @DiameterAvpDefinition(code = 826L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Type")
 public interface ContentType extends DiameterUTF8String
 {

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.26 Associated-URI AVP
+	The Associated-URI AVP (AVP code 856) is of type UTF8String and holds a non-barred public user identity (SIP URI
+	or Tel URI) associated to the the public user identity under registration. This identity is obtained from the P-AssociatedURI header of a 200 OK SIP response to a REGISTER request. This AVP may appear several times when the PAssociated-URI header contains more than one public user identity. 
+ */
 @DiameterAvpDefinition(code = 856L, vendorId = KnownVendorIDs.TGPP_ID, name = "Associated-URI")
 public interface AssociatedURI extends DiameterUTF8String
 {

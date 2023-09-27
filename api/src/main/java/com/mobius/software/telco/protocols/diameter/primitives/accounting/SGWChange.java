@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.200 SGW-Change AVP
+	The SGW-Change AVP (AVP Code 2065) is of type Enumerated, and indicates this is the first ACR[Start] due to an
+	inter serving node change (change from SGW, ePDG, TWAG, HSGW). If this AVP is not present, this means this
+	ACR[Start] is not due to an inter serving node change.
+	The following values are defined:
+	
+	0 ACR_Start_NOT_due_to_SGW_Change
+	1 ACR_Start_due_to_SGW_Change
+ */
 @DiameterAvpDefinition(code = 2065L, vendorId = KnownVendorIDs.TGPP_ID, name = "SGW-Change")
 public interface SGWChange extends DiameterEnumerated<SGWChangeEnum>
 {

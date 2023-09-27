@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.147 PoC-Session-Initiation-Type AVP
+	The PoC-Session-Initiation-Type AVP (AVP code 1277) is of type Enumerated and specifies the type of the PoC
+	session initiation. The identifier can be one of the following:
+	
+	0 Pre-established
+	1 On-demand 
+ */
 public enum PoCSessionInitiationTypeEnum implements IntegerEnum
 {
 	PRE_ESTABLISHED(0),ON_DEMAND(1);

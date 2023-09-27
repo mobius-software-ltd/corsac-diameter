@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.48 CUG-Information AVP
+	The CUG-Information AVP (AVP code 2304) is of type OctetString and holds the "CUG Interlock Code" which
+	identifies CUG membership within the Network for "Closed User Group" MMTel supplementary service.
+ */
 @DiameterAvpDefinition(code = 2304L, vendorId = KnownVendorIDs.TGPP_ID, name = "CUG-Information")
 public interface CUGInformation extends DiameterOctetString
 {

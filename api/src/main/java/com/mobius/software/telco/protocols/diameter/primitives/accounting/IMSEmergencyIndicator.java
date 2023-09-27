@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.76A IMS-Emergency-Indicator AVP
+	The IMS-Emergency-Indicator AVP (AVP code 2322) is of type Enumerated, and indicates the IMS session is an IMS
+	emergency session or IMS registration. If this AVP is not present, this means the IMS session or registration is not
+	detected as an emergency session or registration. The following values are defined:
+	
+	0 Non Emergency
+	1 Emergency 
+ */
 @DiameterAvpDefinition(code = 2322L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Emergency-Indicator")
 public interface IMSEmergencyIndicator extends DiameterEnumerated<IMSEmergencyIndicatorEnum>
 {

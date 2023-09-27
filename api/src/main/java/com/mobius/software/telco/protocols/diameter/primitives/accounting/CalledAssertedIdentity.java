@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.31 Called-Asserted-Identity AVP
+	The Called-Asserted-Identity AVP (AVP code 1250) is of type UTF8String and holds the address (Public User ID: SIP
+	URI, E.164, etc.) of the finally asserted called party.
+	The address is obtained from the P-Asserted-Identity SIP header field of the 2xx responses corresponding to a SIP
+	request either initiating a dialog or a standalone transaction. This field may appear several times in the request when the
+	P-Asserted-Identity contains both a SIP URI and a Tel URI.
+	This field shall be present when the P-Asserted-Identity SIP header field is available in the SIP 2xx response. 
+ */
 @DiameterAvpDefinition(code = 1250L, vendorId = KnownVendorIDs.TGPP_ID, name = "Called-Asserted-Identity")
 public interface CalledAssertedIdentity extends DiameterUTF8String
 {

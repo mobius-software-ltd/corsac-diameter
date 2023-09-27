@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.209 SM-Status AVP
+	The SM-Status AVP (AVP code 2014) is of type OctetString. The OctetString is of length 1 octet and contains status
+	information about the delivery of an SM. 
+ */
 @DiameterAvpDefinition(code = 2014L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Status")
 public interface SMStatus extends DiameterOctetString
 {

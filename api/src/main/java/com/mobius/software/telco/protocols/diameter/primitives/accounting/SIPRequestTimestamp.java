@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.202 SIP-Request-Timestamp AVP
+	The SIP-Request-Timestamp AVP (AVP code 834) is of type Time and holds the time in UTC format of the SIP request
+	(e.g. Invite, Update). 
+ */
 @DiameterAvpDefinition(code = 834L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Request-Timestamp")
 public interface SIPRequestTimestamp extends DiameterTime
 {

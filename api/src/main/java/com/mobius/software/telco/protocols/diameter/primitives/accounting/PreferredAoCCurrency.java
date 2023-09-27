@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.153 Preferred-AoC-Currency AVP
+	The Preferred-AoC-Currency AVP (AVP code 2315) is of type Unsigned32 and indicates the preferred currency code
+	that the AoC function would like to get the AoC information. It is specified by using the numeric values defined in the
+	ISO 4217 standard, refer RFC 4006 [402]. 
+ */
 @DiameterAvpDefinition(code = 2315L, vendorId = KnownVendorIDs.TGPP_ID, name = "Preferred-AoC-Currency")
 public interface PreferredAoCCurrency extends DiameterUnsigned32
 {

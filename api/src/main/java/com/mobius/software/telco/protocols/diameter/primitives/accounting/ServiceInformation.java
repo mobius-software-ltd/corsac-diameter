@@ -24,6 +24,9 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
+import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.oma.IMInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGenericInformation;
 
 /**
 *
@@ -61,4 +64,68 @@ public interface ServiceInformation extends DiameterAvp
 	List<SubscriptionId> getSubscriptionId();
 	
 	void setSubscriptionId(List<SubscriptionId> subscriptionId);
+	
+	AoCInformation getAoCInformation();
+	
+	void setAoCInformation(AoCInformation aocInformation);
+	
+	PSInformation getPSInformation();
+	
+	void setPSInformation(PSInformation psInformation);
+	
+	IMSInformation getIMSInformation();
+	
+	void setIMSInformation(IMSInformation imsInformation);
+	
+	MMSInformation getMMSInformation();
+	
+	void setMMSInformation(MMSInformation mmsInformation);
+	
+	LCSInformation getLCSInformation();
+	
+	void setLCSInformation(LCSInformation lcsInformation);
+	
+	PoCInformation getPoCInformation();
+	
+	void setPoCInformation(PoCInformation pocInformation);
+	
+	MBMSInformation getMBMSInformation();
+	
+	void setMBMSInformation(MBMSInformation mbmsInformation);
+	
+	SMSInformation getSMSInformation();
+	
+	void setSMSInformation(SMSInformation smsInformation);
+
+	VCSInformation getVCSInformation();
+	
+	void setVCSInformation(VCSInformation vcsInformation);
+	
+	MMTelInformation getMMTelInformation();
+	
+	void setMMTelInformation(MMTelInformation mmtelInformation);
+	
+	ProSeInformation getProSeInformation();
+	
+	void setProSeInformation(ProSeInformation proseInformation);
+	
+	ServiceGenericInformation getServiceGenericInformation();
+	
+	void setServiceGenericInformation(ServiceGenericInformation serviceGenericInformation);
+	
+	IMInformation getIMInformation();
+	
+	void setIMInformation(IMInformation imInformation);
+	
+	DCDInformation getDCDInformation();
+	
+	void setDCDInformation(DCDInformation serviceGenericInformation);
+	
+	M2MInformation getM2MInformation();
+	
+	void setM2MInformation(M2MInformation m2mInformation);
+	
+	CPDTInformation getCPDTInformation();
+	
+	void setCPDTInformation(CPDTInformation cpdtInformation);	
 }

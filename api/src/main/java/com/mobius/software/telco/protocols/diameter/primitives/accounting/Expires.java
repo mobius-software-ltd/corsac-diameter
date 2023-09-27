@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.66 Expires AVP
+	The Expires AVP (AVP code 888) is of type Unsigned32 and holds the content of the "Expires" header, if available. 
+ */
 @DiameterAvpDefinition(code = 888L, vendorId = KnownVendorIDs.TGPP_ID, name = "Expires")
 public interface Expires extends DiameterUnsigned32
 {

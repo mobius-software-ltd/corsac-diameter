@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
- 	A.4.25.  Response-Status-Code AVP
+ 	A.4.25. Response-Status-Code AVP
 	The Response-Status-Code AVP (AVP Code 1020) is of type Enumerated and identifies the value of returned in the Response Status Code parameter of the Response. 
 	The values are defined in clause 6.6.3.	
 	

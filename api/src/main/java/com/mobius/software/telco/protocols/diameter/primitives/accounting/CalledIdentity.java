@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.31A Called-Identity AVP
+	The Called-Identity AVP (AVP code 3916) is of type UTF8String and holds the address (Public User ID: SIP URI,
+	E.164, etc.) of the called party after a change.
+	The address is obtained from the From SIP header field of a SIP UPDATE request or SIP RE-INVITE request. 
+ */
 @DiameterAvpDefinition(code = 3916L, vendorId = KnownVendorIDs.TGPP_ID, name = "Called-Identity")
 public interface CalledIdentity extends DiameterUTF8String
 {

@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160aA Quota-Indicator AVP
+	The Quota-Indicator AVP (AVP code 3912) is of type Enumerated. It is used to indicate whether granted quota is to be
+	used during announcement setup and playback. It has the following values:
+	
+	0 QUOTA_IS_NOT_USED_DURING_PLAYBACK
+	1 QUOTA_IS_USED_DURING_PLAYBACK 
+ */
 @DiameterAvpDefinition(code = 3912L, vendorId = KnownVendorIDs.TGPP_ID, name = "Quota-Indicator")
 public interface QuotaIndicator extends DiameterEnumerated<QuotaIndicatorEnum>
 {

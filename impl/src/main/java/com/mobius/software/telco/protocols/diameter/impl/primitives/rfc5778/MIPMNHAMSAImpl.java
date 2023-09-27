@@ -54,6 +54,11 @@ public class MIPMNHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNHAMSA
 	
 	private MIPReplayMode mipReplayMode;
 	
+	protected MIPMNHAMSAImpl()
+	{
+		
+	}
+	
 	public MIPMNHAMSAImpl(ByteBuf mipSessionKey, Long mipMSALifetime)
 	{
 		if(mipSessionKey==null)

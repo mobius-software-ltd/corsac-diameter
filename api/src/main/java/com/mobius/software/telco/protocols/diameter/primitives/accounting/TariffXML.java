@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.224 Tariff-XML AVP
+	The Tariff-XML AVP (AVP code 2306) is of type UTF8String and holds the XML body describing the tariff/add-on
+	charge information exchanged during the SIP transaction, as described in the TS 29.658 [222]. 
+ */
 @DiameterAvpDefinition(code = 2306L, vendorId = KnownVendorIDs.TGPP_ID, name = "Tariff-XML")
 public interface TariffXML extends DiameterUTF8String
 {

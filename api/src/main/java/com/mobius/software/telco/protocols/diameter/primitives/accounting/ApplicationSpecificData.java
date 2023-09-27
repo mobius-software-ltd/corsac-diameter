@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.24A Application-Specific-Data AVP
+	The Application-Specific-Data AVP (AVP code 3458) is of type OctetString and contains a data block provided by the
+	application in the UE. The content of each block is application-specific. 
+ */
 @DiameterAvpDefinition(code = 3458L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Specific-Data")
 public interface ApplicationSpecificData extends DiameterOctetString
 {

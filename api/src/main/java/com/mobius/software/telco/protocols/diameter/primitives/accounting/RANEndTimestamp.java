@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160Da RAN-End-Timestamp AVP
+	The RAN-End-Timestamp AVP (AVP code 1301) is of type Time and holds the time in UTC format of the volume
+	container reported was collected, the end time of the reported usage. 
+ */
 @DiameterAvpDefinition(code = 1301L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RAN-End-Timestamp")
 public interface RANEndTimestamp extends DiameterTime
 {

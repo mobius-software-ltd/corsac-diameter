@@ -43,6 +43,11 @@ public class MIPHAtoFAMSAImpl extends DiameterGroupedAvpImpl implements MIPHAtoF
 	
 	private MIPSessionKey mipSessionKey;
 	
+	protected MIPHAtoFAMSAImpl()
+	{
+		
+	}
+	
 	public MIPHAtoFAMSAImpl(Long mipHAtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey)
 	{
 		if(mipHAtoFASPI==null)

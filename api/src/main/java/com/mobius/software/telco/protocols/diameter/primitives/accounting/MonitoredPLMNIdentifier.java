@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111Aa Monitored-PLMN-Identifier AVP
+	The Monitored-PLMN-Identifier AVP (AVP code 3430) is of type UTF8String and carries Monitored PLMN ID in
+	MATCH_REPORT request. It corresponds to the Announcing UE VPLMN Identifier when roaming and Announcing
+	UE HPLMN Identifier when non-roaming. It is referred to as "Monitored PLMN ID” in TS 23.303 [235]. 
+ */
 @DiameterAvpDefinition(code = 3430L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitored-PLMN-Identifier")
 public interface MonitoredPLMNIdentifier extends DiameterUTF8String
 {

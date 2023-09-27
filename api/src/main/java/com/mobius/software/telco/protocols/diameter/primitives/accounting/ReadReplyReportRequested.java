@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.162 Read-Reply-Report-Requested AVP
+	The Read-Reply-Report-Requested AVP (AVP code 1222) is of type Enumerated and indicates whether a read reply
+	report has been requested by the originator MMS User Agent or not. The values for whether a report was requested are:
+
+	0 No
+	1 Yes 
+ */
 @DiameterAvpDefinition(code = 1222L, vendorId = KnownVendorIDs.TGPP_ID, name = "Read-Reply-Report-Requested")
 public interface ReadReplyReportRequested extends DiameterEnumerated<ReadReplyReportRequestedEnum>
 {

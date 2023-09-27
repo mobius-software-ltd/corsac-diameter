@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.12aA Announcement-Identifier AVP
+	The Announcement-Identifier AVP (AVP code 3905) is of type Unsigned32. It contains a code identifying an
+	announcement to be played. 
+ */
 @DiameterAvpDefinition(code = 3905L, vendorId = KnownVendorIDs.TGPP_ID, name = "Announcement-Identifier")
 public interface AnnouncementIdentifier extends DiameterUnsigned32
 {

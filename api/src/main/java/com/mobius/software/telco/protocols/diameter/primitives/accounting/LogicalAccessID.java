@@ -27,7 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 302L, must = false, vendorId = KnownVendorIDs.ETSI_ID, name = "Logical-Access-ID")
+/*
+ * 	7.3.3 Logical-Access-ID AVP
+	The Logical-Access-ID AVP (AVP code 302 13019) is of type OctetString. This AVP contains either a Circuit-ID (as
+	defined in RFC 3046 [11]) or a technology independent identifier.
+
+	NOTE: In the xDSL/ATM case, the Logical Access ID may explicitly contain the identity of the VP and VC
+	carrying the traffic. 
+ */
+@DiameterAvpDefinition(code = 302L, vendorId = KnownVendorIDs.ETSI_ID, name = "Logical-Access-ID")
 public interface LogicalAccessID extends DiameterOctetString
 {
 }

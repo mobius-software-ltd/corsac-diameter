@@ -26,6 +26,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.12aC Announcement-Order AVP
+	The Announcement-Order AVP (AVP code 3906) is of type Unsigned32. It contains the order in which announcements
+	should be connected for playback when there are multiple Announcement-Information AVPs provided in a single
+	message with the same timing indicator.
+ */
 @DiameterAvpDefinition(code = 3906L, vendorId = -1L, name = "Announcement-Order")
 public interface AnnouncementOrder extends DiameterUnsigned32
 {

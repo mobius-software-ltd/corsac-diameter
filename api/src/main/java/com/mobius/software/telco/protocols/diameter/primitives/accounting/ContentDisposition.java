@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.43 Content-Disposition AVP
+	The Content-Disposition AVP (AVP code 828) is of type UTF8String and indicates how the message body or a
+	message body part is to be interpreted (e.g. session, render), as described in RFC 3261 [405]. 
+ */
 @DiameterAvpDefinition(code = 828L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Disposition")
 public interface ContentDisposition extends DiameterUTF8String
 {

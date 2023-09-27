@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.19 AoC-Service-Type AVP
+	The AoC-Service-Type AVP (AVP code 2313) is of type Enumerated and defines the type of AoC information to be
+	provided to the subscriber. It can be one of the following values:
+
+	0 NONE
+	1 AOC-S	
+	2 AOC-D
+	3 AOC-E 
+ */
 public enum AoCServiceTypeEnum implements IntegerEnum
 {
 	NONE(0),AOC_S(1),AOC_D(2),AOC_E(3);

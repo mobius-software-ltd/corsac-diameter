@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160D Radio-Resources-Indicator AVP
+	The Radio-Resources-Indicator AVP (AVP code 3465) is of type Integer32 and identifies whether the operatorprovided radio resources or the configured radio resources were used for ProSe direct communication. The allowed
+	values are:
+
+	1 Operator-provided
+	2 Configured 
+ */
 @DiameterAvpDefinition(code = 3465L, vendorId = KnownVendorIDs.TGPP_ID, name = "Radio-Resources-Indicator")
 public interface RadioResourcesIndicator extends DiameterEnumerated<RadioResourcesIndicatorEnum>
 {

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111Ac Monitoring-UE-Identifier AVP
+	The Monitoring-UE-Identifier AVP (AVP code 3432) is of type UTF8String and carry identifier of the party who
+	initiate monitor/match report, i.e. IMSI, which corresponds to UE Identifier parameter in monitor/match report request.
+ */
 @DiameterAvpDefinition(code = 3432L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-UE-Identifier")
 public interface MonitoringUEIdentifier extends DiameterUTF8String
 {

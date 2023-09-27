@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154aA Privacy-Indicator AVP
+	The Privacy-Indicator AVP (AVP code 3915) is of type Enumerated. It is used to indicate whether the announcement is
+	considered private and is only to be played to the requested party. It has the following values:
+	
+	0 NOT_PRIVATE
+	1 PRIVATE 
+ */
 @DiameterAvpDefinition(code = 3915L, vendorId = KnownVendorIDs.TGPP_ID, name = "Privacy-Indicator")
 public interface PrivacyIndicator extends DiameterEnumerated<PrivacyIndicatorEnum>
 {

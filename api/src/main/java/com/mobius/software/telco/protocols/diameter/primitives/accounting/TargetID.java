@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.32.  Target-ID AVP
+	A.4.32. Target-ID AVP
 	The Target-ID AVP (AVP Code 1022) is of type UTF8String and identifies the target URL for the M2M request if available. 
 	Alternatively the Target-ID AVP can identify the target resource identifier with format defined in clause 6.3.4.
  */

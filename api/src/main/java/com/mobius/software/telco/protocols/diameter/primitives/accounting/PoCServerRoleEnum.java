@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.145 PoC-Server-Role AVP
+	The PoC-Server-Role AVP (AVP code 883) is of type Enumerated and specifies the role of the PoC server. The
+	identifier can be one of the following:
+	
+	0 Participating PoC Server
+	1 Controlling PoC Server
+	2 Interworking function
+	3 Interworking selection function 
+ */
 public enum PoCServerRoleEnum implements IntegerEnum
 {
 	PARTICIPATING(0),CONTROLLING(1),INTERWORKING(2),INTERWORKING_SELECTION(3);

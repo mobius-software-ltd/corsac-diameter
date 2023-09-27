@@ -27,6 +27,72 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.37 Change-Condition AVP
+	The Change-Condition AVP (AVP code 2037) is of type Integer32, and indicates the change in charging condition:
+	(Qos change, tariff time change …) which causes:
+
+		- Sending of Accounting-Request from node;
+		- Volume counts container closing for an IP-CAN bearer;
+		- Service data container closing;
+		- ProSe direct communication data container closing;
+		- Record closing.
+
+	The following values are defined :
+
+	0 Normal Release
+		The "Normal Release" value is used to indicate IP-CAN session termination , IP-CAN bearer release or Service
+		Data Flow Termination; PDN connection to SCEF release.
+	1 Abnormal Release
+	2 Qos Change
+	3 Volume Limit
+	4 Time Limit
+	5 Serving Node Change
+	6 Serving Node PLMN Change
+	7 User Location Change
+	8 RAT Change
+	9 UE TimeZone Change
+	10 Tariff Time Change
+	11 Service Idled Out
+	12 ServiceSpecificUnitLimit
+	13 Max Number of Changes in Charging conditions
+	14 CGI-SAI Change
+	15 RAI Change 
+	16 ECGI Change
+	17 TAI Change
+	18 Service Data Volume Limit
+	19 Service Data Time Limit
+	20 Management Intervention
+	21 Service Stop
+	22 User CSG Information Change
+	23 S-GW Change
+	24 Change of UE Presence in Presence Reporting Area
+	25 Proximity alerted
+	26 Time expired with no renewal
+	27 Requestor cancellation
+	28 Maximum number of reports
+	29 PLMN change
+	30 Coverage status change
+	31 Removal of access
+	32 Unavailability of access
+	33 Access change of service data flow
+	34 Indirect change condition
+	35 Maximum number of NIDD submissions
+	36 Change in UP to UE
+	37 Serving PLMN Rate Control Change
+	38 APN Rate Control Change
+	39 NIDD Submission Response Receipt
+	40 NIDD Submission Response Sending
+	41 NIDD Delivery to UE
+	42 NIDD Delivery from UE Error
+	43 NIDD Submission Timeout
+	44 MO exception data counter
+	45 Change of 3GPP PS Data off Status
+	46 VoLTE Bearer Normal Release
+	47 VoLTE Bearer Abnormal Release
+	
+	NOTE: Values 25-30 are applied for ProSe charging only. 
+ */
 @DiameterAvpDefinition(code = 2037L, vendorId = KnownVendorIDs.TGPP_ID, name = "Change-Condition")
 public interface ChangeCondition extends DiameterUnsigned32
 {

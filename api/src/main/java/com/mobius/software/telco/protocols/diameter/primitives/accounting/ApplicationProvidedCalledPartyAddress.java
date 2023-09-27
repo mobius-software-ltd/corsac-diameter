@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.22 Application-Provided-Called-Party-Address AVP
+	The Application-Provided-Called-Party-Address AVP (AVP code 837) is of type UTF8String and holds the called
+	party number (SIP URI, E.164), if it is determined by an application server.
+ */
 @DiameterAvpDefinition(code = 837L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Provided-Called-Party-Address")
 public interface ApplicationProvidedCalledPartyAddress extends DiameterUTF8String
 {

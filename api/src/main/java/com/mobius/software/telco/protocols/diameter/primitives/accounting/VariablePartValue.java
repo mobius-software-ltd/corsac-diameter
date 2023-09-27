@@ -27,6 +27,31 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.242aD Variable-Part-Value AVP
+	The Variable-Part-Value AVP (AVP Code 3910) is of type UTF8String and holds the value of the variable part. 
+	Table 7.2.242aD.1 describes the content of the Variable-Part-Value AVP for each of the standardized values of the VariablePart-Type AVP.
+
+	Table 7.2.242aD.1: Variable-Part-Value AVP Contents
+	Type Value
+	
+	Integer 
+	String of digits, which shall be announced as a single number, up to 10 digits.
+	
+	Number 
+	String of digits, which shall be announced as individual digits, up to 24 digits.
+	
+	Time 
+	A string of digits in the form HHMM.
+
+	Date 
+	A string of digits in the form of YYYYMMDD.
+
+	Currency 
+	A string of digits in the form of AAAAAABB, where
+
+	AAAAAA is the integral part and BB is the decimal part. 
+ */
 @DiameterAvpDefinition(code = 3910L, vendorId = KnownVendorIDs.TGPP_ID, name = "Variable-Part-Value")
 public interface VariablePartValue extends DiameterUTF8String
 {

@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.97 Low-Balance-Indication AVP
+	The Low-Balance-Indication AVP (AVP code 2020) is of type Enumerated and indicates if the subscriber balance went
+	below a designated threshold by its account. This indication can be used to advise the end user about the need to
+	replenish his balance. It can be one of the following values:
+	
+	0 NOT-APPLICABLE
+	1 YES 
+ */
 public enum LowBalanceIndicationEnum implements IntegerEnum
 {
 	NOT_APPLICABLE(0),YES(1);

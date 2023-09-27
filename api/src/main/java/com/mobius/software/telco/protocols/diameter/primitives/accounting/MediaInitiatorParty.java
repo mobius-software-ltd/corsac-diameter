@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.102 Media-Initiator-Party AVP
+	The Media-Initiator-Party AVP (AVP code 1288) is of type UTF8String. Enumerated in IMS charging, it holds the
+	address (SIP URI or Tel URI) of the party (Public User ID or Public Service ID) who initiates the media action, like
+	adding/removing, connecting/disconnecting the media. The Media Initiator Party shall be populated with the SIP URI or
+	Tel URI contained in the Request-URI of the outgoing request. It is use for PoC charging. 
+ */
 @DiameterAvpDefinition(code = 1288L, vendorId = KnownVendorIDs.TGPP_ID, name = "Media-Initiator-Party")
 public interface MediaInitiatorParty extends DiameterUTF8String
 {

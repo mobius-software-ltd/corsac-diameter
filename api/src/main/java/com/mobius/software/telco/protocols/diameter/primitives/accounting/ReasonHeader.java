@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.164A Reason-Header AVP
+	The Reason-Header AVP (AVP code 3401) is of type UTF8String and contains the content of the Reason-header in the
+	SIP BYE and CANCEL. It may contain multiple entries if there are multiple Reason headers within a SIP BYE or
+	CANCEL. 
+ */
 @DiameterAvpDefinition(code = 3401L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reason-Header")
 public interface ReasonHeader extends DiameterUTF8String
 {

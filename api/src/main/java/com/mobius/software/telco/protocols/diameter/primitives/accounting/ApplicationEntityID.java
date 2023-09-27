@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.4.  Application-Entity-ID AVP
+	A.4.4. Application-Entity-ID AVP
 	The Application-Entity-ID AVP (AVP Code 1001) is of type UTF8String and represents the identity of the M2M Application Entity when it is applicable. 
 	The format of the AE-ID is specified in clause 6.2.3.
  */

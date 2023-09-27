@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.41 Client-Address AVP
+	The Client-Address AVP (AVP code 2018) is of type Address and is the address of the messaging Node which the OCS
+	is connected to. 
+ */
 @DiameterAvpDefinition(code = 2018L, vendorId = KnownVendorIDs.TGPP_ID, name = "Client-Address")
 public interface ClientAddress extends DiameterAddress
 {

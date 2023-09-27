@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.55 Domain-Name AVP
+	The Domain-Name AVP (AVP code 1200) is of type UTF8String and represents a fully qualified domain name
+	(FQDN). 
+ */
 @DiameterAvpDefinition(code = 1200L, vendorId = KnownVendorIDs.TGPP_ID, name = "Domain-Name")
 public interface DomainName extends DiameterUTF8String
 {

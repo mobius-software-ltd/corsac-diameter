@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.166 Received-Talk-Burst-Volume AVP
+	The Received-Talk-Burst-Volume AVP (AVP code 1285) is of type Unsigned32 and holds the volume in bytes of the
+	received talk bursts. 
+ */
 @DiameterAvpDefinition(code = 1285L, vendorId = KnownVendorIDs.TGPP_ID, name = "Received-Talk-Burst-Volume")
 public interface ReceivedTalkBurstVolume extends DiameterUnsigned32
 {

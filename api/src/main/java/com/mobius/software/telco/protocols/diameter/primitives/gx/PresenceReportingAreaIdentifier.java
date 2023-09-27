@@ -36,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	shall contain the identifier of the Presence Reporting Area the UE is entering or leaving or the identifier of the Presence
 	Reporting Area set if applicable. It shall be encoded using full hexadecimal representation (binary not ASCII encoding). 
  */
-@DiameterAvpDefinition(code = 2821L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Presence-Reporting-Area-Identifier ")
+@DiameterAvpDefinition(code = 2821L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Presence-Reporting-Area-Identifier")
 public interface PresenceReportingAreaIdentifier extends DiameterOctetString
 {
 }

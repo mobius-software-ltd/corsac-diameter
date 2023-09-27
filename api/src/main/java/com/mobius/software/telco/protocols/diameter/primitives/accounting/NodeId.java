@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.114 Node-Id AVP
+	The Node-Id AVP (AVP code 2064) is of type UTF8String and includes an optional, operator configurable identifier
+	string for the node. 
+ */
 @DiameterAvpDefinition(code = 2064L, vendorId = KnownVendorIDs.TGPP_ID, name = "Node-Id")
 public interface NodeId extends DiameterUTF8String
 {

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.222A Target-IP-Address AVP
+	The Target-IP-Address AVP (AVP code 4412) is of type Address and holds the IP address used as target address for
+	performing ProSe Direct one-to-one Communication. 
+ */
 @DiameterAvpDefinition(code = 4412L, vendorId = KnownVendorIDs.TGPP_ID, name = "Target-IP-Address")
 public interface TargetIPAddress extends DiameterAddress
 {

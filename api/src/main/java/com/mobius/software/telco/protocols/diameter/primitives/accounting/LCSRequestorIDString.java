@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.92 LCS-Requestor-ID-String AVP
+	The LCS-Requestor-ID-String AVP (AVP code 1240) is of type UTF8String and contains the identification of the
+	Requestor and can be e.g. MSISDN or logical name. 
+ */
 @DiameterAvpDefinition(code = 1240L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Requestor-ID-String")
 public interface LCSRequestorIDString extends DiameterUTF8String
 {

@@ -27,6 +27,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.132 Participant-Access-Priority AVP
+	Participant-Access-Priority AVP (AVP code 1259) is of type Enumerated. It is a subfield of Participants-Group AVP to
+	indicate the priority level for users when initiating a new PoC session or participating in a PoC session. The AVP may
+	take the values as follows:
+
+	1 Pre-emptive priority:
+	The highest level priority. A request with pre-emptive priority SHALL cause the current other requests to
+	be revoked immediately, unless they are also with pre-emptive priority
+
+	2 High priority: Lower than Pre-emptive priority
+
+	3 Normal priority: Normal level. Lower than High priority
+
+	4 Low priority: Lowest level priority 
+ */
 @DiameterAvpDefinition(code = 1259L, vendorId = KnownVendorIDs.TGPP_ID, name = "Participant-Access-Priority")
 public interface ParticipantAccessPriority extends DiameterEnumerated<ParticipantAccessPriorityEnum>
 {

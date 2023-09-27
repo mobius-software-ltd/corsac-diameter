@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.116 Number-Of-Messages-Sent AVP
+	The Number-Of-Messages-Sent AVP (AVP code 2019) is of type Unsigned32 and indicates the number of SMSs sent
+	by the IMS application, if applicable. It contains the total number of SMS when concatenated short message for SMS
+	Offline Charging. 
+ */
 @DiameterAvpDefinition(code = 2019L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Messages-Sent")
 public interface NumberOfMessagesSent extends DiameterUnsigned32
 {

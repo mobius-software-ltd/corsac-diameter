@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.141 PoC-Controlling-Address AVP
+	The PoC-Controlling-Address AVP (AVP code 858) is of type UTF8String and identifies the PoC server performing
+	the controlling function for the associated PoC session. 
+ */
 @DiameterAvpDefinition(code = 858L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Controlling-Address")
 public interface PoCControllingAddress extends DiameterUTF8String
 {

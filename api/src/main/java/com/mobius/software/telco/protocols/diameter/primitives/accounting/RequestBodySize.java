@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.20.  Request-Body-Size AVP
+	A.4.20. Request-Body-Size AVP
 	The Request-Body-Size AVP (AVP Code 1015) is of type Unsigned32 and represents the number of bytes 
 	of the body transported in the Request.
  */

@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.19 AoC-Service-Type AVP
+	The AoC-Service-Type AVP (AVP code 2313) is of type Enumerated and defines the type of AoC information to be
+	provided to the subscriber. It can be one of the following values:
+
+	0 NONE
+	1 AOC-S	
+	2 AOC-D
+	3 AOC-E 
+ */
 @DiameterAvpDefinition(code = 2313L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Service-Type")
 public interface AoCServiceType extends DiameterEnumerated<AoCServiceTypeEnum>
 {

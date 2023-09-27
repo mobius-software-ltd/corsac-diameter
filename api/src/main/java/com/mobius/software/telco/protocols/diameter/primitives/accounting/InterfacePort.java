@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.72 Interface-Port AVP
+	The Interface-Port AVP (AVP code 2004) is of type UTF8String and holds the port-identification or contains
+	information about the transport layer port used by the application associated with the charging event. 
+ */
 @DiameterAvpDefinition(code = 2004L, vendorId = KnownVendorIDs.TGPP_ID, name = "Interface-Port")
 public interface InterfacePort extends DiameterUTF8String
 {

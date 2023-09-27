@@ -22,9 +22,10 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImple
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.sh.ExternalIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
 

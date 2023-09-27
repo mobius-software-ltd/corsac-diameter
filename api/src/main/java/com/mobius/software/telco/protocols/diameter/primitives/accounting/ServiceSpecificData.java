@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.194 Service-Specific-Data AVP
+	The Service-Specific-Data AVP (AVP Code 863) is of type UTF8String and holds the value of the Service-SpecificData. 
+ */
 @DiameterAvpDefinition(code = 863L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Specific-Data")
 public interface ServiceSpecificData extends DiameterUTF8String
 {

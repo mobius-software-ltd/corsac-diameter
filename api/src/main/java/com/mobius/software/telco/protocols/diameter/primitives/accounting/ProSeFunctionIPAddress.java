@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154E ProSe-Function-IP-Address AVP
+	The ProSe-Function-IP-Address AVP (AVP code 3444) is of type Address and holds the IP-address of the ProSe
+	Function. 
+ */
 @DiameterAvpDefinition(code = 3444L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Function-IP-Address")
 public interface ProSeFunctionIPAddress extends DiameterAddress
 {

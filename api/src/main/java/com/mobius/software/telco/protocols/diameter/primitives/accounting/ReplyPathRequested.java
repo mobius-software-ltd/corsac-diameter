@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.174 Reply-Path-Requested AVP
+	The Reply-Path-Requested AVP (AVP code 2011) is of type Enumerated. The possible values are:
+	
+	0 No Reply Path Set
+	1 Reply path Set
+ */
 @DiameterAvpDefinition(code = 2011L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reply-Path-Requested")
 public interface ReplyPathRequested extends DiameterEnumerated<ReplyPathRequestedEnum>
 {

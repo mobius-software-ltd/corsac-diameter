@@ -27,6 +27,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.133 Participant-Action-Type AVP
+	The Participant-Action-Type AVP (AVP code 2049) is of type Enumerated and holds the participant's action type
+	during the conference for Billing Domain's information. The following values are defined according to TS 24.605
+	[219]:
+	
+	0 CREATE_CONF
+	1 JOIN_CONF
+	2 INVITE_INTO_CONF
+	3 QUIT_CONF 
+ */
 @DiameterAvpDefinition(code = 2049L, vendorId = KnownVendorIDs.TGPP_ID, name = "Participant-Action-Type")
 public interface ParticipantActionType extends DiameterEnumerated<ParticipantActionTypeEnum>
 {

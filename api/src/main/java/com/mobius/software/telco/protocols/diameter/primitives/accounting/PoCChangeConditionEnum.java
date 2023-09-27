@@ -28,6 +28,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.139 PoC-Change-Condition AVP
+	The PoC-Change-Condition AVP (AVP code 1261) is of type Enumerated and contains the reason for closing a
+	container and the addition of a new container. The AVP may take the following values:
+ 	
+ 	0 ServiceChange
+ 	1 VolumeLimit
+ 	2 TimeLimit
+ 	3 NumberofTalkBurstLimit
+ 	4 NumberofActiveParticipants
+ 	5 TariffTime 
+ */
 public enum PoCChangeConditionEnum implements IntegerEnum
 {
 	SERVICE_CHANGE(0),VOLUME_LIMIT(1),TIME_LIMIT(2),NUMBER_OF_TALK_BURST_LIMIT(3),NUMBER_OF_ACTIVE_PARTICIPANTS(4),TARIFF_TIME(5);

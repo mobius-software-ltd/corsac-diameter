@@ -28,6 +28,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.213 SM-Service-Type AVP
+	The SM-Service-Type AVP (AVP code 2029) is of type Enumerated and indicates the type of SM service that caused
+	the charging interaction. The values as defined in TS 22.142 [217] are given below:
+
+	0 VAS4SMS Short Message content processing
+	1 VAS4SMS Short Message forwarding
+	2 VAS4SMS Short Message Forwarding multiple subscriptions
+	3 VAS4SMS Short Message filtering
+	4 VAS4SMS Short Message receipt
+	5 VAS4SMS Short Message Network Storage
+	6 VAS4SMS Short Message to multiple destinations
+	7 VAS4SMS Short Message Virtual Private Network (VPN)
+	8 VAS4SMS Short Message Auto Reply
+	9 VAS4SMS Short Message Personal Signature
+	10 VAS4SMS Short Message Deferred Delivery
+	11 .. 99 Reserved for 3GPP defined SM services
+	100 .. 199 Vendor specific SM services
+
+	The SM-Service-Type AVP shall be present if the SM-Message-Type AVP has value 2, SM Service Request.
+ */
 public enum SMServiceTypeEnum implements IntegerEnum
 {
 	CONTENT_PROCESSING(0),FORWARDING(1),FORWARDING_MULTIPLE_SUBSCRIPTIONS(2),FILTERING(3),RECEIPT(4),NETWORK_STORAGE(5),TO_MULTIPLE_DESTINATIONS(6),VPN(7),AUTO_REPLY(8),PERSONAL_SIGNATURE(9),DEFERRED_DELIVERY(10);

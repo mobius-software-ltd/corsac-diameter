@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.229 Time-Quota-Threshold AVP
+	The Time-Quota-Threshold AVP (AVP code 868) is of type Unsigned32 and contains a threshold value in seconds.
+	This AVP may be included within the Multiple-Services-Credit-Control AVP when this AVP also contains a GrantedService-Units AVP containing a CC-Time AVP (i.e. when the granted quota is a time quota).
+	If received, the Credit-Control client shall seek re-authorization from the server for the quota when the quota contents
+	fall below the supplied threshold. The client shall allow service to continue whilst the re-authorization is progress, until
+	the time at which the original quota would have been consumed. 
+ */
 @DiameterAvpDefinition(code = 868L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Quota-Threshold")
 public interface TimeQuotaThreshold extends DiameterUnsigned32
 {

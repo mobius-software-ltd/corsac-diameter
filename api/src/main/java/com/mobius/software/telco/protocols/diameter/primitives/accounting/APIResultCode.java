@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.20fA API-Result-Code AVP
+	The API-Result-Code AVP (AVP code 1313) is of type Unsigned32 and holds the result of API Invocation. 
+ */
 @DiameterAvpDefinition(code = 1313L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "API-Result-Code")
 public interface APIResultCode extends DiameterUnsigned32
 {

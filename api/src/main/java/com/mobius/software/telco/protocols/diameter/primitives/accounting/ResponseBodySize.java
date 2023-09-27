@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.23.  Response-Body-Size AVP
+	A.4.23. Response-Body-Size AVP
 	The Response-Body-Size AVP (AVP Code 1018) is of type Unsigned32 and represents the number of bytes 
 	of the body transported in the Response.
 */

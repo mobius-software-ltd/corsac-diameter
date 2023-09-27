@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.184 SDP-Session-Description AVP
+	The SDP-Session-Description AVP (AVP code 842) is of type UTF8String and holds the content of the SDP line (i=,
+	c=, b=, k=, a=, etc.) in the session description, as described in RFC 4566 [406]. 
+ */
 @DiameterAvpDefinition(code = 842L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Session-Description")
 public interface SDPSessionDescription extends DiameterUTF8String
 {

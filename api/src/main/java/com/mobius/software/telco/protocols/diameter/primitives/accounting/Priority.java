@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154 Priority AVP
+	The Priority AVP (AVP code 1209) is of type Enumerated and the priority (importance) of the message if specified.
+	For SMS Charging the value "low" is not applicable. The values are:
+	
+	0 Low
+	1 Normal
+	2 High 
+ */
 @DiameterAvpDefinition(code = 1209L, vendorId = KnownVendorIDs.TGPP_ID, name = "Priority")
 public interface Priority extends DiameterEnumerated<PriorityEnum>
 {

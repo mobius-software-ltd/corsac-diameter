@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.80G Layer-2-Group-ID AVP
+	The Layer-2-Group-ID AVP (AVP code 3429) is of type OctetString and carry the identifier of a ProSe communication
+	group, uniquely represents a specific one-to-many ProSe Direct Communication and is included in CDRs for each
+	participantes in the specific group. This identity is referred to as "ProSe Layer-2 Group ID" in TS 23.303 [235]. 
+ */
 @DiameterAvpDefinition(code = 3429L, vendorId = KnownVendorIDs.TGPP_ID, name = "Layer-2-Group-ID")
 public interface Layer2GroupID extends DiameterOctetString
 {

@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.20gA API-Size AVP
+	The API-Size AVP (AVP code 1314) is of type Unsigned64 and indicates the size in bytes of the specified API payload. 
+ */
 @DiameterAvpDefinition(code = 1314L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "API-Size")
 public interface APISize extends DiameterUnsigned64
 {

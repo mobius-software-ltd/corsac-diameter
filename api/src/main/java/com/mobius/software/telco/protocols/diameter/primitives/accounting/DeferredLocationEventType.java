@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.51 Deferred-Location-Event-Type AVP
+	The Deferred-Location-Even-Type AVP (AVP code 1230) is of type UTF8String and holds information related to a
+	deferred location request. 
+ */
 @DiameterAvpDefinition(code = 1230L, vendorId = KnownVendorIDs.TGPP_ID, name = "Deferred-Location-Event-Type")
 public interface DeferredLocationEventType extends DiameterUTF8String
 {

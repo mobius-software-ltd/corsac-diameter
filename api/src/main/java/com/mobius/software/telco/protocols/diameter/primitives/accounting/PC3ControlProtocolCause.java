@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -27,7 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.135A PC3-Control-Protocol-Cause AVP
+	The PC3-Control-Protocol-Cause AVP (AVP code 3434) is of type Integer32 and holds the particular reason why a
+	DISCOVERY_REQUEST or MATCH_REPORT messages from the UE have been rejected by the ProSe Function. It is
+	referred to as "PC3 Control Protocol cause value” in TS 24.334 [236].
+ */
 @DiameterAvpDefinition(code = 3434L, vendorId = KnownVendorIDs.TGPP_ID, name = "PC3-Control-Protocol-Cause")
-public interface PC3ControlProtocolCause extends DiameterUnsigned32
+public interface PC3ControlProtocolCause extends DiameterInteger32
 {
 }

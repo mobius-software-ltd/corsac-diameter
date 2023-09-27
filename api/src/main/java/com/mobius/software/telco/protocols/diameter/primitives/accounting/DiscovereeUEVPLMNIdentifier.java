@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.54B Discoveree-UE-VPLMN-Identifier AVP
+	The Discoveree-UE-VPLMN-Identifier AVP (AVP code 4403) is of type UTF8String and contains identifier of
+	Discoveree UE VPLMN. 
+ */
 @DiameterAvpDefinition(code = 4403L, vendorId = KnownVendorIDs.TGPP_ID, name = "Discoveree-UE-VPLMN-Identifier")
 public interface DiscovereeUEVPLMNIdentifier extends DiameterUTF8String
 {

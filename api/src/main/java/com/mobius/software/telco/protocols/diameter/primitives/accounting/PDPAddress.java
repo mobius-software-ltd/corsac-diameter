@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.137 PDP-Address AVP
+	The PDP-Address AVP (AVP code 1227) is of type Address and holds the IP-address associated with the IP CAN
+	bearer session (PDP context / PDN connection). The PDP-Address-Prefix-Length AVP needs not be available for IPv6
+	typed IP-address prefix length of 64 bits.
+ */
 @DiameterAvpDefinition(code = 1227L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDP-Address")
 public interface PDPAddress extends DiameterAddress
 {

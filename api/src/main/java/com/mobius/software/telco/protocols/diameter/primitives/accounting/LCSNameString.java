@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.90 LCS-Name-String AVP
+	The LCS-Name-String AVP (AVP code 1238) is of type UTF8String and contains the LCS Client name. 
+ */
 @DiameterAvpDefinition(code = 1238L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Name-String")
 public interface LCSNameString extends DiameterUTF8String
 {

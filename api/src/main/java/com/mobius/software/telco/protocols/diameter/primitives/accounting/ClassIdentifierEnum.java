@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.40 Class-Identifier AVP
+	The Class-Identifier AVP (AVP code 1214) is of type Enumerated and the values are:
+	
+	0 Personal
+	1 Advertisement
+	2 Informational
+	3 Auto
+ */
 public enum ClassIdentifierEnum implements IntegerEnum
 {
 	PRESONAL(0),ADVERTISEMENT(1),INFORMATIONAL(2),AUTO(3);

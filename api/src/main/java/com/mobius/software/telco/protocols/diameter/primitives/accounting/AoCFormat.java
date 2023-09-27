@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.14 AoC-Format AVP
+	The AoC-Format AVP (AVP code 2310) is of type Enumerated and holds the format on how the AoC information shall
+	be sent to the UE. It can be one of the following values:
+	0 MONETARY
+	1 NON_MONETARY
+	2 CAI 
+ */
 @DiameterAvpDefinition(code = 2310L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Format")
 public interface AoCFormat extends DiameterEnumerated<AoCFormatEnum>
 {

@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.80C ISUP-Cause-Diagnostics AVP
+	The ISUP-Cause-Diagnostics AVP (AVP code 3422) is of type OctetString and holds the diagnostics field associated
+	with the release of the voice call service, if available. When used for IMS charging, this AVP holds the diagnostics field
+	associated with the release of a CS call. Refer to TS 29.078 [233] for supported values. 
+ */
 @DiameterAvpDefinition(code = 3422L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Cause-Diagnostics")
 public interface ISUPCauseDiagnostics extends DiameterOctetString
 {

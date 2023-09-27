@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.97 Low-Balance-Indication AVP
+	The Low-Balance-Indication AVP (AVP code 2020) is of type Enumerated and indicates if the subscriber balance went
+	below a designated threshold by its account. This indication can be used to advise the end user about the need to
+	replenish his balance. It can be one of the following values:
+	
+	0 NOT-APPLICABLE
+	1 YES 
+ */
 @DiameterAvpDefinition(code = 2020L, vendorId = KnownVendorIDs.TGPP_ID, name = "Low-Balance-Indication")
 public interface LowBalanceIndication extends DiameterEnumerated<LowBalanceIndicationEnum>
 {

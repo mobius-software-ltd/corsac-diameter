@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.217 Submission-Time AVP
+	The Submission-Time AVP (AVP code 1202) is of type Time and indicates the time at which the message was
+	submitted. 
+ */
 @DiameterAvpDefinition(code = 1202L, vendorId = KnownVendorIDs.TGPP_ID, name = "Submission-Time")
 public interface SubmissionTime extends DiameterTime
 {

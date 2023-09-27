@@ -27,6 +27,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.33 Calling-Party-Address AVP
+	The Calling-Party-Address AVP (AVP code 831) is of type UTF8String and, for IMS charging, holds the address (SIP
+	URI or Tel URI) which identifies the party (Public User Identity or Public Service Identity) initiating a SIP transaction.
+	It is obtained from the P-Asserted-Identity header of any non-REGISTER SIP Request, either initiating a dialog or a
+	standalone transaction. This AVP may appear several times when the P-Asserted-Identity header contains both a SIP
+	URI and a Tel URI. In case no P-Asserted-Identity is known, this AVP list shall include one item with the value
+	"unknown".
+	For VCS charging, it holds the address (SIP URI or Tel URI) which identifies the party initiating a voice call. It is
+	converted from the circuit-switched Calling Party Number as per TS 29.163 [234] for the P-Asserted-Identity header. 
+ */
 @DiameterAvpDefinition(code = 831L, vendorId = KnownVendorIDs.TGPP_ID, name = "Calling-Party-Address")
 public interface CallingPartyAddress extends DiameterUTF8String
 {

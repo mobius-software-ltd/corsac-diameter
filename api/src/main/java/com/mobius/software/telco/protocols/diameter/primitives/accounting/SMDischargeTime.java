@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.206 SM-Discharge-Time AVP
+	The SM-Discharge-Time AVP (AVP code 2012) is of type Time. It indicates the time associated with the event being
+	reported in the SM-Status AVP. It is only used in scenarios in which the delivery of the Delivery-Report (more properly
+	the Status-Report) is being charged.
+	For example, if SM-Status has the value 0x00, then the SM-Discharge-Time indicates the time of the delivery of the
+	original Short Message.
+	The SMS Node shall ensure the correct encoding of this, as the other AVPs using the type Time, since the SMS
+	messages use different formats. 
+ */
 @DiameterAvpDefinition(code = 2012L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Discharge-Time")
 public interface SMDischargeTime extends DiameterTime
 {

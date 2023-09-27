@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.63 Event AVP
+	The Event AVP (AVP code 825) is of type UTF8String and holds the content of the "Event" header.
+ */
 @DiameterAvpDefinition(code = 825L, vendorId = KnownVendorIDs.TGPP_ID, name = "Event")
 public interface Event extends DiameterUTF8String
 {

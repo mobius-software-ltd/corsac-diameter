@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.12A Announcing-UE-HPLMN-Identifier AVP
+	The Announcing-UE-HPLMN-Identifier AVP (AVP code 3426) is of type UTF8String and contains identifier of
+	annoucing UE HPLMN. 
+ */
 @DiameterAvpDefinition(code = 3426L, vendorId = KnownVendorIDs.TGPP_ID, name = "Announcing-UE-HPLMN-Identifier")
 public interface AnnouncingUEHPLMNIdentifier extends DiameterUTF8String
 {

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.30 Bearer-Service AVP
+	The Bearer-Service AVP (AVP code 854) is of type OctetString and holds the used bearer service for the PSTN leg of
+	an IMS session or a voice call service.
+ */
 @DiameterAvpDefinition(code = 854L, vendorId = KnownVendorIDs.TGPP_ID, name = "Bearer-Service")
 public interface BearerService extends DiameterOctetString
 {

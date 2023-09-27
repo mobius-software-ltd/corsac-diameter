@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.92A Local-GW-Inserted-Indication AVP
+	The Local-GW-Inserted-Indication AVP (AVP code 2604) is of type Enumerated and indicates if the local GW
+	(TrGW, IMS-AGW) is inserted or not for the SDP media component.
+	The following values are defined:
+	
+	0 Local GW Not Inserted
+	1 Local GW Inserted 
+ */
 @DiameterAvpDefinition(code = 2604L, vendorId = KnownVendorIDs.TGPP_ID, name = "Local-GW-Inserted-Indication")
 public interface LocalGWInsertedIndication extends DiameterEnumerated<LocalGWInsertedIndicationEnum>
 {

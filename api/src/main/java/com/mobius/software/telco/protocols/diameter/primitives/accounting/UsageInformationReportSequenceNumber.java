@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.240B Usage-Information-Report-Sequence-Number AVP
+	The Usage-Information-Report-Sequence-Number AVP (AVP code 3439) is of type Integer32 and indicates the
+	sequence number of usage information report, which is used to generate the container.
+ */
 @DiameterAvpDefinition(code = 3439L, vendorId = KnownVendorIDs.TGPP_ID, name = "Usage-Information-Report-Sequence-Number")
 public interface UsageInformationReportSequenceNumber extends DiameterInteger32
 {

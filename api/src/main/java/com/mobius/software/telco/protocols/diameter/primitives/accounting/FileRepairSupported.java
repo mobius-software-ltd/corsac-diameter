@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.67 File-Repair-Supported AVP
+	The File-Repair-Supported AVP (AVP code 1224) is of type Enumerated and indicates whether the MBMS user service
+	supports point-to-point file repair. The following values are supported:
+	
+	1 SUPPORTED
+ 		The MBMS user service does support point-to-point file repair.
+	2 NOT_SUPPORTED
+ 		The MBMS user service does not support point-to-point file repair.
+ */
 @DiameterAvpDefinition(code = 1224L, vendorId = KnownVendorIDs.TGPP_ID, name = "File-Repair-Supported")
 public interface FileRepairSupported extends DiameterEnumerated<FileRepairSupportedEnum>
 {

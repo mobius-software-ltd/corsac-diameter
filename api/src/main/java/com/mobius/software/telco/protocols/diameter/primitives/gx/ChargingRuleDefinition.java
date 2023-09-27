@@ -18,11 +18,18 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.AFSignallingProtocolEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowStatusEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.Flows;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfo;
+
+import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -116,99 +123,131 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 1003L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Rule-Definition")
 public interface ChargingRuleDefinition extends DiameterGroupedAvp
 {
-	Long getApplicationEntityID();
+	ByteBuf getChargingRuleName();
 	
-	void setApplicationEntityID(Long value);
+	void setChargingRuleName(ByteBuf value);
 	
-	String getExternalID();
+	Long getServiceIdentifier();
 	
-	void setExternalID(String value);	
-	
-	String getReceiver();
-	
-	void setReceiver(String value);	
-	
-	String getOriginator();
-	
-	void setOriginator(String value);	
-	
-	String getHostingCSEID();
-	
-	void setHostingCSEID(String value);	
-	
-	String getTargetID();
-	
-	void setTargetID(String value);	
-	
-	ProtocolTypeEnum getProtocolType();
-	
-	void setProtocolType(ProtocolTypeEnum value);	
-	
-	RequestOperationEnum getRequestOperation();
-	
-	void setRequestOperation(RequestOperationEnum value);	
-	
-	Long getRequestHeadersSize();
-	
-	void setRequestHeadersSize(Long value);	
-	
-	Long getRequestBodySize();
-	
-	void setRequestBodySize(Long value);	
-	
-	Long getResponseHeadersSize();
-	
-	void setResponseHeadersSize(Long value);	
-	
-	Long getResponseBodySize();
-	
-	void setResponseBodySize(Long value);	
-	
-	ResponseStatusCodeEnum getResponseStatusCode();
-	
-	void setResponseStatusCode(ResponseStatusCodeEnum value);	
+	void setServiceIdentifier(Long value);	
 	
 	Long getRatingGroup();
 	
 	void setRatingGroup(Long value);	
 	
-	Date getM2MEventRecordTimestamp();
+	List<FlowInformation> getFlowInformation();
 	
-	void setM2MEventRecordTimestamp(Date value);	
+	void setFlowInformation(List<FlowInformation> value);	
 	
-	Long getControlMemorySize();
+	DefaultBearerIndicationEnum getDefaultBearerIndication();
 	
-	void setControlMemorySize(Long value);	
+	void setDefaultBearerIndication(DefaultBearerIndicationEnum value);	
 	
-	Long getDataMemorySize();
+	ByteBuf getTDFApplicationIdentifier();
 	
-	void setDataMemorySize(Long value);	
+	void setTDFApplicationIdentifier(ByteBuf value);	
 	
-	Long getAccessNetworkIdentifier();
+	FlowStatusEnum getFlowStatus();
 	
-	void setAccessNetworkIdentifier(Long value);	
+	void setFlowStatus(FlowStatusEnum value);	
 	
-	Long getOccupancy();
+	QoSInformation getQoSInformation();
 	
-	void setOccupancy(Long value);	
+	void setQoSInformation(QoSInformation value);	
 	
-	String getGroupName();
+	PSToCSSessionContinuityEnum getPSToCSSessionContinuity();
 	
-	void setGroupName(String value);	
+	void setPSToCSSessionContinuity(PSToCSSessionContinuityEnum value);	
 	
-	Long getMaximumNumberMembers();
+	ReportingLevelEnum getReportingLevel();
 	
-	void setMaximumNumberMembers(Long value);	
+	void setReportingLevel(ReportingLevelEnum value);	
 	
-	Long getCurrentNumberMembers();
+	OnlineEnum getOnline();
 	
-	void setCurrentNumberMembers(Long value);	
+	void setOnline(OnlineEnum value);	
 	
-	String getSubgroupName();
+	OfflineEnum getOffline();
 	
-	void setSubgroupName(String value);	
+	void setOffline(OfflineEnum value);	
 	
-	String getNodeId();
+	Long getMaxPLRDL();
 	
-	void setNodeId(String value);	 				  
+	void setMaxPLRDL(Long value);	
+	
+	Long getMaxPLRUL();
+	
+	void setMaxPLRUL(Long value);	
+	
+	MeteringMethodEnum getMeteringMethod();
+	
+	void setMeteringMethod(MeteringMethodEnum value);	
+	
+	Long getPrecedence();
+	
+	void setPrecedence(Long value);	
+	
+	ByteBuf getAFChargingIdentifier();
+	
+	void setAFChargingIdentifier(ByteBuf value);	
+	
+	List<Flows> getFlows();
+	
+	void setFlows(List<Flows> value);	
+	
+	ByteBuf getMonitoringKey();
+	
+	void setMonitoringKey(ByteBuf value);	
+	
+	List<RedirectInformation> getRedirectInformation();
+	
+	void setRedirectInformation(List<RedirectInformation> value);	
+	
+	MuteNotificationEnum getMuteNotification();
+	
+	void setMuteNotification(MuteNotificationEnum value);	
+	
+	AFSignallingProtocolEnum getAFSignallingProtocol();
+	
+	void setAFSignallingProtocol(AFSignallingProtocolEnum value);	
+	
+	String getSponsorIdentity();
+	
+	void setSponsorIdentity(String value);	
+	
+	String getApplicationServiceProviderIdentity();
+	
+	void setApplicationServiceProviderIdentity(String value);
+	
+	List<RequiredAccessInfo> getRequiredAccessInfo();
+	
+	void setRequiredAccessInfo(List<RequiredAccessInfo> value);
+	
+	Long getSharingKeyDL();
+	
+	void setSharingKeyDL(Long value);	
+	
+	Long getSharingKeyUL();
+	
+	void setSharingKeyUL(Long value);
+	
+	ByteBuf getTrafficSteeringPolicyIdentifierDL();
+	
+	void setTrafficSteeringPolicyIdentifierDL(ByteBuf value);	
+	
+	ByteBuf getTrafficSteeringPolicyIdentifierUL();
+	
+	void setTrafficSteeringPolicyIdentifierUL(ByteBuf value);
+	
+	Long getContentVersion();
+	
+	void setContentVersion(Long value);
+	
+	List<String> getCallingPartyAddress();
+	
+	void setCallingPartyAddress(List<String> value);
+	
+	CalleeInformation getCalleeInformation();
+	
+	void setCalleeInformation(CalleeInformation value);
 }

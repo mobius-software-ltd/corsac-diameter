@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.20cA API-Identifier AVP
+	The API-Identifier AVP (AVP code 1311) is of type OctetString and holds the identification of northbound exposure
+	API for each API invocation. 
+ */
 @DiameterAvpDefinition(code = 1311L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "API-Identifier")
 public interface APIIdentifier extends DiameterOctetString
 {

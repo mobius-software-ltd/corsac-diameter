@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.225B Time-First-Transmission AVP
+	The Time-First-Transmission AVP (AVP code 3467) is of type Time and holds the time in UTC format for the first IP
+	packet transmitted. 
+ */
 @DiameterAvpDefinition(code = 3467L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-First-Transmission")
 public interface TimeFirstTransmission extends DiameterTime
 {

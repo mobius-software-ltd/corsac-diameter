@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.253 WLAN-PLMN-Id AVP
+	The WLAN-PLMN-Id AVP (AVP code 1308) is of type UTF8String and holds the PLMN Identity of the trusted or
+	untrusted WLAN Operator. 
+ */
 @DiameterAvpDefinition(code = 1308L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "WLAN-PLMN-Id")
 public interface WLANPLMNId extends DiameterUTF8String
 {

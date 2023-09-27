@@ -28,6 +28,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.20eA API-Network-Service-Node AVP
+	The API-Network-Service-Node AVP (AVP code 1315) is of type Enumerated,and holds the identifier of the network
+	element as defined in TS 23.682[243], that triggers the API notification. 
+	
+	0 MME
+ 	1 SGSN
+ 	2 HSS
+ 	3 PCRF
+ 	4 PFDF
+ 	5 BMSC
+ 	6 CSCF
+ 	7 RCAF 
+ */
 public enum APINetworkServiceNodeEnum implements IntegerEnum
 {
 	MME(0),SGSN(1),HSS(2),PCRF(3),PFDF(4),BMSC(5),CSCF(6),RCAF(7);

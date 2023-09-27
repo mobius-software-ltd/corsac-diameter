@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.178aA SCEF-Address AVP
+	The SCEF-Address AVP (AVP code 1317) is of type Address and holds the IP-address of the SCEF. 
+ */
 @DiameterAvpDefinition(code = 1317L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SCEF-Address")
 public interface SCEFAddress extends DiameterAddress
 {

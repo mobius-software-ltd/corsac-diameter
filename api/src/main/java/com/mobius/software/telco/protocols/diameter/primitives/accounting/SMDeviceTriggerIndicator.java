@@ -27,6 +27,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.205A SM-Device-Trigger-Indicator AVP
+	The SM-Device-Trigger-Indicator AVP (AVP code 3407) is of type Enumerated, and indicates whether the Short
+	Message is related to Device Trigger, and which action is requested by the Device trigger. If this AVP is not present,
+	this means the Short Message is not related to Device Trigger:
+	
+	0 Not DeviceTrigger
+	1 Device Trigger request
+	2 Device Trigger replace
+	3 Device Trigger recall 
+ */
 @DiameterAvpDefinition(code = 3407L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Device-Trigger-Indicator")
 public interface SMDeviceTriggerIndicator extends DiameterEnumerated<SMDeviceTriggerIndicatorEnum>
 {

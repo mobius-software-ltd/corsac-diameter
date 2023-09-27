@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.29B Bearer-Capability AVP
+	The Bearer-Capability AVP (AVP code 3412) is of type OctetString and indicates the type of bearer capability
+	connection to the user. The value as described in TS 29.078 [233] shall be used. 
+ */
 @DiameterAvpDefinition(code = 3412L, vendorId = KnownVendorIDs.TGPP_ID, name = "Bearer-Capability")
 public interface BearerCapability extends DiameterOctetString
 {

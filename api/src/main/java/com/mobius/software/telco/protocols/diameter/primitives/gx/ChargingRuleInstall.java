@@ -19,10 +19,13 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  */
 
 import java.util.Date;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+
+import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -90,99 +93,43 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 1001L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Rule-Install")
 public interface ChargingRuleInstall extends DiameterGroupedAvp
 {
-	Long getApplicationEntityID();
+	List<ChargingRuleDefinition> getChargingRuleDefinition();
 	
-	void setApplicationEntityID(Long value);
+	void setChargingRuleDefinition(List<ChargingRuleDefinition> value);	
 	
-	String getExternalID();
+	List<ByteBuf> getChargingRuleName();
 	
-	void setExternalID(String value);	
+	void setChargingRuleName(List<ByteBuf> value);	
 	
-	String getReceiver();
+	List<String> getChargingRuleBaseName();
 	
-	void setReceiver(String value);	
+	void setChargingRuleBaseName(List<String> value);	
 	
-	String getOriginator();
+	ByteBuf getBearerIdentifier();
 	
-	void setOriginator(String value);	
+	void setBearerIdentifier(ByteBuf value);
 	
-	String getHostingCSEID();
+	Long getMonitoringFlags();
 	
-	void setHostingCSEID(String value);	
+	void setMonitoringFlags(Long value);	
 	
-	String getTargetID();
+	Date getRuleActivationTime();
 	
-	void setTargetID(String value);	
+	void setRuleActivationTime(Date value);	
 	
-	ProtocolTypeEnum getProtocolType();
+	Date getRuleDeactivationTime();
 	
-	void setProtocolType(ProtocolTypeEnum value);	
+	void setRuleDeactivationTime(Date value);	
 	
-	RequestOperationEnum getRequestOperation();
+	ResourceAllocationNotificationEnum getResourceAllocationNotification();
 	
-	void setRequestOperation(RequestOperationEnum value);	
+	void setResourceAllocationNotification(ResourceAllocationNotificationEnum value);	
 	
-	Long getRequestHeadersSize();
+	ChargingCorrelationIndicatorEnum getChargingCorrelationIndicator();
 	
-	void setRequestHeadersSize(Long value);	
+	void setChargingCorrelationIndicator(ChargingCorrelationIndicatorEnum value);	
 	
-	Long getRequestBodySize();
+	IPCANTypeEnum getIPCANType();
 	
-	void setRequestBodySize(Long value);	
-	
-	Long getResponseHeadersSize();
-	
-	void setResponseHeadersSize(Long value);	
-	
-	Long getResponseBodySize();
-	
-	void setResponseBodySize(Long value);	
-	
-	ResponseStatusCodeEnum getResponseStatusCode();
-	
-	void setResponseStatusCode(ResponseStatusCodeEnum value);	
-	
-	Long getRatingGroup();
-	
-	void setRatingGroup(Long value);	
-	
-	Date getM2MEventRecordTimestamp();
-	
-	void setM2MEventRecordTimestamp(Date value);	
-	
-	Long getControlMemorySize();
-	
-	void setControlMemorySize(Long value);	
-	
-	Long getDataMemorySize();
-	
-	void setDataMemorySize(Long value);	
-	
-	Long getAccessNetworkIdentifier();
-	
-	void setAccessNetworkIdentifier(Long value);	
-	
-	Long getOccupancy();
-	
-	void setOccupancy(Long value);	
-	
-	String getGroupName();
-	
-	void setGroupName(String value);	
-	
-	Long getMaximumNumberMembers();
-	
-	void setMaximumNumberMembers(Long value);	
-	
-	Long getCurrentNumberMembers();
-	
-	void setCurrentNumberMembers(Long value);	
-	
-	String getSubgroupName();
-	
-	void setSubgroupName(String value);	
-	
-	String getNodeId();
-	
-	void setNodeId(String value);	 				  
+	void setIPCANType(IPCANTypeEnum value);	 				  
 }

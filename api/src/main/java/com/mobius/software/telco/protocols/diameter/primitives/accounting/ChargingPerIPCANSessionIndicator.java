@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.39B Charging-Per-IP-CAN-Session-Indicator AVP
+	The Charging-Per-IP-CAN-Session-Indicator AVP (AVP code 4400) is of type of Enumerated. It indicates whether the
+	charging per IP-CAN session is active for offline charging. If this AVP is not present, that means charging per IP-CAN
+	session is not active.
+	The following value is defined:
+	
+	0 Inactive
+	1 Active
+ */
 @DiameterAvpDefinition(code = 4400L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Per-IP-CAN-Session-Indicator")
 public interface ChargingPerIPCANSessionIndicator extends DiameterEnumerated<ChargingPerIPCANSessionIndicatorEnum>
 {

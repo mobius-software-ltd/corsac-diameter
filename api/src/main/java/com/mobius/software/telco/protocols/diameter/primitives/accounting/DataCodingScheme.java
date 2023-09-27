@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.49 Data-Coding-Scheme AVP
+	The Data-Coding-Scheme AVP (AVP code 2001) is of type Integer32 and contains the data coding scheme of the
+	message. For SM applications the specific coding is as described in TS 23.040 [216].
+ */
 @DiameterAvpDefinition(code = 2001L, vendorId = KnownVendorIDs.TGPP_ID, name = "Data-Coding-Scheme")
 public interface DataCodingScheme extends DiameterInteger32
 {

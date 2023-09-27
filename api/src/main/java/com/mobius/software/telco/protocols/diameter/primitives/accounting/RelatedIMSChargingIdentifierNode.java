@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.171C Related-IMS-Charging-Identifier-Node AVP
+	The Related-IMS-Charging-Identifier-Node AVP (AVP code 2712) is of type Address and holds the identifier of the
+	Enhanced MSC Server or the P-CSCF that generated the Related IMS Charging Identifier (ICID). 
+ */
 @DiameterAvpDefinition(code = 2712L, vendorId = KnownVendorIDs.TGPP_ID, name = "Related-IMS-Charging-Identifier-Node")
 public interface RelatedIMSChargingIdentifierNode extends DiameterAddress
 {

@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.143 PoC-Group-Name AVP
+	The PoC-Group-Name AVP (AVP code 859) is of type UTF8String and identifies a group. Included if the session is a
+	pre-arranged group session or a chat group session. It can be used for PoC and OMA SIMPE IM Charging, or other
+	applications. 
+ */
 @DiameterAvpDefinition(code = 859L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Group-Name")
 public interface PoCGroupName extends DiameterUTF8String
 {

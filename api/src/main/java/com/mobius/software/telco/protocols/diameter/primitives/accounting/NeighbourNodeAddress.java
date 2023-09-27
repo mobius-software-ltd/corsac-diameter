@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111D Neighbour-Node-Address AVP
+	The Neighbour-Node-Address AVP (AVP code 2705) is of type Address and holds the control plane IP address of the
+	neighbouring network contact point that handles the service request in case of interconnection and roaming. 
+ */
 @DiameterAvpDefinition(code = 2705L, vendorId = KnownVendorIDs.TGPP_ID, name = "Neighbour-Node-Address")
 public interface NeighbourNodeAddress extends DiameterAddress
 {

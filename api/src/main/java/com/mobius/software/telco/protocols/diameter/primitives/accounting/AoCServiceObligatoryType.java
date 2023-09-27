@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.18 AoC-Service-Obligatory-Type AVP
+	The AoC-Service-Obligatory-Type AVP (AVP code 2312) is of type Enumerated and holds the information if the AoC
+	information is binding or not. It can be one of the following values:
+
+	0 NON_BINDING
+	1 BINDING 
+ */
 @DiameterAvpDefinition(code = 2312L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Service-Obligatory-Type")
 public interface AoCServiceObligatoryType extends DiameterEnumerated<AoCServiceObligatoryTypeEnum>
 {

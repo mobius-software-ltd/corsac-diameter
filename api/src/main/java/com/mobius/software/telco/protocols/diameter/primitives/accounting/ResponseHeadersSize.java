@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.24.  Response-Headers-Size AVP
+	A.4.24. Response-Headers-Size AVP
 	The Response-Headers-Size AVP (AVP Code 1019) is of type Unsigned32 and represents the number of bytes 
 	in the control information header in the Response.
  */

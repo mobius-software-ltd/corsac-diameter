@@ -1,0 +1,45 @@
+package com.mobius.software.telco.protocols.diameter.primitives.np;
+/*
+ * Mobius Software LTD
+ * Copyright 2023, Mobius Software LTD and individual contributors
+ * by the @authors tag.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation; either version 3 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+
+/**
+*
+* @author yulian oifa
+*
+*/
+
+/*
+	5.3.7	Congestion-Level-Value AVP
+	The Congestion-Level-Value AVP (AVP code 4005) is of type Unsigned32, and it is used to indicate the congestion level associated with the user id and PDN ID.
+	The following values are defined:
+
+	0 (No congestion):
+	This value indicates that there is no congestion.
+
+	N (Congestion level n):
+	These values indicate that there is congestion. The value n is an integer between 1 and 31 and indicates a congestion level. The value 1 is the lowest congestion level and value 31 is the highest congestion level.
+ */
+@DiameterAvpDefinition(code = 4005L, vendorId = KnownVendorIDs.TGPP_ID, name = "Congestion-Level-Value")
+public interface CongestionLevelValue extends DiameterUnsigned32
+{
+}

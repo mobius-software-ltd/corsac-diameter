@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.215 Start-Time AVP
+	The Start-Time AVP (AVP Code 2041) is of type Time and holds the time in UTC format which represents the start of
+	a user session at the S-GW/P-GW or the start of a voice call in the MSC. 
+ */
 @DiameterAvpDefinition(code = 2041L, vendorId = KnownVendorIDs.TGPP_ID, name = "Start-Time")
 public interface StartTime extends DiameterTime
 {

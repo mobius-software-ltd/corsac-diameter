@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+* 	7.2.52 Delivery-Report-Requested AVP
+	The Delivery-Report-Requested AVP (AVP code 1216) is of type Enumerated and indicates whether a delivery report
+	has been requested by the originator or not. The values for whether a report was requested are:
+
+	0 No
+	1 Yes 
+ */
 public enum DeliveryReportRequestedEnum implements IntegerEnum
 {
 	NO(0),YES(1);

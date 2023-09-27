@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.39 Charged-Party AVP
+	The Charged-Party AVP (AVP code 857) is of type UTF8String and holds the address (Public User ID: SIP URI, Tel
+	URI, etc.) of the party to be charged.
+	For Monitoring Event charging, it contains a string that identifies the entity towards which accounting/charging
+	functionality is performed by the involved 3GPP network elements. 
+ */
 @DiameterAvpDefinition(code = 857L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charged-Party")
 public interface ChargedParty extends DiameterUTF8String
 {

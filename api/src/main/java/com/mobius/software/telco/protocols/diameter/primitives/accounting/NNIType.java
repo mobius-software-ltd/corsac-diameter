@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.112B NNI-Type AVP
+	The NNI-Type AVP (AVP code 2704) is of type Enumerated and indicates whether the type of used NNI is nonroaming, roaming without loopback routing or roaming with loopback routing. It has the following values:
+ 	
+ 	0 non-roaming
+ 	1 roaming without loopback
+ 	2 roaming with loopback 
+ */
 @DiameterAvpDefinition(code = 2704L, vendorId = KnownVendorIDs.TGPP_ID, name = "NNI-Type")
 public interface NNIType extends DiameterEnumerated<NNITypeEnum>
 {

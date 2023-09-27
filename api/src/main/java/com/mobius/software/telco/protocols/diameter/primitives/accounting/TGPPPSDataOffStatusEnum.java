@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.0aA 3GPP-PS-Data-Off-Status AVP
+	The 3GPP-PS-Data-Off-Status AVP (AVP code 4406) is of type Enumerated and indicated the change in 3GPP PS
+	Data off status of UE. The following values are defined:
+	
+	0 Active
+	1 Inactive 
+ */
 public enum TGPPPSDataOffStatusEnum implements IntegerEnum
 {
 	ACTIVE(0),INACTIVE(1);

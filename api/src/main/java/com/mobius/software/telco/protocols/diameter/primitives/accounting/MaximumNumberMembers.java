@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.12.  Maximum-Number-Members AVP
+	A.4.12. Maximum-Number-Members AVP
 	The Maximum-Number-Members AVP (AVP Code 1009) is of type Unsigned32 and represents the maximum number of members of 
 	the group for the Create and Update operations. This is the same as the attribute "maxNrOfMembers" for the group as described 
 	in Table 7.4.14.1-137

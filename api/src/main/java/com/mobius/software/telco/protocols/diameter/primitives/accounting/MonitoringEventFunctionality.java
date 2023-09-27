@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.111AaB Monitoring-Event-Functionality AVP
+	The Monitoring-Event-Functionality AVP (AVP code 3922) is of type Enumerated and indicates the Monitoring Event
+	functionality to be charged. The AVP may take the values as follows:
+
+	0 Configuration
+	1 Reporting 
+ */
 @DiameterAvpDefinition(code = 3922L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Functionality")
 public interface MonitoringEventFunctionality extends DiameterEnumerated<MonitoringEventFunctionalityEnum>
 {

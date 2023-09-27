@@ -27,6 +27,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.39A Charging-Characteristics-Selection-Mode AVP
+	The Charging-Characteristics-Selection-Mode AVP (AVP code 2066) is of type Enumerated and indicates how the
+	applied Charging-Characteristics was selected. It may take following values:
+	
+	0 Serving-Node-Supplied
+	1 Subscription-specific
+	2 APN-specific
+	3 Home-Default
+	4 Roaming-Default
+	5 Visiting-Default
+ */
 @DiameterAvpDefinition(code = 2066L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Characteristics-Selection-Mode")
 public interface ChargingCharacteristicsSelectionMode extends DiameterEnumerated<ChargingCharacteristicsSelectionModeEnum>
 {

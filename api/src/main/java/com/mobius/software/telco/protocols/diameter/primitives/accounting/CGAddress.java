@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.36 CG-Address AVP
+	The CG-Address AVP (AVP code 846) is of type Address and holds the IP-address of the charging gateway. 
+ */
 @DiameterAvpDefinition(code = 846L, vendorId = KnownVendorIDs.TGPP_ID, name = "CG-Address")
 public interface CGAddress extends DiameterAddress
 {

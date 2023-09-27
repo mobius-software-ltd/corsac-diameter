@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.120 Number-Portability-Routing-Information AVP
+	The Number-Portability-Routing-Information AVP (AVP code 2024) is of type UTF8String and holds information on
+	routing number received by the node (e.g. S-CSCF) performing number portability look-up (ENUM/DNS). This
+	information is also sent over SIP in the Requested URI header enabling other IMS nodes receiving this header to also
+	report this information. 
+ */
 @DiameterAvpDefinition(code = 2024L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Portability-Routing-Information")
 public interface NumberPortabilityRoutingInformation extends DiameterUTF8String
 {

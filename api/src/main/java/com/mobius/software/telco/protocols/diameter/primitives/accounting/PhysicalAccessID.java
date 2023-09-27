@@ -27,7 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 303L, must = false, vendorId = KnownVendorIDs.ETSI_ID, name = "Physical-Access-ID")
+/*
+ * 	7.3.14 Physical-Access-ID
+	The Physical-Access-ID AVP (AVP code 313 13019) is of type UTF8String and identifies the physical access to which
+	the user equipment is connected. It includes a port identifier and the identity of the access node where the port resides. 
+ */
+@DiameterAvpDefinition(code = 303L, vendorId = KnownVendorIDs.ETSI_ID, name = "Physical-Access-ID")
 public interface PhysicalAccessID extends DiameterUTF8String
 {
 }

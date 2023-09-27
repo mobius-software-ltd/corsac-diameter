@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154C ProSe-Direct-Discovery-Model AVP
+	The ProSe-Direst-Discovery-Model AVP (AVP code 3442) is of type Enumerated and indicates model of the Direct
+	Discovery used by the UE. It is referred to as "Prose Direct Discovery Model” in TS 23.303 [235].The AVP may take
+	the values as follows:
+	
+	0 Model A
+	1 Model B 
+ */
 public enum ProSeDirectDiscoveryModelEnum implements IntegerEnum
 {
 	MODEL_A(0),MODEL_B(1);

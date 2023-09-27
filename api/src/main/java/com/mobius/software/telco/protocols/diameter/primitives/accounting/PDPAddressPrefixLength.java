@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.137A PDP-Address-Prefix-Length AVP
+	The PDP-Address-Prefix-Length AVP (AVP code 2606) is of type Unsigned32 and contains the prefix length of an
+	IPv6 typed PDP-Address AVP. The omission of this AVP for an IPv6 typed IP address implicitly means prefix length
+	of 64 bits, as in this case the 64 bit prefix length default shall be assumed. 
+ */
 @DiameterAvpDefinition(code = 2606L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDP-Address-Prefix-Length")
 public interface PDPAddressPrefixLength extends DiameterUnsigned32
 {

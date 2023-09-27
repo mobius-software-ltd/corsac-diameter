@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.216 Stop-Time AVP
+	The Stop-Time AVP (AVP Code 2042) is of type Time and holds the time in UTC format which represents the
+	termination of a user session at the S-GW/P-GW or the termination of a voice call in the MSC. 
+ */
 @DiameterAvpDefinition(code = 2042L, vendorId = KnownVendorIDs.TGPP_ID, name = "Stop-Time")
 public interface StopTime extends DiameterTime
 {

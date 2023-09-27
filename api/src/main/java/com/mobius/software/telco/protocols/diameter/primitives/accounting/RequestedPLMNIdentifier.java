@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.176A Requested-PLMN-Identifier AVP
+	The Requested-PLMN-Identifier AVP (AVP code 3436) is of type UTF8String and contains PLMN identifier of the
+	user who is targeted in proximity request. 
+ */
 @DiameterAvpDefinition(code = 3436L, vendorId = KnownVendorIDs.TGPP_ID, name = "Requested-PLMN-Identifier")
 public interface RequestedPLMNIdentifier extends DiameterUTF8String
 {

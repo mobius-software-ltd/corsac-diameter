@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.198A SGi-PtP-Tunnelling-Method AVP
+	The SGi-PtP-Tunnelling-Method AVP (AVP Code 3931) is of type Enumerated and indicates whether SGi PtP
+	tunnelling method is based on UDP/IP or other methods for a non-IP PDN type PDN connection.The following values
+	are defined:
+	
+	0 UDP_IP_based
+	1 Others
+ */
 @DiameterAvpDefinition(code = 3931L, vendorId = KnownVendorIDs.TGPP_ID, name = "SGi-PtP-Tunnelling-Method")
 public interface SGiPtPTunnellingMethod extends DiameterEnumerated<SGiPtPTunnellingMethodEnum>
 {

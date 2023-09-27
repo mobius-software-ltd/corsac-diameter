@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.95 Location-Estimate-Type AVP
+	The Location-Estimate-Type AVP (AVP code 1243) is of type Enumerated and contains one of the following values:
+	
+	0 CURRENT_LOCATION
+	1 CURRENT_LAST_KNOWN_LOCATION
+	2 INITIAL_LOCATION
+	3 ACTIVATE_DEFERRED_LOCATION
+	4 CANCEL_DEFERRED_LOCATION 
+ */
 public enum LocationEstimateTypeEnum implements IntegerEnum
 {
 	CURRENT_LOCATION(0),CURRENT_LAST_KNOWN_LOCATION(1),INITIAL_LOCATION(2),ACTIVATE_DEFERRED_LOCATION(3),CANCEL_DEFERRED_LOCATION(4);

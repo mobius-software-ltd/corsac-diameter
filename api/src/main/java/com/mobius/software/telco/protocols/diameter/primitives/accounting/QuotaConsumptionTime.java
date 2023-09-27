@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.159 Quota-Consumption-Time AVP
+	The Quota-Consumption-Time AVP (AVP code 881) is of type Unsigned32 and contains an idle traffic threshold time
+	in seconds. This AVP may be included within the Multiple-Services-Credit-Control AVP when this AVP also contains
+	a Granted-Service-Units AVP containing a CC-Time AVP (i.e. when the granted quota is a time quota). 
+ */
 @DiameterAvpDefinition(code = 881L, vendorId = KnownVendorIDs.TGPP_ID, name = "Quota-Consumption-Time")
 public interface QuotaConsumptionTime extends DiameterUnsigned32
 {

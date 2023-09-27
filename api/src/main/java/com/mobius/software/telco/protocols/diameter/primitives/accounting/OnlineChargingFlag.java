@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.122 Online-Charging-Flag AVP
+	The Online-Charging-Flag AVP (AVP code 2303) is of type Enumerated and indicates the Online Charging Request
+	was sent based on the provided ECF address from the SIP P-header "P-Charging-Function-Addresses". It has the
+	following values:
+
+	0 ECF address not provided
+	1 ECF address provided 
+ */
 @DiameterAvpDefinition(code = 2303L, vendorId = KnownVendorIDs.TGPP_ID, name = "Online-Charging-Flag")
 public interface OnlineChargingFlag extends DiameterEnumerated<OnlineChargingFlagEnum>
 {

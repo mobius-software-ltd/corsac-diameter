@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.177B Route-Header-Transmitted AVP
+	The Route-Header-Transmitted AVP (AVP code 3404) is of type UTF8String and includes the information in the route
+	header representing the destination in a transmitted initial SIP INVITE or non-session related SIP MESSAGE request. 
+ */
 @DiameterAvpDefinition(code = 3404L, vendorId = KnownVendorIDs.TGPP_ID, name = "Route-Header-Transmitted")
 public interface RouteHeaderTransmitted extends DiameterUTF8String
 {

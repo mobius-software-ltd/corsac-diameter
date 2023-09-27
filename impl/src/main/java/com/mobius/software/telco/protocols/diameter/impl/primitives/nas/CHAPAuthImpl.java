@@ -22,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImple
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAlgorithm;
+import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAlgorithmEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAuth;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPIdent;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPResponse;
@@ -47,7 +48,7 @@ public class CHAPAuthImpl extends DiameterGroupedAvpImpl implements CHAPAuth
 		super();
 	}
 	
-	public CHAPAuthImpl(ByteBuf chapAlgorithm, ByteBuf chapIdent, ByteBuf chapResponse)
+	public CHAPAuthImpl(CHAPAlgorithmEnum chapAlgorithm, ByteBuf chapIdent, ByteBuf chapResponse)
 	{
 		super();
 		
@@ -65,15 +66,15 @@ public class CHAPAuthImpl extends DiameterGroupedAvpImpl implements CHAPAuth
 			this.chapResponse = new CHAPResponseImpl(chapResponse, null, null);			
 	}
 	
-	public ByteBuf getCHAPAlgorithm() 
+	public CHAPAlgorithmEnum getCHAPAlgorithm() 
 	{
 		if(chapAlgorithm == null)
 			return null;
 		
-		return chapAlgorithm.getValue();
+		return chapAlgorithm.getEnumerated(CHAPAlgorithmEnum.class);
 	}
 	
-	public void setCHAPAlgorithm(ByteBuf value)
+	public void setCHAPAlgorithm(CHAPAlgorithmEnum value)
 	{
 		if(value==null)
 			throw new IllegalArgumentException("CHAP-Algorithm is required");

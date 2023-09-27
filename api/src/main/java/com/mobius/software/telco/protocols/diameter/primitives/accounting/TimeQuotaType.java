@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.230 Time-Quota-Type AVP
+	The Time-Quota-Type AVP (AVP code 1271) is of type Enumerated. It is used to indicate which time quota
+	consumption mechanism shall be used for the associated Rating Group. It has the following values:
+	
+	0 DISCRETE_TIME_PERIOD
+	1 CONTINUOUS_TIME_PERIOD
+ */
 @DiameterAvpDefinition(code = 1271L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Quota-Type")
 public interface TimeQuotaType extends DiameterEnumerated<TimeQuotaTypeEnum>
 {

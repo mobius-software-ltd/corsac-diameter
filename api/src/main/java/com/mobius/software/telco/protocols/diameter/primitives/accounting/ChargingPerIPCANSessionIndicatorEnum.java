@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.39B Charging-Per-IP-CAN-Session-Indicator AVP
+	The Charging-Per-IP-CAN-Session-Indicator AVP (AVP code 4400) is of type of Enumerated. It indicates whether the
+	charging per IP-CAN session is active for offline charging. If this AVP is not present, that means charging per IP-CAN
+	session is not active.
+	The following value is defined:
+	
+	0 Inactive
+	1 Active
+ */
 public enum ChargingPerIPCANSessionIndicatorEnum implements IntegerEnum
 {
 	INACTIVE(0),ACTIVE(1);

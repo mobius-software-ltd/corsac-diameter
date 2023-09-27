@@ -28,6 +28,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.238A UNI-PDU-CP-Only-Flag AVP
+	The UNI-PDU-CP-Only-Flag AVP (AVP code 3932) is of type Enumerated, and indicates whether this PDN
+	connection is applied with "Control Plane Only flag", i.e. using only S11-U from S-GW when Control Plane CIoT EPS
+	Optimization is enabled. If this AVP is not present, this means both user plane and control plane can be used in UNI for
+	PDU transfer, i.e. S1-U and S11-U respectively from S-GW, when Control Plane CIoT EPS Optimization is enabled.
+	The following values are defined:
+
+	0 UNI-PDU-both-UP-CP
+	1 UNI-PDU-CP-Only
+ */
 public enum UNIPDUCPOnlyFlagEnum implements IntegerEnum
 {
 	BOTH_UP_CP(0),CP_ONLY(1);

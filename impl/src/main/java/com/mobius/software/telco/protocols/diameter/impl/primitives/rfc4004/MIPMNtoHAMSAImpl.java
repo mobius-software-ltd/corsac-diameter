@@ -48,6 +48,11 @@ public class MIPMNtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoH
 	
 	private MIPNonce mipNonce;
 	
+	protected MIPMNtoHAMSAImpl()
+	{
+		
+	}
+	
 	public MIPMNtoHAMSAImpl(Long mipMNtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,MIPReplayModeEnum mipReplayMode, ByteBuf mipNonce)
 	{
 		if(mipMNtoHASPI==null)

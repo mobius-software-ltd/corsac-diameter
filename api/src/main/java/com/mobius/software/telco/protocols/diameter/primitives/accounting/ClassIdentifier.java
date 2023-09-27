@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.40 Class-Identifier AVP
+	The Class-Identifier AVP (AVP code 1214) is of type Enumerated and the values are:
+	
+	0 Personal
+	1 Advertisement
+	2 Informational
+	3 Auto
+ */
 @DiameterAvpDefinition(code = 1214L, vendorId = KnownVendorIDs.TGPP_ID, name = "Class-Identifier")
 public interface ClassIdentifier extends DiameterEnumerated<ClassIdentifierEnum>
 {

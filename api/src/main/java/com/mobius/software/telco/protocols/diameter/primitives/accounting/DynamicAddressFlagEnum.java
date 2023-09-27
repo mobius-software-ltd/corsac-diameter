@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.57 Dynamic-Address-Flag AVP
+	The Dynamic-Address-Flag AVP (AVP code 2051) is of type Enumerated, and indicates whether the PDP
+	context/PDN address is statically or dynamically allocated. If this AVP is not present, this means that the address is
+	statically allocated. The following values are defined:
+
+	0 Static
+	1 Dynamic
+ */
 public enum DynamicAddressFlagEnum implements IntegerEnum
 {
 	STATIC(0),DYNAMIC(1);

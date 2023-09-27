@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.243 Volume-Quota-Threshold AVP
+	The Volume-Quota-Threshold AVP (AVP code 869) is of type Unsigned32 and contains a threshold value in octets.
+	This AVP may be included within the Multiple-Services-Credit-Control AVP when this AVP also contains a GrantedService-Units AVP containing a CC-Total-Octets AVP, CC-Input-Octets AVP or CC-Output-Octets AVP (i.e. when the
+	granted quota is a volume quota).
+	If received, the Credit-Control client shall seek re-authorization from the server for the quota when the quota contents
+	fall below the supplied threshold. The client shall allow service to continue whilst the re-authorization is progress, up to
+	the volume indicated in the original quota. 
+ */
 @DiameterAvpDefinition(code = 869L, vendorId = KnownVendorIDs.TGPP_ID, name = "Volume-Quota-Threshold")
 public interface VolumeQuotaThreshold extends DiameterUnsigned32
 {

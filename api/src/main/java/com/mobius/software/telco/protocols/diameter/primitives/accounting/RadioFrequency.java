@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160A Radio-Frequency AVP
+	The Radio-Frequency AVP (AVP code 3462) is of type OctetString and identifies the radio frequency used for ProSe
+	direct communication. The format of the value is according to the ARFCN-ValueEUTRA-r9 ASN.1 data type described
+	in TS 36.331 [241]. 
+ */
 @DiameterAvpDefinition(code = 3462L, vendorId = KnownVendorIDs.TGPP_ID, name = "Radio-Frequency")
 public interface RadioFrequency extends DiameterOctetString
 {

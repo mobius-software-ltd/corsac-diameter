@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.165 Received-Talk-Burst-Time AVP
+	The Received-Talk-Burst-Time AVP (AVP code 1284) is of type Unsigned32 and holds the duration in seconds of the
+	received talk bursts. 
+ */
 @DiameterAvpDefinition(code = 1284L, vendorId = KnownVendorIDs.TGPP_ID, name = "Received-Talk-Burst-Time")
 public interface ReceivedTalkBurstTime extends DiameterUnsigned32
 {

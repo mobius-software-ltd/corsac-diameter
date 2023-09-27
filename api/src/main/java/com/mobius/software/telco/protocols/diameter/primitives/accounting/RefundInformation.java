@@ -27,6 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.171 Refund-Information AVP
+	The Refund-Information AVP (AVP code 2022) is of type OctetString and it conveys relevant information for the OCS
+	application relative to refund mechanism. When refund mechanism is implemented in the OCS this AVP may be
+	included in the CCA of the previous IEC. This AVP shall be used by the CTF in case of a refund scenario and thus shall
+	be included in the CCR for refund if previously received in CCA for IEC. 
+ */
 @DiameterAvpDefinition(code = 2022L, vendorId = KnownVendorIDs.TGPP_ID, name = "Refund-Information")
 public interface RefundInformation extends DiameterOctetString
 {

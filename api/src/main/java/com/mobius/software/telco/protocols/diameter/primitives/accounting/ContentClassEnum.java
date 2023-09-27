@@ -28,6 +28,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.42 Content-Class AVP
+	The Content-Class AVP (AVP code 1220) is of type Enumerated and classifies the content of the MM to the highest
+	content class to which the MM belongs, as defined in MMS Encapsulation [209]. The classes can be one of the
+	following:
+	
+	0 text
+	1 image-basic
+	2 image-rich
+	3 video-basic
+	4 video-rich
+	5 megapixel
+	6 content-basic
+	7 content-rich
+ */
 public enum ContentClassEnum implements IntegerEnum
 {
 	TEXT(0),IMAGE_BASIC(1),IMAGE_RICH(2),VIDEO_BASIC(3),VIDEO_RICH(4),MEGAPIXEL(5),CONTENT_BASIC(6),CONTENT_RICH(7);

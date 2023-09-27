@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.1.  Access-Network-Identifier AVP
+	A.4.1. Access-Network-Identifier AVP
 	The Access-Network-Identifier AVP (AVP Code 1000) is of type Unsigned32 and identifies the access network associated with the request triggering the M2M Event Record. 
 	The IN-CSE detects the link on which a request came from or was  sent to and that link maps to a specific Network and locally configured identifier.
  */

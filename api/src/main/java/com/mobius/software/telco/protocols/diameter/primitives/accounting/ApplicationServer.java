@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.23 Application-Server AVP
+	The Application-Server AVP (AVP code 836) is of type UTF8String and holds the SIP URL(s) of the AS(s) addressed
+	during the session. 
+ */
 @DiameterAvpDefinition(code = 836L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Server")
 public interface ApplicationServer extends DiameterUTF8String
 {

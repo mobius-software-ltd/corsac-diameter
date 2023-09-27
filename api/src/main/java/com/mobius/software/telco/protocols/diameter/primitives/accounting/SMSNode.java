@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.212 SMS-Node AVP
+	The SMS-Node AVP (AVP code 2016) is of type Enumerated and identifies the role which the SMS node performs in
+	relation to the charging event. It takes the following values:
+	
+	0 SMS Router
+	1 IP-SM-GW
+	2 SMS Router and IP-SM-GW
+	3 SMS-SC 
+ */
 @DiameterAvpDefinition(code = 2016L, vendorId = KnownVendorIDs.TGPP_ID, name = "SMS-Node")
 public interface SMSNode extends DiameterEnumerated<SMSNodeEnum>
 {

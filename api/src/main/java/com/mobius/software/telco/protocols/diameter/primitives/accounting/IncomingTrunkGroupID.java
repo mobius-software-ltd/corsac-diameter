@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.79 Incoming-Trunk-Group-ID AVP
+	The Incoming-Trunk-Group-ID AVP (AVP code 852) is of type UTF8String and identifies the incoming PSTN leg. 
+ */
 @DiameterAvpDefinition(code = 852L, vendorId = KnownVendorIDs.TGPP_ID, name = "Incoming-Trunk-Group-ID")
 public interface IncomingTrunkGroupID extends DiameterUTF8String
 {

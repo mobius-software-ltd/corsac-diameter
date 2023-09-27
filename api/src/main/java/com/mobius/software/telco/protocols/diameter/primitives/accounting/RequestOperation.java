@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.22.  Request-Operation AVP
+	A.4.22. Request-Operation AVP
 	The Request-Operation AVP (AVP Code 1017) is of type Enumerated and identifies the type of operation 
 	requested. The values are defined in Table 6.3.4.2.5-6.
 	

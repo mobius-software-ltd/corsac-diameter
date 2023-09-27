@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.221 Talk-Burst-Time AVP
+	The Talk-Burst-Time AVP (AVP code 1286) is of type Unsigned32 and holds the duration in seconds of the sent talk
+	bursts. 
+ */
 @DiameterAvpDefinition(code = 1286L, vendorId = KnownVendorIDs.TGPP_ID, name = "Talk-Burst-Time")
 public interface TalkBurstTime extends DiameterUnsigned32
 {

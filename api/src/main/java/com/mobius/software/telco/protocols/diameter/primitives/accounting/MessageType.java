@@ -27,6 +27,29 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.107 Message-Type AVP
+	The Message-Type AVP (AVP code 1211) is of type Enumerated and holds the type of the message according to the
+	MMS transactions e.g. submission, delivery. The following values are defined and are as specified in MMS
+
+	Encapsulation [209]:
+ 	
+ 	1 m-send-req
+ 	2 m-send-conf
+ 	3 m-notification-ind
+ 	4 m-notifyresp-ind
+ 	5 m-retrieve-conf
+ 	6 m-acknowledge-ind
+ 	7 m-delivery-ind
+ 	8 m-read-rec-ind
+ 	9 m-read-orig-ind
+ 	10 m-forward-req
+ 	11 m-forward-conf
+ 	12 m-mbox-store-conf
+ 	13 m-mbox-view-conf
+ 	14 m-mbox-upload-conf
+ 	15 m-mbox-delete-conf 
+*/
 @DiameterAvpDefinition(code = 1211L, vendorId = KnownVendorIDs.TGPP_ID, name = "Message-Type")
 public interface MessageType extends DiameterEnumerated<MessageTypeEnum>
 {

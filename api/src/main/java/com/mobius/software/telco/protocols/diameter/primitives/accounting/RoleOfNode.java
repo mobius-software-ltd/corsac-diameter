@@ -27,6 +27,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.177 Role-Of-Node AVP
+	The Role-Of-Node AVP (AVP code 829) is of type Enumerated and specifies whether the IMS (except the MRFC) or
+	VCS node is serving the calling, called, or forwarding party. The identifier can be one of the following:
+ 	
+ 	0 ORIGINATING_ROLE
+ 	The node is applying an originating role, serving the calling party.
+ 	
+ 	1 TERMINATING_ROLE
+ 	The node is applying a terminating role, serving the called party.
+ 	
+ 	2 FORWARDING_ROLE
+ 	The node is applying a originating role, serving the forwarding party. 
+ */
 @DiameterAvpDefinition(code = 829L, vendorId = KnownVendorIDs.TGPP_ID, name = "Role-Of-Node")
 public interface RoleOfNode extends DiameterEnumerated<RoleOfNodeEnum>
 {

@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.210 SM-User-Data-Header AVP
+	The SM-User-Data-Header AVP (AVP code 2015) is of type OctetString and contains any user data header extracted
+	from the user data part of the SM. Encoding is as described in TS 23.040 [216]. Any padding bits are not considered
+	part of the header and are omitted.
+ */
 @DiameterAvpDefinition(code = 2015L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-User-Data-Header")
 public interface SMUserDataHeader extends DiameterOctetString
 {

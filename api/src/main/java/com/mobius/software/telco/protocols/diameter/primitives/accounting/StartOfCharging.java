@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.214A Start-of-Charging AVP
+	The Start-of-Charging AVP (AVP Code 3419) is of type Time and holds the time in UTC format which represents the
+	time origin for charging and may be equivalent to the time call setup is initiated or the time the call is answered
+	depending on configuration. 
+ */
 @DiameterAvpDefinition(code = 3419L, vendorId = KnownVendorIDs.TGPP_ID, name = "Start-of-Charging")
 public interface StartOfCharging extends DiameterTime
 {

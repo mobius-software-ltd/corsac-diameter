@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.241 User-Participating-Type AVP
+	The User-Participating-Type AVP(AVP code 1279) is of type Enumerated. It is a subfield of Participants-Group AVP
+	to indicate the user participating type when participating in the PoC session. The AVP may take the values as follows:
+	
+	0 Normal
+	1 NW PoC Box
+	2 UE PoC Box
+ */
 @DiameterAvpDefinition(code = 1279L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Participating-Type")
 public interface UserParticipatingType extends DiameterEnumerated<UserParticipatingTypeEnum>
 {

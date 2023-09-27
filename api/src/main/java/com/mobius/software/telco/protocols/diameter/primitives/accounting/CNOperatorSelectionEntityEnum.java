@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.41A CN-Operator-Selection-Entity AVP
+	The CN-Operator-Selection-Entity AVP (AVP code 3421) is of type Enumerated and holds the indication on which
+	entity has selected the Serving Core Network in Network Sharing situations.
+	It has the following values:
+	
+	0 The Serving Network has been selected by the UE
+	1 The Serving Network has been selected by the network
+ */
 public enum CNOperatorSelectionEntityEnum implements IntegerEnum
 {
 	BY_UE(0),BY_NETWORK(1);

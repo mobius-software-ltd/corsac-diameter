@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154P Proximity-Alert-Indication AVP
+	The Proximity-Alert-Indication AVP (AVP code 3454) is of type Enumerated and indicates whether proximity alert has
+	been sent before proximity request cancellation. The AVP may take the values as follows:
+
+	0 Alert
+	1 No Alert 
+ */
 public enum ProximityAlertIndicationEnum implements IntegerEnum
 {
 	ALERT(0),NO_ALERT(1);

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.30A BSSID AVP
+	The BSSID AVP (AVP code 2716) is of type UTF8String and contains the BSSID of the access point where UE is
+	located in a WLAN Access Network. The format used for BSSID is described in IEEE Std 802.11-2012 [409]. 
+ */
 @DiameterAvpDefinition(code = 2716L, vendorId = KnownVendorIDs.TGPP_ID, name = "BSSID")
 public interface BSSID extends DiameterUTF8String
 {

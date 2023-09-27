@@ -27,6 +27,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160G Rate-Control-Time-Unit AVP
+	The Rate-Control-Time-Unit AVP (AVP code 3939) is of type Unsigned32 and holds a time unit for rate control.It has
+	the following values:
+	
+	0 Unrestricted
+	This value is used to indicate the number of data PDUs is not restricted.
+	1 Minute
+	2 Hour
+	3 Day
+	4 Week 
+ */
 @DiameterAvpDefinition(code = 3939L, vendorId = KnownVendorIDs.TGPP_ID, name = "Rate-Control-Time-Unit")
 public interface RateControlTimeUnit extends DiameterEnumerated<RateControlTimeUnitEnum>
 {

@@ -39,6 +39,11 @@ public class MIPOriginatingForeignAAAImpl extends DiameterGroupedAvpImpl impleme
 	
 	private OriginRealm originRealm;
 	
+	protected MIPOriginatingForeignAAAImpl()
+	{
+		
+	}
+	
 	public MIPOriginatingForeignAAAImpl(String originHost,String originRealm)
 	{
 		if(originHost==null)

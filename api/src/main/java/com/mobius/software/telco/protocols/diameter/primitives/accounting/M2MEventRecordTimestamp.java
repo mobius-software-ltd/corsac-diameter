@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.13.  M2M-Event-Record-Timestamp AVP
+	A.4.13. M2M-Event-Record-Timestamp AVP
 	The M2M-Event-Record-Timestamp AVP (AVP code 1010) is of type Time and represents the time for recording 
 	the M2M event record.
  */

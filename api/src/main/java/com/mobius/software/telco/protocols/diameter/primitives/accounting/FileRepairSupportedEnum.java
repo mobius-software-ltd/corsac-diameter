@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.67 File-Repair-Supported AVP
+	The File-Repair-Supported AVP (AVP code 1224) is of type Enumerated and indicates whether the MBMS user service
+	supports point-to-point file repair. The following values are supported:
+	
+	1 SUPPORTED
+ 		The MBMS user service does support point-to-point file repair.
+	2 NOT_SUPPORTED
+ 		The MBMS user service does not support point-to-point file repair.
+ */
 public enum FileRepairSupportedEnum implements IntegerEnum
 {
 	SUPPORTED(0),MBMS_USER_SUPPORTED(1),NOT_SUPPORTED(2),MBMS_USER__NOT_SUPPORTED(3);

@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.170 Recipient-SCCP-Address
+	The Recipient-SCCP-Address AVP (AVP code 2010) is of type Address. It is the "SCCP called address" used by the
+	messaging node when delivering the message. This is usually the address of the MSC or SGSN/Serving Node that is
+	serving the UE when it delivers the message. It contains a Global Title, where Global Title represents an E.164 number,
+	and possibly a Point Code (ISPC). The AddressType discriminator in RFC 6733 [401] is set to value 8, E.164, and the
+	address information is UTF8 encoded. 
+ */
 @DiameterAvpDefinition(code = 2010L, vendorId = KnownVendorIDs.TGPP_ID, name = "Recipient-SCCP-Address")
 public interface RecipientSCCPAddress extends DiameterAddress
 {

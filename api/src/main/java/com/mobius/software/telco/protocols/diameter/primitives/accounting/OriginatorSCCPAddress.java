@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.128 Originator-SCCP-Address
+	The Originator-SCCP-Address AVP (AVP code 2008) is of type Address. It is the "SCCP calling address" used by the
+	messaging node when receiving a message. This is usually the address of the MSC or SGSN/Serving Node that was
+	serving the UE when it submitted the message. It contains either a Point Code (ISPC) or a Global Title, where Global
+	Title represents an E.164 number. The Address Type discriminator in RFC 6733 [401] is set to value 8, E.164, and the
+	address information is UTF8 encoded.
+ */
 @DiameterAvpDefinition(code = 2008L, vendorId = KnownVendorIDs.TGPP_ID, name = "Originator-SCCP-Address")
 public interface OriginatorSCCPAddress extends DiameterAddress
 {

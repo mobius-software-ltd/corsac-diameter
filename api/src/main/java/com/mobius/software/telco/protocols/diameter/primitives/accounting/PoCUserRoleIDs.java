@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.150 PoC-User-Role-IDs AVP
+	The PoC-User-Role-IDs AVP (AVP code 1253) is of type UTF8String and identifies the PoC user role. 
+ */
 @DiameterAvpDefinition(code = 1253L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-User-Role-IDs")
 public interface PoCUserRoleIDs extends DiameterUTF8String
 {

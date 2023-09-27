@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	A.4.6.  Current-Number-Members AVP
+	A.4.6. Current-Number-Members AVP
 	The Current-Number-Members AVP (AVP Code 1003) is of type Unsigned32 and represents the current number of members in a group as determined 
 	by the responses to a request transmitted to a group. This is the same as the attribute "currentNrOfMembers" for the group as described in Table 7.4.14.1-137.
  */

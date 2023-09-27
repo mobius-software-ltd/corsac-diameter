@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.57A Dynamic-Address-Flag-Extension AVP
+	The Dynamic-Address-Flag-Extension AVP (AVP code 2068) is of type Enumerated, and indicatesthat the IPv4 PDN
+	address has been dynamically allocated for that particular IP CAN bearer (PDN connection) of PDN type IPv4v6, and
+	the dynamic IPv6 address is indicated in Dynamic Address Flag. If this AVP is not present, this means that the address
+	is statically allocated.The following values are defined:
+
+	0 Static
+	1 Dynamic	
+ */
 @DiameterAvpDefinition(code = 2068L, vendorId = KnownVendorIDs.TGPP_ID, name = "Dynamic-Address-Flag-Extension")
 public interface DynamicAddressFlagExtension extends DiameterEnumerated<DynamicAddressFlagExtensionEnum>
 {

@@ -28,6 +28,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.233A Transcoder-Inserted-Indication AVP
+	The Transcoder-Inserted-Indication AVP (AVP code 2605) is of type Enumerated and indicates if a transcoder is
+	inserted or not for the SDP media component. The following values are defined:
+	
+	0 Transcoder Not Inserted
+	1 Transcoder Inserted 
+ */
 public enum TranscoderInsertedIndicationEnum implements IntegerEnum
 {
 	NOT_INSERTED(0),INSERTED(1);

@@ -28,6 +28,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.215A Status-AS-Code AVP
+	The Status-AS-Code AVP (AVP Code 2702) is of type Enumerated and only present to specify abnormal response
+	code, e.g, 4xx, 5xx or Timeout, etc for specific AS when it responds abnormally to S-CSCF.
+	If AS responds SIP 200 OK, this AVP isn't present in Application-Server-Information AVP.
+	The AVP may take the values as follows:
+	
+	0 4xx;
+	1 5xx;
+	2 Timeout 
+ */
 public enum StatusASCodeEnum implements IntegerEnum
 {
 	FOURXX(0),FIVEXX(1),TIMEOUT(2);

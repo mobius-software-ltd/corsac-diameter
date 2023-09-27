@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.190 Service-ID AVP
+	The Service-ID AVP (AVP code 855) is of type UTF8String and identifies the service the MRFC is hosting or AoC
+	service. For conferences the conference ID is used as the value of this parameter. 
+ */
 @DiameterAvpDefinition(code = 855L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-ID")
 public interface ServiceID extends DiameterUTF8String
 {

@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.86 LCS-Client-Type AVP
+	The LCS-Client-Type AVP (AVP code 1241) is of type Enumerated and contains the type of services requested by the
+	LCS Client. It can be one of the following values:
+	
+	0 EMERGENCY_SERVICES
+	1 VALUE_ADDED_SERVICES
+	2 PLMN_OPERATOR_SERVICES
+	3 LAWFUL_INTERCEPT_SERVICES
+ */
 @DiameterAvpDefinition(code = 1241L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Client-Type")
 public interface LCSClientType extends DiameterEnumerated<LCSClientTypeEnum>
 {

@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.186A Session-Direction AVP
+	The Session-Direction AVP (AVP code 2707) is of type Enumerated and indicates whether the NNI is used for an
+	inbound or outbound service request on the control plane in case of interconnection and roaming.
+	It has the following values:
+	
+	0 inbound
+	1 outbound 
+ */
 @DiameterAvpDefinition(code = 2707L, vendorId = KnownVendorIDs.TGPP_ID, name = "Session-Direction")
 public interface SessionDirection extends DiameterEnumerated<SessionDirectionEnum>
 {

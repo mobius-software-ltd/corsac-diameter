@@ -28,6 +28,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160G Rate-Control-Time-Unit AVP
+	The Rate-Control-Time-Unit AVP (AVP code 3939) is of type Unsigned32 and holds a time unit for rate control.It has
+	the following values:
+	
+	0 Unrestricted
+	This value is used to indicate the number of data PDUs is not restricted.
+	1 Minute
+	2 Hour
+	3 Day
+	4 Week 
+ */
 public enum RateControlTimeUnitEnum implements IntegerEnum
 {
 	UNRESTRICTED(0),MINUTE(1),HOUR(2),DAY(3),WEEK(4);

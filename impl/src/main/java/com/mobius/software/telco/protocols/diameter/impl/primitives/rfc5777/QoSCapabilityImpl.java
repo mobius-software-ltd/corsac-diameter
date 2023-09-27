@@ -20,7 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSCapability;
@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfil
 *
 */
 
-@DiameterAvpDefinition(code = 578L, vendorId = -1L, name = "QoS-Capability")
+@DiameterAvpImplementation(code = 578L, vendorId = -1L)
 public class QoSCapabilityImpl extends DiameterGroupedAvpImpl implements QoSCapability
 {
 	private List<QoSProfileTemplate> qoSProfileTemplate;

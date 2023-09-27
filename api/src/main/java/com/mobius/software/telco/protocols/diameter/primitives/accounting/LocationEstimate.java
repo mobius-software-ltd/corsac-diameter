@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.94 Location-Estimate AVP
+	The Location-Estimate AVP (AVP code 1242) is of type OctetString and contains an estimate of the location of an MS
+	in universal coordinates and the accuracy of the estimate. Refers to the geographical area description in TS 23.032 [227]
+	for the internal structure and encoding of this AVP. 
+ */
 @DiameterAvpDefinition(code = 1242L, vendorId = KnownVendorIDs.TGPP_ID, name = "Location-Estimate")
 public interface LocationEstimate extends DiameterOctetString
 {

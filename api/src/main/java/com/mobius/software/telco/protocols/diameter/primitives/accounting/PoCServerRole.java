@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.145 PoC-Server-Role AVP
+	The PoC-Server-Role AVP (AVP code 883) is of type Enumerated and specifies the role of the PoC server. The
+	identifier can be one of the following:
+	
+	0 Participating PoC Server
+	1 Controlling PoC Server
+	2 Interworking function
+	3 Interworking selection function 
+ */
 @DiameterAvpDefinition(code = 883L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Server-Role")
 public interface PoCServerRole extends DiameterEnumerated<PoCServerRoleEnum>
 {

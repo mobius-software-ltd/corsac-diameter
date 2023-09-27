@@ -27,6 +27,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154J ProSe-Range-Class AVP
+	The ProSe-Range-Class AVP (AVP code 3448) is of type Enumerated and carry a range class for a specific proximity
+	request. The AVP may take the values as follows:
+
+	0 Reserved
+	1 50 m
+	2 100 m 
+	ETSI
+	3 200 m
+	4 500 m
+	5 1000 m
+	6-255 Unused
+	
+	It is referred to as "Range Class" in TS 24.334 [236]
+ */
 @DiameterAvpDefinition(code = 3448L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Range-Class")
 public interface ProSeRangeClass extends DiameterEnumerated<ProSeRangeClassEnum>
 {

@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.187 Served-Party-IP-Address AVP
+	The Served-Party-IP-Address AVP (AVP code 848) is of type Address and holds the IP address of either the calling or
+	called party, depending on whether the P-CSCF is in touch with the calling or the called party. This AVP is only
+	provided by the P-CSCF. 
+ */
 @DiameterAvpDefinition(code = 848L, vendorId = KnownVendorIDs.TGPP_ID, name = "Served-Party-IP-Address")
 public interface ServedPartyIPAddress extends DiameterAddress
 {

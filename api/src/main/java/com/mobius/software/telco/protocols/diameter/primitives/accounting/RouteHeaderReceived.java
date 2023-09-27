@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.177A Route-Header-Received AVP
+	The Route-Header-Received AVP (AVP code 3403) is of type UTF8String and includes the information in the topmost
+	route header in a received initial SIP INVITE or non-session related SIP MESSAGE request. 
+ */
 @DiameterAvpDefinition(code = 3403L, vendorId = KnownVendorIDs.TGPP_ID, name = "Route-Header-Received")
 public interface RouteHeaderReceived extends DiameterUTF8String
 {

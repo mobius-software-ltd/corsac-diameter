@@ -27,6 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.232A TLTRI AVP
+	The TLTRI AVP (AVP code 1318) is of type Unsigned32, and holds the identifies the T8 Long Term Transaction
+	Reference ID is which refers to long term transaction (e.g. NIDD Configuration, Group Message Request, Monitoring
+	Event configuration) between the SCEF and the SCS/AS when using T8 interface. 
+ */
 @DiameterAvpDefinition(code = 1318L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TLTRI")
 public interface TLTRI extends DiameterUnsigned32
 {

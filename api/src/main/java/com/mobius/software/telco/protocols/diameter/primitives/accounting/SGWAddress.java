@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.199A SGW-Address AVP
+	The SGW-Address AVP (AVP code 2067) is of type Address and holds the IP-address of the SGW Node. 
+ */
 @DiameterAvpDefinition(code = 2067L, vendorId = KnownVendorIDs.TGPP_ID, name = "SGW-Address")
 public interface SGWAddress extends DiameterAddress
 {

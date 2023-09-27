@@ -27,6 +27,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154M ProSe-Role-Of-UE AVP
+	The ProSe- Role-Of-UE AVP (AVP code 3451) is of type Enumerated and indicates Role of the UE using ProSe. The
+	AVP may take the values as follows:
+	
+	0 Announcing UE
+	1 Monitoring UE
+	2 Requestor UE
+	3 Requested UE 
+ */
 @DiameterAvpDefinition(code = 3451L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Role-Of-UE")
 public interface ProSeRoleOfUE extends DiameterEnumerated<ProSeRoleOfUEEnum>
 {

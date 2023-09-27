@@ -27,6 +27,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.160 Quota-Holding-Time AVP
+	The Quota-Holding-Time AVP (AVP code 871) is of type Unsigned32 and contains the quota holding time in seconds.
+	The client shall start the quota holding timer when quota consumption ceases. This is always when traffic ceases, i.e.
+	the timer is re-started at the end of each packet. The Credit-Control Client shall deem a quota to have expired when no
+	traffic associated with the quota is observed for the value indicated by this AVP. The timer is stopped on sending a
+	CCR and re-initialised on receiving a CCA with the previous used value or a new value of Quota-Holding-Time if
+	received.
+	This optional AVP may only occur in a CCA command. It is contained in the Multiple-Services-Credit-Control AVP.
+	It applies equally to the granted time quota and to the granted volume quota.
+	A Quota-Holding-Time value of zero indicates that this mechanism shall not be used. If the Quota-Holding-Time AVP
+	is not present, then a locally configurable default value in the client shall be used. 
+ */
 @DiameterAvpDefinition(code = 871L, vendorId = KnownVendorIDs.TGPP_ID, name = "Quota-Holding-Time")
 public interface QuotaHoldingTime extends DiameterUnsigned32
 {

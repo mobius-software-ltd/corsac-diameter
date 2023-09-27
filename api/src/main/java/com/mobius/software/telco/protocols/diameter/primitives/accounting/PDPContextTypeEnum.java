@@ -28,6 +28,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.138 PDP-Context-Type AVP
+	The PDP-Context-Type AVP (AVP code 1247) is of type Enumerated and indicates the type of a PDP context. The
+	values for requested are:
+	
+	0 Primary
+	1 Secondary
+	
+	This AVP shall only be present in the CCR[Initial]. 
+ */
 public enum PDPContextTypeEnum implements IntegerEnum
 {
 	PRIMARY(0),SECONDARY(1);

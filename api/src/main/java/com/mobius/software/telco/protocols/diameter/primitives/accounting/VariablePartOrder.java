@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ *	7.2.242aB Variable-Part-Order AVP
+	The Variable-Part-Order AVP (AVP code 3908) is of type Unsigned32. It contains the order of the variable part within
+	the announcement to be played back. 
+ */
 @DiameterAvpDefinition(code = 3908L, vendorId = KnownVendorIDs.TGPP_ID, name = "Variable-Part-Order")
 public interface VariablePartOrder extends DiameterUnsigned32
 {

@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.154K ProSe-Reason-For-Cancellation AVP
+	The ProSe-Reason-For-Cancellation AVP (AVP code 3449) is of type Enumerated and indicates the reason for
+	cancellation of an EPC-level discovery request. The AVP may take the values as follows:
+	
+	0 Proximity Alert sent
+	1 Time expired with no renewal
+	2 Requestor cancellation 
+ */
 @DiameterAvpDefinition(code = 3449L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Reason-For-Cancellation")
 public interface ProSeReasonForCancellation extends DiameterEnumerated<ProSeReasonForCancellationEnum>
 {

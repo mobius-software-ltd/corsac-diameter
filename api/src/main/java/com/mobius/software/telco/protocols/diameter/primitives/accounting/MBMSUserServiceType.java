@@ -27,6 +27,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.100 MBMS-User-Service-Type AVP
+	The MBMS-User-Service-Type AVP (AVP code 1225) is of type Enumerated indicates type of service the the MBMS
+	user service that is being delivered. The following values are supported:
+
+	1 DOWNLOAD
+	
+	The MBMS user service of type: download.
+
+	2 STREAMING
+
+	The MBMS user service is of type: streaming. 
+ */
 @DiameterAvpDefinition(code = 1225L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-User-Service-Type")
 public interface MBMSUserServiceType extends DiameterEnumerated<MBMSUserServiceTypeEnum>
 {

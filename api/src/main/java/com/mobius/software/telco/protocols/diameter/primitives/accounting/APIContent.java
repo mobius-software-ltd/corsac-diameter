@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.20aA API-Content AVP
+	The API-Content AVP (AVP code 1309) is of type UTF8String and holds the message content (e.g. location,
+	Monitoring Type) used in the T8 transaction for the API invocation request, if available. 
+ */
 @DiameterAvpDefinition(code = 1309L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "API-Content")
 public interface APIContent extends DiameterUTF8String
 {

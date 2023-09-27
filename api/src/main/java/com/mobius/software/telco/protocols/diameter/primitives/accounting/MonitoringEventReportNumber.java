@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+* 	7.2.111AaE Monitoring-Event-Report-Number AVP
+	The Monitoring-Event-Report-Number AVP (AVP code 3923) is of type Unsigned32 and indicates the number of the
+	report being sent for the specific Monitoring Event request from this node. 
+ */
 @DiameterAvpDefinition(code = 3923L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Report-Number")
 public interface MonitoringEventReportNumber extends DiameterUnsigned32
 {

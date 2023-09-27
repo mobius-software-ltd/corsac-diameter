@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.188A Secondary-RAT-Type AVP
+	The Secondary-RAT-Type AVP (AVP code 1304) is of type OctetString and Holds the value of Secondary RAT Type,
+	as provided by the RAN. The field is provided by the RAN and transferred to the S-GW/P-GW in the RAN Traffic
+	Volume element.
+	The following values are defined:
+	
+	0 5G NR 
+ */
 @DiameterAvpDefinition(code = 1304L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Secondary-RAT-Type")
 public interface SecondaryRATType extends DiameterOctetString
 {

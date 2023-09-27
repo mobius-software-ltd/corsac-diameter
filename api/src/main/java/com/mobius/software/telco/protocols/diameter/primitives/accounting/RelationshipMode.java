@@ -27,6 +27,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.171A Relationship-Mode AVP
+	The Relationship-Mode AVP (AVP code 2706) is of type Enumerated and indicates whether the other functional entity
+	(e.g. contact point of the neighbouring network) is regarded as part of the same trust domain. It has the following
+	values:
+	
+	0 trusted
+	1 non-trusted 
+ */
 @DiameterAvpDefinition(code = 2706L, vendorId = KnownVendorIDs.TGPP_ID, name = "Relationship-Mode")
 public interface RelationshipMode extends DiameterEnumerated<RelationshipModeEnum>
 {

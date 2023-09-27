@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.232 Time-Usage AVP
+	The Time-Usage AVP (AVP code 2045) is of type Unsigned32 and holds the effective used time within the service
+	data container reporting interval. 
+ */
 @DiameterAvpDefinition(code = 2045L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Usage")
 public interface TimeUsage extends DiameterUnsigned32
 {

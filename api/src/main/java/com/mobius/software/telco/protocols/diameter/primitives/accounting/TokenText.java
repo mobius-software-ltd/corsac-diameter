@@ -27,6 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.234 Token-Text AVP
+	The Token-Text AVP (AVP code 1215) is of type UTF8String and contains extension information for the MessageClass AVP. 
+ */
 @DiameterAvpDefinition(code = 1215L, vendorId = KnownVendorIDs.TGPP_ID, name = "Token-Text")
 public interface TokenText extends DiameterUTF8String
 {

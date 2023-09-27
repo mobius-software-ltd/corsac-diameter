@@ -27,7 +27,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 1300L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDP-Context-Type")
+/*
+ * 	7.2.138 PDP-Context-Type AVP
+	The PDP-Context-Type AVP (AVP code 1247) is of type Enumerated and indicates the type of a PDP context. The
+	values for requested are:
+	
+	0 Primary
+	1 Secondary
+	
+	This AVP shall only be present in the CCR[Initial]. 
+ */
+@DiameterAvpDefinition(code = 1247L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDP-Context-Type")
 public interface PDPContextType extends DiameterEnumerated<PDPContextTypeEnum>
 {
 }

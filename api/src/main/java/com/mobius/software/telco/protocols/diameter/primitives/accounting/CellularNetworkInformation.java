@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.35A Cellular-Network-Information AVP
+	The Cellular-Network-Information AVP (AVP code 3924) is of type OctetString and indicates one instance of the SIP
+	header "Cellular-Network-Info".
+ */
 @DiameterAvpDefinition(code = 3924L, vendorId = KnownVendorIDs.TGPP_ID, name = "Cellular-Network-Information")
 public interface CellularNetworkInformation extends DiameterOctetString
 {

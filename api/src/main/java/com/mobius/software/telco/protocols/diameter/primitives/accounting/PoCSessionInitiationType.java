@@ -27,6 +27,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.147 PoC-Session-Initiation-Type AVP
+	The PoC-Session-Initiation-Type AVP (AVP code 1277) is of type Enumerated and specifies the type of the PoC
+	session initiation. The identifier can be one of the following:
+	
+	0 Pre-established
+	1 On-demand 
+ */
 @DiameterAvpDefinition(code = 1277L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Session-Initiation-Type")
 public interface PoCSessionInitiationType extends DiameterEnumerated<PoCSessionInitiationTypeEnum>
 {

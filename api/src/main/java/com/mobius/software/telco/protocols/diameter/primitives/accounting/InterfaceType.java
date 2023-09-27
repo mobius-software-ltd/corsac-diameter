@@ -27,6 +27,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.74 Interface-Type AVP
+	The Interface-Type AVP (AVP code 2006) is of type Enumerated and contains information about type of interface /
+	nature of the transaction in the messaging node for which the charging event occurs. The AVP can take the following
+	values:
+	
+	0 Unknown
+	1 MOBILE_ORIGINATING
+	2 MOBILE_TERMINATING
+	3 APPLICATION_ORIGINATING
+	4 APPLICATION_TERMINATION 
+ */
 @DiameterAvpDefinition(code = 2006L, vendorId = KnownVendorIDs.TGPP_ID, name = "Interface-Type")
 public interface InterfaceType extends DiameterEnumerated<InterfaceTypeEnum>
 {

@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.46abA CP-CIoT-EPS-Optimisation-Indicator AVP
+	The CP-CIoT-EPS-Optimisation-Indicator AVP (AVP code 3930) is of type Enumerated, and indicates whether
+	Control Plane CIoT EPS optimisation is used by this PDN connection for data transfer with the UE. The following
+	values are defined:
+	
+	0 Not Apply
+	1 Apply 
+ */
 public enum CPCIoTEPSOptimisationIndicatorEnum implements IntegerEnum
 {
 	NOT_APPLY(0),APPLY(1);

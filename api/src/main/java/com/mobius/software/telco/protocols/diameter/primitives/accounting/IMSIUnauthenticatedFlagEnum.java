@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.78 IMSI-Unauthenticated-Flag AVP
+	The IMSI-Unauthenticated-Flag AVP (AVP code 2308) is of type Enumerated, and indicates the served IMSI is not
+	authenticated. This may occur when emergency bearer service is provided (refer to TS 23.060 [74] and TS 29.274 [91]).
+	If this flag is not present, this means the served IMSI is authenticated. The following values are defined:
+	
+	0 Authenticated
+	1 Unauthenticated 
+ */
 public enum IMSIUnauthenticatedFlagEnum implements IntegerEnum
 {
 	AUTHENTICATED(0),UNAUTHENTICATED(1);

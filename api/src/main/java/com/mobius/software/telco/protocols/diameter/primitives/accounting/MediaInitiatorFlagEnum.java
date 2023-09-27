@@ -28,6 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.101 Media-Initiator-Flag AVP
+	The Media-Initiator-Flag AVP (AVP code 882) is of type Enumerated and indicates which party has requested the
+	session modification. The default value is '0' indicating the called party initiated the modification:
+	
+	0 called party
+	1 calling party
+	2 unknown
+ */
 public enum MediaInitiatorFlagEnum implements IntegerEnum
 {
 	CALLED_PARTY(0),CALLING_PARTY(1),UNKNOWN(2);

@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.82 LCS-Client-Dialed-By-MS AVP
+	The LCS-Client-Dialed-By-MS AVP (AVP code 1233) is of type UTF8String and holds the number of the LCS Client
+	dialled by the UE. 
+ */
 @DiameterAvpDefinition(code = 1233L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Client-Dialed-By-MS")
 public interface LCSClientDialedByMS extends DiameterUTF8String
 {

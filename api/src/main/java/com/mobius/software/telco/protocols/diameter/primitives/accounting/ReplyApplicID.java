@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.173 Reply-Applic-ID AVP
+	The Reply-Applic-ID AVP (AVP code 1223) is of type UTF8String and holds the identifier of a "reply path", i.e. the
+	identifier of the application to which delivery reports, read-reply reports and reply-MMs are addressed. 
+ */
 @DiameterAvpDefinition(code = 1223L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reply-Applic-ID")
 public interface ReplyApplicID extends DiameterUTF8String
 {

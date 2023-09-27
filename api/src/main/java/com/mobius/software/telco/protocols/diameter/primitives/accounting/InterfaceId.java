@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * @author yulian oifa
 *
 */
+/*
+ * 	7.2.71 Interface-Id AVP
+	The Interface-Id AVP (AVP code 2003) is of type UTF8String and holds the interface identification provided by the
+	messaging node (originator/destination). 
+ */
 @DiameterAvpDefinition(code = 2003L, vendorId = KnownVendorIDs.TGPP_ID, name = "Interface-Id")
 public interface InterfaceId extends DiameterUTF8String
 {
