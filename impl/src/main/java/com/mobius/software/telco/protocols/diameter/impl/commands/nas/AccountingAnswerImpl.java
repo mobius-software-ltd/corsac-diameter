@@ -118,12 +118,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
+	public void setOriginAAAProtocol(OriginAAAProtocolEnum value) 
 	{
-		if(originAAAProtocol == null)
+		if(value == null)
 			this.originAAAProtocol = null;
 		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
+			this.originAAAProtocol = new OriginAAAProtocolImpl(value, null, null);
 	}
 
 	@Override
@@ -136,12 +136,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setNASIdentifier(String nasIdentifier) 
+	public void setNASIdentifier(String value) 
 	{
-		if(nasIdentifier == null)
+		if(value == null)
 			this.nasIdentifier = null;
 		else
-			this.nasIdentifier = new NASIdentifierImpl(nasIdentifier, null, null);
+			this.nasIdentifier = new NASIdentifierImpl(value, null, null);
 	}
 
 	@Override
@@ -154,12 +154,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setNASIPAddress(Inet4Address nasIPAddress) 
+	public void setNASIPAddress(Inet4Address value) 
 	{
-		if(nasIPAddress == null)
+		if(value == null)
 			this.nasIPAddress = null;
 		else
-			this.nasIPAddress = new NASIPAddressImpl(nasIPAddress);
+			this.nasIPAddress = new NASIPAddressImpl(value);
 	}
 
 	@Override
@@ -172,12 +172,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setNASIPv6Address(Inet6Address nasIPv6Address) 
+	public void setNASIPv6Address(Inet6Address value) 
 	{
-		if(nasIPv6Address == null)
+		if(value == null)
 			this.nasIPv6Address = null;
 		else
-			this.nasIPv6Address = new NASIPv6AddressImpl(nasIPv6Address);
+			this.nasIPv6Address = new NASIPv6AddressImpl(value);
 	}
 
 	@Override
@@ -190,12 +190,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setNASPort(Long nasPort) 
+	public void setNASPort(Long value) 
 	{
-		if(nasPort == null)
+		if(value == null)
 			this.nasPort = null;
 		else
-			this.nasPort = new NASPortImpl(nasPort, null, null);
+			this.nasPort = new NASPortImpl(value, null, null);
 	}
 
 	@Override
@@ -208,12 +208,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setNASPortId(String nasPortId) 
+	public void setNASPortId(String value) 
 	{
-		if(nasPortId == null)
+		if(value == null)
 			this.nasPortId = null;
 		else
-			this.nasPortId = new NASPortIdImpl(nasPortId, null, null);
+			this.nasPortId = new NASPortIdImpl(value, null, null);
 	}
 
 	@Override
@@ -226,12 +226,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setNASPortType(NASPortTypeEnum nasPortType) 
+	public void setNASPortType(NASPortTypeEnum value) 
 	{
-		if(nasPortType == null)
+		if(value == null)
 			this.nasPortType = null;
 		else
-			this.nasPortType = new NASPortTypeImpl(nasPortType, null, null);
+			this.nasPortType = new NASPortTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -244,12 +244,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setServiceType(ServiceTypeEnum serviceType) 
+	public void setServiceType(ServiceTypeEnum value) 
 	{
-		if(serviceType == null)
+		if(value == null)
 			this.serviceType = null;
 		else
-			this.serviceType = new ServiceTypeImpl(serviceType, null, null);
+			this.serviceType = new ServiceTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -262,12 +262,12 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setTerminationCause(TerminationCauseEnum terminationCauseEnum) 
+	public void setTerminationCause(TerminationCauseEnum value) 
 	{
-		if(terminationCauseEnum == null)
+		if(value == null)
 			this.terminationCause = null;
 		else
-			this.terminationCause = new TerminationCauseImpl(terminationCauseEnum, null, null);
+			this.terminationCause = new TerminationCauseImpl(value, null, null);
 	}
 
 	@Override
@@ -284,14 +284,14 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public void setDiameterClass(List<ByteBuf> diameterClass) 
+	public void setDiameterClass(List<ByteBuf> value) 
 	{
-		if(diameterClass == null || diameterClass.size()==0)
+		if(value == null || value.size()==0)
 			this.diameterClass = null;
 		else
 		{
 			this.diameterClass = new ArrayList<DiameterClass>();
-			for(ByteBuf curr:diameterClass)
+			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
 	}

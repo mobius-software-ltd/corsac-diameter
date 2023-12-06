@@ -77,15 +77,9 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	{
 		this.isRetransmit=isRetransmit;
 		
-		if(originHost==null)
-			throw new IllegalArgumentException("Origin-Host is required");
+		setOriginHost(originHost);
 		
-		if(originRealm==null)
-			throw new IllegalArgumentException("Origin-Realm is required");
-		
-		this.originHost=new OriginHostImpl(originHost, null, null);	
-		
-		this.originRealm=new OriginRealmImpl(originRealm, null, null);			
+		setOriginRealm(originRealm);
 	}
 
 	protected void setSessionIdAllowed(boolean allowed) 
@@ -181,12 +175,12 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 
 	@Override
-	public void setOriginHost(String originHost) 
+	public void setOriginHost(String value) 
 	{
-		if(originHost==null)
+		if(value==null)
 			throw new IllegalArgumentException("Origin-Host is required");
 		
-		this.originHost = new OriginHostImpl(originHost, null, null);
+		this.originHost = new OriginHostImpl(value, null, null);
 	}
 
 	@Override
@@ -199,12 +193,12 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 
 	@Override
-	public void setOriginRealm(String originRealm) 
+	public void setOriginRealm(String value) 
 	{
-		if(originRealm==null)
+		if(value==null)
 			throw new IllegalArgumentException("Origin-Realm is required");
 		
-		this.originRealm = new OriginRealmImpl(originRealm, null, null);
+		this.originRealm = new OriginRealmImpl(value, null, null);
 	}
 	
 	@Override
@@ -244,15 +238,15 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 	
 	@Override
-	public void setOriginStateId(Long originStateId) throws AvpNotSupportedException
+	public void setOriginStateId(Long value) throws AvpNotSupportedException
 	{
 		if(!originStateIdAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
-		if(originStateId==null)
+		if(value==null)
 			this.originStateId = null;
 		else
-			this.originStateId = new OriginStateIdImpl(originStateId, null, null);
+			this.originStateId = new OriginStateIdImpl(value, null, null);
 	}
 
 	@Override
@@ -289,16 +283,16 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 
 	@Override
-	public void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException
+	public void setProxyInfo(List<ProxyInfo> value) throws AvpNotSupportedException
 	{
 		if(!proxyInfoAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
-		this.proxyInfo = proxyInfo;
+		this.proxyInfo = value;
 	}
 	
 	@Override
-	public void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException 
+	public void addProxyInfo(ProxyInfo value) throws AvpNotSupportedException 
 	{
 		if(!proxyInfoAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
@@ -306,7 +300,7 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 		if(this.proxyInfo==null)
 			this.proxyInfo=new ArrayList<ProxyInfo>();			
 		
-		this.proxyInfo.add(proxyInfo);
+		this.proxyInfo.add(value);
 	}	
 
 	@Override

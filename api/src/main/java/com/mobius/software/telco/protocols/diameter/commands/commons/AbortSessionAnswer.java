@@ -57,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
                   * [ AVP ]
 */
 
-@DiameterCommandDefinition(applicationId = -1, commandCode = 274, request = false, proxyable = true, name="Abort-Session-Answer")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 274, request = false, proxyable = true, name="Abort-Session-Answer")
 public interface AbortSessionAnswer extends AuthenticationAnswer
 {    		   	
 }

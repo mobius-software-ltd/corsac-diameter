@@ -40,8 +40,8 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 275, request = true)
-public class SessionTerminationRequestImpl extends AuthenticationRequestmpl implements SessionTerminationRequest
+@DiameterCommandImplementation(applicationId = 0, commandCode = 275, request = true)
+public class SessionTerminationRequestImpl extends AuthenticationRequestImpl implements SessionTerminationRequest
 {
 	private TerminationCause terminationCause;
 	
@@ -50,18 +50,13 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestmpl impl
 	protected SessionTerminationRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(false);
 	}
 		
-	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause)
+	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause)
 	{
-		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID, authApplicationID);
-		setDestinationHostAllowed(false);
+		super(originHost, originRealm,destinationRealm, isRetransmit, sessionID, authApplicationID);
 		
-		if(terminationCause==null)
-			throw new IllegalArgumentException("Termination-Cause is required");
-		
-		this.terminationCause = new TerminationCauseImpl(terminationCause, null, null);
+		setTerminationCause(terminationCause);
 	}
 
 	@Override

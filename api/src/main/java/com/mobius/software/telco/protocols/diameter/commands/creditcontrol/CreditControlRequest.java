@@ -103,11 +103,11 @@ public interface CreditControlRequest extends DiameterRequest
 	
 	CcRequestTypeEnum getCcRequestType();
 	
-	void setCcRequestType(CcRequestTypeEnum ccRequestType);
+	void setCcRequestType(CcRequestTypeEnum value);
 	
 	Long getCcRequestNumber();
 	
-	void setCcRequestNumber(Long accountingRecordNumber);
+	void setCcRequestNumber(Long value);
 	
 	public Long getCcSubSessionId() throws AvpNotSupportedException;
 	
@@ -125,29 +125,29 @@ public interface CreditControlRequest extends DiameterRequest
 	
 	void setSubscriptionId(List<SubscriptionId> value);
 
-	public List<SubscriptionIdExtension> getSubscriptionIdExtension();
+	public List<SubscriptionIdExtension> getSubscriptionIdExtension() throws AvpNotSupportedException;
 	
-	void setSubscriptionIdExtension(List<SubscriptionIdExtension> value);
+	void setSubscriptionIdExtension(List<SubscriptionIdExtension> value) throws AvpNotSupportedException;
 
-	public Long getServiceIdentifier();
+	public Long getServiceIdentifier() throws AvpNotSupportedException;
 	
-	void setServiceIdentifier(Long value);			
+	void setServiceIdentifier(Long value) throws AvpNotSupportedException;			
 	
 	public TerminationCauseEnum getTerminationCause();
 	
 	void setTerminationCause(TerminationCauseEnum value);
 	
-	public RequestedServiceUnit getRequestedServiceUnit();
+	public RequestedServiceUnit getRequestedServiceUnit() throws AvpNotSupportedException;
 	
-	void setRequestedServiceUnit(RequestedServiceUnit value);
+	void setRequestedServiceUnit(RequestedServiceUnit value) throws AvpNotSupportedException;
 	
 	public RequestedActionEnum getRequestedAction();
 	
 	void setRequestedAction(RequestedActionEnum value);
 	
-	public List<UsedServiceUnit> getUsedServiceUnit();
+	public List<UsedServiceUnit> getUsedServiceUnit() throws AvpNotSupportedException;
 	
-	void setUsedServiceUnit(List<UsedServiceUnit> value);
+	void setUsedServiceUnit(List<UsedServiceUnit> value) throws AvpNotSupportedException;
 
 	public MultipleServicesIndicatorEnum getMultipleServicesIndicator();
 	
@@ -157,9 +157,9 @@ public interface CreditControlRequest extends DiameterRequest
 	
 	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
 	
-	public List<ServiceParameterInfo> getServiceParameterInfo();
+	public List<ServiceParameterInfo> getServiceParameterInfo() throws AvpNotSupportedException;
 	
-	void setServiceParameterInfo(List<ServiceParameterInfo> value);
+	void setServiceParameterInfo(List<ServiceParameterInfo> value) throws AvpNotSupportedException;
 
 	public ByteBuf getCcCorrelationId();
 	
@@ -169,9 +169,9 @@ public interface CreditControlRequest extends DiameterRequest
 	
 	void setUserEquipmentInfo(UserEquipmentInfo value);
 	
-	public UserEquipmentInfoExtension getUserEquipmentInfoExtension();
+	public UserEquipmentInfoExtension getUserEquipmentInfoExtension() throws AvpNotSupportedException;
 	
-	void setUserEquipmentInfoExtension(UserEquipmentInfoExtension value);
+	void setUserEquipmentInfoExtension(UserEquipmentInfoExtension value) throws AvpNotSupportedException;
 	
 	public List<String> getRouteRecords();
 	

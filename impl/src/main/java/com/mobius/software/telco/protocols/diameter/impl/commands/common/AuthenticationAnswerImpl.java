@@ -4,11 +4,15 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectMaxCacheTimeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsage;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
@@ -40,11 +44,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectMa
 */
 public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSessionBase implements AuthenticationAnswer
 {
+	private AuthApplicationId authApplicationId;
+	
 	private List<RedirectHost> redirectHost;
 	
 	private RedirectHostUsage redirectHostUsage;
 	
 	private RedirectMaxCacheTime redirectMaxCacheTime;
+	
+	private boolean authApplicationIdAllowed = true;
 	
 	protected AuthenticationAnswerImpl() 
 	{
@@ -53,7 +61,21 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	
 	public AuthenticationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);		
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		authApplicationIdAllowed=false;
+	}
+	
+	public AuthenticationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	{
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		try
+		{
+			setAuthApplicationId(authApplicationId);
+		}
+		catch(AvpNotSupportedException ex)
+		{
+			//should not happen
+		}
 	}
 
 	@Override
@@ -118,5 +140,35 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 			this.redirectMaxCacheTime = null;
 		else 
 			this.redirectMaxCacheTime = new RedirectMaxCacheTimeImpl(value, null, null);
+	}
+
+	@Override
+	public Long getAuthApplicationId() 
+	{
+		if(authApplicationId==null)
+			return null;
+		
+		return authApplicationId.getUnsigned();
+	}
+
+	@Override
+	public void setAuthApplicationId(Long value) throws AvpNotSupportedException 
+	{
+		if(!authApplicationIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(authApplicationId==null)
+			throw new IllegalArgumentException("Auth-Application-Id is required");
+		
+		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
+	}	
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authApplicationIdAllowed && authApplicationId==null)
+			return "Auth-Application-Id is required";
+		
+		return super.validate();
 	}
 }

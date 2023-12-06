@@ -73,12 +73,12 @@ public abstract class DiameterRequestWithSessionAndRealmBase extends DiameterReq
 	}	
 
 	@Override
-	public void setDestinationRealm(String destinationRealm) throws AvpNotSupportedException
+	public void setDestinationRealm(String value) throws AvpNotSupportedException
 	{
-		if(destinationRealm==null)
+		if(value==null)
 			throw new IllegalArgumentException("Destination-Realm is required");
 		
-		super.setDestinationRealm(destinationRealm);
+		super.setDestinationRealm(value);
 	}	
 	
 	@DiameterValidate

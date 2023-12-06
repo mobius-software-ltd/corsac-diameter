@@ -18,13 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.net.InetAddress;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWAGCPAddress;
-
-import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -44,8 +43,8 @@ public class TWAGCPAddressImpl extends DiameterAddressImpl implements TWAGCPAddr
 		super(minLength, maxLength);
 	}
 
-	public TWAGCPAddressImpl(DiameterAddressTypeEnum addressType, ByteBuf value, Integer minLength, Integer maxLength)
+	public TWAGCPAddressImpl(InetAddress value,Integer minLength,Integer maxLength)
 	{
-		super(addressType, value, minLength, maxLength);
+		super(value, minLength, maxLength);
 	}
 }

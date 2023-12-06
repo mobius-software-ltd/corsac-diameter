@@ -82,15 +82,15 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	}
 
 	@Override
-	public void setDestinationHost(String destinationHost) throws AvpNotSupportedException 
+	public void setDestinationHost(String value) throws AvpNotSupportedException 
 	{
 		if(!destinationHostAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
-		if(destinationHost == null)
+		if(value == null)
 			this.destinationHost = null;
 		else
-			this.destinationHost = new DestinationHostImpl(destinationHost, null, null);
+			this.destinationHost = new DestinationHostImpl(value, null, null);
 	}
 
 	@Override
@@ -106,15 +106,15 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	}
 
 	@Override
-	public void setDestinationRealm(String destinationRealm) throws AvpNotSupportedException 
+	public void setDestinationRealm(String value) throws AvpNotSupportedException 
 	{
 		if(!destinationRealmAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
-		if(destinationRealm == null)
+		if(value == null)
 			this.destinationRealm = null;
 		else
-			this.destinationRealm = new DestinationRealmImpl(destinationRealm, null, null);
+			this.destinationRealm = new DestinationRealmImpl(value, null, null);
 	}
 
 	@Override

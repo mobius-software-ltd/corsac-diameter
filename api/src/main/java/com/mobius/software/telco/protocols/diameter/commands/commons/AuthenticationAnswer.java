@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
 
 /**
@@ -32,6 +33,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 
 public abstract interface AuthenticationAnswer extends DiameterAnswer
 {
+	public Long getAuthApplicationId();
+	
+	void setAuthApplicationId(Long value) throws AvpNotSupportedException;
+	
 	public List<String> getRedirectHost();
 	
 	void setRedirectHost(List<String> value) throws ParseException;

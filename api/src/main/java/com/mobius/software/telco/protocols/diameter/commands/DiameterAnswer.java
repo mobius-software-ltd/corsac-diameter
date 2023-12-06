@@ -37,7 +37,7 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	public Long getResultCode();
 	
-	void setResultCode(Long resultCode);
+	void setResultCode(Long value);
 	
 	public String getErrorMessage();
 	
@@ -45,7 +45,7 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	public String getErrorReportingHost() throws AvpNotSupportedException;
 	
-	void setErrorReportingHost(String host) throws AvpNotSupportedException;
+	void setErrorReportingHost(String value) throws AvpNotSupportedException;
 
 	public Map<DiameterAvpKey,List<DiameterAvp>> getFailedAvp();
 	
@@ -55,5 +55,5 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	public ExperimentalResult getExperimentalResult() throws AvpNotSupportedException;
 	
-	void setExperimentalResult(ExperimentalResult experimentalResult) throws AvpNotSupportedException;		
+	void setExperimentalResult(ExperimentalResult value) throws AvpNotSupportedException;		
 }

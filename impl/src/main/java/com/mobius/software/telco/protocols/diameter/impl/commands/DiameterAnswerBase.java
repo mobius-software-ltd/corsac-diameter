@@ -102,12 +102,12 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void setResultCode(Long resultCode)
+	public void setResultCode(Long value)
 	{
-		if(resultCode==null)
+		if(value==null)
 			this.resultCode = null;
 		else
-			this.resultCode = new ResultCodeImpl(resultCode, null, null);
+			this.resultCode = new ResultCodeImpl(value, null, null);
 	}
 	
 	@Override
@@ -147,15 +147,15 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void setErrorReportingHost(String host) throws AvpNotSupportedException
+	public void setErrorReportingHost(String value) throws AvpNotSupportedException
 	{
 		if(!errorReportingHostAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
-		if(host==null)
+		if(value==null)
 			this.errorReportingHost = null;
 		else
-			this.errorReportingHost = new ErrorReportingHostImpl(host, null, null);
+			this.errorReportingHost = new ErrorReportingHostImpl(value, null, null);
 	}
 
 	@Override
@@ -195,12 +195,12 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void setExperimentalResult(ExperimentalResult experimentalResult) throws AvpNotSupportedException
+	public void setExperimentalResult(ExperimentalResult value) throws AvpNotSupportedException
 	{
 		if(!experimentalResultAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		else
-			this.experimentalResult = experimentalResult;
+			this.experimentalResult = value;
 	}
 	
 	@DiameterValidate

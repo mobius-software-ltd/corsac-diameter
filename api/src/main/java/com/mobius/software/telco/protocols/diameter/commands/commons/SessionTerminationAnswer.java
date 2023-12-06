@@ -61,7 +61,7 @@ import io.netty.buffer.ByteBuf;
                   * [ Proxy-Info ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 275, request = false, proxyable = true, name="Session-Termination-Answer")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 275, request = false, proxyable = true, name="Session-Termination-Answer")
 public interface SessionTerminationAnswer extends AuthenticationAnswer	
 {  
 	public List<ByteBuf> getDiameterClass();

@@ -54,10 +54,7 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 		setUsernameAllowed(false);
 		setOriginStateIdAllowedAllowed(false);
 		
-		if(disconnectCause==null)
-			throw new IllegalArgumentException("Disconnect-Cause is required");
-	
-		this.disconnectCause = new DisconnectCauseImpl(disconnectCause, null, null);				
+		setDisconnectCause(disconnectCause);
 	}
 
 	@Override
@@ -72,7 +69,7 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 	@Override
 	public void setDisconnectCause(DisconnectCauseEnum value) 
 	{
-		if(disconnectCause==null)
+		if(value==null)
 			throw new IllegalArgumentException("Disconnect-Cause is required");
 	
 		this.disconnectCause = new DisconnectCauseImpl(value, null, null);	

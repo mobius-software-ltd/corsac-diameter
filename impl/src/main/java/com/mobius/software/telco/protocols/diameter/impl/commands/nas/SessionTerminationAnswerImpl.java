@@ -54,11 +54,11 @@ public class SessionTerminationAnswerImpl extends com.mobius.software.telco.prot
 	}
 
 	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
+	public void setOriginAAAProtocol(OriginAAAProtocolEnum value) 
 	{
-		if(originAAAProtocol == null)
+		if(value == null)
 			this.originAAAProtocol = null;
 		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
+			this.originAAAProtocol = new OriginAAAProtocolImpl(value, null, null);
 	}
 }

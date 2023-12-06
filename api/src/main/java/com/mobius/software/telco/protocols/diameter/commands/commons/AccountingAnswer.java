@@ -72,16 +72,16 @@ import io.netty.buffer.ByteBuf;
                  * [ Proxy-Info ]
                  * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 271, request = false, proxyable = true, name="Accounting-Answer")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 271, request = false, proxyable = true, name="Accounting-Answer")
 public interface AccountingAnswer extends DiameterAnswer
 {
 	AccountingRecordTypeEnum getAccountingRecordType();
 	
-	void setAccountingRecordType(AccountingRecordTypeEnum accountingRecordType);
+	void setAccountingRecordType(AccountingRecordTypeEnum value);
 	
 	Long getAccountingRecordNumber();
 	
-	void setAccountingRecordNumber(Long accountingRecordNumber);
+	void setAccountingRecordNumber(Long value);
 	
 	public Long getAcctApplicationId();
 	
@@ -109,7 +109,7 @@ public interface AccountingAnswer extends DiameterAnswer
 	
 	AccountingRealtimeRequiredEnum getAccountingRealtimeRequired() throws AvpNotSupportedException;
 	
-	void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum accountingRealtimeRequiredEnum) throws AvpNotSupportedException;
+	void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum value) throws AvpNotSupportedException;
 		  
 	public Date getEventTimestamp();
 	

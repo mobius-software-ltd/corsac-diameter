@@ -86,22 +86,11 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 		setProxyInfoAllowed(false);
 		setUsernameAllowed(false);
 		
-		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
-			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
+		setHostIpAddress(hostIpAddresses);
 		
-		if(vendorId==null)
-			throw new IllegalArgumentException("Vendor-Id is required");
+		setVendorId(vendorId);
 		
-		if(productName==null)
-			throw new IllegalArgumentException("Product-Name is required");
-		
-		this.hostIpAddresses = new ArrayList<HostIpAddress>();
-		for(InetAddress curr:hostIpAddresses)
-			this.hostIpAddresses.add(new HostIpAddressImpl(curr, null, null));		
-		
-		this.vendorId = new VendorIdImpl(vendorId, null, null);
-		
-		this.productName = new ProductNameImpl(productName, null, null);
+		setProductName(productName);
 	}
 
 	@Override
@@ -122,7 +111,7 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 	@Override
 	public void setHostIpAddress(List<InetAddress> value) 
 	{
-		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
+		if(value == null || value.size() < 1)
 			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
 		
 		this.hostIpAddresses = new ArrayList<HostIpAddress>();
@@ -142,7 +131,7 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 	@Override
 	public void setVendorId(Long value) 
 	{
-		if(vendorId==null)
+		if(value==null)
 			throw new IllegalArgumentException("Vendor-Id is required");
 		
 		this.vendorId = new VendorIdImpl(value, null, null);
@@ -160,7 +149,7 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 	@Override
 	public void setProductName(String value) 
 	{
-		if(productName==null)
+		if(value==null)
 			throw new IllegalArgumentException("Product-Name is required");
 		
 		this.productName = new ProductNameImpl(value, null, null);

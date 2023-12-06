@@ -53,9 +53,9 @@ public interface AbortSessionAnswer extends com.mobius.software.telco.protocols.
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();
 	
-	void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol);	
+	void setOriginAAAProtocol(OriginAAAProtocolEnum value);	
 	
 	ByteBuf getState();
 	
-	void setState(ByteBuf state);	
+	void setState(ByteBuf value);	
 }

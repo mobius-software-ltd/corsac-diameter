@@ -139,242 +139,242 @@ import io.netty.buffer.ByteBuf;
                        * [ Route-Record ]
                        * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 257, request = true, proxyable = true, name="Accounting-Request")
+@DiameterCommandDefinition(applicationId = 1, commandCode = 271, request = true, proxyable = true, name="Accounting-Request")
 public interface AccountingRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest
 {	
 	OriginAAAProtocolEnum getOriginAAAProtocol();
 	
-	void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol);	
+	void setOriginAAAProtocol(OriginAAAProtocolEnum value);	
 	
 	Long getAcctDelayTime();
 	
-	void setAcctDelayTime(Long acctDelayTime);	
+	void setAcctDelayTime(Long value);	
 	
 	String getNASIdentifier();
 	
-	void setNASIdentifier(String nasIdentifier);	
+	void setNASIdentifier(String value);	
 	
 	InetAddress getNASIPAddress();
 	
-	void setNASIPAddress(Inet4Address nasIPAddress);	
+	void setNASIPAddress(Inet4Address value);	
 	
 	InetAddress getNASIPv6Address();
 	
-	void setNASIPv6Address(Inet6Address nasIPv6Address);	
+	void setNASIPv6Address(Inet6Address value);	
 	
 	Long getNASPort();
 	
-	void setNASPort(Long nasPort);	
+	void setNASPort(Long value);	
 	
 	String getNASPortId();
 	
-	void setNASPortId(String nasPortId);	
+	void setNASPortId(String value);	
 	
 	NASPortTypeEnum getNASPortType();
 	
-	void setNASPortType(NASPortTypeEnum nasPortType);	
+	void setNASPortType(NASPortTypeEnum value);	
 	
 	List<ByteBuf> getDiameterClass();
 	
-	void setDiameterClass(List<ByteBuf> diameterClass);	
+	void setDiameterClass(List<ByteBuf> value);	
 	
 	ServiceTypeEnum getServiceType();
 	
-	void setServiceType(ServiceTypeEnum serviceType);	
+	void setServiceType(ServiceTypeEnum value);	
 	
 	TerminationCauseEnum getTerminationCause();
 	
-	void setTerminationCause(TerminationCauseEnum terminationCauseEnum);	
+	void setTerminationCause(TerminationCauseEnum value);	
 	
 	Long getAccountingInputOctets();
 	
-	void setAccountingInputOctets(Long accountingInputOctets);	
+	void setAccountingInputOctets(Long value);	
 	
 	Long getAccountingInputPackets();
 	
-	void setAccountingInputPackets(Long accountingInputPackets);	
+	void setAccountingInputPackets(Long value);	
 	
 	Long getAccountingOutputOctets();
 	
-	void setAccountingOutputOctets(Long accountingOutputOctets);	
+	void setAccountingOutputOctets(Long value);	
 	
 	Long getAccountingOutputPackets();
 	
-	void setAccountingOutputPackets(Long accountingOutputPackets);	
+	void setAccountingOutputPackets(Long value);	
 	
 	AcctAuthenticEnum getAcctAuthentic();
 	
-	void setAcctAuthentic(AcctAuthenticEnum acctAuthentic);	
+	void setAcctAuthentic(AcctAuthenticEnum value);	
 	
 	AccountingAuthMethodEnum getAccountingAuthMethod();
 	
-	void setAccountingAuthMethod(AccountingAuthMethodEnum accountingAuthMethod);	
+	void setAccountingAuthMethod(AccountingAuthMethodEnum value);	
 	
 	Long getAcctLinkCount();
 	
-	void setAcctLinkCount(Long acctLinkCount);	
+	void setAcctLinkCount(Long value);	
 	
 	Long getAcctSessionTime();
 	
-	void setAcctSessionTime(Long acctSessionTime);	
+	void setAcctSessionTime(Long value);	
 	
 	ByteBuf getAcctTunnelConnection();
 	
-	void setAcctTunnelConnection(ByteBuf tunnelConnection);	
+	void setAcctTunnelConnection(ByteBuf value);	
 
 	Long getAcctTunnelPacketsLost();
 	
-	void setAcctTunnelPacketsLost(Long tunnelPacketsLost);	
+	void setAcctTunnelPacketsLost(Long value);	
 	
 	String getCallbackId();
 	
-	void setCallbackId(String callbackId);	
+	void setCallbackId(String value);	
 	
 	String getCallbackNumber();
 	
-	void setCallbackNumber(String callbackNumber);	
+	void setCallbackNumber(String value);	
 	
 	String getCalledStationId();
 	
-	void setCalledStationId(String calledStationId);	
+	void setCalledStationId(String value);	
 	
 	String getCallingStationId();
 	
-	void setCallingStationId(String callingStationId);
+	void setCallingStationId(String value);
 	
 	List<String> getConnectionInfo();
 	
-	void setConnectionInfo(List<String> connectionInfo);	
+	void setConnectionInfo(List<String> value);	
 	
 	ByteBuf getOriginatingLineInfo();
 	
-	void setOriginatingLineInfo(ByteBuf originatingLineInfo);	
+	void setOriginatingLineInfo(ByteBuf value);	
 
 	Long getAuthorizationLifetime();
 	
-	void setAuthorizationLifetime(Long authorizationLifetime);	
+	void setAuthorizationLifetime(Long value);	
 	
 	Long getSessionTimeout();
 	
-	void setSessionTimeout(Long sessionTimeout);	
+	void setSessionTimeout(Long value);	
 	
 	Long getIdleTimeout();
 	
-	void setIdleTimeout(Long idleTimeout);	
+	void setIdleTimeout(Long value);	
 	
 	Long getPortLimit();
 	
-	void setPortLimit(Long portLimit);	
+	void setPortLimit(Long value);	
 	
 	List<String> getFilterId();
 	
-	void setFilterId(List<String> filterId);	
+	void setFilterId(List<String> value);	
 	
 	List<NASFilterRule> getNASFilterRule();
 	
-	void setNASFilterRule(List<NASFilterRule> nasFilterRule);	
+	void setNASFilterRule(List<NASFilterRule> value);	
 	
 	List<DiameterQosFilterRule> getQosFilterRule();
 	
-	void setQosFilterRule(List<DiameterQosFilterRule> qosFilterRule);	
+	void setQosFilterRule(List<DiameterQosFilterRule> value);	
 	
 	Long getFramedAppletalkLink();
 	
-	void setFramedAppletalkLink(Long framedAppletalkLink);	
+	void setFramedAppletalkLink(Long value);	
 	
 	Long getFramedAppletalkNetwork();
 	
-	void setFramedAppletalkNetwork(Long framedAppletalkNetwork);	
+	void setFramedAppletalkNetwork(Long value);	
 	
 	ByteBuf getFramedAppletalkZone();
 	
-	void setFramedAppletalkZone(ByteBuf framedAppletalkZone);	
+	void setFramedAppletalkZone(ByteBuf value);	
 	
 	FramedCompressionEnum getFramedCompression();
 	
-	void setFramedCompression(FramedCompressionEnum framedCompression);	
+	void setFramedCompression(FramedCompressionEnum value);	
 	
 	Long getFramedInterfaceId();
 	
-	void setFramedInterfaceId(Long framedInterfaceId);	
+	void setFramedInterfaceId(Long value);	
 	
 	InetAddress getFramedIPAddress();
 	
-	void setFramedIPAddress(Inet4Address framedIPAddress);	
+	void setFramedIPAddress(Inet4Address value);	
 	
 	ByteBuf getFramedIPNetmask();
 	
-	void setFramedIPNetmask(ByteBuf framedIPNetmask);	
+	void setFramedIPNetmask(ByteBuf value);	
 	
 	List<ByteBuf> getFramedIPv6Prefix();
 	
-	void setFramedIPv6Prefix(List<ByteBuf> framedIPv6Prefix);	
+	void setFramedIPv6Prefix(List<ByteBuf> value);	
 	
 	ByteBuf getFramedIPv6Pool();
 	
-	void setFramedIPv6Pool(ByteBuf framedIPv6Pool);	
+	void setFramedIPv6Pool(ByteBuf value);	
 	
 	List<String> getFramedIPv6Route();
 	
-	void setFramedIPv6Route(List<String> framedIPv6Route);	
+	void setFramedIPv6Route(List<String> value);	
 	
 	Long getFramedIPXNetwork();
 	
-	void setFramedIPXNetwork(Long framedIPXNetwork);	
+	void setFramedIPXNetwork(Long value);	
 	
 	Long getFramedMTU();
 	
-	void setFramedMTU(Long framedMTU);	
+	void setFramedMTU(Long value);	
 	
 	ByteBuf getFramedPool();
 	
-	void setFramedPool(ByteBuf framedPool);	
+	void setFramedPool(ByteBuf value);	
 	
 	FramedProtocolEnum getFramedProtocol();
 	
-	void setFramedProtocol(FramedProtocolEnum framedProtocol);	
+	void setFramedProtocol(FramedProtocolEnum value);	
 	
 	List<ByteBuf> getFramedRoute();
 	
-	void setFramedRoute(List<ByteBuf> framedRoute);	
+	void setFramedRoute(List<ByteBuf> value);	
 	
 	FramedRoutingEnum getFramedRouting();
 	
-	void setFramedRouting(FramedRoutingEnum framedRouting);	
+	void setFramedRouting(FramedRoutingEnum value);	
 	
 	List<InetAddress> getLoginIPHost();
 	
-	void setLoginIPHost(List<Inet4Address> loginIPHost);	
+	void setLoginIPHost(List<Inet4Address> value);	
 	
 	List<InetAddress> getLoginIPv6Host();
 	
-	void setLoginIPv6Host(List<Inet6Address> loginIPv6Host);	
+	void setLoginIPv6Host(List<Inet6Address> value);	
 	
 	ByteBuf getLoginLATGroup();
 	
-	void setLoginLATGroup(ByteBuf loginLATGroup);	
+	void setLoginLATGroup(ByteBuf value);	
 	
 	ByteBuf getLoginLATNode();
 	
-	void setLoginLATNode(ByteBuf loginLATNode);	
+	void setLoginLATNode(ByteBuf value);	
 	
 	ByteBuf getLoginLATPort();
 	
-	void setLoginLATPort(ByteBuf loginLATPort);	
+	void setLoginLATPort(ByteBuf value);	
 	
 	ByteBuf getLoginLATService();
 	
-	void setLoginLATService(ByteBuf loginLATService);	
+	void setLoginLATService(ByteBuf value);	
 	
 	LoginServiceEnum getLoginService();
 	
-	void setLoginService(LoginServiceEnum loginService);	
+	void setLoginService(LoginServiceEnum value);	
 	
 	Long getLoginTCPPort();
 	
-	void setLoginTCPPort(Long loginTCPPort);	
+	void setLoginTCPPort(Long value);	
 	
 	List<Tunneling> getTunneling();
 	
-	void setTunneling(List<Tunneling> tunneling);	
+	void setTunneling(List<Tunneling> value);	
 }

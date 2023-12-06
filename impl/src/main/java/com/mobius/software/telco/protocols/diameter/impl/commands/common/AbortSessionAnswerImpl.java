@@ -27,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessio
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 274, request = false)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 274, request = false)
 public class AbortSessionAnswerImpl extends AuthenticationAnswerImpl implements AbortSessionAnswer
 {
 	protected AbortSessionAnswerImpl() 

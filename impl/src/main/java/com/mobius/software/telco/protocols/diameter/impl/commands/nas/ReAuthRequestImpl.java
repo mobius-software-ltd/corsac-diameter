@@ -138,12 +138,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
+	public void setOriginAAAProtocol(OriginAAAProtocolEnum value) 
 	{
-		if(originAAAProtocol == null)
+		if(value == null)
 			this.originAAAProtocol = null;
 		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
+			this.originAAAProtocol = new OriginAAAProtocolImpl(value, null, null);
 	}
 	
 	@Override
@@ -156,12 +156,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setNASIdentifier(String nasIdentifier) 
+	public void setNASIdentifier(String value) 
 	{
-		if(nasIdentifier == null)
+		if(value == null)
 			this.nasIdentifier = null;
 		else
-			this.nasIdentifier = new NASIdentifierImpl(nasIdentifier, null, null);
+			this.nasIdentifier = new NASIdentifierImpl(value, null, null);
 	}
 
 	@Override
@@ -174,12 +174,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setNASIPAddress(Inet4Address nasIPAddress) 
+	public void setNASIPAddress(Inet4Address value) 
 	{
-		if(nasIPAddress == null)
+		if(value == null)
 			this.nasIPAddress = null;
 		else
-			this.nasIPAddress = new NASIPAddressImpl(nasIPAddress);
+			this.nasIPAddress = new NASIPAddressImpl(value);
 	}
 
 	@Override
@@ -192,12 +192,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setNASIPv6Address(Inet6Address nasIPv6Address) 
+	public void setNASIPv6Address(Inet6Address value) 
 	{
-		if(nasIPv6Address == null)
+		if(value == null)
 			this.nasIPv6Address = null;
 		else
-			this.nasIPv6Address = new NASIPv6AddressImpl(nasIPv6Address);
+			this.nasIPv6Address = new NASIPv6AddressImpl(value);
 	}
 
 	@Override
@@ -210,12 +210,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setNASPort(Long nasPort) 
+	public void setNASPort(Long value) 
 	{
-		if(nasPort == null)
+		if(value == null)
 			this.nasPort = null;
 		else
-			this.nasPort = new NASPortImpl(nasPort, null, null);
+			this.nasPort = new NASPortImpl(value, null, null);
 	}
 
 	@Override
@@ -228,12 +228,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setNASPortId(String nasPortId) 
+	public void setNASPortId(String value) 
 	{
-		if(nasPortId == null)
+		if(value == null)
 			this.nasPortId = null;
 		else
-			this.nasPortId = new NASPortIdImpl(nasPortId, null, null);
+			this.nasPortId = new NASPortIdImpl(value, null, null);
 	}
 
 	@Override
@@ -246,12 +246,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setNASPortType(NASPortTypeEnum nasPortType) 
+	public void setNASPortType(NASPortTypeEnum value) 
 	{
-		if(nasPortType == null)
+		if(value == null)
 			this.nasPortType = null;
 		else
-			this.nasPortType = new NASPortTypeImpl(nasPortType, null, null);
+			this.nasPortType = new NASPortTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -264,12 +264,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setServiceType(ServiceTypeEnum serviceType) 
+	public void setServiceType(ServiceTypeEnum value) 
 	{
-		if(serviceType == null)
+		if(value == null)
 			this.serviceType = null;
 		else
-			this.serviceType = new ServiceTypeImpl(serviceType, null, null);
+			this.serviceType = new ServiceTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -282,12 +282,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setFramedIPAddress(Inet4Address framedIPAddress) 
+	public void setFramedIPAddress(Inet4Address value) 
 	{
-		if(framedIPAddress == null)
+		if(value == null)
 			this.framedIPAddress = null;
 		else
-			this.framedIPAddress = new FramedIPAddressImpl(framedIPAddress);
+			this.framedIPAddress = new FramedIPAddressImpl(value);
 	}
 
 	@Override
@@ -300,12 +300,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setFramedIPv6Prefix(ByteBuf framedIPv6Prefix) 
+	public void setFramedIPv6Prefix(ByteBuf value) 
 	{
-		if(framedIPv6Prefix == null)
+		if(value == null)
 			this.framedIPv6Prefix = null;
 		else
-			this.framedIPv6Prefix = new FramedIPv6PrefixImpl(framedIPv6Prefix, null, null);
+			this.framedIPv6Prefix = new FramedIPv6PrefixImpl(value, null, null);
 	}
 	
 	@Override
@@ -318,12 +318,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setFramedInterfaceId(Long framedInterfaceId) 
+	public void setFramedInterfaceId(Long value) 
 	{
-		if(framedInterfaceId == null)
+		if(value == null)
 			this.framedInterfaceId = null;
 		else
-			this.framedInterfaceId = new FramedInterfaceIdImpl(framedInterfaceId, null, null);
+			this.framedInterfaceId = new FramedInterfaceIdImpl(value, null, null);
 	}
 
 	@Override
@@ -336,12 +336,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setCalledStationId(String calledStationId) 
+	public void setCalledStationId(String value) 
 	{
-		if(calledStationId == null)
+		if(value == null)
 			this.calledStationId = null;
 		else
-			this.calledStationId = new CalledStationIdImpl(calledStationId, null, null);
+			this.calledStationId = new CalledStationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -354,21 +354,21 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setCallingStationId(String callingStationId) 
+	public void setCallingStationId(String value) 
 	{
-		if(callingStationId == null)
+		if(value == null)
 			this.callingStationId = null;
 		else
-			this.callingStationId = new CallingStationIdImpl(callingStationId, null, null);
+			this.callingStationId = new CallingStationIdImpl(value, null, null);
 	}
 
 	@Override
-	public void setOriginatingLineInfo(ByteBuf originatingLineInfo) 
+	public void setOriginatingLineInfo(ByteBuf value) 
 	{
-		if(originatingLineInfo == null)
+		if(value == null)
 			this.originatingLineInfo = null;
 		else
-			this.originatingLineInfo = new OriginatingLineInfoImpl(originatingLineInfo, null, null);
+			this.originatingLineInfo = new OriginatingLineInfoImpl(value, null, null);
 	}
 
 	@Override
@@ -426,12 +426,12 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setState(ByteBuf state) 
+	public void setState(ByteBuf value) 
 	{
-		if(state == null)
+		if(value == null)
 			this.state = null;
 		else
-			this.state = new StateImpl(state, null, null);
+			this.state = new StateImpl(value, null, null);
 	}
 	
 	@Override
@@ -448,14 +448,14 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 	
 	@Override
-	public void setDiameterClass(List<ByteBuf> diameterClass) 
+	public void setDiameterClass(List<ByteBuf> value) 
 	{
-		if(diameterClass == null || diameterClass.size()==0)
+		if(value == null || value.size()==0)
 			this.diameterClass = null;
 		else
 		{
 			this.diameterClass = new ArrayList<DiameterClass>();
-			for(ByteBuf curr:diameterClass)
+			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
 	}
@@ -474,14 +474,14 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public void setReplyMessage(List<String> replyMessage) 
+	public void setReplyMessage(List<String> value) 
 	{
-		if(replyMessage == null || replyMessage.size()==0)
+		if(value == null || value.size()==0)
 			this.replyMessage = null;
 		else
 		{
 			this.replyMessage = new ArrayList<ReplyMessage>();
-			for(String curr:replyMessage)
+			for(String curr:value)
 				this.replyMessage.add(new ReplyMessageImpl(curr, null, null));
 		}
 	}

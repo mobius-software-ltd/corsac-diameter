@@ -36,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 258, request = true)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 258, request = true)
 public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implements ReAuthRequest
 {
 	private ReAuthRequestType reAuthRequestType;
@@ -49,10 +49,7 @@ public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implemen
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID, authApplicationID);
 		
-		if(reAuthRequestType==null)
-			throw new IllegalArgumentException("Re-Auth-Request-Type is required");
-		
-		this.reAuthRequestType = new ReAuthRequestTypeImpl(reAuthRequestType, null, null);
+		setReAuthRequestType(reAuthRequestType);		
 	}
 
 	@Override

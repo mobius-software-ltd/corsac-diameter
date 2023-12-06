@@ -33,22 +33,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Servic
 	The ACR message format is defined according to the Diameter Base Protocol in RFC 6733 [401] as follows:
  	<ACR> ::= < Diameter Header: 271, REQ, PXY >
  
-			 < Session-Id >
-			 { Origin-Host }
-			 { Origin-Realm }
-			 { Destination-Realm }
-			 { Accounting-Record-Type }
-			 { Accounting-Record-Number }
-			 [ Acct-Application-Id ]
-			 [ User-Name ]
-			 [ Destination-Host ]			 
-			 [ Acct-Interim-Interval ]
-			 [ Origin-State-Id ]
-			 [ Event-Timestamp ]
+			   < Session-Id >
+			   { Origin-Host }
+			   { Origin-Realm }
+			   { Destination-Realm }
+			   { Accounting-Record-Type }
+			   { Accounting-Record-Number }
+			   [ Acct-Application-Id ]
+			   [ User-Name ]
+			   [ Destination-Host ]			 
+			   [ Acct-Interim-Interval ]
+			   [ Origin-State-Id ]
+			   [ Event-Timestamp ]
 			 * [ Proxy-Info ]
 			 * [ Route-Record ]
-			 [ Service-Context-Id ]
-			 [ Service-Information ]
+			   [ Service-Context-Id ]
+			   [ Service-Information ]
 			 * [ AVP ] 
  */
 @DiameterCommandDefinition(applicationId = 3, commandCode = 271, request = true, proxyable = true, name="Accounting-Request")
@@ -56,9 +56,9 @@ public interface AccountingRequest extends com.mobius.software.telco.protocols.d
 {
 	String getServiceContextId();
 	
-	void setServiceContextId(String serviceContextId);
+	void setServiceContextId(String value);
 	
 	ServiceInformation getServiceInformation();
 	
-	void setServiceInformation(ServiceInformation serviceInformation);
+	void setServiceInformation(ServiceInformation value);
 }

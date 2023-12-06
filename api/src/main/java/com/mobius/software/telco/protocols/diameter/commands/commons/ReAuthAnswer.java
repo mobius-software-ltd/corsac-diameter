@@ -53,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
                   * [ Proxy-Info ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends AuthenticationAnswer
 {  	
 }

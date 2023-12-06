@@ -75,59 +75,59 @@ public interface ReAuthRequest extends com.mobius.software.telco.protocols.diame
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();
 	
-	void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol);
+	void setOriginAAAProtocol(OriginAAAProtocolEnum value);
 	
 	String getNASIdentifier();
 	
-	void setNASIdentifier(String nasIdentifier);	
+	void setNASIdentifier(String value);	
 	
 	InetAddress getNASIPAddress();
 	
-	void setNASIPAddress(Inet4Address nasIPAddress);	
+	void setNASIPAddress(Inet4Address value);	
 	
 	InetAddress getNASIPv6Address();
 	
-	void setNASIPv6Address(Inet6Address nasIPv6Address);	
+	void setNASIPv6Address(Inet6Address value);	
 	
 	Long getNASPort();
 	
-	void setNASPort(Long nasPort);	
+	void setNASPort(Long value);	
 	
 	String getNASPortId();
 	
-	void setNASPortId(String nasPortId);	
+	void setNASPortId(String value);	
 	
 	NASPortTypeEnum getNASPortType();
 	
-	void setNASPortType(NASPortTypeEnum nasPortType);	
+	void setNASPortType(NASPortTypeEnum value);	
 	
 	ServiceTypeEnum getServiceType();	
 	
-	void setServiceType(ServiceTypeEnum serviceType);	
+	void setServiceType(ServiceTypeEnum value);	
 	
 	InetAddress getFramedIPAddress();
 	
-	void setFramedIPAddress(Inet4Address framedIPAddress);	
+	void setFramedIPAddress(Inet4Address value);	
 	
 	ByteBuf getFramedIPv6Prefix();
 	
-	void setFramedIPv6Prefix(ByteBuf framedIPv6Prefix);	
+	void setFramedIPv6Prefix(ByteBuf value);	
 	
 	Long getFramedInterfaceId();
 	
-	void setFramedInterfaceId(Long framedInterfaceId);	
+	void setFramedInterfaceId(Long value);	
 	
 	String getCalledStationId();
 	
-	void setCalledStationId(String calledStationId);	
+	void setCalledStationId(String value);	
 	
 	String getCallingStationId();
 	
-	void setCallingStationId(String callingStationId);
+	void setCallingStationId(String value);
 	
 	ByteBuf getOriginatingLineInfo();
 	
-	void setOriginatingLineInfo(ByteBuf originatingLineInfo);	
+	void setOriginatingLineInfo(ByteBuf value);	
 	
 	public ByteBuf getAcctSessionId();
 	
@@ -139,13 +139,13 @@ public interface ReAuthRequest extends com.mobius.software.telco.protocols.diame
 	
 	ByteBuf getState();
 	
-	void setState(ByteBuf state);	
+	void setState(ByteBuf value);	
 	
 	List<ByteBuf> getDiameterClass();
 
-	void setDiameterClass(List<ByteBuf> diameterClass);	
+	void setDiameterClass(List<ByteBuf> value);	
 	
 	List<String> getReplyMessage();
 
-	void setReplyMessage(List<String> replyMessage);	
+	void setReplyMessage(List<String> value);	
 }

@@ -147,7 +147,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 865L, vendorId = KnownVendorIDs.TGPP_ID)
+@DiameterAvpImplementation(code = 874L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PSInformationImpl implements PSInformation
 {
 	private List<SupportedFeatures> supportedFeatures;

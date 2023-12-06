@@ -32,21 +32,21 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 	The ACA message format is defined according to the Diameter Base Protocol in RFC 6733 [401] as follows:
  	<ACA> ::= < Diameter Header: 271, PXY >
 
-			 < Session-Id >
-			 { Result-Code }
-			 [ Experimental-Result ]
-			 { Origin-Host }
-			 { Origin-Realm }
-			 { Accounting-Record-Type }
-			 { Accounting-Record-Number }
-			 [ Acct-Application-Id ]
-			 [ User-Name ]			 
-			 [ Error-Message ]
-			 [ Error-Reporting-Host ]
-			 [ Acct-Interim-Interval ]
-			 [ Failed-AVP ]
-			 [ Origin-State-Id ]
-			 [ Event-Timestamp ]
+			   < Session-Id >
+			   { Result-Code }
+			   [ Experimental-Result ]
+			   { Origin-Host }
+			   { Origin-Realm }
+			   { Accounting-Record-Type }
+			   { Accounting-Record-Number }
+			   [ Acct-Application-Id ]
+			   [ User-Name ]			 
+			   [ Error-Message ]
+			   [ Error-Reporting-Host ]
+			   [ Acct-Interim-Interval ]
+			   [ Failed-AVP ]
+			   [ Origin-State-Id ]
+			   [ Event-Timestamp ]
 			 * [ Proxy-Info ]
 			 * [ AVP ] 
  */

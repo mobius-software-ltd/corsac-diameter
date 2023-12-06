@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctInterimIntervalImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
@@ -61,7 +59,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ReplyMes
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInterimInterval;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -155,8 +152,6 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 1, commandCode = 271, request = false)
 public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl implements AAAnswer
 {
-	private AuthApplicationId authApplicationId;
-	
 	private AuthRequestType authRequestType;
 	
 	private ServiceType serviceType;
@@ -271,28 +266,10 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	
 	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);
 		
-		setAuthApplicationId(authApplicationId);
-	}
-
-	@Override
-	public Long getAuthApplicationId() 
-	{
-		if(authApplicationId == null)
-			return null;
-		
-		return authApplicationId.getUnsigned();
-	}
-
-	@Override
-	public void setAuthApplicationId(Long value) 
-	{
-		if(value==null)
-			throw new IllegalArgumentException("Auth-Application-Id is required");	
-		
-		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
+		setAuthRequestType(authRequestType);
 	}
 
 	@Override
@@ -305,12 +282,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setAuthRequestType(AuthRequestTypeEnum authRequestType) 
+	public void setAuthRequestType(AuthRequestTypeEnum value) 
 	{
-		if(authRequestType==null)
+		if(value==null)
 			throw new IllegalArgumentException("Auth-Request-Type is required");	
 		
-		this.authRequestType = new AuthRequestTypeImpl(authRequestType, null, null);
+		this.authRequestType = new AuthRequestTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -323,12 +300,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setServiceType(ServiceTypeEnum serviceType) 
+	public void setServiceType(ServiceTypeEnum value) 
 	{
-		if(serviceType == null)
+		if(value == null)
 			this.serviceType = null;
 		else
-			this.serviceType = new ServiceTypeImpl(serviceType, null, null);
+			this.serviceType = new ServiceTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -345,14 +322,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setDiameterClass(List<ByteBuf> diameterClass) 
+	public void setDiameterClass(List<ByteBuf> value) 
 	{
-		if(diameterClass == null || diameterClass.size()==0)
+		if(value == null || value.size()==0)
 			this.diameterClass = null;
 		else
 		{
 			this.diameterClass = new ArrayList<DiameterClass>();
-			for(ByteBuf curr:diameterClass)
+			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
 	}
@@ -371,14 +348,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setConfigurationToken(List<ByteBuf> configurationToken) 
+	public void setConfigurationToken(List<ByteBuf> value) 
 	{
-		if(configurationToken == null || configurationToken.size()==0)
+		if(value == null || value.size()==0)
 			this.configurationToken = null;
 		else
 		{
 			this.configurationToken = new ArrayList<ConfigurationToken>();
-			for(ByteBuf curr:configurationToken)
+			for(ByteBuf curr:value)
 				this.configurationToken.add(new ConfigurationTokenImpl(curr, null, null));
 		}	
 	}
@@ -411,12 +388,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setIdleTimeout(Long idleTimeout) 
+	public void setIdleTimeout(Long value) 
 	{
-		if(idleTimeout == null)
+		if(value == null)
 			this.idleTimeout = null;
 		else
-			this.idleTimeout = new IdleTimeoutImpl(idleTimeout, null, null);
+			this.idleTimeout = new IdleTimeoutImpl(value, null, null);
 	}
 
 	@Override
@@ -429,12 +406,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setAuthorizationLifetime(Long authorizationLifetime) 
+	public void setAuthorizationLifetime(Long value) 
 	{
-		if(authorizationLifetime == null)
+		if(value == null)
 			this.authorizationLifetime = null;
 		else
-			this.authorizationLifetime = new AuthorizationLifetimeImpl(authorizationLifetime, null, null);
+			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
 	}
 
 	@Override
@@ -447,12 +424,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setAuthGracePeriod(Long authGracePeriod) 
+	public void setAuthGracePeriod(Long value) 
 	{
-		if(authGracePeriod == null)
+		if(value == null)
 			this.authGracePeriod = null;
 		else
-			this.authGracePeriod = new AuthGracePeriodImpl(authGracePeriod, null, null);
+			this.authGracePeriod = new AuthGracePeriodImpl(value, null, null);
 	}
 
 	@Override
@@ -465,12 +442,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum authSessionState) 
+	public void setAuthSessionState(AuthSessionStateEnum value) 
 	{
-		if(authSessionState == null)
+		if(value == null)
 			this.authSessionState = null;
 		else
-			this.authSessionState = new AuthSessionStateImpl(authSessionState, null, null);
+			this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -483,12 +460,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setReAuthRequestType(ReAuthRequestTypeEnum reAuthRequestType) 
+	public void setReAuthRequestType(ReAuthRequestTypeEnum value) 
 	{
-		if(reAuthRequestType == null)
+		if(value == null)
 			this.reAuthRequestType = null;
 		else
-			this.reAuthRequestType = new ReAuthRequestTypeImpl(reAuthRequestType, null, null);
+			this.reAuthRequestType = new ReAuthRequestTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -501,12 +478,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setMultiRoundTimeOut(Long multiRoundTimeOut) 
+	public void setMultiRoundTimeOut(Long value) 
 	{
-		if(multiRoundTimeOut == null)
+		if(value == null)
 			this.multiRoundTimeOut = null;
 		else
-			this.multiRoundTimeOut = new MultiRoundTimeOutImpl(multiRoundTimeOut, null, null);
+			this.multiRoundTimeOut = new MultiRoundTimeOutImpl(value, null, null);
 	}
 
 	@Override
@@ -519,12 +496,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setSessionTimeout(Long sessionTimeout) 
+	public void setSessionTimeout(Long value) 
 	{
-		if(sessionTimeout == null)
+		if(value == null)
 			this.sessionTimeout = null;
 		else
-			this.sessionTimeout = new SessionTimeoutImpl(sessionTimeout, null, null);
+			this.sessionTimeout = new SessionTimeoutImpl(value, null, null);
 	}
 
 	@Override
@@ -537,12 +514,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setState(ByteBuf state) 
+	public void setState(ByteBuf value) 
 	{
-		if(state == null)
+		if(value == null)
 			this.state = null;
 		else
-			this.state = new StateImpl(state, null, null);
+			this.state = new StateImpl(value, null, null);
 	}
 
 	@Override
@@ -559,14 +536,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setReplyMessage(List<String> replyMessage) 
+	public void setReplyMessage(List<String> value) 
 	{
-		if(replyMessage == null || replyMessage.size()==0)
+		if(value == null || value.size()==0)
 			this.replyMessage = null;
 		else
 		{
 			this.replyMessage = new ArrayList<ReplyMessage>();
-			for(String curr:replyMessage)
+			for(String curr:value)
 				this.replyMessage.add(new ReplyMessageImpl(curr, null, null));
 		}
 	}
@@ -581,12 +558,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
+	public void setOriginAAAProtocol(OriginAAAProtocolEnum value) 
 	{
-		if(originAAAProtocol == null)
+		if(value == null)
 			this.originAAAProtocol = null;
 		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
+			this.originAAAProtocol = new OriginAAAProtocolImpl(value, null, null);
 	}
 
 	@Override
@@ -603,14 +580,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFilterId(List<String> filterId) 
+	public void setFilterId(List<String> value) 
 	{
-		if(filterId == null || filterId.size()==0)
+		if(value == null || value.size()==0)
 			this.filterId = null;
 		else
 		{
 			this.filterId = new ArrayList<FilterId>();
-			for(String curr:filterId)
+			for(String curr:value)
 				this.filterId.add(new FilterIdImpl(curr, null, null));
 		}
 	}
@@ -625,12 +602,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setPasswordRetry(Long passwordRetry) 
+	public void setPasswordRetry(Long value) 
 	{
-		if(passwordRetry == null)
+		if(value == null)
 			this.passwordRetry = null;
 		else
-			this.passwordRetry = new PasswordRetryImpl(passwordRetry, null, null);
+			this.passwordRetry = new PasswordRetryImpl(value, null, null);
 	}
 
 	@Override
@@ -643,12 +620,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setPortLimit(Long portLimit) 
+	public void setPortLimit(Long value) 
 	{
-		if(portLimit == null)
+		if(value == null)
 			this.portLimit = null;
 		else
-			this.portLimit = new PortLimitImpl(portLimit, null, null);
+			this.portLimit = new PortLimitImpl(value, null, null);
 	}
 
 	@Override
@@ -661,12 +638,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setPrompt(PromptEnum prompt) 
+	public void setPrompt(PromptEnum value) 
 	{
-		if(prompt == null)
+		if(value == null)
 			this.prompt = null;
 		else
-			this.prompt = new PromptImpl(prompt, null, null);	
+			this.prompt = new PromptImpl(value, null, null);	
 	}
 	
 	@Override
@@ -679,12 +656,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setARAPChallengeResponse(ByteBuf arapChallengeResponse) 
+	public void setARAPChallengeResponse(ByteBuf value) 
 	{
-		if(arapChallengeResponse == null)
+		if(value == null)
 			this.arapChallengeResponse = null;
 		else
-			this.arapChallengeResponse = new ARAPChallengeResponseImpl(arapChallengeResponse, null, null);
+			this.arapChallengeResponse = new ARAPChallengeResponseImpl(value, null, null);
 	}
 	
 	@Override
@@ -697,12 +674,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setARAPFeatures(ByteBuf arapFeatures) 
+	public void setARAPFeatures(ByteBuf value) 
 	{
-		if(arapFeatures == null)
+		if(value == null)
 			this.arapFeatures = null;
 		else
-			this.arapFeatures = new ARAPFeaturesImpl(arapFeatures, null, null);
+			this.arapFeatures = new ARAPFeaturesImpl(value, null, null);
 	}
 
 	@Override
@@ -715,12 +692,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setARAPSecurity(Long arapSecurity) 
+	public void setARAPSecurity(Long value) 
 	{
-		if(arapSecurity == null)
+		if(value == null)
 			this.arapSecurity = null;
 		else
-			this.arapSecurity = new ARAPSecurityImpl(arapSecurity, null, null);
+			this.arapSecurity = new ARAPSecurityImpl(value, null, null);
 	}
 
 	@Override
@@ -737,14 +714,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setARAPSecurityData(List<ByteBuf> arapSecurityData) 
+	public void setARAPSecurityData(List<ByteBuf> value) 
 	{
-		if(arapSecurityData == null || arapSecurityData.size()==0)
+		if(value == null || value.size()==0)
 			this.arapSecurityData = null;
 		else
 		{
 			this.arapSecurityData = new ArrayList<ARAPSecurityData>();
-			for(ByteBuf curr:arapSecurityData)
+			for(ByteBuf curr:value)
 				this.arapSecurityData.add(new ARAPSecurityDataImpl(curr, null, null));
 		}
 	}
@@ -759,12 +736,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setARAPZoneAccess(ARAPZoneAccessEnum arapZoneAccess) 
+	public void setARAPZoneAccess(ARAPZoneAccessEnum value) 
 	{
-		if(arapZoneAccess == null)
+		if(value == null)
 			this.arapZoneAccess = null;
 		else
-			this.arapZoneAccess = new ARAPZoneAccessImpl(arapZoneAccess, null, null);
+			this.arapZoneAccess = new ARAPZoneAccessImpl(value, null, null);
 	}
 	
 	@Override
@@ -777,12 +754,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setCallbackId(String callbackId) 
+	public void setCallbackId(String value) 
 	{
-		if(callbackId == null)
+		if(value == null)
 			this.callbackId = null;
 		else
-			this.callbackId = new CallbackIdImpl(callbackId, null, null);
+			this.callbackId = new CallbackIdImpl(value, null, null);
 	}
 
 	@Override
@@ -795,12 +772,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setCallbackNumber(String callbackNumber) 
+	public void setCallbackNumber(String value) 
 	{
-		if(callbackNumber == null)
+		if(value == null)
 			this.callbackNumber = null;
 		else
-			this.callbackNumber = new CallbackNumberImpl(callbackNumber, null, null);
+			this.callbackNumber = new CallbackNumberImpl(value, null, null);
 	}
 	
 	@Override
@@ -813,12 +790,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedAppletalkLink(Long framedAppletalkLink) 
+	public void setFramedAppletalkLink(Long value) 
 	{
-		if(framedAppletalkLink == null)
+		if(value == null)
 			this.framedAppletalkLink = null;
 		else
-			this.framedAppletalkLink = new FramedAppletalkLinkImpl(framedAppletalkLink, null, null);
+			this.framedAppletalkLink = new FramedAppletalkLinkImpl(value, null, null);
 	}
 
 	@Override
@@ -835,14 +812,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedAppletalkNetwork(List<Long> framedAppletalkNetwork) 
+	public void setFramedAppletalkNetwork(List<Long> value) 
 	{
-		if(framedAppletalkNetwork == null || framedAppletalkNetwork.size()==0)
+		if(value == null || value.size()==0)
 			this.framedAppletalkNetwork = null;
 		else
 		{
 			this.framedAppletalkNetwork = new ArrayList<FramedAppletalkNetwork>(); 
-			for(Long curr:framedAppletalkNetwork)
+			for(Long curr:value)
 				this.framedAppletalkNetwork.add(new FramedAppletalkNetworkImpl(curr, null, null));
 		}
 	}
@@ -857,12 +834,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedAppletalkZone(ByteBuf framedAppletalkZone) 
+	public void setFramedAppletalkZone(ByteBuf value) 
 	{
-		if(framedAppletalkZone == null)
+		if(value == null)
 			this.framedAppletalkZone = null;
 		else
-			this.framedAppletalkZone = new FramedAppletalkZoneImpl(framedAppletalkZone, null, null);
+			this.framedAppletalkZone = new FramedAppletalkZoneImpl(value, null, null);
 	}
 
 	@Override
@@ -879,14 +856,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedCompression(List<FramedCompressionEnum> framedCompression) 
+	public void setFramedCompression(List<FramedCompressionEnum> value) 
 	{
-		if(framedCompression == null || framedCompression.size()==0)
+		if(value == null || value.size()==0)
 			this.framedCompression = null;
 		else
 		{
 			this.framedCompression = new ArrayList<FramedCompression>();
-			for(FramedCompressionEnum curr:framedCompression)
+			for(FramedCompressionEnum curr:value)
 				this.framedCompression.add(new FramedCompressionImpl(curr, null, null));
 		}
 	}
@@ -901,12 +878,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedInterfaceId(Long framedInterfaceId) 
+	public void setFramedInterfaceId(Long value) 
 	{
-		if(framedInterfaceId == null)
+		if(value == null)
 			this.framedInterfaceId = null;
 		else
-			this.framedInterfaceId = new FramedInterfaceIdImpl(framedInterfaceId, null, null);
+			this.framedInterfaceId = new FramedInterfaceIdImpl(value, null, null);
 	}
 
 	@Override
@@ -919,12 +896,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedIPAddress(Inet4Address framedIPAddress) 
+	public void setFramedIPAddress(Inet4Address value) 
 	{
-		if(framedIPAddress == null)
+		if(value == null)
 			this.framedIPAddress = null;
 		else
-			this.framedIPAddress = new FramedIPAddressImpl(framedIPAddress);
+			this.framedIPAddress = new FramedIPAddressImpl(value);
 	}
 
 	@Override
@@ -941,14 +918,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedIPv6Prefix(List<ByteBuf> framedIPv6Prefix) 
+	public void setFramedIPv6Prefix(List<ByteBuf> value) 
 	{
-		if(framedIPv6Prefix == null || framedIPv6Prefix.size()==0)
+		if(value == null || framedIPv6Prefix.size()==0)
 			this.framedIPv6Prefix = null;
 		else
 		{
 			this.framedIPv6Prefix = new ArrayList<FramedIPv6Prefix>();
-			for(ByteBuf curr:framedIPv6Prefix)
+			for(ByteBuf curr:value)
 				this.framedIPv6Prefix.add(new FramedIPv6PrefixImpl(curr, null, null));
 		}
 	}
@@ -963,12 +940,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedIPv6Pool(ByteBuf framedIPv6Pool) 
+	public void setFramedIPv6Pool(ByteBuf value) 
 	{
-		if(framedIPv6Pool == null)
+		if(value == null)
 			this.framedIPv6Pool = null;
 		else
-			this.framedIPv6Pool = new FramedIPv6PoolImpl(framedIPv6Pool, null, null);
+			this.framedIPv6Pool = new FramedIPv6PoolImpl(value, null, null);
 	}
 
 	@Override
@@ -985,14 +962,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedIPv6Route(List<String> framedIPv6Route) 
+	public void setFramedIPv6Route(List<String> value) 
 	{
-		if(framedIPv6Route == null || framedIPv6Route.size()==0)
+		if(value == null || value.size()==0)
 			this.framedIPv6Route = null;
 		else
 		{
 			this.framedIPv6Route = new ArrayList<FramedIPv6Route>();
-			for(String curr:framedIPv6Route)
+			for(String curr:value)
 				this.framedIPv6Route.add(new FramedIPv6RouteImpl(curr, null, null));
 		}
 	}
@@ -1007,12 +984,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedIPNetmask(ByteBuf framedIPNetmask) 
+	public void setFramedIPNetmask(ByteBuf value) 
 	{
-		if(framedIPNetmask == null)
+		if(value == null)
 			this.framedIPNetmask = null;
 		else
-			this.framedIPNetmask = new FramedIPNetmaskImpl(framedIPNetmask, null, null);
+			this.framedIPNetmask = new FramedIPNetmaskImpl(value, null, null);
 	}
 
 	@Override
@@ -1029,14 +1006,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedRoute(List<ByteBuf> framedRoute) 
+	public void setFramedRoute(List<ByteBuf> value) 
 	{
-		if(framedRoute == null || framedRoute.size()==0)
+		if(value == null || value.size()==0)
 			this.framedRoute = null;
 		else
 		{
 			this.framedRoute = new ArrayList<FramedRoute>();
-			for(ByteBuf curr:framedRoute)
+			for(ByteBuf curr:value)
 				this.framedRoute.add(new FramedRouteImpl(curr, null, null));
 		}
 	}
@@ -1051,12 +1028,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedPool(ByteBuf framedPool) 
+	public void setFramedPool(ByteBuf value) 
 	{
-		if(framedPool == null)
+		if(value == null)
 			this.framedPool = null;
 		else
-			this.framedPool = new FramedPoolImpl(framedPool, null, null);
+			this.framedPool = new FramedPoolImpl(value, null, null);
 	}
 
 	@Override
@@ -1069,12 +1046,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedIPXNetwork(Long framedIPXNetwork) 
+	public void setFramedIPXNetwork(Long value) 
 	{
-		if(framedIPXNetwork == null)
+		if(value == null)
 			this.framedIPXNetwork = null;
 		else
-			this.framedIPXNetwork = new FramedIPXNetworkImpl(framedIPXNetwork, null, null);
+			this.framedIPXNetwork = new FramedIPXNetworkImpl(value, null, null);
 	}
 
 	@Override
@@ -1087,12 +1064,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedMTU(Long framedMTU) 
+	public void setFramedMTU(Long value) 
 	{
-		if(framedMTU == null)
+		if(value == null)
 			this.framedMTU = null;
 		else
-			this.framedMTU = new FramedMTUImpl(framedMTU, null, null);
+			this.framedMTU = new FramedMTUImpl(value, null, null);
 	}
 	
 	@Override
@@ -1105,12 +1082,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedProtocol(FramedProtocolEnum framedProtocol) 
+	public void setFramedProtocol(FramedProtocolEnum value) 
 	{
-		if(framedProtocol == null)
+		if(value == null)
 			this.framedProtocol = null;
 		else
-			this.framedProtocol = new FramedProtocolImpl(framedProtocol, null, null);
+			this.framedProtocol = new FramedProtocolImpl(value, null, null);
 	}
 
 	@Override
@@ -1123,12 +1100,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setFramedRouting(FramedRoutingEnum framedRouting) 
+	public void setFramedRouting(FramedRoutingEnum value) 
 	{
-		if(framedRouting == null)
+		if(value == null)
 			this.framedRouting = null;
 		else
-			this.framedRouting = new FramedRoutingImpl(framedRouting, null, null);
+			this.framedRouting = new FramedRoutingImpl(value, null, null);
 	}
 
 	@Override
@@ -1145,14 +1122,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginIPHost(List<Inet4Address> loginIPHost) 
+	public void setLoginIPHost(List<Inet4Address> value) 
 	{
-		if(loginIPHost == null || loginIPHost.size()==0)
+		if(value == null || value.size()==0)
 			this.loginIPHost = null;
 		else
 		{
 			this.loginIPHost = new ArrayList<LoginIPHost>();
-			for(Inet4Address curr:loginIPHost)
+			for(Inet4Address curr:value)
 				this.loginIPHost.add(new LoginIPHostImpl(curr));
 		}
 	}
@@ -1171,14 +1148,14 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginIPv6Host(List<Inet6Address> loginIPv6Host) 
+	public void setLoginIPv6Host(List<Inet6Address> value) 
 	{
-		if(loginIPv6Host == null || loginIPv6Host.size()==0)
+		if(value == null || value.size()==0)
 			this.loginIPv6Host = null;
 		else
 		{
 			this.loginIPv6Host = new ArrayList<LoginIPv6Host>();
-			for(Inet6Address curr:loginIPv6Host)
+			for(Inet6Address curr:value)
 				this.loginIPv6Host.add(new LoginIPv6HostImpl(curr));
 		}
 	}
@@ -1193,12 +1170,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginLATGroup(ByteBuf loginLATGroup) 
+	public void setLoginLATGroup(ByteBuf value) 
 	{
-		if(loginLATGroup == null)
+		if(value == null)
 			this.loginLATGroup = null;
 		else
-			this.loginLATGroup = new LoginLATGroupImpl(loginLATGroup, null, null);
+			this.loginLATGroup = new LoginLATGroupImpl(value, null, null);
 	}
 
 	@Override
@@ -1211,12 +1188,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginLATNode(ByteBuf loginLATNode) 
+	public void setLoginLATNode(ByteBuf value) 
 	{
-		if(loginLATNode == null)
+		if(value == null)
 			this.loginLATNode = null;
 		else
-			this.loginLATNode = new LoginLATNodeImpl(loginLATNode, null, null);
+			this.loginLATNode = new LoginLATNodeImpl(value, null, null);
 	}
 
 	@Override
@@ -1229,12 +1206,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginLATPort(ByteBuf loginLATPort) 
+	public void setLoginLATPort(ByteBuf value) 
 	{
-		if(loginLATPort == null)
+		if(value == null)
 			this.loginLATPort = null;
 		else
-			this.loginLATPort = new LoginLATPortImpl(loginLATPort, null, null);
+			this.loginLATPort = new LoginLATPortImpl(value, null, null);
 	}
 
 	@Override
@@ -1247,12 +1224,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginLATService(ByteBuf loginLATService) 
+	public void setLoginLATService(ByteBuf value) 
 	{
-		if(loginLATService == null)
+		if(value == null)
 			this.loginLATService = null;
 		else
-			this.loginLATService = new LoginLATServiceImpl(loginLATService, null, null);
+			this.loginLATService = new LoginLATServiceImpl(value, null, null);
 	}
 
 	@Override
@@ -1265,12 +1242,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginService(LoginServiceEnum loginService) 
+	public void setLoginService(LoginServiceEnum value) 
 	{
-		if(loginService == null)
+		if(value == null)
 			this.loginService = null;
 		else
-			this.loginService = new LoginServiceImpl(loginService, null, null);
+			this.loginService = new LoginServiceImpl(value, null, null);
 	}
 
 	@Override
@@ -1283,12 +1260,12 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setLoginTCPPort(Long loginTCPPort) 
+	public void setLoginTCPPort(Long value) 
 	{
-		if(loginTCPPort == null)
+		if(value == null)
 			this.loginTCPPort = null;
 		else
-			this.loginTCPPort = new LoginTCPPortImpl(loginTCPPort, null, null);
+			this.loginTCPPort = new LoginTCPPortImpl(value, null, null);
 	}
 
 	@Override
@@ -1298,9 +1275,9 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setNASFilterRule(List<NASFilterRule> nasFilterRule) 
+	public void setNASFilterRule(List<NASFilterRule> value) 
 	{
-		this.nasFilterRule = nasFilterRule;
+		this.nasFilterRule = value;
 	}
 
 	@Override
@@ -1310,9 +1287,9 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setQosFilterRule(List<DiameterQosFilterRule> qosFilterRule) 
+	public void setQosFilterRule(List<DiameterQosFilterRule> value) 
 	{
-		this.qosFilterRule = qosFilterRule;
+		this.qosFilterRule = value;
 	}
 
 	@Override
@@ -1322,20 +1299,8 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 	}
 
 	@Override
-	public void setTunneling(List<Tunneling> tunneling) 
+	public void setTunneling(List<Tunneling> value) 
 	{
-		this.tunneling = tunneling;
-	}
-	
-	@DiameterValidate
-	public String validate()
-	{
-		if(authApplicationId==null)
-			return "Auth-Application-Id is required";
-		
-		if(authRequestType==null)
-			return "Auth-Request-Type is required";
-		
-		return super.validate();
+		this.tunneling = value;
 	}
 }

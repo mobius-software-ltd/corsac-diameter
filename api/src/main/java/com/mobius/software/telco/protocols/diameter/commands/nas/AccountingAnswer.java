@@ -82,41 +82,41 @@ public interface AccountingAnswer extends com.mobius.software.telco.protocols.di
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();
 	
-	void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol);	
+	void setOriginAAAProtocol(OriginAAAProtocolEnum value);	
 	
 	String getNASIdentifier();
 	
-	void setNASIdentifier(String nasIdentifier);	
+	void setNASIdentifier(String value);	
 	
 	InetAddress getNASIPAddress();
 	
-	void setNASIPAddress(Inet4Address nasIPAddress);	
+	void setNASIPAddress(Inet4Address value);	
 	
 	InetAddress getNASIPv6Address();
 	
-	void setNASIPv6Address(Inet6Address nasIPv6Address);	
+	void setNASIPv6Address(Inet6Address value);	
 	
 	Long getNASPort();
 	
-	void setNASPort(Long nasPort);	
+	void setNASPort(Long value);	
 	
 	String getNASPortId();
 	
-	void setNASPortId(String nasPortId);	
+	void setNASPortId(String value);	
 	
 	NASPortTypeEnum getNASPortType();
 	
-	void setNASPortType(NASPortTypeEnum nasPortType);	
+	void setNASPortType(NASPortTypeEnum value);	
 	
 	ServiceTypeEnum getServiceType();		
 	
-	void setServiceType(ServiceTypeEnum serviceType);	
+	void setServiceType(ServiceTypeEnum value);	
 	
 	TerminationCauseEnum getTerminationCause();
 	
-	void setTerminationCause(TerminationCauseEnum terminationCauseEnum);
+	void setTerminationCause(TerminationCauseEnum value);
 	
 	List<ByteBuf> getDiameterClass();	
 	
-	void setDiameterClass(List<ByteBuf> diameterClass);		
+	void setDiameterClass(List<ByteBuf> value);		
 }

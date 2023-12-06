@@ -68,12 +68,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 	
 	@Override
-	public void setServiceContextId(String serviceContextId)
+	public void setServiceContextId(String value)
 	{
-		if(serviceContextId==null)
+		if(value==null)
 			this.serviceContextId = null;
 		else
-			this.serviceContextId = new ServiceContextIdImpl(serviceContextId, null, null);
+			this.serviceContextId = new ServiceContextIdImpl(value, null, null);
 	}
 	
 	@Override
@@ -83,8 +83,8 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setServiceInformation(ServiceInformation serviceInformation) 
+	public void setServiceInformation(ServiceInformation value) 
 	{
-		this.serviceInformation = serviceInformation;
+		this.serviceInformation = value;
 	}
 }

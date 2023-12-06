@@ -27,38 +27,27 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 * @author yulian oifa
 *
 */
-public abstract class AuthenticationRequestWithHostBase extends AuthenticationRequestmpl
+public abstract class AuthenticationRequestWithHostBase extends AuthenticationRequestImpl
 {
 	protected AuthenticationRequestWithHostBase()
 	{
 		super();
+		setDestinationHostAllowed(true);		
 	}
 	
 	public AuthenticationRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId)
 	{	
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID, authApplicationId);
-		
-		if(destinationHost==null)
-			throw new IllegalArgumentException("Destination-Host is required");
-		
-		try
+		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID, authApplicationId);
+		setDestinationHostAllowed(true);
+		try 
 		{
 			setDestinationHost(destinationHost);
 		}
-		catch(AvpNotSupportedException ex)
+		catch(AvpNotSupportedException ex) 
 		{
 			
 		}
 	}
-
-	@Override
-	public void setDestinationHost(String destinationHost) throws AvpNotSupportedException
-	{
-		if(destinationHost==null)
-			throw new IllegalArgumentException("Destination-Host is required");
-		
-		super.setDestinationHost(destinationHost);
-	}	
 	
 	@DiameterValidate
 	public String validate()

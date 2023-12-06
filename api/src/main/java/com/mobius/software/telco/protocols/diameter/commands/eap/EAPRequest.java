@@ -111,113 +111,113 @@ public interface EAPRequest extends AuthenticationRequest
 	
 	String getNASIdentifier();
 	
-	void setNASIdentifier(String nasIdentifier);	
+	void setNASIdentifier(String value);	
 	
 	InetAddress getNASIPAddress();
 	
-	void setNASIPAddress(Inet4Address nasIPAddress);	
+	void setNASIPAddress(Inet4Address value);	
 	
 	InetAddress getNASIPv6Address();
 	
-	void setNASIPv6Address(Inet6Address nasIPv6Address);	
+	void setNASIPv6Address(Inet6Address value);	
 	
 	Long getNASPort();
 	
-	void setNASPort(Long nasPort);	
+	void setNASPort(Long value);	
 	
 	String getNASPortId();
 	
-	void setNASPortId(String nasPortId);	
+	void setNASPortId(String value);	
 	
 	NASPortTypeEnum getNASPortType();
 	
-	void setNASPortType(NASPortTypeEnum nasPortType);	
+	void setNASPortType(NASPortTypeEnum value);	
 	
 	Long getPortLimit();
 	
-	void setPortLimit(Long portLimit);	
+	void setPortLimit(Long value);	
 	
 	ByteBuf getUserPassword();
 	
-	void setUserPassword(ByteBuf userPassword);	
+	void setUserPassword(ByteBuf value);	
 	
 	ByteBuf getEAPPayload();
 	
-	void setEAPPayload(ByteBuf eapPayload);	
+	void setEAPPayload(ByteBuf value);	
 	
 	ByteBuf getEAPKeyName();
 	
-	void setEAPKeyName(ByteBuf state);	
+	void setEAPKeyName(ByteBuf value);	
 	
 	ServiceTypeEnum getServiceType();
 	
-	void setServiceType(ServiceTypeEnum serviceType);	
+	void setServiceType(ServiceTypeEnum value);	
 	
 	ByteBuf getState();
 	
-	void setState(ByteBuf state);	
+	void setState(ByteBuf value);	
 	
 	Long getAuthorizationLifetime();
 	
-	void setAuthorizationLifetime(Long authorizationLifetime);	
+	void setAuthorizationLifetime(Long value);	
 	
 	Long getAuthGracePeriod();
 	
-	void setAuthGracePeriod(Long authGracePeriod);	
+	void setAuthGracePeriod(Long value);	
 	
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum authSessionState);	
+	void setAuthSessionState(AuthSessionStateEnum value);	
 	
 	String getCallbackNumber();
 	
-	void setCallbackNumber(String callbackNumber);	
+	void setCallbackNumber(String value);	
 	
 	String getCalledStationId();
 	
-	void setCalledStationId(String calledStationId);	
+	void setCalledStationId(String value);	
 	
 	String getCallingStationId();
 	
-	void setCallingStationId(String callingStationId);
+	void setCallingStationId(String value);
 	
 	ByteBuf getOriginatingLineInfo();
 	
-	void setOriginatingLineInfo(ByteBuf originatingLineInfo);	
+	void setOriginatingLineInfo(ByteBuf value);	
 
 	String getConnectInfo();
 	
-	void setConnectInfo(String connectInfo);	
+	void setConnectInfo(String value);	
 	
 	List<FramedCompressionEnum> getFramedCompression();
 	
-	void setFramedCompression(List<FramedCompressionEnum> framedCompression);	
+	void setFramedCompression(List<FramedCompressionEnum> value);	
 	
 	Long getFramedInterfaceId();
 	
-	void setFramedInterfaceId(Long framedInterfaceId);	
+	void setFramedInterfaceId(Long value);	
 	
 	InetAddress getFramedIPAddress();
 	
-	void setFramedIPAddress(Inet4Address framedIPAddress);	
+	void setFramedIPAddress(Inet4Address value);	
 	
 	List<ByteBuf> getFramedIPv6Prefix();
 	
-	void setFramedIPv6Prefix(List<ByteBuf> framedIPv6Prefix);	
+	void setFramedIPv6Prefix(List<ByteBuf> value);	
 	
 	ByteBuf getFramedIPNetmask();
 	
-	void setFramedIPNetmask(ByteBuf framedIPNetmask);	
+	void setFramedIPNetmask(ByteBuf value);	
 	
 	Long getFramedMTU();
 	
-	void setFramedMTU(Long framedMTU);	
+	void setFramedMTU(Long value);	
 	
 	FramedProtocolEnum getFramedProtocol();
 	
-	void setFramedProtocol(FramedProtocolEnum framedProtocol);	
+	void setFramedProtocol(FramedProtocolEnum value);	
 	
 	List<Tunneling> getTunneling();
 	
-	void setTunneling(List<Tunneling> tunneling);	
+	void setTunneling(List<Tunneling> value);	
 }

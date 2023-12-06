@@ -27,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswe
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 258, request = false)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 258, request = false)
 public class ReAuthAnswerImpl extends AuthenticationAnswerImpl implements ReAuthAnswer
 {
 	protected ReAuthAnswerImpl() 

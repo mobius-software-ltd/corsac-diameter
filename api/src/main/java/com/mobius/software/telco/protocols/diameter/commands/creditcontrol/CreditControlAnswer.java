@@ -22,11 +22,14 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CheckBalanceResultEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandlingEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandlingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
@@ -48,41 +51,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoS
    Message Format:
 
         <Credit-Control-Answer> ::= < Diameter Header: 272, PXY >
-                                    < Session-Id >
-                                    { Result-Code }
-                                    { Origin-Host }
-                                    { Origin-Realm }
-                                    { Auth-Application-Id }
-                                    { CC-Request-Type }
-                                    { CC-Request-Number }
-                                    [ User-Name ]
-                                    [ CC-Session-Failover ]
-                                    [ CC-Sub-Session-Id ]
-                                    [ Acct-Multi-Session-Id ]
-                                    [ Origin-State-Id ]
-                                    [ Event-Timestamp ]
-                                    [ Granted-Service-Unit ]
-                                   *[ Multiple-Services-Credit-Control ]
-                                    [ Cost-Information ]
-                                    [ Final-Unit-Indication ]
-                                    [ QoS-Final-Unit-Indication ]
+                                  < Session-Id >
+                                  { Result-Code }
+                                  { Origin-Host }
+                                  { Origin-Realm }
+                                  { Auth-Application-Id }
+                                  { CC-Request-Type }
+                                  { CC-Request-Number }
+                                  [ User-Name ]
+                                  [ CC-Session-Failover ]
+                                  [ CC-Sub-Session-Id ]
+                                  [ Acct-Multi-Session-Id ]
+                                  [ Origin-State-Id ]
+                                  [ Event-Timestamp ]
+                                  [ Granted-Service-Unit ]
+                                 *[ Multiple-Services-Credit-Control ]
+                                  [ Cost-Information]
+                                  [ Final-Unit-Indication ]
+                                  [ QoS-Final-Unit-Indication ]
+                                  [ Check-Balance-Result ]
+                                  [ Credit-Control-Failure-Handling ]
+                                  [ Direct-Debiting-Failure-Handling ]
+                                  [ Validity-Time]
+                                 *[ Redirect-Host]
+                                  [ Redirect-Host-Usage ]
+                                  [ Redirect-Max-Cache-Time ]
+                                 *[ Proxy-Info ]
+                                 *[ Route-Record ]
+                                 *[ Failed-AVP ]
+                                 *[ AVP ]
+                                    
  */
-@DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Accounting-Answer")
-public interface CreditControlAnswer extends DiameterAnswer
+@DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Credit-Control-Answer")
+public interface CreditControlAnswer extends AuthenticationAnswer
 {
-    public Long getAuthApplicationId();
+    CcRequestTypeEnum getCcRequestType();
 	
-	CcRequestTypeEnum getCcRequestType();
-	
-	void setCcRequestType(CcRequestTypeEnum ccRequestType);
+	void setCcRequestType(CcRequestTypeEnum value);
 	
 	Long getCcRequestNumber();
 	
-	void setCcRequestNumber(Long ccRequestNumber);
+	void setCcRequestNumber(Long value);
 	
 	public CcSessionFailoverEnum getCcSessionFailover();
 	
-	void setCcSessionFailover(CcSessionFailoverEnum ccSessionFailover);
+	void setCcSessionFailover(CcSessionFailoverEnum value);
 	
 	public Long getCcSubSessionId() throws AvpNotSupportedException;
 	
@@ -92,13 +105,13 @@ public interface CreditControlAnswer extends DiameterAnswer
 	
 	void setAcctMultiSessionId(String value) throws AvpNotSupportedException;
 	
-	public Date getEventTimestamp();
+	public Date getEventTimestamp() throws AvpNotSupportedException;
 	
-	void setEventTimestamp(Date value);
+	void setEventTimestamp(Date value) throws AvpNotSupportedException;
 	
-	public GrantedServiceUnit getGrantedServiceUnit();
+	public GrantedServiceUnit getGrantedServiceUnit() throws AvpNotSupportedException;
 	
-	void setGrantedServiceUnit(GrantedServiceUnit value);
+	void setGrantedServiceUnit(GrantedServiceUnit value) throws AvpNotSupportedException;
 	
 	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
 	
@@ -108,12 +121,28 @@ public interface CreditControlAnswer extends DiameterAnswer
 	
 	void setCostInformation(CostInformation value);
 	
-	public FinalUnitIndication getFinalUnitIndication();
+	public FinalUnitIndication getFinalUnitIndication() throws AvpNotSupportedException;
 	
-	void setFinalUnitIndication(FinalUnitIndication value);
+	void setFinalUnitIndication(FinalUnitIndication value) throws AvpNotSupportedException;
 	
-	public QoSFinalUnitIndication getQoSFinalUnitIndication();
+	public QoSFinalUnitIndication getQosFinalUnitIndication() throws AvpNotSupportedException;
 	
-	void setQoSFinalUnitIndication(QoSFinalUnitIndication value);
+	void setQosFinalUnitIndication(QoSFinalUnitIndication value) throws AvpNotSupportedException;
+	
+	public CheckBalanceResultEnum getCheckBalanceResult() throws AvpNotSupportedException;
+	
+	void setCheckBalanceResult(CheckBalanceResultEnum value) throws AvpNotSupportedException;
+	
+	public CreditControlFailureHandlingEnum getCreditControlFailureHandling();
+	
+	void setCreditControlFailureHandling(CreditControlFailureHandlingEnum value);
+	
+	public DirectDebitingFailureHandlingEnum getDirectDebitingFailureHandling();
+	
+	void setDirectDebitingFailureHandling(DirectDebitingFailureHandlingEnum value);
+	
+	public Long getValidityTime() throws AvpNotSupportedException;
+	
+	void setValidityTime(Long value) throws AvpNotSupportedException;
 	
 }

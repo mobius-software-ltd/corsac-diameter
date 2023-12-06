@@ -50,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
                   * [ Route-Record ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 258, request = true, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 258, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends AuthenticationRequest
 {  
 	public ReAuthRequestTypeEnum getReAuthRequestType();

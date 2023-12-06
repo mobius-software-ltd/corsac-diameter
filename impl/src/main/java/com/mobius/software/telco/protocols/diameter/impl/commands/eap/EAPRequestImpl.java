@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -98,8 +99,8 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 1, commandCode = 265, request = true)
-public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestmpl implements EAPRequest
+@DiameterCommandImplementation(applicationId = 5, commandCode = 268, request = true)
+public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestImpl implements EAPRequest
 {
 	private AuthRequestType authRequestType;
 	
@@ -164,9 +165,13 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 		super();
 	}
 	
-	public EAPRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId)
+	public EAPRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload)
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		
+		setAuthRequestType(authRequestType);
+		
+		setEAPPayload(eapPayload);
 	}
 
 	@Override
@@ -179,12 +184,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setAuthRequestType(AuthRequestTypeEnum authRequestType) 
+	public void setAuthRequestType(AuthRequestTypeEnum value) 
 	{
-		if(authRequestType == null)
-			this.authRequestType = null;
-		else
-			this.authRequestType = new AuthRequestTypeImpl(authRequestType, null, null);
+		if(value==null)
+			throw new IllegalArgumentException("Auth-Request-Type is required");
+		
+		this.authRequestType = new AuthRequestTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -197,12 +202,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setNASIdentifier(String nasIdentifier) 
+	public void setNASIdentifier(String value) 
 	{
-		if(nasIdentifier == null)
+		if(value == null)
 			this.nasIdentifier = null;
 		else
-			this.nasIdentifier = new NASIdentifierImpl(nasIdentifier, null, null);
+			this.nasIdentifier = new NASIdentifierImpl(value, null, null);
 	}
 
 	@Override
@@ -215,12 +220,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setNASIPAddress(Inet4Address nasIPAddress) 
+	public void setNASIPAddress(Inet4Address value) 
 	{
-		if(nasIPAddress == null)
+		if(value == null)
 			this.nasIPAddress = null;
 		else
-			this.nasIPAddress = new NASIPAddressImpl(nasIPAddress);
+			this.nasIPAddress = new NASIPAddressImpl(value);
 	}
 
 	@Override
@@ -233,12 +238,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setNASIPv6Address(Inet6Address nasIPv6Address) 
+	public void setNASIPv6Address(Inet6Address value) 
 	{
-		if(nasIPv6Address == null)
+		if(value == null)
 			this.nasIPv6Address = null;
 		else
-			this.nasIPv6Address = new NASIPv6AddressImpl(nasIPv6Address);
+			this.nasIPv6Address = new NASIPv6AddressImpl(value);
 	}
 
 	@Override
@@ -251,12 +256,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setNASPort(Long nasPort) 
+	public void setNASPort(Long value) 
 	{
-		if(nasPort == null)
+		if(value == null)
 			this.nasPort = null;
 		else
-			this.nasPort = new NASPortImpl(nasPort, null, null);
+			this.nasPort = new NASPortImpl(value, null, null);
 	}
 
 	@Override
@@ -269,12 +274,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setNASPortId(String nasPortId) 
+	public void setNASPortId(String value) 
 	{
-		if(nasPortId == null)
+		if(value == null)
 			this.nasPortId = null;
 		else
-			this.nasPortId = new NASPortIdImpl(nasPortId, null, null);
+			this.nasPortId = new NASPortIdImpl(value, null, null);
 	}
 
 	@Override
@@ -287,12 +292,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setNASPortType(NASPortTypeEnum nasPortType) 
+	public void setNASPortType(NASPortTypeEnum value) 
 	{
-		if(nasPortType == null)
+		if(value == null)
 			this.nasPortType = null;
 		else
-			this.nasPortType = new NASPortTypeImpl(nasPortType, null, null);
+			this.nasPortType = new NASPortTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -305,12 +310,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setPortLimit(Long portLimit) 
+	public void setPortLimit(Long value) 
 	{
-		if(portLimit == null)
+		if(value == null)
 			this.portLimit = null;
 		else
-			this.portLimit = new PortLimitImpl(portLimit, null, null);
+			this.portLimit = new PortLimitImpl(value, null, null);
 	}
 
 	@Override
@@ -323,12 +328,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setUserPassword(ByteBuf userPassword) 
+	public void setUserPassword(ByteBuf value) 
 	{
-		if(userPassword == null)
+		if(value == null)
 			this.userPassword = null;
 		else
-			this.userPassword = new UserPasswordImpl(userPassword, null, null);
+			this.userPassword = new UserPasswordImpl(value, null, null);
 	}
 
 	@Override
@@ -341,12 +346,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setEAPPayload(ByteBuf eapPayload) 
+	public void setEAPPayload(ByteBuf value) 
 	{
-		if(eapPayload == null)
-			this.eapPayload = null;
-		else
-			this.eapPayload = new EAPPayloadImpl(eapPayload, null, null);
+		if(value==null)
+			throw new IllegalArgumentException("EAP-Payload is required");				
+
+		this.eapPayload = new EAPPayloadImpl(value, null, null);
 	}
 
 	@Override
@@ -359,12 +364,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setEAPKeyName(ByteBuf eapKeyName) 
+	public void setEAPKeyName(ByteBuf value) 
 	{
-		if(eapKeyName == null)
+		if(value == null)
 			this.eapKeyName = null;
 		else
-			this.eapKeyName = new EAPKeyNameImpl(eapKeyName, null, null);
+			this.eapKeyName = new EAPKeyNameImpl(value, null, null);
 	}
 
 	@Override
@@ -377,12 +382,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setServiceType(ServiceTypeEnum serviceType) 
+	public void setServiceType(ServiceTypeEnum value) 
 	{
-		if(serviceType == null)
+		if(value == null)
 			this.serviceType = null;
 		else
-			this.serviceType = new ServiceTypeImpl(serviceType, null, null);
+			this.serviceType = new ServiceTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -395,12 +400,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setState(ByteBuf state) 
+	public void setState(ByteBuf value) 
 	{
-		if(state == null)
+		if(value == null)
 			this.state = null;
 		else
-			this.state = new StateImpl(state, null, null);
+			this.state = new StateImpl(value, null, null);
 	}
 
 	@Override
@@ -413,12 +418,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setAuthorizationLifetime(Long authorizationLifetime) 
+	public void setAuthorizationLifetime(Long value) 
 	{
-		if(authorizationLifetime == null)
+		if(value == null)
 			this.authorizationLifetime = null;
 		else
-			this.authorizationLifetime = new AuthorizationLifetimeImpl(authorizationLifetime, null, null);
+			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
 	}
 
 	@Override
@@ -431,12 +436,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setAuthGracePeriod(Long authGracePeriod) 
+	public void setAuthGracePeriod(Long value) 
 	{
-		if(authGracePeriod == null)
+		if(value == null)
 			this.authGracePeriod = null;
 		else
-			this.authGracePeriod = new AuthGracePeriodImpl(authGracePeriod, null, null);
+			this.authGracePeriod = new AuthGracePeriodImpl(value, null, null);
 	}
 
 	@Override
@@ -449,12 +454,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum authSessionState) 
+	public void setAuthSessionState(AuthSessionStateEnum value) 
 	{
-		if(authSessionState == null)
+		if(value == null)
 			this.authSessionState = null;
 		else
-			this.authSessionState = new AuthSessionStateImpl(authSessionState, null, null);
+			this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -467,12 +472,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setCallbackNumber(String callbackNumber) 
+	public void setCallbackNumber(String value) 
 	{
-		if(callbackNumber == null)
+		if(value == null)
 			this.callbackNumber = null;
 		else
-			this.callbackNumber = new CallbackNumberImpl(callbackNumber, null, null);
+			this.callbackNumber = new CallbackNumberImpl(value, null, null);
 	}
 
 	@Override
@@ -485,12 +490,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setCalledStationId(String calledStationId) 
+	public void setCalledStationId(String value) 
 	{
-		if(calledStationId == null)
+		if(value == null)
 			this.calledStationId = null;
 		else
-			this.calledStationId = new CalledStationIdImpl(calledStationId, null, null);
+			this.calledStationId = new CalledStationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -503,12 +508,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setCallingStationId(String callingStationId) 
+	public void setCallingStationId(String value) 
 	{
-		if(callingStationId == null)
+		if(value == null)
 			this.callingStationId = null;
 		else
-			this.callingStationId = new CallingStationIdImpl(callingStationId, null, null);
+			this.callingStationId = new CallingStationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -521,12 +526,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setOriginatingLineInfo(ByteBuf originatingLineInfo) 
+	public void setOriginatingLineInfo(ByteBuf value) 
 	{
-		if(originatingLineInfo == null)
+		if(value == null)
 			this.originatingLineInfo = null;
 		else
-			this.originatingLineInfo = new OriginatingLineInfoImpl(originatingLineInfo, null, null);
+			this.originatingLineInfo = new OriginatingLineInfoImpl(value, null, null);
 	}
 
 	@Override
@@ -539,12 +544,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setConnectInfo(String connectInfo) 
+	public void setConnectInfo(String value) 
 	{
-		if(connectInfo == null)
+		if(value == null)
 			this.connectInfo = null;
 		else
-			this.connectInfo = new ConnectInfoImpl(connectInfo, null, null);
+			this.connectInfo = new ConnectInfoImpl(value, null, null);
 	}
 
 	@Override
@@ -561,14 +566,14 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setFramedCompression(List<FramedCompressionEnum> framedCompression) 
+	public void setFramedCompression(List<FramedCompressionEnum> value) 
 	{
-		if(framedCompression == null || framedCompression.size()==0)
+		if(value == null || value.size()==0)
 			this.framedCompression = null;
 		else
 		{
 			this.framedCompression = new ArrayList<FramedCompression>();
-			for(FramedCompressionEnum curr:framedCompression)
+			for(FramedCompressionEnum curr:value)
 				this.framedCompression.add(new FramedCompressionImpl(curr, null, null));
 		}
 	}
@@ -583,12 +588,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setFramedInterfaceId(Long framedInterfaceId) 
+	public void setFramedInterfaceId(Long value) 
 	{
-		if(framedInterfaceId == null)
+		if(value == null)
 			this.framedInterfaceId = null;
 		else
-			this.framedInterfaceId = new FramedInterfaceIdImpl(framedInterfaceId, null, null);
+			this.framedInterfaceId = new FramedInterfaceIdImpl(value, null, null);
 	}
 
 	@Override
@@ -601,12 +606,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setFramedIPAddress(Inet4Address framedIPAddress) 
+	public void setFramedIPAddress(Inet4Address value) 
 	{
-		if(framedIPAddress == null)
+		if(value == null)
 			this.framedIPAddress = null;
 		else
-			this.framedIPAddress = new FramedIPAddressImpl(framedIPAddress);
+			this.framedIPAddress = new FramedIPAddressImpl(value);
 	}
 
 	@Override
@@ -623,14 +628,14 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setFramedIPv6Prefix(List<ByteBuf> framedIPv6Prefix) 
+	public void setFramedIPv6Prefix(List<ByteBuf> value) 
 	{
-		if(framedIPv6Prefix == null || framedIPv6Prefix.size()==0)
+		if(value == null || value.size()==0)
 			this.framedIPv6Prefix = null;
 		else
 		{
 			this.framedIPv6Prefix = new ArrayList<FramedIPv6Prefix>();
-			for(ByteBuf curr:framedIPv6Prefix)
+			for(ByteBuf curr:value)
 				this.framedIPv6Prefix.add(new FramedIPv6PrefixImpl(curr, null, null));
 		}
 	}
@@ -645,12 +650,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setFramedIPNetmask(ByteBuf framedIPNetmask) 
+	public void setFramedIPNetmask(ByteBuf value) 
 	{
-		if(framedIPNetmask == null)
+		if(value == null)
 			this.framedIPNetmask = null;
 		else
-			this.framedIPNetmask = new FramedIPNetmaskImpl(framedIPNetmask, null, null);
+			this.framedIPNetmask = new FramedIPNetmaskImpl(value, null, null);
 	}
 
 	@Override
@@ -663,12 +668,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setFramedMTU(Long framedMTU) 
+	public void setFramedMTU(Long value) 
 	{
-		if(framedMTU == null)
+		if(value == null)
 			this.framedMTU = null;
 		else
-			this.framedMTU = new FramedMTUImpl(framedMTU, null, null);
+			this.framedMTU = new FramedMTUImpl(value, null, null);
 	}
 
 	@Override
@@ -681,12 +686,12 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setFramedProtocol(FramedProtocolEnum framedProtocol) 
+	public void setFramedProtocol(FramedProtocolEnum value) 
 	{
-		if(framedProtocol == null)
+		if(value == null)
 			this.framedProtocol = null;
 		else
-			this.framedProtocol = new FramedProtocolImpl(framedProtocol, null, null);
+			this.framedProtocol = new FramedProtocolImpl(value, null, null);
 	}
 
 	@Override
@@ -696,8 +701,20 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 	}
 
 	@Override
-	public void setTunneling(List<Tunneling> tunneling) 
+	public void setTunneling(List<Tunneling> value) 
 	{
-		this.tunneling = tunneling;
+		this.tunneling = value;
+	}
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authRequestType==null)
+			throw new IllegalArgumentException("Auth-Request-Type is required");
+		
+		if(eapPayload==null)
+			return "EAP-Payload is required";
+		
+		return super.validate();
 	}
 }

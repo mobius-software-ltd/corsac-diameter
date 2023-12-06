@@ -126,7 +126,7 @@ import io.netty.buffer.ByteBuf;
  		* 	[ RAN-Secondary-RAT-Usage-Report ]
    			[ PSCell-Info ]
 */
-@DiameterAvpDefinition(code = 865L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Furnish-Charging-Information")
+@DiameterAvpDefinition(code = 874L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Information")
 public interface PSInformation extends DiameterAvp
 {
 	List<SupportedFeatures> getSupportedFeatures();

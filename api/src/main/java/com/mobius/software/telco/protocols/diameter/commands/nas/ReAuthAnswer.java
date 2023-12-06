@@ -67,45 +67,45 @@ public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diamet
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();
 	
-	void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol);	
+	void setOriginAAAProtocol(OriginAAAProtocolEnum value);	
 	
 	ServiceTypeEnum getServiceType();
 	
-	void setServiceType(ServiceTypeEnum serviceType);	
+	void setServiceType(ServiceTypeEnum value);	
 	
 	List<ByteBuf> getConfigurationToken();
 
-	void setConfigurationToken(List<ByteBuf> configurationToken);	
+	void setConfigurationToken(List<ByteBuf> value);	
 	
 	Long getIdleTimeout();
 	
-	void setIdleTimeout(Long idleTimeout);	
+	void setIdleTimeout(Long value);	
 	
 	Long getAuthorizationLifetime();
 	
-	void setAuthorizationLifetime(Long authorizationLifetime);	
+	void setAuthorizationLifetime(Long value);	
 	
 	Long getAuthGracePeriod();
 	
-	void setAuthGracePeriod(Long authGracePeriod);	
+	void setAuthGracePeriod(Long value);	
 	
 	ReAuthRequestTypeEnum getReAuthRequestType();
 	
-	void setReAuthRequestType(ReAuthRequestTypeEnum reAuthRequestType);	
+	void setReAuthRequestType(ReAuthRequestTypeEnum value);	
 	
 	ByteBuf getState();
 	
-	void setState(ByteBuf state);	
+	void setState(ByteBuf value);	
 	
 	List<ByteBuf> getDiameterClass();
 
-	void setDiameterClass(List<ByteBuf> diameterClass);	
+	void setDiameterClass(List<ByteBuf> value);	
 	
 	List<String> getReplyMessage();
 
-	void setReplyMessage(List<String> replyMessage);
+	void setReplyMessage(List<String> value);
 	
 	PromptEnum getPrompt();
 	
-	void setPrompt(PromptEnum prompt);		
+	void setPrompt(PromptEnum value);		
 }

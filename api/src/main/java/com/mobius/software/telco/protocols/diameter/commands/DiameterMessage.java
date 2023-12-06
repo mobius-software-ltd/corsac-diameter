@@ -57,7 +57,7 @@ public interface DiameterMessage extends DiameterGroupedAvp
 	
 	public Long getOriginStateId() throws AvpNotSupportedException;
 	
-	void setOriginStateId(Long originStateId) throws AvpNotSupportedException;	
+	void setOriginStateId(Long value) throws AvpNotSupportedException;	
 	
 	public String getUsername() throws AvpNotSupportedException;
 	
@@ -65,7 +65,7 @@ public interface DiameterMessage extends DiameterGroupedAvp
 	
 	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException;
 	
-	void setProxyInfo(List<ProxyInfo> proxyInfo) throws AvpNotSupportedException;	
+	void setProxyInfo(List<ProxyInfo> value) throws AvpNotSupportedException;	
 	
 	void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException;
 }

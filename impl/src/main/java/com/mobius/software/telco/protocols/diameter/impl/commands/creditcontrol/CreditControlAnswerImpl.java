@@ -7,16 +7,18 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSessionFailoverImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSubSessionIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CheckBalanceResultImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CreditControlFailureHandlingImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.DirectDebitingFailureHandlingImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
@@ -24,11 +26,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailover;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSubSessionId;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CheckBalanceResult;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CheckBalanceResultEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandling;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandlingEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandling;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandlingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoSFinalUnitIndication;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ValidityTime;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -54,11 +63,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoS
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 272, request = false)
-public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase implements CreditControlAnswer
+@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = false)
+public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements CreditControlAnswer
 {
-	private AuthApplicationId authApplicationId;
-	
 	private CcRequestType ccRequestType;
 	
 	private CcRequestNumber ccRequestNumber;
@@ -81,6 +88,23 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	
 	private QoSFinalUnitIndication qosFinalUnitIndication;
 	
+	private CheckBalanceResult checkBalanceResult;
+	
+	private CreditControlFailureHandling creditControlFailureHandling;
+	
+	private DirectDebitingFailureHandling directDebitingFailureHandling;
+    
+	private ValidityTime validityTime;
+	
+	private boolean ccSubSessionIdAllowed = true;
+	private boolean acctMultiSessionIdAllowed = true;
+	private boolean eventTimestampAllowed = true;
+	private boolean grantedServiceUnitAllowed = true;
+	private boolean finalUnitIndicationAllowed = true;
+	private boolean qosFinalUnitIndicationAllowed = true;
+	private boolean checkBalanceResultAllowed = true;
+	private boolean validityTimeAllowed = true;
+	
 	protected CreditControlAnswerImpl() 
 	{
 		super();
@@ -89,51 +113,63 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	
 	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, 4L);
 		setExperimentalResultAllowed(false);
 		
-		authApplicationId = new AuthApplicationIdImpl(4L, null, null);
+		setCcRequestType(ccRequestType);
 		
-		if(ccRequestType==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
-		
-		if(ccRequestNumber==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
-		
-		this.ccRequestType = new CcRequestTypeImpl(ccRequestType, null, null);
-		
-		this.ccRequestNumber = new CcRequestNumberImpl(ccRequestNumber, null, null);
+		setCcRequestNumber(ccRequestNumber);
 	}
 	
 	//for overriding with different auth application ID
-	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);
 		
-		if(authApplicationId==null)			
-			this.authApplicationId = new AuthApplicationIdImpl(4L, null, null);
-		else
-			this.authApplicationId = new AuthApplicationIdImpl(authApplicationId, null, null);
+		setCcRequestType(ccRequestType);
 		
-		if(ccRequestType==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
-		
-		if(ccRequestNumber==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
-		
-		this.ccRequestType = new CcRequestTypeImpl(ccRequestType, null, null);
-		
-		this.ccRequestNumber = new CcRequestNumberImpl(ccRequestNumber, null, null);
+		setCcRequestNumber(ccRequestNumber);
 	}
 
-	@Override
-	public Long getAuthApplicationId() 
+	protected void setCCSubSessionIdAllowed(boolean allowed) 
 	{
-		if(authApplicationId==null)
-			return null;
-		
-		return authApplicationId.getUnsigned();
+		this.ccSubSessionIdAllowed = allowed;
+	}
+	
+	protected void setAcctMultiSessionIdAllowed(boolean allowed) 
+	{
+		this.acctMultiSessionIdAllowed = allowed;
+	}
+	
+	protected void setEventTimestampAllowed(boolean allowed) 
+	{
+		this.eventTimestampAllowed = allowed;
+	}
+	
+	protected void setGrantedServiceUnitAllowed(boolean allowed) 
+	{
+		this.grantedServiceUnitAllowed = allowed;
+	}
+	
+	protected void setFinalUnitIndicationAllowed(boolean allowed) 
+	{
+		this.finalUnitIndicationAllowed = allowed;
+	}
+	
+	protected void setQosFinalUnitIndicationAllowedAllowed(boolean allowed) 
+	{
+		this.qosFinalUnitIndicationAllowed = allowed;
+	}
+	
+	protected void setCheckBalanceResultAllowed(boolean allowed) 
+	{
+		this.checkBalanceResultAllowed = allowed;
+	}
+	
+	protected void setValidityTimeAllowed(boolean allowed) 
+	{
+		this.validityTimeAllowed = allowed;
 	}
 
 	@Override
@@ -146,12 +182,12 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	}
 
 	@Override
-	public void setCcRequestType(CcRequestTypeEnum ccRequestType) 
+	public void setCcRequestType(CcRequestTypeEnum value) 
 	{
-		if(ccRequestType==null)
+		if(value==null)
 			throw new IllegalArgumentException("CC-Request-Type is required");
 		
-		this.ccRequestType = new CcRequestTypeImpl(ccRequestType, null, null);
+		this.ccRequestType = new CcRequestTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -164,12 +200,12 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	}
 
 	@Override
-	public void setCcRequestNumber(Long ccRequestNumber) 
+	public void setCcRequestNumber(Long value) 
 	{
-		if(ccRequestNumber==null)
+		if(value==null)
 			throw new IllegalArgumentException("CC-Request-Number is required");	
 		
-		this.ccRequestNumber = new CcRequestNumberImpl(ccRequestNumber, null, null);
+		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
 	
 	@Override
@@ -182,17 +218,20 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	}
 
 	@Override
-	public void setCcSessionFailover(CcSessionFailoverEnum ccSessionFailover) 
+	public void setCcSessionFailover(CcSessionFailoverEnum value) 
 	{
-		if(ccRequestType==null)
+		if(value==null)
 			this.ccSessionFailover = null;
 		else
-			this.ccSessionFailover = new CcSessionFailoverImpl(ccSessionFailover, null, null);
+			this.ccSessionFailover = new CcSessionFailoverImpl(value, null, null);
 	}
 		    
 	@Override
 	public Long getCcSubSessionId() throws AvpNotSupportedException
 	{
+		if(!ccSubSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(this.ccSubSessionId==null)
 			return null;
 		
@@ -202,6 +241,9 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	@Override
 	public void setCcSubSessionId(Long value) throws AvpNotSupportedException
 	{
+		if(!ccSubSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(value == null)
 			this.ccSubSessionId = null;
 		else
@@ -211,6 +253,9 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	@Override
 	public String getAcctMultiSessionId() throws AvpNotSupportedException
 	{
+		if(!acctMultiSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(this.acctMultiSessionId == null)
 			return null;
 		
@@ -220,6 +265,9 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	@Override
 	public void setAcctMultiSessionId(String value) throws AvpNotSupportedException
 	{
+		if(!acctMultiSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(value == null)
 			this.acctMultiSessionId = null;
 		else
@@ -227,8 +275,11 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	}
 	
 	@Override
-	public Date getEventTimestamp() 
+	public Date getEventTimestamp() throws AvpNotSupportedException
 	{
+		if(!eventTimestampAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(eventTimestamp == null)
 			return null;
 		
@@ -236,8 +287,11 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	}
 
 	@Override
-	public void setEventTimestamp(Date value) 
+	public void setEventTimestamp(Date value) throws AvpNotSupportedException 
 	{
+		if(!eventTimestampAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(value == null)
 			this.eventTimestamp = null;
 		else
@@ -245,14 +299,20 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	}	
 	
 	@Override
-	public GrantedServiceUnit getGrantedServiceUnit() 
+	public GrantedServiceUnit getGrantedServiceUnit() throws AvpNotSupportedException
 	{
+		if(!grantedServiceUnitAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return grantedServiceUnit;
 	}
 
 	@Override
-	public void setGrantedServiceUnit(GrantedServiceUnit value) 
+	public void setGrantedServiceUnit(GrantedServiceUnit value) throws AvpNotSupportedException 
 	{
+		if(!grantedServiceUnitAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		this.grantedServiceUnit = value;
 	}	
 	
@@ -281,27 +341,123 @@ public class CreditControlAnswerImpl extends DiameterAnswerWithSessionBase imple
 	}
 	
 	@Override
-	public FinalUnitIndication getFinalUnitIndication() 
+	public FinalUnitIndication getFinalUnitIndication() throws AvpNotSupportedException
 	{
+		if(!finalUnitIndicationAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return finalUnitIndication;
 	}
 
 	@Override
-	public void setFinalUnitIndication(FinalUnitIndication value) 
+	public void setFinalUnitIndication(FinalUnitIndication value) throws AvpNotSupportedException
 	{
+		if(!finalUnitIndicationAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		this.finalUnitIndication = value;
 	}
 	
 	@Override
-	public QoSFinalUnitIndication getQoSFinalUnitIndication() 
+	public QoSFinalUnitIndication getQosFinalUnitIndication() throws AvpNotSupportedException
 	{
+		if(!qosFinalUnitIndicationAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return qosFinalUnitIndication;
 	}
 
 	@Override
-	public void setQoSFinalUnitIndication(QoSFinalUnitIndication value) 
+	public void setQosFinalUnitIndication(QoSFinalUnitIndication value) throws AvpNotSupportedException
 	{
+		if(!qosFinalUnitIndicationAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		this.qosFinalUnitIndication = value;
+	}
+	
+	@Override
+	public CheckBalanceResultEnum getCheckBalanceResult() throws AvpNotSupportedException 
+	{
+		if(!checkBalanceResultAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(checkBalanceResult==null)
+			return null;
+		
+		return checkBalanceResult.getEnumerated(CheckBalanceResultEnum.class);
+	}
+
+	@Override
+	public void setCheckBalanceResult(CheckBalanceResultEnum value) throws AvpNotSupportedException 
+	{
+		if(!checkBalanceResultAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(value==null)
+			this.checkBalanceResult = null;
+		else
+			this.checkBalanceResult = new CheckBalanceResultImpl(value, null, null);
+	}
+	
+	@Override
+	public CreditControlFailureHandlingEnum getCreditControlFailureHandling() 
+	{
+		if(creditControlFailureHandling==null)
+			return null;
+		
+		return creditControlFailureHandling.getEnumerated(CreditControlFailureHandlingEnum.class);
+	}
+
+	@Override
+	public void setCreditControlFailureHandling(CreditControlFailureHandlingEnum value) 
+	{
+		if(value==null)
+			this.creditControlFailureHandling = null;
+		else
+			this.creditControlFailureHandling = new CreditControlFailureHandlingImpl(value, null, null);
+	}
+	
+	@Override
+	public DirectDebitingFailureHandlingEnum getDirectDebitingFailureHandling() 
+	{
+		if(directDebitingFailureHandling==null)
+			return null;
+		
+		return directDebitingFailureHandling.getEnumerated(DirectDebitingFailureHandlingEnum.class);
+	}
+
+	@Override
+	public void setDirectDebitingFailureHandling(DirectDebitingFailureHandlingEnum value) 
+	{
+		if(value==null)
+			this.directDebitingFailureHandling = null;
+		else
+			this.directDebitingFailureHandling = new DirectDebitingFailureHandlingImpl(value, null, null);
+	}
+	
+	@Override
+	public Long getValidityTime() throws AvpNotSupportedException
+	{
+		if(!validityTimeAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(validityTime == null)
+			return null;
+		
+		return validityTime.getUnsigned();
+	}
+
+	@Override
+	public void setValidityTime(Long value) throws AvpNotSupportedException
+	{
+		if(!validityTimeAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(value == null)
+			this.validityTime = null;
+		else
+			this.validityTime = new ValidityTimeImpl(value, null, null);
 	}
 	
 	@DiameterValidate

@@ -74,7 +74,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 272, request = true)
+@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = true)
 public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealmBase implements CreditControlRequest
 {	
 	private AuthApplicationId authApplicationId;
@@ -119,6 +119,15 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	
 	public List<RouteRecord> routeRecords;
 	
+	private boolean ccSubSessionIdAllowed = true;
+	private boolean acctMultiSessionIdAllowed = true;
+	private boolean subscriptionIdExtensionAllowed = true;
+	private boolean serviceIdentifierAllowed = true;
+	private boolean requestedServiceUnitAllowed = true;
+	private boolean usedServiceUnitAllowed = true;
+	private boolean serviceParameterInfoAllowed = true;
+	private boolean userEquipmentInfoExtensionAllowed = true;
+	
 	protected CreditControlRequestImpl() 
 	{
 		super();
@@ -131,20 +140,12 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		setDestinationHostAllowed(false);
 		
 		this.authApplicationId = new AuthApplicationIdImpl(4L, null, null);
-		if(serviceContextId==null)
-			throw new IllegalArgumentException("Service-Context-Id is required");
 		
-		if(ccRequestType==null)
-			throw new IllegalArgumentException("Accounting-Record-Type is required");
+		setServiceContextId(serviceContextId);
 		
-		if(ccRequestNumber==null)
-			throw new IllegalArgumentException("Accounting-Record-Number is required");	
+		setCcRequestType(ccRequestType);
 		
-		this.serviceContextId = new ServiceContextIdImpl(serviceContextId, null, null);
-		
-		this.ccRequestType = new CcRequestTypeImpl(ccRequestType, null, null);
-		
-		this.ccRequestNumber = new CcRequestNumberImpl(ccRequestNumber, null, null);
+		setCcRequestNumber(ccRequestNumber);		
 	}
 	
 	protected CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
@@ -157,22 +158,53 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		else
 			this.authApplicationId = new AuthApplicationIdImpl(authApplicationId, null, null);
 		
-		if(serviceContextId==null)
-			throw new IllegalArgumentException("Service-Context-Id is required");
+		setServiceContextId(serviceContextId);
 		
-		if(ccRequestType==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
+		setCcRequestType(ccRequestType);
 		
-		if(ccRequestNumber==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
-		
-		this.serviceContextId = new ServiceContextIdImpl(serviceContextId, null, null);
-		
-		this.ccRequestType = new CcRequestTypeImpl(ccRequestType, null, null);
-		
-		this.ccRequestNumber = new CcRequestNumberImpl(ccRequestNumber, null, null);
+		setCcRequestNumber(ccRequestNumber);
 	}
 
+	protected void setCCSubSessionIdAllowed(boolean allowed) 
+	{
+		this.ccSubSessionIdAllowed = allowed;
+	}
+	
+	protected void setAcctMultiSessionIdAllowed(boolean allowed) 
+	{
+		this.acctMultiSessionIdAllowed = allowed;
+	}
+	
+	protected void setSubscriptionIdExtensionAllowed(boolean allowed) 
+	{
+		this.subscriptionIdExtensionAllowed = allowed;
+	}
+	
+	protected void setServiceIdentifierAllowed(boolean allowed) 
+	{
+		this.serviceIdentifierAllowed = allowed;
+	}
+	
+	protected void setRequestedServiceUnitAllowed(boolean allowed) 
+	{
+		this.requestedServiceUnitAllowed = allowed;
+	}
+	
+	protected void setUsedServiceUnitAllowed(boolean allowed) 
+	{
+		this.usedServiceUnitAllowed = allowed;
+	}
+	
+	protected void setServiceParameterInfoAllowed(boolean allowed) 
+	{
+		this.serviceParameterInfoAllowed = allowed;
+	}
+	
+	protected void setUserEquipmentInfoExtensionAllowed(boolean allowed) 
+	{
+		this.userEquipmentInfoExtensionAllowed = allowed;
+	}
+	
 	@Override
 	public String getServiceContextId() 
 	{
@@ -183,12 +215,12 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setServiceContextId(String serviceContextId) 
+	public void setServiceContextId(String value) 
 	{
-		if(serviceContextId==null)
+		if(value==null)
 			throw new IllegalArgumentException("Service-Context-Id is required");
 		
-		this.serviceContextId = new ServiceContextIdImpl(serviceContextId, null, null);		
+		this.serviceContextId = new ServiceContextIdImpl(value, null, null);		
 	}
 
 	@Override
@@ -201,12 +233,12 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setCcRequestType(CcRequestTypeEnum ccRequestType) 
+	public void setCcRequestType(CcRequestTypeEnum value) 
 	{
-		if(ccRequestType==null)
+		if(value==null)
 			throw new IllegalArgumentException("CC-Request-Type is required");
 		
-		this.ccRequestType = new CcRequestTypeImpl(ccRequestType, null, null);		
+		this.ccRequestType = new CcRequestTypeImpl(value, null, null);		
 	}
 
 	@Override
@@ -219,12 +251,12 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setCcRequestNumber(Long ccRequestNumber) 
+	public void setCcRequestNumber(Long value) 
 	{
-		if(ccRequestNumber==null)
+		if(value==null)
 			throw new IllegalArgumentException("CC-Request-Number is required");	
 		
-		this.ccRequestNumber = new CcRequestNumberImpl(ccRequestNumber, null, null);
+		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
 
 	@Override
@@ -239,6 +271,9 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	@Override
 	public Long getCcSubSessionId() throws AvpNotSupportedException
 	{
+		if(!ccSubSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(this.accountingSubSessionId==null)
 			return null;
 		
@@ -248,6 +283,9 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	@Override
 	public void setCcSubSessionId(Long value) throws AvpNotSupportedException
 	{
+		if(!ccSubSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(value == null)
 			this.accountingSubSessionId = null;
 		else
@@ -257,6 +295,9 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	@Override
 	public String getAcctMultiSessionId() throws AvpNotSupportedException
 	{
+		if(!acctMultiSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(this.acctMultiSessionId == null)
 			return null;
 		
@@ -266,6 +307,9 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	@Override
 	public void setAcctMultiSessionId(String value) throws AvpNotSupportedException
 	{
+		if(!acctMultiSessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(value == null)
 			this.acctMultiSessionId = null;
 		else
@@ -295,35 +339,47 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		return subscriptionId;
 	}
 
-	public void setSubscriptionId(List<SubscriptionId> subscriptionId) 
+	public void setSubscriptionId(List<SubscriptionId> value) 
 	{
-		this.subscriptionId = subscriptionId;
+		this.subscriptionId = value;
 	}
 
-	public List<SubscriptionIdExtension> getSubscriptionIdExtension() 
+	public List<SubscriptionIdExtension> getSubscriptionIdExtension() throws AvpNotSupportedException
 	{
+		if(!subscriptionIdExtensionAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return subscriptionIdExtension;
 	}
 
-	public void setSubscriptionIdExtension(List<SubscriptionIdExtension> subscriptionIdExtension) 
+	public void setSubscriptionIdExtension(List<SubscriptionIdExtension> value) throws AvpNotSupportedException
 	{
-		this.subscriptionIdExtension = subscriptionIdExtension;
+		if(!subscriptionIdExtensionAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		this.subscriptionIdExtension = value;
 	}
 
-	public Long getServiceIdentifier() 
+	public Long getServiceIdentifier() throws AvpNotSupportedException
 	{
+		if(!serviceIdentifierAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		if(serviceIdentifier == null)
 			return null;
 		
 		return serviceIdentifier.getUnsigned();
 	}
 
-	public void setServiceIdentifier(Long serviceIdentifier) 
+	public void setServiceIdentifier(Long value) throws AvpNotSupportedException
 	{
-		if(serviceIdentifier == null)
+		if(!serviceIdentifierAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(value == null)
 			this.serviceIdentifier = null;
 		else
-			this.serviceIdentifier = new ServiceIdentifierImpl(serviceIdentifier, null, null);
+			this.serviceIdentifier = new ServiceIdentifierImpl(value, null, null);
 	}
 
 	public TerminationCauseEnum getTerminationCause() 
@@ -334,22 +390,28 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		return terminationCause.getEnumerated(TerminationCauseEnum.class);
 	}
 
-	public void setTerminationCause(TerminationCauseEnum terminationCause) 
+	public void setTerminationCause(TerminationCauseEnum value) 
 	{
-		if(terminationCause == null)
+		if(value == null)
 			this.terminationCause = null;
 		else
-			this.terminationCause = new TerminationCauseImpl(terminationCause, null, null);
+			this.terminationCause = new TerminationCauseImpl(value, null, null);
 	}
 
-	public RequestedServiceUnit getRequestedServiceUnit() 
+	public RequestedServiceUnit getRequestedServiceUnit() throws AvpNotSupportedException 
 	{
+		if(!requestedServiceUnitAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return requestedServiceUnit;
 	}
 
-	public void setRequestedServiceUnit(RequestedServiceUnit requestedServiceUnit) 
+	public void setRequestedServiceUnit(RequestedServiceUnit value) throws AvpNotSupportedException
 	{
-		this.requestedServiceUnit = requestedServiceUnit;
+		if(!requestedServiceUnitAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		this.requestedServiceUnit = value;
 	}
 
 	public RequestedActionEnum getRequestedAction() 
@@ -360,22 +422,28 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		return requestedAction.getEnumerated(RequestedActionEnum.class);
 	}
 
-	public void setRequestedAction(RequestedActionEnum requestedAction) 
+	public void setRequestedAction(RequestedActionEnum value) 
 	{
-		if(requestedAction == null)
+		if(value == null)
 			this.requestedAction = null;
 		else
-			this.requestedAction = new RequestedActionImpl(requestedAction, null, null);
+			this.requestedAction = new RequestedActionImpl(value, null, null);
 	}
 
-	public List<UsedServiceUnit> getUsedServiceUnit() 
+	public List<UsedServiceUnit> getUsedServiceUnit() throws AvpNotSupportedException 
 	{
+		if(!usedServiceUnitAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return usedServiceUnit;
 	}
 
-	public void setUsedServiceUnit(List<UsedServiceUnit> usedServiceUnit) 
+	public void setUsedServiceUnit(List<UsedServiceUnit> value) throws AvpNotSupportedException
 	{
-		this.usedServiceUnit = usedServiceUnit;
+		if(!usedServiceUnitAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		this.usedServiceUnit = value;
 	}
 
 	public MultipleServicesIndicatorEnum getMultipleServicesIndicator() 
@@ -386,12 +454,12 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		return multipleServicesIndicator.getEnumerated(MultipleServicesIndicatorEnum.class);
 	}
 
-	public void setMultipleServicesIndicator(MultipleServicesIndicatorEnum multipleServicesIndicator) 
+	public void setMultipleServicesIndicator(MultipleServicesIndicatorEnum value) 
 	{
-		if(multipleServicesIndicator == null)
+		if(value == null)
 			this.multipleServicesIndicator = null;
 		else
-			this.multipleServicesIndicator = new MultipleServicesIndicatorImpl(multipleServicesIndicator, null, null);
+			this.multipleServicesIndicator = new MultipleServicesIndicatorImpl(value, null, null);
 	}
 
 	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl() 
@@ -399,18 +467,25 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		return multipleServicesCreditControl;
 	}
 
-	public void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> multipleServicesCreditControl) {
-		this.multipleServicesCreditControl = multipleServicesCreditControl;
+	public void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value) 
+	{
+		this.multipleServicesCreditControl = value;
 	}
 
-	public List<ServiceParameterInfo> getServiceParameterInfo() 
+	public List<ServiceParameterInfo> getServiceParameterInfo() throws AvpNotSupportedException
 	{
+		if(!serviceParameterInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return serviceParameterInfo;
 	}
 
-	public void setServiceParameterInfo(List<ServiceParameterInfo> serviceParameterInfo) 
+	public void setServiceParameterInfo(List<ServiceParameterInfo> value) throws AvpNotSupportedException
 	{
-		this.serviceParameterInfo = serviceParameterInfo;
+		if(!serviceParameterInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		this.serviceParameterInfo = value;
 	}
 
 	public ByteBuf getCcCorrelationId() 
@@ -421,12 +496,12 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		return ccCorrelationId.getValue();
 	}
 
-	public void setCcCorrelationId(ByteBuf ccCorrelationId) 
+	public void setCcCorrelationId(ByteBuf value) 
 	{
-		if(ccCorrelationId == null)
+		if(value == null)
 			this.ccCorrelationId = null;
 		else
-			this.ccCorrelationId = new CcCorrelationIdImpl(ccCorrelationId, null, null);
+			this.ccCorrelationId = new CcCorrelationIdImpl(value, null, null);
 	}
 
 	public UserEquipmentInfo getUserEquipmentInfo() 
@@ -434,19 +509,25 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		return userEquipmentInfo;
 	}
 
-	public void setUserEquipmentInfo(UserEquipmentInfo userEquipmentInfo) 
+	public void setUserEquipmentInfo(UserEquipmentInfo value) 
 	{
-		this.userEquipmentInfo = userEquipmentInfo;
+		this.userEquipmentInfo = value;
 	}
 
-	public UserEquipmentInfoExtension getUserEquipmentInfoExtension() 
+	public UserEquipmentInfoExtension getUserEquipmentInfoExtension() throws AvpNotSupportedException
 	{
+		if(!userEquipmentInfoExtensionAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
 		return userEquipmentInfoExtension;
 	}
 
-	public void setUserEquipmentInfoExtension(UserEquipmentInfoExtension userEquipmentInfoExtension) 
+	public void setUserEquipmentInfoExtension(UserEquipmentInfoExtension value) throws AvpNotSupportedException
 	{
-		this.userEquipmentInfoExtension = userEquipmentInfoExtension;
+		if(!userEquipmentInfoExtensionAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		this.userEquipmentInfoExtension = value;
 	}
 
 	@Override

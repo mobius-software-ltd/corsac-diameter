@@ -34,7 +34,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 275, request = false)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 275, request = false)
 public class SessionTerminationAnswerImpl extends AuthenticationAnswerImpl implements SessionTerminationAnswer
 {
 	private List<DiameterClass> diameterClass;

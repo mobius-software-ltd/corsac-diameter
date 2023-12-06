@@ -41,9 +41,9 @@ public class SessionTerminationRequestImpl extends com.mobius.software.telco.pro
 		super();
 	}
 		
-	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause)
+	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause)
 	{		
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, terminationCause);
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationID, terminationCause);
 	}
 
 	@Override
@@ -56,11 +56,11 @@ public class SessionTerminationRequestImpl extends com.mobius.software.telco.pro
 	}
 
 	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
+	public void setOriginAAAProtocol(OriginAAAProtocolEnum value) 
 	{
-		if(originAAAProtocol == null)
+		if(value == null)
 			this.originAAAProtocol = null;
 		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
+			this.originAAAProtocol = new OriginAAAProtocolImpl(value, null, null);
 	}
 }

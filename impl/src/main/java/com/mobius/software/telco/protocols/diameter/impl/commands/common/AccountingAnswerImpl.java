@@ -55,7 +55,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 271, request = false)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 271, request = false)
 public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implements AccountingAnswer
 {
 	private AccountingRecordType accountingRecordType;
@@ -95,15 +95,9 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(false);
 		
-		if(accountingRecordType==null)
-			throw new IllegalArgumentException("Accounting-Record-Type is required");
+		setAccountingRecordType(accountingRecordType);
 		
-		if(accountingRecordNumber==null)
-			throw new IllegalArgumentException("Accounting-Record-Number is required");	
-		
-		this.accountingRecordType = new AccountingRecordTypeImpl(accountingRecordType, null, null);
-		
-		this.accountingRecordNumber = new AccountingRecordNumberImpl(accountingRecordNumber, null, null);
+		setAccountingRecordNumber(accountingRecordNumber);		
 	}
 
 	protected void setVendorSpecificApplicationIdAllowed(boolean allowed) 
@@ -141,12 +135,12 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 	}
 
 	@Override
-	public void setAccountingRecordType(AccountingRecordTypeEnum accountingRecordType) 
+	public void setAccountingRecordType(AccountingRecordTypeEnum value) 
 	{
-		if(accountingRecordType==null)
+		if(value==null)
 			throw new IllegalArgumentException("Accounting-Record-Type is required");
 		
-		this.accountingRecordType = new AccountingRecordTypeImpl(accountingRecordType, null, null);
+		this.accountingRecordType = new AccountingRecordTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -159,12 +153,12 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 	}
 
 	@Override
-	public void setAccountingRecordNumber(Long accountingRecordNumber) 
+	public void setAccountingRecordNumber(Long value) 
 	{
-		if(accountingRecordNumber==null)
+		if(value==null)
 			throw new IllegalArgumentException("Accounting-Record-Number is required");	
 		
-		this.accountingRecordNumber = new AccountingRecordNumberImpl(accountingRecordNumber, null, null);
+		this.accountingRecordNumber = new AccountingRecordNumberImpl(value, null, null);
 	}
 
 	@Override
@@ -307,15 +301,15 @@ public class AccountingAnswerImpl extends DiameterAnswerWithSessionBase implemen
 	}
 
 	@Override
-	public void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum accountingRealtimeRequiredEnum) throws AvpNotSupportedException 
+	public void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum value) throws AvpNotSupportedException 
 	{
 		if(!accountingRealtimeRequiredAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
-		if(accountingRealtimeRequiredEnum==null)
+		if(value==null)
 			this.accountingRealtimeRequired = null;
 		else 
-			this.accountingRealtimeRequired = new AccountingRealtimeRequiredImpl(accountingRealtimeRequiredEnum, null, null);
+			this.accountingRealtimeRequired = new AccountingRealtimeRequiredImpl(value, null, null);
 	}
 	
 	@Override

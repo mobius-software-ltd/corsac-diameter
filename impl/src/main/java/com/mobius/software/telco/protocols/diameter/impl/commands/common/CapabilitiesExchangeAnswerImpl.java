@@ -91,22 +91,11 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 		setErrorReportingHostAllowed(false);
 		setUsernameAllowed(false);
 		
-		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
-			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
+		setHostIpAddress(hostIpAddresses);
 		
-		if(vendorId==null)
-			throw new IllegalArgumentException("Vendor-Id is required");
+		setVendorId(vendorId);
 		
-		if(productName==null)
-			throw new IllegalArgumentException("Product-Name is required");
-		
-		this.hostIpAddresses = new ArrayList<HostIpAddress>();
-		for(InetAddress curr:hostIpAddresses)
-			this.hostIpAddresses.add(new HostIpAddressImpl(curr, null, null));		
-		
-		this.vendorId = new VendorIdImpl(vendorId, null, null);
-		
-		this.productName = new ProductNameImpl(productName, null, null);
+		setProductName(productName);
 	}
 
 	@Override
@@ -165,7 +154,7 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	@Override
 	public void setProductName(String value) 
 	{
-		if(productName==null)
+		if(value==null)
 			throw new IllegalArgumentException("Product-Name is required");
 		
 		this.productName = new ProductNameImpl(value, null, null);

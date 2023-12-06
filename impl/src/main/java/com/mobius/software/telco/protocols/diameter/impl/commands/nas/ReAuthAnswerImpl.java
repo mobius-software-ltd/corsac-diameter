@@ -102,12 +102,12 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
+	public void setOriginAAAProtocol(OriginAAAProtocolEnum value) 
 	{
-		if(originAAAProtocol == null)
+		if(value == null)
 			this.originAAAProtocol = null;
 		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
+			this.originAAAProtocol = new OriginAAAProtocolImpl(value, null, null);
 	}
 
 	@Override
@@ -120,12 +120,12 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setServiceType(ServiceTypeEnum serviceType) 
+	public void setServiceType(ServiceTypeEnum value) 
 	{
-		if(serviceType == null)
+		if(value == null)
 			this.serviceType = null;
 		else
-			this.serviceType = new ServiceTypeImpl(serviceType, null, null);
+			this.serviceType = new ServiceTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -142,14 +142,14 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setConfigurationToken(List<ByteBuf> configurationToken) 
+	public void setConfigurationToken(List<ByteBuf> value) 
 	{
-		if(configurationToken == null || configurationToken.size()==0)
+		if(value == null || value.size()==0)
 			this.configurationToken = null;
 		else
 		{
 			this.configurationToken = new ArrayList<ConfigurationToken>();
-			for(ByteBuf curr:configurationToken)
+			for(ByteBuf curr:value)
 				this.configurationToken.add(new ConfigurationTokenImpl(curr, null, null));
 		}	
 	}
@@ -164,12 +164,12 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setIdleTimeout(Long idleTimeout) 
+	public void setIdleTimeout(Long value) 
 	{
-		if(idleTimeout == null)
+		if(value == null)
 			this.idleTimeout = null;
 		else
-			this.idleTimeout = new IdleTimeoutImpl(idleTimeout, null, null);
+			this.idleTimeout = new IdleTimeoutImpl(value, null, null);
 	}
 
 	@Override
@@ -182,12 +182,12 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setAuthorizationLifetime(Long authorizationLifetime) 
+	public void setAuthorizationLifetime(Long value) 
 	{
-		if(authorizationLifetime == null)
+		if(value == null)
 			this.authorizationLifetime = null;
 		else
-			this.authorizationLifetime = new AuthorizationLifetimeImpl(authorizationLifetime, null, null);
+			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
 	}
 
 	@Override
@@ -200,12 +200,12 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setAuthGracePeriod(Long authGracePeriod) 
+	public void setAuthGracePeriod(Long value) 
 	{
-		if(authGracePeriod == null)
+		if(value == null)
 			this.authGracePeriod = null;
 		else
-			this.authGracePeriod = new AuthGracePeriodImpl(authGracePeriod, null, null);
+			this.authGracePeriod = new AuthGracePeriodImpl(value, null, null);
 	}
 
 	@Override
@@ -218,12 +218,12 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setReAuthRequestType(ReAuthRequestTypeEnum reAuthRequestType) 
+	public void setReAuthRequestType(ReAuthRequestTypeEnum value) 
 	{
-		if(reAuthRequestType == null)
+		if(value == null)
 			this.reAuthRequestType = null;
 		else
-			this.reAuthRequestType = new ReAuthRequestTypeImpl(reAuthRequestType, null, null);
+			this.reAuthRequestType = new ReAuthRequestTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -236,12 +236,12 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setState(ByteBuf state) 
+	public void setState(ByteBuf value) 
 	{
-		if(state == null)
+		if(value == null)
 			this.state = null;
 		else
-			this.state = new StateImpl(state, null, null);
+			this.state = new StateImpl(value, null, null);
 	}
 
 	@Override
@@ -258,14 +258,14 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setDiameterClass(List<ByteBuf> diameterClass) 
+	public void setDiameterClass(List<ByteBuf> value) 
 	{
-		if(diameterClass == null || diameterClass.size()==0)
+		if(value == null || value.size()==0)
 			this.diameterClass = null;
 		else
 		{
 			this.diameterClass = new ArrayList<DiameterClass>();
-			for(ByteBuf curr:diameterClass)
+			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
 	}
@@ -284,14 +284,14 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setReplyMessage(List<String> replyMessage) 
+	public void setReplyMessage(List<String> value) 
 	{
-		if(replyMessage == null || replyMessage.size()==0)
+		if(value == null || value.size()==0)
 			this.replyMessage = null;
 		else
 		{
 			this.replyMessage = new ArrayList<ReplyMessage>();
-			for(String curr:replyMessage)
+			for(String curr:value)
 				this.replyMessage.add(new ReplyMessageImpl(curr, null, null));
 		}
 	}
@@ -306,11 +306,11 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 
 	@Override
-	public void setPrompt(PromptEnum prompt) 
+	public void setPrompt(PromptEnum value) 
 	{
-		if(prompt == null)
+		if(value == null)
 			this.prompt = null;
 		else
-			this.prompt = new PromptImpl(prompt, null, null);	
+			this.prompt = new PromptImpl(value, null, null);	
 	}
 }

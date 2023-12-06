@@ -317,12 +317,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol) 
+	public void setOriginAAAProtocol(OriginAAAProtocolEnum value) 
 	{
-		if(originAAAProtocol == null)
+		if(value == null)
 			this.originAAAProtocol = null;
 		else
-			this.originAAAProtocol = new OriginAAAProtocolImpl(originAAAProtocol, null, null);
+			this.originAAAProtocol = new OriginAAAProtocolImpl(value, null, null);
 	}
 
 	@Override
@@ -335,12 +335,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAcctDelayTime(Long acctDelayTime) 
+	public void setAcctDelayTime(Long value) 
 	{
-		if(acctDelayTime == null)
+		if(value == null)
 			this.acctDelayTime = null;
 		else
-			this.acctDelayTime = new AcctDelayTimeImpl(acctDelayTime, null, null);
+			this.acctDelayTime = new AcctDelayTimeImpl(value, null, null);
 	}
 
 	@Override
@@ -353,12 +353,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setNASIdentifier(String nasIdentifier) 
+	public void setNASIdentifier(String value) 
 	{
-		if(nasIdentifier == null)
+		if(value == null)
 			this.nasIdentifier = null;
 		else
-			this.nasIdentifier = new NASIdentifierImpl(nasIdentifier, null, null);
+			this.nasIdentifier = new NASIdentifierImpl(value, null, null);
 	}
 
 	@Override
@@ -371,12 +371,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setNASIPAddress(Inet4Address nasIPAddress) 
+	public void setNASIPAddress(Inet4Address value) 
 	{
-		if(nasIPAddress == null)
+		if(value == null)
 			this.nasIPAddress = null;
 		else
-			this.nasIPAddress = new NASIPAddressImpl(nasIPAddress);
+			this.nasIPAddress = new NASIPAddressImpl(value);
 	}
 
 	@Override
@@ -389,12 +389,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setNASIPv6Address(Inet6Address nasIPv6Address) 
+	public void setNASIPv6Address(Inet6Address value) 
 	{
-		if(nasIPv6Address == null)
+		if(value == null)
 			this.nasIPv6Address = null;
 		else
-			this.nasIPv6Address = new NASIPv6AddressImpl(nasIPv6Address);
+			this.nasIPv6Address = new NASIPv6AddressImpl(value);
 	}
 
 	@Override
@@ -407,12 +407,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setNASPort(Long nasPort) 
+	public void setNASPort(Long value) 
 	{
-		if(nasPort == null)
+		if(value == null)
 			this.nasPort = null;
 		else
-			this.nasPort = new NASPortImpl(nasPort, null, null);
+			this.nasPort = new NASPortImpl(value, null, null);
 	}
 
 	@Override
@@ -425,12 +425,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setNASPortId(String nasPortId) 
+	public void setNASPortId(String value) 
 	{
-		if(nasPortId == null)
+		if(value == null)
 			this.nasPortId = null;
 		else
-			this.nasPortId = new NASPortIdImpl(nasPortId, null, null);
+			this.nasPortId = new NASPortIdImpl(value, null, null);
 	}
 
 	@Override
@@ -443,12 +443,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setNASPortType(NASPortTypeEnum nasPortType) 
+	public void setNASPortType(NASPortTypeEnum value) 
 	{
-		if(nasPortType == null)
+		if(value == null)
 			this.nasPortType = null;
 		else
-			this.nasPortType = new NASPortTypeImpl(nasPortType, null, null);
+			this.nasPortType = new NASPortTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -465,14 +465,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setDiameterClass(List<ByteBuf> diameterClass) 
+	public void setDiameterClass(List<ByteBuf> value) 
 	{
-		if(diameterClass == null || diameterClass.size()==0)
+		if(value == null || value.size()==0)
 			this.diameterClass = null;
 		else
 		{
 			this.diameterClass = new ArrayList<DiameterClass>();
-			for(ByteBuf curr:diameterClass)
+			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
 	}
@@ -487,12 +487,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setServiceType(ServiceTypeEnum serviceType) 
+	public void setServiceType(ServiceTypeEnum value) 
 	{
-		if(serviceType == null)
+		if(value == null)
 			this.serviceType = null;
 		else
-			this.serviceType = new ServiceTypeImpl(serviceType, null, null);
+			this.serviceType = new ServiceTypeImpl(value, null, null);
 	}
 
 	@Override
@@ -505,12 +505,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setTerminationCause(TerminationCauseEnum terminationCauseEnum) 
+	public void setTerminationCause(TerminationCauseEnum value) 
 	{
-		if(terminationCauseEnum == null)
+		if(value == null)
 			this.terminationCause = null;
 		else
-			this.terminationCause = new TerminationCauseImpl(terminationCauseEnum, null, null);
+			this.terminationCause = new TerminationCauseImpl(value, null, null);
 	}
 
 	@Override
@@ -523,12 +523,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAccountingInputOctets(Long accountingInputOctets) 
+	public void setAccountingInputOctets(Long value) 
 	{
-		if(accountingInputOctets == null)
+		if(value == null)
 			this.accountingInputOctets = null;
 		else
-			this.accountingInputOctets = new AccountingInputOctetsImpl(accountingInputOctets, null, null);
+			this.accountingInputOctets = new AccountingInputOctetsImpl(value, null, null);
 	}
 
 	@Override
@@ -541,12 +541,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAccountingInputPackets(Long accountingInputPackets) 
+	public void setAccountingInputPackets(Long value) 
 	{
-		if(accountingInputPackets == null)
+		if(value == null)
 			this.accountingInputPackets = null;
 		else
-			this.accountingInputPackets = new AccountingInputPacketsImpl(accountingInputPackets, null, null);
+			this.accountingInputPackets = new AccountingInputPacketsImpl(value, null, null);
 	}
 
 	@Override
@@ -559,12 +559,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAccountingOutputOctets(Long accountingOutputOctets) 
+	public void setAccountingOutputOctets(Long value) 
 	{
-		if(accountingOutputOctets == null)
+		if(value == null)
 			this.accountingOutputOctets = null;
 		else
-			this.accountingOutputOctets = new AccountingOutputOctetsImpl(accountingOutputOctets, null, null);
+			this.accountingOutputOctets = new AccountingOutputOctetsImpl(value, null, null);
 	}
 
 	@Override
@@ -577,12 +577,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAccountingOutputPackets(Long accountingOutputPackets) 
+	public void setAccountingOutputPackets(Long value) 
 	{
-		if(accountingOutputPackets == null)
+		if(value == null)
 			this.accountingOutputPackets = null;
 		else
-			this.accountingOutputPackets = new AccountingOutputPacketsImpl(accountingOutputPackets, null, null);
+			this.accountingOutputPackets = new AccountingOutputPacketsImpl(value, null, null);
 	}
 
 	@Override
@@ -595,12 +595,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAcctAuthentic(AcctAuthenticEnum acctAuthentic) 
+	public void setAcctAuthentic(AcctAuthenticEnum value) 
 	{
-		if(acctAuthentic == null)
+		if(value == null)
 			this.acctAuthentic = null;
 		else
-			this.acctAuthentic = new AcctAuthenticImpl(acctAuthentic, null, null);
+			this.acctAuthentic = new AcctAuthenticImpl(value, null, null);
 	}
 
 	@Override
@@ -613,12 +613,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAccountingAuthMethod(AccountingAuthMethodEnum accountingAuthMethod) 
+	public void setAccountingAuthMethod(AccountingAuthMethodEnum value) 
 	{
-		if(accountingAuthMethod == null)
+		if(value == null)
 			this.accountingAuthMethod = null;
 		else
-			this.accountingAuthMethod = new AccountingAuthMethodImpl(accountingAuthMethod, null, null);
+			this.accountingAuthMethod = new AccountingAuthMethodImpl(value, null, null);
 	}
 
 	@Override
@@ -631,12 +631,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAcctLinkCount(Long acctLinkCount) 
+	public void setAcctLinkCount(Long value) 
 	{
-		if(acctLinkCount == null)
+		if(value == null)
 			this.acctLinkCount = null;
 		else
-			this.acctLinkCount = new AcctLinkCountImpl(acctLinkCount, null, null);
+			this.acctLinkCount = new AcctLinkCountImpl(value, null, null);
 	}
 
 	@Override
@@ -649,12 +649,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAcctSessionTime(Long acctSessionTime) 
+	public void setAcctSessionTime(Long value) 
 	{
-		if(acctSessionTime == null)
+		if(value == null)
 			this.acctSessionTime = null;
 		else
-			this.acctSessionTime = new AcctSessionTimeImpl(acctSessionTime, null, null);
+			this.acctSessionTime = new AcctSessionTimeImpl(value, null, null);
 	}
 
 	@Override
@@ -667,12 +667,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAcctTunnelConnection(ByteBuf tunnelConnection) 
+	public void setAcctTunnelConnection(ByteBuf value) 
 	{
-		if(tunnelConnection == null)
+		if(value == null)
 			this.acctTunnelConnection = null;
 		else
-			this.acctTunnelConnection = new AcctTunnelConnectionImpl(tunnelConnection, null, null);
+			this.acctTunnelConnection = new AcctTunnelConnectionImpl(value, null, null);
 	}
 
 	@Override
@@ -685,12 +685,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAcctTunnelPacketsLost(Long tunnelPacketsLost) 
+	public void setAcctTunnelPacketsLost(Long value) 
 	{
-		if(tunnelPacketsLost == null)
+		if(value == null)
 			this.acctTunnelPacketsLost = null;
 		else
-			this.acctTunnelPacketsLost = new AcctTunnelPacketsLostImpl(tunnelPacketsLost, null, null);
+			this.acctTunnelPacketsLost = new AcctTunnelPacketsLostImpl(value, null, null);
 	}
 
 	@Override
@@ -703,12 +703,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setCallbackId(String callbackId) 
+	public void setCallbackId(String value) 
 	{
-		if(callbackId == null)
+		if(value == null)
 			this.callbackId = null;
 		else
-			this.callbackId = new CallbackIdImpl(callbackId, null, null);
+			this.callbackId = new CallbackIdImpl(value, null, null);
 	}
 
 	@Override
@@ -721,12 +721,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setCallbackNumber(String callbackNumber) 
+	public void setCallbackNumber(String value) 
 	{
-		if(callbackNumber == null)
+		if(value == null)
 			this.callbackNumber = null;
 		else
-			this.callbackNumber = new CallbackNumberImpl(callbackNumber, null, null);
+			this.callbackNumber = new CallbackNumberImpl(value, null, null);
 	}
 
 	@Override
@@ -739,12 +739,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setCalledStationId(String calledStationId) 
+	public void setCalledStationId(String value) 
 	{
-		if(calledStationId == null)
+		if(value == null)
 			this.calledStationId = null;
 		else
-			this.calledStationId = new CalledStationIdImpl(calledStationId, null, null);
+			this.calledStationId = new CalledStationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -757,12 +757,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setCallingStationId(String callingStationId) 
+	public void setCallingStationId(String value) 
 	{
-		if(callingStationId == null)
+		if(value == null)
 			this.callingStationId = null;
 		else
-			this.callingStationId = new CallingStationIdImpl(callingStationId, null, null);
+			this.callingStationId = new CallingStationIdImpl(value, null, null);
 	}
 
 	@Override
@@ -779,14 +779,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setConnectionInfo(List<String> connectionInfo) 
+	public void setConnectionInfo(List<String> value) 
 	{
-		if(connectionInfo == null || connectionInfo.size()==0)
+		if(value == null || value.size()==0)
 			this.connectionInfo = null;
 		else
 		{
 			this.connectionInfo = new ArrayList<ConnectInfo>();
-			for(String curr:connectionInfo)
+			for(String curr:value)
 				this.connectionInfo.add(new ConnectInfoImpl(curr, null, null));
 		}
 	}
@@ -801,12 +801,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setOriginatingLineInfo(ByteBuf originatingLineInfo) 
+	public void setOriginatingLineInfo(ByteBuf value) 
 	{
-		if(originatingLineInfo == null)
+		if(value == null)
 			this.originatingLineInfo = null;
 		else
-			this.originatingLineInfo = new OriginatingLineInfoImpl(originatingLineInfo, null, null);
+			this.originatingLineInfo = new OriginatingLineInfoImpl(value, null, null);
 	}
 
 	@Override
@@ -819,12 +819,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAuthorizationLifetime(Long authorizationLifetime) 
+	public void setAuthorizationLifetime(Long value) 
 	{
-		if(authorizationLifetime == null)
+		if(value == null)
 			this.authorizationLifetime = null;
 		else
-			this.authorizationLifetime = new AuthorizationLifetimeImpl(authorizationLifetime, null, null);
+			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
 	}
 
 	@Override
@@ -837,12 +837,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setSessionTimeout(Long sessionTimeout) 
+	public void setSessionTimeout(Long value) 
 	{
-		if(sessionTimeout == null)
+		if(value == null)
 			this.sessionTimeout = null;
 		else
-			this.sessionTimeout = new SessionTimeoutImpl(sessionTimeout, null, null);
+			this.sessionTimeout = new SessionTimeoutImpl(value, null, null);
 	}
 
 	@Override
@@ -855,12 +855,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setIdleTimeout(Long idleTimeout) 
+	public void setIdleTimeout(Long value) 
 	{
-		if(idleTimeout == null)
+		if(value == null)
 			this.idleTimeout = null;
 		else
-			this.idleTimeout = new IdleTimeoutImpl(idleTimeout, null, null);
+			this.idleTimeout = new IdleTimeoutImpl(value, null, null);
 	}
 
 	@Override
@@ -873,12 +873,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setPortLimit(Long portLimit) 
+	public void setPortLimit(Long value) 
 	{
-		if(portLimit == null)
+		if(value == null)
 			this.portLimit = null;
 		else
-			this.portLimit = new PortLimitImpl(portLimit, null, null);
+			this.portLimit = new PortLimitImpl(value, null, null);
 	}
 
 	@Override
@@ -895,14 +895,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFilterId(List<String> filterId) 
+	public void setFilterId(List<String> value) 
 	{
-		if(filterId == null || filterId.size()==0)
+		if(value == null || value.size()==0)
 			this.filterId = null;
 		else
 		{
 			this.filterId = new ArrayList<FilterId>();
-			for(String curr:filterId)
+			for(String curr:value)
 				this.filterId.add(new FilterIdImpl(curr, null, null));
 		}
 	}
@@ -914,9 +914,9 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setNASFilterRule(List<NASFilterRule> nasFilterRule) 
+	public void setNASFilterRule(List<NASFilterRule> value) 
 	{
-		this.nasFilterRule = nasFilterRule;
+		this.nasFilterRule = value;
 	}
 
 	@Override
@@ -926,9 +926,9 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setQosFilterRule(List<DiameterQosFilterRule> qosFilterRule) 
+	public void setQosFilterRule(List<DiameterQosFilterRule> value) 
 	{
-		this.qosFilterRule = qosFilterRule;
+		this.qosFilterRule = value;
 	}
 
 	@Override
@@ -941,12 +941,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedAppletalkLink(Long framedAppletalkLink) 
+	public void setFramedAppletalkLink(Long value) 
 	{
-		if(framedAppletalkLink == null)
+		if(value == null)
 			this.framedAppletalkLink = null;
 		else
-			this.framedAppletalkLink = new FramedAppletalkLinkImpl(framedAppletalkLink, null, null);
+			this.framedAppletalkLink = new FramedAppletalkLinkImpl(value, null, null);
 	}
 
 	@Override
@@ -959,12 +959,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedAppletalkNetwork(Long framedAppletalkNetwork) 
+	public void setFramedAppletalkNetwork(Long value) 
 	{
-		if(framedAppletalkNetwork == null)
+		if(value == null)
 			this.framedAppletalkNetwork = null;
 		else
-			this.framedAppletalkNetwork = new FramedAppletalkNetworkImpl(framedAppletalkNetwork, null, null);
+			this.framedAppletalkNetwork = new FramedAppletalkNetworkImpl(value, null, null);
 	}
 
 	@Override
@@ -977,12 +977,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedAppletalkZone(ByteBuf framedAppletalkZone) 
+	public void setFramedAppletalkZone(ByteBuf value) 
 	{
-		if(framedAppletalkZone == null)
+		if(value == null)
 			this.framedAppletalkZone = null;
 		else
-			this.framedAppletalkZone = new FramedAppletalkZoneImpl(framedAppletalkZone, null, null);
+			this.framedAppletalkZone = new FramedAppletalkZoneImpl(value, null, null);
 	}
 
 	@Override
@@ -995,12 +995,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedCompression(FramedCompressionEnum framedCompression) 
+	public void setFramedCompression(FramedCompressionEnum value) 
 	{
-		if(framedCompression == null)
+		if(value == null)
 			this.framedCompression = null;
 		else
-			this.framedCompression = new FramedCompressionImpl(framedCompression, null, null);
+			this.framedCompression = new FramedCompressionImpl(value, null, null);
 	}
 
 	@Override
@@ -1013,12 +1013,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedInterfaceId(Long framedInterfaceId) 
+	public void setFramedInterfaceId(Long value) 
 	{
-		if(framedInterfaceId == null)
+		if(value == null)
 			this.framedInterfaceId = null;
 		else
-			this.framedInterfaceId = new FramedInterfaceIdImpl(framedInterfaceId, null, null);
+			this.framedInterfaceId = new FramedInterfaceIdImpl(value, null, null);
 	}
 
 	@Override
@@ -1031,12 +1031,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedIPAddress(Inet4Address framedIPAddress) 
+	public void setFramedIPAddress(Inet4Address value) 
 	{
-		if(framedIPAddress == null)
+		if(value == null)
 			this.framedIPAddress = null;
 		else
-			this.framedIPAddress = new FramedIPAddressImpl(framedIPAddress);
+			this.framedIPAddress = new FramedIPAddressImpl(value);
 	}
 
 	@Override
@@ -1049,12 +1049,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedIPNetmask(ByteBuf framedIPNetmask) 
+	public void setFramedIPNetmask(ByteBuf value) 
 	{
-		if(framedIPNetmask == null)
+		if(value == null)
 			this.framedIPNetmask = null;
 		else
-			this.framedIPNetmask = new FramedIPNetmaskImpl(framedIPNetmask, null, null);
+			this.framedIPNetmask = new FramedIPNetmaskImpl(value, null, null);
 	}
 
 	@Override
@@ -1071,14 +1071,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedIPv6Prefix(List<ByteBuf> framedIPv6Prefix) 
+	public void setFramedIPv6Prefix(List<ByteBuf> value) 
 	{
-		if(framedIPv6Prefix == null || framedIPv6Prefix.size()==0)
+		if(value == null || value.size()==0)
 			this.framedIPv6Prefix = null;
 		else
 		{
 			this.framedIPv6Prefix = new ArrayList<FramedIPv6Prefix>();
-			for(ByteBuf curr:framedIPv6Prefix)
+			for(ByteBuf curr:value)
 				this.framedIPv6Prefix.add(new FramedIPv6PrefixImpl(curr, null, null));
 		}
 	}
@@ -1093,12 +1093,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedIPv6Pool(ByteBuf framedIPv6Pool) 
+	public void setFramedIPv6Pool(ByteBuf value) 
 	{
-		if(framedIPv6Pool == null)
+		if(value == null)
 			this.framedIPv6Pool = null;
 		else
-			this.framedIPv6Pool = new FramedIPv6PoolImpl(framedIPv6Pool, null, null);
+			this.framedIPv6Pool = new FramedIPv6PoolImpl(value, null, null);
 	}
 
 	@Override
@@ -1115,14 +1115,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedIPv6Route(List<String> framedIPv6Route) 
+	public void setFramedIPv6Route(List<String> value) 
 	{
-		if(framedIPv6Route == null || framedIPv6Route.size()==0)
+		if(value == null || value.size()==0)
 			this.framedIPv6Route = null;
 		else
 		{
 			this.framedIPv6Route = new ArrayList<FramedIPv6Route>();
-			for(String curr:framedIPv6Route)
+			for(String curr:value)
 				this.framedIPv6Route.add(new FramedIPv6RouteImpl(curr, null, null));
 		}
 	}
@@ -1137,12 +1137,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedIPXNetwork(Long framedIPXNetwork) 
+	public void setFramedIPXNetwork(Long value) 
 	{
-		if(framedIPXNetwork == null)
+		if(value == null)
 			this.framedIPXNetwork = null;
 		else
-			this.framedIPXNetwork = new FramedIPXNetworkImpl(framedIPXNetwork, null, null);
+			this.framedIPXNetwork = new FramedIPXNetworkImpl(value, null, null);
 	}
 
 	@Override
@@ -1155,12 +1155,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedMTU(Long framedMTU) 
+	public void setFramedMTU(Long value) 
 	{
-		if(framedMTU == null)
+		if(value == null)
 			this.framedMTU = null;
 		else
-			this.framedMTU = new FramedMTUImpl(framedMTU, null, null);
+			this.framedMTU = new FramedMTUImpl(value, null, null);
 	}
 
 	@Override
@@ -1173,12 +1173,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedPool(ByteBuf framedPool) 
+	public void setFramedPool(ByteBuf value) 
 	{
-		if(framedPool == null)
+		if(value == null)
 			this.framedPool = null;
 		else
-			this.framedPool = new FramedPoolImpl(framedPool, null, null);
+			this.framedPool = new FramedPoolImpl(value, null, null);
 	}
 
 	@Override
@@ -1191,12 +1191,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedProtocol(FramedProtocolEnum framedProtocol) 
+	public void setFramedProtocol(FramedProtocolEnum value) 
 	{
-		if(framedProtocol == null)
+		if(value == null)
 			this.framedProtocol = null;
 		else
-			this.framedProtocol = new FramedProtocolImpl(framedProtocol, null, null);
+			this.framedProtocol = new FramedProtocolImpl(value, null, null);
 	}
 
 	@Override
@@ -1213,14 +1213,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedRoute(List<ByteBuf> framedRoute) 
+	public void setFramedRoute(List<ByteBuf> value) 
 	{
-		if(framedRoute == null || framedRoute.size()==0)
+		if(value == null || value.size()==0)
 			this.framedRoute = null;
 		else
 		{
 			this.framedRoute = new ArrayList<FramedRoute>();
-			for(ByteBuf curr:framedRoute)
+			for(ByteBuf curr:value)
 				this.framedRoute.add(new FramedRouteImpl(curr, null, null));
 		}
 	}
@@ -1235,12 +1235,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setFramedRouting(FramedRoutingEnum framedRouting) 
+	public void setFramedRouting(FramedRoutingEnum value) 
 	{
-		if(framedRouting == null)
+		if(value == null)
 			this.framedRouting = null;
 		else
-			this.framedRouting = new FramedRoutingImpl(framedRouting, null, null);
+			this.framedRouting = new FramedRoutingImpl(value, null, null);
 	}
 
 	@Override
@@ -1257,14 +1257,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginIPHost(List<Inet4Address> loginIPHost) 
+	public void setLoginIPHost(List<Inet4Address> value) 
 	{
-		if(loginIPHost == null || loginIPHost.size()==0)
+		if(value == null || value.size()==0)
 			this.loginIPHost = null;
 		else
 		{
 			this.loginIPHost = new ArrayList<LoginIPHost>();
-			for(Inet4Address curr:loginIPHost)
+			for(Inet4Address curr:value)
 				this.loginIPHost.add(new LoginIPHostImpl(curr));
 		}
 	}
@@ -1283,14 +1283,14 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginIPv6Host(List<Inet6Address> loginIPv6Host) 
+	public void setLoginIPv6Host(List<Inet6Address> value) 
 	{
-		if(loginIPv6Host == null || loginIPv6Host.size()==0)
+		if(value == null || value.size()==0)
 			this.loginIPv6Host = null;
 		else
 		{
 			this.loginIPv6Host = new ArrayList<LoginIPv6Host>();
-			for(Inet6Address curr:loginIPv6Host)
+			for(Inet6Address curr:value)
 				this.loginIPv6Host.add(new LoginIPv6HostImpl(curr));
 		}
 	}
@@ -1305,12 +1305,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginLATGroup(ByteBuf loginLATGroup) 
+	public void setLoginLATGroup(ByteBuf value) 
 	{
-		if(loginLATGroup == null)
+		if(value == null)
 			this.loginLATGroup = null;
 		else
-			this.loginLATGroup = new LoginLATGroupImpl(loginLATGroup, null, null);
+			this.loginLATGroup = new LoginLATGroupImpl(value, null, null);
 	}
 
 	@Override
@@ -1323,12 +1323,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginLATNode(ByteBuf loginLATNode) 
+	public void setLoginLATNode(ByteBuf value) 
 	{
-		if(loginLATNode == null)
+		if(value == null)
 			this.loginLATNode = null;
 		else
-			this.loginLATNode = new LoginLATNodeImpl(loginLATNode, null, null);
+			this.loginLATNode = new LoginLATNodeImpl(value, null, null);
 	}
 
 	@Override
@@ -1341,12 +1341,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginLATPort(ByteBuf loginLATPort) 
+	public void setLoginLATPort(ByteBuf value) 
 	{
-		if(loginLATPort == null)
+		if(value == null)
 			this.loginLATPort = null;
 		else
-			this.loginLATPort = new LoginLATPortImpl(loginLATPort, null, null);
+			this.loginLATPort = new LoginLATPortImpl(value, null, null);
 	}
 
 	@Override
@@ -1359,12 +1359,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginLATService(ByteBuf loginLATService) 
+	public void setLoginLATService(ByteBuf value) 
 	{
-		if(loginLATService == null)
+		if(value == null)
 			this.loginLATService = null;
 		else
-			this.loginLATService = new LoginLATServiceImpl(loginLATService, null, null);
+			this.loginLATService = new LoginLATServiceImpl(value, null, null);
 	}
 
 	@Override
@@ -1377,12 +1377,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginService(LoginServiceEnum loginService) 
+	public void setLoginService(LoginServiceEnum value) 
 	{
-		if(loginService == null)
+		if(value == null)
 			this.loginService = null;
 		else
-			this.loginService = new LoginServiceImpl(loginService, null, null);
+			this.loginService = new LoginServiceImpl(value, null, null);
 	}
 
 	@Override
@@ -1395,12 +1395,12 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setLoginTCPPort(Long loginTCPPort) 
+	public void setLoginTCPPort(Long value) 
 	{
-		if(loginTCPPort == null)
+		if(value == null)
 			this.loginTCPPort = null;
 		else
-			this.loginTCPPort = new LoginTCPPortImpl(loginTCPPort, null, null);
+			this.loginTCPPort = new LoginTCPPortImpl(value, null, null);
 	}
 
 	@Override
@@ -1410,8 +1410,8 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setTunneling(List<Tunneling> tunneling) 
+	public void setTunneling(List<Tunneling> value) 
 	{
-		this.tunneling = tunneling;
+		this.tunneling = value;
 	}
 }

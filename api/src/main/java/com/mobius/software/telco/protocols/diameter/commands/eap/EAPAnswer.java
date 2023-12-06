@@ -134,33 +134,29 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 5, commandCode = 268, request = false, proxyable = true, name="EAP-Answer")
 public interface EAPAnswer extends AuthenticationAnswer
 {
-	public Long getAuthApplicationId();
-	
-	void setAuthApplicationId(Long value);
-	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
 	void setAuthRequestType(AuthRequestTypeEnum value);		
 	
 	ByteBuf getEAPPayload();
 	
-	void setEAPPayload(ByteBuf eapPayload);	
+	void setEAPPayload(ByteBuf value);	
 	
 	ByteBuf getEAPReissuedPayload();
 	
-	void setEAPReissuedPayload(ByteBuf eapReissuedPayload);	
+	void setEAPReissuedPayload(ByteBuf value);	
 	
 	ByteBuf getEAPMasterSessionKey();
 	
-	void setEAPMasterSessionKey(ByteBuf eapMasterSessionKey);	
+	void setEAPMasterSessionKey(ByteBuf value);	
 	
 	ByteBuf getEAPKeyName();
 	
-	void setEAPKeyName(ByteBuf eapKeyName);	
+	void setEAPKeyName(ByteBuf value);	
 	        		  
 	Long getMultiRoundTimeOut();
 	
-	void setMultiRoundTimeOut(Long multiRoundTimeOut);	
+	void setMultiRoundTimeOut(Long value);	
 	
 	public Long getAccountingEAPAuthMethod();
 	
@@ -168,15 +164,15 @@ public interface EAPAnswer extends AuthenticationAnswer
 	
 	ServiceTypeEnum getServiceType();		
 	
-	void setServiceType(ServiceTypeEnum serviceType);
+	void setServiceType(ServiceTypeEnum value);
 	
 	List<ByteBuf> getDiameterClass();	
 	
-	void setDiameterClass(List<ByteBuf> diameterClass);			
+	void setDiameterClass(List<ByteBuf> value);			
 	
 	List<ByteBuf> getConfigurationToken();
 
-	void setConfigurationToken(List<ByteBuf> configurationToken);	
+	void setConfigurationToken(List<ByteBuf> value);	
 	
 	public Long getAcctInterimInterval();
 	
@@ -184,19 +180,19 @@ public interface EAPAnswer extends AuthenticationAnswer
 	
 	Long getIdleTimeout();
 	
-	void setIdleTimeout(Long idleTimeout);	
+	void setIdleTimeout(Long value);	
 	
 	Long getAuthorizationLifetime();
 	
-	void setAuthorizationLifetime(Long authorizationLifetime);	
+	void setAuthorizationLifetime(Long value);	
 	
 	Long getAuthGracePeriod();
 	
-	void setAuthGracePeriod(Long authGracePeriod);	
+	void setAuthGracePeriod(Long value);	
 	
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum authSessionState);	
+	void setAuthSessionState(AuthSessionStateEnum value);	
 	
 	public ReAuthRequestTypeEnum getReAuthRequestType();
 	
@@ -204,105 +200,105 @@ public interface EAPAnswer extends AuthenticationAnswer
 	
 	Long getSessionTimeout();
 	
-	void setSessionTimeout(Long sessionTimeout);	
+	void setSessionTimeout(Long value);	
 	
 	ByteBuf getState();
 	
-	void setState(ByteBuf state);	
+	void setState(ByteBuf value);	
 	
 	List<String> getReplyMessage();
 
-	void setReplyMessage(List<String> replyMessage);	
+	void setReplyMessage(List<String> value);	
 	
 	List<String> getFilterId();
 	
-	void setFilterId(List<String> filterId);	
+	void setFilterId(List<String> value);	
 	
 	Long getPortLimit();
 	
-	void setPortLimit(Long portLimit);	
+	void setPortLimit(Long value);	
 	
 	String getCallbackId();
 	
-	void setCallbackId(String callbackId);	
+	void setCallbackId(String value);	
 	
 	String getCallbackNumber();
 	
-	void setCallbackNumber(String callbackNumber);	
+	void setCallbackNumber(String value);	
 	
 	Long getFramedAppletalkLink();
 	
-	void setFramedAppletalkLink(Long framedAppletalkLink);	
+	void setFramedAppletalkLink(Long value);	
 	
 	List<Long> getFramedAppletalkNetwork();
 	
-	void setFramedAppletalkNetwork(List<Long> framedAppletalkNetwork);	
+	void setFramedAppletalkNetwork(List<Long> value);	
 	
 	ByteBuf getFramedAppletalkZone();
 	
-	void setFramedAppletalkZone(ByteBuf framedAppletalkZone);	
+	void setFramedAppletalkZone(ByteBuf value);	
 	
 	List<FramedCompressionEnum> getFramedCompression();
 	
-	void setFramedCompression(List<FramedCompressionEnum> framedCompression);	
+	void setFramedCompression(List<FramedCompressionEnum> value);	
 	
 	Long getFramedInterfaceId();
 	
-	void setFramedInterfaceId(Long framedInterfaceId);	
+	void setFramedInterfaceId(Long value);	
 	
 	InetAddress getFramedIPAddress();
 	
-	void setFramedIPAddress(Inet4Address framedIPAddress);	
+	void setFramedIPAddress(Inet4Address value);	
 	
 	List<ByteBuf> getFramedIPv6Prefix();
 	
-	void setFramedIPv6Prefix(List<ByteBuf> framedIPv6Prefix);	
+	void setFramedIPv6Prefix(List<ByteBuf> value);	
 	
 	ByteBuf getFramedIPv6Pool();
 	
-	void setFramedIPv6Pool(ByteBuf framedIPv6Pool);	
+	void setFramedIPv6Pool(ByteBuf value);	
 	
 	List<String> getFramedIPv6Route();
 	
-	void setFramedIPv6Route(List<String> framedIPv6Route);	
+	void setFramedIPv6Route(List<String> value);	
 	
 	ByteBuf getFramedIPNetmask();
 	
-	void setFramedIPNetmask(ByteBuf framedIPNetmask);	
+	void setFramedIPNetmask(ByteBuf value);	
 	
 	List<ByteBuf> getFramedRoute();
 	
-	void setFramedRoute(List<ByteBuf> framedRoute);	
+	void setFramedRoute(List<ByteBuf> value);	
 	
 	ByteBuf getFramedPool();
 	
-	void setFramedPool(ByteBuf framedPool);	
+	void setFramedPool(ByteBuf value);	
 	
 	Long getFramedIPXNetwork();
 	
-	void setFramedIPXNetwork(Long framedIPXNetwork);	
+	void setFramedIPXNetwork(Long value);	
 	
 	Long getFramedMTU();
 	
-	void setFramedMTU(Long framedMTU);	
+	void setFramedMTU(Long value);	
 	
 	FramedProtocolEnum getFramedProtocol();
 	
-	void setFramedProtocol(FramedProtocolEnum framedProtocol);	
+	void setFramedProtocol(FramedProtocolEnum value);	
 	
 	FramedRoutingEnum getFramedRouting();
 	
-	void setFramedRouting(FramedRoutingEnum framedRouting);	
+	void setFramedRouting(FramedRoutingEnum value);	
 	
 	List<NASFilterRule> getNASFilterRule();
 	
-	void setNASFilterRule(List<NASFilterRule> nasFilterRule);	
+	void setNASFilterRule(List<NASFilterRule> value);	
 	
 	List<DiameterQosFilterRule> getQosFilterRule();
 	
-	void setQosFilterRule(List<DiameterQosFilterRule> qosFilterRule);		
+	void setQosFilterRule(List<DiameterQosFilterRule> value);		
 	
 	List<Tunneling> getTunneling();
 	
-	void setTunneling(List<Tunneling> tunneling);					
+	void setTunneling(List<Tunneling> value);					
 }

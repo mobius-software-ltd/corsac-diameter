@@ -54,7 +54,7 @@ import io.netty.buffer.ByteBuf;
                  * [ Route-Record ]
                  * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = -1, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
+@DiameterCommandDefinition(applicationId = 0, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends AuthenticationRequest
 { 
 	public TerminationCauseEnum getTerminationCause();

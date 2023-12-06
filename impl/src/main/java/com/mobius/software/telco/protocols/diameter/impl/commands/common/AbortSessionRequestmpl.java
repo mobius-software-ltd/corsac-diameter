@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = -1, commandCode = 274, request = true)
+@DiameterCommandImplementation(applicationId = 0, commandCode = 274, request = true)
 public class AbortSessionRequestmpl extends AuthenticationRequestWithHostBase implements AbortSessionRequest
 {
 	protected AbortSessionRequestmpl() 

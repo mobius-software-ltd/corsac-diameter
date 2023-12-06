@@ -51,5 +51,5 @@ public interface SessionTerminationAnswer extends com.mobius.software.telco.prot
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();
 	
-	void setOriginAAAProtocol(OriginAAAProtocolEnum originAAAProtocol);	
+	void setOriginAAAProtocol(OriginAAAProtocolEnum value);	
 }
