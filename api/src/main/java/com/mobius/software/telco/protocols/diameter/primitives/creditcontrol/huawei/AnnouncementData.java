@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -49,6 +49,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  */
 
 @DiameterAvpDefinition(code = 20931L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Announcement-Data")
-public interface AnnouncementData extends DiameterGroupedAvp
+public interface AnnouncementData extends DiameterAvp
 {
 }

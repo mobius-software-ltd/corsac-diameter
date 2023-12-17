@@ -79,7 +79,7 @@ public interface AccountInfo extends DiameterAvp
 	
 	void setAccountDate(ByteBuf value);
 	
-	Integer getLifeCycleState();
+	Long getLifeCycleState();
 	
-	void setLifeCycleState(Integer value);			
+	void setLifeCycleState(Long value);			
 }

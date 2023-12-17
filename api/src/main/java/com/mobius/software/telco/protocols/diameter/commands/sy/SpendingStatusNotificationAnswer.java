@@ -50,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
                 *[ Proxy-Info ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777302, commandCode = 8388636, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = 16777302, commandCode = 8388636, request = false, proxyable = true, name="SN-Answer")
 public interface SpendingStatusNotificationAnswer extends SyAnswer
 {	
 }

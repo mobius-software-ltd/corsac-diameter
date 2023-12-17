@@ -116,7 +116,7 @@ import io.netty.buffer.ByteBuf;
 					 [Call-Type]
 					 [VPNNotifyFlag]
 					 [FavAreaFlag]
-					 [SameCUGNotFreeNotifyflag]
+					 [SameCUGNotFreeNotifyFlag]
 					 [PersonalPayCostValue]
 					 [ActiveCurrencyCode]
 					 [SuspendReason]
@@ -170,7 +170,7 @@ public interface INInformation extends DiameterAvp
 {
 	Integer getActiveFlag();
 	
-	void SetActiveFlag(Integer value);
+	void setActiveFlag(Integer value);
 	
 	String getCallingVlrNumber();
 	
@@ -408,9 +408,9 @@ public interface INInformation extends DiameterAvp
 	
 	void setFavAreaFlag(Long value);
 	
-	Integer getSameCUGNotFreeNotifyflag();
+	Integer getSameCUGNotFreeNotifyFlag();
 	
-	void setSameCUGNotFreeNotifyflag(Integer value);
+	void setSameCUGNotFreeNotifyFlag(Integer value);
 	
 	Long getPersonalPayCostValue();
 	
@@ -516,9 +516,9 @@ public interface INInformation extends DiameterAvp
 	
 	void setAccountQueryMethod(Long value);
 	
-	String getAccountType();
+	Long getAccountType();
 	
-	void setAccountType(String value);
+	void setAccountType(Long value);
 	
 	CCMoney getCCMoney();
 	
@@ -599,4 +599,12 @@ public interface INInformation extends DiameterAvp
 	Long getPOSBalance();
 	
 	void setPOSBalance(Long value);
+	
+	Long getSSPNO();
+	
+	void setSSPNO(Long value);
+	
+	Integer getChargeNumberNature();
+	
+	void setChargeNumberNature(Integer value);
 }

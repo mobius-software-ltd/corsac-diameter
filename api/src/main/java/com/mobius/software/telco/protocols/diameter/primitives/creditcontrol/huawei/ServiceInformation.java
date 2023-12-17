@@ -29,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.MMSInf
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MMTelInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PoCInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ProSeInformation;
-import com.mobius.software.telco.protocols.diameter.primitives.accounting.SMSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VCSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.IMInformation;

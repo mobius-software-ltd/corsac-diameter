@@ -62,9 +62,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 20856L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Balance-Info")
 public interface BalanceInfo extends DiameterAvp 
 {
-	Long getPaymentType();
+	Integer getPaymentType();
 	
-	void setPaymentType(Long value);		
+	void setPaymentType(Integer value);		
 	
 	Integer getBalanceCategory();
 	

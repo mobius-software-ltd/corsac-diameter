@@ -52,8 +52,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
                      [Auth-Voice-ID] 
                      [Auth-Message-ID] 
                      [Auth-Sub-Service-Key] 
-
-
 */
 @DiameterAvpDefinition(code = 30800L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Auth-Information")
 public interface AuthInformation extends DiameterAvp 

@@ -52,6 +52,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 				[I-Language-Type]
 				[I-SMS-Language-Type]
 				[I-Brand-ID]
+				[I-Saas-Tenant-ID]
+				[I-First-Call-Flag]
 */
 @DiameterAvpDefinition(code = 20856L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "User-Basic-Info")
 public interface UserBasicInfo extends DiameterAvp 
@@ -79,4 +81,12 @@ public interface UserBasicInfo extends DiameterAvp
 	Integer getIBrandID();
 	
 	void setIBrandID(Integer value);	
+	
+	Integer getISaasTenantID();
+	
+	void setISaasTenantID(Integer value);	
+	
+	String getIFirstCallFlag();
+	
+	void setIFirstCallFlag(String value);	
 }

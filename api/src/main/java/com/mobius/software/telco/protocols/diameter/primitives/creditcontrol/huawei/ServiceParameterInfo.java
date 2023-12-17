@@ -53,9 +53,9 @@ public interface ServiceParameterInfo extends DiameterAvp
 {
 	Long getServiceParameterType();
 	
-	void setServiceParameterType(Long serviceParameterType);
+	void setServiceParameterType(Long value);
 	
 	Long getServiceParameterValue();
 	
-	void setServiceParameterValue(Long serviceParameterValue);
+	void setServiceParameterValue(Long value);
 }

@@ -113,9 +113,25 @@ public interface P2PSMSInformation extends DiameterAvp
 	
 	void setFeeType(Long value);
 	
+	Long getFeeFixed();
+	
+	void setFeeFixed(Long value);
+	
+	Long getFeeSingle();
+	
+	void setFeeSingle(Long value);
+	
 	Long getMessagePid();
 	
 	void setMessagePid(Long value);	
+	
+	String getOrigIMSI();
+	
+	void setOrigIMSI(String value);
+	        
+	String getDestIMSI();
+	
+	void setDestIMSI(String value);
 	
 	Long getStatusReportRequest();
 	
@@ -137,6 +153,10 @@ public interface P2PSMSInformation extends DiameterAvp
 	
 	void setSPId(ByteBuf value);		
 	
+	Long getDCS();
+	
+	void setDCS(Long value);		
+
 	Long getVMccMncAddr();
 	
 	void setVMccMncAddr(Long value);		
@@ -144,6 +164,10 @@ public interface P2PSMSInformation extends DiameterAvp
 	String getOriginalCalledPartyId();
 	
 	void setOriginalCalledPartyId(String value);	
+	
+	Long getOriginalCalledPartyIdNature();
+	
+	void setOriginalCalledPartyIdNature(Long value);	
 	
 	Long getNotifyMode();
 	
