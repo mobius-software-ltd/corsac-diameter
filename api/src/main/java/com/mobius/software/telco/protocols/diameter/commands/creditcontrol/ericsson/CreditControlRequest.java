@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei;
+package com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -23,16 +23,19 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedServiceUnit;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ServiceParameterInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.OtherPartyId;
+
+import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -64,49 +67,61 @@ public interface CreditControlRequest extends DiameterRequest
 	
 	void setSubscriptionId(List<SubscriptionId> value);
 
-	public Long getServiceIdentifier();
+	public Long getServiceIdentifier() throws AvpNotSupportedException;
 	
-	void setServiceIdentifier(Long value);			
-	
-	public List<UsedServiceUnit> getUsedServiceUnit();		
-	
-	void setUsedServiceUnit(List<UsedServiceUnit> value);
-
-	public TerminationCauseEnum getTerminationCause();
-	
-	void setTerminationCause(TerminationCauseEnum value);
-	
-	public MultipleServicesIndicatorEnum getMultipleServicesIndicator();
-	
-	void setMultipleServicesIndicator(MultipleServicesIndicatorEnum value);
-	
-	public UserEquipmentInfo getUserEquipmentInfo();
-	
-	void setUserEquipmentInfo(UserEquipmentInfo value);
-	
-	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
-	
-	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
-	
-	public RequestedActionEnum getRequestedAction();
-	
-	void setRequestedAction(RequestedActionEnum value);
-	
-	public Long getCcSubSessionId();
-	
-	void setCcSubSessionId(Long value);
-	
-	public ServiceInformation getServiceInformation();
-	
-	void setServiceInformation(ServiceInformation value);
+	void setServiceIdentifier(Long value) throws AvpNotSupportedException;			
 	
 	public RequestedServiceUnit getRequestedServiceUnit();
 	
 	void setRequestedServiceUnit(RequestedServiceUnit value);
 	
-	String getTGPPSGSNMCCMNC();
+	public RequestedActionEnum getRequestedAction();
 	
-	void setTGPPSGSNMCCMNC(String value);
+	void setRequestedAction(RequestedActionEnum value);
+	
+	public UsedServiceUnit getUsedServiceUnit();
+	
+	void setUsedServiceUnit(UsedServiceUnit value);
+	
+	public MultipleServicesIndicatorEnum getMultipleServicesIndicator();
+	
+	void setMultipleServicesIndicator(MultipleServicesIndicatorEnum value);
+	
+	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
+	
+	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
+	
+	public List<ServiceParameterInfo> getServiceParameterInfo();
+	
+	void setServiceParameterInfo(List<ServiceParameterInfo> value);
+
+	public Long getAccountLocation();		
+	
+	void setAccountLocation(Long value);
+
+	public String getSubscriptionIdLocation();
+	
+	void setSubscriptionIdLocation(String value);
+	
+	public OtherPartyId getOtherPartyId();
+	
+	void setOtherPartyId(OtherPartyId value);
+	
+	public String getServiceProviderId();
+	
+	void setServiceProviderId(String value);
+	
+	public ByteBuf getTGPPMSTimeZone();
+	
+	void setTGPPMSTimeZone(ByteBuf value);
+	
+	public Long getTrafficCase();
+	
+	void setTrafficCase(Long value);
+	
+	public TerminationCauseEnum getTerminationCause();
+	
+	void setTerminationCause(TerminationCauseEnum value);
 	
 	public List<String> getRouteRecords();
 	

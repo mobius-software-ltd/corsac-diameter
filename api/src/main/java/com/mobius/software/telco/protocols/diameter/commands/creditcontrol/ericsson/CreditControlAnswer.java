@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei;
+package com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,20 +18,14 @@ package com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huaw
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandlingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicatorEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceInformation;
 
 /**
 *
@@ -41,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 @DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Credit-Control-Answer")
 public interface CreditControlAnswer extends AuthenticationAnswer
 {
-    CcRequestTypeEnum getCcRequestType();
+	CcRequestTypeEnum getCcRequestType();
 	
 	void setCcRequestType(CcRequestTypeEnum value);
 	
@@ -53,39 +47,43 @@ public interface CreditControlAnswer extends AuthenticationAnswer
 	
 	void setGrantedServiceUnit(GrantedServiceUnit value);
 	
-	public Date getEventTimestamp();
-	
-	void setEventTimestamp(Date value);
-	
-	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
-	
-	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
-		
-	public CcSessionFailoverEnum getCcSessionFailover();
-	
-	void setCcSessionFailover(CcSessionFailoverEnum value);
-	
-	public CreditControlFailureHandlingEnum getCreditControlFailureHandling();
-	
-	void setCreditControlFailureHandling(CreditControlFailureHandlingEnum value);
-	
 	public MultipleServicesIndicatorEnum getMultipleServicesIndicator();
 	
 	void setMultipleServicesIndicator(MultipleServicesIndicatorEnum value);
+	
+	public CostInformation getCostInformation();
+	
+	void setCostInformation(CostInformation value);
 	
 	public FinalUnitIndication getFinalUnitIndication();
 	
 	void setFinalUnitIndication(FinalUnitIndication value);
 	
-	public ServiceInformation getServiceInformation();
+	public CreditControlFailureHandlingEnum getCreditControlFailureHandling();
 	
-	void setServiceInformation(ServiceInformation value);
-
-	public CostInformation getCostInformation();
+	void setCreditControlFailureHandling(CreditControlFailureHandlingEnum value);
 	
-	void setCostInformation(CostInformation value);
+	public Long getResultCodeExtension();
 	
-	public String getServiceContextId();
+	void setResultCodeExtension(Long value);
 	
-	void setServiceContextId(String value);
+	Long getTimeQuotaThreshold();
+	
+	void setTimeQuotaThreshold(Long value);      
+	
+	Long getVolumeQuotaThreshold();
+	
+	void setVolumeQuotaThreshold(Long value);      
+	
+	Long getUnitQuotaThreshold();
+	
+	void setUnitQuotaThreshold(Long value);      
+	
+	Long getValidityTime();
+	
+	void setValidityTime(Long value);
+	
+	public Long getServiceIdentifier();
+	
+	void setServiceIdentifier(Long value);
 }

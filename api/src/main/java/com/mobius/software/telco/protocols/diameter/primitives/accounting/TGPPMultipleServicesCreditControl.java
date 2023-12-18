@@ -27,6 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSU
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
+
+import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -73,37 +76,109 @@ public interface TGPPMultipleServicesCreditControl extends DiameterAvp
 {
 	GrantedServiceUnit getGrantedServiceUnit();
 	
-	void setGrantedServiceUnit(GrantedServiceUnit grantedServiceUnit);
+	void setGrantedServiceUnit(GrantedServiceUnit value);
 	
 	RequestedServiceUnit getRequestedServiceUnit();
 	
-	void setRequestedServiceUnit(RequestedServiceUnit requestedServiceUnit);
+	void setRequestedServiceUnit(RequestedServiceUnit value);
 	
 	List<UsedServiceUnit> getUsedServiceUnit();
 	
-	void setUsedServiceUnit(List<UsedServiceUnit> usedServiceUnit);
+	void setUsedServiceUnit(List<UsedServiceUnit> value);
 	
 	List<Long> getServiceIdentifier();
 	
-	void setServiceIdentifier(List<Long> serviceIdentifier);	
+	void setServiceIdentifier(List<Long> value);	
 	
 	Long getRatingGroup();
 	
-	void setRatingGroup(Long ratingGroup);	
+	void setRatingGroup(Long value);	
 			
 	List<GSUPoolReference> getGSUPoolReference();
 	
-	void setGSUPoolReference(List<GSUPoolReference> gsuPoolReference);	
+	void setGSUPoolReference(List<GSUPoolReference> value);	
 	
 	Long getValidityTime();
 	
-	void setValidityTime(Long validityTime);	
+	void setValidityTime(Long value);	
 			
 	Long getResultCode();
 	
-	void setResultCode(Long resultCode);	
+	void setResultCode(Long value);	
 			
 	FinalUnitIndication getFinalUnitIndication();
 	
-	void setFinalUnitIndication(FinalUnitIndication finalUnitIndication);        
+	void setFinalUnitIndication(FinalUnitIndication value);      
+	
+	Long getTimeQuotaThreshold();
+	
+	void setTimeQuotaThreshold(Long value);      
+	
+	Long getVolumeQuotaThreshold();
+	
+	void setVolumeQuotaThreshold(Long value);      
+	
+	Long getUnitQuotaThreshold();
+	
+	void setUnitQuotaThreshold(Long value);      
+	
+	Long getQuotaHoldingTime();
+	
+	void setQuotaHoldingTime(Long value);      
+	
+	Long getQuotaConsumptionTime();
+	
+	void setQuotaConsumptionTime(Long value);      
+		
+	List<ReportingReasonEnum> getReportingReason();
+	
+	void setReportingReason(List<ReportingReasonEnum> value);      
+		
+	Trigger getTrigger();
+	
+	void setTrigger(Trigger value);      
+		
+	PSFurnishChargingInformation getPSFurnishChargingInformation();
+	
+	void setPSFurnishChargingInformation(PSFurnishChargingInformation value);      
+		
+	ByteBuf getRefundInformation();
+	
+	void setRefundInformation(ByteBuf value);      
+	
+	List<AFCorrelationInformation> getAFCorrelationInformation();
+	
+	void setAFCorrelationInformation(List<AFCorrelationInformation> value);      
+	
+	List<Envelope> getEnvelope();
+	
+	void setEnvelope(List<Envelope> value);      
+	
+	EnvelopeReportingEnum getEnvelopeReporting();
+	
+	void setEnvelopeReporting(EnvelopeReportingEnum value);      
+	
+	TimeQuotaMechanism getTimeQuotaMechanism();
+	
+	void setTimeQuotaMechanism(TimeQuotaMechanism value);      
+	
+	List<ServiceSpecificInfo> getServiceSpecificInfo();
+	
+	void setServiceSpecificInfo(List<ServiceSpecificInfo> value);      
+	
+	QoSInformation getQoSInformation();
+	
+	void setQoSInformation(QoSInformation value);      
+	
+	List<AnnouncementInformation> getAnnouncementInformation();
+	
+	void setAnnouncementInformation(List<AnnouncementInformation> value);      
+	
+	ByteBuf getTGPPRATType();
+	
+	void setTGPPRATType(ByteBuf value);      
+	
+	RelatedTrigger getRelatedTrigger();
+	
+	void setRelatedTrigger(RelatedTrigger value);
 }

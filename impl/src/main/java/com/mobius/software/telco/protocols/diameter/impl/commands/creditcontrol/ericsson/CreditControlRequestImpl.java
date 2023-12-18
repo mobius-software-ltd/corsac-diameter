@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.huawei;
+package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
@@ -14,12 +14,15 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Route
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSubSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.MultipleServicesIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNMCCMNCImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.AccountLocationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.ServiceProviderIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.SubscriptionIdLocationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.TrafficCaseImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPMSTimeZoneImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -28,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSubSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicatorEnum;
@@ -37,11 +39,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Req
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ServiceContextId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ServiceIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ServiceParameterInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceInformation;
-import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPSGSNMCCMNC;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.AccountLocation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.OtherPartyId;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.ServiceProviderId;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.SubscriptionIdLocation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.TrafficCase;
+import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
+
+import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -78,8 +86,6 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	
 	private CcRequestNumber ccRequestNumber;
 	
-	private CcSubSessionId accountingSubSessionId;
-	
 	private EventTimestamp eventTimestamp;
 	
 	private List<SubscriptionId> subscriptionId;
@@ -88,22 +94,30 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 
 	private RequestedServiceUnit requestedServiceUnit;
 	
-	private TerminationCause terminationCause;
-
 	private RequestedAction requestedAction;
 
-	private List<UsedServiceUnit> usedServiceUnit;
-
+	private UsedServiceUnit usedServiceUnit;
+	
 	private MultipleServicesIndicator multipleServicesIndicator;
 
 	private List<MultipleServicesCreditControl> multipleServicesCreditControl;
 	
-	private UserEquipmentInfo userEquipmentInfo;
+	private List<ServiceParameterInfo> serviceParameterInfo;
+	
+	private AccountLocation accountLocation;	
+	
+	private SubscriptionIdLocation subscriptionIdLocation;
+	
+	private OtherPartyId otherPartyId;
+	
+	private ServiceProviderId serviceProviderId;
+	
+	private TGPPMSTimeZone tgppMSTimeZone;
+	
+	private TrafficCase trafficCase;
+	
+	private TerminationCause terminationCause;
 
-	private ServiceInformation serviceInformation;
-	
-	private TGPPSGSNMCCMNC tgppSGSNMCCMNC;
-	
 	public List<RouteRecord> routeRecords;
 	
 	protected CreditControlRequestImpl() 
@@ -207,24 +221,6 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public Long getCcSubSessionId()
-	{
-		if(this.accountingSubSessionId==null)
-			return null;
-		
-		return this.accountingSubSessionId.getLong();
-	}
-
-	@Override
-	public void setCcSubSessionId(Long value)
-	{
-		if(value == null)
-			this.accountingSubSessionId = null;
-		else
-			this.accountingSubSessionId = new CcSubSessionIdImpl(value, null, null);
-	}
-
-	@Override
 	public Date getEventTimestamp() 
 	{
 		if(eventTimestamp == null)
@@ -285,24 +281,6 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public TerminationCauseEnum getTerminationCause() 
-	{
-		if(terminationCause == null)
-			return null;
-		
-		return terminationCause.getEnumerated(TerminationCauseEnum.class);
-	}
-
-	@Override
-	public void setTerminationCause(TerminationCauseEnum value) 
-	{
-		if(value == null)
-			this.terminationCause = null;
-		else
-			this.terminationCause = new TerminationCauseImpl(value, null, null);
-	}
-
-	@Override
 	public RequestedActionEnum getRequestedAction() 
 	{
 		if(requestedAction == null)
@@ -321,13 +299,13 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public List<UsedServiceUnit> getUsedServiceUnit() 
+	public UsedServiceUnit getUsedServiceUnit() 
 	{
 		return usedServiceUnit;
 	}
 
 	@Override
-	public void setUsedServiceUnit(List<UsedServiceUnit> value)
+	public void setUsedServiceUnit(UsedServiceUnit value) 
 	{
 		this.usedServiceUnit = value;
 	}
@@ -363,45 +341,135 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public ServiceInformation getServiceInformation() 
+	public List<ServiceParameterInfo> getServiceParameterInfo()
 	{
-		return serviceInformation;
+		return serviceParameterInfo;
 	}
 
 	@Override
-	public void setServiceInformation(ServiceInformation value) 
+	public void setServiceParameterInfo(List<ServiceParameterInfo> value)
 	{
-		this.serviceInformation = value;
+		this.serviceParameterInfo = value;
 	}
 
 	@Override
-	public UserEquipmentInfo getUserEquipmentInfo() 
+	public Long getAccountLocation()
 	{
-		return userEquipmentInfo;
-	}
-
-	@Override
-	public void setUserEquipmentInfo(UserEquipmentInfo value) 
-	{
-		this.userEquipmentInfo = value;
-	}
-
-	@Override
-	public String getTGPPSGSNMCCMNC() 
-	{
-		if(tgppSGSNMCCMNC == null)
+		if(accountLocation == null)
 			return null;
 		
-		return tgppSGSNMCCMNC.getString();
+		return accountLocation.getUnsigned();
+	}	
+	
+	@Override
+	public void setAccountLocation(Long value)
+	{
+		if(value == null)
+			this.accountLocation = null;
+		else
+			this.accountLocation = new AccountLocationImpl(value, null, null);
 	}
 
 	@Override
-	public void setTGPPSGSNMCCMNC(String value) 
+	public String getSubscriptionIdLocation()
+	{
+		if(subscriptionIdLocation == null)
+			return null;
+		
+		return subscriptionIdLocation.getString();
+	}
+	
+	@Override
+	public void setSubscriptionIdLocation(String value)
 	{
 		if(value == null)
-			this.tgppSGSNMCCMNC = null;
+			this.subscriptionIdLocation = null;
 		else
-			this.tgppSGSNMCCMNC = new TGPPSGSNMCCMNCImpl(value, null, null);
+			this.subscriptionIdLocation = new SubscriptionIdLocationImpl(value, null, null);
+	}
+	
+	@Override
+	public OtherPartyId getOtherPartyId()
+	{
+		return this.otherPartyId;
+	}
+	
+	@Override
+	public void setOtherPartyId(OtherPartyId value)
+	{
+		this.otherPartyId = value;
+	}
+	
+	@Override
+	public String getServiceProviderId()
+	{
+		if(serviceProviderId == null)
+			return null;
+		
+		return serviceProviderId.getString();
+	}
+	
+	@Override
+	public void setServiceProviderId(String value)
+	{
+		if(value == null)
+			this.serviceProviderId = null;
+		else
+			this.serviceProviderId = new ServiceProviderIdImpl(value, null, null);
+	}
+	
+	@Override
+	public ByteBuf getTGPPMSTimeZone()
+	{
+		if(tgppMSTimeZone == null)
+			return null;
+		
+		return tgppMSTimeZone.getValue();
+	}
+	
+	@Override
+	public void setTGPPMSTimeZone(ByteBuf value)
+	{
+		if(value == null)
+			this.tgppMSTimeZone = null;
+		else
+			this.tgppMSTimeZone = new TGPPMSTimeZoneImpl(value, null, null);
+	}
+	
+	@Override
+	public Long getTrafficCase()
+	{
+		if(trafficCase == null)
+			return null;
+		
+		return trafficCase.getUnsigned();
+	}
+	
+	@Override
+	public void setTrafficCase(Long value)
+	{
+		if(value == null)
+			this.trafficCase = null;
+		else
+			this.trafficCase = new TrafficCaseImpl(value, null, null);
+	}
+	
+	@Override
+	public TerminationCauseEnum getTerminationCause() 
+	{
+		if(terminationCause == null)
+			return null;
+		
+		return terminationCause.getEnumerated(TerminationCauseEnum.class);
+	}
+
+	@Override
+	public void setTerminationCause(TerminationCauseEnum value) 
+	{
+		if(value == null)
+			this.terminationCause = null;
+		else
+			this.terminationCause = new TerminationCauseImpl(value, null, null);
 	}
 
 	@Override
