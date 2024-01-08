@@ -1,7 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.ro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -46,5 +51,37 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 		setGSUPoolIdentifierAllowed(false);
 		setServiceIdentifierAllowed(false);
 		setRatingGroupAllowed(false);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

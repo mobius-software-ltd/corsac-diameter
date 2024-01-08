@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
 *
@@ -49,4 +50,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 @DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388665, request = false, proxyable = true, name="Update-ProSe-Subscriber-Data-Answer")
 public interface UpdateProSeSubscriberDataAnswer extends Pc4aAnswer
 {	
+	public AuthSessionStateEnum getAuthSessionState();
+
+	void setAuthSessionState(AuthSessionStateEnum value);
 }

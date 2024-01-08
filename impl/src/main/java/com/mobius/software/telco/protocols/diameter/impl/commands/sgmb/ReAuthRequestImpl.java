@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNIPv6AddressImpl;
@@ -37,6 +38,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSGWS
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSGWSSMIPv6AddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSGWUDPPortIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.RestartCounterImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPSGSNAddress;
@@ -752,5 +754,68 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 			this.restartCounter = null;
 		else
 			this.restartCounter = new RestartCounterImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(reAuthRequestType);
+		result.add(calledStationId);
+		result.add(framedIPAddress);
+		result.add(framedIPv6Prefix);
+		result.add(framedInterfaceId);
+		result.add(mbmsAccessIndicator);
+		result.add(mbmsStartStopIndication);
+		result.add(mbmsServiceArea);
+		result.add(qosInformation);
+		result.add(mbmsSessionDuration);
+		result.add(mbmsSessionIdentity);
+		result.add(mbmsSessionRepetitionNumber);
+		result.add(tmgi);
+		
+		if(tgppSGSNAddress!=null)
+			result.addAll(tgppSGSNAddress);
+			
+		if(tgppSGSNIPv6Address!=null)
+			result.addAll(tgppSGSNIPv6Address);
+			
+		result.add(mbmsTimeToDataTransfer);
+		result.add(mbmsDataTransferStart);
+		result.add(mbmsDataTransferStop);
+		result.add(mbmsFlags);
+		result.add(mbmsUserDataModeIndication);
+		result.add(mbmsBMSCSSMIPAddress);
+		result.add(mbmsBMSCSSMIPv6Address);
+		result.add(mbmsFlowIdentifier);
+		result.add(cnIPMulticastDistribution);
+		
+		result.add(mbmsHCIndicator);
+		result.add(mbmsGWUDPPortIndicator);
+		result.add(mbmsGWSSMIPAddress);
+		result.add(mbmsGWSSMIPv6Address);
+		result.add(mbmsBMSCSSMUDPPort);
+		result.add(mbmsCellList);
+		result.add(localM1Information);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(restartCounter);
+		
+		return result;
 	}
 }

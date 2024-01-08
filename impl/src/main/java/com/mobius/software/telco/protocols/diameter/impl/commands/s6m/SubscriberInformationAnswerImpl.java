@@ -1,9 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6m;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -118,5 +121,46 @@ public class SubscriberInformationAnswerImpl extends S6mAnswerImpl implements Su
 	public void setServiceData(ServiceData value)
 	{
 		this.serviceData = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(userIdentifier!=null)
+			result.addAll(userIdentifier);
+		
+		result.add(serviceData);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

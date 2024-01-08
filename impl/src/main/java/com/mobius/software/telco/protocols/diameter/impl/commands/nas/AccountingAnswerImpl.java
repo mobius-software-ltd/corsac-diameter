@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
@@ -18,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAAAProtocolImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
@@ -294,5 +296,52 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(accountingRecordType);
+		result.add(accountingRecordNumber);
+		result.add(acctApplicationId);
+		result.add(username);
+		result.add(accountingSubSessionId);
+		result.add(acctSessionId);
+		result.add(acctMultiSessionId);
+		result.add(eventTimestamp);
+		result.add(errorMessage);
+        result.add(errorReportingHost);
+        result.add(failedAvp);
+        result.add(originAAAProtocol);
+        result.add(originStateId);
+        result.add(nasIdentifier);
+        result.add(nasIPAddress);
+        result.add(nasIPv6Address);
+        result.add(nasPort);
+        result.add(nasPortId);
+        result.add(nasPortType);
+        result.add(serviceType);
+        result.add(terminationCause);
+        result.add(accountingRealtimeRequired);
+        result.add(acctInterimInterval);
+        
+        if(diameterClass!=null)
+        	result.addAll(diameterClass);
+        
+        if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

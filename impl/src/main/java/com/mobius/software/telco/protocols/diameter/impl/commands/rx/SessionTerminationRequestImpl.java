@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rx.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RequiredAccessInfoImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
@@ -137,5 +139,42 @@ public class SessionTerminationRequestImpl extends RxRequestImpl implements Sess
 			return "Termination-Cause is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(terminationCause);
+		result.add(destinationHost);
+		result.add(ocSupportedFeatures);
+		
+		if(requiredAccessInfo!=null)
+			result.addAll(requiredAccessInfo);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

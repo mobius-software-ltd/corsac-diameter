@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.SessionReleaseCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleRemove;
@@ -91,6 +92,10 @@ public interface ReAuthRequest extends AuthenticationRequest
 	List<QoSRuleInstall> getQoSRuleInstall();
 	
 	void setQoSRuleInstall(List<QoSRuleInstall> value);	
+	
+	List<QoSInformation> getQoSInformation();
+	
+	void setQoSInformation(List<QoSInformation> value);	
 	
 	List<EventTriggerEnum> getEventTrigger();
 	

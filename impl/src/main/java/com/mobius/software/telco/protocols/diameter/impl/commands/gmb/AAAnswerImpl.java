@@ -1,11 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gmb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gmb.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.AlternativeAPNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.RequiredMBMSBearerCapabilitiesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPIMSI;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.AlternativeAPN;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.RequiredMBMSBearerCapabilities;
@@ -131,5 +136,30 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 			this.requiredMBMSBearerCapabilities = null;
 		else
 			this.requiredMBMSBearerCapabilities = new RequiredMBMSBearerCapabilitiesImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(errorMessage);
+        result.add(errorReportingHost);
+        result.add(failedAvp);
+        
+        if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+        result.add(alternativeAPN);
+		result.add(tgppIMSI);
+		result.add(tmgi);
+		result.add(requiredMBMSBearerCapabilities);
+		
+		return result;
 	}
 }

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LogicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PhysicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sy.PolicyCounterIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sy.SLRequestTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PhysicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
@@ -182,5 +184,48 @@ public class SpendingLimitRequestImpl extends SyRequestImpl implements SpendingL
 			return "SL-Request-Type is required";
 		
 		return super.validate();
+	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(slRequestType);
+		
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+		
+		if(policyCounterIdentifier!=null)
+			result.addAll(policyCounterIdentifier);
+		
+		result.add(logicalAccessID);
+		result.add(physicalAccessID);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}		
 }

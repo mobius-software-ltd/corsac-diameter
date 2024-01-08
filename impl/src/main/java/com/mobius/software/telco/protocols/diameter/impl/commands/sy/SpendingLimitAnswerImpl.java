@@ -1,9 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
@@ -85,5 +88,51 @@ public class SpendingLimitAnswerImpl extends SyAnswerImpl implements SpendingLim
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(policyCounterStatusReport!=null)
+			result.addAll(policyCounterStatusReport);
+		
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		result.add(originStateId);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

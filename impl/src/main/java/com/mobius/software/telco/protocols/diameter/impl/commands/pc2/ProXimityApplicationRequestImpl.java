@@ -1,7 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationRequest;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
 
 /*
@@ -36,8 +42,42 @@ public class ProXimityApplicationRequestImpl extends Pc2RequestImpl implements P
 		super();
 	}
 	
-	public ProXimityApplicationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,Long authApplicationId, ProSeRequestTypeEnum proSeRequestType)
+	public ProXimityApplicationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, proSeRequestType);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, authSessionState, proSeRequestType);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		result.add(proSeRequestType);
+		result.add(requestingRPAUID);
+		
+		if(bannedUserTarget!=null)
+			result.addAll(bannedUserTarget);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

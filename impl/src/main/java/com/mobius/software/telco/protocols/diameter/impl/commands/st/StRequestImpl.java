@@ -34,9 +34,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class StRequestImpl extends VendorSpecificRequestmpl implements StRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
 	protected StRequestImpl() 
 	{

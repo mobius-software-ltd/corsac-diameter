@@ -1,9 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -72,5 +75,48 @@ public class AggregatedRUCIReportAnswerImpl extends NpAnswerImpl implements Aggr
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

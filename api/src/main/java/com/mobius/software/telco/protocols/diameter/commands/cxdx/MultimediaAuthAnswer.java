@@ -84,5 +84,9 @@ public interface MultimediaAuthAnswer extends CxDxAnswer
 	
 	List<SIPAuthDataItem> getSIPAuthDataItem();
 	
-	void setSIPAuthDataItem(List<SIPAuthDataItem> value);
+	void setSIPAuthDataItem(List<SIPAuthDataItem> value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

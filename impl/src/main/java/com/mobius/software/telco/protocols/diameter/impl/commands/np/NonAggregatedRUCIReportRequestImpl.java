@@ -1,13 +1,19 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.CongestionLevelSetIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.CongestionLevelValueImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RCAFIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CalledStationId;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelSetId;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelValue;
@@ -52,6 +58,8 @@ public class NonAggregatedRUCIReportRequestImpl extends NpRequestImpl implements
 	private CongestionLocationId congestionLocationId;
 	
 	private RCAFId rcafId;
+	
+	protected List<SupportedFeatures> supportedFeatures;
 	
 	protected NonAggregatedRUCIReportRequestImpl() 
 	{
@@ -157,5 +165,56 @@ public class NonAggregatedRUCIReportRequestImpl extends NpRequestImpl implements
 			this.rcafId = null;
 		else
 			this.rcafId = new RCAFIdImpl(value, null, null);
+	}
+
+	@Override
+	public List<SupportedFeatures> getSupportedFeatures() 
+	{
+		return supportedFeatures;
+	}
+
+	@Override
+	public void setSupportedFeatures(List<SupportedFeatures> value) 
+	{
+		this.supportedFeatures = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(originStateId);
+		result.add(subscriptionId);
+		result.add(calledStationId);
+		result.add(congestionLevelValue);
+		result.add(congestionLevelSetId);
+		result.add(congestionLocationId);
+		result.add(ocSupportedFeatures);
+		result.add(rcafId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -1,10 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
@@ -100,5 +105,33 @@ public class LocationInfoRequestImpl extends com.mobius.software.telco.protocols
 			return "SIP-AOR is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(sipAOR);
+		result.add(destinationHost);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

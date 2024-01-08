@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AARequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -45,6 +46,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PortLimi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.UserPasswordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -937,5 +939,87 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 	public void setTunneling(List<Tunneling> value) 
 	{
 		this.tunneling = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(authRequestType);
+      	result.add(destinationHost);
+      	result.add(nasIdentifier);
+      	result.add(nasIPAddress);
+      	result.add(nasIPv6Address);
+      	result.add(nasPort);
+      	result.add(nasPortId);
+      	result.add(nasPortType);
+      	result.add(originAAAProtocol);
+      	result.add(originStateId);
+      	result.add(portLimit);
+      	result.add(username);
+      	result.add(userPassword);
+      	result.add(serviceType);
+      	result.add(state);
+      	result.add(authorizationLifetime);
+      	result.add(authGracePeriod);
+      	result.add(authSessionState);
+      	result.add(callbackNumber);
+      	result.add(calledStationId);
+      	result.add(callingStationId);
+      	result.add(originatingLineInfo);
+      	result.add(connectInfo);
+      	result.add(chapAuth);
+      	result.add(chapChallenge);
+      	
+      	if(framedCompression!=null)
+      		result.addAll(framedCompression);
+      		
+      	result.add(framedInterfaceId);
+      	result.add(framedIPAddress);
+      	
+      	if(framedIPv6Prefix!=null)
+      		result.addAll(framedIPv6Prefix);
+      		
+      	result.add(framedIPNetmask);
+      	result.add(framedMTU);
+      	result.add(framedProtocol);
+      	result.add(arapPassword);
+      	result.add(arapSecurity);
+      	
+      	if(arapSecurityData!=null)
+      		result.addAll(arapSecurityData);
+      	
+      	if(loginIPHost!=null)
+      		result.addAll(loginIPHost);
+      		
+      	if(loginIPv6Host!=null)
+      		result.addAll(loginIPv6Host);
+      		
+      	result.add(loginLATGroup);
+      	result.add(loginLATNode);
+      	result.add(loginLATPort);
+      	result.add(loginLATService);
+      	
+      	if(tunneling!=null)
+      		result.addAll(tunneling);
+      		
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      		
+      	if(routeRecords!=null)
+      		result.addAll(routeRecords);
+      		
+      	if(optionalAvps!=null)
+      	{
+      		for(List<DiameterAvp> curr:optionalAvps.values())
+      			result.addAll(curr);
+      	}
+    		 
+		return result;
 	}
 }

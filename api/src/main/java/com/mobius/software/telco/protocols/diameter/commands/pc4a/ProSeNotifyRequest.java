@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 import io.netty.buffer.ByteBuf;
@@ -56,6 +57,10 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388666, request = true, proxyable = true, name="ProSe-Notify-Request")
 public interface ProSeNotifyRequest extends Pc4aRequest
 {
+	public AuthSessionStateEnum getAuthSessionState();
+	
+	void setAuthSessionState(AuthSessionStateEnum value);
+
 	Long getProSePermission();
 	
 	void setProSePermission(Long value);

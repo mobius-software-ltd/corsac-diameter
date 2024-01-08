@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ResetID;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubscriptionData;
@@ -40,7 +42,7 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 16777308, commandCode = 319, request = true)
 public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements InsertSubscriberDataRequest
 {
-	private VPLMNCSGSubscriptionData vplmnCSGSubscriptionData;
+	private List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData;
 	
 	private List<ResetID> resetID;
 	
@@ -49,7 +51,7 @@ public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements I
 		super();
 	}
 	
-	public InsertSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,VPLMNCSGSubscriptionData vplmnCSGSubscriptionData)
+	public InsertSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -57,15 +59,15 @@ public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements I
 	}
 	
 	@Override
-	public VPLMNCSGSubscriptionData getVPLMNCSGSubscriptionData()
+	public List<VPLMNCSGSubscriptionData> getVPLMNCSGSubscriptionData()
 	{
 		return this.vplmnCSGSubscriptionData;
 	}
 	
 	@Override
-	public void setVPLMNCSGSubscriptionData(VPLMNCSGSubscriptionData value)
+	public void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value)
 	{
-		if(value == null)
+		if(value == null || value.size()==0)
 			throw new IllegalArgumentException("VPLMN-CSG-Subscription-Data is required");
 		
 		this.vplmnCSGSubscriptionData = value;
@@ -100,9 +102,47 @@ public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements I
 	@DiameterValidate
 	public String validate()
 	{
-		if(vplmnCSGSubscriptionData == null)
+		if(vplmnCSGSubscriptionData == null || vplmnCSGSubscriptionData.size()==0)
 			return "VPLMN-CSG-Subscription-Data is required";
 		
 		return super.validate();
-	}	
+	}		
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(vplmnCSGSubscriptionData!=null)
+			result.addAll(vplmnCSGSubscriptionData);
+		
+		if(resetID!=null)
+			result.addAll(resetID);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
+	}		
 }

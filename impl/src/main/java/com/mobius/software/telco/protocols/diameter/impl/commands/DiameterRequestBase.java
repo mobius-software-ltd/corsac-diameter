@@ -33,9 +33,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Destinatio
 */
 public abstract class DiameterRequestBase extends DiameterMessageBase implements DiameterRequest
 {
-	private DestinationHost destinationHost;
+	protected DestinationHost destinationHost;
 	
-	private DestinationRealm destinationRealm;
+	protected DestinationRealm destinationRealm;
 	
 	private boolean destinationHostAllowed = true;
 	private boolean destinationRealmAllowed = true;

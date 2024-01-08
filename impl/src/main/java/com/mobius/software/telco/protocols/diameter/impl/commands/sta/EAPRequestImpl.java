@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sta.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -21,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ShortNet
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWAGCPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWANConnectionModeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -489,5 +491,54 @@ public class EAPRequestImpl extends StaRequestImpl implements EAPRequest
 			return "Up to 2 TWAG-CP-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authRequestType);
+		result.add(eapPayload);
+		result.add(username);
+		result.add(callingStationId);
+		result.add(ratType);
+		result.add(anid);
+		result.add(fullNetworkName);
+		result.add(shortNetworkName);
+		result.add(qosCapability);
+		result.add(mip6FeatureVector);
+		result.add(visitedNetworkIdentifier);
+		result.add(serviceSelection);
+		result.add(terminalInformation);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(aaaFailureIndication);
+		result.add(wlanIdentifier);
+		result.add(derFlags);
+		result.add(twanConnectionMode);
+		result.add(twanConnectivityParameters);
+		
+		if(twagCPAddress!=null)
+			result.addAll(twagCPAddress);
+		
+		result.add(erprkRequest);
+		
+		if(optionalAvps!=null)
+        {
+        	for(List<DiameterAvp> curr:optionalAvps.values())
+        		result.addAll(curr);
+        }
+		
+		return result;
 	}
 }

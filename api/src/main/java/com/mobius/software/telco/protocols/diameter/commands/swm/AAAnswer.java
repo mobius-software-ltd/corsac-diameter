@@ -75,9 +75,9 @@ public interface AAAnswer extends SwmAnswer
 	
 	void setAPNOIReplacement(String value);
 	
-	List<APNConfiguration> getAPNConfiguration();
+	APNConfiguration getAPNConfiguration();
 				
-	void setAPNConfiguration(List<APNConfiguration> value);	
+	void setAPNConfiguration(APNConfiguration value);	
 	
 	TraceInfo getTraceInfo();
 

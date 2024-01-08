@@ -40,11 +40,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class T4RequestImpl extends VendorSpecificRequestmpl implements T4Request
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	private List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
 	
 	protected T4RequestImpl() 
 	{

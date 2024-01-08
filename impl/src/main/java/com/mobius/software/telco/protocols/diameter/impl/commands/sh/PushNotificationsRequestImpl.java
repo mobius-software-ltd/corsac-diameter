@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sh;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sh.PushNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UserDataImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserData;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
@@ -74,5 +79,42 @@ public class PushNotificationsRequestImpl extends ShRequestImpl implements PushN
 			return "User-Data is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(userIdentity);
+		result.add(wildcardedPublicIdentity);
+		result.add(wildcardedIMPU);
+		result.add(username);
+		result.add(userData);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

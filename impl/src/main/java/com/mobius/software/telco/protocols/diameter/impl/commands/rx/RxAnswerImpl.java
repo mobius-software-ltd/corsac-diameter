@@ -34,11 +34,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class RxAnswerImpl extends AuthenticationAnswerImpl implements RxAnswer
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
-	public OCOLR ocOLR;
+	protected OCOLR ocOLR;
 	
 	protected RxAnswerImpl() 
 	{

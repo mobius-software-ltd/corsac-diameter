@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rx.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceURNImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaComponentDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.ServiceURN;
@@ -105,5 +107,50 @@ public class ReAuthAnswerImpl extends RxAnswerImpl implements ReAuthAnswer
 			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(mediaComponentDescription!=null)
+			result.addAll(mediaComponentDescription);
+		
+		result.add(serviceURN);
+		result.add(originStateId);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }	

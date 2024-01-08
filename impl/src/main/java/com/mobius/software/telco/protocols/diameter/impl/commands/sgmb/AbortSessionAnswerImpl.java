@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sgmb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.RestartCounterImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.RestartCounter;
 
 /*
@@ -59,5 +64,32 @@ public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.
 			this.restartCounter = null;
 		else
 			this.restartCounter = new RestartCounterImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		result.add(restartCounter);
+		
+		return result;
 	}
 }

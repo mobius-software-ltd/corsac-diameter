@@ -1,7 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.annotations;
 
 /*
- * Mobius Software LTD, Open Source Cloud Communications
+ * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
  * by the @authors tag.
  *
@@ -32,15 +32,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Inherited
-public @interface DiameterAvpDefinition 
+public @interface DiameterOrder 
 {
-	public boolean must() default true;
-	
-	public long code();
-	
-	public long vendorId();	
-	
-	public String name();
+
 }

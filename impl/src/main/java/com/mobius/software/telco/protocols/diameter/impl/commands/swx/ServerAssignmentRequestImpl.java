@@ -1,8 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swx.ServerAssignmentRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -11,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.Visited
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ContextIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swm.EmergencyServicesImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerAssignmentType;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerAssignmentTypeEnum;
@@ -253,5 +256,44 @@ public class ServerAssignmentRequestImpl extends SwxRequestImpl implements Serve
 			return "Server-Assignment-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(serviceSelection);
+		result.add(contextIdentifier);
+		result.add(mip6AgentInfo);
+		result.add(visitedNetworkIdentifier);
+		result.add(username);
+		result.add(serverAssignmentType);
+		
+		if(activeAPN!=null)
+			result.addAll(activeAPN);
+		
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(terminalInformation);
+		result.add(emergencyServices);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}				
+		
+		return result;
 	}
 }

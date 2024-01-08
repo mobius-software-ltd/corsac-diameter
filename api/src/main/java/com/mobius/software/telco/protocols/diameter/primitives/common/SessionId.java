@@ -82,7 +82,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    Session-Id MAY be used for both the authentication, authorization,
    and accounting commands of a given application.
  */
-@DiameterAvpDefinition(code = 263L, position = 1, vendorId = -1L, name = "Session-Id")
+@DiameterAvpDefinition(code = 263L, vendorId = -1L, name = "Session-Id")
 public interface SessionId extends DiameterUTF8String
 {
 }

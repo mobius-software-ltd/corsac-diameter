@@ -78,5 +78,9 @@ public interface UserAuthorizationAnswer extends CxDxAnswer
 	
 	ServerCapabilities getServerCapabilities();
 	
-	void setServerCapabilities(ServerCapabilities value);				
+	void setServerCapabilities(ServerCapabilities value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

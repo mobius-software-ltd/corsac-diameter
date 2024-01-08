@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swx.MultimediaAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -10,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPN
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.VisitedNetworkIdentifier;
@@ -267,5 +272,40 @@ public class MultimediaAuthRequestImpl extends SwxRequestImpl implements Multime
 			return "SIP-Auth-Data-Item is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(ratType);
+		result.add(anTrusted);
+		result.add(anid);
+		result.add(visitedNetworkIdentifier);
+		result.add(terminalInformation);
+		result.add(sipAuthDataItem);
+		result.add(sipNumberAuthItems);
+		result.add(aaaFailureIndication);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}				
+		
+		return result;
 	}
 }

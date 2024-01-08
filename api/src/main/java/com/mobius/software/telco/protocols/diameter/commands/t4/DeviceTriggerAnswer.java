@@ -64,5 +64,5 @@ public interface DeviceTriggerAnswer extends T4Answer
 	
 	TriggerActionEnum getTriggerAction();
 	
-	void setTriggerAction(TriggerActionEnum value);	
+	void setTriggerAction(TriggerActionEnum value);
 }

@@ -34,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 The CCR messages, indicated by the Command-Code field set to 272 is sent by the CTF to the OCF in order to request credits for the request bearer / subsystem /service. 
 The CCR message format is defined according to RFC 4006 [402] as follows:
 	   <CCR> ::= < Diameter Header: 272, REQ, PXY >
-
 				 < Session-Id > 
                  { Origin-Host } 
                  { Origin-Realm } 

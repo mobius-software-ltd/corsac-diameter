@@ -2,14 +2,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc4a;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.Pc4aRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -40,11 +36,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implements Pc4aRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
-	
-	public List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
 	
 	protected Pc4aRequestImpl() 
 	{
@@ -52,7 +46,7 @@ public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implement
 		setDestinationHostAllowed(true);
 	}
 		
-	public Pc4aRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState)
+	public Pc4aRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID)
 	{
 		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
 		setDestinationHostAllowed(true);
@@ -64,8 +58,6 @@ public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implement
 		{
 			
 		}
-		
-		setAuthSessionState(authSessionState);
 	}
 
 	@Override
@@ -87,24 +79,6 @@ public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implement
 	}
 
 	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState==null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
-	{
-		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
-		
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
-	}
-
-	@Override
 	public List<SupportedFeatures> getSupportedFeatures() 
 	{
 		return supportedFeatures;
@@ -114,14 +88,5 @@ public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implement
 	public void setSupportedFeatures(List<SupportedFeatures> value) 
 	{
 		this.supportedFeatures = value;
-	}
-	
-	@DiameterValidate
-	public String validate()
-	{
-		if(authSessionState == null)
-			return "Auth-Session-State is required";
-		
-		return super.validate();
 	}
 }

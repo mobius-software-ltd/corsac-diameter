@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
@@ -20,6 +21,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNMCCMNCImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -78,7 +80,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	
 	private CcRequestNumber ccRequestNumber;
 	
-	private CcSubSessionId accountingSubSessionId;
+	private CcSubSessionId ccSubSessionId;
 	
 	private EventTimestamp eventTimestamp;
 	
@@ -209,19 +211,19 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	@Override
 	public Long getCcSubSessionId()
 	{
-		if(this.accountingSubSessionId==null)
+		if(this.ccSubSessionId==null)
 			return null;
 		
-		return this.accountingSubSessionId.getLong();
+		return this.ccSubSessionId.getLong();
 	}
 
 	@Override
 	public void setCcSubSessionId(Long value)
 	{
 		if(value == null)
-			this.accountingSubSessionId = null;
+			this.ccSubSessionId = null;
 		else
-			this.accountingSubSessionId = new CcSubSessionIdImpl(value, null, null);
+			this.ccSubSessionId = new CcSubSessionIdImpl(value, null, null);
 	}
 
 	@Override
@@ -445,5 +447,61 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 			return "CC-Request-Request is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(serviceContextId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(destinationHost);
+		result.add(username);
+		result.add(ccSubSessionId);
+		
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+		
+		result.add(serviceIdentifier);
+		result.add(terminationCause);
+		result.add(requestedServiceUnit);
+		result.add(requestedAction);
+		
+		result.add(serviceInformation);
+		
+		if(usedServiceUnit!=null)
+			result.addAll(usedServiceUnit);
+		
+		result.add(multipleServicesIndicator);
+		
+		if(multipleServicesCreditControl!=null)
+			result.addAll(multipleServicesCreditControl);
+		
+		result.add(userEquipmentInfo);
+		
+		result.add(tgppSGSNMCCMNC);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

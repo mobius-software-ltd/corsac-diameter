@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swm.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -88,5 +93,29 @@ public class SessionTerminationRequestImpl extends SwmRequestImpl implements Ses
 			return "Termination-Cause is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(terminationCause);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

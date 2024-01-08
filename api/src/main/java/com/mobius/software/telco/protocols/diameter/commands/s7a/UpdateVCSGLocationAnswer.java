@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s7a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ErrorDiagnosticEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubscriptionData;
@@ -58,9 +60,9 @@ public interface UpdateVCSGLocationAnswer extends S7aAnswer
 	 
 	void setErrorDiagnostic(ErrorDiagnosticEnum value);
 	
-	VPLMNCSGSubscriptionData getVPLMNCSGSubscriptionData();
+	List<VPLMNCSGSubscriptionData> getVPLMNCSGSubscriptionData();
 	 
-	void setVPLMNCSGSubscriptionData(VPLMNCSGSubscriptionData value);
+	void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value);
 		
 	Long getUVAFlags();
 	

@@ -103,5 +103,9 @@ public interface UserDataAnswer extends E4Answer
 	 		
 	String getInitialGateSettingID();
 	 
-	void setInitialGateSettingID(String value);
+	void setInitialGateSettingID(String value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

@@ -40,11 +40,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class S7aRequestImpl extends VendorSpecificRequestmpl implements S7aRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	private List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
 	
 	protected S7aRequestImpl() 
 	{

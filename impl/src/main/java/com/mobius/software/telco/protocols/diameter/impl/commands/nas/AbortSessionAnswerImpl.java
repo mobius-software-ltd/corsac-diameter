@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.nas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAAAProtocolImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.State;
@@ -84,5 +89,39 @@ public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.
 			this.state = null;
 		else
 			this.state = new StateImpl(state, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		result.add(originAAAProtocol);
+		result.add(originStateId);
+		result.add(state);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

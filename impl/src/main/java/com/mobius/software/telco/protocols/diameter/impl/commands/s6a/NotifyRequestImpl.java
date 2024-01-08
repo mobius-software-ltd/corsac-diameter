@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.NotifyRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
@@ -14,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.NORFlags
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UESRVCCCapabilityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MaximumUEAvailabilityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swm.EmergencyServicesImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.VisitedNetworkIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
@@ -305,5 +308,53 @@ public class NotifyRequestImpl extends S6aRequestImpl implements NotifyRequest
 			this.emergencyServices = null;
 		else
 			this.emergencyServices = new EmergencyServicesImpl(value, null, null);
+	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(drmp);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(terminalInformation);
+		result.add(mip6AgentInfo);
+		result.add(contextIdentifier);
+		result.add(serviceSelection);
+		result.add(alertReason);
+		result.add(ueSRVCCCapability);
+		result.add(norFlags);
+		result.add(homogeneousSupportOfIMSVoiceOverPSSessions);
+		result.add(maximumUEAvailabilityTime);
+		
+		if(monitoringEventConfigStatus!=null)
+			result.addAll(monitoringEventConfigStatus);
+		
+		result.add(emergencyServices);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

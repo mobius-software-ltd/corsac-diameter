@@ -1,11 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6m;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SCSIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ServiceIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.SCSIdentity;
@@ -176,5 +181,42 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 			return "SIR-Flags is required";
 		
 		return super.validate();
-	}	
+	}		
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(userIdentifier);
+		result.add(username);
+		result.add(serviceID);
+		result.add(scsIdentity);
+		result.add(serviceParameters);
+		result.add(sirFlags);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
+	}
 }

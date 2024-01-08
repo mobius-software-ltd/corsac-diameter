@@ -228,7 +228,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
                * [ Proxy-Info ]
                * [ Route-Record ]
                * [ AVP ]
-
  */
 @DiameterCommandDefinition(applicationId = 6, commandCode = 284, request = false, proxyable = true, name="Server-Assignment-Answer")
 public interface ServerAssignmentAnswer extends AuthenticationAnswer
@@ -256,4 +255,8 @@ public interface ServerAssignmentAnswer extends AuthenticationAnswer
 	Long getAuthorizationLifetime();
 	
 	void setAuthorizationLifetime(Long value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);	
 }

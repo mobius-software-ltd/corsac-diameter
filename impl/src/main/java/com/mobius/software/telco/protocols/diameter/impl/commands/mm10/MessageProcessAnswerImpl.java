@@ -1,18 +1,23 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.mm10;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.BillingInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.DeliveryReportImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ReadReplyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.SenderVisibilityImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.BillingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReport;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReportEnum;
@@ -63,6 +68,8 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 	private BillingInformation billingInformation;
 	
 	private SenderVisibility senderVisibility;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	protected MessageProcessAnswerImpl() 
 	{
@@ -195,6 +202,34 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 		else
 			this.senderVisibility = new SenderVisibilityImpl(value, null, null);
 	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}
 	
 	@DiameterValidate
 	public String validate()
@@ -203,5 +238,43 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 			return "Auth-Session-State is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(status);
+		
+		if(resultRecipientAddress!=null)
+			result.addAll(resultRecipientAddress);
+		
+		result.add(deliveryReport);
+		result.add(readReply);
+		result.add(billingInformation);
+		result.add(senderVisibility);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

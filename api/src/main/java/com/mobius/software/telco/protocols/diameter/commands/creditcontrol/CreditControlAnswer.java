@@ -80,7 +80,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoS
                                  *[ Route-Record ]
                                  *[ Failed-AVP ]
                                  *[ AVP ]
-                                    
  */
 @DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Credit-Control-Answer")
 public interface CreditControlAnswer extends AuthenticationAnswer
@@ -144,5 +143,9 @@ public interface CreditControlAnswer extends AuthenticationAnswer
 	public Long getValidityTime() throws AvpNotSupportedException;
 	
 	void setValidityTime(Long value) throws AvpNotSupportedException;
+	
+	public List<String> getRouteRecords() throws AvpNotSupportedException;
+	
+	public void setRouteRecords(List<String> value) throws AvpNotSupportedException;
 	
 }

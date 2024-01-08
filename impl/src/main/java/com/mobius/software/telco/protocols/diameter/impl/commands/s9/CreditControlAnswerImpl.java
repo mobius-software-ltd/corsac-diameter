@@ -5,16 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s9.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.ANGWAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerControlModeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
@@ -93,6 +97,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	private List<ANGWAddress> anGWAddress;
 	
 	private List<Load> load;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	protected CreditControlAnswerImpl() 
 	{
@@ -373,6 +379,34 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	{
 		this.load = value;
 	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}
 	
 	@DiameterValidate
 	public String validate()
@@ -387,5 +421,73 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);		
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(qosRuleInstall!=null)
+			result.addAll(qosRuleInstall);
+		
+		if(qosRuleRemove!=null)
+			result.addAll(qosRuleRemove);
+		
+		if(qosInformation!=null)
+			result.addAll(qosInformation);
+		
+		result.add(bearerControlMode);
+		
+		if(eventTrigger!=null)
+			result.addAll(eventTrigger);
+		
+		result.add(chargingInformation);
+		
+		if(subsessionDecisionInfo!=null)
+			result.addAll(subsessionDecisionInfo);
+		
+		if(csgInformationReporting!=null)
+			result.addAll(csgInformationReporting);
+		
+		if(anGWAddress!=null)
+			result.addAll(anGWAddress);
+		
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

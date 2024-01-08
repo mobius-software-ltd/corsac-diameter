@@ -37,9 +37,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class S13RequestImpl extends VendorSpecificRequestmpl implements S13Request
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
 	protected S13RequestImpl() 
 	{

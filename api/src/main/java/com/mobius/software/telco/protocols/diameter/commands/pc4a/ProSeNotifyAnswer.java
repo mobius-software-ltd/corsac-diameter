@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
@@ -57,6 +58,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 @DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388666, request = false, proxyable = true, name="ProSe-Notify-Answer")
 public interface ProSeNotifyAnswer extends Pc4aAnswer
 {	
+	public AuthSessionStateEnum getAuthSessionState();
+	
+	void setAuthSessionState(AuthSessionStateEnum value);
+
 	public OCSupportedFeatures getOCSupportedFeatures();
 	 
 	void setOCSupportedFeatures(OCSupportedFeatures value);

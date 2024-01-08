@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
 /**
 *
@@ -52,4 +55,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 @DiameterCommandDefinition(applicationId = 16777302, commandCode = 275, request = false, proxyable = true, name="AA-Answer")
 public interface SessionTerminationAnswer extends SyAnswer
 {	
+	public List<Load> getLoad();
+	 
+	void setLoad(List<Load> value);
 }

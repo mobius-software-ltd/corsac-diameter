@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ConditionalRestrictionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RUCIActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ReportingRestrictionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CalledStationId;
@@ -161,5 +164,43 @@ public class ModifyUeContextRequestmpl extends NpRequestImpl implements ModifyUe
 	public void setCongestionLevelDefinition(List<CongestionLevelDefinition> value)
 	{
 		this.congestionLevelDefinition = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(originStateId);
+		result.add(subscriptionId);
+		result.add(calledStationId);
+		result.add(ocSupportedFeatures);
+		result.add(reportingRestriction);
+		result.add(conditionalRestriction);
+		result.add(ruciAction);
+		
+		if(congestionLevelDefinition!=null)
+			result.addAll(congestionLevelDefinition);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ConnectionManagementRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerIdentifierImpl;
@@ -8,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeIm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.CMRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ConnectionActionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerIdentifier;
@@ -311,5 +316,51 @@ public class ConnectionManagementRequestImpl extends T6aRequestImpl implements C
 			return "User-Identifier is required";
 		
 		return super.validate();
-	}	
+	}		
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(userIdentifier);
+		result.add(bearerIdentifier);
+		result.add(drmp);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(ocSupportedFeatures);
+		
+		result.add(cmrFlags);
+		result.add(maximumUEAvailabilityTime);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(connectionAction);
+		result.add(serviceSelection);
+		result.add(servingPLMNRateControl);
+		result.add(extendedPCO);
+		result.add(tgppChargingCharacteristics);
+		result.add(ratType);
+		result.add(terminalInformation);
+		result.add(visitedPLMNId);
+		result.add(apnRateControlStatus);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
+	}
 }

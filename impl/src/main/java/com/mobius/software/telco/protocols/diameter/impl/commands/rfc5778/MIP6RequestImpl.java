@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778.MIP6Request;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -29,6 +30,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPM
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPMNHASPIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
@@ -571,5 +573,62 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 			throw new IllegalArgumentException("MIP-Careof-Address is required");
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(username);
+		result.add(destinationRealm);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(authRequestType);
+		result.add(destinationHost);
+		result.add(originStateId);
+		result.add(nasIdentifier);
+		result.add(nasIPAddress);
+		result.add(nasIPv6Address);
+		result.add(nasPortType);
+		result.add(calledStationId);
+		result.add(callingStationId);
+		result.add(mip6FeatureVector);
+		result.add(mip6AuthMode);
+		result.add(mipMNAAASPI);
+		result.add(mipMNHASPI);
+		
+		if(mipMobileNodeAddress!=null)
+			result.addAll(mipMobileNodeAddress);
+		
+		result.add(mip6AgentInfo);
+		result.add(mipCareofAddress);
+		result.add(mipAuthenticator);
+		result.add(mipMACMobilityData);
+		result.add(mipTimestamp);
+		result.add(qosCapability);
+		
+		if(qosResources!=null)
+			result.addAll(qosResources);
+		
+		result.add(chargeableUserIdentity);
+		result.add(serviceSelection);
+		result.add(authorizationLifetime);
+		result.add(authSessionState);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(optionalAvps!=null)
+        {
+        	for(List<DiameterAvp> curr:optionalAvps.values())
+        		result.addAll(curr);
+        }
+		
+		return result;
 	}
 }

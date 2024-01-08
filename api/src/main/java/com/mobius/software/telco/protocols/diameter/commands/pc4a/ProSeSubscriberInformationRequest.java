@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 /**
@@ -51,6 +52,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 @DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388664, request = true, proxyable = true, name="ProSe-Subscriber-Information-Request")
 public interface ProSeSubscriberInformationRequest extends Pc4aRequest
 {
+	public AuthSessionStateEnum getAuthSessionState();
+	
+	void setAuthSessionState(AuthSessionStateEnum value);
+
 	public OCSupportedFeatures getOCSupportedFeatures();
 	 
 	void setOCSupportedFeatures(OCSupportedFeatures value);

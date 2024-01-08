@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.huawei;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
@@ -14,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CreditControlFailureHandlingImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.MultipleServicesIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
@@ -305,5 +308,54 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 			this.multipleServicesIndicator = null;
 		else
 			this.multipleServicesIndicator = new MultipleServicesIndicatorImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(authApplicationId);
+		result.add(serviceContextId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		
+		result.add(username);
+		result.add(ccSessionFailover);
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		result.add(grantedServiceUnit);
+		
+		if(multipleServicesCreditControl!=null)
+			result.addAll(multipleServicesCreditControl);
+		
+		result.add(serviceInformation);
+		result.add(costInformation);
+		result.add(finalUnitIndication);
+		result.add(creditControlFailureHandling);
+		result.add(multipleServicesIndicator);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		result.add(failedAvp);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

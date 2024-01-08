@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class S6bRequestImpl extends AuthenticationRequestWithHostBase implements S6bRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
 	protected S6bRequestImpl() 
 	{

@@ -58,5 +58,9 @@ public abstract interface Pc6Answer extends VendorSpecificAnswer
 	
 	List<Load> getLoad();
 	 
-	void setLoad(List<Load> value);
+	void setLoad(List<Load> value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

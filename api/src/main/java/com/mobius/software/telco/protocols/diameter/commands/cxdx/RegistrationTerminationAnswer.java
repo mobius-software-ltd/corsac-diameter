@@ -62,4 +62,8 @@ public interface RegistrationTerminationAnswer extends CxDxAnswer
 	List<IdentityWithEmergencyRegistration> getIdentityWithEmergencyRegistration();
 	 
 	void setIdentityWithEmergencyRegistration(List<IdentityWithEmergencyRegistration> value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);	
 }

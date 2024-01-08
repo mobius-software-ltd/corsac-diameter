@@ -163,6 +163,10 @@ public interface EAPRequest extends SwdRequest
 	
 	void setTWAGCPAddress(List<InetAddress> value);
 	
+	Long getTWANS2aFailureCause();
+	
+	void setTWANS2aFailureCause(Long value);
+	
 	ERPRKRequest getERPRKRequest();
 	
 	void setERPRKRequest(ERPRKRequest value);

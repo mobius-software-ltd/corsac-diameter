@@ -37,9 +37,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 */
 public abstract class SlhRequestImpl extends VendorSpecificRequestmpl implements SlhRequest
 {
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	private List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
 	
 	protected SlhRequestImpl() 
 	{

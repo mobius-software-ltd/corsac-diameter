@@ -18,10 +18,12 @@ package com.mobius.software.telco.protocols.diameter.commands.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
@@ -44,4 +46,20 @@ public abstract interface NtAnswer extends VendorSpecificAnswer
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
 	void setSupportedFeatures(List<SupportedFeatures> value);
+	
+	public List<String> getRedirectHost();
+	
+	void setRedirectHost(List<String> value) throws ParseException;
+
+	public RedirectHostUsageEnum getRedirectHostUsage();
+	
+	void setRedirectHostUsage(RedirectHostUsageEnum value);
+	
+	public Long getRedirectMaxCacheTime();
+	
+	void setRedirectMaxCacheTime(Long value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

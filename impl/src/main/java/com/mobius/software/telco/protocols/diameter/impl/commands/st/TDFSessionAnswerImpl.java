@@ -1,9 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleReport;
@@ -93,4 +96,47 @@ public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnsw
 	{
 		this.load = value;
 	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(adcRuleReport!=null)
+			result.addAll(adcRuleReport);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
+	}	
 }

@@ -1,8 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6b;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6b.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -11,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPPaylo
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5779.MobileNodeIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -264,5 +267,45 @@ public class EAPAnswerImpl extends S6bAnswerWithIdImpl implements EAPAnswer
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(authRequestType);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+        result.add(eapPayload);
+        result.add(eapMasterSessionKey);
+        result.add(mobileNodeIdentifier);
+        result.add(apnConfiguration);
+        result.add(mip6AgentInfo);
+        result.add(mip6FeatureVector);
+        result.add(tgppChargingCharacteristics);
+        
+        if(qosResources!=null)
+			result.addAll(qosResources);
+
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        result.add(traceInfo);
+        
+        if(supportedFeatures!=null)
+        	result.addAll(supportedFeatures);
+        
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

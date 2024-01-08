@@ -1,11 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sgd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.OFRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
@@ -188,4 +193,43 @@ public class MOForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 		
 		return super.validate();
 	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(scAddress);
+		result.add(ofrFlags);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(userIdentifier);
+		result.add(epsLocationInformation);
+		result.add(smRPUI);
+		result.add(smSMICorrelationID);
+		result.add(smDeliveryOutcome);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
+	}
 }

@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
@@ -14,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.ResultCodeExtensionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQuotaThreshold;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UnitQuotaThreshold;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VolumeQuotaThreshold;
@@ -330,5 +335,51 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 			return "CC-Request-Number is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(authApplicationId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		
+		result.add(username);
+		result.add(originStateId);
+		result.add(grantedServiceUnit);
+		result.add(multipleServicesIndicator);
+		result.add(costInformation);
+		result.add(finalUnitIndication);
+		result.add(creditControlFailureHandling);
+		result.add(resultCodeExtension);
+		result.add(timeQuotaThreshold);
+		result.add(volumeQuotaThreshold);
+		result.add(unitQuotaThreshold);
+		result.add(validityTime);
+		result.add(serviceIdentifier);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		result.add(failedAvp);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

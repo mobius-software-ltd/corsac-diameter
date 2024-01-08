@@ -1,7 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rx.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -37,5 +42,39 @@ public class AbortSessionAnswerImpl extends RxAnswerImpl implements AbortSession
 	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,Long authApplicationId)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

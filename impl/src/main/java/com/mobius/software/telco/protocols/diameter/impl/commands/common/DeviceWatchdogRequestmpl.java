@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -45,5 +50,22 @@ public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements Dev
 		setSessionIdAllowed(false);
 		setProxyInfoAllowed(false);
 		setUsernameAllowed(false);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(originStateId);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

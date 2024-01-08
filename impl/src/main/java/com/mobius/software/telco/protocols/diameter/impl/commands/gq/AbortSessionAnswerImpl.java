@@ -1,7 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gq;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gq.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -30,12 +35,48 @@ import com.mobius.software.telco.protocols.diameter.commands.gq.AbortSessionAnsw
 @DiameterCommandImplementation(applicationId = 16777222, commandCode = 274, request = false)
 public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionAnswerImpl implements AbortSessionAnswer
 {
-	protected AbortSessionAnswerImpl() 
+	protected AbortSessionAnswerImpl()
 	{
+		setUsernameAllowed(false);
+		setExperimentalResultAllowed(true);
 	}
 	
 	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		setUsernameAllowed(false);
+		setExperimentalResultAllowed(true);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

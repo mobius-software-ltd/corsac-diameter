@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
 *
@@ -49,4 +50,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 @DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388713, request = true, proxyable = true, name="ProSe-Subscriber-Information-Request")
 public interface ProSeInitialLocationInformationRequest extends Pc4aRequest
 {
+	public AuthSessionStateEnum getAuthSessionState();
+	
+	void setAuthSessionState(AuthSessionStateEnum value);
 }

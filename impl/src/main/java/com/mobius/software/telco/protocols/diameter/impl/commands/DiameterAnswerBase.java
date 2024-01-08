@@ -46,15 +46,15 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 {
 	private Boolean isError;
 	
-	private ResultCode resultCode;
+	protected ResultCode resultCode;
 	
-	private ErrorMessage errorMessage;
+	protected ErrorMessage errorMessage;
 	
-	private ErrorReportingHost errorReportingHost;
+	protected ErrorReportingHost errorReportingHost;
 	
-	private FailedAvp failedAvp;
+	protected FailedAvp failedAvp;
 	
-	private ExperimentalResult experimentalResult;
+	protected ExperimentalResult experimentalResult;
 	
 	private boolean experimentalResultAllowed = true;
 	private boolean errorReportingHostAllowed = true;

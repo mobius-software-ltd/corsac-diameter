@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -48,5 +50,8 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
  */
 @DiameterCommandDefinition(applicationId = 16777216, commandCode = 305, request = false, proxyable = true, name="Push-Profile-Answer")
 public interface PushProfileAnswer extends CxDxAnswer
-{	
+{
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

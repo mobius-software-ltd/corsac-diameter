@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
@@ -23,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.SubscriptionIdLocationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.TrafficCaseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPMSTimeZoneImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -513,5 +515,63 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 			return "CC-Request-Request is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(serviceContextId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(destinationHost);
+		result.add(username);
+		
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+		
+		result.add(serviceIdentifier);
+		result.add(terminationCause);
+		result.add(requestedServiceUnit);
+		result.add(requestedAction);
+		
+		result.add(usedServiceUnit);
+		
+		result.add(multipleServicesIndicator);
+		
+		if(multipleServicesCreditControl!=null)
+			result.addAll(multipleServicesCreditControl);
+		
+		if(serviceParameterInfo!=null)
+			result.addAll(serviceParameterInfo);
+		
+		result.add(accountLocation);
+		result.add(subscriptionIdLocation);
+		result.add(otherPartyId);
+		result.add(serviceProviderId);
+		result.add(tgppMSTimeZone);
+		result.add(trafficCase);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

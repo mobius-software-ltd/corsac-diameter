@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.Authenticat
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEventNotification;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIExpiry;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
 /**
 *
@@ -57,6 +58,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIExpiry;
 @DiameterCommandDefinition(applicationId = 16777335, commandCode = 8388663, request = true, proxyable = true, name="GCS-Notification-Request")
 public interface GCSNotificationRequest extends AuthenticationRequest
 {	
+	DRMPEnum getDRMP();
+	
+	void setDRMP(DRMPEnum value);
+	
 	AuthSessionStateEnum getAuthSessionState();
 	
 	void setAuthSessionState(AuthSessionStateEnum value);	

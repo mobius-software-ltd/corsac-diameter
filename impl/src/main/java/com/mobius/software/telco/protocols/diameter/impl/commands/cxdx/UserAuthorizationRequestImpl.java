@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.UserAuthorizationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -8,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UARFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserAuthorizationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
@@ -179,5 +184,43 @@ public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implem
 			return "Visited-Network-Identifier is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(publicIdentity);
+		result.add(visitedNetworkId);
+		result.add(userAuthorizationType);
+		result.add(uarFlags);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

@@ -1,11 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.AuthenticationInformationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ErrorDiagnosticImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UEUsageTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -148,5 +151,47 @@ public class AuthenticationInformationAnswerImpl extends S6aAnswerImpl implement
 			this.ueUsageType = null;
 		else
 			this.ueUsageType = new UEUsageTypeImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(errorDiagnostic);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(authenticationInfo);
+		result.add(ueUsageType);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

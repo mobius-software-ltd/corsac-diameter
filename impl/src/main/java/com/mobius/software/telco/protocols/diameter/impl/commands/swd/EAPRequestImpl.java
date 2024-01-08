@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swd.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -21,6 +22,8 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.FullNetw
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ShortNetworkNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWAGCPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWANConnectionModeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWANS2aFailureCauseImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -44,6 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.ShortNetworkN
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWAGCPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANConnectionMode;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANConnectivityParameters;
+import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANS2aFailureCause;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.WLANIdentifier;
 
 import io.netty.buffer.ByteBuf;
@@ -114,6 +118,8 @@ public class EAPRequestImpl extends SwdRequestImpl implements EAPRequest
 	private TWANConnectivityParameters twanConnectivityParameters;
 	
 	private List<TWAGCPAddress> twagCPAddress;
+	
+	private TWANS2aFailureCause twanS2aFailureCause;
 	
 	private ERPRKRequest erprkRequest;
 	
@@ -464,6 +470,24 @@ public class EAPRequestImpl extends SwdRequestImpl implements EAPRequest
 				this.twagCPAddress.add(new TWAGCPAddressImpl(curr, null, null));
 		}		
 	}
+
+	@Override
+	public Long getTWANS2aFailureCause()
+	{
+		if(twanS2aFailureCause == null)
+			return null;
+		
+		return twanS2aFailureCause.getUnsigned();
+	}
+	
+	@Override
+	public void setTWANS2aFailureCause(Long value)
+	{
+		if(value==null)
+			this.twanS2aFailureCause = null;
+		else
+			this.twanS2aFailureCause = new TWANS2aFailureCauseImpl(value, null, null);
+	}
 	
 	@Override
 	public ERPRKRequest getERPRKRequest()
@@ -490,5 +514,55 @@ public class EAPRequestImpl extends SwdRequestImpl implements EAPRequest
 			return "Up to 2 TWAG-CP-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authRequestType);
+		result.add(eapPayload);
+		result.add(username);
+		result.add(callingStationId);
+		result.add(ratType);
+		result.add(anid);
+		result.add(qosCapability);
+		result.add(mip6FeatureVector);
+		result.add(visitedNetworkIdentifier);
+		result.add(serviceSelection);
+		result.add(terminalInformation);
+		result.add(anTrusted);
+		result.add(fullNetworkName);
+		result.add(shortNetworkName);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(ocSupportedFeatures);
+		result.add(wlanIdentifier);
+		result.add(derFlags);
+		result.add(twanConnectionMode);
+		result.add(twanConnectivityParameters);
+		
+		if(twagCPAddress!=null)
+			result.addAll(twagCPAddress);
+		
+		result.add(twanS2aFailureCause);
+		result.add(erprkRequest);
+		
+		if(optionalAvps!=null)
+        {
+        	for(List<DiameterAvp> curr:optionalAvps.values())
+        		result.addAll(curr);
+        }
+		
+		return result;
 	}
 }

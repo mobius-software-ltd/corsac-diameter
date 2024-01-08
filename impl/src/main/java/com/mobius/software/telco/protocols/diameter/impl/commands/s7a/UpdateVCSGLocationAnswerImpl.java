@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s7a;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ErrorDiagnosticImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UVAFlagsImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ErrorDiagnostic;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ErrorDiagnosticEnum;
@@ -39,7 +44,7 @@ public class UpdateVCSGLocationAnswerImpl extends S7aAnswerImpl implements Updat
 {
 	private ErrorDiagnostic errorDiagnostic;
 	
-	private VPLMNCSGSubscriptionData vplmnCSGSubscriptionData;
+	private List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData;
 	
 	private UVAFlags uvaFlags;
 	
@@ -74,13 +79,13 @@ public class UpdateVCSGLocationAnswerImpl extends S7aAnswerImpl implements Updat
 	}
 	
 	@Override
-	public VPLMNCSGSubscriptionData getVPLMNCSGSubscriptionData() 
+	public List<VPLMNCSGSubscriptionData> getVPLMNCSGSubscriptionData() 
 	{
 		return vplmnCSGSubscriptionData;
 	}
 	
 	@Override
-	public void setVPLMNCSGSubscriptionData(VPLMNCSGSubscriptionData value)
+	public void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value)
 	{
 		this.vplmnCSGSubscriptionData = value;
 	}
@@ -101,5 +106,44 @@ public class UpdateVCSGLocationAnswerImpl extends S7aAnswerImpl implements Updat
 			this.uvaFlags = null;
 		else
 			this.uvaFlags = new UVAFlagsImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(errorDiagnostic);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(vplmnCSGSubscriptionData!=null)
+			result.addAll(vplmnCSGSubscriptionData);
+		
+		result.add(uvaFlags);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

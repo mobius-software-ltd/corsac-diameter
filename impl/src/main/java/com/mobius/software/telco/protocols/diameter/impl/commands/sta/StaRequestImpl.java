@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class StaRequestImpl extends AuthenticationRequestWithHostBase implements StaRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
 	protected StaRequestImpl() 
 	{

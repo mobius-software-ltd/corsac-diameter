@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6t;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.NumberOfUEsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.CIAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.S6tHSSCauseImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.NumberOfUEs;
@@ -57,7 +60,7 @@ public class ConfigurationInformationAnswerImpl extends S6tAnswerImpl implements
 	
 	private List<Load> load;
 	
-	private List<UserIdentifier> userIdentifier;
+	private UserIdentifier userIdentifier;
 	
 	private ServiceData serviceData;
 	
@@ -130,13 +133,13 @@ public class ConfigurationInformationAnswerImpl extends S6tAnswerImpl implements
 	}
 	
 	@Override
-	public List<UserIdentifier> getUserIdentifier() 
+	public UserIdentifier getUserIdentifier() 
 	{
 		return userIdentifier;
 	}
 	
 	@Override
-	public void setUserIdentifier(List<UserIdentifier> value)
+	public void setUserIdentifier(UserIdentifier value)
 	{
 		this.userIdentifier = value;
 	}
@@ -289,5 +292,66 @@ public class ConfigurationInformationAnswerImpl extends S6tAnswerImpl implements
 	public void setSuggestedNetworkConfiguration(SuggestedNetworkConfiguration value)
 	{
 		this.suggestedNetworkConfiguration = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(userIdentifier);
+		result.add(numberOfUEs);
+		
+		if(monitoringEventReport!=null)
+			result.addAll(monitoringEventReport);
+		
+		if(monitoringEventConfigStatus!=null)
+			result.addAll(monitoringEventConfigStatus);
+		
+		if(aesECommunicationPatternConfigStatus!=null)
+			result.addAll(aesECommunicationPatternConfigStatus);
+		
+		if(supportedServices!=null)
+			result.addAll(supportedServices);
+		
+		result.add(s6tHSSCause);
+		result.add(enhancedCoverageRestriction);
+		result.add(ciaFlags);
+		
+		if(imsiGroupId!=null)
+			result.addAll(imsiGroupId);
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		result.add(suggestedNetworkConfiguration);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -18,11 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
@@ -45,8 +42,4 @@ public abstract interface NpRequest extends VendorSpecificRequest
 	OCSupportedFeatures getOCSupportedFeatures();
 	 
 	void setOCSupportedFeatures(OCSupportedFeatures value);
-	 	
-	public List<SupportedFeatures> getSupportedFeatures();
-	 
-	void setSupportedFeatures(List<SupportedFeatures> value);
 }

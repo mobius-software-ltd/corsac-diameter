@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.OriginatingRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SessionPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserAuthorizationTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.OriginatingRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.OriginatingRequestEnum;
@@ -150,4 +155,41 @@ public class LocationInfoRequestImpl extends CxDxRequestWithHostBase implements 
 		
 		return super.validate();
 	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(originatingRequest);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(publicIdentity);
+		result.add(userAuthorizationType);
+		result.add(sessionId);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
+	}
 }

@@ -27,6 +27,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
+import io.netty.buffer.ByteBuf;
+
 /**
 *
 * @author yulian oifa
@@ -65,6 +67,10 @@ public interface SessionTerminationAnswer extends AuthenticationAnswer
 	public DRMPEnum getDRMP();
 	 
 	void setDRMP(DRMPEnum value);
+	
+	public List<ByteBuf> getDiameterClass();
+	
+	void setDiameterClass(List<ByteBuf> value);
 
 	OCSupportedFeatures getOCSupportedFeatures();
 	

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
@@ -64,6 +65,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAA
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginatingLineInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PortLimitImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
@@ -1413,5 +1415,129 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	public void setTunneling(List<Tunneling> value) 
 	{
 		this.tunneling = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(accountingRecordType);
+      	result.add(accountingRecordNumber);
+      	result.add(acctApplicationId);
+      	result.add(username);
+      	result.add(accountingSubSessionId);
+      	result.add(acctSessionId);
+      	result.add(acctMultiSessionId);
+      	result.add(originAAAProtocol);
+      	result.add(originStateId);
+      	result.add(destinationHost);
+      	result.add(eventTimestamp);
+      	result.add(acctDelayTime);
+      	result.add(nasIdentifier);
+      	result.add(nasIPAddress);
+      	result.add(nasIPv6Address);
+      	result.add(nasPort);
+      	result.add(nasPortId);
+      	result.add(nasPortType);
+      	
+      	if(diameterClass!=null)
+      		result.addAll(diameterClass);
+      	
+      	result.add(serviceType);
+      	result.add(terminationCause);
+      	result.add(accountingInputOctets);
+      	result.add(accountingInputPackets);
+      	result.add(accountingOutputOctets);
+      	result.add(accountingOutputPackets);
+      	result.add(acctAuthentic);
+      	result.add(accountingAuthMethod);
+      	result.add(acctLinkCount);
+      	result.add(acctSessionTime);
+      	result.add(acctTunnelConnection);
+      	result.add(acctTunnelPacketsLost);
+      	result.add(callbackId);
+      	result.add(callbackNumber);
+      	result.add(calledStationId);
+      	result.add(callingStationId);
+      	
+      	if(connectionInfo!=null)
+      		result.addAll(connectionInfo);
+      		
+      	result.add(originatingLineInfo);
+      	result.add(authorizationLifetime);
+      	result.add(sessionTimeout);
+      	result.add(idleTimeout);
+      	result.add(portLimit);
+      	result.add(accountingRealtimeRequired);
+      	result.add(acctInterimInterval);
+      	
+      	if(filterId!=null)
+      		result.addAll(filterId);
+      	
+      	if(nasFilterRule!=null)
+      		result.addAll(nasFilterRule);
+      	
+      	if(qosFilterRule!=null)
+      		result.addAll(qosFilterRule);
+      	
+      	result.add(framedAppletalkLink);
+      	result.add(framedAppletalkNetwork);
+      	result.add(framedAppletalkZone);
+      	result.add(framedCompression);
+      	result.add(framedInterfaceId);
+      	result.add(framedIPAddress);
+      	result.add(framedIPNetmask);
+      	
+      	if(framedIPv6Prefix!=null)
+      		result.addAll(framedIPv6Prefix);
+      	
+      	result.add(framedIPv6Pool);
+      	
+      	if(framedIPv6Route!=null)
+      		result.addAll(framedIPv6Route);
+      	
+      	result.add(framedIPXNetwork);
+      	result.add(framedMTU);
+      	result.add(framedPool);
+      	result.add(framedProtocol);
+      	
+      	if(framedRoute!=null)
+      		result.addAll(framedRoute);
+      	
+      	result.add(framedRouting);
+      	
+      	if(loginIPHost!=null)
+      		result.addAll(loginIPHost);
+      	
+      	if(loginIPv6Host!=null)
+      		result.addAll(loginIPv6Host);
+      	
+      	result.add(loginLATGroup);
+      	result.add(loginLATNode);
+      	result.add(loginLATPort);
+      	result.add(loginLATService);
+      	result.add(loginService);
+      	result.add(loginTCPPort);
+      	
+      	if(tunneling!=null)
+      		result.addAll(tunneling);
+      	
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      	
+      	if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(optionalAvps!=null)
+      	{
+      		for(List<DiameterAvp> curr:optionalAvps.values())
+      			result.addAll(curr);
+      	}                                              
+      	
+		return result;
 	}
 }

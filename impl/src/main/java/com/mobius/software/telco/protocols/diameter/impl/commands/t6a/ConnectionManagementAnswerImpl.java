@@ -1,10 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ConnectionManagementAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ExtendedPCOImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PDNConnectionChargingID;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -143,4 +146,43 @@ public class ConnectionManagementAnswerImpl extends T6aAnswerImpl implements Con
 		this.apnRateControlStatus = value;
 	}
 	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(pdnConnectionChargingID);
+		result.add(extendedPCO);
+		result.add(apnRateControlStatus);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
+	}
 }

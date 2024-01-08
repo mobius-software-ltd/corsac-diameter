@@ -1,14 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc4a;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.Pc4aAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -39,11 +42,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class Pc4aAnswerImpl extends VendorSpecificAnswerImpl implements Pc4aAnswer
 {
-	private DRMP drmp;
+	protected AuthSessionState authSessionState;
 	
-	private AuthSessionState authSessionState;
+	protected DRMP drmp;
 	
-	public List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	protected Pc4aAnswerImpl() 
 	{
@@ -52,27 +57,9 @@ public abstract class Pc4aAnswerImpl extends VendorSpecificAnswerImpl implements
 	
 	public Pc4aAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);		
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		
 		setAuthSessionState(authSessionState);
-	}
-
-	@Override
-	public DRMPEnum getDRMP() 
-	{
-		if(drmp==null)
-			return null;
-		
-		return drmp.getEnumerated(DRMPEnum.class);
-	}
-
-	@Override
-	public void setDRMP(DRMPEnum value) 
-	{
-		if(value==null)
-			this.drmp = null;
-		else
-			this.drmp = new DRMPImpl(value, null, null);
 	}
 
 	@Override
@@ -94,6 +81,24 @@ public abstract class Pc4aAnswerImpl extends VendorSpecificAnswerImpl implements
 	}
 
 	@Override
+	public DRMPEnum getDRMP() 
+	{
+		if(drmp==null)
+			return null;
+		
+		return drmp.getEnumerated(DRMPEnum.class);
+	}
+
+	@Override
+	public void setDRMP(DRMPEnum value) 
+	{
+		if(value==null)
+			this.drmp = null;
+		else
+			this.drmp = new DRMPImpl(value, null, null);
+	}
+
+	@Override
 	public List<SupportedFeatures> getSupportedFeatures() 
 	{
 		return supportedFeatures;
@@ -103,6 +108,34 @@ public abstract class Pc4aAnswerImpl extends VendorSpecificAnswerImpl implements
 	public void setSupportedFeatures(List<SupportedFeatures> value) 
 	{
 		this.supportedFeatures = value;
+	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
 	}
 	
 	@DiameterValidate

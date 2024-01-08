@@ -40,7 +40,6 @@ import io.netty.buffer.ByteBuf;
  *  9.2.2.1.2	Diameter-EAP-Answer (DEA) Command
 	The Diameter-EAP-Answer (DEA) command, indicated by the Command-Code field set to 268 and the "R" bit cleared in the Command Flags field, is sent from a 3GPP AAA server to a PGW. The Command Code value and the ABNF are re-used from the IETF RFC 5778 [11].
   	<Diameter-EAP-Answer> ::= < Diameter Header: 268, PXY, 16777272 >
-
 				 < Session-Id >
 				 [ DRMP ]
 				 { Auth-Application-Id }

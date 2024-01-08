@@ -2,8 +2,11 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.gmb;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gmb.AARequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMEISVImpl;
@@ -18,6 +21,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CallingS
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedInterfaceIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPIMEISV;
@@ -330,5 +334,38 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 			this.additionalMBMSTraceInfo = null;
 		else
 			this.additionalMBMSTraceInfo = new AdditionalMBMSTraceInfoImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(authRequestType);
+      	result.add(destinationHost);
+      	result.add(calledStationId);
+      	result.add(callingStationId);
+      	result.add(framedIPAddress);
+      	result.add(framedIPv6Prefix);
+      	result.add(framedInterfaceId);
+      	
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      		
+      	if(routeRecords!=null)
+      		result.addAll(routeRecords);
+      		
+      	result.add(tgppIMSI);
+      	result.add(rai);
+      	result.add(tgppIMEISV);
+      	result.add(tgppRATType);
+      	result.add(tgppUserLocationInfo);
+      	result.add(tgppMSTimeZone);
+      	result.add(additionalMBMSTraceInfo);
+      	return result;
 	}
 }

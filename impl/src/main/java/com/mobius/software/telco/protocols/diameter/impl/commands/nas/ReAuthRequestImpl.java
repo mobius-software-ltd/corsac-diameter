@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctSessionIdImpl;
@@ -27,6 +28,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.Originat
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ReplyMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
@@ -116,7 +118,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	
 	private List<DiameterClass> diameterClass;
 	
-	private List<ReplyMessage> replyMessage;
+	private ReplyMessage replyMessage;
 	
 	protected ReAuthRequestImpl() 
 	{
@@ -461,28 +463,72 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 
 	@Override
-	public List<String> getReplyMessage() 
+	public String getReplyMessage() 
 	{
-		if(replyMessage == null || replyMessage.size()==0)
+		if(replyMessage == null)
 			return null;
 		
-		List<String> result = new ArrayList<String>();
-		for(ReplyMessage curr: replyMessage)
-			result.add(curr.getString());
-		
-		return result;
+		return replyMessage.getString();				
 	}
 
 	@Override
-	public void setReplyMessage(List<String> value) 
+	public void setReplyMessage(String value) 
 	{
-		if(value == null || value.size()==0)
+		if(value == null)
 			this.replyMessage = null;
 		else
-		{
-			this.replyMessage = new ArrayList<ReplyMessage>();
-			for(String curr:value)
-				this.replyMessage.add(new ReplyMessageImpl(curr, null, null));
-		}
+			this.replyMessage = new ReplyMessageImpl(value, null, null);		
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(destinationHost);
+      	result.add(authApplicationId);
+      	result.add(reAuthRequestType);
+      	result.add(username);
+      	result.add(originAAAProtocol);
+      	result.add(originStateId);
+      	result.add(nasIdentifier);
+      	result.add(nasIPAddress);
+      	result.add(nasIPv6Address);
+      	result.add(nasPort);
+      	result.add(nasPortId);
+      	result.add(nasPortType);
+      	result.add(serviceType);
+      	result.add(framedIPAddress);
+      	result.add(framedIPv6Prefix);
+      	result.add(framedInterfaceId);
+      	result.add(calledStationId);
+      	result.add(callingStationId);
+      	result.add(originatingLineInfo);
+      	result.add(acctSessionId);
+      	result.add(acctMultiSessionId);
+      	result.add(state);
+      	
+      	if(diameterClass!=null)
+      		result.addAll(diameterClass);
+      	
+      	result.add(replyMessage);
+      	
+      	
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      	
+      	if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+      	if(optionalAvps!=null)
+      	{
+      		for(List<DiameterAvp> curr:optionalAvps.values())
+      			result.addAll(curr);
+      	}
+      	
+      	return result;
 	}
 }

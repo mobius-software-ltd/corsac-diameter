@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rx.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
@@ -19,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.NIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RetryIntervalImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceAuthorizationInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -460,5 +462,81 @@ public class AAAnswerImpl extends RxAnswerImpl implements AAAnswer
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		
+		if(accessNetworkChargingIdentifier!=null)
+        	result.addAll(accessNetworkChargingIdentifier);
+        
+		result.add(accessNetworkChargingAddress);
+		result.add(acceptableServiceInfo);
+		
+		if(anGWAddress!=null)
+        	result.addAll(anGWAddress);
+        
+        result.add(anTrusted);
+		result.add(serviceAuthorizationInfo);
+        result.add(ipcanType);
+        result.add(maInformation);
+        result.add(netLocAccessSupport);
+        result.add(ratType);
+        
+        if(flows!=null)
+        	result.addAll(flows);
+        
+        result.add(ocSupportedFeatures);
+        result.add(ocOLR);
+        
+        if(supportedFeatures!=null)
+        	result.addAll(supportedFeatures);
+        
+        if(subscriptionId!=null)
+        	result.addAll(subscriptionId);
+        
+        result.add(userEquipmentInfo);
+        result.add(userEquipmentInfoExtension);
+        result.add(tgppSGSNMCCMNC);
+        result.add(nid);
+        
+        if(diameterClass!=null)
+        	result.addAll(diameterClass);
+        
+        result.add(errorMessage);
+        result.add(errorReportingHost);
+        result.add(failedAvp);
+        result.add(retryInterval);
+		result.add(originStateId);
+		
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        result.add(redirectHostUsage);
+        result.add(redirectMaxCacheTime);
+        
+        if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+        if(load!=null)
+			result.addAll(load);
+
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

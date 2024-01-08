@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gxx.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.SessionReleaseCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTrigger;
@@ -194,5 +196,48 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	public void setDefaultEPSBearerQoS(DefaultEPSBearerQoS value)
 	{
 		this.defaultEPSBearerQoS = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(reAuthRequestType);
+		result.add(sessionReleaseCause);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		
+		if(eventTrigger!=null)
+			result.addAll(eventTrigger);
+		
+		if(qosRuleRemove!=null)
+			result.addAll(qosRuleRemove);
+			
+		if(qosRuleInstall!=null)
+			result.addAll(qosRuleInstall);
+			
+		result.add(qosInformation);
+		result.add(defaultEPSBearerQoS);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

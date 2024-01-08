@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rx.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPMSTimeZoneImpl;
@@ -19,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UDPSource
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UserLocationInfoTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.NIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPSGSNMCCMNC;
@@ -385,5 +387,64 @@ public class SessionTerminationAnswerImpl extends RxAnswerImpl implements Sessio
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		result.add(failedAvp);
+		result.add(sponsoredConnectivityData);
+		result.add(originStateId);
+		result.add(tgppUserLocationInfo);
+		result.add(userLocationInfoTime);
+		result.add(tgppMSTimeZone);
+		
+		if(ranNASReleaseCause!=null)
+			result.addAll(ranNASReleaseCause);
+		
+		if(fiveGSRANNASReleaseCause!=null)
+			result.addAll(fiveGSRANNASReleaseCause);
+		
+		result.add(tgppSGSNMCCMNC);
+		result.add(nid);
+		result.add(twanIdentifier);
+		result.add(tcpSourcePort);
+		result.add(udpSourcePort);
+		result.add(ueLocalIPAddress);
+		result.add(netLocAccessSupport);
+		result.add(wirelineUserLocationInfo);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

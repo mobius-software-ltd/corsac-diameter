@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -19,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPM
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ChargeableUserIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.eap.EAPPayload;
@@ -343,5 +345,44 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 			throw new IllegalArgumentException("Up to 2 MIP Mobile Node Address allowed");
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authRequestType);
+		result.add(destinationHost);
+		result.add(nasIdentifier);
+		result.add(nasIPAddress);
+		result.add(nasIPv6Address);
+		result.add(nasPortType);
+		result.add(username);
+		result.add(eapPayload);
+		result.add(mip6FeatureVector);
+		result.add(mip6AgentInfo);
+		
+		if(mipMobileNodeAddress!=null)
+			result.addAll(mipMobileNodeAddress);
+		
+		result.add(chargeableUserIdentity);
+		result.add(serviceSelection);
+		result.add(qosCapability);
+		
+		if(qosResources!=null)
+			result.addAll(qosResources);
+		
+		if(optionalAvps!=null)
+        {
+        	for(List<DiameterAvp> curr:optionalAvps.values())
+        		result.addAll(curr);
+        }
+		
+		return result;
 	}
 }

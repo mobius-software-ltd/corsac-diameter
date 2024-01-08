@@ -2,13 +2,17 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.st.RequestTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
@@ -17,6 +21,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPAddre
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPv6Prefix;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleRemove;
+import com.mobius.software.telco.protocols.diameter.primitives.st.RequestType;
+import com.mobius.software.telco.protocols.diameter.primitives.st.RequestTypeEnum;
 
 import io.netty.buffer.ByteBuf;
 
@@ -47,6 +53,8 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 16777349, commandCode = 8388637, request = true)
 public class TDFSessionRequestImpl extends StRequestImpl implements TDFSessionRequest
 {
+	private RequestType requestType;
+	
 	private EventReportIndication eventReportIndication;
 	
 	private FramedIPAddress framedIPAddress;
@@ -74,6 +82,24 @@ public class TDFSessionRequestImpl extends StRequestImpl implements TDFSessionRe
 	protected TDFSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
+	}
+	
+	@Override
+	public RequestTypeEnum getRequestType()
+	{
+		if(requestType==null)
+			return null;
+		
+		return this.requestType.getEnumerated(RequestTypeEnum.class);
+	}
+	
+	@Override
+	public void setRequestType(RequestTypeEnum value)
+	{
+		if(value==null)
+			this.requestType = null;
+		else
+			this.requestType = new RequestTypeImpl(value, null, null);
 	}
 	
 	@Override
@@ -176,5 +202,48 @@ public class TDFSessionRequestImpl extends StRequestImpl implements TDFSessionRe
 	public void setSupportedFeatures(List<SupportedFeatures> value)
 	{
 		this.supportedFeatures = value;
+	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(requestType);
+		result.add(destinationHost);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(eventReportIndication);
+		result.add(framedIPAddress);
+		result.add(framedIPv6Prefix);
+		result.add(calledStationId);
+		
+		if(adcRuleInstall!=null)
+			result.addAll(adcRuleInstall);
+		
+		if(adcRuleRemove!=null)
+			result.addAll(adcRuleRemove);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+	
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
@@ -13,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPH
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMSALifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMobileNodeAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPRegRequestImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
@@ -316,5 +319,49 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 			throw new IllegalArgumentException("MIP-Feature-Vector is required");
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authorizationLifetime);
+		result.add(authSessionState);
+		result.add(mipRegRequest);
+		result.add(originHost);
+      	result.add(originRealm);
+      	result.add(username);
+      	result.add(destinationRealm);
+      	result.add(mipFeatureVector);
+      	result.add(destinationHost);
+      	result.add(mipMNtoHAMSA);
+      	result.add(mipMNtoFAMSA);
+      	result.add(mipHAtoMNMSA);
+      	result.add(mipHAtoFAMSA);
+      	result.add(mipMSALifetime);
+      	result.add(mipOriginatingForeignAAA);
+      	result.add(mipMobileNodeAddress);
+      	result.add(mipHomeAgentAddress);
+      	
+      	if(mipFilterRule!=null)
+      		result.addAll(mipFilterRule);
+      	
+      	result.add(originStateId);
+      	
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      		
+      	if(routeRecords!=null)
+      		result.addAll(routeRecords);
+      		
+      	if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+      	
+      	return result;
 	}
 }

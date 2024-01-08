@@ -42,7 +42,6 @@ import io.netty.buffer.ByteBuf;
  	7.2.2.1.1	Diameter-EAP-Request (DER) Command
 	The Diameter-EAP-Request (DER) command, indicated by the Command-Code field set to 268 and the "R" bit set in the Command Flags field, is sent from a ePDG to a 3GPP AAA Server/Proxy. The ABNF is based on the one in IETF RFC 5779 [2].
 	< Diameter-EAP-Request > ::=	< Diameter Header: 268, REQ, PXY, 16777264 >
-
 			 < Session-Id >
 			 [ DRMP ]
 			 { Auth-Application-Id }

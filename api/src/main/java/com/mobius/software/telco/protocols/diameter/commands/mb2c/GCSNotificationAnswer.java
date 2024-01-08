@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.mb2c;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
 /**
 *
@@ -56,6 +57,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 @DiameterCommandDefinition(applicationId = 16777335, commandCode = 8388663, request = false, proxyable = true, name="GCS-Notification-Answer")
 public interface GCSNotificationAnswer extends AuthenticationAnswer
 {
+	DRMPEnum getDRMP();
+	
+	void setDRMP(DRMPEnum value);
+	
 	AuthSessionStateEnum getAuthSessionState();
 	
 	void setAuthSessionState(AuthSessionStateEnum value);

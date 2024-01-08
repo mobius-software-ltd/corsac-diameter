@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.AllowedSuffixesNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ApplicationDataImpl;
@@ -10,6 +14,8 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.TargetAp
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ProSeAppIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetRPAUIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.AllowedSuffixesNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ApplicationData;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.OriginAppLayerUserId;
@@ -70,9 +76,9 @@ public class ProXimityActionRequestImpl extends Pc2RequestImpl implements ProXim
 		super();
 	}
 	
-	public ProXimityActionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,Long authApplicationId, ProSeRequestTypeEnum proSeRequestType)
+	public ProXimityActionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, proSeRequestType);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, authSessionState, proSeRequestType);
 	}
 	
 	@Override
@@ -217,5 +223,47 @@ public class ProXimityActionRequestImpl extends Pc2RequestImpl implements ProXim
 			this.targetRPAUID = null;
 		else
 			this.targetRPAUID = new TargetRPAUIDImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		result.add(proSeRequestType);
+		result.add(originAppLayerUserId);
+		result.add(targetAppLayerUserId);
+		result.add(requestingEPUID);
+		result.add(proSeFunctionID);
+		result.add(requestingRPAUID);
+		result.add(proSeAppId);
+		result.add(applicationData);
+		result.add(allowedSuffixNumber);
+		result.add(targetRPAUID);
+		
+		if(bannedUserTarget!=null)
+			result.addAll(bannedUserTarget);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

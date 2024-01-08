@@ -1,11 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s7a;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UVRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SGSNNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
@@ -117,5 +122,41 @@ public class UpdateVCSGLocationRequestImpl extends S7aRequestImpl implements Upd
 			return "ULR-Flags is required";
 		
 		return super.validate();
+	}		
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(msisdn);
+		result.add(sgsnNumber);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(uvrFlags);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}	
 }

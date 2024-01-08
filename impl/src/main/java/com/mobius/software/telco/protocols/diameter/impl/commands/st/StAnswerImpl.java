@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.commands.st.StAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -34,11 +39,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class StAnswerImpl extends VendorSpecificAnswerImpl implements StAnswer
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
-	public OCOLR ocOLR;
+	protected OCOLR ocOLR;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	protected StAnswerImpl() 
 	{
@@ -90,5 +97,33 @@ public abstract class StAnswerImpl extends VendorSpecificAnswerImpl implements S
 	public void setOCOLR(OCOLR value)
 	{
 		this.ocOLR = value;
+	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
 	}
 }

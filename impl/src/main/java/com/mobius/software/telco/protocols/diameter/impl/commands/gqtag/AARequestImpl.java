@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AARequest;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.AuthorizationPackageIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.LatchingIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.OverbookingIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ReservationPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ServiceClassImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.GloballyUniqueAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.AuthorizationPackageId;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingInformation;
@@ -48,19 +52,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.ServiceClass;
 @DiameterCommandImplementation(applicationId = 16777222, commandCode = 265, request = true)
 public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.gq.AARequestImpl implements AARequest
 {
-	public BindingInformation bindingInformation;
+	protected BindingInformation bindingInformation;
 	
-	public LatchingIndication latchingIndication;
+	protected LatchingIndication latchingIndication;
 	
-	public ReservationPriority reservationPriority;
+	protected ReservationPriority reservationPriority;
 	
-	public GloballyUniqueAddress globallyUniqueAddress;
+	protected GloballyUniqueAddress globallyUniqueAddress;
 	
-	public ServiceClass serviceClass;
+	protected ServiceClass serviceClass;
 	
-	public OverbookingIndicator overbookingIndicator;
+	protected AuthorizationLifetime authorizationLifetime;
 	
-	public List<AuthorizationPackageId> authorizationPackageId;
+	protected OverbookingIndicator overbookingIndicator;
+	
+	protected List<AuthorizationPackageId> authorizationPackageId;
 	
 	protected AARequestImpl() 
 	{
@@ -149,6 +155,24 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 		else
 			this.serviceClass = new ServiceClassImpl(value, null, null);
 	}
+
+	@Override
+	public Long getAuthorizationLifetime() 
+	{
+		if(authorizationLifetime == null)
+			return null;
+		
+		return authorizationLifetime.getUnsigned();
+	}
+
+	@Override
+	public void setAuthorizationLifetime(Long value) 
+	{
+		if(value == null)
+			this.authorizationLifetime = null;
+		else
+			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
+	}
 	
 	@Override
 	public OverbookingIndicatorEnum getOverbookingIndicator()
@@ -192,5 +216,56 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 			for(String curr:value)
 				this.authorizationPackageId.add(new AuthorizationPackageIdImpl(curr, null, null));
 		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(destinationHost);
+      	
+      	if(mediaComponentDescription!=null)
+      		result.addAll(mediaComponentDescription);
+      		
+      	if(flowGrouping!=null)
+      		result.addAll(flowGrouping);
+      		
+      	result.add(afChargingIdentifier);
+      	result.add(sipForkingIndication);
+      	
+      	if(specificAction!=null)
+      		result.addAll(specificAction);
+      		
+      	result.add(username);
+      	result.add(bindingInformation);
+      	result.add(latchingIndication);
+      	result.add(reservationPriority);
+      	result.add(globallyUniqueAddress);
+      	result.add(serviceClass);
+      	result.add(authorizationLifetime);
+      	
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      		
+      	if(routeRecords!=null)
+      		result.addAll(routeRecords);
+      		
+      	result.add(overbookingIndicator);
+      	
+      	if(authorizationPackageId!=null)
+      		result.addAll(authorizationPackageId);
+      		
+      	if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+      	
+      	return result;
 	}
 }

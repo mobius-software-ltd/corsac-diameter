@@ -33,9 +33,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class RxRequestImpl extends AuthenticationRequestWithHostBase implements RxRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	public OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
 	protected RxRequestImpl() 
 	{

@@ -62,4 +62,14 @@ public interface AAAnswer extends AuthenticationAnswer
 	ReservationPriorityEnum getReservationPriority();
 	
 	void setReservationPriority(ReservationPriorityEnum value);	
+	
+	public Long getAuthorizationLifetime(); 
+	
+	public void setAuthorizationLifetime(Long value); 
+	
+	public Long getAuthGracePeriod();
+	
+	public void setAuthGracePeriod(Long value); 
+	
+	
 }

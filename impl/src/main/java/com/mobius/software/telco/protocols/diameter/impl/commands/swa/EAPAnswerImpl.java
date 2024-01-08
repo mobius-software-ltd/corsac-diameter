@@ -1,8 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swa.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctInterimIntervalImpl;
@@ -12,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPMaste
 import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPPayloadImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5779.MobileNodeIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInterimInterval;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
@@ -272,5 +275,46 @@ public class EAPAnswerImpl extends SwaAnswerImpl implements EAPAnswer
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+        result.add(originHost);
+		result.add(originRealm);
+		result.add(authRequestType);
+		result.add(eapPayload);
+        result.add(username);
+        result.add(sessionTimeout);
+        result.add(accountingInterimInterval);
+        result.add(eapMasterSessionKey);
+        
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        result.add(anTrusted);
+        
+        if(supportedFeatures!=null)
+        	result.addAll(supportedFeatures);
+        
+        result.add(mobileNodeIdentifier);
+        result.add(ocSupportedFeatures);
+        result.add(ocOLR);
+        
+        if(load!=null)
+        	result.addAll(load);
+        
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		return result;
 	}
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
@@ -88,6 +89,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PortLimi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4818.DelegatedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
@@ -1962,5 +1964,155 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 			this.tgppUESourcePort = null;
 		else
 			this.tgppUESourcePort = new TGPPUESourcePortImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(accountingRecordType);
+      	result.add(accountingRecordNumber);
+      	result.add(acctApplicationId);
+      	result.add(username);
+      	result.add(originStateId);
+      	result.add(destinationHost);
+      	result.add(eventTimestamp);
+      	result.add(acctDelayTime);
+      	result.add(nasIdentifier);
+      	result.add(nasIPAddress);
+      	result.add(nasIPv6Address);
+      	result.add(nasPort);
+      	result.add(nasPortId);
+      	result.add(nasPortType);
+      	
+      	if(diameterClass!=null)
+      		result.addAll(diameterClass);
+      	
+      	result.add(serviceType);
+      	result.add(accountingInputOctets);
+      	result.add(accountingInputPackets);
+      	result.add(accountingOutputOctets);
+      	result.add(accountingOutputPackets);
+      	result.add(acctAuthentic);
+      	result.add(accountingAuthMethod);
+      	result.add(acctSessionTime);
+      	result.add(acctTunnelConnection);
+      	result.add(acctTunnelPacketsLost);
+      	result.add(callbackId);
+      	result.add(callbackNumber);
+      	result.add(calledStationId);
+      	result.add(callingStationId);
+      	
+      	if(connectionInfo!=null)
+      		result.addAll(connectionInfo);
+      		
+      	result.add(originatingLineInfo);
+      	result.add(authorizationLifetime);
+      	result.add(sessionTimeout);
+      	result.add(idleTimeout);
+      	result.add(portLimit);
+      	result.add(accountingRealtimeRequired);
+      	result.add(acctInterimInterval);
+      	
+      	if(filterId!=null)
+      		result.addAll(filterId);
+      	
+      	if(nasFilterRule!=null)
+      		result.addAll(nasFilterRule);
+      	
+      	if(qosFilterRule!=null)
+      		result.addAll(qosFilterRule);
+      	
+      	result.add(framedCompression);
+      	result.add(framedInterfaceId);
+      	result.add(framedIPAddress);
+      	result.add(framedIPNetmask);
+      	
+      	if(framedIPv6Prefix!=null)
+      		result.addAll(framedIPv6Prefix);
+      	
+      	result.add(framedIPv6Pool);
+      	
+      	if(framedIPv6Route!=null)
+      		result.addAll(framedIPv6Route);
+      	
+      	if(delegatedIPv6Prefix!=null)
+      		result.addAll(delegatedIPv6Prefix);
+      	
+      	result.add(framedIPXNetwork);
+      	result.add(framedMTU);
+      	result.add(framedPool);
+      	result.add(framedProtocol);
+      	
+      	if(framedRoute!=null)
+      		result.addAll(framedRoute);
+      	
+      	result.add(framedRouting);
+      	
+      	if(loginIPHost!=null)
+      		result.addAll(loginIPHost);
+      	
+      	if(loginIPv6Host!=null)
+      		result.addAll(loginIPv6Host);
+      	
+      	result.add(loginLATGroup);
+      	result.add(loginLATNode);
+      	result.add(loginLATPort);
+      	result.add(loginLATService);
+      	result.add(loginService);
+      	result.add(loginTCPPort);
+      	
+      	if(tunneling!=null)
+      		result.addAll(tunneling);
+      	
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      	
+      	if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		result.add(tgppIMSI);
+      	result.add(externalIdentifier);
+      	result.add(tgppChargingID);
+      	result.add(tgppPDPType);
+      	result.add(tgppCGAddress);
+      	result.add(tgppGPRSNegotiatedQoSProfile);
+      	result.add(tgppSGSNAddress);
+      	result.add(tgppGGSNAddress);
+      	result.add(tgppIMSIMCCMNC);
+      	result.add(tgppGGSNMCCMNC);
+      	result.add(tgppNSAPI);
+      	result.add(tgppSelectionMode);
+      	result.add(tgppChargingCharacteristics);
+      	result.add(tgppCGIPv6Address);
+      	result.add(tgppSGSNIPv6Address);
+      	result.add(tgppGGSNIPv6Address);
+      	result.add(tgppSGSNMCCMNC);
+      	result.add(tgppIMEISV);
+      	result.add(tgppRATType);
+      	result.add(tgppUserLocationInfo);
+      	result.add(tgppMSTimeZone);
+      	result.add(tgppCAMELChargingInfo);
+      	result.add(tgppPacketFilter);
+      	result.add(tgppNegotiatedDSCP);
+      	result.add(twanIdentifier);
+      	result.add(tgppUserLocationInfoTime);
+      	
+      	if(tgppSecondaryRATUsage!=null)
+      		result.addAll(tgppSecondaryRATUsage);
+      	
+      	result.add(tgppUELocalIPAddress);
+      	result.add(tgppUESourcePort);
+      	if(optionalAvps!=null)
+      	{
+      		for(List<DiameterAvp> curr:optionalAvps.values())
+      			result.addAll(curr);
+      	}
+    		 
+		return result;
 	}
 }

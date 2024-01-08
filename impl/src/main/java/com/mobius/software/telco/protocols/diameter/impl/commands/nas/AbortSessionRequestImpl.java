@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctSessionIdImpl;
@@ -27,6 +28,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.Originat
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ReplyMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
@@ -483,5 +485,56 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 			for(String curr:value)
 				this.replyMessage.add(new ReplyMessageImpl(curr, null, null));
 		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(destinationHost);
+      	result.add(authApplicationId);
+      	result.add(username);
+      	result.add(originAAAProtocol);
+      	result.add(originStateId);
+      	result.add(nasIdentifier);
+      	result.add(nasIPAddress);
+      	result.add(nasIPv6Address);
+      	result.add(nasPort);
+      	result.add(nasPortId);
+      	result.add(nasPortType);
+      	result.add(serviceType);
+      	result.add(framedIPAddress);
+      	result.add(framedIPv6Prefix);
+      	result.add(framedInterfaceId);
+      	result.add(calledStationId);
+      	result.add(callingStationId);
+      	result.add(originatingLineInfo);
+      	result.add(acctSessionId);
+      	result.add(acctMultiSessionId);
+      	result.add(state);
+      	
+      	if(diameterClass!=null)
+      		result.addAll(diameterClass);
+      	
+      	if(replyMessage!=null)
+      		result.addAll(replyMessage);
+      	
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      	
+      	if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+      	if(optionalAvps!=null)
+      	{
+      		for(List<DiameterAvp> curr:optionalAvps.values())
+      			result.addAll(curr);
+      	}
+      	
+      	return result;
 	}
 }

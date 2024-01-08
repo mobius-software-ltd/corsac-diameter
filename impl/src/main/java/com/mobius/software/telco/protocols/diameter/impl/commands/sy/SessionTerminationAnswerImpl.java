@@ -1,7 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -30,6 +36,8 @@ import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminati
 @DiameterCommandImplementation(applicationId = 16777302, commandCode = 275, request = false)
 public class SessionTerminationAnswerImpl extends SyAnswerImpl implements SessionTerminationAnswer
 {
+	public List<Load> load;
+	
 	protected SessionTerminationAnswerImpl() 
 	{
 		super();
@@ -38,5 +46,54 @@ public class SessionTerminationAnswerImpl extends SyAnswerImpl implements Sessio
 	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+	}
+	
+	@Override
+	public List<Load> getLoad()
+	{
+		return this.load;
+	}
+	 
+	@Override
+	public void setLoad(List<Load> value)
+	{
+		this.load = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

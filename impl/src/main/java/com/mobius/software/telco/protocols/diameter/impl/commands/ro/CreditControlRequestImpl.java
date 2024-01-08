@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.ro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.AoCRequestTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
@@ -124,5 +129,59 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	public void setServiceInformation(ServiceInformation value) 
 	{
 		this.serviceInformation = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(serviceContextId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(destinationHost);
+		result.add(username);
+		
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+		
+		if(subscriptionIdExtension!=null)
+			result.addAll(subscriptionIdExtension);
+		
+		result.add(terminationCause);
+		result.add(requestedAction);
+		result.add(aocRequestType);
+		
+		result.add(multipleServicesIndicator);
+		
+		if(multipleServicesCreditControl!=null)
+			result.addAll(multipleServicesCreditControl);
+		
+		result.add(ccCorrelationId);
+		result.add(userEquipmentInfo);
+		result.add(ocSupportedFeatures);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		result.add(serviceInformation);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

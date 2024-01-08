@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6c;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MMEAbsentUserDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MSCAbsentUserDiagnosticSMImpl;
@@ -9,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SGSNAbse
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMSF3GPPAbsentUserDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMSFNon3GPPAbsentUserDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.LMSIImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AdditionalServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MMEAbsentUserDiagnosticSM;
@@ -272,5 +277,52 @@ public class SendRoutingInfoForSMAnswerImpl extends S6cAnswerImpl implements Sen
 			this.smsfNon3GPPAbsentUserDiagnosticSM = null;
 		else
 			this.smsfNon3GPPAbsentUserDiagnosticSM = new SMSFNon3GPPAbsentUserDiagnosticSMImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(servingNode);
+		result.add(additionalServingNode);
+		result.add(smsf3GPPAddress);
+		result.add(smsfNon3GPPAddress);
+		result.add(lmsi);
+		result.add(userIdentifier);
+		result.add(mwdStatus);
+		result.add(mmeAbsentUserDiagnosticSM);
+		result.add(mscAbsentUserDiagnosticSM);
+		result.add(sgsnAbsentUserDiagnosticSM);
+		result.add(smsf3GPPAbsentUserDiagnosticSM);
+		result.add(smsfNon3GPPAbsentUserDiagnosticSM);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

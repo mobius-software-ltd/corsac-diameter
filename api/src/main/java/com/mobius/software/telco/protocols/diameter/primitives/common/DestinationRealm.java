@@ -47,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
    This AVP SHOULD be placed as close to the Diameter header as
    possible.
  */
-@DiameterAvpDefinition(code = 283L, position = 7, vendorId = -1L, name = "Destination-Realm")
+@DiameterAvpDefinition(code = 283L, vendorId = -1L, name = "Destination-Realm")
 public interface DestinationRealm extends DiameterIdentity
 {
 }

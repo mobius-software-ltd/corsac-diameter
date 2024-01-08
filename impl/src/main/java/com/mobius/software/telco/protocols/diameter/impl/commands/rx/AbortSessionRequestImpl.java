@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rx.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AbortCauseImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCause;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum;
 
@@ -75,5 +80,35 @@ public class AbortSessionRequestImpl extends RxRequestImpl implements AbortSessi
 			return "Abort-Cause is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(ocSupportedFeatures);
+		result.add(abortCause);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

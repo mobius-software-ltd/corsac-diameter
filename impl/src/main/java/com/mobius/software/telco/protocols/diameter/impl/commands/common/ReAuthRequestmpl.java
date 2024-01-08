@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -39,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 @DiameterCommandImplementation(applicationId = 0, commandCode = 258, request = true)
 public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implements ReAuthRequest
 {
-	private ReAuthRequestType reAuthRequestType;
+	protected ReAuthRequestType reAuthRequestType;
 	
 	protected ReAuthRequestmpl() 
 	{
@@ -105,5 +107,34 @@ public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implemen
 			return "Re-Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(reAuthRequestType);
+		result.add(username);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

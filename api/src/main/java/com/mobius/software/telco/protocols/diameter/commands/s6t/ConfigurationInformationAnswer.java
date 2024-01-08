@@ -88,9 +88,9 @@ public interface ConfigurationInformationAnswer extends S6tAnswer
 	 
 	void setLoad(List<Load> value);
 	 		
-	List<UserIdentifier> getUserIdentifier();
+	UserIdentifier getUserIdentifier();
 	 
-	void setUserIdentifier(List<UserIdentifier> value);
+	void setUserIdentifier(UserIdentifier value);
 	
 	ServiceData getServiceData();
 	 

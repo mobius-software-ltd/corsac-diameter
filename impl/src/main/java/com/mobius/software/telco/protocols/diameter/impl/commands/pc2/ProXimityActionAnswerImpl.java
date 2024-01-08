@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ApplicationDataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.PDUIDImpl;
@@ -11,6 +12,8 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeFun
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ProSeApplicationMetadataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetPDUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetedEPUIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ApplicationData;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MonitorTarget;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.PDUID;
@@ -80,9 +83,9 @@ public class ProXimityActionAnswerImpl extends Pc2AnswerImpl implements ProXimit
 		super();
 	}
 	
-	public ProXimityActionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  Long authApplicationId, ProSeRequestTypeEnum proSeRequestType)
+	public ProXimityActionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, proSeRequestType);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, authSessionState, proSeRequestType);
 	}
 	
 	@Override	
@@ -267,5 +270,67 @@ public class ProXimityActionAnswerImpl extends Pc2AnswerImpl implements ProXimit
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		result.add(originStateId);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		result.add(proSeRequestType);
+		result.add(targetedEPUID);
+		result.add(proSeFunctionID);
+		
+		if(pduid!=null)
+			result.addAll(pduid);
+		
+		if(proSeRestrictedCodeSuffixRange!=null)
+			result.addAll(proSeRestrictedCodeSuffixRange);
+		
+		if(proSeApplicationCodeSuffixRange!=null)
+			result.addAll(proSeApplicationCodeSuffixRange);
+		
+		if(proSeCodeSuffixMask!=null)
+			result.addAll(proSeCodeSuffixMask);
+		
+		if(monitorTarget!=null)
+			result.addAll(monitorTarget);
+		
+		if(targetPDUID!=null)
+			result.addAll(targetPDUID);
+		
+		result.add(proSeApplicationMetadata);
+		result.add(applicationData);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

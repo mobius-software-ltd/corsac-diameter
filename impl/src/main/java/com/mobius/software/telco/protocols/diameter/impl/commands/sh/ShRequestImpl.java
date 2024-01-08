@@ -45,17 +45,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
 */
 public abstract class ShRequestImpl extends VendorSpecificRequestmpl implements ShRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	public List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
 	
-	private UserIdentity userIdentity;
+	protected UserIdentity userIdentity;
 	
-	private WildcardedPublicIdentity wildcardedPublicIdentity;
+	protected WildcardedPublicIdentity wildcardedPublicIdentity;
 	
-	private WildcardedIMPU wildcardedIMPU;
+	protected WildcardedIMPU wildcardedIMPU;
 	
 	protected ShRequestImpl() 
 	{

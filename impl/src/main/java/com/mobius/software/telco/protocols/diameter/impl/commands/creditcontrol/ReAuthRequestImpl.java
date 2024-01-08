@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSubSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GSUPoolIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSubSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolIdentifier;
@@ -40,13 +45,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Ser
 @DiameterCommandImplementation(applicationId = 4, commandCode = 258, request = true)
 public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestmpl implements ReAuthRequest
 {
-	private CcSubSessionId ccSubSessionId;
+	protected CcSubSessionId ccSubSessionId;
 	
-	private GSUPoolIdentifier gsuPoolIdentifier;
+	protected GSUPoolIdentifier gsuPoolIdentifier;
 	
-	private ServiceIdentifier serviceIdentifier;
+	protected ServiceIdentifier serviceIdentifier;
 	
-	private RatingGroup ratingGroup;
+	protected RatingGroup ratingGroup;
 	
 	private boolean ccSubSessionIdAllowed = true;
 	
@@ -133,5 +138,39 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 			this.ratingGroup = null;
 		else
 			this.ratingGroup = new RatingGroupImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(reAuthRequestType);
+		result.add(username);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		result.add(ccSubSessionId);
+		result.add(gsuPoolIdentifier);
+		result.add(serviceIdentifier);
+		result.add(ratingGroup);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

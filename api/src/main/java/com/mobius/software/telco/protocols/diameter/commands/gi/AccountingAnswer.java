@@ -101,5 +101,9 @@ public interface AccountingAnswer extends com.mobius.software.telco.protocols.di
 	
 	List<ByteBuf> getDiameterClass();	
 	
-	void setDiameterClass(List<ByteBuf> value);		
+	void setDiameterClass(List<ByteBuf> value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);		
 }

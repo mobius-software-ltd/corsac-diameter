@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swa.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -16,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.FullNetw
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ShortNetworkNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TransportAccessTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -328,5 +331,42 @@ public class EAPRequestImpl extends SwaRequestImpl implements EAPRequest
 			return "EAP-Payload is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authRequestType);
+		result.add(eapPayload);
+		result.add(username);
+		result.add(callingStationId);
+		result.add(ratType);
+		result.add(anid);
+		result.add(fullNetworkName);
+		result.add(shortNetworkName);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(aaaFailureIndication);
+		result.add(transportAccessType);
+		result.add(ocSupportedFeatures);
+		result.add(accessNetworkInfo);
+		result.add(userLocationInfoTime);
+		
+		if(optionalAvps!=null)
+        {
+        	for(List<DiameterAvp> curr:optionalAvps.values())
+        		result.addAll(curr);
+        }
+		
+		return result;
 	}
 }

@@ -25,6 +25,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ApplicationDetectionInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
@@ -123,4 +124,8 @@ public interface CreditControlRequest extends AuthenticationRequest
 	List<UsageMonitoringInformation> getUsageMonitoringInformation();
 	
 	void setUsageMonitoringInformation(List<UsageMonitoringInformation> value);	
+	
+	List<SupportedFeatures> getSupportedFeatures();
+	
+	void setSupportedFeatures(List<SupportedFeatures> value);	
 }

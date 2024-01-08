@@ -1,9 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gqtag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.FlowGrouping;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaComponentDescription;
 
@@ -65,5 +68,38 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	public void setFlowGrouping(List<FlowGrouping> value)
 	{
 		this.flowGrouping = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		
+		if(mediaComponentDescription!=null)
+			result.addAll(mediaComponentDescription);
+		
+		if(flowGrouping!=null)
+			result.addAll(flowGrouping);
+		
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -19,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctM
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequired;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordNumber;
@@ -62,27 +64,27 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 0, commandCode = 271, request = true)
 public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBase implements AccountingRequest
 {
-	private AccountingRecordType accountingRecordType;
+	protected AccountingRecordType accountingRecordType;
 	
-	private AccountingRecordNumber accountingRecordNumber;
+	protected AccountingRecordNumber accountingRecordNumber;
 	
-	private AcctApplicationId acctApplicationId;
+	protected AcctApplicationId acctApplicationId;
 	
-	private VendorSpecificApplicationId vendorSpecificApplicationId;
+	protected VendorSpecificApplicationId vendorSpecificApplicationId;
 	
-	private AccountingSubSessionId accountingSubSessionId;
+	protected AccountingSubSessionId accountingSubSessionId;
 	
-	private AcctSessionId acctSessionId;
+	protected AcctSessionId acctSessionId;
 	
-	private AcctMultiSessionId acctMultiSessionId;
+	protected AcctMultiSessionId acctMultiSessionId;
 	
-	private AcctInterimInterval acctInterimInterval;
+	protected AcctInterimInterval acctInterimInterval;
 	
-	private AccountingRealtimeRequired accountingRealtimeRequired;
+	protected AccountingRealtimeRequired accountingRealtimeRequired;
 	
-	private EventTimestamp eventTimestamp;
+	protected EventTimestamp eventTimestamp;
 	
-	public List<RouteRecord> routeRecords;
+	protected List<RouteRecord> routeRecords;
 	
 	private boolean vendorSpecificApplicationIdAllowed = true;
 	private boolean accountingSubSessionIdAllowed = true;
@@ -374,5 +376,42 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 			return "Accounting-Record-Number is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(accountingRecordType);
+		result.add(accountingRecordNumber);
+		result.add(acctApplicationId);
+		result.add(vendorSpecificApplicationId);
+		result.add(username);
+		result.add(destinationHost);
+		result.add(accountingSubSessionId);
+		result.add(acctSessionId);
+		result.add(acctMultiSessionId);
+		result.add(acctInterimInterval);
+		result.add(accountingRealtimeRequired);
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

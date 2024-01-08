@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class SwaRequestImpl extends AuthenticationRequestWithHostBase implements SwaRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
 	protected SwaRequestImpl() 
 	{

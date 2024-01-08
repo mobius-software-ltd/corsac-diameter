@@ -1,8 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.slg;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LocationEstimateImpl;
@@ -26,6 +29,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.Pseudony
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.ReportingAmountImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.VelocityEstimateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LocationEstimate;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CellGlobalIdentity;
@@ -642,4 +646,65 @@ public class LocationReportRequestImpl extends SlgRequestImpl implements Locatio
 		
 		return super.validate();
 	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(locationEvent);
+		result.add(lcsEPSClientName);
+		result.add(username);
+		result.add(msisdn);
+		result.add(imei);
+		result.add(locationEstimate);
+		result.add(accuracyFulfilmentIndicator);
+		result.add(ageOfLocationEstimate);
+		result.add(velocityEstimate);
+		result.add(eutranPositioningData);
+		result.add(ecgi);
+		result.add(geranPositioningInfo);
+		result.add(cellGlobalIdentity);
+		result.add(utranPositioningInfo);
+		result.add(serviceAreaIdentity);
+		result.add(lcsServiceTypeID);
+		result.add(pseudonymIndicator);
+		result.add(lcsQoSClass);
+		result.add(servingNode);
+		result.add(lrrFlags);
+		result.add(lcsReferenceNumber);
+		result.add(deferredMTLRData);
+		result.add(gmlcAddress);
+		result.add(reportingAmount);
+		result.add(periodicLDRInformation);
+		result.add(esmlcCellInfo);
+		result.add(onexRTTRCID);
+		result.add(deferredMTLRData);
+		result.add(civicAddress);
+		result.add(barometricPressure);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
+	}
 }

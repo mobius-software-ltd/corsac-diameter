@@ -1,16 +1,23 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
+
+import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -40,6 +47,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 public class SessionTerminationAnswerImpl extends AuthenticationAnswerImpl implements SessionTerminationAnswer
 {
 	private DRMP drmp;
+	
+	protected List<DiameterClass> diameterClass;
 	
 	private OCSupportedFeatures ocSupportedFeatures;
 	
@@ -74,6 +83,32 @@ public class SessionTerminationAnswerImpl extends AuthenticationAnswerImpl imple
 		else
 			this.drmp = new DRMPImpl(value, null, null);
 	}
+
+	@Override
+	public List<ByteBuf> getDiameterClass() 
+	{
+		if(this.diameterClass==null)
+			return null;
+		
+		List<ByteBuf> result=new ArrayList<ByteBuf>();
+		for(DiameterClass currClass: this.diameterClass)
+			result.add(currClass.getValue());
+		
+		return result;
+	}
+
+	@Override
+	public void setDiameterClass(List<ByteBuf> value) 
+	{
+		if(value==null || value.size()==0)
+			this.diameterClass = null;
+		else
+		{
+			this.diameterClass = new ArrayList<DiameterClass>();
+			for(ByteBuf curr:value)
+				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
+		}
+	}	
 	
 	@Override
 	public OCSupportedFeatures getOCSupportedFeatures()
@@ -110,5 +145,46 @@ public class SessionTerminationAnswerImpl extends AuthenticationAnswerImpl imple
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		result.add(failedAvp);
+		result.add(originStateId);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}	
 }

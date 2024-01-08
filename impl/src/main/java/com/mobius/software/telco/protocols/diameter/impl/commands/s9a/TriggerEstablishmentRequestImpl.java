@@ -1,8 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s9a;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.TriggerEstablishmentRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
@@ -13,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s9a.PCRFAddressImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
@@ -239,5 +243,41 @@ public class TriggerEstablishmentRequestImpl extends AuthenticationRequestWithHo
 			return "Auth-Session-State is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authSessionState);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(subscriptionId);
+		result.add(calledStationId);
+		result.add(pcrfAddress);
+		result.add(ueLocalIPAddress);
+		result.add(heNBLocalIPAddress);
+		result.add(udpSourcePort);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+				
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

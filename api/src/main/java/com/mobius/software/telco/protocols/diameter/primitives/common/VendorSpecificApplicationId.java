@@ -58,7 +58,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
    which MUST contain an example of an Auth-Application-Id AVP and an
    Acct-Application-Id AVP.
  */
-@DiameterAvpDefinition(code = 260L, vendorId = -1L, position = 8, name = "Vendor-Specific-Application-Id")
+@DiameterAvpDefinition(code = 260L, vendorId = -1L, name = "Vendor-Specific-Application-Id")
 public interface VendorSpecificApplicationId extends DiameterAvp 
 {
 	Long getVendorId();

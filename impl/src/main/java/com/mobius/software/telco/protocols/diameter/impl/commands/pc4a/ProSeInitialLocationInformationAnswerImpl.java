@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc4a;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeInitialLocationInformationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeInitialLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
@@ -47,7 +52,7 @@ public class ProSeInitialLocationInformationAnswerImpl extends Pc4aAnswerImpl im
 	
 	public ProSeInitialLocationInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);				
 	}
 	
 	@Override
@@ -78,5 +83,41 @@ public class ProSeInitialLocationInformationAnswerImpl extends Pc4aAnswerImpl im
 			this.visitedPLMNId = null;
 		else
 			this.visitedPLMNId = new VisitedPLMNIdImpl(value, null, null);	
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(proSeInitialLocationInformation);
+		result.add(visitedPLMNId);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

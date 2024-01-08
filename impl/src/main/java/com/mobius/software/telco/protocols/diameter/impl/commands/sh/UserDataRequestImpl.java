@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sh.UserDataRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
@@ -19,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.Requested
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ServiceIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ServingNodeIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UDRFlagsImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerName;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SessionPriority;
@@ -383,5 +385,66 @@ public class UserDataRequestImpl extends ShRequestImpl implements UserDataReques
 			return "Data-Reference is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(userIdentity);
+		result.add(wildcardedPublicIdentity);
+		result.add(wildcardedIMPU);
+		result.add(serverName);
+		
+		if(serviceIndication!=null)
+			result.addAll(serviceIndication);
+		
+		if(dataReference!=null)
+			result.addAll(dataReference);
+		
+		if(identitySet!=null)
+			result.addAll(identitySet);
+		
+		result.add(requestedDomain);
+		result.add(currentLocation);
+		
+		if(dsaiTag!=null)
+			result.addAll(dsaiTag);
+		
+		result.add(sessionPriority);
+		result.add(username);
+		result.add(requestedNodes);
+		result.add(servingNodeIndication);
+		result.add(prePagingSupported);
+		result.add(localTimeZoneIndication);
+		result.add(udrFlags);
+		result.add(callReferenceInfo);
+		result.add(ocSupportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

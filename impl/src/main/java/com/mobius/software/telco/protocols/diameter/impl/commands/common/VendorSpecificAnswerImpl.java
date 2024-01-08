@@ -30,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 */
 public abstract class VendorSpecificAnswerImpl extends DiameterAnswerWithSessionBase implements VendorSpecificAnswer
 {
-	private VendorSpecificApplicationId vendorSpecificApplicationId;
+	protected VendorSpecificApplicationId vendorSpecificApplicationId;
 	
 	protected VendorSpecificAnswerImpl() 
 	{

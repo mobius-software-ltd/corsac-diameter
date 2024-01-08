@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc2;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
 
 /**
@@ -29,6 +30,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestT
 
 public abstract interface Pc2Answer extends AuthenticationAnswer
 {
+	public AuthSessionStateEnum getAuthSessionState(); 
+
+	public void setAuthSessionState(AuthSessionStateEnum value); 
+	
 	public ProSeRequestTypeEnum getProSeRequestType();
 	 
 	void setProSeRequestType(ProSeRequestTypeEnum value);	

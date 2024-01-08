@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s13;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -37,4 +39,8 @@ public abstract interface S13Answer extends VendorSpecificAnswer
 	public AuthSessionStateEnum getAuthSessionState();
 	
 	void setAuthSessionState(AuthSessionStateEnum value);
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

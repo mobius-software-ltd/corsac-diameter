@@ -1,8 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.e4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationAnswer;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -31,6 +38,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 @DiameterCommandImplementation(applicationId = 16777231, commandCode = 309, request = false)
 public class PushNotificationsAnswerImpl extends E4AnswerImpl implements PushNotificationAnswer
 {
+	private List<RouteRecord> routeRecords;
+	
 	protected PushNotificationsAnswerImpl() 
 	{
 		super();
@@ -41,5 +50,62 @@ public class PushNotificationsAnswerImpl extends E4AnswerImpl implements PushNot
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);
+	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

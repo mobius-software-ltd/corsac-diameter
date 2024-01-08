@@ -44,4 +44,8 @@ public abstract interface S6mAnswer extends DiameterAnswer
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
 	void setSupportedFeatures(List<SupportedFeatures> value);
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

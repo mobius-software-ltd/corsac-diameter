@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gq.AARequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFChargingIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SIPForkingIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.FlowGrouping;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaComponentDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFChargingIdentifier;
@@ -45,15 +47,15 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 16777222, commandCode = 265, request = true)
 public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestImpl implements AARequest
 {
-	private List<MediaComponentDescription> mediaComponentDescription;
+	protected List<MediaComponentDescription> mediaComponentDescription;
 	
-	private List<FlowGrouping> flowGrouping;
+	protected List<FlowGrouping> flowGrouping;
     
-	private AFChargingIdentifier afChargingIdentifier;
+	protected AFChargingIdentifier afChargingIdentifier;
 	
-	private SIPForkingIndication sipForkingIndication;
+	protected SIPForkingIndication sipForkingIndication;
 	
-	private List<SpecificAction> specificAction;
+	protected List<SpecificAction> specificAction;
 	
 	protected AARequestImpl() 
 	{
@@ -65,21 +67,25 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
 	}
 
+	@Override
 	public List<MediaComponentDescription> getMediaComponentDescription()
 	{
 		return this.mediaComponentDescription;
 	}
 	
+	@Override
 	public void setMediaComponentDescription(List<MediaComponentDescription> value)
 	{
 		this.mediaComponentDescription = value;
 	}
 	
+	@Override
 	public List<FlowGrouping> getFlowGrouping()
 	{
 		return this.flowGrouping;
 	}
 	
+	@Override
 	public void setFlowGrouping(List<FlowGrouping> value)
 	{
 		this.flowGrouping = value;
@@ -145,5 +151,42 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 			for(SpecificActionEnum curr:value)
 				this.specificAction.add(new SpecificActionImpl(curr, null, null));
 		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	
+      	if(mediaComponentDescription!=null)
+      		result.addAll(mediaComponentDescription);
+      		
+      	if(flowGrouping!=null)
+      		result.addAll(flowGrouping);
+      		
+      	result.add(afChargingIdentifier);
+      	result.add(sipForkingIndication);
+      	
+      	if(specificAction!=null)
+      		result.addAll(specificAction);
+      		
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      		
+      	if(routeRecords!=null)
+      		result.addAll(routeRecords);
+      		
+      	if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+      	
+      	return result;
 	}
 }

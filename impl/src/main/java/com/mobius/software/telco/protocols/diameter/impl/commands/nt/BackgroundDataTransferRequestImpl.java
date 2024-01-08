@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.nt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcInputOctetsImpl;
@@ -12,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.Reference
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.TransferPolicyIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.TransferRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ApplicationServiceProviderIdentityImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcInputOctets;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcOutputOctets;
@@ -280,5 +285,47 @@ public class BackgroundDataTransferRequestImpl extends NtRequestImpl implements 
 			return "Transfer-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(transferRequestType);
+		result.add(destinationHost);
+		result.add(ocSupportedFeatures);
+		result.add(applicationServiceProviderIdentity);
+		result.add(ccOutputOctets);
+		result.add(ccInputOctets);
+		result.add(ccTotalOctets);
+		result.add(numberOfUEs);
+		result.add(timeWindow);
+		result.add(networkAreaInfoList);
+		result.add(referenceId);
+		result.add(transferPolicyId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

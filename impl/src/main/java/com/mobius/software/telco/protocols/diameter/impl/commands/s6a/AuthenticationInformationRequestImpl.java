@@ -1,10 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.AuthenticationInformationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.AIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AIRFlags;
@@ -47,7 +52,7 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 	
 	private RequestedUTRANGERANAuthenticationInfo requestedUTRANGERANAuthenticationInfo;
 	
-	private AIRFlags air;
+	private AIRFlags airFlags;
 	
 	private VisitedPLMNId visitedPLMNId;
 	
@@ -120,10 +125,10 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 	@Override
 	public Long getAIRFlags()
 	{
-		if(air == null)
+		if(airFlags == null)
 			return null;
 		
-		return air.getUnsigned();
+		return airFlags.getUnsigned();
 	}
 	
 	@Override
@@ -132,7 +137,7 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 		if(value == null)
 			throw new IllegalArgumentException("AIR-Flags is required");
 		
-		this.air = new AIRFlagsImpl(value, null, null);
+		this.airFlags = new AIRFlagsImpl(value, null, null);
 	}		
 	
 	@DiameterValidate
@@ -142,5 +147,43 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 			return "Visited-PLMN-Id is required";
 		
 		return super.validate();
-	}	
+	}		
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(requestedEUTRANAuthenticationInfo);
+		result.add(requestedUTRANGERANAuthenticationInfo);
+		result.add(visitedPLMNId);
+		result.add(airFlags);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
+	}
 }

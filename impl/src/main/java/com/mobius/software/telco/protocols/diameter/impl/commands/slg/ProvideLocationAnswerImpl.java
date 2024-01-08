@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.slg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LocationEstimateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CellGlobalIdentityImpl;
@@ -13,6 +17,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.ECGIImpl
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.EUTRANPositioningDataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.PLAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.VelocityEstimateImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LocationEstimate;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CellGlobalIdentity;
@@ -346,5 +351,53 @@ public class ProvideLocationAnswerImpl extends SlgAnswerImpl implements ProvideL
 			this.barometricPressure = null;
 		else
 			this.barometricPressure = new BarometricPressureImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(locationEstimate);
+		result.add(accuracyFulfilmentIndicator);
+		result.add(ageOfLocationEstimate);
+		result.add(velocityEstimate);
+		result.add(eutranPositioningData);
+		result.add(ecgi);
+		result.add(geranPositioningInfo);
+		result.add(cellGlobalIdentity);
+		result.add(utranPositioningInfo);
+		result.add(serviceAreaIdentity);
+		result.add(servingNode);
+		result.add(plaFlags);
+		result.add(esmlcCellInfo);
+		result.add(civicAddress);
+		result.add(barometricPressure);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

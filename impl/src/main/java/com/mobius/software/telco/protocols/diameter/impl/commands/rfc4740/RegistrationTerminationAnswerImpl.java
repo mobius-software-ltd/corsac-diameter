@@ -1,16 +1,23 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.RegistrationTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -44,6 +51,8 @@ public class RegistrationTerminationAnswerImpl extends AuthenticationAnswerImpl 
 	private AuthGracePeriod authGracePeriod;
 	
 	private AuthorizationLifetime authorizationLifetime;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	protected RegistrationTerminationAnswerImpl() 
 	{
@@ -113,6 +122,34 @@ public class RegistrationTerminationAnswerImpl extends AuthenticationAnswerImpl 
 			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
 	}
 
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}
+
 	@DiameterValidate
 	public String validate()
 	{
@@ -120,5 +157,39 @@ public class RegistrationTerminationAnswerImpl extends AuthenticationAnswerImpl 
 			return "Auth-Session-State is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(resultCode);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(authorizationLifetime);
+		result.add(authGracePeriod);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

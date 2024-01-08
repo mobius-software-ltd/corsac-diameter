@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
@@ -37,6 +38,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PortLimi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.UserPasswordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -716,5 +718,69 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 			return "EAP-Payload is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authRequestType);
+		result.add(destinationHost);
+		result.add(nasIdentifier);
+		result.add(nasIPAddress);
+		result.add(nasIPv6Address);
+		result.add(nasPort);
+		result.add(nasPortId);
+		result.add(nasPortType);
+		result.add(originStateId);
+		result.add(portLimit);
+		result.add(username);
+		result.add(eapPayload);
+		result.add(eapKeyName);
+		result.add(serviceType);
+		result.add(state);
+		result.add(authorizationLifetime);
+		result.add(authGracePeriod);
+		result.add(authSessionState);
+		result.add(callbackNumber);
+		result.add(calledStationId);
+		result.add(callingStationId);
+		result.add(originatingLineInfo);
+		result.add(connectInfo);
+		
+		if(framedCompression!=null)
+			result.addAll(framedCompression);
+		
+		result.add(framedInterfaceId);
+		result.add(framedIPAddress);
+		
+		if(framedIPv6Prefix!=null)
+			result.addAll(framedIPv6Prefix);	
+		
+		result.add(framedIPNetmask);
+		result.add(framedMTU);
+		result.add(framedProtocol);
+		
+		if(tunneling!=null)
+			result.addAll(tunneling);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(optionalAvps!=null)
+        {
+        	for(List<DiameterAvp> curr:optionalAvps.values())
+        		result.addAll(curr);
+        }
+		
+		return result;
 	}
 }

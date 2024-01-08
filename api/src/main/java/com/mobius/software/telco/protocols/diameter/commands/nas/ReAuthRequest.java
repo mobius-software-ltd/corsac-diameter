@@ -145,7 +145,7 @@ public interface ReAuthRequest extends com.mobius.software.telco.protocols.diame
 
 	void setDiameterClass(List<ByteBuf> value);	
 	
-	List<String> getReplyMessage();
+	String getReplyMessage();
 
-	void setReplyMessage(List<String> value);	
+	void setReplyMessage(String value);	
 }

@@ -18,11 +18,15 @@ package com.mobius.software.telco.protocols.diameter.commands.st;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
+
+import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -61,6 +65,10 @@ public interface SessionTerminationRequest extends AuthenticationRequest
 	DRMPEnum getDRMP();
 	
 	void setDRMP(DRMPEnum value);
+	
+	public List<ByteBuf> getDiameterClass();
+	
+	void setDiameterClass(List<ByteBuf> value);		
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	

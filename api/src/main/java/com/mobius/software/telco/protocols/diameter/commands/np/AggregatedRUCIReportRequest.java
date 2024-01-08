@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.np.AggregatedRUCIReport;
 
 /**
@@ -57,4 +58,8 @@ public interface AggregatedRUCIReportRequest extends NpRequest
 	List<AggregatedRUCIReport> getAggregatedRUCIReport();
 	
 	void setAggregatedRUCIReport(List<AggregatedRUCIReport> value);
+	
+	public List<SupportedFeatures> getSupportedFeatures();
+
+	public void setSupportedFeatures(List<SupportedFeatures> value);
 }

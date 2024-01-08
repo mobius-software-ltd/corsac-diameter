@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.ResetRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UserIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ResetID;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionData;
@@ -134,5 +136,45 @@ public class ResetRequestImpl extends S6aRequestImpl implements ResetRequest
 	public void setSubscriptionDataDeletion(SubscriptionDataDeletion value)
 	{
 		this.subscriptionDataDeletion = value;
+	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(userId!=null)
+			result.addAll(userId);
+		
+		if(resetID!=null)
+			result.addAll(resetID);
+		
+		result.add(subscriptionData);
+		result.add(subscriptionDataDeletion);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}	
 }

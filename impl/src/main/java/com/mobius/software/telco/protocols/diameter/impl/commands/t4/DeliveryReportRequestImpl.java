@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPSMEAImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.AbsentSubscriberDiagnosticT4Impl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.SMDeliveryOutcomeT4Impl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ReferenceNumberImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMRPSMEA;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -171,5 +176,40 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 			return "SM-Delivery-Outcome-T4 is required";
 		
 		return super.validate();
-	}	
+	}		
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(userIdentifier);
+		result.add(smRPSMEA);
+		result.add(smDeliveryOutcomeT4);
+		result.add(absentSubscriberDiagnosticT4);
+		result.add(referenceNumber);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
+	}
 }

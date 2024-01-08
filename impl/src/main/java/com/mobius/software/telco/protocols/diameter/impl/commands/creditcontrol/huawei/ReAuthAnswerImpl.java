@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.huawei;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
@@ -83,5 +88,40 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 			this.ccRequestType = null;
 		else
 			this.ccRequestType = new CcRequestTypeImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		result.add(terminationCause);
+		result.add(ccRequestType);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}		
 }	

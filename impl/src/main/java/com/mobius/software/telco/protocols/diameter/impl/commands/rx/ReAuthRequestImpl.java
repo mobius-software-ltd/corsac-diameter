@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rx.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
@@ -27,6 +28,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNet
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.NIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
@@ -621,5 +623,81 @@ public class ReAuthRequestImpl extends RxRequestImpl implements ReAuthRequest
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		
+		if(specificAction!=null)
+			result.addAll(specificAction);
+			
+		result.add(ocSupportedFeatures);
+		
+		if(accessNetworkChargingIdentifier!=null)
+			result.addAll(accessNetworkChargingIdentifier);
+			
+		result.add(accessNetworkChargingAddress);
+		
+		if(anGWAddress!=null)
+			result.addAll(anGWAddress);
+			
+		result.add(anTrusted);
+		
+		if(flows!=null)
+			result.addAll(flows);
+			
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+			
+		result.add(abortCause);
+		result.add(ipcanType);
+		result.add(maInformation);
+		result.add(netLocAccessSupport);
+		result.add(ratType);
+		result.add(sponsoredConnectivityData);
+		result.add(tgppUserLocationInfo);
+		result.add(userLocationInfoTime);
+		result.add(tgppMSTimeZone);
+		
+		if(ranNASReleaseCause!=null)
+			result.addAll(ranNASReleaseCause);
+		
+		if(fiveGSRANNASReleaseCause!=null)
+			result.addAll(fiveGSRANNASReleaseCause);
+		
+		result.add(tgppSGSNMCCMNC);
+		result.add(nid);
+		result.add(twanIdentifier);
+		result.add(tcpSourcePort);
+		result.add(udpSourcePort);
+		result.add(ueLocalIPAddress);
+		result.add(wirelineUserLocationInfo);
+		result.add(originStateId);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

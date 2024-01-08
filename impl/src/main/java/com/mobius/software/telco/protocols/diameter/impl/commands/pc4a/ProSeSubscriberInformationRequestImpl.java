@@ -1,7 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc4a;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeSubscriberInformationRequest;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
@@ -32,6 +40,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 @DiameterCommandImplementation(applicationId = 16777336, commandCode = 8388664, request = true)
 public class ProSeSubscriberInformationRequestImpl extends Pc4aRequestImpl implements ProSeSubscriberInformationRequest
 {
+	private AuthSessionState authSessionState;
+	
 	private OCSupportedFeatures ocSupportedFeatures;
 	
 	protected ProSeSubscriberInformationRequestImpl() 
@@ -41,7 +51,27 @@ public class ProSeSubscriberInformationRequestImpl extends Pc4aRequestImpl imple
 	
 	public ProSeSubscriberInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);
+		
+		setAuthSessionState(authSessionState);
+	}
+
+	@Override
+	public AuthSessionStateEnum getAuthSessionState() 
+	{
+		if(authSessionState==null)
+			return null;
+		
+		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
+	}
+
+	@Override
+	public void setAuthSessionState(AuthSessionStateEnum value) 
+	{
+		if(value == null)
+			throw new IllegalArgumentException("Auth-Session-State is required");
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 	
 	@Override
@@ -54,5 +84,48 @@ public class ProSeSubscriberInformationRequestImpl extends Pc4aRequestImpl imple
 	public void setOCSupportedFeatures(OCSupportedFeatures value)
 	{
 		this.ocSupportedFeatures = value;
+	}
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authSessionState == null)
+			return "Auth-Session-State is required";
+		
+		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(ocSupportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

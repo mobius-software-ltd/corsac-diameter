@@ -1,11 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.PushProfileRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
@@ -39,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserData;
 @DiameterCommandImplementation(applicationId = 16777216, commandCode = 305, request = true)
 public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements PushProfileRequest
 {
-	private List<UserData> sipUserData;
+	private UserData sipUserData;
 	
 	private ChargingInformation chargingInformation;
 	
@@ -76,13 +79,13 @@ public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements P
 	}
 	
 	@Override
-	public List<UserData> getUserData()
+	public UserData getUserData()
 	{
 		return sipUserData;
 	}
 	
 	@Override
-	public void setUserData(List<UserData> value)
+	public void setUserData(UserData value)
 	{
 		this.sipUserData = value;
 	}
@@ -133,5 +136,42 @@ public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements P
 		}
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+				
+		result.add(sipUserData);
+		result.add(chargingInformation);
+		result.add(sipAuthDataItem);
+		result.add(allowedWAFWWSFIdentities);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

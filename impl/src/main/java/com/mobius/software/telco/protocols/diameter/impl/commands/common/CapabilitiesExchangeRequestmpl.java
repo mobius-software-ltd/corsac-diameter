@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
@@ -16,6 +17,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Inban
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ProductNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SupportedVendorIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.FirmwareRevision;
@@ -313,5 +315,45 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 			return "Product-Name is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(originHost);
+		result.add(originRealm);
+		
+		if(hostIpAddresses!=null)
+			result.addAll(hostIpAddresses);
+		
+		result.add(vendorId);
+		result.add(productName);
+		result.add(originStateId);
+		
+		if(supportedVendorIds!=null)
+			result.addAll(supportedVendorIds);
+		
+		if(authApplicationIds!=null)
+			result.addAll(authApplicationIds);
+		
+		if(inbandSecurityIds!=null)
+			result.addAll(inbandSecurityIds);
+		
+		if(acctApplicationIds!=null)
+			result.addAll(acctApplicationIds);
+		
+		if(vendorSpecificApplicationId!=null)
+			result.addAll(vendorSpecificApplicationId);
+		
+		result.add(firmwareRevision);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.MultipleRegistrationIndicationImpl;
@@ -14,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerN
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SessionPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserDataAlreadyAvailableImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.FailedPCSCF;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.MultipleRegistrationIndication;
@@ -280,5 +282,51 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 			return "User-Data-Already-Available is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(publicIdentity!=null)
+			result.addAll(publicIdentity);
+		
+		result.add(wildcardedPublicIdentity);
+		result.add(serverName);
+		result.add(serverAssignmentType);
+		result.add(userDataAlreadyAvailable);
+		result.add(scscfRestorationInfo);
+		result.add(multipleRegistrationIndication);
+		result.add(sessionPriority);
+		result.add(sarFlags);
+		result.add(failedPCSCF);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

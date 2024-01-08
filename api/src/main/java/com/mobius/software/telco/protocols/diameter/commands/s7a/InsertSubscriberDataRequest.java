@@ -56,9 +56,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 16777308, commandCode = 319, request = true, proxyable = true, name="Insert-Subscriber-Data-Request")
 public interface InsertSubscriberDataRequest extends S7aRequest
 {
-	VPLMNCSGSubscriptionData getVPLMNCSGSubscriptionData();
+	List<VPLMNCSGSubscriptionData> getVPLMNCSGSubscriptionData();
 	 
-	void setVPLMNCSGSubscriptionData(VPLMNCSGSubscriptionData value);
+	void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value);
 	
 	List<ByteBuf> getResetID();
 	 

@@ -110,4 +110,8 @@ public interface CreditControlAnswer extends AuthenticationAnswer
 	List<Load> getLoad();
 	
 	void setLoad(List<Load> value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

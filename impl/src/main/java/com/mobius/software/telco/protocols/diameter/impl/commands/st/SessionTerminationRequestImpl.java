@@ -1,16 +1,25 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
+
+import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -40,6 +49,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 public class SessionTerminationRequestImpl extends AuthenticationRequestWithHostBase implements SessionTerminationRequest
 {
 	private DRMP drmp;
+	
+	protected List<DiameterClass> diameterClass;
 	
 	private TerminationCause terminationCause;
 	
@@ -74,6 +85,32 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestWithHost
 		else
 			this.drmp = new DRMPImpl(value, null, null);
 	}
+
+	@Override
+	public List<ByteBuf> getDiameterClass() 
+	{
+		if(this.diameterClass==null)
+			return null;
+		
+		List<ByteBuf> result=new ArrayList<ByteBuf>();
+		for(DiameterClass currClass: this.diameterClass)
+			result.add(currClass.getValue());
+		
+		return result;
+	}
+
+	@Override
+	public void setDiameterClass(List<ByteBuf> value) 
+	{
+		if(value==null || value.size()==0)
+			this.diameterClass = null;
+		else
+		{
+			this.diameterClass = new ArrayList<DiameterClass>();
+			for(ByteBuf curr:value)
+				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
+		}
+	}		
 	
 	@Override
 	public TerminationCauseEnum getTerminationCause() 
@@ -113,4 +150,38 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestWithHost
 		
 		return super.validate();
 	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(terminationCause);
+		result.add(destinationHost);
+		result.add(ocSupportedFeatures);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+	
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
+	}
 }

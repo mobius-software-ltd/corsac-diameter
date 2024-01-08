@@ -1,15 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSessionFailoverImpl;
@@ -18,8 +21,10 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CreditControlFailureHandlingImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.DirectDebitingFailureHandlingImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
@@ -66,35 +71,37 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 @DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = false)
 public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements CreditControlAnswer
 {
-	private CcRequestType ccRequestType;
+	protected CcRequestType ccRequestType;
 	
-	private CcRequestNumber ccRequestNumber;
+	protected CcRequestNumber ccRequestNumber;
 	
-	private CcSessionFailover ccSessionFailover;
+	protected CcSessionFailover ccSessionFailover;
 	
-	private CcSubSessionId ccSubSessionId;
+	protected CcSubSessionId ccSubSessionId;
 	
-	private AcctMultiSessionId acctMultiSessionId;
+	protected AcctMultiSessionId acctMultiSessionId;
 	
-	private EventTimestamp eventTimestamp;
+	protected EventTimestamp eventTimestamp;
 	
-	private GrantedServiceUnit grantedServiceUnit;
+	protected GrantedServiceUnit grantedServiceUnit;
 	
-	private List<MultipleServicesCreditControl> multipleServicesCreditControl;
+	protected List<MultipleServicesCreditControl> multipleServicesCreditControl;
 	
-	private CostInformation costInformation;
+	protected CostInformation costInformation;
 	
-	private FinalUnitIndication finalUnitIndication;
+	protected FinalUnitIndication finalUnitIndication;
 	
-	private QoSFinalUnitIndication qosFinalUnitIndication;
+	protected QoSFinalUnitIndication qosFinalUnitIndication;
 	
-	private CheckBalanceResult checkBalanceResult;
+	protected CheckBalanceResult checkBalanceResult;
 	
-	private CreditControlFailureHandling creditControlFailureHandling;
+	protected CreditControlFailureHandling creditControlFailureHandling;
 	
-	private DirectDebitingFailureHandling directDebitingFailureHandling;
+	protected DirectDebitingFailureHandling directDebitingFailureHandling;
     
-	private ValidityTime validityTime;
+	protected ValidityTime validityTime;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	private boolean ccSubSessionIdAllowed = true;
 	private boolean acctMultiSessionIdAllowed = true;
@@ -104,6 +111,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	private boolean qosFinalUnitIndicationAllowed = true;
 	private boolean checkBalanceResultAllowed = true;
 	private boolean validityTimeAllowed = true;
+	private boolean routeRecordsAllowed = true;
 	
 	protected CreditControlAnswerImpl() 
 	{
@@ -170,6 +178,11 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	protected void setValidityTimeAllowed(boolean allowed) 
 	{
 		this.validityTimeAllowed = allowed;
+	}
+	
+	protected void setRouteRecordsAllowed(boolean allowed) 
+	{
+		this.routeRecordsAllowed = allowed;
 	}
 
 	@Override
@@ -459,6 +472,40 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 		else
 			this.validityTime = new ValidityTimeImpl(value, null, null);
 	}
+
+	@Override
+	public List<String> getRouteRecords() throws AvpNotSupportedException 
+	{
+		if(!routeRecordsAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value) throws AvpNotSupportedException
+	{
+		if(!routeRecordsAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}	
 	
 	@DiameterValidate
 	public String validate()
@@ -470,5 +517,60 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 			return "CC-Request-Number is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(authApplicationId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		
+		result.add(username);
+		result.add(ccSessionFailover);
+		result.add(ccSubSessionId);
+		result.add(acctMultiSessionId);
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		result.add(grantedServiceUnit);
+		
+		if(multipleServicesCreditControl!=null)
+			result.addAll(multipleServicesCreditControl);
+		
+		result.add(costInformation);
+		result.add(finalUnitIndication);
+		result.add(qosFinalUnitIndication);
+		result.add(checkBalanceResult);
+		result.add(creditControlFailureHandling);
+		result.add(directDebitingFailureHandling);
+		result.add(validityTime);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		result.add(failedAvp);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

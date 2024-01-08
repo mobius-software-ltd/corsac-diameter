@@ -1,7 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.np.NpRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -10,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthS
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -41,13 +38,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class NpRequestImpl extends VendorSpecificRequestmpl implements NpRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	private OCSupportedFeatures ocSupportedFeatures;
-	
-	public List<SupportedFeatures> supportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
 	protected NpRequestImpl() 
 	{
@@ -117,18 +112,6 @@ public abstract class NpRequestImpl extends VendorSpecificRequestmpl implements 
 	public void setOCSupportedFeatures(OCSupportedFeatures value)
 	{
 		this.ocSupportedFeatures = value;
-	}
-
-	@Override
-	public List<SupportedFeatures> getSupportedFeatures() 
-	{
-		return supportedFeatures;
-	}
-
-	@Override
-	public void setSupportedFeatures(List<SupportedFeatures> value) 
-	{
-		this.supportedFeatures = value;
 	}
 	
 	@DiameterValidate

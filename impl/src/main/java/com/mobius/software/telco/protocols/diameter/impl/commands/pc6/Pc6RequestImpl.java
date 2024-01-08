@@ -41,13 +41,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class Pc6RequestImpl extends VendorSpecificRequestmpl implements Pc6Request
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	public List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
 	
-	private OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
 	protected Pc6RequestImpl() 
 	{

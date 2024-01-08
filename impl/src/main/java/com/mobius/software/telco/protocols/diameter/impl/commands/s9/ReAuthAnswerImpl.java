@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPP2BSIDImpl;
@@ -21,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeIm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPP2BSID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
@@ -104,7 +106,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	 
 	private QoSInformation qosInformation;
 	
-	private List<QoSRuleReport> qosRule;
+	private List<QoSRuleReport> qosRuleReport;
 	
 	private List<ANGWAddress> anGWAddress;
 	
@@ -378,13 +380,13 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	@Override
 	public List<QoSRuleReport> getQoSRuleReport()
 	{
-		return this.qosRule;
+		return this.qosRuleReport;
 	}
 	
 	@Override
 	public void setQoSRuleReport(List<QoSRuleReport> value)
 	{
-		this.qosRule = value;
+		this.qosRuleReport = value;
 	}
 	
 	@Override
@@ -460,5 +462,60 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(originStateId);
+		result.add(framedIPAddress);
+		result.add(framedIPv6Prefix);
+		result.add(ipcanType);
+		result.add(ratType);
+		result.add(tgppSGSNMCCMNC);
+		result.add(tgppSGSNAddress);
+		result.add(tgppSGSNIPv6Address);
+		result.add(rai);
+		result.add(tgppUserLocationInfo);
+		result.add(tgppMSTimeZone);
+		result.add(tgpp2BSID);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		result.add(qosInformation);
+		
+		if(qosRuleReport!=null)
+			result.addAll(qosRuleReport);
+		
+		if(anGWAddress!=null)
+			result.addAll(anGWAddress);
+		
+		if(subsessionEnforcementInfo!=null)
+			result.addAll(subsessionEnforcementInfo);
+		
+		result.add(userCSGInformation);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

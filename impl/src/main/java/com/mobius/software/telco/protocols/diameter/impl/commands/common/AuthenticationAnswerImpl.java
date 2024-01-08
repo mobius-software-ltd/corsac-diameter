@@ -44,13 +44,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectMa
 */
 public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSessionBase implements AuthenticationAnswer
 {
-	private AuthApplicationId authApplicationId;
+	protected AuthApplicationId authApplicationId;
 	
-	private List<RedirectHost> redirectHost;
+	protected List<RedirectHost> redirectHost;
 	
-	private RedirectHostUsage redirectHostUsage;
+	protected RedirectHostUsage redirectHostUsage;
 	
-	private RedirectMaxCacheTime redirectMaxCacheTime;
+	protected RedirectMaxCacheTime redirectMaxCacheTime;
 	
 	private boolean authApplicationIdAllowed = true;
 	

@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.slh;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.slh.SlhAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 
 /*
@@ -36,9 +39,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 */
 public abstract class SlhAnswerImpl extends VendorSpecificAnswerImpl implements SlhAnswer
 {
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	private List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	protected SlhAnswerImpl() 
 	{
@@ -80,6 +85,34 @@ public abstract class SlhAnswerImpl extends VendorSpecificAnswerImpl implements 
 	public void setSupportedFeatures(List<SupportedFeatures> value) 
 	{
 		this.supportedFeatures = value;
+	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
 	}
 	
 	@DiameterValidate

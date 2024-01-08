@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -64,6 +65,10 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388664, request = false, proxyable = true, name="ProSe-Subscriber-Information-Answer")
 public interface ProSeSubscriberInformationAnswer extends Pc4aAnswer
 {
+	public AuthSessionStateEnum getAuthSessionState();
+	
+	void setAuthSessionState(AuthSessionStateEnum value);
+
 	ProSeSubscriptionData getProSeSubscriptionData();
 	 
 	void setProSeSubscriptionData(ProSeSubscriptionData value);

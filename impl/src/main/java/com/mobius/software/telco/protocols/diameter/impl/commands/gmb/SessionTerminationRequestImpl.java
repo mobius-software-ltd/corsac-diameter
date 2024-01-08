@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gmb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gmb.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.AdditionalMBMSTraceInfoImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.AdditionalMBMSTraceInfo;
 
@@ -63,5 +68,33 @@ public class SessionTerminationRequestImpl extends com.mobius.software.telco.pro
 			this.additionalMBMSTraceInfo = null;
 		else
 			this.additionalMBMSTraceInfo = new AdditionalMBMSTraceInfoImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(terminationCause);
+		result.add(destinationHost);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		result.add(additionalMBMSTraceInfo);		
+		
+		return result;
 	}
 }

@@ -56,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    An unrecognized class (one whose first digit is not defined in this
    section) MUST be handled as a permanent failure.
  */
-@DiameterAvpDefinition(code = 268L, position = 2, vendorId = -1L, name = "Result-Code")
+@DiameterAvpDefinition(code = 268L, vendorId = -1L, name = "Result-Code")
 public interface ResultCode extends DiameterUnsigned32
 {
 }

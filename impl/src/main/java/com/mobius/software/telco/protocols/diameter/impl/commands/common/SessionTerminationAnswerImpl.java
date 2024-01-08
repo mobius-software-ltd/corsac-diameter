@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 
 import io.netty.buffer.ByteBuf;
@@ -37,7 +39,7 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 0, commandCode = 275, request = false)
 public class SessionTerminationAnswerImpl extends AuthenticationAnswerImpl implements SessionTerminationAnswer
 {
-	private List<DiameterClass> diameterClass;
+	protected List<DiameterClass> diameterClass;
 	
 	protected SessionTerminationAnswerImpl() 
 	{
@@ -72,5 +74,41 @@ public class SessionTerminationAnswerImpl extends AuthenticationAnswerImpl imple
 			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		result.add(originStateId);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -33,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 */
 public abstract class E4AnswerImpl extends VendorSpecificAnswerImpl implements E4Answer
 {
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
 	protected E4AnswerImpl() 
 	{

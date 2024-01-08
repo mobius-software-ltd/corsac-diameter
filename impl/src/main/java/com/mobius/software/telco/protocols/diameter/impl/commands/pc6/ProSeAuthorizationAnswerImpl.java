@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAuthorizationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.AuthorizedDiscoveryRangeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.ProSeDirectAllowedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeAnnounceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeCommunicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeMonitorImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.AuthorizedDiscoveryRange;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeDirectAllowed;
@@ -149,5 +154,50 @@ public class ProSeAuthorizationAnswerImpl extends Pc6AnswerImpl implements ProSe
 			this.authorizedDiscoveryRange = null;
 		else
 			this.authorizedDiscoveryRange = new AuthorizedDiscoveryRangeImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		result.add(proSeDirectAllowed);
+		result.add(validityTimeAnnounce);
+		result.add(validityTimeMonitor);
+		result.add(validityTimeCommunication);
+		result.add(authorizedDiscoveryRange);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

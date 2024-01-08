@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gx.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerControlModeImpl;
@@ -23,8 +25,10 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RemovalOf
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RevalidationTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.SessionReleaseCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
@@ -165,6 +169,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	private RemovalOfAccess removalOfAccess;
 	
 	private IPCANType ipcanType;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	private List<Load> load;
 	
@@ -713,14 +719,41 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 			this.ipcanType = null;
 		else
 			this.ipcanType = new IPCANTypeImpl(value, null, null);
-	}	
+	}
+
+	@Override
+	public List<String> getRouteRecords()
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}		
 	
 	@Override
 	public List<Load> getLoad()
 	{
 		return this.load;
 	}
-	
 	
 	@Override
 	public void setLoad(List<Load> value)
@@ -741,5 +774,103 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 			return "Up to 4 Conditional-Policy-Information allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(bearerControlMode);
+		
+		if(eventTrigger!=null)
+			result.addAll(eventTrigger);
+		
+		result.add(eventReportIndication);
+		result.add(originStateId);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(chargingRuleRemove!=null)
+			result.addAll(chargingRuleRemove);
+		
+		if(chargingRuleInstall!=null)
+			result.addAll(chargingRuleInstall);
+		
+		result.add(chargingInformation);
+		result.add(online);
+		result.add(offline);
+		
+		if(qosInformation!=null)
+			result.addAll(qosInformation);
+		
+		result.add(revalidationTime);
+		result.add(defaultEPSBearerQoS);
+		result.add(defaultQoSInformation);
+		result.add(bearerUsage);
+		
+		if(usageMonitoringInformation!=null)
+			result.addAll(usageMonitoringInformation);
+		
+		if(csgInformationReporting!=null)
+			result.addAll(csgInformationReporting);
+		
+		result.add(userCSGInformation);
+		result.add(praInstall);
+		result.add(praRemove);
+		result.add(presenceReportingAreaInformation);
+		result.add(sessionReleaseCause);
+		result.add(nbifomSupport);
+		result.add(nbifomMode);
+		result.add(defaultAccess);
+		result.add(ranRuleSupport);
+		
+		if(routingRuleReport!=null)
+			result.addAll(routingRuleReport);
+		
+		if(conditionalPolicyInformation!=null)
+			result.addAll(conditionalPolicyInformation);
+		
+		result.add(removalOfAccess);
+		result.add(ipcanType);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(ranRuleSupport);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

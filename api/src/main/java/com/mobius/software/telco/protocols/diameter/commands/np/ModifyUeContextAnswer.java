@@ -18,12 +18,7 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.np.RUCIActionEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.np.ReportingRestrictionEnum;
 
 /**
 *
@@ -58,23 +53,5 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.ReportingRestr
 @DiameterCommandDefinition(applicationId = 16777342, commandCode = 8388722, request = false, proxyable = true, name="Modify-Uecontext‑Answer")
 public interface ModifyUeContextAnswer extends NpAnswer
 {
-	ReportingRestrictionEnum getReportingRestriction();
-	 
-	void setReportingRestriction(ReportingRestrictionEnum value);
 	
-	Long getConditionalRestriction();
-	 
-	void setConditionalRestriction(Long value);
-	 		
-	RUCIActionEnum getRUCIAction();
-	 
-	void setRUCIAction(RUCIActionEnum value);
-	
-	List<CongestionLevelDefinition> getCongestionLevelDefinition();
-	
-	void setCongestionLevelDefinition(List<CongestionLevelDefinition> value);
-					 
-	String getPCRFAddress();
-	
-	void setPCRFAddress(String value); 			
 }

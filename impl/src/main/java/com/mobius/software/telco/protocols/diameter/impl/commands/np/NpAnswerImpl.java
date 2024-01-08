@@ -1,13 +1,24 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.np.NpAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectMaxCacheTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHost;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsage;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectMaxCacheTime;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -38,13 +49,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class NpAnswerImpl extends VendorSpecificAnswerImpl implements NpAnswer
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	private OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
-	private OCOLR ocOLR;
+	protected OCOLR ocOLR;
+	
+	protected List<RedirectHost> redirectHost;
+	
+	protected RedirectHostUsage redirectHostUsage;
+	
+	protected RedirectMaxCacheTime redirectMaxCacheTime;
 	
 	protected NpAnswerImpl() 
 	{
@@ -112,6 +129,70 @@ public abstract class NpAnswerImpl extends VendorSpecificAnswerImpl implements N
 	public void setOCOLR(OCOLR value)
 	{
 		this.ocOLR = value;
+	}
+
+	@Override
+	public List<String> getRedirectHost() 
+	{
+		if(this.redirectHost==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RedirectHost curr:redirectHost)
+				result.add(curr.getUri());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRedirectHost(List<String> value) throws ParseException 
+	{
+		if(value == null || value.size()==0)
+			this.redirectHost = null;
+		else
+		{
+			this.redirectHost = new ArrayList<RedirectHost>();
+			for(String curr:value)
+				this.redirectHost.add(new RedirectHostImpl(curr, null, null));
+		}
+	}
+
+	@Override
+	public RedirectHostUsageEnum getRedirectHostUsage() 
+	{
+		if(this.redirectHost == null)
+			return null;
+		
+		return this.redirectHostUsage.getEnumerated(RedirectHostUsageEnum.class);
+	}
+
+	@Override
+	public void setRedirectHostUsage(RedirectHostUsageEnum value) 
+	{
+		if(value==null)
+			this.redirectHostUsage = null;
+		else 
+			this.redirectHostUsage = new RedirectHostUsageImpl(value, null, null);
+	}
+
+	@Override
+	public Long getRedirectMaxCacheTime() 
+	{
+		if(this.redirectMaxCacheTime==null)
+			return null;
+		
+		return this.redirectMaxCacheTime.getUnsigned();
+	}
+
+	@Override
+	public void setRedirectMaxCacheTime(Long value) 
+	{
+		if(value==null)
+			this.redirectMaxCacheTime = null;
+		else 
+			this.redirectMaxCacheTime = new RedirectMaxCacheTimeImpl(value, null, null);
 	}
 	
 	@DiameterValidate

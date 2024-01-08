@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.st;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -42,4 +44,8 @@ public abstract interface StAnswer extends VendorSpecificAnswer
 	OCOLR getOCOLR();
 	
 	void setOCOLR(OCOLR value);
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

@@ -1,10 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sy.SNRequestTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
 
@@ -73,5 +76,39 @@ public class SpendingStatusNotificationRequestImpl extends SyRequestImpl impleme
 			this.snRequestType = null;
 		else
 			this.snRequestType = new SNRequestTypeImpl(value, null, null);
+	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		
+		if(policyCounterStatusReport!=null)
+			result.addAll(policyCounterStatusReport);
+		
+		result.add(snRequestType);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}				
 }

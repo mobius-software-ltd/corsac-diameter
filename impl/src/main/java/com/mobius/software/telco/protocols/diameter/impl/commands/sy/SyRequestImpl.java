@@ -33,9 +33,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class SyRequestImpl extends AuthenticationRequestWithHostBase implements SyRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	public OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
 	protected SyRequestImpl() 
 	{

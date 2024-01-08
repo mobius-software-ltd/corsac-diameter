@@ -1,10 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeviceTriggerAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.MTCErrorDiagnosticImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.TriggerActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.OldReferenceNumberImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.MTCErrorDiagnostic;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.MTCErrorDiagnosticEnum;
@@ -109,5 +114,41 @@ public class DeviceTriggerAnswerImpl extends T4AnswerImpl implements DeviceTrigg
 			this.triggerAction = null;
 		else
 			this.triggerAction = new TriggerActionImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(mtcErrorDiagnostic);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(oldReferenceNumber);
+		result.add(triggerAction);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

@@ -1,8 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.slg;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LCSClientTypeImpl;
@@ -19,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.SLgLocat
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.SupportedGADShapesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.VelocityRequestedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -514,5 +518,60 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 			return "LCS-Client-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(slgLocationType);
+		result.add(username);
+		result.add(msisdn);
+		result.add(imei);
+		result.add(lcsEPSClientName);
+		result.add(lcsClientType);
+		result.add(lcsRequestorName);
+		result.add(lcsPriority);
+		result.add(lcsQoS);
+		result.add(velocityRequested);
+		result.add(lcsSupportedGADShapes);
+		result.add(lcsServiceTypeID);
+		result.add(lcsCodeword);
+		result.add(lcsPrivacyCheckNonSession);
+		result.add(LcsPrivacyCheckSession);
+		result.add(serviceSelection);
+		result.add(deferredLocationType);
+		result.add(lcsReferenceNumber);
+		result.add(areaEventInfo);
+		result.add(gmlcAddress);
+		result.add(plrFlags);
+		result.add(periodicLDRInformation);
+		result.add(reportingPLMNList);
+		result.add(motionEventInfo);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}	
 }

@@ -2,9 +2,11 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sgmb;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSGGSNAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSGGSNIPv6AddressImpl;
@@ -12,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSStar
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSUserDataModeIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSGWUDPPortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.RestartCounterImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSGGSNAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSGGSNIPv6Address;
@@ -192,5 +195,41 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 			this.restartCounter = null;
 		else
 			this.restartCounter = new RestartCounterImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(mbmsStartStopIndication);
+		result.add(mbmsGGSNAddress);
+		result.add(mbmsGGSNIPv6Address);
+		result.add(mbmsUserDataModeIndication);
+		result.add(mbmsGWUDPPort);
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(restartCounter);
+		
+		return result;
 	}
 }

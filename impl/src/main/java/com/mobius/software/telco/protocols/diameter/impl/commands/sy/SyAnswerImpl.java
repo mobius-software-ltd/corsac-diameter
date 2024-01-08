@@ -34,11 +34,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class SyAnswerImpl extends AuthenticationAnswerImpl implements SyAnswer
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 
-	private OCSupportedFeatures ocSupportedFeatures;
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
-	public OCOLR ocOLR;
+	protected OCOLR ocOLR;
 	
 	protected SyAnswerImpl() 
 	{

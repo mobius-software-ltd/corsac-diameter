@@ -87,5 +87,9 @@ public interface MessageProcessAnswer extends VendorSpecificAnswer
 	
 	SenderVisibilityEnum getSenderVisibility();
 	
-	void setSenderVisibility(SenderVisibilityEnum value);					
+	void setSenderVisibility(SenderVisibilityEnum value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);					
 }

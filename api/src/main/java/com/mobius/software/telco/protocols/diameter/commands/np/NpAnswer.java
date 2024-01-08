@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.text.ParseException;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
@@ -47,4 +51,16 @@ public abstract interface NpAnswer extends VendorSpecificAnswer
 	OCOLR getOCOLR();
 	 
 	void setOCOLR(OCOLR value);
+	
+	public List<String> getRedirectHost();
+	
+	void setRedirectHost(List<String> value) throws ParseException;
+
+	public RedirectHostUsageEnum getRedirectHostUsage();
+	
+	void setRedirectHostUsage(RedirectHostUsageEnum value);
+	
+	public Long getRedirectMaxCacheTime();
+	
+	void setRedirectMaxCacheTime(Long value);
 }

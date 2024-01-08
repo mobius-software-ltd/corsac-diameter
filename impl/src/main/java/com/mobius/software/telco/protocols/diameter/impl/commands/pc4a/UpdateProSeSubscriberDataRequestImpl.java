@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.UpdateProSeSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.UPRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.UPRFlags;
@@ -43,6 +48,8 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 16777336, commandCode = 8388665, request = true)
 public class UpdateProSeSubscriberDataRequestImpl extends Pc4aRequestImpl implements UpdateProSeSubscriberDataRequest
 {
+	protected AuthSessionState authSessionState;
+	
 	private ProSeSubscriptionData proSeSubscriptionData;
 	 
 	private VisitedPLMNId visitedPLMNId;
@@ -58,7 +65,27 @@ public class UpdateProSeSubscriberDataRequestImpl extends Pc4aRequestImpl implem
 	
 	public UpdateProSeSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);
+		
+		setAuthSessionState(authSessionState);
+	}
+
+	@Override
+	public AuthSessionStateEnum getAuthSessionState() 
+	{
+		if(authSessionState==null)
+			return null;
+		
+		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
+	}
+
+	@Override
+	public void setAuthSessionState(AuthSessionStateEnum value) 
+	{
+		if(value == null)
+			throw new IllegalArgumentException("Auth-Session-State is required");
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 	
 	@Override
@@ -133,5 +160,53 @@ public class UpdateProSeSubscriberDataRequestImpl extends Pc4aRequestImpl implem
 			for(ByteBuf curr:value)
 				this.resetID.add(new ResetIDImpl(curr, null, null));
 		}		
+	}
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(authSessionState == null)
+			return "Auth-Session-State is required";
+		
+		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(proSeSubscriptionData);
+		result.add(visitedPLMNId);
+		result.add(uprFlags);
+		
+		if(resetID!=null)
+			result.addAll(resetID);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

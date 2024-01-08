@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPNSAPIImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPNSAPI;
 
 import io.netty.buffer.ByteBuf;
@@ -64,5 +69,35 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 			this.tgppNSAPI = null;
 		else
 			this.tgppNSAPI = new TGPPNSAPIImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		result.add(tgppNSAPI);
+		
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

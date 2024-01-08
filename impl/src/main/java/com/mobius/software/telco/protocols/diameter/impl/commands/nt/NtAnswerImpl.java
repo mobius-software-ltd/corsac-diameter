@@ -1,14 +1,25 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.nt;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.nt.NtAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectMaxCacheTimeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHost;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsage;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectMaxCacheTime;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -39,11 +50,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class NtAnswerImpl extends VendorSpecificAnswerImpl implements NtAnswer
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	public List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
+	
+	protected List<RedirectHost> redirectHost;
+	
+	protected RedirectHostUsage redirectHostUsage;
+	
+	protected RedirectMaxCacheTime redirectMaxCacheTime;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	protected NtAnswerImpl() 
 	{
@@ -103,6 +122,98 @@ public abstract class NtAnswerImpl extends VendorSpecificAnswerImpl implements N
 	public void setSupportedFeatures(List<SupportedFeatures> value) 
 	{
 		this.supportedFeatures = value;
+	}
+
+	@Override
+	public List<String> getRedirectHost() 
+	{
+		if(this.redirectHost==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RedirectHost curr:redirectHost)
+				result.add(curr.getUri());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRedirectHost(List<String> value) throws ParseException 
+	{
+		if(value == null || value.size()==0)
+			this.redirectHost = null;
+		else
+		{
+			this.redirectHost = new ArrayList<RedirectHost>();
+			for(String curr:value)
+				this.redirectHost.add(new RedirectHostImpl(curr, null, null));
+		}
+	}
+
+	@Override
+	public RedirectHostUsageEnum getRedirectHostUsage() 
+	{
+		if(this.redirectHost == null)
+			return null;
+		
+		return this.redirectHostUsage.getEnumerated(RedirectHostUsageEnum.class);
+	}
+
+	@Override
+	public void setRedirectHostUsage(RedirectHostUsageEnum value) 
+	{
+		if(value==null)
+			this.redirectHostUsage = null;
+		else 
+			this.redirectHostUsage = new RedirectHostUsageImpl(value, null, null);
+	}
+
+	@Override
+	public Long getRedirectMaxCacheTime() 
+	{
+		if(this.redirectMaxCacheTime==null)
+			return null;
+		
+		return this.redirectMaxCacheTime.getUnsigned();
+	}
+
+	@Override
+	public void setRedirectMaxCacheTime(Long value) 
+	{
+		if(value==null)
+			this.redirectMaxCacheTime = null;
+		else 
+			this.redirectMaxCacheTime = new RedirectMaxCacheTimeImpl(value, null, null);
+	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
 	}
 	
 	@DiameterValidate

@@ -1,10 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DisconnectPeerRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DisconnectCauseImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 
@@ -82,5 +87,22 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 			return "Disconnect-Cause is required";
 	
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(disconnectCause);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

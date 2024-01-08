@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
@@ -17,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPH
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMSALifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMobileNodeAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPRegReplyImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
@@ -370,5 +373,49 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 			return "Auth-Application-Id is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(acctMultiSessionId);
+		result.add(username);
+		result.add(authorizationLifetime);
+		result.add(authSessionState);
+		result.add(errorReportingHost);
+        result.add(errorMessage);
+        result.add(reAuthRequestType);
+        result.add(mipFeatureVector);
+		result.add(mipRegReply);
+		result.add(mipMNtoFAMSA);
+      	result.add(mipMNtoHAMSA);
+      	result.add(mipFAtoMNMSA);
+      	result.add(mipFAtoHAMSA);
+      	result.add(mipHAtoMNMSA);
+      	result.add(mipMSALifetime);
+      	result.add(mipHomeAgentAddress);
+		result.add(mipMobileNodeAddress);
+		
+		if(mipFilterRule!=null)
+			result.addAll(mipFilterRule);
+
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+        
+        return result;
 	}
 }

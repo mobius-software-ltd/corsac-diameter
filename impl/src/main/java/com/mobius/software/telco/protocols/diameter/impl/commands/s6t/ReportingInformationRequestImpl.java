@@ -1,10 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6t;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ReportingInformationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.RIRFlagsImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReport;
@@ -144,5 +147,49 @@ public class ReportingInformationRequestImpl extends S6tRequestImpl implements R
 	public void setSupportedServices(List<SupportedServices> value)
 	{
 		this.supportedServices = value;
+	}		
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(userIdentifier);
+		
+		if(monitoringEventReport!=null)
+			result.addAll(monitoringEventReport);
+		
+		if(groupReport!=null)
+			result.addAll(groupReport);
+		
+		result.add(updatedNetworkConfiguration);
+		result.add(rirFlags);
+		
+		if(supportedServices!=null)
+			result.addAll(supportedServices);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

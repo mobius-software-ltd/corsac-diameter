@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.MultimediaAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPNumberAuthItemsImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
@@ -186,5 +191,62 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 			return "Server-Name is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		/*< Session-Id >
+			 [ DRMP ]
+			 { Vendor-Specific-Application-Id }
+			 { Auth-Session-State }
+			 { Origin-Host }
+			 { Origin-Realm }
+			 { Destination-Realm }
+			 [ Destination-Host ]
+			 { User-Name }
+			 [ OC-Supported-Features ]
+			*[ Supported-Features ]
+			 { Public-Identity }
+			 { SIP-Auth-Data-Item }
+			 { SIP-Number-Auth-Items }
+			 { Server-Name }
+			*[ AVP ]
+			*[ Proxy-Info ]
+			*[ Route-Record ]*/
+		
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(publicIdentity);
+		result.add(sipAuthDataItem);
+		result.add(sipNumberAuthItems);
+		result.add(serverName);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

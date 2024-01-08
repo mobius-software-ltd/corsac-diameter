@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ServerAssignmentRequest;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPServerAssignmentTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPServerURIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPSupportedUserDataTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPUserDataAlreadyAvailableImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServerAssignmentType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServerAssignmentTypeEnum;
@@ -46,6 +51,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
 @DiameterCommandImplementation(applicationId = 6, commandCode = 284, request = true)
 public class ServerAssignmentRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements ServerAssignmentRequest
 {
+	private AuthSessionState authSessionState;
+	
 	private SIPServerAssignmentType sipServerAssignmentType;
 	
 	private SIPUserDataAlreadyAvailable sipUserDataAlreadyAvailable;
@@ -61,13 +68,33 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 		super();
 	}
 	
-	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable)
+	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		
+		setAuthSessionState(authSessionState);
 		
 		setSIPServerAssignmentType(sipServerAssignmentType);
 		
 		setSIPUserDataAlreadyAvailable(sipUserDataAlreadyAvailable);
+	}
+
+	@Override
+	public AuthSessionStateEnum getAuthSessionState() 
+	{
+		if(authSessionState == null)
+			return null;
+		
+		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
+	}
+
+	@Override
+	public void setAuthSessionState(AuthSessionStateEnum value) 
+	{
+		if(value == null)
+			throw new IllegalArgumentException("Auth-Session-State is required");
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -179,6 +206,9 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 	@DiameterValidate
 	public String validate()
 	{
+		if(authSessionState == null)
+			return "Auth-Session-State is required";
+		
 		if(sipServerAssignmentType == null)
 			return "SIP-Server-Assignment-Type is required";
 		
@@ -186,5 +216,42 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 			return "SIP-User-Data-Already-Available is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(sipServerAssignmentType);
+		result.add(sipUserDataAlreadyAvailable);
+		result.add(destinationHost);
+		result.add(username);
+		result.add(sipServerURI);
+		
+		if(sipSupportedUserDataType!=null)
+			result.addAll(sipSupportedUserDataType);
+		
+		if(sipAOR!=null)
+			result.addAll(sipAOR);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

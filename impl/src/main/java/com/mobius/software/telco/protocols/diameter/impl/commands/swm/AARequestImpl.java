@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swm;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AARequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swm.AARFlagsImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.UELocalIPAddress;
@@ -134,5 +138,31 @@ public class AARequestImpl extends SwmRequestImpl implements AARequest
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authRequestType);
+		result.add(username);
+		result.add(ocSupportedFeatures);				
+		result.add(aarFlags);
+		result.add(ueLocalIPAddress);
+		
+		if(optionalAvps!=null)
+        {
+        	for(List<DiameterAvp> curr:optionalAvps.values())
+        		result.addAll(curr);
+        }
+		
+		return result;
 	}
 }

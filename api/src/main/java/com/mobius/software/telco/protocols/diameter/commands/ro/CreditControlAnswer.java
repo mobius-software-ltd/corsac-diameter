@@ -36,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 The CCA messages, indicated by the Command-Code field set to 272 is sent by the OCF to the CTF in order to reply to the CCR. 
 The CCA message format is defined according to RFC 4006 [402] as follows:
       <CCA> ::=  < Diameter Header: 272, PXY >
-
                  < Session-Id > 
                  { Result-Code }
  				 [ Experimental-Result ]
@@ -62,7 +61,6 @@ The CCA message format is defined according to RFC 4006 [402] as follows:
                  [ Failed-AVP ]
                  [ Service-Information ]
                 *[ AVP ]
-
  */
 @DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Credit-Control-Answer")
 public interface CreditControlAnswer extends com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer

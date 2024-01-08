@@ -135,6 +135,10 @@ public interface CreditControlAnswer extends AuthenticationAnswer
 	
 	void setDefaultEPSBearerQoS(DefaultEPSBearerQoS value);
 	
+	public List<String> getRouteRecords();
+	
+	public void setRouteRecords(List<String> value);
+	
 	List<Load> getLoad();
 	
 	void setLoad(List<Load> value);					

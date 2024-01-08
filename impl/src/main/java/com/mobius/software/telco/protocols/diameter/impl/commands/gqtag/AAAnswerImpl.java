@@ -1,8 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gqtag;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ReservationPriorityImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPriorityEnum;
@@ -32,11 +41,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPri
 *
 */
 @DiameterCommandImplementation(applicationId = 16777222, commandCode = 271, request = false)
-public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.gq.AAAnswerImpl implements AAAnswer
+public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl implements AAAnswer
 {
-	public BindingInformation bindingInformation;
+	protected BindingInformation bindingInformation;
 	
-	public ReservationPriority reservationPriority;
+	protected ReservationPriority reservationPriority;
+	
+	protected AuthorizationLifetime authorizationLifetime;
+	
+	protected AuthGracePeriod authGracePeriod;
 	
 	protected AAAnswerImpl() 
 	{
@@ -78,5 +91,71 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 			this.reservationPriority = null;
 		else
 			this.reservationPriority = new ReservationPriorityImpl(value, null, null); 			
+	}
+
+	@Override
+	public Long getAuthorizationLifetime() 
+	{
+		if(authorizationLifetime == null)
+			return null;
+		
+		return authorizationLifetime.getUnsigned();
+	}
+
+	@Override
+	public void setAuthorizationLifetime(Long value) 
+	{
+		if(value == null)
+			this.authorizationLifetime = null;
+		else
+			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
+	}
+
+	@Override
+	public Long getAuthGracePeriod() 
+	{
+		if(authGracePeriod == null)
+			return null;
+		
+		return authGracePeriod.getUnsigned();
+	}
+
+	@Override
+	public void setAuthGracePeriod(Long value) 
+	{
+		if(value == null)
+			this.authGracePeriod = null;
+		else
+			this.authGracePeriod = new AuthGracePeriodImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(bindingInformation);
+		result.add(reservationPriority);
+		result.add(errorMessage);
+        result.add(errorReportingHost);
+        result.add(authorizationLifetime);
+        result.add(authGracePeriod);
+		result.add(failedAvp);
+        
+        if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+        
+		return result;
 	}
 }

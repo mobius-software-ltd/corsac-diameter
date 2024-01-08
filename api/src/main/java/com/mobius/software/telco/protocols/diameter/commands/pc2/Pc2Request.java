@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc2;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.BannedUserTarget;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
 
@@ -32,6 +33,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestT
 
 public abstract interface Pc2Request extends AuthenticationRequest
 {
+	public AuthSessionStateEnum getAuthSessionState(); 
+	
+	public void setAuthSessionState(AuthSessionStateEnum value); 
+	
 	public ProSeRequestTypeEnum getProSeRequestType();
 	 
 	void setProSeRequestType(ProSeRequestTypeEnum value);

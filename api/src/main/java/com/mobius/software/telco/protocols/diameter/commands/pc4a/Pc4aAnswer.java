@@ -33,15 +33,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
 public abstract interface Pc4aAnswer extends VendorSpecificAnswer
 {
-	public DRMPEnum getDRMP();
-	 
-	void setDRMP(DRMPEnum value);
-	
 	public AuthSessionStateEnum getAuthSessionState();
 	
 	void setAuthSessionState(AuthSessionStateEnum value);
 
+	public DRMPEnum getDRMP();
+	 
+	void setDRMP(DRMPEnum value);
+	
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
-	void setSupportedFeatures(List<SupportedFeatures> value);
+	void setSupportedFeatures(List<SupportedFeatures> value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.LooseRouteIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PriviledgedSenderIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
@@ -246,5 +249,54 @@ public class ServerAssignmentAnswerImpl extends CxDxAnswerImpl implements Server
 	public void setAllowedWAFWWSFIdentities(AllowedWAFWWSFIdentities value)
 	{
 		this.allowedWAFWWSFIdentities = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(userData!=null)
+			result.addAll(userData);
+		
+		result.add(chargingInformation);
+		result.add(associatedIdentities);
+		result.add(looseRouteIndication);
+		
+		if(scscfRestorationInfo!=null)
+			result.addAll(scscfRestorationInfo);
+		
+		result.add(associatedRegisteredIdentities);
+		result.add(serverName);
+		result.add(wildcardedPublicIdentity);
+		result.add(priviledgedSenderIndication);
+		result.add(allowedWAFWWSFIdentities);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		return result;
 	}
 }

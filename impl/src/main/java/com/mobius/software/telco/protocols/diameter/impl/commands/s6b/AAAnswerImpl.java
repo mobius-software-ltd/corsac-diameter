@@ -1,8 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6b;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6b.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -10,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Sessi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPSessionKeyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -72,7 +75,7 @@ public class AAAnswerImpl extends S6bAnswerWithIdImpl implements AAAnswer
 	
 	private APNConfiguration apnConfiguration;
 	
-	private List<QoSResources> qosResources;
+	private QoSResources qosResources;
 	
 	private List<SupportedFeatures> supportedFeatures;
 			 
@@ -225,13 +228,13 @@ public class AAAnswerImpl extends S6bAnswerWithIdImpl implements AAAnswer
 	}
 	
 	@Override
-	public List<QoSResources> getQoSResources()
+	public QoSResources getQoSResources()
 	{
 		return this.qosResources;
 	}
 	
 	@Override
-	public void setQoSResources(List<QoSResources> value)
+	public void setQoSResources(QoSResources value)
 	{
 		this.qosResources = value;
 	}
@@ -273,5 +276,47 @@ public class AAAnswerImpl extends S6bAnswerWithIdImpl implements AAAnswer
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(authRequestType);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(ocSupportedFeatures);
+        result.add(ocOLR);
+        
+        if(load!=null)
+			result.addAll(load);
+
+        result.add(mip6FeatureVector);
+        result.add(sessionTimeout);
+        result.add(apnConfiguration);
+        result.add(qosResources);
+        result.add(anTrusted);
+		  		
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        result.add(traceInfo);
+		
+        if(supportedFeatures!=null)
+        	result.addAll(supportedFeatures);
+        
+        result.add(mipSessionKey);
+		
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

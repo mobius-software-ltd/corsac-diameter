@@ -1,10 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportRequest;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.np.AggregatedRUCIReport;
 
 /*
@@ -36,6 +40,8 @@ public class AggregatedRUCIReportRequestImpl extends NpRequestImpl implements Ag
 {
 	private List<AggregatedRUCIReport> aggregatedRUCIReport;
 	
+	protected List<SupportedFeatures> supportedFeatures;
+	
 	protected AggregatedRUCIReportRequestImpl() 
 	{
 		super();
@@ -56,5 +62,54 @@ public class AggregatedRUCIReportRequestImpl extends NpRequestImpl implements Ag
 	public void setAggregatedRUCIReport(List<AggregatedRUCIReport> value)
 	{
 		this.aggregatedRUCIReport = value;
+	}
+
+	@Override
+	public List<SupportedFeatures> getSupportedFeatures() 
+	{
+		return supportedFeatures;
+	}
+
+	@Override
+	public void setSupportedFeatures(List<SupportedFeatures> value) 
+	{
+		this.supportedFeatures = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(originStateId);
+		
+		if(aggregatedRUCIReport!=null)
+			result.addAll(aggregatedRUCIReport);
+		
+		result.add(ocSupportedFeatures);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

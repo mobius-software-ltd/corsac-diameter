@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
@@ -16,6 +17,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PromptIm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ReplyMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
@@ -312,5 +314,56 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 			this.prompt = null;
 		else
 			this.prompt = new PromptImpl(value, null, null);	
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		result.add(originAAAProtocol);
+		result.add(originStateId);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		result.add(serviceType);
+		
+		if(configurationToken!=null)
+			result.addAll(configurationToken);
+		
+		result.add(idleTimeout);
+		result.add(authorizationLifetime);
+		result.add(authGracePeriod);
+		result.add(reAuthRequestType);
+		result.add(state);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		if(replyMessage!=null)
+			result.addAll(replyMessage);
+		
+		result.add(prompt);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

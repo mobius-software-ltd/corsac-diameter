@@ -52,17 +52,17 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	private Long hopByHopIdentifier;
 	private Long endToEndIdentifier;
 	
-	private SessionId sessionId;
+	protected SessionId sessionId;
 	
-	private OriginHost originHost;
+	protected OriginHost originHost;
 	
-	private OriginRealm originRealm;
+	protected OriginRealm originRealm;
 	
-	private OriginStateId originStateId;
+	protected OriginStateId originStateId;
 	
-	private UserName username;
+	protected UserName username;
 	
-	private List<ProxyInfo> proxyInfo;
+	protected List<ProxyInfo> proxyInfo;
 	
 	private boolean sessionIdAllowed = true;
 	private boolean proxyInfoAllowed = true;

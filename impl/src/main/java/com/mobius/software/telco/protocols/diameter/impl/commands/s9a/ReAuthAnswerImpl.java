@@ -1,10 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s9a;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleReport;
@@ -48,7 +51,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	 
 	private QoSInformation qosInformation;
 	
-	private List<QoSRuleReport> qosRule;
+	private List<QoSRuleReport> qosRuleReport;
 	
 	private List<Load> load;
 	
@@ -118,13 +121,13 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	@Override
 	public List<QoSRuleReport> getQoSRuleReport()
 	{
-		return this.qosRule;
+		return this.qosRuleReport;
 	}
 	
 	@Override
 	public void setQoSRuleReport(List<QoSRuleReport> value)
 	{
-		this.qosRule = value;
+		this.qosRuleReport = value;
 	}
 	
 	@Override
@@ -138,5 +141,42 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		result.add(qosInformation);
+		
+		if(qosRuleReport!=null)
+			result.addAll(qosRuleReport);
+		
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

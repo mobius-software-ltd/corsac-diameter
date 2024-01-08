@@ -87,6 +87,10 @@ public interface AARequest extends com.mobius.software.telco.protocols.diameter.
 	
 	void setServiceClass(String value);
 	
+	Long getAuthorizationLifetime();
+	
+	void setAuthorizationLifetime(Long value);	
+	
 	OverbookingIndicatorEnum getOverbookingIndicator();
 	
 	void setOverbookingIndicator(OverbookingIndicatorEnum value);

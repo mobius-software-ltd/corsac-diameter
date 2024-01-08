@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gmb.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPGGSNAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNAddressImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNIPv6AddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.CNIPMulticastDistributionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMS2G3GIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSBMSCSSMIPAddressImpl;
@@ -31,9 +32,10 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledSt
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedInterfaceIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPGGSNAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPSGSNAddress;
+import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPSGSNIPv6Address;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.CNIPMulticastDistribution;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.CNIPMulticastDistributionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMS2G3GIndicator;
@@ -120,7 +122,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	
 	private List<TGPPSGSNAddress> tgppSGSNAddress;
 	
-	private List<TGPPGGSNAddress> tgppGGSNAddress;
+	private List<TGPPSGSNIPv6Address> tgppSGSNIPV6Address;
 	
 	private MBMS2G3GIndicator mbms2G3GIndicator;	
 	
@@ -409,28 +411,28 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}	
 
 	@Override
-	public List<ByteBuf> getTGPPGGSNAddress() 
+	public List<ByteBuf> getTGPPSGSNIPv6Address() 
 	{
-		if(tgppGGSNAddress==null || tgppGGSNAddress.size()==0)
+		if(tgppSGSNIPV6Address==null || tgppSGSNIPV6Address.size()==0)
 			return null;
 		
 		List<ByteBuf> result = new ArrayList<ByteBuf>();
-		for(TGPPGGSNAddress curr:tgppGGSNAddress)
+		for(TGPPSGSNIPv6Address curr:tgppSGSNIPV6Address)
 			result.add(curr.getValue());
 		
 		return result;
 	}
 	
 	@Override
-	public void setTGPPGGSNAddress(List<ByteBuf> value)
+	public void setTGPPSGSNIPv6Address(List<ByteBuf> value)
 	{
 		if(value == null || value.size()==0)
-			this.tgppGGSNAddress = null;
+			this.tgppSGSNIPV6Address = null;
 		else
 		{
-			this.tgppGGSNAddress = new ArrayList<TGPPGGSNAddress>();
+			this.tgppSGSNIPV6Address = new ArrayList<TGPPSGSNIPv6Address>();
 			for(ByteBuf curr:value)
-				this.tgppGGSNAddress.add(new TGPPGGSNAddressImpl(curr, null, null));
+				this.tgppSGSNIPV6Address.add(new TGPPSGSNIPv6AddressImpl(curr, null, null));
 		}
 	}
 	
@@ -576,5 +578,55 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 			this.mbmsHCIndicator = null;
 		else
 			this.mbmsHCIndicator = new MBMSHCIndicatorImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(reAuthRequestType);
+		result.add(calledStationId);
+		result.add(framedIPAddress);
+		result.add(framedIPv6Prefix);
+		result.add(framedInterfaceId);
+		result.add(mbmsStartStopIndication);
+		result.add(mbmsServiceArea);
+		result.add(mbmsRequiredQoS);
+		result.add(mbmsSessionDuration);
+		result.add(mbmsServiceType);
+		result.add(mbmsCountingInformation);
+		result.add(mbmsSessionIdentity);
+		result.add(mbmsSessionRepetitionNumber);
+		result.add(tmgi);
+		
+		if(tgppSGSNAddress!=null)
+			result.addAll(tgppSGSNAddress);
+		
+		if(tgppSGSNIPV6Address!=null)
+			result.addAll(tgppSGSNIPV6Address);
+		
+		result.add(mbms2G3GIndicator);
+		result.add(mbmsTimeToDataTransfer);
+		result.add(mbmsUserDataModeIndication);
+		result.add(mbmsBMSCSSMIPAddress);
+		result.add(mbmsBMSCSSMIPv6Address);
+		result.add(mbmsFlowIdentifier);
+		result.add(cnIPMulticastDistribution);
+		result.add(mbmsHCIndicator);
+		result.add(originStateId);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		return result;
 	}
 }

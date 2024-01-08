@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
@@ -37,10 +36,6 @@ public abstract interface Pc4aRequest extends VendorSpecificRequest
 	 
 	void setDRMP(DRMPEnum value);
 	
-	public AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value);
-
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
 	void setSupportedFeatures(List<SupportedFeatures> value);

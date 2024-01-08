@@ -43,13 +43,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class S6mRequestImpl extends DiameterRequestWithSessionAndRealmBase implements S6mRequest
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
-	private List<SupportedFeatures> supportedFeatures;
+	protected List<SupportedFeatures> supportedFeatures;
 	
-	public List<RouteRecord> routeRecords;
+	protected List<RouteRecord> routeRecords;
 	
 	protected S6mRequestImpl() 
 	{

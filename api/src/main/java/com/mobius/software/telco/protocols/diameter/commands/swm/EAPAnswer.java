@@ -98,9 +98,9 @@ public interface EAPAnswer extends SwmAnswer
 	
 	void setAPNOIReplacement(String value);
 	
-	List<APNConfiguration> getAPNConfiguration();
+	APNConfiguration getAPNConfiguration();
 				
-	void setAPNConfiguration(List<APNConfiguration> value);	
+	void setAPNConfiguration(APNConfiguration value);	
 				
 	Long getMIP6FeatureVector();
 	

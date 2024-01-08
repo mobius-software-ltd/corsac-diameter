@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.slh;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.GMLCNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.GMLCNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
@@ -83,5 +88,38 @@ public class LCSRoutingInfoRequestImpl extends SlhRequestImpl implements LCSRout
 			this.gmlcNumber = null;
 		else
 			this.gmlcNumber = new GMLCNumberImpl(value);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(msisdn);
+		result.add(gmlcNumber);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

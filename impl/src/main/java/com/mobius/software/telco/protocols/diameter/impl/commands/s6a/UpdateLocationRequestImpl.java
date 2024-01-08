@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.UpdateLocationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
@@ -17,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UESRVCCC
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ULRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATType;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
@@ -403,4 +406,57 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 		
 		return super.validate();
 	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(terminalInformation);
+		result.add(ratType);
+		result.add(ulrFlags);
+		result.add(ueSRVCCCapability);
+		result.add(visitedPLMNId);
+		result.add(sgsnNumber);
+		result.add(homogeneousSupportOfIMSVoiceOverPSSessions);
+		result.add(gmlcAddress);
+		
+		if(activeAPN!=null)
+			result.addAll(activeAPN);
+		
+		result.add(equivalentPLMNList);
+		result.add(mmeNumberForMTSMS);
+		result.add(smsRegisterRequest);
+		result.add(sgsMMEIdentity);
+		result.add(coupledNodeDiameterID);
+		result.add(adjacentPLMNs);
+		result.add(supportedServices);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
+	}
 }

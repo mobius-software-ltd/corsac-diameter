@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gq.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AbortCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.Flows;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCause;
@@ -160,5 +162,45 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 			return "Specific-Action is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		
+		if(specificAction!=null)
+			result.addAll(specificAction);
+		
+		if(accessNetworkChargingIdentifier!=null)
+			result.addAll(accessNetworkChargingIdentifier);
+			
+		result.add(accessNetworkChargingAddress);
+		
+		if(flows!=null)
+			result.addAll(flows);
+		
+		result.add(abortCause);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

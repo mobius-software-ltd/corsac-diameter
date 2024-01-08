@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -22,6 +23,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
@@ -77,47 +79,47 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = true)
 public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealmBase implements CreditControlRequest
 {	
-	private AuthApplicationId authApplicationId;
+	protected AuthApplicationId authApplicationId;
 	
-	private ServiceContextId serviceContextId;
+	protected ServiceContextId serviceContextId;
 	
-	private CcRequestType ccRequestType;
+	protected CcRequestType ccRequestType;
 	
-	private CcRequestNumber ccRequestNumber;
+	protected CcRequestNumber ccRequestNumber;
 	
-	private CcSubSessionId accountingSubSessionId;
+	protected CcSubSessionId ccSubSessionId;
 	
-	private AcctMultiSessionId acctMultiSessionId;
+	protected AcctMultiSessionId acctMultiSessionId;
 	
-	private EventTimestamp eventTimestamp;
+	protected EventTimestamp eventTimestamp;
 	
-	private List<SubscriptionId> subscriptionId;
+	protected List<SubscriptionId> subscriptionId;
 
-	private List<SubscriptionIdExtension> subscriptionIdExtension;
+	protected List<SubscriptionIdExtension> subscriptionIdExtension;
 
-	private ServiceIdentifier serviceIdentifier;
+	protected ServiceIdentifier serviceIdentifier;
 
-	private TerminationCause terminationCause;
+	protected TerminationCause terminationCause;
 
-	private RequestedServiceUnit requestedServiceUnit;
+	protected RequestedServiceUnit requestedServiceUnit;
 
-	private RequestedAction requestedAction;
+	protected RequestedAction requestedAction;
 
-	private List<UsedServiceUnit> usedServiceUnit;
+	protected List<UsedServiceUnit> usedServiceUnit;
 
-	private MultipleServicesIndicator multipleServicesIndicator;
+	protected MultipleServicesIndicator multipleServicesIndicator;
 
-	private List<MultipleServicesCreditControl> multipleServicesCreditControl;
+	protected List<MultipleServicesCreditControl> multipleServicesCreditControl;
 	
-	private List<ServiceParameterInfo> serviceParameterInfo;
+	protected List<ServiceParameterInfo> serviceParameterInfo;
 	
-	private CcCorrelationId ccCorrelationId;
+	protected CcCorrelationId ccCorrelationId;
 
-	private UserEquipmentInfo userEquipmentInfo;
+	protected UserEquipmentInfo userEquipmentInfo;
 
-	private UserEquipmentInfoExtension userEquipmentInfoExtension;
+	protected UserEquipmentInfoExtension userEquipmentInfoExtension;
 	
-	public List<RouteRecord> routeRecords;
+	protected List<RouteRecord> routeRecords;
 	
 	private boolean ccSubSessionIdAllowed = true;
 	private boolean acctMultiSessionIdAllowed = true;
@@ -274,10 +276,10 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		if(!ccSubSessionIdAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
-		if(this.accountingSubSessionId==null)
+		if(this.ccSubSessionId==null)
 			return null;
 		
-		return this.accountingSubSessionId.getLong();
+		return this.ccSubSessionId.getLong();
 	}
 
 	@Override
@@ -287,9 +289,9 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
 		
 		if(value == null)
-			this.accountingSubSessionId = null;
+			this.ccSubSessionId = null;
 		else
-			this.accountingSubSessionId = new CcSubSessionIdImpl(value, null, null);
+			this.ccSubSessionId = new CcSubSessionIdImpl(value, null, null);
 	}
 
 	@Override
@@ -571,5 +573,66 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 			return "CC-Request-Request is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(serviceContextId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(destinationHost);
+		result.add(username);
+		result.add(ccSubSessionId);
+		result.add(acctMultiSessionId);
+		
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+		
+		if(subscriptionIdExtension!=null)
+			result.addAll(subscriptionIdExtension);
+		
+		result.add(serviceIdentifier);
+		result.add(terminationCause);
+		result.add(requestedServiceUnit);
+		result.add(requestedAction);
+		
+		if(usedServiceUnit!=null)
+			result.addAll(usedServiceUnit);
+		
+		result.add(multipleServicesIndicator);
+		
+		if(multipleServicesCreditControl!=null)
+			result.addAll(multipleServicesCreditControl);
+		
+		if(serviceParameterInfo!=null)
+			result.addAll(serviceParameterInfo);
+		
+		result.add(ccCorrelationId);
+		result.add(userEquipmentInfo);
+		result.add(userEquipmentInfoExtension);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

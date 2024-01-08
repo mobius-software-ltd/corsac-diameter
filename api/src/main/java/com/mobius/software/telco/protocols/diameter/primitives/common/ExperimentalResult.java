@@ -48,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
    Experimental-Result AVP.
  */
 
-@DiameterAvpDefinition(code = 297L, position = 3, vendorId = -1L, name = "Experimental-Result")
+@DiameterAvpDefinition(code = 297L, vendorId = -1L, name = "Experimental-Result")
 public interface ExperimentalResult extends DiameterAvp 
 {
 	Long getVendorId();

@@ -43,5 +43,9 @@ public abstract interface T4Answer extends VendorSpecificAnswer
 
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
-	void setSupportedFeatures(List<SupportedFeatures> value);
+	void setSupportedFeatures(List<SupportedFeatures> value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

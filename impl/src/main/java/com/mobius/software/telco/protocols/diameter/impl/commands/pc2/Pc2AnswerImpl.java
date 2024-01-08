@@ -3,7 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc2;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Answer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeRequestTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
 
@@ -33,18 +36,40 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestT
 */
 public abstract class Pc2AnswerImpl extends AuthenticationAnswerImpl implements Pc2Answer
 {
-	private ProSeRequestType proSeRequestType;
+	protected AuthSessionState authSessionState;
+	
+	protected ProSeRequestType proSeRequestType;
 	
 	protected Pc2AnswerImpl() 
 	{
 		super();
 	}
 	
-	public Pc2AnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId,ProSeRequestTypeEnum proSeRequestType)
+	public Pc2AnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		
+		setAuthSessionState(authSessionState);
+		
 		setProSeRequestType(proSeRequestType);
+	}
+
+	@Override
+	public AuthSessionStateEnum getAuthSessionState() 
+	{
+		if(authSessionState==null)
+			return null;
+		
+		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
+	}
+
+	@Override
+	public void setAuthSessionState(AuthSessionStateEnum value) 
+	{
+		if(value == null)
+			throw new IllegalArgumentException("Auth-Session-State is required");
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -68,6 +93,9 @@ public abstract class Pc2AnswerImpl extends AuthenticationAnswerImpl implements 
 	@DiameterValidate
 	public String validate()
 	{
+		if(authSessionState == null)
+			return "Auth-Session-State is required";
+		
 		if(proSeRequestType==null)
 			return "ProSe-Request-Type is required";
 		

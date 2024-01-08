@@ -1,21 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ConditionalRestrictionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RUCIActionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ReportingRestrictionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s9a.PCRFAddressImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.np.ConditionalRestriction;
-import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.np.RUCIAction;
-import com.mobius.software.telco.protocols.diameter.primitives.np.RUCIActionEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.np.ReportingRestriction;
-import com.mobius.software.telco.protocols.diameter.primitives.np.ReportingRestrictionEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.s9a.PCRFAddress;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -44,16 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s9a.PCRFAddress;
 @DiameterCommandImplementation(applicationId = 16777342, commandCode = 8388722, request = false)
 public class ModifyUeContextAnswerImpl extends NpAnswerImpl implements ModifyUeContextAnswer
 {
-	private ReportingRestriction reportingRestriction;
-	 
-	private ConditionalRestriction conditionalRestriction;
-	 
-	private RUCIAction ruciAction;
-	 
-	private List<CongestionLevelDefinition> congestionLevelDefinition;
-	
-	private PCRFAddress pcrfAddress;
-	
 	protected ModifyUeContextAnswerImpl() 
 	{
 		super();
@@ -64,87 +46,38 @@ public class ModifyUeContextAnswerImpl extends NpAnswerImpl implements ModifyUeC
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 	}
 	
-	@Override
-	public ReportingRestrictionEnum getReportingRestriction()
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
 	{
-		if(reportingRestriction==null)
-			return null;
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(failedAvp);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
 		
-		return reportingRestriction.getEnumerated(ReportingRestrictionEnum.class);
-	}
-	 
-	@Override
-	public void setReportingRestriction(ReportingRestrictionEnum value)
-	{
-		if(value==null)
-			this.reportingRestriction = null;
-		else
-			this.reportingRestriction = new ReportingRestrictionImpl(value, null, null);
-	}
-	
-	@Override
-	public Long getConditionalRestriction()
-	{
-		if(conditionalRestriction==null)
-			return null;
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
 		
-		return conditionalRestriction.getUnsigned();
-	}
-	 
-	@Override
-	public void setConditionalRestriction(Long value)
-	{
-		if(value==null)
-			this.conditionalRestriction = null;
-		else
-			this.conditionalRestriction = new ConditionalRestrictionImpl(value, null, null);
-	}
-	 		
-	@Override
-	public RUCIActionEnum getRUCIAction()
-	{
-		if(ruciAction==null)
-			return null;
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
 		
-		return ruciAction.getEnumerated(RUCIActionEnum.class);
-	}
-	 
-	@Override
-	public void setRUCIAction(RUCIActionEnum value)
-	{
-		if(value==null)
-			this.ruciAction = null;
-		else
-			this.ruciAction = new RUCIActionImpl(value, null, null);
-	}
-	
-	@Override
-	public List<CongestionLevelDefinition> getCongestionLevelDefinition()
-	{
-		return congestionLevelDefinition;
-	}
-	
-	@Override
-	public void setCongestionLevelDefinition(List<CongestionLevelDefinition> value)
-	{
-		this.congestionLevelDefinition = value;
-	}
-					 
-	@Override
-	public String getPCRFAddress()
-	{
-		if(pcrfAddress==null)
-			return null;
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
 		
-		return pcrfAddress.getIdentity();
-	}
-	
-	@Override
-	public void setPCRFAddress(String value)
-	{
-		if(value==null)
-			this.pcrfAddress = null;
-		else
-			this.pcrfAddress = new PCRFAddressImpl(value, null, null);
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

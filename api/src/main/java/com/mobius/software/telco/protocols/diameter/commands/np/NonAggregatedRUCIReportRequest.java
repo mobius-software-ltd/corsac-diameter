@@ -18,8 +18,11 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLocationId;
 
 /**
@@ -80,5 +83,9 @@ public interface NonAggregatedRUCIReportRequest extends NpRequest
 	
 	String getRCAFId();
 	
-	void setRCAFId(String value);		
+	void setRCAFId(String value);
+	
+	public List<SupportedFeatures> getSupportedFeatures();
+
+	public void setSupportedFeatures(List<SupportedFeatures> value); 
 }

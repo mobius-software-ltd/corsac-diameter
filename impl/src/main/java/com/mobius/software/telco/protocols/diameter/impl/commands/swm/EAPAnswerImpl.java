@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swm;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swm.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -17,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5779.Mobi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIReplacementImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CoreNetworkRestrictionsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UEUsageTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -77,7 +80,7 @@ public class EAPAnswerImpl extends SwmAnswerWithIdImpl implements EAPAnswer
 	
 	private APNOIReplacement apnOIReplacement;
 	
-	private List<APNConfiguration> apnConfiguration;
+	private APNConfiguration apnConfiguration;
 	
 	private MIP6FeatureVector mip6FeatureVector;
 	
@@ -198,13 +201,13 @@ public class EAPAnswerImpl extends SwmAnswerWithIdImpl implements EAPAnswer
 	}
 	
 	@Override
-	public List<APNConfiguration> getAPNConfiguration()
+	public APNConfiguration getAPNConfiguration()
 	{
 		return this.apnConfiguration;
 	}
 				
 	@Override
-	public void setAPNConfiguration(List<APNConfiguration> value)
+	public void setAPNConfiguration(APNConfiguration value)
 	{
 		this.apnConfiguration = value;
 	}
@@ -450,5 +453,55 @@ public class EAPAnswerImpl extends SwmAnswerWithIdImpl implements EAPAnswer
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(authRequestType);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(eapPayload);
+        result.add(username);
+        result.add(eapMasterSessionKey);
+        result.add(apnOIReplacement);
+        result.add(apnConfiguration);
+        result.add(mip6FeatureVector);
+        result.add(mobileNodeIdentifier);
+        result.add(traceInfo);
+        result.add(subscriptionID);
+        result.add(sessionTimeout);
+        result.add(mip6AgentInfo);
+        result.add(tgppChargingCharacteristics);
+        
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        if(supportedFeatures!=null)
+        	result.addAll(supportedFeatures);
+        
+        result.add(ocSupportedFeatures);
+        result.add(ocOLR);
+        
+        if(load!=null)
+        	result.addAll(load);
+        
+        result.add(accessNetworkInfo);
+        result.add(userLocationInfoTime);
+        result.add(ueUsageType);
+        result.add(emergencyInfo);
+        result.add(coreNetworkRestrictions);
+        
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		return result;
 	}
 }

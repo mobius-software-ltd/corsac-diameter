@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
@@ -16,9 +17,11 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTrig
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ApplicationDetectionInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
@@ -84,6 +87,8 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	private EventReportIndication eventReportIndication;
 	
 	private List<UsageMonitoringInformation> usageMonitoringInformation;
+	
+	private List<SupportedFeatures> supportedFeatures;
 	
 	protected CreditControlRequestImpl() 
 	{
@@ -302,6 +307,18 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 		this.usageMonitoringInformation = value;				
 	}
 	
+	@Override
+	public List<SupportedFeatures> getSupportedFeatures()
+	{
+		return this.supportedFeatures;
+	}
+	
+	@Override
+	public void setSupportedFeatures(List<SupportedFeatures> value)
+	{
+		this.supportedFeatures = value;				
+	}
+	
 	@DiameterValidate
 	public String validate()
 	{
@@ -312,5 +329,56 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 			return "CC-Request-Request is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(ocSupportedFeatures);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(creditManagementStatus);
+		result.add(destinationHost);
+		result.add(originStateId);
+		result.add(framedIPAddress);
+		result.add(framedIPv6Prefix);
+		
+		if(adcRuleReport!=null)
+			result.addAll(adcRuleReport);
+		
+		if(applicationDetectionInformation!=null)
+			result.addAll(applicationDetectionInformation);
+		
+		if(eventTrigger!=null)
+			result.addAll(eventTrigger);
+		
+		result.add(eventReportIndication);
+		
+		if(usageMonitoringInformation!=null)
+			result.addAll(usageMonitoringInformation);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+				
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+				
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

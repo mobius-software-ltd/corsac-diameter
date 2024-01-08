@@ -42,6 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleReport;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s9.MultipleBBERFActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s9.SubsessionEnforcementInfo;
 
 import io.netty.buffer.ByteBuf;
@@ -220,6 +221,10 @@ public interface CreditControlRequest extends AuthenticationRequest
 	List<EventTriggerEnum> getEventTrigger();
 	
 	void setEventTrigger(List<EventTriggerEnum> value);	
+	
+	MultipleBBERFActionEnum getMultipleBBERFAction();
+	
+	void setMultipleBBERFAction(MultipleBBERFActionEnum value);
 	
 	UserCSGInformation getUserCSGInformation();
 	

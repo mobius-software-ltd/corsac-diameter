@@ -1,13 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.MultimediaAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPNumberAuthItemsImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPNumberAuthItems;
@@ -52,6 +57,8 @@ public class MultimediaAuthAnswerImpl extends CxDxAnswerImpl implements Multimed
 	private List<SIPAuthDataItem> sipAuthDataItem;
 	
 	private SIPNumberAuthItems sipNumberAuthItems;
+	
+	public List<RouteRecord> routeRecords;
 	
 	protected MultimediaAuthAnswerImpl() 
 	{
@@ -140,5 +147,78 @@ public class MultimediaAuthAnswerImpl extends CxDxAnswerImpl implements Multimed
 			this.sipNumberAuthItems = null;
 		else
 			this.sipNumberAuthItems = new SIPNumberAuthItemsImpl(value, null, null);
+	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(load!=null)
+			result.addAll(load);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(publicIdentity);
+		result.add(sipNumberAuthItems);
+		
+		if(sipAuthDataItem!=null)
+			result.addAll(sipAuthDataItem);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

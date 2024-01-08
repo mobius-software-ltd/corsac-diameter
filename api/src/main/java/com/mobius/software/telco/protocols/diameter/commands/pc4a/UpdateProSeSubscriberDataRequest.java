@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
 
 import io.netty.buffer.ByteBuf;
@@ -58,6 +59,10 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388665, request = true, proxyable = true, name="Update-ProSe-Subscriber-Data-Request")
 public interface UpdateProSeSubscriberDataRequest extends Pc4aRequest
 {
+	public AuthSessionStateEnum getAuthSessionState();
+	
+	void setAuthSessionState(AuthSessionStateEnum value);
+
 	ProSeSubscriptionData getProSeSubscriptionData();
 	 
 	void setProSeSubscriptionData(ProSeSubscriptionData value);

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rx.AARequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.CallingPartyAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
@@ -32,6 +33,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SIPForkin
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceInfoStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceURNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CallingPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -703,5 +705,81 @@ public class AARequestImpl extends RxRequestImpl implements AARequest
 			this.mpsAction = null;
 		else
 			this.mpsAction = new MPSActionImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(destinationHost);
+      	result.add(ipDomainId);
+      	result.add(authSessionState);
+      	result.add(afApplicationIdentifier);
+      	
+      	if(mediaComponentDescription!=null)
+      		result.addAll(mediaComponentDescription);
+      	
+      	result.add(serviceInfoStatus);
+      	result.add(afChargingIdentifier);
+      	result.add(sipForkingIndication);
+      	
+      	if(specificAction!=null)
+      		result.addAll(specificAction);
+      	
+      	if(subscriptionId!=null)
+      		result.addAll(subscriptionId);
+      	
+      	result.add(ocSupportedFeatures);
+      	
+      	if(supportedFeatures!=null)
+      		result.addAll(supportedFeatures);
+      	
+      	result.add(reservationPriority);
+      	result.add(framedIPAddress);
+      	result.add(framedIPv6Prefix);
+      	result.add(calledStationId);
+      	result.add(serviceURN);
+      	result.add(sponsoredConnectivityData);
+      	result.add(mpsIdentifier);
+      	result.add(gcSIdentifier);
+      	result.add(mcPTTIdentifier);
+      	result.add(mcVideoIdentifier);
+      	result.add(imsContentIdentifier);
+      	result.add(imsContentType);
+      	
+      	if(callingPartyAddress!=null)
+      		result.addAll(callingPartyAddress);
+      	
+      	result.add(calleeInformation);
+      	result.add(rxRequestType);
+      	
+      	if(requiredAccessInfo!=null)
+      		result.addAll(requiredAccessInfo);
+      	
+      	result.add(afRequestedData);
+      	result.add(referenceId);
+      	result.add(preEmptionControlInfo);
+      	result.add(mpsAction);
+      	result.add(originStateId);
+      		
+      	if(proxyInfo!=null)
+      		result.addAll(proxyInfo);
+      		
+      	if(routeRecords!=null)
+      		result.addAll(routeRecords);
+      		
+      	if(optionalAvps!=null)
+      	{
+      		for(List<DiameterAvp> curr:optionalAvps.values())
+      			result.addAll(curr);
+      	}
+    		 
+		return result;
 	}
 }

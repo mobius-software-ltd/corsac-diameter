@@ -51,5 +51,5 @@ public interface MEIdentityCheckAnswer extends S13Answer
 {
 	EquipmentStatusEnum getEquipmentStatus();
 	 
-	void setEquipmentStatus(EquipmentStatusEnum value);
+	void setEquipmentStatus(EquipmentStatusEnum value);	
 }

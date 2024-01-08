@@ -27,6 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIAllocationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDeallocationRequest;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
 /**
 *
@@ -61,6 +62,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDealloca
 @DiameterCommandDefinition(applicationId = 16777335, commandCode = 8388662, request = true, proxyable = true, name="GCS-Action-Request")
 public interface GCSActionRequest extends AuthenticationRequest
 {	
+	DRMPEnum getDRMP();
+	
+	void setDRMP(DRMPEnum value);
+	
 	AuthSessionStateEnum getAuthSessionState();
 	
 	void setAuthSessionState(AuthSessionStateEnum value);	

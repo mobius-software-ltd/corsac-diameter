@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gx.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPMSTimeZoneImpl;
@@ -21,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeIm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UserLocationInfoTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
@@ -431,5 +433,55 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		result.add(ipcanType);
+		result.add(ratType);
+		result.add(anTrusted);
+		
+		if(anGWAddress!=null)
+			result.addAll(anGWAddress);
+		
+		result.add(tgppSGSNMCCMNC);
+		result.add(tgppSGSNAddress);
+		result.add(tgppSGSNIPv6Address);
+		result.add(rai);
+		result.add(tgppUserLocationInfo);
+		result.add(userLocationInfoTime);
+		result.add(netLocAccessSupport);
+		result.add(userCSGInformation);
+		result.add(tgppMSTimeZone);
+		result.add(defaultQoSInformation);
+		
+		if(chargingRuleReport!=null)
+			result.addAll(chargingRuleReport);
+		
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+
+		return result;
 	}
 }

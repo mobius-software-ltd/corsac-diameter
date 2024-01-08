@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6b;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6b.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
@@ -16,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPC
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.DERS6bFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -327,5 +330,42 @@ public class EAPRequestImpl extends S6bRequestImpl implements EAPRequest
 			return "EAP-Payload is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+      	result.add(originHost);
+      	result.add(originRealm);
+      	result.add(destinationRealm);
+      	result.add(authRequestType);
+      	result.add(ratType);
+      	result.add(username);
+      	result.add(serviceSelection);
+      	result.add(eapPayload);
+      	result.add(mip6FeatureVector);
+      	result.add(mip6AgentInfo);
+      	result.add(qosCapability);
+      	result.add(visitedNetworkIdentifier);
+      	result.add(mipCareofAddress);
+      	result.add(aaaFailureIndication);
+      	
+      	if(supportedFeatures!=null)
+      		result.addAll(supportedFeatures);
+      	
+      	result.add(derS6bFlags);
+      	result.add(ueLocalIPAddress);
+      	
+      	if(optionalAvps!=null)
+      	{
+      		for(List<DiameterAvp> curr:optionalAvps.values())
+      			result.addAll(curr);
+      	}
+    		 
+		return result;
 	}
 }

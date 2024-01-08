@@ -1,15 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.slh;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.LMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.PPRAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.RIAFlagsImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.AdditionalServingNode;
@@ -187,5 +190,49 @@ public class LCSRoutingInfoAnswerImpl extends SlhAnswerImpl implements LCSRoutin
 			this.riaFlags = null;
 		else
 			this.riaFlags = new RIAFlagsImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(username);
+		result.add(msisdn);
+		result.add(lmsi);
+		result.add(servingNode);
+		
+		if(additionalServingNode!=null)
+			result.addAll(additionalServingNode);
+		
+		result.add(gmlcAddress);
+		result.add(pprAddress);
+		result.add(riaFlags);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

@@ -1,12 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sgd;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.AbsentUserDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.RequestedRetransmissionTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AbsentUserDiagnosticSM;
@@ -159,5 +163,45 @@ public class MTForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MT
 	public void setEPSLocationInformation(EPSLocationInformation value)
 	{
 		this.epsLocationInformation = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(absentUserDiagnosticSM);
+		result.add(smDeliveryFailureCause);
+		result.add(smRPUI);
+		result.add(requestedRetransmissionTime);
+		result.add(userIdentifier);
+		result.add(epsLocationInformation);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

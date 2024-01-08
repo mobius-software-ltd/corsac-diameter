@@ -1,9 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s9a;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
@@ -14,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.HeNBLocal
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
@@ -300,5 +303,50 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 			return "CC-Request-Request is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(destinationHost);
+		result.add(originStateId);
+		result.add(subscriptionId);
+		result.add(calledStationId);
+		result.add(ocSupportedFeatures);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(qosInformation);
+		
+		if(qosRuleReport!=null)
+			result.addAll(qosRuleReport);
+		
+		result.add(ueLocalIPAddress);
+		result.add(heNBLocalIPAddress);
+		result.add(terminationCause);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+				
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

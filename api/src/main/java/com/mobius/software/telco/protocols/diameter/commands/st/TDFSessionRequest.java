@@ -27,6 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleRemove;
+import com.mobius.software.telco.protocols.diameter.primitives.st.RequestTypeEnum;
 
 import io.netty.buffer.ByteBuf;
 
@@ -66,6 +67,10 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 16777349, commandCode = 8388637, request = true, proxyable = true, name="TS-Request")
 public interface TDFSessionRequest extends StRequest
 {
+	RequestTypeEnum getRequestType();
+	
+	void setRequestType(RequestTypeEnum value);
+	
 	EventReportIndication getEventReportIndication();
 	
 	void setEventReportIndication(EventReportIndication value);

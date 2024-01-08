@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.e4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFApplicationIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.GloballyUniqueAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFApplicationIdentifier;
@@ -74,5 +79,35 @@ public class UserDataRequestImpl extends E4RequestImpl implements UserDataReques
 			this.afApplicationIdentifier = null;
 		else
 			this.afApplicationIdentifier = new AFApplicationIdentifierImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(globallyUniqueAddress);
+		result.add(afApplicationIdentifier);
+		result.add(username);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

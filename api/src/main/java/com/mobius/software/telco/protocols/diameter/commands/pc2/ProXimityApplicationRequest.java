@@ -32,18 +32,18 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 	Message Format:
 
 	<XA-Request> ::= <Diameter Header: 8388727, REQ, PXY >
-				< Session-Id >
-				{ Auth-Application-Id }
-				{ Auth-Session-State }
-				{ Origin-Host }
-				{ Origin-Realm }
-				{ Destination-Realm }
-				[ Destination-Host ]
-				[ Origin-State-Id ]
+				 < Session-Id >
+				 { Auth-Application-Id }
+				 { Auth-Session-State }
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { Destination-Realm }
+				 [ Destination-Host ]
+				 [ Origin-State-Id ]
 				*[ Proxy-Info ]
 				*[ Route-Record ]
-				{ ProSe-Request-Type }
-				[ Requesting-RPAUID ]
+				 { ProSe-Request-Type }
+				 [ Requesting-RPAUID ]
 				*[ Banned-User-Target}
 				*[ AVP ]
  */

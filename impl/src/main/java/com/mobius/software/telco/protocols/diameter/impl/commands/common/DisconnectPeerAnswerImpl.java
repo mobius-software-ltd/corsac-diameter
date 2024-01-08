@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DisconnectPeerAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerBase;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -47,5 +52,24 @@ public class DisconnectPeerAnswerImpl extends DiameterAnswerBase implements Disc
 		setProxyInfoAllowed(false);
 		setUsernameAllowed(false);
 		setOriginStateIdAllowedAllowed(false);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(errorMessage);
+		result.add(failedAvp);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

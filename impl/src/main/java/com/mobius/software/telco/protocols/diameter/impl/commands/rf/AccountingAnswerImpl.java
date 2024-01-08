@@ -1,7 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 
 /*
@@ -51,5 +56,37 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 		setAcctSessionIdAllowed(false);
 		setAcctMultiSessionIdAllowed(false);
 		setAccountingRealtimeRequiredAllowed(false);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(accountingRecordType);
+		result.add(accountingRecordNumber);
+		result.add(acctApplicationId);
+		result.add(username);
+		result.add(errorMessage);
+		result.add(errorReportingHost);
+		result.add(acctInterimInterval);
+		result.add(failedAvp);
+		result.add(originStateId);
+		result.add(eventTimestamp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

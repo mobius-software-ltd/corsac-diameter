@@ -31,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 	the ACR.
 	The ACA message format is defined according to the Diameter Base Protocol in RFC 6733 [401] as follows:
  	<ACA> ::= < Diameter Header: 271, PXY >
-
 			   < Session-Id >
 			   { Result-Code }
 			   [ Experimental-Result ]

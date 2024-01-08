@@ -46,5 +46,5 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 
 @DiameterCommandDefinition(applicationId = 0, commandCode = 280, request = false, proxyable = false, name="Device-Watchdog-Answer")
 public interface DeviceWatchdogAnswer extends DiameterAnswer
-{	
+{
 }

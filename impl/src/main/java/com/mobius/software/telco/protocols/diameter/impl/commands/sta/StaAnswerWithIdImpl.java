@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 */
 public abstract class StaAnswerWithIdImpl extends AuthenticationAnswerImpl implements StaAnswer
 {
-	private DRMP drmp;
+	protected DRMP drmp;
 	
 	protected StaAnswerWithIdImpl() 
 	{

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctInterimIntervalImpl;
@@ -47,6 +48,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.PortLimi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ReplyMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInterimInterval;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
@@ -1041,5 +1043,111 @@ public class EAPAnswerImpl extends com.mobius.software.telco.protocols.diameter.
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authRequestType);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+        result.add(username);
+        result.add(eapPayload);
+        result.add(eapReissuedPayload);
+        result.add(eapMasterSessionKey);
+        result.add(eapKeyName);
+        result.add(multiRoundTimeOut);
+        result.add(accountingEAPAuthMethod);
+        result.add(serviceType);
+        
+        if(diameterClass!=null)
+        	result.addAll(diameterClass);
+        
+        if(configurationToken!=null)
+        	result.addAll(configurationToken);
+        
+        result.add(acctInterimInterval);
+        result.add(errorMessage);
+        result.add(errorReportingHost);
+        result.add(failedAvp);
+        result.add(idleTimeout);
+        result.add(authorizationLifetime);
+        result.add(authGracePeriod);
+        result.add(authSessionState);
+        result.add(reAuthRequestType);
+        result.add(sessionTimeout);
+        result.add(state);
+        
+        if(replyMessage!=null)
+        	result.addAll(replyMessage);
+        
+        result.add(originStateId);
+        
+        if(filterId!=null)
+        	result.addAll(filterId);
+        
+        result.add(portLimit);
+        result.add(callbackId);
+        result.add(callbackNumber);
+        result.add(framedAppletalkLink);
+        
+        if(framedAppletalkNetwork!=null)
+        	result.addAll(framedAppletalkNetwork);
+        
+        result.add(framedAppletalkZone);
+        
+        if(framedCompression!=null)
+        	result.addAll(framedCompression);
+        
+        result.add(framedInterfaceId);
+        result.add(framedIPAddress);
+        
+        if(framedIPv6Prefix!=null)
+        	result.addAll(framedIPv6Prefix);
+        
+        result.add(framedIPv6Pool);
+        
+        if(framedIPv6Route!=null)
+        	result.addAll(framedIPv6Route);
+        
+        result.add(framedIPNetmask);
+        
+        if(framedRoute!=null)
+        	result.addAll(framedRoute);
+        
+        result.add(framedPool);
+        result.add(framedIPXNetwork);
+        result.add(framedMTU);
+        result.add(framedProtocol);
+        result.add(framedRouting);
+        
+        if(nasFilterRule!=null)
+        	result.addAll(nasFilterRule);
+        
+        if(qosFilterRule!=null)
+        	result.addAll(qosFilterRule);
+        
+        if(tunneling!=null)
+        	result.addAll(tunneling);
+        
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        result.add(redirectHostUsage);
+        result.add(redirectMaxCacheTime);
+        
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		return result;
 	}
 }

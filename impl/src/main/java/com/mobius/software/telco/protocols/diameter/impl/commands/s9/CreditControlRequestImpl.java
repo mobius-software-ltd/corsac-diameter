@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s9.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
@@ -30,6 +31,8 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeIm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s9.MultipleBBERFActionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPP2BSID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
@@ -69,6 +72,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPv6Pre
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s9.MultipleBBERFAction;
+import com.mobius.software.telco.protocols.diameter.primitives.s9.MultipleBBERFActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s9.SubsessionEnforcementInfo;
 
 import io.netty.buffer.ByteBuf;
@@ -157,6 +162,8 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	private TGPP2BSID tgpp2BSID;
 	
 	private List<EventTrigger> eventTrigger;
+	
+	private MultipleBBERFAction multipleBBERFAction;
 	
 	private UserCSGInformation userCSGInformation;
 	
@@ -677,6 +684,24 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	}
 	
 	@Override
+	public MultipleBBERFActionEnum getMultipleBBERFAction() 
+	{
+		if(multipleBBERFAction==null)
+			return null;
+		
+		return multipleBBERFAction.getEnumerated(MultipleBBERFActionEnum.class);
+	}
+
+	@Override
+	public void setMultipleBBERFAction(MultipleBBERFActionEnum value) 
+	{
+		if(value == null)
+			this.multipleBBERFAction = null;
+		else
+			this.multipleBBERFAction = new MultipleBBERFActionImpl(value, null, null);
+	}
+	
+	@Override
 	public UserCSGInformation getUserCSGInformation()
 	{
 		return this.userCSGInformation;
@@ -701,5 +726,83 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		result.add(destinationHost);
+		result.add(originStateId);
+		
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+		
+		result.add(framedIPAddress);
+		result.add(framedIPv6Prefix);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(ocSupportedFeatures);
+		result.add(qosInformation);
+		
+		if(qosRuleReport!=null)
+			result.addAll(qosRuleReport);
+		
+		if(anGWAddress!=null)
+			result.addAll(anGWAddress);
+		
+		result.add(networkRequestSupport);
+		
+		if(packetFilterInformation!=null)
+			result.addAll(packetFilterInformation);
+		
+		result.add(packetFilterOperation);
+		
+		if(subsessionEnforcementInfo!=null)
+			result.addAll(subsessionEnforcementInfo);
+		
+		result.add(ipcanType);
+		result.add(ratType);
+		result.add(terminationCause);
+		result.add(userEquipmentInfo);
+		result.add(qosNegotiation);
+		result.add(qosUpgrade);
+		result.add(tgppSGSNMCCMNC);
+		result.add(tgppSGSNAddress);
+		result.add(tgppSGSNIPv6Address);
+		result.add(rai);
+		result.add(tgppUserLocationInfo);
+		result.add(tgppMSTimeZone);
+		result.add(tgpp2BSID);
+		
+		if(eventTrigger!=null)
+			result.addAll(eventTrigger);
+		
+		result.add(multipleBBERFAction);
+		result.add(userCSGInformation);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+				
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

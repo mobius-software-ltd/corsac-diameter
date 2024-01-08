@@ -34,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 */
 public abstract class E4RequestImpl extends VendorSpecificRequestmpl implements E4Request
 {
-	private AuthSessionState authSessionState;
+	protected AuthSessionState authSessionState;
 	
 	protected E4RequestImpl() 
 	{

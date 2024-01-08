@@ -1,8 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.ro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LowBalanceIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBalanceIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBalanceIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -156,5 +161,55 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	public void setServiceInformation(ServiceInformation value)
 	{
 		this.serviceInformation = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(authApplicationId);
+		result.add(ccRequestType);
+		result.add(ccRequestNumber);
+		
+		result.add(ccSessionFailover);
+		
+		if(multipleServicesCreditControl!=null)
+			result.addAll(multipleServicesCreditControl);
+		
+		result.add(costInformation);
+		result.add(lowBalanceIndication);
+		result.add(remainingBalance);
+		result.add(creditControlFailureHandling);
+		result.add(directDebitingFailureHandling);
+		result.add(ocSupportedFeatures);
+		result.add(ocOLR);
+		
+		if(redirectHost!=null)
+			result.addAll(redirectHost);
+		
+		result.add(redirectHostUsage);
+		result.add(redirectMaxCacheTime);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		result.add(failedAvp);
+		result.add(serviceInformation);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

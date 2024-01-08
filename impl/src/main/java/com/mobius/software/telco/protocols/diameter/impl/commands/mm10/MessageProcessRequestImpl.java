@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.mm10;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.DeliveryReportImpl;
@@ -16,6 +19,9 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.SenderA
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.SenderVisibilityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ServiceKeyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.TriggerEventImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPIMSI;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReport;
@@ -60,6 +66,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEvent
 @DiameterCommandImplementation(applicationId = 16777226, commandCode = 311, request = true)
 public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase implements MessageProcessRequest
 {
+	protected AuthSessionState authSessionState;
+	
 	private EventTimestamp eventTimestamp;
 	
 	private TriggerEvent triggerEvent;
@@ -87,9 +95,11 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 		super();
 	}
 	
-	protected MessageProcessRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface)
+	protected MessageProcessRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
+		
+		setAuthSessionState(authSessionState);
 		
 		setEventTimestamp(eventTimestamp);
 		
@@ -100,6 +110,24 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 		setInitialRecipientAddress(initialRecipientAddress);
 		
 		setOriginatingInterface(originatingInterface);
+	}
+
+	@Override
+	public AuthSessionStateEnum getAuthSessionState() 
+	{
+		if(authSessionState==null)
+			return null;
+		
+		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
+	}
+
+	@Override
+	public void setAuthSessionState(AuthSessionStateEnum value) 
+	{
+		if(value == null)
+			throw new IllegalArgumentException("Auth-Session-State is required");
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -297,6 +325,9 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	@DiameterValidate
 	public String validate()
 	{
+		if(authSessionState == null)
+			return "Auth-Session-State is required";
+	
 		if(eventTimestamp==null)
 			return "Event-Timestamp is required";
 		
@@ -313,5 +344,46 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 			return "Originating-Interface is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(eventTimestamp);
+		result.add(triggerEvent);
+		result.add(servedUserIdentity);
+		result.add(tgppIMSI);
+		result.add(senderAddress);
+		
+		if(initialRecipientAddress!=null)
+			result.addAll(initialRecipientAddress);
+		
+		result.add(originatingInterface);
+		result.add(serviceKey);
+		result.add(deliveryReport);
+		result.add(readReply);
+		result.add(senderVisibility);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

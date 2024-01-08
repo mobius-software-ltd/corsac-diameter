@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6c;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMDeliveryNotIntendedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPMTIImpl;
@@ -8,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPSMEA
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SRRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryNotIntended;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryNotIntendedEnum;
@@ -190,5 +195,45 @@ public class SendRoutingInfoForSMRequestImpl extends S6cRequestImpl implements S
 			this.smDeliveryNotIntended = null;
 		else
 			this.smDeliveryNotIntended = new SMDeliveryNotIntendedImpl(value, null, null);
+	}	
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(msisdn);
+		result.add(username);
+		result.add(smSMICorrelationID);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(scAddress);
+		result.add(smRPMTI);
+		result.add(smRPSMEA);
+		result.add(srrFlags);
+		result.add(smDeliveryNotIntended);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		return result;
 	}
 }

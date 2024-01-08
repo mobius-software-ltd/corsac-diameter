@@ -37,9 +37,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 */
 public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessionAndRealmBase implements AuthenticationRequest
 {
-	private AuthApplicationId authApplicationId;
+	protected AuthApplicationId authApplicationId;
 	
-	public List<RouteRecord> routeRecords;
+	protected List<RouteRecord> routeRecords;
 	
 	protected AuthenticationRequestImpl() 
 	{

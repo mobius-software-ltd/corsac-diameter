@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sh.SubscribeNotificationsRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
@@ -16,6 +17,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.OneTimeNo
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.SendDataIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ServiceIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.SubsReqTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerName;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -290,5 +292,62 @@ public class SubscribeNotificationsRequestImpl extends ShRequestImpl implements 
 			return "Data-Reference is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(userIdentity);
+		result.add(wildcardedPublicIdentity);
+		result.add(wildcardedIMPU);
+		
+		if(serviceIndication!=null)
+			result.addAll(serviceIndication);
+		
+		result.add(sendDataIndication);
+		result.add(serverName);
+		result.add(subsReqType);
+		
+		if(dataReference!=null)
+			result.addAll(dataReference);
+		
+		if(identitySet!=null)
+			result.addAll(identitySet);
+		
+		result.add(expiryTime);
+		
+		if(dsaiTag!=null)
+			result.addAll(dsaiTag);
+		
+		result.add(oneTimeNotification);
+		result.add(username);
+		result.add(ocSupportedFeatures);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }

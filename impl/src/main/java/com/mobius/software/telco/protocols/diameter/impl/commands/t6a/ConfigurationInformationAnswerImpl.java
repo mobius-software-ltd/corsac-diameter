@@ -1,9 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ConfigurationInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventReport;
@@ -73,5 +76,43 @@ public class ConfigurationInformationAnswerImpl extends T6aAnswerImpl implements
 	public void setMonitoringEventConfigStatus(List<MonitoringEventConfigStatus> value)
 	{
 		this.monitoringEventConfigStatus = value;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(resultCode);
+		result.add(experimentalResult);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		if(monitoringEventReport!=null)
+			result.addAll(monitoringEventReport);
+		
+		if(monitoringEventConfigStatus!=null)
+			result.addAll(monitoringEventConfigStatus);
+		
+		result.add(failedAvp);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

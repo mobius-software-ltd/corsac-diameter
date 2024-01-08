@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
@@ -43,9 +45,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandImplementation(applicationId = 0, commandCode = 275, request = true)
 public class SessionTerminationRequestImpl extends AuthenticationRequestImpl implements SessionTerminationRequest
 {
-	private TerminationCause terminationCause;
+	protected TerminationCause terminationCause;
 	
-	private List<DiameterClass> diameterClass;
+	protected List<DiameterClass> diameterClass;
 	
 	protected SessionTerminationRequestImpl() 
 	{
@@ -138,5 +140,38 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestImpl imp
 			return "Termination-Cause is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(terminationCause);
+		result.add(username);
+		result.add(destinationHost);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

@@ -1,8 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swd;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swd.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctInterimIntervalImpl;
@@ -17,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIRep
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ContextIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.DEAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWANConnectionModeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInterimInterval;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -426,5 +429,55 @@ public class EAPAnswerImpl extends SwdAnswerImpl implements EAPAnswer
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(resultCode);
+		result.add(experimentalResult);
+        result.add(originHost);
+		result.add(originRealm);
+		result.add(authRequestType);
+		result.add(eapPayload);
+        result.add(username);
+        result.add(sessionTimeout);
+        result.add(accountingInterimInterval);
+        result.add(eapMasterSessionKey);
+        result.add(contextIdentifier);
+        result.add(apnOIReplacement);
+        
+        if(apnConfiguration!=null)
+        	result.addAll(apnConfiguration);
+        
+        result.add(mip6FeatureVector);
+        result.add(mobileNodeIdentifier);
+        
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        result.add(traceInfo);
+        result.add(subscriptionID);
+        
+        if(supportedFeatures!=null)
+        	result.addAll(supportedFeatures);
+        
+        result.add(deaFlags);
+        result.add(twanConnectionMode);
+        result.add(twanConnectivityParameters);
+        result.add(terminalInformation);
+        result.add(key);
+        result.add(erpRealm);
+        
+        if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		return result;
 	}
 }

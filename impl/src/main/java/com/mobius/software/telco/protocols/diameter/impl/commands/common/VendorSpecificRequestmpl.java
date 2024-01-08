@@ -35,9 +35,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 */
 public abstract class VendorSpecificRequestmpl extends DiameterRequestWithSessionAndRealmBase implements VendorSpecificRequest
 {
-	private VendorSpecificApplicationId vendorSpecificApplicationId;
+	protected VendorSpecificApplicationId vendorSpecificApplicationId;
 	
-	public List<RouteRecord> routeRecords;
+	protected List<RouteRecord> routeRecords;
 	
 	protected VendorSpecificRequestmpl() 
 	{

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.ANGWAddressImpl;
@@ -15,11 +16,13 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UDPSource
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ANGWAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTrigger;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.HeNBLocalIPAddress;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.SessionReleaseCause;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.SessionReleaseCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.UDPSourcePort;
@@ -66,6 +69,8 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	private List<QoSRuleRemove> qosRuleRemove;
 	
 	private List<QoSRuleInstall> qosRuleInstall;
+	
+	private List<QoSInformation> qosInformation;
 	
 	private List<SubsessionDecisionInfo> subsessionDecisionInfo;
 	
@@ -145,6 +150,18 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	public void setQoSRuleInstall(List<QoSRuleInstall> value)
 	{
 		this.qosRuleInstall = value;
+	}
+	
+	@Override
+	public List<QoSInformation> getQoSInformation()
+	{
+		return this.qosInformation;
+	}
+	
+	@Override
+	public void setQoSInformation(List<QoSInformation> value)
+	{
+		this.qosInformation = value;
 	}
 	
 	@Override
@@ -311,5 +328,60 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(authApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(reAuthRequestType);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		
+		if(qosRuleInstall!=null)
+			result.addAll(qosRuleInstall);
+		
+		if(qosRuleRemove!=null)
+			result.addAll(qosRuleRemove);
+		
+		if(qosInformation!=null)
+			result.addAll(qosInformation);
+		
+		if(eventTrigger!=null)
+			result.addAll(eventTrigger);
+		
+		if(subsessionDecisionInfo!=null)
+			result.addAll(subsessionDecisionInfo);
+		
+		if(anGWAddress!=null)
+			result.addAll(anGWAddress);
+		
+		result.add(sessionReleaseCause);
+		result.add(heNBLocalIPAddress);
+		result.add(ueLocalIPAddress);
+		result.add(udpSourcePort);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		result.add(calledStationId);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

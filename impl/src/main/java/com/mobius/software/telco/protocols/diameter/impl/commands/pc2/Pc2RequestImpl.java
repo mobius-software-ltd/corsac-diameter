@@ -5,8 +5,11 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Request;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingRPAUIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.BannedUserTarget;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
@@ -38,11 +41,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.RequestingRPA
 */
 public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase implements Pc2Request
 {
-	private ProSeRequestType proSeRequestType;
+	protected AuthSessionState authSessionState;
 	
-	private RequestingRPAUID requestingRPAUID;
+	protected ProSeRequestType proSeRequestType;
 	
-	private List<BannedUserTarget> bannedUserTarget;
+	protected RequestingRPAUID requestingRPAUID;
+	
+	protected List<BannedUserTarget> bannedUserTarget;
 	
 	protected Pc2RequestImpl() 
 	{
@@ -50,12 +55,32 @@ public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase i
 		setDestinationHostAllowed(true);
 	}
 		
-	public Pc2RequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType)
+	public Pc2RequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
 		setDestinationHostAllowed(true);
 		
+		setAuthSessionState(authSessionState);
+		
 		setProSeRequestType(proSeRequestType);
+	}
+
+	@Override
+	public AuthSessionStateEnum getAuthSessionState() 
+	{
+		if(authSessionState==null)
+			return null;
+		
+		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
+	}
+
+	@Override
+	public void setAuthSessionState(AuthSessionStateEnum value) 
+	{
+		if(value == null)
+			throw new IllegalArgumentException("Auth-Session-State is required");
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -109,6 +134,9 @@ public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase i
 	@DiameterValidate
 	public String validate()
 	{
+		if(authSessionState == null)
+			return "Auth-Session-State is required";
+		
 		if(proSeRequestType==null)
 			return "ProSe-Request-Type is required";
 		

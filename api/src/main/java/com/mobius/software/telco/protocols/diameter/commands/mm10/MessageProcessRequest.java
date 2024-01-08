@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReportEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.InitialRecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.OriginatingInterfaceEnum;
@@ -68,6 +69,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEvent
 @DiameterCommandDefinition(applicationId = 16777226, commandCode = 311, request = true, proxyable = true, name="Message-Process-Request")
 public interface MessageProcessRequest extends VendorSpecificRequest
 {
+	public AuthSessionStateEnum getAuthSessionState(); 
+	
+	public void setAuthSessionState(AuthSessionStateEnum value); 
+	
 	Date getEventTimestamp();
 	
 	void setEventTimestamp(Date value);

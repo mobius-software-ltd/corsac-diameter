@@ -170,5 +170,9 @@ public interface MultimediaAuthAnswer extends AuthenticationAnswer
 	
 	Long getAuthGracePeriod();
 	
-	void setAuthGracePeriod(Long value);		
+	void setAuthGracePeriod(Long value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);		
 }

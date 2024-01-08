@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASIPv6AddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASIdentifierImpl;
@@ -16,8 +18,10 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASIPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASIPv6Address;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASIdentifier;
@@ -72,6 +76,8 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	private ServiceType serviceType;
 	
 	private List<DiameterClass> diameterClass;
+	
+	public List<RouteRecord> routeRecords;
 	
 	protected AccountingAnswerImpl() 
 	{
@@ -253,5 +259,78 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 			for(ByteBuf curr:value)
 				this.diameterClass.add(new DiameterClassImpl(curr, null, null));
 		}
+	}
+
+	@Override
+	public List<String> getRouteRecords() 
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(accountingRecordType);
+		result.add(accountingRecordNumber);
+		result.add(acctApplicationId);
+		result.add(username);
+        result.add(eventTimestamp);
+		result.add(errorMessage);
+        result.add(errorReportingHost);
+        result.add(failedAvp);
+        result.add(originStateId);
+        result.add(nasIdentifier);
+        result.add(nasIPAddress);
+        result.add(nasIPv6Address);
+        result.add(nasPort);
+        result.add(nasPortId);
+        result.add(nasPortType);
+        result.add(serviceType);
+        result.add(accountingRealtimeRequired);
+        result.add(acctInterimInterval);
+        
+        if(diameterClass!=null)
+        	result.addAll(diameterClass);
+        
+        if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+        if(routeRecords!=null)
+			result.addAll(routeRecords);
+
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

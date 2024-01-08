@@ -131,9 +131,9 @@ public interface AAAnswer extends S6bAnswer
 	
 	void setAPNConfiguration(APNConfiguration value);	
 	
-	List<QoSResources> getQoSResources();
+	QoSResources getQoSResources();
 	
-	void setQoSResources(List<QoSResources> value);
+	void setQoSResources(QoSResources value);
 	
 	public List<SupportedFeatures> getSupportedFeatures();
 			 

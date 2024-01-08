@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctInterimIntervalImpl;
@@ -50,6 +51,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ReplyMes
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4818.DelegatedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInterimInterval;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
@@ -1104,5 +1106,118 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 			return "Auth-Request-Type is required";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(authApplicationId);
+		result.add(authRequestType);
+		result.add(resultCode);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(username);
+		result.add(serviceType);
+		if(diameterClass!=null)
+        	result.addAll(diameterClass);
+        
+		result.add(acctInterimInterval);
+		result.add(errorMessage);
+        result.add(errorReportingHost);
+        result.add(failedAvp);
+        result.add(idleTimeout);
+		result.add(authorizationLifetime);
+		result.add(authGracePeriod);
+        result.add(authSessionState);
+        result.add(reAuthRequestType);
+        result.add(multiRoundTimeOut);
+        result.add(sessionTimeout);
+        
+        if(replyMessage!=null)
+        	result.addAll(replyMessage);
+        
+        result.add(originStateId);
+		
+        if(filterId!=null)
+        	result.addAll(filterId);
+        
+        result.add(portLimit);
+        result.add(prompt);
+        result.add(callbackId);
+        result.add(callbackNumber);
+        
+        if(framedCompression!=null)
+        	result.addAll(framedCompression);
+        
+        result.add(framedInterfaceId);
+        result.add(framedIPAddress);
+        
+        if(framedIPv6Prefix!=null)
+        	result.addAll(framedIPv6Prefix);
+        
+        result.add(framedIPv6Pool);
+        
+        if(framedIPv6Route!=null)
+        	result.addAll(framedIPv6Route);
+        
+        if(delegatedIPv6Prefix!=null)
+        	result.addAll(delegatedIPv6Prefix);
+        
+        result.add(framedIPNetmask);
+        
+        if(framedRoute!=null)
+        	result.addAll(framedRoute);
+        
+        result.add(framedPool);
+        result.add(framedIPXNetwork);
+        result.add(framedMTU);
+        result.add(framedProtocol);
+        result.add(framedRouting);
+        
+        if(loginIPHost!=null)
+        	result.addAll(loginIPHost);
+        
+        if(loginIPv6Host!=null)
+        	result.addAll(loginIPv6Host);
+        
+        result.add(loginLATGroup);
+        result.add(loginLATNode);
+        result.add(loginLATPort);
+        result.add(loginLATService);
+        result.add(loginService);
+        result.add(loginTCPPort);
+        
+        if(nasFilterRule!=null)
+        	result.addAll(nasFilterRule);
+        
+        if(qosFilterRule!=null)
+        	result.addAll(qosFilterRule);
+        
+        if(tunneling!=null)
+        	result.addAll(tunneling);
+        
+        if(redirectHost!=null)
+        	result.addAll(redirectHost);
+        
+        result.add(redirectHostUsage);
+        result.add(redirectMaxCacheTime);
+        
+        if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+
+        result.add(tgppIPv6DNSServers);
+        
+        if(externalIdentifier!=null)
+			result.addAll(externalIdentifier);
+
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

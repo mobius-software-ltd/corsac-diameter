@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestWithHostBase;
@@ -39,6 +40,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlag;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagExtension;
@@ -918,5 +920,92 @@ public class TDFSessionRequestImpl extends VendorSpecificRequestWithHostBase imp
 			return "Up to 2 AN-GW-Address allowed";
 		
 		return super.validate();
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(drmp);
+		result.add(vendorSpecificApplicationId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(originStateId);
+		result.add(ocSupportedFeatures);
+		
+		if(subscriptionId!=null)
+			result.addAll(subscriptionId);
+		
+		if(supportedFeatures!=null)
+			result.addAll(supportedFeatures);
+		
+		result.add(framedIPAddress);
+		result.add(framedIPv6Prefix);
+		result.add(ipcanType);
+		result.add(ratType);
+		result.add(anTrusted);
+		result.add(userEquipmentInfo);
+		result.add(userEquipmentInfoExtension);
+		result.add(qosInformation);
+		
+		if(anGWAddress!=null)
+			result.addAll(anGWAddress);
+		
+		result.add(tgppSGSNAddress);
+		result.add(tgppSGSNIPv6Address);
+		result.add(tgppGGSNAddress);
+		result.add(tgppGGSNIPv6Address);
+		result.add(tgppSelectionMode);
+		result.add(dynamicAddressFlag);
+		result.add(dynamicAddressFlagExtension);
+		result.add(pdnConnectionChargingID);
+		result.add(tgppSGSNMCCMNC);
+		result.add(rai);
+		result.add(tgppUserLocationInfo);
+		result.add(fixedUserLocationInfo);
+		result.add(userCSGInformation);
+		result.add(twanIdentifier);
+		result.add(tgppMSTimeZone);
+		result.add(tgppChargingCharacteristics);
+		result.add(calledStationId);
+		result.add(chargingInformation);
+		result.add(online);
+		result.add(offline);
+		
+		if(adcRuleInstall!=null)
+			result.addAll(adcRuleInstall);
+		
+		result.add(revalidationTime);
+		
+		if(usageMonitoringInformation!=null)
+			result.addAll(usageMonitoringInformation);
+		
+		if(csgInformationReporting!=null)
+			result.addAll(csgInformationReporting);
+		
+		if(eventTrigger!=null)
+			result.addAll(eventTrigger);
+		
+		result.add(presenceReportingAreaInformation);
+		result.add(logicalAccessID);
+		result.add(physicalAccessID);
+		result.add(tgpp2BSID);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+				
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

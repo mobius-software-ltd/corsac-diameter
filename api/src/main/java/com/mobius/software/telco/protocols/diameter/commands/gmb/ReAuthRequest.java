@@ -156,9 +156,9 @@ public interface ReAuthRequest extends com.mobius.software.telco.protocols.diame
 	
 	void setTGPPSGSNAddress(List<ByteBuf> value);	
 
-	List<ByteBuf> getTGPPGGSNAddress();
+	List<ByteBuf> getTGPPSGSNIPv6Address();
 	
-	void setTGPPGGSNAddress(List<ByteBuf> value);	
+	void setTGPPSGSNIPv6Address(List<ByteBuf> value);	
 	
 	MBMS2G3GIndicatorEnum getMBMS2G3GIndicator();	
 	

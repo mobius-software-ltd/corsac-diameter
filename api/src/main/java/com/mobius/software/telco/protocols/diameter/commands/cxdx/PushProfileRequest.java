@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
@@ -59,9 +57,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserData;
 @DiameterCommandDefinition(applicationId = 16777216, commandCode = 305, request = true, proxyable = true, name="Push-Profile-Request")
 public interface PushProfileRequest extends CxDxRequest
 {
-	List<UserData> getUserData();
+	UserData getUserData();
 	
-	void setUserData(List<UserData> value);	
+	void setUserData(UserData value);	
 	
 	ChargingInformation getChargingInformation();
 	 

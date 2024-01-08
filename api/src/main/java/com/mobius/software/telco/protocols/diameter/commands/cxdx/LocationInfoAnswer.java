@@ -88,5 +88,9 @@ public interface LocationInfoAnswer extends CxDxAnswer
 	
 	Long getLIAFlags();
 	
-	void setLIAFlags(Long value);
+	void setLIAFlags(Long value);	
+	
+	public List<String> getRouteRecords(); 
+
+	public void setRouteRecords(List<String> value);
 }

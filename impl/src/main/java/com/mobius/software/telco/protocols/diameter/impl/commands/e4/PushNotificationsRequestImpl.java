@@ -1,14 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.e4;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LogicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PhysicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.IPConnectivityStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.InitialGateSettingIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.QoSProfileIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PhysicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -200,5 +203,45 @@ public class PushNotificationsRequestImpl extends E4RequestImpl implements PushN
 			this.initialGateSettingID = null;
 		else
 			this.initialGateSettingID = new InitialGateSettingIDImpl(value, null, null);
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(vendorSpecificApplicationId);
+		result.add(authSessionState);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationHost);
+		result.add(destinationRealm);
+		result.add(globallyUniqueAddress);
+		result.add(username);
+		result.add(logicalAccessID);
+		result.add(physicalAccessID);
+		result.add(accessNetworkType);
+		result.add(initialGateSettingDescription);
+		
+		if(qosProfileDescription!=null)
+			result.addAll(qosProfileDescription);
+		
+		result.add(ipConnectivityStatus);
+		result.add(qosProfileID);
+		result.add(initialGateSettingID);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);				
+		
+		return result;
 	}
 }
