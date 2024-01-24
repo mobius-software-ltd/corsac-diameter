@@ -9,7 +9,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfo
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMDeliveryNotIntendedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPMTIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPSMEAImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SRRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -162,21 +161,15 @@ public class SendRoutingInfoForSMRequestImpl extends S6cRequestImpl implements S
 	}
 	
 	@Override
-	public Long getSRRFlags()
+	public SRRFlags getSRRFlags()
 	{
-		if(srrFlags == null)
-			return null;
-		
-		return srrFlags.getUnsigned();
+		return srrFlags;
 	}
 	
 	@Override
-	public void setSRRFlags(Long value)
+	public void setSRRFlags(SRRFlags value)
 	{
-		if(value == null)
-			this.srrFlags = null;
-		else
-			this.srrFlags = new SRRFlagsImpl(value, null, null);
+		this.srrFlags = value;
 	}
 	
 	@Override

@@ -49,30 +49,23 @@ public class ProSeSubscriptionDataImpl extends DiameterGroupedAvpImpl implements
 		super();
 	}
 	
-	public ProSeSubscriptionDataImpl(Long proSePermission)
+	public ProSeSubscriptionDataImpl(ProSePermission proSePermission)
 	{
-		if(proSePermission == null)
-			throw new IllegalArgumentException("ProSe-Permission is required");
-		
-		this.proSePermission = new ProSePermissionImpl(proSePermission, null, null);
+		setProSePermission(proSePermission);
 		
 	}
 	
-	public Long getProSePermission()
+	public ProSePermission getProSePermission()
 	{
-		if(proSePermission==null)
-			return null;
-		
-		return proSePermission.getUnsigned();
+		return proSePermission;
 	}
 	
-	public void setProSePermission(Long value)
+	public void setProSePermission(ProSePermission value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("ProSe-Permission is required");
 		
-		this.proSePermission = new ProSePermissionImpl(value, null, null);
-		
+		this.proSePermission = value;		
 	}
 	
 	public List<ProSeAllowedPLMN> getProSeAllowedPLMN()

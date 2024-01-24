@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -69,6 +69,56 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the HSS and discarded by the receiving ProSe Function.
  */
 @DiameterAvpDefinition(code = 3704L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Direct-Allowed")
-public interface ProSeDirectAllowed extends DiameterUnsigned32
+public interface ProSeDirectAllowed extends DiameterBitmask32
 {
+	public static final int ANNOUNCE_BIT = 0;	
+	public static final int MONITOR_BIT = 1;	
+	public static final int COMMUNICATION_BIT = 2;	
+	public static final int ONE_TO_ONE_COMMUNICATION_BIT = 3;	
+	public static final int DISCOVERER_BIT = 4;	
+	public static final int DISCOVEREE_BIT = 5;	
+	public static final int RESTRICTED_ANNOUNCE_BIT = 6;	
+	public static final int RESTRICTED_MONITORING_BIT = 7;	
+	public static final int APPLICATION_CONTROLLED_EXTENSION_BIT = 8;	
+	public static final int ON_DEMAND_ANNOUNCING_BIT = 9;	
+	
+	public void setAnnounceBit(boolean isOn);
+	
+	public boolean isAnnounceBitSet();	
+	
+	public void setMonitorBit(boolean isOn);
+	
+	public boolean isMonitorBitSet();	
+	
+	public void setCommunicationBit(boolean isOn);
+	
+	public boolean isCommunicationBitSet();
+	
+	public void setOneToOneCommunicationBit(boolean isOn);
+	
+	public boolean isOneToOneCommunicationBitSet();
+	
+	public void setDiscovererBit(boolean isOn);
+	
+	public boolean isDiscovererBitSet();	
+	
+	public void setDiscovereeBit(boolean isOn);
+	
+	public boolean isDiscovereeBitSet();	
+	
+	public void setRestrictedAnnounceBit(boolean isOn);
+	
+	public boolean isRestrictedAnnounceBitSet();
+	
+	public void setRestrictedMonitoringBit(boolean isOn);
+	
+	public boolean isRestrictedMonitoringBitSet();
+	
+	public void setApplicationControlledExtensionBit(boolean isOn);
+	
+	public boolean isApplicationControlledExtensionBitSet();
+	
+	public void setOnDemandAnnouncingBit(boolean isOn);
+	
+	public boolean isOnDemandAnnouncingBitSet();
 }

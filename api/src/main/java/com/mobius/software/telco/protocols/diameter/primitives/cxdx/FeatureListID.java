@@ -29,8 +29,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 */
 
 /*
-	6.3.31	Feature-List AVP
-	The Feature-List AVP is of type Unsigned32 and it contains a bit mask indicating the supported features of an application. When the bit set, indicates the corresponding feature is supported by the application. For the Cx application, the meaning of the bits has been defined in 7.1.1.
+	6.3.30	Feature-List-ID AVP
+	The Feature-List-ID AVP is of type Unsigned32 and it contains the identity of a feature list.
  */
 @DiameterAvpDefinition(code = 629L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Feature-List-ID")
 public interface FeatureListID extends DiameterUnsigned32

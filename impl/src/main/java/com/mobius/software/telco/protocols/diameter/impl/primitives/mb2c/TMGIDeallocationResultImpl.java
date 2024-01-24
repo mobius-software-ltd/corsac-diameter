@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDeallocationResult;
 
@@ -29,20 +29,63 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDealloca
 *
 */
 @DiameterAvpImplementation(code = 3514L, vendorId = KnownVendorIDs.TGPP_ID)
-public class TMGIDeallocationResultImpl extends DiameterUnsigned32Impl implements TMGIDeallocationResult
+public class TMGIDeallocationResultImpl extends DiameterBitmask32Impl implements TMGIDeallocationResult
 {
-	protected TMGIDeallocationResultImpl()
+	public TMGIDeallocationResultImpl()
 	{
 		super();
 	}
 
-	protected TMGIDeallocationResultImpl(Long minValue, Long maxValue)
+	protected TMGIDeallocationResultImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public TMGIDeallocationResultImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setSuccessBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(SUCCESS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSuccessBitSet()
+	{
+		return getBit(SUCCESS_BIT);
+	}
+
+	@Override
+	public void setAuthorizationRejectBit(boolean isOn)
+	{
+		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAuthorizationRejectBitSet()
+	{
+		return getBit(AUTHORIZATION_REJECTED_BIT);
+	}
+
+	@Override
+	public void setUnknownTMGIBit(boolean isOn)
+	{
+		setBit(UNKNOWN_TMGI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUnknownTMGIBitSet()
+	{
+		return getBit(UNKNOWN_TMGI_BIT);
+	}
+
+	@Override
+	public void setSystemErrorBit(boolean isOn)
+	{
+		setBit(SYSTEM_ERROR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSystemErrorBitSet()
+	{
+		return getBit(SYSTEM_ERROR_BIT);
 	}
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -51,6 +51,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE1:	Bits not defined in this table shall be cleared by the sending MME or SGSN and discarded by the receiving GMLC.
  */
 @DiameterAvpDefinition(code = 2546L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PLA-Flags")
-public interface PLAFlags extends DiameterUnsigned32
+public interface PLAFlags extends DiameterBitmask32
 {
+	public static final int DEFERRED_MTLR_RESPONSE_INDICATOR_BIT = 0;
+	public static final int MOLR_SHORT_CIRCUIT_INDICATOR_BIT = 1;
+	public static final int OPTIMIZED_LCS_PROC_PERFOMED_BIT = 2;
+	public static final int UE_TRANSIENTLY_NOT_REACHABLE_INDICATOR_BIT = 3;
+	
+	public void setDeferredMTLRResponseIndicatorBit(boolean isOn);
+	
+	public boolean isDeferredMTLRResponseIndicatorBitSet();
+	
+	public void setMOLRShortCircuitIndicatorBit(boolean isOn);
+	
+	public boolean isMOLRShortCircuitIndicatorBitSet();
+	
+	public void setOptimizedLCSProcPerformedBit(boolean isOn);
+	
+	public boolean isOptimizedLCSProcPerformedBitSet();
+	
+	public void setUETransientlyNotReachableIndicatorBit(boolean isOn);
+	
+	public boolean isUETransientlyNotReachableIndicatorBitSet();
 }

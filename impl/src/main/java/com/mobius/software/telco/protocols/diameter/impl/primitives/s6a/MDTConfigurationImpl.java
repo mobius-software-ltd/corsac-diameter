@@ -126,36 +126,24 @@ public class MDTConfigurationImpl extends DiameterGroupedAvpImpl implements MDTC
 		this.areaScope = value;
 	}
 	
-	public Long getListOfMeasurements()
+	public ListOfMeasurements getListOfMeasurements()
 	{
-		if(listOfMeasurements == null)
-			return null;
-		
-		return listOfMeasurements.getUnsigned();
+		return listOfMeasurements;
 	}
 	
-	public void setListOfMeasurements(Long value)
+	public void setListOfMeasurements(ListOfMeasurements value)
 	{
-		if(value == null)
-			this.listOfMeasurements = null;
-		else
-			this.listOfMeasurements = new ListOfMeasurementsImpl(value, null, null);
+		this.listOfMeasurements = value;
 	}
 	
-	public Long getReportingTrigger()
+	public ReportingTrigger getReportingTrigger()
 	{
-		if(reportingTrigger == null)
-			return null;
-		
-		return reportingTrigger.getUnsigned();
+		return reportingTrigger;
 	}
 	
-	public void setReportingTrigger(Long value)
+	public void setReportingTrigger(ReportingTrigger value)
 	{
-		if(value == null)
-			this.reportingTrigger = null;
-		else
-			this.reportingTrigger = new ReportingTriggerImpl(value, null, null);
+		this.reportingTrigger = value;
 	}
 	
 	public ReportIntervalEnum getReportInterval()

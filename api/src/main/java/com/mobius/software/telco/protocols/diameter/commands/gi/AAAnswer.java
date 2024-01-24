@@ -284,13 +284,13 @@ public interface AAAnswer extends AuthenticationAnswer
 	
 	List<Tunneling> getTunneling();
 	
+	void setTunneling(List<Tunneling> value);
+	
 	ByteBuf getTGPPIPv6DNSServers();
 	
 	void setTGPPIPv6DNSServers(ByteBuf value);	
 	
-	void setExternalIdentifier(List<String> value);
-	
 	List<String> getExternalIdentifier();
 	
-	void setTunneling(List<Tunneling> value);
+	void setExternalIdentifier(List<String> value);		
 }

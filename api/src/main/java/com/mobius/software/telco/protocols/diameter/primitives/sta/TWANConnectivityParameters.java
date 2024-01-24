@@ -64,9 +64,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterAvpDefinition(code = 1528L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAN-Connectivity-Parameters")
 public interface TWANConnectivityParameters extends DiameterGroupedAvp
 {
-	Long getConnectivityFlags();
+	ConnectivityFlags getConnectivityFlags();
 	
-	void setConnectivityFlags(Long value);	
+	void setConnectivityFlags(ConnectivityFlags value);	
 	
 	String getServiceSelection();
 	

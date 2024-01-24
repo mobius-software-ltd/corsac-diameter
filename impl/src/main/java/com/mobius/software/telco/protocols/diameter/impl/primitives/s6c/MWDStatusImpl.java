@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MWDStatus;
 
@@ -29,20 +29,63 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.MWDStatus;
 *
 */
 @DiameterAvpImplementation(code = 3312L, vendorId = KnownVendorIDs.TGPP_ID)
-public class MWDStatusImpl extends DiameterUnsigned32Impl implements MWDStatus
+public class MWDStatusImpl extends DiameterBitmask32Impl implements MWDStatus
 {
-	protected MWDStatusImpl()
+	public MWDStatusImpl()
 	{
 		super();
 	}
 
-	protected MWDStatusImpl(Long minValue, Long maxValue)
+	public MWDStatusImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public MWDStatusImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setMNRFBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(MNRF_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMNRFBitSet()
+	{
+		return getBit(MNRF_BIT);
+	}
+
+	@Override
+	public void setMCEFFlowBit(boolean isOn)
+	{
+		setBit(MCEF_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMCEFBitSet()
+	{
+		return getBit(MCEF_BIT);
+	}
+
+	@Override
+	public void setMNRGBit(boolean isOn)
+	{
+		setBit(MNRG_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMNRGBitSet()
+	{
+		return getBit(MNRG_BIT);
+	}
+
+	@Override
+	public void setMNRG5GBit(boolean isOn)
+	{
+		setBit(MNRG5G_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMNRG5GBitSet()
+	{
+		return getBit(MNRG5G_BIT);
 	}
 }

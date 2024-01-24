@@ -123,21 +123,21 @@ public interface SubscriptionData extends DiameterGroupedAvp
 	
 	void setNetworkAccessMode(NetworkAccessModeEnum value);
 	
-	Long getOperatorDeterminedBarring();
+	OperatorDeterminedBarring getOperatorDeterminedBarring();
 	
-	void setOperatorDeterminedBarring(Long value);
+	void setOperatorDeterminedBarring(OperatorDeterminedBarring value);
 	
-	Long getHPLMNODB();
+	HPLMNODB getHPLMNODB();
 	
-	void setHPLMNODB(Long value);
+	void setHPLMNODB(HPLMNODB value);
 	
 	List<ByteBuf> getRegionalSubscriptionZoneCode();
 	
 	void setRegionalSubscriptionZoneCode(List<ByteBuf> value);
 	
-	Long getAccessRestrictionData();
+	AccessRestrictionData getAccessRestrictionData();
 	
-	void setAccessRestrictionData(Long value);
+	void setAccessRestrictionData(AccessRestrictionData value);
 	
 	String getAPNOIReplacement();
 	
@@ -191,9 +191,9 @@ public interface SubscriptionData extends DiameterGroupedAvp
 	
 	void setSubscribedPeriodicRAUTAUTimer(Long value);	
 	
-	Long getMPSPriority();
+	MPSPriority getMPSPriority();
 	
-	void setMPSPriority(Long value);	
+	void setMPSPriority(MPSPriority value);	
 	
 	VPLMNLIPAAllowedEnum getVPLMNLIPAAllowed();
 	
@@ -215,9 +215,9 @@ public interface SubscriptionData extends DiameterGroupedAvp
 	
 	void setProSeSubscriptionData(ProSeSubscriptionData value);
 	
-	Long getSubscriptionDataFlags();
+	SubscriptionDataFlags getSubscriptionDataFlags();
 	
-	void setSubscriptionDataFlags(Long value);
+	void setSubscriptionDataFlags(SubscriptionDataFlags value);
 	
 	List<AdjacentAccessRestrictionData> getAdjacentAccessRestrictionData();
 	
@@ -271,9 +271,9 @@ public interface SubscriptionData extends DiameterGroupedAvp
 	
 	void setServiceGapTime(Long value);
 	
-	Long getBroadcastLocationAssistanceDataTypes();
+	BroadcastLocationAssistanceDataTypes getBroadcastLocationAssistanceDataTypes();
 	
-	void setBroadcastLocationAssistanceDataTypes(Long value);
+	void setBroadcastLocationAssistanceDataTypes(BroadcastLocationAssistanceDataTypes value);
 	
 	AerialUESubscriptionInformationEnum getAerialUESubscriptionInformation();
 	

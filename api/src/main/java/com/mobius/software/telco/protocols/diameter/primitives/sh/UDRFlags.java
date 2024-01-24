@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	by the receiver of the request. 
  */
 @DiameterAvpDefinition(code = 719L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "UDR-Flags")
-public interface UDRFlags extends DiameterUnsigned32
+public interface UDRFlags extends DiameterBitmask32
 {
+	public static final int LOCATION_INFORMATION_EPS_SUPPORTED_BIT = 0;	
+	public static final int RAT_TYPE_REQUESTED_BIT = 1;	
+	
+	public void setLocationInformationEPSSupportedBit(boolean isOn);
+	
+	public boolean isLocationInformationEPSSupportedBitSet();
+	
+	public void setRATTypeRequestedBit(boolean isOn);
+	
+	public boolean isRATTypeRequestedBitSet();
 }

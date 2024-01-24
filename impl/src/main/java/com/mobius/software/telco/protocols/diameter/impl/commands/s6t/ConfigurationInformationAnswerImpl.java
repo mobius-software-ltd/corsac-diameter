@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.NumberOfUEsImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.CIAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.S6tHSSCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -253,21 +252,15 @@ public class ConfigurationInformationAnswerImpl extends S6tAnswerImpl implements
 	}
 	
 	@Override
-	public Long getCIAFlags()
+	public CIAFlags getCIAFlags()
 	{
-		if(ciaFlags == null)
-			return null;
-		
-		return ciaFlags.getUnsigned();
+		return ciaFlags;
 	}
 	
 	@Override
-	public void setCIAFlags(Long value)
+	public void setCIAFlags(CIAFlags value)
 	{
-		if(value == null)
-			this.ciaFlags = null;
-		else
-			this.ciaFlags = new CIAFlagsImpl(value, null, null);	
+		this.ciaFlags = value;	
 	}
 	
 	@Override

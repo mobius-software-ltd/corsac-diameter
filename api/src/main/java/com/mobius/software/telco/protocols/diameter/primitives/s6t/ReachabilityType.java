@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -49,6 +49,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The default value, when this AVP is not included, is Reachability for SMS (bit 0 set).
  */
 @DiameterAvpDefinition(code = 3132L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reachability-Type")
-public interface ReachabilityType extends DiameterUnsigned32
+public interface ReachabilityType extends DiameterBitmask32
 {
+	public static final int REACHABILITY_FOR_SMS_BIT = 0;
+	public static final int REACHABILITY_FOR_DATA_BIT = 1;
+	
+	public void setReachabilityForSMSBit(boolean isOn);
+	
+	public boolean isReachabilityForSMSBitSet();
+	
+	public void setReachabilityForDataBit(boolean isOn);
+	
+	public boolean isReachabilityForDataBitSet();
 }

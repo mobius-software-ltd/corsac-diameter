@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.OFRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -96,21 +95,15 @@ public class MOForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 	}	
 	
 	@Override
-	public Long getOFRFlags()
+	public OFRFlags getOFRFlags()
 	{
-		if(ofrFlags == null)
-			return null;
-		
-		return ofrFlags.getUnsigned();
+		return ofrFlags;
 	}
 	
 	@Override
-	public void setOFRFlags(Long value)
+	public void setOFRFlags(OFRFlags value)
 	{
-		if(value == null)
-			this.ofrFlags = null;
-		else
-			this.ofrFlags = new OFRFlagsImpl(value, null, null);
+		this.ofrFlags = value;
 	}
 	
 	@Override

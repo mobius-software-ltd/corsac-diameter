@@ -51,11 +51,11 @@ public interface UserplaneProtocolResult extends DiameterGroupedAvp
 	
 	void setFlowDescription(List<FlowDescription> value);	
 	
-	Long getROHCResult();
+	ROHCResult getROHCResult();
 	
-	void setROHCResult(Long value);
+	void setROHCResult(ROHCResult value);
 	
-	Long getFECResult();
+	FECResult getFECResult();
 	
-	void setFECResult(Long value);
+	void setFECResult(FECResult value);
 }

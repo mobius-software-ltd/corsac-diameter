@@ -24,6 +24,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.MonitoringFlags;
 
 import io.netty.buffer.ByteBuf;
 
@@ -66,9 +67,9 @@ public interface ADCRuleInstall extends DiameterGroupedAvp
 	
 	void setADCRuleBaseName(List<String> value);	
 	
-	Long getMonitoringFlags();
+	MonitoringFlags getMonitoringFlags();
 	
-	void setMonitoringFlags(Long value);	
+	void setMonitoringFlags(MonitoringFlags value);	
 	
 	Date getRuleActivationTime();
 	

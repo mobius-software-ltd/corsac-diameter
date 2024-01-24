@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.BroadcastLocationAssistanceDataTypes;
 
@@ -29,20 +29,110 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.BroadcastLoca
 *
 */
 @DiameterAvpImplementation(code = 1700L, vendorId = KnownVendorIDs.TGPP_ID)
-public class BroadcastLocationAssistanceDataTypesImpl extends DiameterUnsigned64Impl implements BroadcastLocationAssistanceDataTypes
+public class BroadcastLocationAssistanceDataTypesImpl extends DiameterBitmask64Impl implements BroadcastLocationAssistanceDataTypes
 {
-	protected BroadcastLocationAssistanceDataTypesImpl()
+	public BroadcastLocationAssistanceDataTypesImpl()
 	{
 		super();
 	}
-
-	protected BroadcastLocationAssistanceDataTypesImpl(Long minValue, Long maxValue)
+	
+	protected BroadcastLocationAssistanceDataTypesImpl(Long value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public BroadcastLocationAssistanceDataTypesImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setPositioningSIBBit(int type, int bit, boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		if(bit<1)
+			throw new RuntimeException("Invalid bit(should be positive)");
+					
+		switch(type)
+		{
+			case 1:
+				if(bit>8)
+					throw new RuntimeException("Invalid bit(should be 1 to 8)");
+			
+				if(bit<8)
+					setBit(bit-1, isOn);
+				else
+					setBit(27, isOn);
+				break;
+			case 2:
+				if(bit>25)
+					throw new RuntimeException("Invalid bit(should be 1 to 25)");
+			
+				if(bit<20)
+					setBit(bit+6, isOn);
+				else
+					setBit(bit+8, isOn);
+				break;
+			case 3:
+				if(bit!=1)
+					throw new RuntimeException("Invalid bit(should be 1)");
+				
+				setBit(26, isOn);
+				break;
+			case 4:
+				if(bit!=1)
+					throw new RuntimeException("Invalid bit(should be 1)");
+				
+				setBit(34, isOn);
+				break;
+			case 5:
+				if(bit!=1)
+					throw new RuntimeException("Invalid bit(should be 1)");
+				
+				setBit(35, isOn);
+				break;
+			default:
+				throw new RuntimeException("Invalid type(should be 1 to 5)");
+				
+		}
+	}
+
+	@Override
+	public boolean isPositioningSIBBitSet(int type, int bit)
+	{
+		if(bit<1)
+			throw new RuntimeException("Invalid bit(should be positive)");
+					
+		switch(type)
+		{
+			case 1:
+				if(bit>8)
+					throw new RuntimeException("Invalid bit(should be 1 to 8)");
+			
+				if(bit<8)
+					return getBit(bit-1);
+				else
+					return getBit(27);
+			case 2:
+				if(bit>25)
+					throw new RuntimeException("Invalid bit(should be 1 to 25)");
+			
+				if(bit<20)
+					return getBit(bit+6);
+				else
+					return getBit(bit+8);
+			case 3:
+				if(bit!=1)
+					throw new RuntimeException("Invalid bit(should be 1)");
+				
+				return getBit(26);
+			case 4:
+				if(bit!=1)
+					throw new RuntimeException("Invalid bit(should be 1)");
+				
+				return getBit(34);
+			case 5:
+				if(bit!=1)
+					throw new RuntimeException("Invalid bit(should be 1)");
+				
+				return getBit(35);
+			default:
+				throw new RuntimeException("Invalid type(should be 1 to 5)");
+				
+		}
 	}
 }

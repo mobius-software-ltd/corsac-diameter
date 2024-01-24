@@ -43,9 +43,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 3129L, vendorId = KnownVendorIDs.TGPP_ID, name = "UE-Reachability-Configuration")
 public interface UEReachabilityConfiguration extends DiameterGroupedAvp
 {
-	Long getReachabilityType();
+	ReachabilityType getReachabilityType();
 	
-	void setReachabilityType(Long value);
+	void setReachabilityType(ReachabilityType value);
 	
 	Long getMaximumLatency();
 	

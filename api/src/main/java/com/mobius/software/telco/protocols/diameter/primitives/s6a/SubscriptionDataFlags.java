@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -55,6 +55,31 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the receiver of the command.
  */
 @DiameterAvpDefinition(code = 1654L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Subscription-Data-Flags")
-public interface SubscriptionDataFlags extends DiameterUnsigned32
+public interface SubscriptionDataFlags extends DiameterBitmask32
 {
+	public static final int PS_AND_SMS_ONLY_SERVICE_PROVISION_INDICATION_BIT = 0;
+	public static final int SMS_IN_SGSN_ALLOWED_INDICATION_BIT = 1;
+	public static final int USER_PLANE_INTEGRITY_PROTECTION_BIT = 2;
+	public static final int PDN_CONNECTION_RESTRICTED_BIT = 3;
+	public static final int ACKNOWLEDGEMENT_OF_DOWNLINK_NAS_DATA_PDUS_DISABLED_BIT = 4;
+	
+	public void setPSAndSMSOnlyServiceProvisionIndicationBit(boolean isOn);
+	
+	public boolean isPSAndSMSOnlyServiceProvisionIndicationBitSet();
+	
+	public void setSMSInSGSNAllowedIndicationBit(boolean isOn);
+	
+	public boolean isSMSInSGSNAllowedIndicationBitSet();
+	
+	public void setUserPlaneIntegrityIndicationBit(boolean isOn);
+	
+	public boolean isUserPlaneIntegrityIndicationBitSet();
+	
+	public void setPDNConnectionRestrictedBit(boolean isOn);
+	
+	public boolean isPDNConnectionRestrictedBitSet();
+	
+	public void setAcknowledgmentOfDownlinkNASDataPDUSDisabledBit(boolean isOn);
+	
+	public boolean isAcknowledgmentOfDownlinkNASDataPDUSDisabledBitSet();
 }

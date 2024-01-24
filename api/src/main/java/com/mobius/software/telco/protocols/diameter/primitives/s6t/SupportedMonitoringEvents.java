@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask64;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -69,6 +69,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	If RIR-flags is included in Reporting-Information-Request to indicate a change of authorized monitoring events, each bit in Supported-Monitoring-Events AVP, if cleared, shall indicate the SCEF that associated monitoring event is not authorized.
  */
 @DiameterAvpDefinition(code = 3144L, vendorId = KnownVendorIDs.TGPP_ID, name = "Supported-Monitoring-Events")
-public interface SupportedMonitoringEvents extends DiameterUnsigned32
+public interface SupportedMonitoringEvents extends DiameterBitmask64
 {
+	public static final int UE_AND_UICC_BIT = 0;
+	public static final int UE_REACHABILITY_BIT = 1;
+	public static final int LOCATION_OF_UE_BIT = 2;
+	public static final int LOSS_OF_CONNECTIVITY_BIT = 3;
+	public static final int COMMUNICATION_FAILURE_BIT = 4;
+	public static final int ROAMING_STATUS_BIT = 5;
+	public static final int AVAILABILITY_AFTER_DDN_FAILURE_BIT = 6;
+	public static final int IDLE_STATUS_INDICATION_BIT = 7;
+	public static final int PDN_CONNECTIVITY_STATUS_BIT = 8;
+	
+	public void setUEAndUICCBit(boolean isOn);
+	
+	public boolean isUEAndUICCBitSet();
+	
+	public void setUEReachabilityBit(boolean isOn);
+	
+	public boolean isUEReachabilityBitSet();
+	
+	public void setLocationOfUEBit(boolean isOn);
+	
+	public boolean isLocationOfUEBitSet();
+	
+	public void setLossOfConnectivityBit(boolean isOn);
+	
+	public boolean isLossOfConnectivityBitSet();
+	
+	public void setCommunicationFailureBit(boolean isOn);
+	
+	public boolean isCommunicationFailureBitSet();
+	
+	public void setRoamingStatusBit(boolean isOn);
+	
+	public boolean isRoamingStatusBitSet();
+	
+	public void setAvailabilityAfterDDNFailureBit(boolean isOn);
+	
+	public boolean isAvailabilityAfterDDNFailureBitSet();
+	
+	public void setIdleStatusIndicationBit(boolean isOn);
+	
+	public boolean isIdleStatusIndicationBitSet();
+	
+	public void setPDNConnectivityStatusBit(boolean isOn);
+	
+	public boolean isPDNConnectivityStatusBitSet();	
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.np;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelRange;
 
@@ -29,20 +29,45 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLeve
 *
 */
 @DiameterAvpImplementation(code = 4003L, vendorId = KnownVendorIDs.TGPP_ID)
-public class CongestionLevelRangeImpl extends DiameterUnsigned32Impl implements CongestionLevelRange
+public class CongestionLevelRangeImpl extends DiameterBitmask32Impl implements CongestionLevelRange
 {
-	protected CongestionLevelRangeImpl()
+	public CongestionLevelRangeImpl()
 	{
 		super();
 	}
 
-	protected CongestionLevelRangeImpl(Long minValue, Long maxValue)
+	public CongestionLevelRangeImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public CongestionLevelRangeImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setNoCongestionBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(NO_CONGESTION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNoCongestionBitSet()
+	{
+		return getBit(NO_CONGESTION_BIT);
+	}
+
+	@Override
+	public void setCongestionLevelBit(int level, boolean isOn)
+	{
+		if(level<1)
+			throw new RuntimeException("Invalid level(should be 1 to 31");
+		
+		setBit(level, isOn);
+	}
+
+	@Override
+	public boolean isCongestionLevelBitSet(int level)
+	{
+		if(level<1)
+			throw new RuntimeException("Invalid level(should be 1 to 31");
+		
+		return getBit(level);
 	}
 }

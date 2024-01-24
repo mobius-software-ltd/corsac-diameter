@@ -12,7 +12,6 @@ import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlReq
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.CreditManagementStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
@@ -180,21 +179,15 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	}
 	
 	@Override
-	public Long getCreditManagementStatus() 
+	public CreditManagementStatus getCreditManagementStatus() 
 	{
-		if(creditManagementStatus==null)
-			return null;
-		
-		return creditManagementStatus.getUnsigned();
+		return creditManagementStatus;
 	}
 	
 	@Override
-	public void setCreditManagementStatus(Long value)
+	public void setCreditManagementStatus(CreditManagementStatus value)
 	{
-		if(value==null)
-			this.creditManagementStatus = null;
-		else
-			this.creditManagementStatus = new CreditManagementStatusImpl(value, null, null);
+		this.creditManagementStatus = value;
 	}
 	
 	@Override

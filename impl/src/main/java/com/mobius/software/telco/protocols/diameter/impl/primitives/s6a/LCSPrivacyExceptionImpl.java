@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
@@ -29,6 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.LCSPrivacyExc
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NotificationToUEUser;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NotificationToUEUserEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PLMNClient;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.PLMNClientEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SSCode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SSStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ServiceType;
@@ -131,14 +133,28 @@ public class LCSPrivacyExceptionImpl extends DiameterGroupedAvpImpl implements L
 		this.externalClient = value;
 	}
 	
-	public List<PLMNClient> getPLMNClient()
+	public List<PLMNClientEnum> getPLMNClient()
 	{
-		return plmnClient;
+		if(plmnClient==null || plmnClient.size()==0)
+			return null;
+		
+		List<PLMNClientEnum> result=new ArrayList<PLMNClientEnum>();
+		for(PLMNClient curr:plmnClient)
+			result.add(curr.getEnumerated(PLMNClientEnum.class));
+			
+		return result;
 	}
 	
-	public void setPLMNClient(List<PLMNClient> value)
+	public void setPLMNClient(List<PLMNClientEnum> value)
 	{
-		this.plmnClient = value;
+		if(value==null || value.size()==0)
+			this.plmnClient=null;
+		else
+		{
+			this.plmnClient = new ArrayList<PLMNClient>();
+			for(PLMNClientEnum curr:value)
+				this.plmnClient.add(new PLMNClientImpl(curr, null, null));
+		}
 	}
 	
 	public List<ServiceType> getServiceType()

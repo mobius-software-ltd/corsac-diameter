@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticInfo;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticIn
 *
 */
 @DiameterAvpImplementation(code = 933L, vendorId = KnownVendorIDs.TGPP_ID)
-public class DiagnosticInfoImpl extends DiameterUnsigned32Impl implements DiagnosticInfo
+public class DiagnosticInfoImpl extends DiameterBitmask32Impl implements DiagnosticInfo
 {
-	protected DiagnosticInfoImpl()
+	public DiagnosticInfoImpl()
 	{
 		super();
 	}
 
-	protected DiagnosticInfoImpl(Long minValue, Long maxValue)
+	public DiagnosticInfoImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public DiagnosticInfoImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUPFAILBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UPFAIL_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUPFAILBitSet()
+	{
+		return getBit(UPFAIL_BIT);
 	}
 }

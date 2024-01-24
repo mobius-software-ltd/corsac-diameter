@@ -67,6 +67,11 @@ public class DiameterInteger32Impl implements DiameterInteger32
 		return value;
 	}
 
+	protected void setInteger(Integer value)
+	{
+		this.value = value;
+	}
+
 	@DiameterLength
 	public Integer getLength() 
 	{

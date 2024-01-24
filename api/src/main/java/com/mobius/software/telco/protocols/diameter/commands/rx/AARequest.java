@@ -27,10 +27,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPriorityEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.AFRequestedData;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.IMSContentTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MPSActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaComponentDescription;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.PreEmptionControlInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfoEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.RxRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.SIPForkingIndicationEnum;
@@ -202,17 +204,17 @@ public interface AARequest extends RxRequest
 	
 	void setRequiredAccessInfo(List<RequiredAccessInfoEnum> value);				
 	
-	Long getAFRequestedData();
+	AFRequestedData getAFRequestedData();
 	
-	void setAFRequestedData(Long value);	
+	void setAFRequestedData(AFRequestedData value);	
 	
 	ByteBuf getReferenceId();
 	
 	void setReferenceId(ByteBuf value);	
 	
-	Long getPreemptionControlInfo();
+	PreEmptionControlInfo getPreemptionControlInfo();
 	
-	void setPreemptionControlInfo(Long value);	
+	void setPreemptionControlInfo(PreEmptionControlInfo value);	
 	
 	MPSActionEnum getMPSAction();
 	

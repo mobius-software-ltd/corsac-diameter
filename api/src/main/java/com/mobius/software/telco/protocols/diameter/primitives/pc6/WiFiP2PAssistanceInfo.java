@@ -56,9 +56,9 @@ public interface WiFiP2PAssistanceInfo extends DiameterGroupedAvp
 	
 	void setEAPMasterSessionKey(ByteBuf value);
 	
-	Long getP2PFeatures();
+	P2PFeatures getP2PFeatures();
 	
-	void setP2PFeatures(Long value);
+	void setP2PFeatures(P2PFeatures value);
 	
 	WLANLinkLayerIdList getWLANLinkLayerIdList();
 	

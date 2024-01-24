@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdateTrigger;
+import com.mobius.software.telco.protocols.diameter.primitives.pc6.PRRFlags;
 
 import io.netty.buffer.ByteBuf;
 
@@ -58,9 +59,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 16777340, commandCode = 8388672, request = true, proxyable = true, name="ProSe-Proximity-Request")
 public interface ProSeProximityRequest extends Pc6Request
 {
-	Long getPRRFlags();
+	PRRFlags getPRRFlags();
 	
-	void setPRRFlags(Long value);
+	void setPRRFlags(PRRFlags value);
 	
 	String getRequestingEPUID();
 	

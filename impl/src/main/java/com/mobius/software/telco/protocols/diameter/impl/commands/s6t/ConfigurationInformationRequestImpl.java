@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.CIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.GroupReportingGuardTimerImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -121,21 +120,15 @@ public class ConfigurationInformationRequestImpl extends S6tRequestImpl implemen
 	}
 	
 	@Override
-	public Long getCIRFlags()
+	public CIRFlags getCIRFlags()
 	{
-		if(cirFlags == null)
-			return null;
-		
-		return cirFlags.getUnsigned();
+		return cirFlags;
 	}
 	
 	@Override
-	public void setCIRFlags(Long value)
+	public void setCIRFlags(CIRFlags value)
 	{
-		if(value == null)
-			this.cirFlags = null;
-		else
-			this.cirFlags = new CIRFlagsImpl(value, null, null);	
+		this.cirFlags = value;	
 	}
 	
 	@Override

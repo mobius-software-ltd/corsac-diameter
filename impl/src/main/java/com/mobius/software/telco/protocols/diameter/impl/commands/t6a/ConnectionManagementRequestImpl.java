@@ -1,17 +1,21 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ConnectionManagementRequest;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.CMRFlagsImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MaximumUEAvailabilityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ConnectionActionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ExtendedPCOImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
@@ -151,33 +155,33 @@ public class ConnectionManagementRequestImpl extends T6aRequestImpl implements C
 	}
 	
 	@Override
-	public Long getCMRFlags()
+	public CMRFlags getCMRFlags()
 	{
-		if(cmrFlags == null)
-			return null;
-		
-		return cmrFlags.getUnsigned();
+		return cmrFlags;
 	}
 	
 	@Override
-	public void setCMRFlags(Long value)
+	public void setCMRFlags(CMRFlags value)
 	{
-		if(value == null)
-			this.cmrFlags = null;
-		else
-			this.cmrFlags = new CMRFlagsImpl(value, null, null);
+		this.cmrFlags = value;
 	}	
 	
 	@Override
-	public MaximumUEAvailabilityTime getMaximumUEAvailabilityTime()
+	public Date getMaximumUEAvailabilityTime()
 	{
-		return this.maximumUEAvailabilityTime;
+		if(this.maximumUEAvailabilityTime==null)
+			return null;
+		
+		return this.maximumUEAvailabilityTime.getDateTime();
 	}
 	
 	@Override
-	public void setMaximumUEAvailabilityTime(MaximumUEAvailabilityTime value)
+	public void setMaximumUEAvailabilityTime(Date value)
 	{
-		this.maximumUEAvailabilityTime = value;
+		if(value==null)
+			this.maximumUEAvailabilityTime = null;
+		else
+			this.maximumUEAvailabilityTime = new MaximumUEAvailabilityTimeImpl(value, null, null);
 	}
 	
 	@Override
@@ -199,15 +203,21 @@ public class ConnectionManagementRequestImpl extends T6aRequestImpl implements C
 	}
 	
 	@Override
-	public ServiceSelection getServiceSelection()
+	public String getServiceSelection()
 	{
-		return this.serviceSelection;
+		if(this.serviceSelection==null)
+			return null;
+		
+		return this.serviceSelection.getString();
 	}
 	
 	@Override
-	public void setServiceSelection(ServiceSelection value)
+	public void setServiceSelection(String value)
 	{
-		this.serviceSelection = value;
+		if(value==null)
+			this.serviceSelection = null;
+		else
+			this.serviceSelection = new ServiceSelectionImpl(value, null, null);
 	}
 	
 	@Override
@@ -223,27 +233,39 @@ public class ConnectionManagementRequestImpl extends T6aRequestImpl implements C
 	}
 	
 	@Override
-	public ExtendedPCO getExtendedPCO()
+	public ByteBuf getExtendedPCO()
 	{
-		return this.extendedPCO;
+		if(this.extendedPCO==null)
+			return null;
+		
+		return this.extendedPCO.getValue();
 	}
 	
 	@Override
-	public void setExtendedPCO(ExtendedPCO value)
+	public void setExtendedPCO(ByteBuf value)
 	{
-		this.extendedPCO = value;
+		if(value==null)
+			this.extendedPCO = null;
+		else
+			this.extendedPCO = new ExtendedPCOImpl(value, null, null);
 	}
 	
 	@Override
-	public TGPPChargingCharacteristics getTGPPChargingCharacteristics()
+	public String getTGPPChargingCharacteristics()
 	{
-		return this.tgppChargingCharacteristics;
+		if(this.tgppChargingCharacteristics==null)
+			return null;
+		
+		return this.tgppChargingCharacteristics.getString();
 	}
 	
 	@Override
-	public void setTGPPChargingCharacteristics(TGPPChargingCharacteristics value)
+	public void setTGPPChargingCharacteristics(String value)
 	{
-		this.tgppChargingCharacteristics = value;
+		if(value==null)
+			this.tgppChargingCharacteristics = null;
+		else
+			this.tgppChargingCharacteristics = new TGPPChargingCharacteristicsImpl(value, null, null);
 	}
 	
 	@Override

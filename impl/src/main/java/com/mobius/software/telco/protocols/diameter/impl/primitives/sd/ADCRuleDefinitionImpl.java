@@ -349,8 +349,6 @@ public class ADCRuleDefinitionImpl extends DiameterGroupedAvpImpl implements ADC
 		this.redirectInformation = value;
 	}
 	
-
-	
 	public MuteNotificationEnum getMuteNotification()
 	{
 		if(muteNotification==null)

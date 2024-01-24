@@ -43,20 +43,14 @@ public class SupportedServicesImpl extends DiameterGroupedAvpImpl implements Sup
 		
 	}
 	
-	public Long getSupportedMonitoringEvents()
+	public SupportedMonitoringEvents getSupportedMonitoringEvents()
 	{
-		if(supportedMonitoringEvents == null)
-			return null;
-		
-		return supportedMonitoringEvents.getUnsigned();
+		return supportedMonitoringEvents;
 	}
 	
-	public void setSupportedMonitoringEvents(Long value)
+	public void setSupportedMonitoringEvents(SupportedMonitoringEvents value)
 	{
-		if(value==null)
-			this.supportedMonitoringEvents = null;
-		else
-			this.supportedMonitoringEvents = new SupportedMonitoringEventsImpl(value, null, null);
+		this.supportedMonitoringEvents = value;
 	}
 	
 	public NodeTypeEnum getNodeType()

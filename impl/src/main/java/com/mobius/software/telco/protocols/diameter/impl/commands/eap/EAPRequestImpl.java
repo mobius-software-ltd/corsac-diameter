@@ -167,6 +167,15 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 		super();
 	}
 	
+	public EAPRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload)
+	{
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, 5L);
+		
+		setAuthRequestType(authRequestType);
+		
+		setEAPPayload(eapPayload);
+	}
+	
 	public EAPRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload)
 	{
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);

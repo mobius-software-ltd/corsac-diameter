@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -66,6 +66,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving MME or SGSN.
  */
 @DiameterAvpDefinition(code = 1490L, vendorId = KnownVendorIDs.TGPP_ID, name = "IDR-Flags")
-public interface IDRFlags extends DiameterUnsigned32
+public interface IDRFlags extends DiameterBitmask32
 {
+	public static final int UE_REACHABILITY_REQUEST_BIT = 0;
+	public static final int T_ADS_DATA_REQUEST_BIT = 1;
+	public static final int EPS_USER_STATE_REQUEST_BIT = 2;
+	public static final int EPS_LOCATION_INFORMATION_REQUEST_BIT = 3;
+	public static final int CURRENT_LOCATION_REQUEST_BIT = 4;
+	public static final int LOCAL_TIMEZONE_REQUEST_BIT = 5;
+	public static final int REMOVE_SMS_REGISTRATION_REQUEST_BIT = 6;
+	public static final int RAT_TYPE_REQUEST_BIT = 7;
+	public static final int PCSCF_RESTORATION_REQUEST_BIT = 8;
+	
+	public void setUEReachabilityRequestBit(boolean isOn);
+	
+	public boolean isUEReachabilityRequestBitSet();
+	
+	public void setTADSDataRequestBit(boolean isOn);
+	
+	public boolean isTADSDataRequestBitSet();
+	
+	public void setEPSUserStateRequestBit(boolean isOn);
+	
+	public boolean isEPSUserStateRequestBitSet();
+	
+	public void setEPSLocationInformationRequestBit(boolean isOn);
+	
+	public boolean isEPSLocationInformationRequestBitSet();
+	
+	public void setCurrentLocationRequestBit(boolean isOn);
+	
+	public boolean isCurrentLocationRequestBitSet();
+	
+	public void setLocatTimezoneRequestBit(boolean isOn);
+	
+	public boolean isLocatTimezoneRequestBitSet();
+	
+	public void setRemoveSMSRegistrationRequestBit(boolean isOn);
+	
+	public boolean isRemoveSMSRegistrationRequestBitSet();
+	
+	public void setRATTypeRequestBit(boolean isOn);
+	
+	public boolean isRATTypeRequestBitSet();
+	
+	public void setPCSCFRestorationRequestBit(boolean isOn);
+	
+	public boolean isPCSCFRestorationRequestBitSet();
 }

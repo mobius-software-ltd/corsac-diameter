@@ -92,19 +92,13 @@ public class TMGIAllocationResponseImpl extends DiameterGroupedAvpImpl implement
 			this.mbmsSessionDuration = new MBMSSessionDurationImpl(value, null, null);			
 	}
 	
-	public Long getTMGIAllocationResult()
+	public TMGIAllocationResult getTMGIAllocationResult()
 	{
-		if(tmgiAllocationResult==null)
-			return null;
-		
-		return tmgiAllocationResult.getUnsigned();
+		return tmgiAllocationResult;
 	}
 	
-	public void setTMGIAllocationResult(Long value)
+	public void setTMGIAllocationResult(TMGIAllocationResult value)
 	{
-		if(value==null)
-			this.tmgiAllocationResult = null;
-		else
-			this.tmgiAllocationResult = new TMGIAllocationResultImpl(value, null, null);			
+		this.tmgiAllocationResult = value;			
 	}
 }

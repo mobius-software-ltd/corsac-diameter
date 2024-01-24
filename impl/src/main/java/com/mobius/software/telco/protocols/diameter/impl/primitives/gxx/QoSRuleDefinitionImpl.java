@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gxx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
@@ -25,6 +26,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PrecedenceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ContentVersionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RequiredAccessInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SharingKeyDLImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SharingKeyULImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
@@ -35,6 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleDefini
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleName;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.ContentVersion;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfo;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfoEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.SharingKeyDL;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.SharingKeyUL;
 
@@ -122,14 +125,28 @@ public class QoSRuleDefinitionImpl extends DiameterGroupedAvpImpl implements QoS
 			this.precedence = new PrecedenceImpl(value, null, null);			
 	}
 	
-	public List<RequiredAccessInfo> getRequiredAccessInfo()
+	public List<RequiredAccessInfoEnum> getRequiredAccessInfo()
 	{
-		return requiredAccessInfo;
+		if(requiredAccessInfo==null || requiredAccessInfo.size()==0)
+			return null;
+		
+		List<RequiredAccessInfoEnum> result=new ArrayList<RequiredAccessInfoEnum>();
+		for(RequiredAccessInfo curr:requiredAccessInfo)
+			result.add(curr.getEnumerated(RequiredAccessInfoEnum.class));
+		
+		return result;
 	}
 	
-	public void setRequiredAccessInfo(List<RequiredAccessInfo> value)
+	public void setRequiredAccessInfo(List<RequiredAccessInfoEnum> value)
 	{
-		this.requiredAccessInfo = value;
+		if(value==null || value.size()==0)
+			this.requiredAccessInfo = new ArrayList<RequiredAccessInfo>();
+		else
+		{
+			this.requiredAccessInfo = new ArrayList<RequiredAccessInfo>();
+			for(RequiredAccessInfoEnum curr:value)
+				this.requiredAccessInfo.add(new RequiredAccessInfoImpl(curr, null, null));
+		}
 	}
 	
 	public Long getSharingKeyDL()

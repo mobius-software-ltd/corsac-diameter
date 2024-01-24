@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSReferenceNumberImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LRAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -85,21 +84,15 @@ public class LocationReportAnswerImpl extends SlgAnswerImpl implements LocationR
 	}
 	
 	@Override
-	public Long getLRAFlags()
+	public LRAFlags getLRAFlags()
 	{
-		if(lraFlags == null)
-			return null;
-		
-		return lraFlags.getUnsigned();
+		return lraFlags;
 	}
 	
 	@Override
-	public void setLRAFlags(Long value)
+	public void setLRAFlags(LRAFlags value)
 	{
-		if(value == null)
-			this.lraFlags = null;
-		else
-			this.lraFlags = new LRAFlagsImpl(value, null, null);
+		this.lraFlags = value;
 	}
 	
 	@Override

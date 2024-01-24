@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.CLRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CancellationTypeEnum;
 
 /**
@@ -56,7 +57,7 @@ public interface CancelLocationRequest extends S6aRequest
 	
 	void setCancellationType(CancellationTypeEnum value);
 	
-	Long getCLRFlags();
+	CLRFlags getCLRFlags();
 	
-	void setCLRFlags(Long value);		
+	void setCLRFlags(CLRFlags value);		
 }

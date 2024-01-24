@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.CancelLocationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CLRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CancellationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -77,21 +76,15 @@ public class CancelLocationRequestImpl extends S6aRequestImpl implements CancelL
 	}
 	
 	@Override
-	public Long getCLRFlags()
+	public CLRFlags getCLRFlags()
 	{
-		if(clrFlags == null)
-			return null;
-		
-		return clrFlags.getUnsigned();
+		return clrFlags;
 	}
 	
 	@Override
-	public void setCLRFlags(Long value)
+	public void setCLRFlags(CLRFlags value)
 	{
-		if(value == null)
-			this.clrFlags = null;
-		else
-			this.clrFlags = new CLRFlagsImpl(value, null, null);
+		this.clrFlags = value;
 	}	
 	
 	@DiameterValidate

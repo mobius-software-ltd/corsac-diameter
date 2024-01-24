@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ErrorDiagnosticEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubscriptionData;
 
 /**
@@ -64,7 +65,7 @@ public interface UpdateVCSGLocationAnswer extends S7aAnswer
 	 
 	void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value);
 		
-	Long getUVAFlags();
+	UVAFlags getUVAFlags();
 	
-	void setUVAFlags(Long value);
+	void setUVAFlags(UVAFlags value);
 }

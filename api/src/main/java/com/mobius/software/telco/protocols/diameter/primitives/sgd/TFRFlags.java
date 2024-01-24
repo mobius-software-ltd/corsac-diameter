@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE 1: Bits not defined in this table shall be cleared by the sending entity and discarded by the receiving entity.
  */
 @DiameterAvpDefinition(code = 3302L, vendorId = KnownVendorIDs.TGPP_ID, name = "TFR-Flags")
-public interface TFRFlags extends DiameterUnsigned32
+public interface TFRFlags extends DiameterBitmask32
 {
+	public static final int MORE_MESSAGES_TO_SEND_BIT = 0;	
+	
+	public void setMoreMessagesToSendBit(boolean isOn);
+	
+	public boolean isMoreMessagesToSendBitSet();
 }

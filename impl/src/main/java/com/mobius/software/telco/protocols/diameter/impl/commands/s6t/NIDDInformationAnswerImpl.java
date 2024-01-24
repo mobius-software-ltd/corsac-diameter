@@ -6,7 +6,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.NIDDInformationAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.NIAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -128,21 +127,15 @@ public class NIDDInformationAnswerImpl extends S6tAnswerImpl implements NIDDInfo
 	}
 	
 	@Override
-	public Long getNIAFlags()
+	public NIAFlags getNIAFlags()
 	{
-		if(niaFlags == null)
-			return null;
-		
-		return niaFlags.getUnsigned();
+		return niaFlags;
 	}
 	
 	@Override
-	public void setNIAFlags(Long value)
+	public void setNIAFlags(NIAFlags value)
 	{
-		if(value == null)
-			this.niaFlags = null;
-		else
-			this.niaFlags = new NIAFlagsImpl(value, null, null);	
+		this.niaFlags = value;	
 	}
 	
 	@DiameterOrder

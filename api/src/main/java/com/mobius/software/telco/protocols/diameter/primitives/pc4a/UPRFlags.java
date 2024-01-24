@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -51,6 +51,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving ProSe Function.
  */
 @DiameterAvpDefinition(code = 3705L, vendorId = KnownVendorIDs.TGPP_ID, name = "UPR-Flags")
-public interface UPRFlags extends DiameterUnsigned32
+public interface UPRFlags extends DiameterBitmask32
 {
+	public static final int UPDATE_BIT = 0;	
+	public static final int REMOVAL_BIT = 1;	
+	public static final int RESET_ID_UPDATE_BIT = 2;	
+	public static final int RESET_ID_REMOVAL_BIT = 3;	
+	
+	public void setUpdateBit(boolean isOn);
+	
+	public boolean isUpdateBitSet();	
+	
+	public void setRemovalBit(boolean isOn);
+	
+	public boolean isRemovalBitSet();	
+	
+	public void setResetIDUpdateBit(boolean isOn);
+	
+	public boolean isResetIDUpdateBitSet();
+	
+	public void setResetIDRemovalBit(boolean isOn);
+	
+	public boolean isResetIDRemovalBitSet();
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -55,6 +55,32 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the receiver of the command.
  */
 @DiameterAvpDefinition(code = 3167L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "RIR-Flags")
-public interface RIRFlags extends DiameterUnsigned32
+public interface RIRFlags extends DiameterBitmask32
 {
+	public static final int GROUP_CONFIGURATION_IN_PROGRESS_BIT = 0;
+	public static final int ALL_MONITORING_EVENTS_CANCELLED_BIT = 1;
+	public static final int CHANGE_OF_AUTHORIZED_MONITORING_EVENTS_BIT = 2;
+	public static final int ALL_COMMUNICATION_PATTERN_CANCELLED_BIT = 3;
+	public static final int ALL_SUGGESTED_NETWORK_CONFIGURATION_CANCELLED_BIT = 4;
+	
+	public void setGroupConfigurationInProgressBit(boolean isOn);
+	
+	public boolean isGroupConfigurationInProgressBitSet();
+	
+	public void setAllMonitoringEventsCancelledBit(boolean isOn);
+	
+	public boolean isAllMonitoringEventsCancelledBitSet();
+	
+	public void setChangeOfAuthorizedMonitoringEventsBit(boolean isOn);
+	
+	public boolean isChangeOfAuthorizedMonitoringEventsBitSet();
+	
+	public void setAllCommunicationPatternCancelledBit(boolean isOn);
+	
+	public boolean isAllCommunicationPatternCancelledBitSet();
+	
+	public void setAllSuggestedNetworkConfigurationCancelledBit(boolean isOn);
+	
+	public boolean isAllSuggestedNetworkConfigurationCancelledBitSet();
+	
 }

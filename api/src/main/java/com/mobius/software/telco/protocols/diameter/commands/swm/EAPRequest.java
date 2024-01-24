@@ -28,6 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.swm.EmergencyServices;
 
 import io.netty.buffer.ByteBuf;
 
@@ -117,7 +118,7 @@ public interface EAPRequest extends SwmRequest
 	
 	void setTerminalInformation(TerminalInformation value);
 	
-	Long getEmergencyServices();
+	EmergencyServices getEmergencyServices();
 	
-	void setEmergencyServices(Long value);
+	void setEmergencyServices(EmergencyServices value);
 }

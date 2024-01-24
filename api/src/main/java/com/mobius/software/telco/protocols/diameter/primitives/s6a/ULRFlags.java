@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -79,6 +79,61 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE2:	If the MME is registered for SMS then the HSS will download the SMS related data also for the standalone MME.
  */
 @DiameterAvpDefinition(code = 1405L, vendorId = KnownVendorIDs.TGPP_ID, name = "ULR-Flags")
-public interface ULRFlags extends DiameterUnsigned32
+public interface ULRFlags extends DiameterBitmask32
 {
+	public static final int SINGLE_REGISTRATION_INDICATION_BIT = 0;
+	public static final int S6A_S6D_INDICATOR_BIT = 1;
+	public static final int SKIP_SUBSCRIBER_DATA_BIT = 2;
+	public static final int GPRS_SUBSCRIPTION_DATA_INDICATOR_BIT = 3;
+	public static final int NODE_TYPE_INDICATION_BIT = 4;
+	public static final int INITIAL_ATTACH_INDICATION_BIT = 5;
+	public static final int PS_LCS_NOT_SUPPORTED_BY_UE_BIT = 6;
+	public static final int SMS_ONLY_INDICATION_BIT = 7;
+	public static final int DUAL_REGISTRATION_5G_INDICATION_BIT = 8;
+	public static final int INTER_PLMN_INTER_MME_HANDOVER_BIT = 9;
+	public static final int INTRA_PLMN_INTER_MME_HANDOVER_BIT = 10;
+	
+	public void setSingleRegistrationIndicationBit(boolean isOn);
+	
+	public boolean isSingleRegistrationIndicationBitSet();
+	
+	public void setS6AS6DIndicationBit(boolean isOn);
+	
+	public boolean isS6AS6DIndicationBitSet();
+	
+	public void setSkipSubscriberDataBit(boolean isOn);
+	
+	public boolean isSkipSubscriberDataBitSet();
+	
+	public void setGPRSSubscriptionDataIndicationBit(boolean isOn);
+	
+	public boolean isGPRSSubscriptionDataIndicationBitSet();
+	
+	public void setNodeTypeIndicationBit(boolean isOn);
+	
+	public boolean isNodeTypeIndicationBitSet();
+	
+	public void setInitialAttachIndicationBit(boolean isOn);
+	
+	public boolean isInitialAttachIndicationBitSet();
+	
+	public void setPSLCSNotSupportedByUEBit(boolean isOn);
+	
+	public boolean isPSLCSNotSupportedByUEBitSet();
+	
+	public void setSMSOnlyIndicationBit(boolean isOn);
+	
+	public boolean isSMSOnlyIndicationBitSet();
+	
+	public void setDualRegistration5GIndicationBit(boolean isOn);
+	
+	public boolean isDualRegistration5GIndicationBitSet();
+	
+	public void setInterPLMNInterMMEHandoverBit(boolean isOn);
+	
+	public boolean isInterPLMNInterMMEHandoverBitSet();
+	
+	public void setIntraPLMNInterMMEHandoverBit(boolean isOn);
+	
+	public boolean isIntraPLMNInterMMEHandoverBitSet();
 }

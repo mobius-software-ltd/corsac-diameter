@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.OperatorDeterminedBarring;
 
@@ -29,20 +29,123 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.OperatorDeter
 *
 */
 @DiameterAvpImplementation(code = 1425L, vendorId = KnownVendorIDs.TGPP_ID)
-public class OperatorDeterminedBarringImpl extends DiameterUnsigned32Impl implements OperatorDeterminedBarring
+public class OperatorDeterminedBarringImpl extends DiameterBitmask32Impl implements OperatorDeterminedBarring
 {
-	protected OperatorDeterminedBarringImpl()
+	public OperatorDeterminedBarringImpl()
 	{
 		super();
 	}
-
-	protected OperatorDeterminedBarringImpl(Long minValue, Long maxValue)
+	
+	protected OperatorDeterminedBarringImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public OperatorDeterminedBarringImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setAllPacketOrientedServicesBarredBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(ALL_PACKET_ORIENTED_SERVICES_BARRED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAllPacketOrientedServicesBarredBitSet()
+	{
+		return getBit(ALL_PACKET_ORIENTED_SERVICES_BARRED_BIT);
+	}
+
+	@Override
+	public void setRoamerAccessHPLMNAPBarredBit(boolean isOn)
+	{
+		setBit(ROAMER_ACCESS_HPLMN_AP_BARRED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRoamerAccessHPLMNAPBarredBitSet()
+	{
+		return getBit(ROAMER_ACCESS_HPLMN_AP_BARRED_BIT);
+	}
+
+	@Override
+	public void setRoamerAccessVPLMNAPBarredBit(boolean isOn)
+	{
+		setBit(ROAMER_ACCESS_VPLMN_AP_BARRED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRoamerAccessVPLMNAPBarredBitSet()
+	{
+		return getBit(ROAMER_ACCESS_VPLMN_AP_BARRED_BIT);
+	}
+
+	@Override
+	public void setBarringAllOutgoingCallsBit(boolean isOn)
+	{
+		setBit(BARRING_ALL_OUTGOING_CALLS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBarringAllOutgoingCallsBitSet()
+	{
+		return getBit(BARRING_ALL_OUTGOING_CALLS_BIT);				
+	}
+
+	@Override
+	public void setBarringAllOutgoingInternationalCallsBit(boolean isOn)
+	{
+		setBit(BARRING_ALL_OUTGOING_INTERNATIONAL_CALLS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBarringAllOutgoingInternationalCallsBitSet()
+	{
+		return getBit(BARRING_ALL_OUTGOING_INTERNATIONAL_CALLS_BIT);
+	}
+
+	@Override
+	public void setBarringAllOutgoingInternationalButHomeCallsBit(boolean isOn)
+	{
+		setBit(BARRING_ALL_OUTGOING_INTERNATIONAL_BUT_HOME_CALLS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBarringAllOutgoingInternationalButHomeCallsBitSet()
+	{
+		return getBit(BARRING_ALL_OUTGOING_INTERNATIONAL_BUT_HOME_CALLS_BIT);
+	}
+
+	@Override
+	public void setBarringAllOutgoingInterzonalCallsBit(boolean isOn)
+	{
+		setBit(BARRING_ALL_OUTGOING_INTERZONAL_CALLS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBarringAllOutgoingInterzonalCallsBitSet()
+	{
+		return getBit(BARRING_ALL_OUTGOING_INTERZONAL_CALLS_BIT);
+	}
+
+	@Override
+	public void setBarringAllOutgoingInterzonalButHomeCallsBit(boolean isOn)
+	{
+		setBit(BARRING_ALL_OUTGOING_INTERZONAL_BUT_HOME_CALLS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBarringAllOutgoingInterzonalButHomeCallsBitSet()
+	{
+		return getBit(BARRING_ALL_OUTGOING_INTERZONAL_BUT_HOME_CALLS_BIT);
+	}
+
+	@Override
+	public void setBarringAllOutgoingInternationalButHomeAndInterzonalCallsBit(boolean isOn)
+	{
+		setBit(BARRING_ALL_OUTGOING_INTERNATIONAL_BUT_HOME_AND_INTERZONAL_CALLS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBarringAllOutgoingInternationalButHomeAndInterzonalCallsBitSet()
+	{
+		return getBit(BARRING_ALL_OUTGOING_INTERNATIONAL_BUT_HOME_AND_INTERZONAL_CALLS_BIT);
 	}
 }

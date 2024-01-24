@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.RTRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.RTRFlags;
 *
 */
 @DiameterAvpImplementation(code = 659L, vendorId = KnownVendorIDs.TGPP_ID)
-public class RTRFlagsImpl extends DiameterUnsigned32Impl implements RTRFlags
+public class RTRFlagsImpl extends DiameterBitmask32Impl implements RTRFlags
 {
-	protected RTRFlagsImpl()
+	public RTRFlagsImpl()
 	{
 		super();
 	}
 
-	protected RTRFlagsImpl(Long minValue, Long maxValue)
+	protected RTRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public RTRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setReferenceLocationInformationChangeBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(REFERENCE_LOCATION_INFORMATION_CHANGE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isReferenceLocationInformationChangeBitSet()
+	{
+		return getBit(REFERENCE_LOCATION_INFORMATION_CHANGE_BIT);
 	}
 }

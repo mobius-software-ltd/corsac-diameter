@@ -6,7 +6,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sy.SNRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
@@ -62,20 +61,14 @@ public class SpendingStatusNotificationRequestImpl extends SyRequestImpl impleme
 		this.policyCounterStatusReport = value;
 	}
 	
-	public Long getSNRequestType()
+	public SNRequestType getSNRequestType()
 	{
-		if(snRequestType==null)
-			return null;
-		
-		return this.snRequestType.getUnsigned();
+		return this.snRequestType;
 	}
 	
-	public void setSNRequestType(Long value)
+	public void setSNRequestType(SNRequestType value)
 	{
-		if(value==null)
-			this.snRequestType = null;
-		else
-			this.snRequestType = new SNRequestTypeImpl(value, null, null);
+		this.snRequestType = value;
 	}	
 	
 	@DiameterOrder

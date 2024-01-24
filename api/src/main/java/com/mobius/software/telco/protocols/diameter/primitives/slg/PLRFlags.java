@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -51,6 +51,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE1:	Bits not defined in this table shall be cleared by the sending GMLC and discarded by the receiving MME or SGSN
  */
 @DiameterAvpDefinition(code = 2545L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PLR-Flags")
-public interface PLRFlags extends DiameterUnsigned32
+public interface PLRFlags extends DiameterBitmask32
 {
+	public static final int MOLR_SHORT_CIRCUIT_INDICATOR_BIT = 0;
+	public static final int OPTIMIZED_LCS_PROC_REQ_BIT = 1;
+	public static final int DELAYED_LOCATION_REPORTING_SUPPORT_INDICATOR_BIT = 2;
+	
+	public void setMOLRShortCircuitIndicatorBit(boolean isOn);
+	
+	public boolean isMOLRShortCircuitIndicatorBitSet();
+	
+	public void setOptimizedLCSProcReqBit(boolean isOn);
+	
+	public boolean isOptimizedLCSProcReqBitSet();
+	
+	public void setDelayedLocationReportingSupportIndicatorBit(boolean isOn);
+	
+	public boolean isDelayedLocationReportingSupportIndicatorBitSet();
 }

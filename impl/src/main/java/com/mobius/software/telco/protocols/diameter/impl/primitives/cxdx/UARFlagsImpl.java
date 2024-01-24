@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
 *
 */
 @DiameterAvpImplementation(code = 637L, vendorId = KnownVendorIDs.TGPP_ID)
-public class UARFlagsImpl extends DiameterUnsigned32Impl implements UARFlags
+public class UARFlagsImpl extends DiameterBitmask32Impl implements UARFlags
 {
-	protected UARFlagsImpl()
+	public UARFlagsImpl()
 	{
 		super();
 	}
 
-	protected UARFlagsImpl(Long minValue, Long maxValue)
+	protected UARFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public UARFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setIMSEmergencyRegistrationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(IMS_EMERGENCY_REGISTRATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isIMSEmergencyRegistrationBitSet()
+	{
+		return getBit(IMS_EMERGENCY_REGISTRATION_BIT);
 	}
 }

@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.LIAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerCapabilities;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -86,9 +87,9 @@ public interface LocationInfoAnswer extends CxDxAnswer
 	 
 	void setWildcardedPublicIdentity(String value);
 	
-	Long getLIAFlags();
+	LIAFlags getLIAFlags();
 	
-	void setLIAFlags(Long value);	
+	void setLIAFlags(LIAFlags value);	
 	
 	public List<String> getRouteRecords(); 
 

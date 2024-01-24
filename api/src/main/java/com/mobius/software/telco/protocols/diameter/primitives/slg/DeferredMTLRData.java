@@ -47,9 +47,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 @DiameterAvpDefinition(code = 2547L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Deferred-MT-LR-Data")
 public interface DeferredMTLRData extends DiameterGroupedAvp
 {
-	Long getDeferredLocationType();
+	DeferredLocationType getDeferredLocationType();
 	
-	void setDeferredLocationType(Long value);
+	void setDeferredLocationType(DeferredLocationType value);
 	
 	Long getTerminationCause();
 	

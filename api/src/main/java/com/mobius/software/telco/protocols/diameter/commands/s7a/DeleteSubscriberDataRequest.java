@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s7a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 @DiameterCommandDefinition(applicationId = 16777308, commandCode = 320, request = true, proxyable = true, name="Delete-Subscriber-Data-Request")
 public interface DeleteSubscriberDataRequest extends S7aRequest
 {
-	Long getDSRFlags();
+	DSRFlags getDSRFlags();
 	
-	void setDSRFlags(Long value);		
+	void setDSRFlags(DSRFlags value);		
 }

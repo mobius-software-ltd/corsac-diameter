@@ -46,9 +46,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 3701L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Subscription-Data")
 public interface ProSeSubscriptionData extends DiameterGroupedAvp
 {
-	Long getProSePermission();
+	ProSePermission getProSePermission();
 	
-	void setProSePermission(Long value);
+	void setProSePermission(ProSePermission value);
 	
 	List<ProSeAllowedPLMN> getProSeAllowedPLMN();
 	

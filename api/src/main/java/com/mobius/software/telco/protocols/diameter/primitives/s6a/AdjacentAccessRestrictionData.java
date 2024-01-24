@@ -47,7 +47,7 @@ public interface AdjacentAccessRestrictionData extends DiameterGroupedAvp
 	
 	void setVisitedPLMNId(ByteBuf value);
 	
-	Long getAccessRestrictionData();
+	AccessRestrictionData getAccessRestrictionData();
 	
-	void setAccessRestrictionData(Long value);
+	void setAccessRestrictionData(AccessRestrictionData value);
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -43,6 +43,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Note:	Bits not defined in this table shall be cleared by the sending S-CSCF and discarded by the receiving HSS.
  */
 @DiameterAvpDefinition(code = 655L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SAR-Flags")
-public interface SARFlags extends DiameterUnsigned32
+public interface SARFlags extends DiameterBitmask32
 {
+	public static final int PCSCF_RESTORATION_INDICATION_BIT = 0;	
+	
+	public void setPCSCFRestorationIndicationBit(boolean isOn);
+	
+	public boolean isPCSCFRestorationIndicationBitSet();	
 }

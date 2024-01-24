@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDRFlags;
 
@@ -29,20 +29,123 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDRFlags;
 *
 */
 @DiameterAvpImplementation(code = 1490L, vendorId = KnownVendorIDs.TGPP_ID)
-public class IDRFlagsImpl extends DiameterUnsigned32Impl implements IDRFlags
+public class IDRFlagsImpl extends DiameterBitmask32Impl implements IDRFlags
 {
-	protected IDRFlagsImpl()
+	public IDRFlagsImpl()
 	{
 		super();
 	}
-
-	protected IDRFlagsImpl(Long minValue, Long maxValue)
+	
+	protected IDRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public IDRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUEReachabilityRequestBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UE_REACHABILITY_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUEReachabilityRequestBitSet()
+	{
+		return getBit(UE_REACHABILITY_REQUEST_BIT);
+	}
+
+	@Override
+	public void setTADSDataRequestBit(boolean isOn)
+	{
+		setBit(T_ADS_DATA_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTADSDataRequestBitSet()
+	{
+		return getBit(T_ADS_DATA_REQUEST_BIT);
+	}
+
+	@Override
+	public void setEPSUserStateRequestBit(boolean isOn)
+	{
+		setBit(EPS_USER_STATE_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEPSUserStateRequestBitSet()
+	{
+		return getBit(EPS_USER_STATE_REQUEST_BIT);
+	}
+
+	@Override
+	public void setEPSLocationInformationRequestBit(boolean isOn)
+	{
+		setBit(EPS_LOCATION_INFORMATION_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEPSLocationInformationRequestBitSet()
+	{
+		return getBit(EPS_LOCATION_INFORMATION_REQUEST_BIT);
+	}
+
+	@Override
+	public void setCurrentLocationRequestBit(boolean isOn)
+	{
+		setBit(CURRENT_LOCATION_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isCurrentLocationRequestBitSet()
+	{
+		return getBit(CURRENT_LOCATION_REQUEST_BIT);
+	}
+
+	@Override
+	public void setLocatTimezoneRequestBit(boolean isOn)
+	{
+		setBit(LOCAL_TIMEZONE_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isLocatTimezoneRequestBitSet()
+	{
+		return getBit(LOCAL_TIMEZONE_REQUEST_BIT);
+	}
+
+	@Override
+	public void setRemoveSMSRegistrationRequestBit(boolean isOn)
+	{
+		setBit(REMOVE_SMS_REGISTRATION_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRemoveSMSRegistrationRequestBitSet()
+	{
+		return getBit(REMOVE_SMS_REGISTRATION_REQUEST_BIT);
+	}
+
+	@Override
+	public void setRATTypeRequestBit(boolean isOn)
+	{
+		setBit(RAT_TYPE_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRATTypeRequestBitSet()
+	{
+		return getBit(RAT_TYPE_REQUEST_BIT);
+	}
+
+	@Override
+	public void setPCSCFRestorationRequestBit(boolean isOn)
+	{
+		setBit(PCSCF_RESTORATION_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPCSCFRestorationRequestBitSet()
+	{
+		return getBit(PCSCF_RESTORATION_REQUEST_BIT);
 	}
 }

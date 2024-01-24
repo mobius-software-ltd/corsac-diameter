@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.swx;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.Non3GPPUserData;
+import com.mobius.software.telco.protocols.diameter.primitives.swx.PPRFlags;
 
 /**
 *
@@ -55,7 +56,7 @@ public interface PushProfileRequest extends SwxRequest
 	 
 	void setNon3GPPUserData(Non3GPPUserData value);
 	
-	Long getPPRFlags();
+	PPRFlags getPPRFlags();
 	
-	void setPPRFlags(Long value);
+	void setPPRFlags(PPRFlags value);
 }

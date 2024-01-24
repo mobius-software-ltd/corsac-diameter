@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6m;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -50,6 +50,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE 2:	Bits not defined in this table shall be cleared by the HSS and discarded by the receiving node, MTC-IWF.
  */
 @DiameterAvpDefinition(code = 3109L, vendorId = KnownVendorIDs.TGPP_ID, name = "HSS-Cause")
-public interface HSSCause extends DiameterUnsigned32
+public interface HSSCause extends DiameterBitmask32
 {
+	public static final int ABSENT_SUBSCRIBER_BIT = 0;	
+	public static final int TELESERVICE_NOT_PROVISIONED_BIT = 1;	
+	public static final int CALL_BARRED_BIT = 2;	
+	
+	public void setAbsentSubscriberBit(boolean isOn);
+	
+	public boolean isAbsentSubscriberBitSet();
+	
+	public void setTeleserviceNotProvisionedBit(boolean isOn);
+	
+	public boolean isTeleserviceNotProvisionedBitSet();
+	
+	public void setCallBarredBit(boolean isOn);
+	
+	public boolean isCallBarredBitSet();
 }

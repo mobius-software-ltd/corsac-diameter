@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ULAFlags;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.ULAFlags;
 *
 */
 @DiameterAvpImplementation(code = 1406L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ULAFlagsImpl extends DiameterUnsigned32Impl implements ULAFlags
+public class ULAFlagsImpl extends DiameterBitmask32Impl implements ULAFlags
 {
-	protected ULAFlagsImpl()
+	public ULAFlagsImpl()
 	{
 		super();
 	}
-
-	protected ULAFlagsImpl(Long minValue, Long maxValue)
+	
+	protected ULAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ULAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setSeparationIndicationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(SEPARATION_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSeparationIndicationBitSet()
+	{
+		return getBit(SEPARATION_INDICATION_BIT);
+	}
+
+	@Override
+	public void setMMERegistredForSMSBit(boolean isOn)
+	{
+		setBit(MME_REGISTERED_FOR_SMS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMMERegistredForSMSBitSet()
+	{
+		return getBit(MME_REGISTERED_FOR_SMS_BIT);
 	}
 }

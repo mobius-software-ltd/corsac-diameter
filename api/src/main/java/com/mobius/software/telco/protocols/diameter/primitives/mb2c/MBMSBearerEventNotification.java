@@ -55,9 +55,9 @@ public interface MBMSBearerEventNotification extends DiameterGroupedAvp
 	
 	void setMBMSFlowIdentifier(ByteBuf value);
 	
-	Long getMBMSBearerEvent();
+	MBMSBearerEvent getMBMSBearerEvent();
 	
-	void setMBMSBearerEvent(Long value);
+	void setMBMSBearerEvent(MBMSBearerEvent value);
 	
 	MBMSBearerEventDiagnosticInfoEnum getMBMSBearerEventDiagnosticInfo();
 	

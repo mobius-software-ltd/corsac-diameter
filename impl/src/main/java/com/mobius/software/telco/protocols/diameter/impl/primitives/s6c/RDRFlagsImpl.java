@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.RDRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.RDRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3323L, vendorId = KnownVendorIDs.TGPP_ID)
-public class RDRFlagsImpl extends DiameterUnsigned32Impl implements RDRFlags
+public class RDRFlagsImpl extends DiameterBitmask32Impl implements RDRFlags
 {
-	protected RDRFlagsImpl()
+	public RDRFlagsImpl()
 	{
 		super();
 	}
 
-	protected RDRFlagsImpl(Long minValue, Long maxValue)
+	public RDRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public RDRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setSingleAttemptDeliveryBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(SINGLE_ATTEMPT_DELIVERY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSingleAttemptDeliveryBitSet()
+	{
+		return getBit(SINGLE_ATTEMPT_DELIVERY_BIT);
 	}
 }

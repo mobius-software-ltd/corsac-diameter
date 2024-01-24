@@ -39,7 +39,7 @@ public class ChargeMoneyImpl implements ChargeMoney
 	
 	private ActiveDay activeDay;
 	
-	protected ChargeMoneyImpl()
+	public ChargeMoneyImpl()
 	{
 		
 	}

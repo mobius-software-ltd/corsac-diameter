@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LRAFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.LRAFlags;
 *
 */
 @DiameterAvpImplementation(code = 2549L, vendorId = KnownVendorIDs.TGPP_ID)
-public class LRAFlagsImpl extends DiameterUnsigned32Impl implements LRAFlags
+public class LRAFlagsImpl extends DiameterBitmask32Impl implements LRAFlags
 {
-	protected LRAFlagsImpl()
+	public LRAFlagsImpl()
 	{
 		super();
 	}
 
-	protected LRAFlagsImpl(Long minValue, Long maxValue)
+	protected LRAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public LRAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setMOLRShortCircuitIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMOLRShortCircuitIndicatorBitSet()
+	{
+		return getBit(MOLR_SHORT_CIRCUIT_INDICATOR_BIT);
 	}
 }

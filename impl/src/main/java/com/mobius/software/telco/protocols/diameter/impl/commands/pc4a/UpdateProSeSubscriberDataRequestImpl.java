@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.UpdateProSeSubscriberDataRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.UPRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -119,21 +118,15 @@ public class UpdateProSeSubscriberDataRequestImpl extends Pc4aRequestImpl implem
 	}
 	
 	@Override
-	public Long getUPRFlags()
+	public UPRFlags getUPRFlags()
 	{
-		if(uprFlags == null)
-			return null;
-		
-		return uprFlags.getUnsigned();
+		return uprFlags;
 	}
 	
 	@Override
-	public void setUPRFlags(Long value)
+	public void setUPRFlags(UPRFlags value)
 	{
-		if(value == null)
-			this.uprFlags = null;
-		else
-			this.uprFlags = new UPRFlagsImpl(value, null, null);	
+		this.uprFlags = value;	
 	}
 	
 	@Override

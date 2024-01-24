@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -54,6 +54,31 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the receiver of the command.
  */
 @DiameterAvpDefinition(code = 3145L, vendorId = KnownVendorIDs.TGPP_ID, name = "CIR-Flags")
-public interface CIRFlags extends DiameterUnsigned32
+public interface CIRFlags extends DiameterBitmask32
 {
+	public static final int DELETED_ALL_MONITORING_EVENTS_BIT = 0;
+	public static final int ENHANCED_COVERAGE_QUERY_BIT = 1;
+	public static final int IMSI_GROUP_ID_RETRIEVAL_BIT = 2;
+	public static final int DELETE_ALL_COMMUNICATION_PATTERN_BIT = 3;
+	public static final int DELETE_ALL_NETWORK_PARAMETER_CONFIGURATIONS_BIT = 4;
+	
+	public void setDeleteAllMonitoringEventsBit(boolean isOn);
+	
+	public boolean isDeleteAllMonitoringEventsBitSet();
+	
+	public void setEnhancedCoverageQueryBit(boolean isOn);
+	
+	public boolean isEnhancedCoverageQueryBitSet();
+	
+	public void setIMSIGroupIdRetrievalBit(boolean isOn);
+	
+	public boolean isIMSIGroupIdRetrievalBitSet();
+	
+	public void setDeleteAllCommunicationPatternBit(boolean isOn);
+	
+	public boolean isDeleteAllCommunicationPatternBitSet();
+	
+	public void setDeleteAllNetworkParameterConfigurationsBit(boolean isOn);
+	
+	public boolean isDeleteAllNetworkParameterConfigurationsBitSet();
 }

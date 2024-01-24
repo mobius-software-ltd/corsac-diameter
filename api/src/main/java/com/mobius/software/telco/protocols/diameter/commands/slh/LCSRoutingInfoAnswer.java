@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.AdditionalServingNode;
+import com.mobius.software.telco.protocols.diameter.primitives.slh.RIAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 
 import io.netty.buffer.ByteBuf;
@@ -87,7 +88,7 @@ public interface LCSRoutingInfoAnswer extends SlhAnswer
 	 
 	void setPPRAddress(InetAddress value);
 	
-	Long getRIAFlags();
+	RIAFlags getRIAFlags();
 	 
-	void setRIAFlags(Long value);
+	void setRIAFlags(RIAFlags value);
 }

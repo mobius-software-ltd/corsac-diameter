@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchRequest;
+import com.mobius.software.telco.protocols.diameter.primitives.pc6.PMRFlags;
 
 /**
 *
@@ -56,7 +57,7 @@ public interface ProSeMatchRequest extends Pc6Request
 	
 	void setMatchRequest(MatchRequest value);
 	
-	Long getPMRFlags();
+	PMRFlags getPMRFlags();
 	
-	void setPMRFlags(Long value);
+	void setPMRFlags(PMRFlags value);
 }

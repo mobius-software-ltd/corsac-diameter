@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.swm;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the receiver.
  */
 @DiameterAvpDefinition(code = 1538L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Emergency-Services")
-public interface EmergencyServices extends DiameterUnsigned32
+public interface EmergencyServices extends DiameterBitmask32
 {
+	public static final int ESTABLISH_PDN_CONNECTION_BIT = 0;
+	
+	public void setEstablishPDNConnectionBit(boolean isOn);
+	
+	public boolean isEstablishPDNConnectionBitSet();
 }

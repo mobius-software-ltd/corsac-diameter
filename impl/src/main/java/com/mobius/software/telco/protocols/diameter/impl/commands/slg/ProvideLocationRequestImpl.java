@@ -12,12 +12,10 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.L
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IMEIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.DeferredLocationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSCodewordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSServiceTypeIDImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.PLRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.SLgLocationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.SupportedGADShapesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.VelocityRequestedImpl;
@@ -386,21 +384,15 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 	}
 	
 	@Override
-	public Long getDeferredLocationType()
+	public DeferredLocationType getDeferredLocationType()
 	{
-		if(deferredLocationType == null)
-			return null;
-		
-		return deferredLocationType.getUnsigned();
+		return deferredLocationType;
 	}
 	
 	@Override
-	public void setDeferredLocationType(Long value)
+	public void setDeferredLocationType(DeferredLocationType value)
 	{
-		if(value == null)
-			this.deferredLocationType = null;
-		else
-			this.deferredLocationType = new DeferredLocationTypeImpl(value, null, null);
+		this.deferredLocationType = value;
 	}	
 	
 	@Override
@@ -452,21 +444,15 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 	}
 	
 	@Override
-	public Long getPLRFlags()
+	public PLRFlags getPLRFlags()
 	{
-		if(plrFlags == null)
-			return null;
-		
-		return plrFlags.getUnsigned();
+		return plrFlags;
 	}
 	
 	@Override
-	public void setPLRFlags(Long value)
+	public void setPLRFlags(PLRFlags value)
 	{
-		if(value == null)
-			this.plrFlags = null;
-		else
-			this.plrFlags = new PLRFlagsImpl(value, null, null);
+		this.plrFlags = value;
 	}
 	
 	@Override

@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSUserState;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IMSVoiceOverPSSessionsSupportedEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.LocalTimeZone;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
@@ -82,9 +83,9 @@ public interface InsertSubscriberDataAnswer extends S6aAnswer
 	 
 	void setRATType(RATTypeEnum value);
 	
-	Long getIDAFlags();
+	IDAFlags getIDAFlags();
 	
-	void setIDAFlags(Long value);
+	void setIDAFlags(IDAFlags value);
 		
 	EPSUserState getEPSUserState();
 	 

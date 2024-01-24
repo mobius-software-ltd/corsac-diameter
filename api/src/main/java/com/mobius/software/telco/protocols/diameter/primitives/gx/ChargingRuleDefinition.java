@@ -27,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AFSignallingPr
 import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowStatusEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.Flows;
-import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfo;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfoEnum;
 
 import io.netty.buffer.ByteBuf;
 
@@ -219,9 +219,9 @@ public interface ChargingRuleDefinition extends DiameterGroupedAvp
 	
 	void setApplicationServiceProviderIdentity(String value);
 	
-	List<RequiredAccessInfo> getRequiredAccessInfo();
+	List<RequiredAccessInfoEnum> getRequiredAccessInfo();
 	
-	void setRequiredAccessInfo(List<RequiredAccessInfo> value);
+	void setRequiredAccessInfo(List<RequiredAccessInfoEnum> value);
 	
 	Long getSharingKeyDL();
 	

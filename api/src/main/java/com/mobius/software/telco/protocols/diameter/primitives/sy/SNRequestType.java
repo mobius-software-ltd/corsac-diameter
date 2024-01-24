@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.sy;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -44,6 +44,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when set, indicates that the SNR is used to request the termination of the Sy session as detailed in clause 4.5.4
  */
 @DiameterAvpDefinition(code = 2907L, vendorId = KnownVendorIDs.TGPP_ID, name = "SN-Request-Type")
-public interface SNRequestType extends DiameterUnsigned32
+public interface SNRequestType extends DiameterBitmask32
 {
+	public static final int NORMAL_REQUEST_BIT = 0;	
+	public static final int ABORT_SESSION_REQUEST_BIT = 1;	
+	
+	public void setNormalRequestBit(boolean isOn);
+	
+	public boolean isNormalRequestSet();
+	
+	public void setAbortSessionRequestBit(boolean isOn);
+	
+	public boolean isAbortSessionRequestSet();
 }

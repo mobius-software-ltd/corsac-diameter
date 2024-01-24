@@ -6,7 +6,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.DeleteSubscriberDataAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.DSAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSAFlags;
@@ -53,21 +52,15 @@ public class DeleteSubscriberDataAnswerImpl extends S6aAnswerImpl implements Del
 	}
 	
 	@Override
-	public Long getDSAFlags()
+	public DSAFlags getDSAFlags()
 	{
-		if(dsaFlags==null)
-			return null;
-		
-		return dsaFlags.getUnsigned();
+		return dsaFlags;
 	}
 	
 	@Override
-	public void setDSAFlags(Long value)
+	public void setDSAFlags(DSAFlags value)
 	{
-		if(value==null)
-			this.dsaFlags = null;
-		else
-			this.dsaFlags = new DSAFlagsImpl(value, null, null);
+		this.dsaFlags = value;
 	}
 	
 	@DiameterOrder

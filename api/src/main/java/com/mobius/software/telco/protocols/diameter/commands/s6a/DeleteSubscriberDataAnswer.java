@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSAFlags;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 @DiameterCommandDefinition(applicationId = 16777251, commandCode = 320, request = false, proxyable = true, name="Delete-Subscriber-Data-Answer")
 public interface DeleteSubscriberDataAnswer extends S6aAnswer
 {
-	Long getDSAFlags();
+	DSAFlags getDSAFlags();
 	
-	void setDSAFlags(Long value);
+	void setDSAFlags(DSAFlags value);
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PLAFlags;
 
@@ -29,20 +29,63 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.PLAFlags;
 *
 */
 @DiameterAvpImplementation(code = 2546L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PLAFlagsImpl extends DiameterUnsigned32Impl implements PLAFlags
+public class PLAFlagsImpl extends DiameterBitmask32Impl implements PLAFlags
 {
-	protected PLAFlagsImpl()
+	public PLAFlagsImpl()
 	{
 		super();
 	}
 
-	protected PLAFlagsImpl(Long minValue, Long maxValue)
+	protected PLAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PLAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setDeferredMTLRResponseIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(DEFERRED_MTLR_RESPONSE_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isDeferredMTLRResponseIndicatorBitSet()
+	{
+		return getBit(DEFERRED_MTLR_RESPONSE_INDICATOR_BIT);
+	}
+
+	@Override
+	public void setMOLRShortCircuitIndicatorBit(boolean isOn)
+	{
+		setBit(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMOLRShortCircuitIndicatorBitSet()
+	{
+		return getBit(MOLR_SHORT_CIRCUIT_INDICATOR_BIT);
+	}
+
+	@Override
+	public void setOptimizedLCSProcPerformedBit(boolean isOn)
+	{
+		setBit(OPTIMIZED_LCS_PROC_PERFOMED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isOptimizedLCSProcPerformedBitSet()
+	{
+		return getBit(OPTIMIZED_LCS_PROC_PERFOMED_BIT);
+	}
+
+	@Override
+	public void setUETransientlyNotReachableIndicatorBit(boolean isOn)
+	{
+		setBit(UE_TRANSIENTLY_NOT_REACHABLE_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUETransientlyNotReachableIndicatorBitSet()
+	{
+		return getBit(UE_TRANSIENTLY_NOT_REACHABLE_INDICATOR_BIT);
 	}
 }

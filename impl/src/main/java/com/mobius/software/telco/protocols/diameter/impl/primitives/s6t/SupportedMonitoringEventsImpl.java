@@ -18,8 +18,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedMonitoringEvents;
 
@@ -29,20 +31,105 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedMoni
 *
 */
 @DiameterAvpImplementation(code = 3144L, vendorId = KnownVendorIDs.TGPP_ID)
-public class SupportedMonitoringEventsImpl extends DiameterUnsigned32Impl implements SupportedMonitoringEvents
+public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl implements SupportedMonitoringEvents
 {
-	protected SupportedMonitoringEventsImpl()
+	public SupportedMonitoringEventsImpl()
 	{
 		super();
 	}
 
-	protected SupportedMonitoringEventsImpl(Long minValue, Long maxValue)
+	public SupportedMonitoringEventsImpl(List<Integer> bitsToSet)
 	{
-		super(minValue, maxValue);
+		super(bitsToSet);
 	}
-
-	public SupportedMonitoringEventsImpl(Long value, Long minValue, Long maxValue)
+	
+	public void setUEAndUICCBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UE_AND_UICC_BIT, isOn);
+	}
+	
+	public boolean isUEAndUICCBitSet()
+	{
+		return getBit(UE_AND_UICC_BIT);
+	}
+	
+	public void setUEReachabilityBit(boolean isOn)
+	{
+		setBit(UE_REACHABILITY_BIT, isOn);
+	}
+	
+	public boolean isUEReachabilityBitSet()
+	{
+		return getBit(UE_REACHABILITY_BIT);
+	}
+	
+	public void setLocationOfUEBit(boolean isOn)
+	{
+		setBit(LOCATION_OF_UE_BIT, isOn);
+	}
+	
+	public boolean isLocationOfUEBitSet()
+	{
+		return getBit(LOCATION_OF_UE_BIT);
+	}
+	
+	public void setLossOfConnectivityBit(boolean isOn)
+	{
+		setBit(LOSS_OF_CONNECTIVITY_BIT, isOn);
+	}
+	
+	public boolean isLossOfConnectivityBitSet()
+	{
+		return getBit(LOSS_OF_CONNECTIVITY_BIT);
+	}
+	
+	public void setCommunicationFailureBit(boolean isOn)
+	{
+		setBit(COMMUNICATION_FAILURE_BIT, isOn);
+	}
+	
+	public boolean isCommunicationFailureBitSet()
+	{
+		return getBit(COMMUNICATION_FAILURE_BIT);
+	}
+	
+	public void setRoamingStatusBit(boolean isOn)
+	{
+		setBit(ROAMING_STATUS_BIT, isOn);
+	}
+	
+	public boolean isRoamingStatusBitSet()
+	{
+		return getBit(ROAMING_STATUS_BIT);
+	}
+	
+	public void setAvailabilityAfterDDNFailureBit(boolean isOn)
+	{
+		setBit(AVAILABILITY_AFTER_DDN_FAILURE_BIT, isOn);
+	}
+	
+	public boolean isAvailabilityAfterDDNFailureBitSet()
+	{
+		return getBit(AVAILABILITY_AFTER_DDN_FAILURE_BIT);
+	}
+	
+	public void setIdleStatusIndicationBit(boolean isOn)
+	{
+		setBit(IDLE_STATUS_INDICATION_BIT, isOn);
+	}
+	
+	public boolean isIdleStatusIndicationBitSet()
+	{
+		return getBit(IDLE_STATUS_INDICATION_BIT);
+	}
+	
+	public void setPDNConnectivityStatusBit(boolean isOn)
+	{
+		setBit(PDN_CONNECTIVITY_STATUS_BIT, isOn);
+	}
+	
+	public boolean isPDNConnectivityStatusBitSet()
+	{
+		return getBit(PDN_CONNECTIVITY_STATUS_BIT);
 	}
 }

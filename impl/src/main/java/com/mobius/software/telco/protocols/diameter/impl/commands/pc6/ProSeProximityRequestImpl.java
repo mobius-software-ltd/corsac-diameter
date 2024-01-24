@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeProximityRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LocationEstimateImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.PRRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetedEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TimeWindowImpl;
@@ -68,7 +67,7 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 		super();
 	}
 	
-	public ProSeProximityRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,Long prrFlags,String requestingEPUID,String targetedEPUID,Long timeWindow,ByteBuf locationEstimate)
+	public ProSeProximityRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,PRRFlags prrFlags,String requestingEPUID,String targetedEPUID,Long timeWindow,ByteBuf locationEstimate)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -84,21 +83,18 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 	}
 	
 	@Override	
-	public Long getPRRFlags()
+	public PRRFlags getPRRFlags()
 	{
-		if(prrFlags == null)
-			return null;
-		
-		return prrFlags.getUnsigned();
+		return prrFlags;
 	}
 	
 	@Override	
-	public void setPRRFlags(Long value)
+	public void setPRRFlags(PRRFlags value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("PRR-Flags is required");
 		
-		this.prrFlags = new PRRFlagsImpl(value, null, null);
+		this.prrFlags = value;
 	}
 	
 	@Override	

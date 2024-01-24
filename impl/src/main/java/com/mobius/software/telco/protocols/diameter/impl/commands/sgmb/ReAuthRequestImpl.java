@@ -33,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSBMS
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSCellListImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSDataTransferStartImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSDataTransferStopImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSGWSSMIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSGWSSMIPv6AddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSGWUDPPortIndicatorImpl;
@@ -499,21 +498,15 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 	
 	@Override
-	public Long getMBMSFlags()
+	public MBMSFlags getMBMSFlags()
 	{
-		if(mbmsFlags==null)
-			return null;
-		
-		return mbmsFlags.getUnsigned();
+		return mbmsFlags;
 	}
 	
 	@Override
-	public void setMBMSFlags(Long value)
+	public void setMBMSFlags(MBMSFlags value)
 	{
-		if(value==null)
-			this.mbmsFlags = null;
-		else
-			this.mbmsFlags = new MBMSFlagsImpl(value, null, null);			
+		this.mbmsFlags = value;			
 	}
 	
 	@Override

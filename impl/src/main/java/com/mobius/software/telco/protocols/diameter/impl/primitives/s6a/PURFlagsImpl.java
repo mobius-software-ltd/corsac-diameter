@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PURFlags;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.PURFlags;
 *
 */
 @DiameterAvpImplementation(code = 1635L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PURFlagsImpl extends DiameterUnsigned32Impl implements PURFlags
+public class PURFlagsImpl extends DiameterBitmask32Impl implements PURFlags
 {
-	protected PURFlagsImpl()
+	public PURFlagsImpl()
 	{
 		super();
 	}
-
-	protected PURFlagsImpl(Long minValue, Long maxValue)
+	
+	protected PURFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PURFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUEPurgedInMMEBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UE_PURGED_IN_MME_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEPurgedInMMEBitSet()
+	{
+		return getBit(UE_PURGED_IN_MME_BIT);
+	}
+
+	@Override
+	public void setUEPurgedInSGSNBit(boolean isOn)
+	{
+		setBit(UE_PURGED_IN_SGSN_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEPurgedInSGSNBitSet()
+	{
+		return getBit(UE_PURGED_IN_SGSN_BIT);
 	}
 }

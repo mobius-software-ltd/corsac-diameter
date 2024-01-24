@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.InsertSubscriberDataRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IDRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -78,21 +77,15 @@ public class InsertSubscriberDataRequestImpl extends S6aRequestImpl implements I
 	}
 	
 	@Override
-	public Long getIDRFlags()
+	public IDRFlags getIDRFlags()
 	{
-		if(idrFlags == null)
-			return null;
-		
-		return idrFlags.getUnsigned();
+		return idrFlags;
 	}
 	
 	@Override
-	public void setIDRFlags(Long value)
+	public void setIDRFlags(IDRFlags value)
 	{
-		if(value == null)
-			this.idrFlags = null;
-		else
-			this.idrFlags = new IDRFlagsImpl(value, null, null);
+		this.idrFlags = value;
 	}
 	
 	@Override

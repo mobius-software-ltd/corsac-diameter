@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionTimeoutImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIReplacementImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ContextIdentifierImpl;
@@ -34,6 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionTim
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATType;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6FeatureVector;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AMBR;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.APNConfiguration;
@@ -127,14 +130,28 @@ public class Non3GPPUserDataImpl extends DiameterGroupedAvpImpl implements Non3G
 			this.non3GPPIPAccessAPN = new Non3GPPIPAccessAPNImpl(value, null, null);
 	}
 	
-	public List<RATType> getRATType()
+	public List<RATTypeEnum> getRATType()
 	{
-		return ratType;
+		if(ratType==null || ratType.size()==0)
+			return null;
+		
+		List<RATTypeEnum> result=new ArrayList<RATTypeEnum>();
+		for(RATType curr:ratType)
+			result.add(curr.getEnumerated(RATTypeEnum.class));
+		
+		return result;
 	}
 	
-	public void setRATType(List<RATType> value)
+	public void setRATType(List<RATTypeEnum> value)
 	{
-		this.ratType = value;
+		if(value==null || value.size()==0)
+			this.ratType = null;
+		else
+		{
+			this.ratType = new ArrayList<RATType>();
+			for(RATTypeEnum curr:value)
+				this.ratType.add(new RATTypeImpl(curr, null, null));
+		}
 	}
 	
 	public Long getSessionTimeout()

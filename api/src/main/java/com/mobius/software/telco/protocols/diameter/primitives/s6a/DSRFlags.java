@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -149,6 +149,166 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Note 5:	When this AVP is transferred over the S7a/S7d interface, only the bit 9 (CSG Deleted) is meaningful, other bits shall be cleared.
  */
 @DiameterAvpDefinition(code = 1421L, vendorId = KnownVendorIDs.TGPP_ID, name = "DSR-Flags")
-public interface DSRFlags extends DiameterUnsigned32
+public interface DSRFlags extends DiameterBitmask32
 {
+	public static final int REGIONAL_SUBSCRIPTION_WITHDRAWAL_BIT = 0;
+	public static final int COMPLETE_APN_CONFIGURATION_PROFILE_WITHDRAWAL_BIT = 1;
+	public static final int SUBSCRIBED_CHARGING_CHARACTERISTICS_WITHDRAWAL_BIT = 2;
+	public static final int PDN_SUBSCRIPTION_CONTEXTS_WITHDRAWAL_BIT = 3;
+	public static final int STN_SR_BIT = 4;
+	public static final int COMPLETE_PDP_CONTEXT_LIST_WITHDRAWAL_BIT = 5;
+	public static final int PDP_CONTEXTS_WITHDRAWAL_BIT = 6;
+	public static final int ROAMING_RESTRICTED_DUE_TO_UNSUPPORTED_FEATURE_BIT = 7;
+	public static final int TRACE_DATA_WITHDRAWAL_BIT = 8;
+	public static final int CSG_DELETED_BIT = 9;
+	public static final int APN_IO_REPLACEMENT_BIT = 10;
+	public static final int GMLC_LIST_WITHDRAWAL_BIT = 11;
+	public static final int LCS_WITHDRAWAL_BIT = 12;
+	public static final int SMS_WITHDRAWAL_BIT = 13;
+	public static final int SUBSCRIBED_PERIODIC_RAU_TAU_TIMER_WITHDRAWAL_BIT = 14;
+	public static final int SUBSCRIBED_VSRVCC_WITHDRAWAL_BIT = 15;
+	public static final int AMSISDN_WITHDRAWAL_BIT = 16;
+	public static final int PROSE_WITHDRAWAL_BIT = 17;
+	public static final int RESET_IDS_BIT = 18;
+	public static final int DL_BUFFERING_SUGGESTED_PACKET_COUNT_WITHDRAWAL_BIT = 19;
+	public static final int SUBSCRIBED_IMSI_GROUP_ID_WITHDRAWAL_BIT = 20;
+	public static final int DELETE_MONITORING_EVENTS_BIT = 21;
+	public static final int USER_PLANE_INTEGRITY_PROTECTION_WITHDRAWAL_BIT = 22;
+	public static final int MSISDN_WITHDRAWAL_BIT = 23;
+	public static final int UE_USAGE_TYPE_WITHDRAWAL_BIT = 24;
+	public static final int V2X_WITHDRAWAL_BIT = 25;
+	public static final int EXTERNAL_IDENTIFIER_WITHDRAWAL_BIT = 26;
+	public static final int AERIAL_UE_SUBSCRIPTION_WITHDRAWAL_BIT = 27;
+	public static final int PAGING_TIME_WINDOW_SUBSCRIPTION_WITHDRAWAL_BIT = 28;
+	public static final int ACTIVE_TIME_WITHDRAWAL_BIT = 29;
+	public static final int EDRX_CYCLE_LENGTH_WITHDRAWAL_BIT = 30;
+	public static final int SERVICE_GAP_TIME_WITHDRAWAL_BIT = 31;
+	
+	public void setRegionalSubscriptionWithdrawalBit(boolean isOn);
+	
+	public boolean isRegionalSubscriptionWithdrawalBitSet();	
+	
+	public void setCompleteAPNConfigurationProfileWithdrawalBit(boolean isOn);
+	
+	public boolean isCompleteAPNConfigurationProfileWithdrawalBitSet();	
+	
+	public void setSubscripbedChargingCharacteristricsWithdrawalBit(boolean isOn);
+	
+	public boolean isSubscripbedChargingCharacteristricsWithdrawalBitSet();	
+	
+	public void setPDNSubscriptionContextsWithdrawalBit(boolean isOn);
+	
+	public boolean isPDNSubscriptionContextsWithdrawalBitSet();	
+	
+	public void setSTNSRBit(boolean isOn);
+	
+	public boolean isSTNSRBitSet();	
+	
+	public void setCompletePDPContextListWithdrawalBit(boolean isOn);
+	
+	public boolean isCompletePDPContextListWithdrawalBitSet();	
+	
+	public void setPDPContextWithdrawalBit(boolean isOn);
+	
+	public boolean isPDPContextWithdrawalBitSet();	
+	
+	public void setRoamingRestrictedDueToUnsupportedFeatureWithdrawalBit(boolean isOn);
+	
+	public boolean isRoamingRestrictedDueToUnsupportedFeatureWithdrawalBitSet();
+	
+	public void setTraceDataWithdrawalBit(boolean isOn);
+	
+	public boolean isTraceDataWithdrawalBitSet();	
+	
+	public void setCSGDeletedWithdrawalBit(boolean isOn);
+	
+	public boolean isCSGDeletedWithdrawalBitSet();	
+	
+	public void setAPNIOReplacementBit(boolean isOn);
+	
+	public boolean isAPNIOReplacementBitSet();	
+	
+	public void setGMLCListWithdrawalBit(boolean isOn);
+	
+	public boolean isGMLCListWithdrawalBitSet();	
+	
+	public void setLCSWithdrawalBit(boolean isOn);
+	
+	public boolean isLCSWithdrawalBitSet();	
+	
+	public void setSMSWithdrawalBit(boolean isOn);
+	
+	public boolean isSMSWithdrawalBitSet();	
+	
+	public void setSubscribedPeriodicRAUTAUTimerWithdrawalBit(boolean isOn);
+	
+	public boolean isSubscribedPeriodicRAUTAUTimerWithdrawalBitSet();	
+	
+	public void setSubscribedVSRVCCWithdrawalBit(boolean isOn);
+	
+	public boolean isSubscribedVSRVCCWithdrawalBitSet();
+	
+	public void setAMSISDNWithdrawalBit(boolean isOn);
+	
+	public boolean isAMSISDNWithdrawalBitSet();	
+	
+	public void setPROSEWithdrawalBit(boolean isOn);
+	
+	public boolean isPROSEWithdrawalBitSet();	
+	
+	public void setResetIDsBit(boolean isOn);
+	
+	public boolean isResetIDsBitSet();	
+	
+	public void setDLBufferingSuggestedPacketCountWithdrawalBit(boolean isOn);
+	
+	public boolean isDLBufferingSuggestedPacketCountWithdrawalBitSet();	
+	
+	public void setSubscribedIMSIGroupIDWithdrawalBit(boolean isOn);
+	
+	public boolean isSubscribedIMSIGroupIDWithdrawalBitSet();	
+	
+	public void setDeleteMonitoringEventsWithdrawalBit(boolean isOn);
+	
+	public boolean isDeleteMonitoringEventsWithdrawalBitSet();	
+	
+	public void setUserPlaneIntegrityProtectionWithdrawalBit(boolean isOn);
+	
+	public boolean isUserPlaneIntegrityProtectionWithdrawalBitSet();	
+	
+	public void setMSISDNWithdrawalBit(boolean isOn);
+	
+	public boolean isMSISDNWithdrawalBitSet();
+	
+	public void setUEUsageTypeWithdrawalBit(boolean isOn);
+	
+	public boolean isUEUsageTypeWithdrawalBitSet();	
+	
+	public void setV2XWithdrawalBit(boolean isOn);
+	
+	public boolean isV2XWithdrawalBitSet();	
+	
+	public void setExternalIdentifierWithdrawalBit(boolean isOn);
+	
+	public boolean isExternalIdentifierWithdrawalBitSet();	
+	
+	public void setAerialUESubscriptionWithdrawalBit(boolean isOn);
+	
+	public boolean isAerialUESubscriptionWithdrawalBitSet();	
+	
+	public void setPagingTimeWindowSubscriptionWithdrawalBit(boolean isOn);
+	
+	public boolean isPagingTimeWindowSubscriptionWithdrawalBitSet();	
+	
+	public void setActiveTimeWithdrawalBit(boolean isOn);
+	
+	public boolean isActiveTimeWithdrawalBitSet();	
+	
+	public void setEDRXCycleLengthWithdrawalBit(boolean isOn);
+	
+	public boolean isEDRXCycleLengthWithdrawalBitSet();	
+	
+	public void setServiceGapTimeWithdrawalBit(boolean isOn);
+	
+	public boolean isServiceGapTimeWithdrawalBitSet();
 }

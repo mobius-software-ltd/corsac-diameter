@@ -8,12 +8,15 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.PushProfileRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserData;
+
+import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -79,15 +82,21 @@ public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements P
 	}
 	
 	@Override
-	public UserData getUserData()
+	public ByteBuf getUserData()
 	{
-		return sipUserData;
+		if(sipUserData==null)
+			return null;
+		
+		return sipUserData.getValue();
 	}
 	
 	@Override
-	public void setUserData(UserData value)
+	public void setUserData(ByteBuf value)
 	{
-		this.sipUserData = value;
+		if(value==null)
+			this.sipUserData = null;
+		else
+			this.sipUserData = new UserDataImpl(value, null, null);
 	}
 	
 	public ChargingInformation getChargingInformation()

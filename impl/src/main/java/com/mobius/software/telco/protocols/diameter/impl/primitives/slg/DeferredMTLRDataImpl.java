@@ -45,28 +45,22 @@ public class DeferredMTLRDataImpl extends DiameterGroupedAvpImpl implements Defe
 	{
 	}
 	
-	public DeferredMTLRDataImpl(Long deferredLocationType)
+	public DeferredMTLRDataImpl(DeferredLocationType deferredLocationType)
 	{
-		if(deferredLocationType==null)
-			throw new IllegalArgumentException("Deferred-Location-Type is required");
-		
-		this.deferredLocationType = new DeferredLocationTypeImpl(deferredLocationType, null, null);
+		setDeferredLocationType(deferredLocationType);
 	}
 	
-	public Long getDeferredLocationType()
+	public DeferredLocationType getDeferredLocationType()
 	{
-		if(deferredLocationType==null)
-			return null;
-		
-		return deferredLocationType.getUnsigned();
+		return deferredLocationType;
 	}
 	
-	public void setDeferredLocationType(Long value)
+	public void setDeferredLocationType(DeferredLocationType value)
 	{
 		if(value==null)
 			throw new IllegalArgumentException("Deferred-Location-Type is required");
 		
-		this.deferredLocationType = new DeferredLocationTypeImpl(value, null, null);
+		this.deferredLocationType = value;
 	}
 	
 	public Long getTerminationCause()

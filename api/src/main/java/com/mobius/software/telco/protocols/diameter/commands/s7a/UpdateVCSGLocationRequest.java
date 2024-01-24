@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s7a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
 
 /**
 *
@@ -60,7 +61,7 @@ public interface UpdateVCSGLocationRequest extends S7aRequest
 	
 	void setSGSNNumber(String value);	
 	
-	Long getUVRFlags();
+	UVRFlags getUVRFlags();
 	
-	void setUVRFlags(Long value);		
+	void setUVRFlags(UVRFlags value);		
 }

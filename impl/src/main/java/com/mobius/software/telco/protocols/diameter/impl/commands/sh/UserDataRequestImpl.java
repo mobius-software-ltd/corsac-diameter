@@ -16,10 +16,8 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.IdentityS
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.LocalTimeZoneIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.PrePagingSupportedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.RequestedDomainImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.RequestedNodesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ServiceIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ServingNodeIndicationImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UDRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerName;
@@ -278,20 +276,14 @@ public class UserDataRequestImpl extends ShRequestImpl implements UserDataReques
 			this.sessionPriority = new SessionPriorityImpl(value, null, null);
 	}
 	
-	public Long getRequestedNodes()
+	public RequestedNodes getRequestedNodes()
 	{
-		if(requestedNodes == null)
-			return null;
-		
-		return requestedNodes.getUnsigned();
+		return requestedNodes;
 	}
 	
-	public void setRequestedNodes(Long value)
+	public void setRequestedNodes(RequestedNodes value)
 	{
-		if(value==null)
-			this.requestedNodes = null;
-		else
-			this.requestedNodes = new RequestedNodesImpl(value, null, null);
+		this.requestedNodes = value;
 	}
 	
 	public ServingNodeIndicationEnum getServingNodeIndication()
@@ -342,20 +334,14 @@ public class UserDataRequestImpl extends ShRequestImpl implements UserDataReques
 			this.localTimeZoneIndication = new LocalTimeZoneIndicationImpl(value, null, null);
 	}
 		
-	public Long getUDRFlags()
+	public UDRFlags getUDRFlags()
 	{
-		if(udrFlags == null)
-			return null;
-		
-		return udrFlags.getUnsigned();
+		return udrFlags;
 	}
 	
-	public void setUDRFlags(Long value)
+	public void setUDRFlags(UDRFlags value)
 	{
-		if(value == null)
-			this.udrFlags = null;
-		else
-			this.udrFlags = new UDRFlagsImpl(value, null, null);
+		this.udrFlags = value;
 	}
 	
 	public CallReferenceInfo getCallReferenceInfo()

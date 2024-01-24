@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SRRFlags;
 
@@ -29,20 +29,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.SRRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3310L, vendorId = KnownVendorIDs.TGPP_ID)
-public class SRRFlagsImpl extends DiameterUnsigned32Impl implements SRRFlags
+public class SRRFlagsImpl extends DiameterBitmask32Impl implements SRRFlags
 {
-	protected SRRFlagsImpl()
+	public SRRFlagsImpl()
 	{
 		super();
 	}
 
-	protected SRRFlagsImpl(Long minValue, Long maxValue)
+	public SRRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public SRRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setGPRSIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(GPRS_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isGPRSIndicatorBitSet()
+	{
+		return getBit(GPRS_INDICATOR_BIT);
+	}
+
+	@Override
+	public void setSMRPPRIBit(boolean isOn)
+	{
+		setBit(SM_RP_PRI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSMRPPRIBitSet()
+	{
+		return getBit(SM_RP_PRI_BIT);
+	}
+
+	@Override
+	public void setSingleAttemptDeliveryBit(boolean isOn)
+	{
+		setBit(SINGLE_ATTEMPT_DELIVERY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSingleAttemptDeliveryBitSet()
+	{
+		return getBit(SINGLE_ATTEMPT_DELIVERY_BIT);
 	}
 }

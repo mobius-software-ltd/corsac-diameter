@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.MonthOfYearMask;
 
 /**
@@ -28,20 +28,33 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.MonthOfYe
 *
 */
 @DiameterAvpImplementation(code = 565L, vendorId = -1L)
-public class MonthOfYearMaskImpl extends DiameterUnsigned32Impl implements MonthOfYearMask
+public class MonthOfYearMaskImpl extends DiameterBitmask32Impl  implements MonthOfYearMask
 {
-	protected MonthOfYearMaskImpl() 
+	public MonthOfYearMaskImpl() 
 	{
 		super();
 	}
 	
-	protected MonthOfYearMaskImpl(Long minValue,Long maxValue) 
+	public MonthOfYearMaskImpl(Integer value) 
 	{
-		super(minValue,maxValue);
+		super(value);
 	}
-	
-	public MonthOfYearMaskImpl(Long value,Long minValue,Long maxValue) 
+
+	@Override
+	public void setMonthBit(int dom, boolean isOn)
 	{
-		super(value,minValue,maxValue);
+		if(dom<0 || dom>12)
+			throw new RuntimeException("Invalid month(should be between 1 and 12)");
+		
+		setBit(dom-1, isOn);
+	}
+
+	@Override
+	public boolean isMonthBitSet(int dom)
+	{
+		if(dom<0 || dom>12)
+			throw new RuntimeException("Invalid month(should be between 1 and 12)");		
+		
+		return getBit(dom-1);
 	}
 }

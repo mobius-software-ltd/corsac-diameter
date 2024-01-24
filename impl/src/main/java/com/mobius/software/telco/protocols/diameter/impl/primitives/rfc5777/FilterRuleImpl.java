@@ -29,6 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.FilterRul
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSParameters;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfileTemplate;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSSemantics;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSSemanticsEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TimeOfDayCondition;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TreatmentAction;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TreatmentActionEnum;
@@ -115,14 +116,20 @@ public class FilterRuleImpl extends DiameterGroupedAvpImpl implements FilterRule
 			this.treatmentAction = new TreatmentActionImpl(value, null, null);
 	}
 	
-	public QoSSemantics getQoSSemantics()
+	public QoSSemanticsEnum getQoSSemantics()
 	{
-		return this.qosSemantics;
+		if(this.qosSemantics==null)
+			return null;
+		
+		return this.qosSemantics.getEnumerated(QoSSemanticsEnum.class);
 	}
 	
-	public void setQoSSemantics(QoSSemantics value)
+	public void setQoSSemantics(QoSSemanticsEnum value)
 	{
-		this.qosSemantics = value;
+		if(value==null)
+			this.qosSemantics = null;
+		else
+			this.qosSemantics = new QoSSemanticsImpl(value, null, null);
 	}
 	
 	public QoSProfileTemplate getQoSProfileTemplate()

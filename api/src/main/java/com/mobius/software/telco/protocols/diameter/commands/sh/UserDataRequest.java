@@ -30,7 +30,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.IdentitySetEnu
 import com.mobius.software.telco.protocols.diameter.primitives.sh.LocalTimeZoneIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.PrePagingSupportedEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.RequestedDomainEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.sh.RequestedNodes;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.ServingNodeIndicationEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.sh.UDRFlags;
 
 import io.netty.buffer.ByteBuf;
 
@@ -113,9 +115,9 @@ public interface UserDataRequest extends ShRequest
 	
 	void setSessionPriority(SessionPriorityEnum value);
 	
-	Long getRequestedNodes();
+	RequestedNodes getRequestedNodes();
 	
-	void setRequestedNodes(Long value);
+	void setRequestedNodes(RequestedNodes value);
 	
 	ServingNodeIndicationEnum getServingNodeIndication();
 	
@@ -129,9 +131,9 @@ public interface UserDataRequest extends ShRequest
 	
 	void setLocalTimeZoneIndication(LocalTimeZoneIndicationEnum value);
 			
-	Long getUDRFlags();
+	UDRFlags getUDRFlags();
 	
-	void setUDRFlags(Long value);	
+	void setUDRFlags(UDRFlags value);	
 					 
 	CallReferenceInfo getCallReferenceInfo();
 	

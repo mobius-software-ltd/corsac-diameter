@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -41,6 +41,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when cleared, indicates that the OFR message is sent on the SGd interface, i.e. the source node is an MME (or a combined MME/SGSN to which the UE is attached via UTRAN or GERAN).
  */
 @DiameterAvpDefinition(code = 3328L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "OFR-Flags")
-public interface OFRFlags extends DiameterUnsigned32
+public interface OFRFlags extends DiameterBitmask32
 {
+	public static final int S6A_S6D_INDICATOR_BIT = 0;	
+	
+	public void setS6aS6dIndicatorBit(boolean isOn);
+	
+	public boolean isS6aS6dIndicatorBitSet();
 }

@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6m;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.s6m.SIRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.ServiceIDEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.ServiceParameters;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -75,9 +76,9 @@ public interface SubscriberInformationRequest extends S6mRequest
 	
 	void setServiceParameters(ServiceParameters value);	
 	
-	Long getSIRFlags();
+	SIRFlags getSIRFlags();
 	
-	void setSIRFlags(Long value);
+	void setSIRFlags(SIRFlags value);
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	 

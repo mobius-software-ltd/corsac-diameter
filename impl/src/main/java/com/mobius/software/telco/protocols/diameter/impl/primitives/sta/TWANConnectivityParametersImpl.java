@@ -71,20 +71,14 @@ public class TWANConnectivityParametersImpl extends DiameterGroupedAvpImpl imple
 		
 	}
 	
-	public Long getConnectivityFlags()
+	public ConnectivityFlags getConnectivityFlags()
 	{
-		if(connectivityFlags==null)
-			return null;
-		
-		return connectivityFlags.getUnsigned();
+		return connectivityFlags;
 	}
 	
-	public void setConnectivityFlags(Long value)
+	public void setConnectivityFlags(ConnectivityFlags value)
 	{
-		if(value == null)
-			this.connectivityFlags = null;
-		else
-			this.connectivityFlags = new ConnectivityFlagsImpl(value, null, null);
+		this.connectivityFlags = value;
 	}
 	
 	public String getServiceSelection()

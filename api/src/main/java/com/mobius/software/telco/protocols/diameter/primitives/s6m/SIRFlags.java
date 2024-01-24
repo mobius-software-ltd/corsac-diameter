@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6m;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -43,6 +43,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Note:	Bits not defined in this table shall be cleared by the sending node, MTC-IWF or MTC-AAA, and discarded by the receiving HSS.
  */
 @DiameterAvpDefinition(code = 3110L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIR-Flags")
-public interface SIRFlags extends DiameterUnsigned32
+public interface SIRFlags extends DiameterBitmask32
 {
+	public static final int S6M_S6N_INDICATOR_BIT = 0;	
+	
+	public void setS6mS6nIndicatorBit(boolean isOn);
+	
+	public boolean isS6mS6nIndicatorBitSet();
 }

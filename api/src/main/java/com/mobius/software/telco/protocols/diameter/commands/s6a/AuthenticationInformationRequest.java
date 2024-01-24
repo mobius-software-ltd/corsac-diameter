@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.AIRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.RequestedEUTRANAuthenticationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.RequestedUTRANGERANAuthenticationInfo;
 
@@ -75,7 +76,7 @@ public interface AuthenticationInformationRequest extends S6aRequest
 	
 	void setVisitedPLMNId(ByteBuf value);	
 	
-	Long getAIRFlags();
+	AIRFlags getAIRFlags();
 	
-	void setAIRFlags(Long value);				
+	void setAIRFlags(AIRFlags value);				
 }

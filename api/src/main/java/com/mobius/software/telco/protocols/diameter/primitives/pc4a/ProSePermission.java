@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -63,6 +63,46 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the HSS and discarded by the receiving ProSe Function.
  */
 @DiameterAvpDefinition(code = 3702L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Permission")
-public interface ProSePermission extends DiameterUnsigned32
+public interface ProSePermission extends DiameterBitmask32
 {
+	public static final int PROSE_DIRECT_DISCOVERY_BIT = 0;	
+	public static final int EPC_LEVEL_PROSE_DISCOVERY_BIT = 1;	
+	public static final int EPC_SUPPORT_WLAN_DIRECT_DISCOVERY_AND_COMMUNICATION_BIT = 2;	
+	public static final int ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT = 3;	
+	public static final int ONE_TO_ONE_PROSE_DIRECT_COMMUNICATION_BIT = 4;	
+	public static final int UE_TO_NETWORK_RELAY_BIT = 5;	
+	public static final int REMOTE_UE_ACCESS_BIT = 6;	
+	public static final int RESTRICTED_PROSE_DIRECT_DISCOVERY_BIT = 7;
+	
+	public void setProSeDirectDiscoveryBit(boolean isOn);
+	
+	public boolean isProSeDirectDiscoverySet();	
+	
+	public void setEPCLevelProSeDiscoveryBit(boolean isOn);
+	
+	public boolean isEPCLevelProSeDiscoveryBitSet();	
+	
+	public void setEPCSupportWLANDirectDiscoveryAndCommunicationBit(boolean isOn);
+	
+	public boolean isEPCSupportWLANDirectDiscoveryAndCommunicationBitSet();
+	
+	public void setOneToManyProSeDirectCommunicationBit(boolean isOn);
+	
+	public boolean isOneToManyProSeDirectCommunicationBitSet();
+	
+	public void setOneToOneProSeDirectCommunicationBit(boolean isOn);
+	
+	public boolean isOneToOneProSeDirectCommunicationBitSet();	
+	
+	public void setUEToNetworkRelayBit(boolean isOn);
+	
+	public boolean isUEToNetworkRelayBitSet();	
+	
+	public void setRemoteUEAccessBit(boolean isOn);
+	
+	public boolean isRemoteUEAccessBitSet();
+	
+	public void setRestrictedProSeDirectDiscoveryBit(boolean isOn);
+	
+	public boolean isRestrictedProSeDirectDiscoveryBitSet();
 }

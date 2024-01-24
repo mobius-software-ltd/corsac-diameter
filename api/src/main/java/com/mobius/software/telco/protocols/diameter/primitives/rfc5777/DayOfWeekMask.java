@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 
 /**
 *
@@ -50,6 +50,17 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	Condition AVP, the time windows match on all days of the week.
  */
 @DiameterAvpDefinition(code = 563L, vendorId = -1L, name = "Day-Of-Week-Mask")
-public interface DayOfWeekMask extends DiameterUnsigned32
+public interface DayOfWeekMask extends DiameterBitmask32
 {
+	public static final int SUNDAY = 1;
+	public static final int MONDAY = 2;
+	public static final int TUESDAY = 3;
+	public static final int WEDNESDAY = 4;
+	public static final int THURSDAY = 5;
+	public static final int FRIDAY = 6;
+	public static final int SATURDAY = 7;
+	
+	public void setDayBit(int dow, boolean isOn);
+	
+	public boolean isDayBitSet(int dow);	
 }

@@ -43,9 +43,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 1688L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "V2X-Subscription-Data")
 public interface V2XSubscriptionData extends DiameterGroupedAvp
 {
-	Long getV2XPermission();
+	V2XPermission getV2XPermission();
 	
-	void setV2XPermission(Long value);
+	void setV2XPermission(V2XPermission value);
 	
 	Long getUEPC5AMBR();
 	

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.PRRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.PRRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3814L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PRRFlagsImpl extends DiameterUnsigned32Impl implements PRRFlags
+public class PRRFlagsImpl extends DiameterBitmask32Impl implements PRRFlags
 {
-	protected PRRFlagsImpl()
+	public PRRFlagsImpl()
 	{
 		super();
 	}
 
-	protected PRRFlagsImpl(Long minValue, Long maxValue)
+	protected PRRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PRRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setWLANIndicationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(WLAN_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isWLANIndicationBitSet()
+	{
+		return getBit(WLAN_INDICATION_BIT);
 	}
 }

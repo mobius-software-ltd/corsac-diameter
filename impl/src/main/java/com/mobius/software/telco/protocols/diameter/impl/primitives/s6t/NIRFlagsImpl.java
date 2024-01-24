@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3174L, vendorId = KnownVendorIDs.TGPP_ID)
-public class NIRFlagsImpl extends DiameterUnsigned32Impl implements NIRFlags
+public class NIRFlagsImpl extends DiameterBitmask32Impl implements NIRFlags
 {
-	protected NIRFlagsImpl()
+	public NIRFlagsImpl()
 	{
 		super();
 	}
 
-	protected NIRFlagsImpl(Long minValue, Long maxValue)
+	protected NIRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public NIRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setIncompleteGroupUserIdentifierListBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(INCOMPLETE_GROUP_USER_IDENTIFIER_LIST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isIncompleteGroupUserIdentifierListBitSet()
+	{
+		return getBit(INCOMPLETE_GROUP_USER_IDENTIFIER_LIST_BIT);
 	}
 }

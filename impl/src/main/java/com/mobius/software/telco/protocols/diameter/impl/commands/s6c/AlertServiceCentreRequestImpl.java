@@ -9,7 +9,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.AlertServiceCentreRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MaximumUEAvailabilityTimeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMSGMSCAlertEventImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -137,21 +136,15 @@ public class AlertServiceCentreRequestImpl extends S6cRequestImpl implements Ale
 	}
 	
 	@Override
-	public Long getSMSGMSCAlertEvent()
+	public SMSGMSCAlertEvent getSMSGMSCAlertEvent()
 	{
-		if(smSGMSCAlertEvent == null)
-			return null;
-		
-		return smSGMSCAlertEvent.getUnsigned();
+		return smSGMSCAlertEvent;
 	}
 	
 	@Override
-	public void setSMSGMSCAlertEvent(Long value)
+	public void setSMSGMSCAlertEvent(SMSGMSCAlertEvent value)
 	{
-		if(value == null)
-			this.smSGMSCAlertEvent = null;
-		else
-			this.smSGMSCAlertEvent = new SMSGMSCAlertEventImpl(value, null, null);
+		this.smSGMSCAlertEvent = value;
 	}
 	
 	@Override

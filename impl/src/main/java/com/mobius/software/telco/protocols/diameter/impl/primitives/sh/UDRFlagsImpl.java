@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sh;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UDRFlags;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.UDRFlags;
 *
 */
 @DiameterAvpImplementation(code = 719L, vendorId = KnownVendorIDs.TGPP_ID)
-public class UDRFlagsImpl extends DiameterUnsigned32Impl implements UDRFlags
+public class UDRFlagsImpl extends DiameterBitmask32Impl implements UDRFlags
 {
-	protected UDRFlagsImpl() 
+	public UDRFlagsImpl() 
 	{
 		super();
 	}
 	
-	protected UDRFlagsImpl(Long minValue,Long maxValue) 
+	public UDRFlagsImpl(Integer value) 
 	{
-		super(minValue,maxValue);
+		super(value);
 	}
-	
-	public UDRFlagsImpl(Long value,Long minValue,Long maxValue) 
+
+	@Override
+	public void setLocationInformationEPSSupportedBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(LOCATION_INFORMATION_EPS_SUPPORTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isLocationInformationEPSSupportedBitSet()
+	{
+		return getBit(LOCATION_INFORMATION_EPS_SUPPORTED_BIT);
+	}
+
+	@Override
+	public void setRATTypeRequestedBit(boolean isOn)
+	{
+		setBit(RAT_TYPE_REQUESTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRATTypeRequestedBitSet()
+	{
+		return getBit(RAT_TYPE_REQUESTED_BIT);
 	}
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6b;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6b.DERS6bFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6b.DERS6bFlags;
 *
 */
 @DiameterAvpImplementation(code = 1523L, vendorId = KnownVendorIDs.TGPP_ID)
-public class DERS6bFlagsImpl extends DiameterUnsigned32Impl implements DERS6bFlags
+public class DERS6bFlagsImpl extends DiameterBitmask32Impl implements DERS6bFlags
 {
-	protected DERS6bFlagsImpl() 
+	public DERS6bFlagsImpl() 
 	{
 		super();
 	}
 	
-	protected DERS6bFlagsImpl(Long minValue,Long maxValue) 
+	public DERS6bFlagsImpl(Integer value) 
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
-	
-	public DERS6bFlagsImpl(Long value,Long minValue,Long maxValue) 
+
+	@Override
+	public void setInitialAttachIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(INITIAL_ATTACH_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isInitialAttachIndicatorBitSet()
+	{
+		return getBit(INITIAL_ATTACH_INDICATOR_BIT);
 	}
 }

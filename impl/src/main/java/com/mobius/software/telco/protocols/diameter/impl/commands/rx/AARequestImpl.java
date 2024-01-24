@@ -17,7 +17,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.ReferenceIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFApplicationIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFChargingIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFRequestedDataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.GCSIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.IMSContentIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.IMSContentTypeImpl;
@@ -26,7 +25,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MCPTTIden
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MCVideoIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MPSActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MPSIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.PreEmptionControlInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RequiredAccessInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RxRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SIPForkingIndicationImpl;
@@ -636,21 +634,15 @@ public class AARequestImpl extends RxRequestImpl implements AARequest
 	}							
 	
 	@Override
-	public Long getAFRequestedData()
+	public AFRequestedData getAFRequestedData()
 	{
-		if(afRequestedData==null)
-			return null;
-		
-		return this.afRequestedData.getUnsigned();
+		return this.afRequestedData;
 	}
 	
 	@Override
-	public void setAFRequestedData(Long value)
+	public void setAFRequestedData(AFRequestedData value)
 	{
-		if(value==null)
-			this.afRequestedData = null;
-		else
-			this.afRequestedData = new AFRequestedDataImpl(value, null, null);
+		this.afRequestedData = value;
 	}
 	
 	@Override
@@ -672,21 +664,15 @@ public class AARequestImpl extends RxRequestImpl implements AARequest
 	}
 	
 	@Override
-	public Long getPreemptionControlInfo()
+	public PreEmptionControlInfo getPreemptionControlInfo()
 	{
-		if(preEmptionControlInfo==null)
-			return null;
-		
-		return this.preEmptionControlInfo.getUnsigned();
+		return this.preEmptionControlInfo;
 	}
 	
 	@Override
-	public void setPreemptionControlInfo(Long value)
+	public void setPreemptionControlInfo(PreEmptionControlInfo value)
 	{
-		if(value==null)
-			this.preEmptionControlInfo = null;
-		else
-			this.preEmptionControlInfo = new PreEmptionControlInfoImpl(value, null, null);
+		this.preEmptionControlInfo = value;
 	}	
 	
 	@Override

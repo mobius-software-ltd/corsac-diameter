@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.MTDataAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.RequestedRetransmissionTimeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.TDAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -121,21 +120,15 @@ public class MTDataAnswerImpl extends T6aAnswerImpl implements MTDataAnswer
 	}	
 	
 	@Override
-	public Long getTDAFlags()
+	public TDAFlags getTDAFlags()
 	{
-		if(tdaFlags==null)
-			return null;
-		
-		return this.tdaFlags.getUnsigned();
+		return this.tdaFlags;
 	}
 	
 	@Override
-	public void setTDAFlags(Long value)
+	public void setTDAFlags(TDAFlags value)
 	{
-		if(value==null)
-			this.tdaFlags = null;
-		else
-			this.tdaFlags = new TDAFlagsImpl(value, null, null);
+		this.tdaFlags = value;
 	}
 	
 	@DiameterOrder

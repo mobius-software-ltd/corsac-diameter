@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.DEAFlags;
 
@@ -29,20 +29,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.DEAFlags;
 *
 */
 @DiameterAvpImplementation(code = 1521L, vendorId = KnownVendorIDs.TGPP_ID)
-public class DEAFlagsImpl extends DiameterUnsigned32Impl implements DEAFlags
+public class DEAFlagsImpl extends DiameterBitmask32Impl implements DEAFlags
 {
-	protected DEAFlagsImpl()
+	public DEAFlagsImpl()
 	{
 		super();
 	}
 
-	protected DEAFlagsImpl(Long minValue, Long maxValue)
+	public DEAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public DEAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setNSWOAuthorizationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(NSWO_AUTHORIZATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNSWOAuthorizationBitSet()
+	{
+		return getBit(NSWO_AUTHORIZATION_BIT);
+	}
+
+	@Override
+	public void setTWANS2aConnectivityIndicatorBit(boolean isOn)
+	{
+		setBit(TWAN_S2A_CONNECTIVITY_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTWANS2aConnectivityIndicatorBitSet()
+	{
+		return getBit(TWAN_S2A_CONNECTIVITY_INDICATOR_BIT);				
+	}
+
+	@Override
+	public void setIMEICheckRequestInVPLMNBit(boolean isOn)
+	{
+		setBit(IMEI_CHECK_REQUEST_IN_VPLMN_BIT, isOn);
+	}
+
+	@Override
+	public boolean isIMEICheckRequestInVPLMNBitSet()
+	{
+		return getBit(IMEI_CHECK_REQUEST_IN_VPLMN_BIT);
 	}
 }

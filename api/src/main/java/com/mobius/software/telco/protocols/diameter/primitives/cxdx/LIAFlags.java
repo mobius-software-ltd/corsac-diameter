@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -41,6 +41,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE: Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving I-CSCF.
  */
 @DiameterAvpDefinition(code = 653L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "LIA-Flags")
-public interface LIAFlags extends DiameterUnsigned32
+public interface LIAFlags extends DiameterBitmask32
 {
+	public static final int PSI_DIRECT_ROUTING_INDICATION_BIT = 0;	
+	
+	public void setPSIDirectRoutingIndicationBit(boolean isOn);
+	
+	public boolean isPSIDirectRoutingIndicationBitSet();
 }

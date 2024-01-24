@@ -79,9 +79,9 @@ public interface GroupReportItem extends DiameterGroupedAvp
 	
 	void setRoamingInformation(RoamingInformationEnum value);
 	
-	Long getIMEIChange();
+	IMEIChange getIMEIChange();
 	
-	void setIMEIChange(Long value);
+	void setIMEIChange(IMEIChange value);
 	
 	ReachabilityInformationEnum getReachabilityInformation();
 	

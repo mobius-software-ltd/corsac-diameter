@@ -57,35 +57,23 @@ public class UserplaneProtocolResultImpl extends DiameterGroupedAvpImpl implemen
 		this.flowDescription = value;				
 	}
 	
-	public Long getROHCResult()
+	public ROHCResult getROHCResult()
 	{
-		if(rohcResult==null)
-			return null;
-		
-		return rohcResult.getUnsigned();
+		return rohcResult;
 	}
 	
-	public void setROHCResult(Long value)
+	public void setROHCResult(ROHCResult value)
 	{
-		if(value==null)
-			this.rohcResult = null;
-		else
-			this.rohcResult = new ROHCResultImpl(value, null, null);			
+		this.rohcResult = value;			
 	}
 	
-	public Long getFECResult()
+	public FECResult getFECResult()
 	{
-		if(fecResult==null)
-			return null;
-		
-		return fecResult.getUnsigned();
+		return fecResult;
 	}
 	
-	public void setFECResult(Long value)
+	public void setFECResult(FECResult value)
 	{
-		if(value==null)
-			this.fecResult = null;
-		else
-			this.fecResult = new FECResultImpl(value, null, null);			
+		this.fecResult = value;			
 	}
 }

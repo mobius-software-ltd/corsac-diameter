@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.SIRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.SIRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3110L, vendorId = KnownVendorIDs.TGPP_ID)
-public class SIRFlagsImpl extends DiameterUnsigned32Impl implements SIRFlags
+public class SIRFlagsImpl extends DiameterBitmask32Impl implements SIRFlags
 {
-	protected SIRFlagsImpl()
+	public SIRFlagsImpl()
 	{
 		super();
 	}
 
-	protected SIRFlagsImpl(Long minValue, Long maxValue)
+	public SIRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public SIRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setS6mS6nIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(S6M_S6N_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isS6mS6nIndicatorBitSet()
+	{
+		return getBit(S6M_S6N_INDICATOR_BIT);
 	}
 }

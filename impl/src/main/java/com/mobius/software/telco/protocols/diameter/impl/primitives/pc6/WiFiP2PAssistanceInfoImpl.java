@@ -85,20 +85,14 @@ public class WiFiP2PAssistanceInfoImpl extends DiameterGroupedAvpImpl implements
 			this.eapMasterSessionKey = new EAPMasterSessionKeyImpl(value, null, null);			
 	}
 	
-	public Long getP2PFeatures()
+	public P2PFeatures getP2PFeatures()
 	{
-		if(p2pFeatures==null)
-			return null;
-		
-		return p2pFeatures.getUnsigned();
+		return p2pFeatures;
 	}
 	
-	public void setP2PFeatures(Long value)
+	public void setP2PFeatures(P2PFeatures value)
 	{
-		if(value==null)
-			this.p2pFeatures = null;
-		else
-			this.p2pFeatures = new P2PFeaturesImpl(value, null, null);			
+		this.p2pFeatures = value;			
 	}
 	
 	public WLANLinkLayerIdList getWLANLinkLayerIdList()

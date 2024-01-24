@@ -17,7 +17,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.DERFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.FullNetworkNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ShortNetworkNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWAGCPAddressImpl;
@@ -384,21 +383,15 @@ public class EAPRequestImpl extends SwdRequestImpl implements EAPRequest
 	}
 	
 	@Override
-	public Long getDERFlags()
+	public DERFlags getDERFlags()
 	{
-		if(derFlags == null)
-			return null;
-		
-		return derFlags.getUnsigned();
+		return derFlags;
 	}
 	
 	@Override
-	public void setDERFlags(Long value)
+	public void setDERFlags(DERFlags value)
 	{
-		if(value==null)
-			this.derFlags = null;
-		else
-			this.derFlags = new DERFlagsImpl(value, null, null);
+		this.derFlags = value;
 	}
 	
 	@Override

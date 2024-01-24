@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6c;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryNotIntendedEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMRPMTIEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6c.SRRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelationID;
 
 import io.netty.buffer.ByteBuf;
@@ -81,9 +82,9 @@ public interface SendRoutingInfoForSMRequest extends S6cRequest
 	
 	void setSMRPSMEA(ByteBuf value);	
 	
-	Long getSRRFlags();
+	SRRFlags getSRRFlags();
 	
-	void setSRRFlags(Long value);	
+	void setSRRFlags(SRRFlags value);	
 	
 	SMDeliveryNotIntendedEnum getSMDeliveryNotIntended();
 	

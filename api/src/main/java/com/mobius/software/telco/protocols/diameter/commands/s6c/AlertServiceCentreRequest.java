@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6c;
 import java.util.Date;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSGMSCAlertEvent;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.ServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelationID;
@@ -75,9 +76,9 @@ public interface AlertServiceCentreRequest extends S6cRequest
 	
 	void setMaximumUEAvailabilityTime(Date value);
 	
-	Long getSMSGMSCAlertEvent();
+	SMSGMSCAlertEvent getSMSGMSCAlertEvent();
 	
-	void setSMSGMSCAlertEvent(Long value);	
+	void setSMSGMSCAlertEvent(SMSGMSCAlertEvent value);	
 	
 	ServingNode getServingNode();
 	 

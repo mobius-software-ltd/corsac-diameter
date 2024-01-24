@@ -16,7 +16,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPCareofAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.DERS6bFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
@@ -285,21 +284,15 @@ public class EAPRequestImpl extends S6bRequestImpl implements EAPRequest
 	}
 	
 	@Override
-	public Long getDERS6bFlags()
+	public DERS6bFlags getDERS6bFlags()
 	{
-		if(derS6bFlags==null)
-			return null;
-		
-		return derS6bFlags.getUnsigned();
+		return derS6bFlags;
 	}
 	
 	@Override
-	public void setDERS6bFlags(Long value)
+	public void setDERS6bFlags(DERS6bFlags value)
 	{
-		if(value == null)
-			this.derS6bFlags = null;
-		else
-			this.derS6bFlags = new DERS6bFlagsImpl(value, null, null);
+		this.derS6bFlags = value;
 	}
 	
 	@Override

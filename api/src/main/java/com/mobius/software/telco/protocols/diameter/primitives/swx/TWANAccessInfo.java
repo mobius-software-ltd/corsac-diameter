@@ -47,9 +47,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.WLANIdentifie
 @DiameterAvpDefinition(code = 1510L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAN-Access-Info")
 public interface TWANAccessInfo extends DiameterGroupedAvp
 {
-	Long getAccessAuthorizationFlags();
+	AccessAuthorizationFlags getAccessAuthorizationFlags();
 	
-	void setAccessAuthorizationFlags(Long value);	
+	void setAccessAuthorizationFlags(AccessAuthorizationFlags value);	
 	
 	WLANIdentifier getWLANIdentifier();
 	

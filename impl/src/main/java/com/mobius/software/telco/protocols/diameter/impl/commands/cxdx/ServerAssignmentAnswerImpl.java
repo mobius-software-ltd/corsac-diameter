@@ -9,6 +9,7 @@ import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignme
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.LooseRouteIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PriviledgedSenderIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserDataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -27,6 +28,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserData;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.WildcardedPublicIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
+
+import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -124,15 +127,29 @@ public class ServerAssignmentAnswerImpl extends CxDxAnswerImpl implements Server
 	}
 	
 	@Override
-	public List<UserData> getUserData()
+	public List<ByteBuf> getUserData()
 	{
-		return userData;
+		if(userData==null || userData.size()==0)
+			return null;
+		
+		List<ByteBuf> result=new ArrayList<ByteBuf>();
+		for(UserData curr:userData)
+			result.add(curr.getValue());
+		
+		return result;
 	}
 	
 	@Override
-	public void setUserData(List<UserData> value)
+	public void setUserData(List<ByteBuf> value)
 	{
-		this.userData = value;
+		if(value==null || value.size()==0)
+			this.userData = null;
+		else
+		{
+			this.userData = new ArrayList<UserData>();
+			for(ByteBuf curr:value)
+				this.userData.add(new UserDataImpl(curr, null, null));
+		}
 	}
 	
 	public ChargingInformation getChargingInformation()

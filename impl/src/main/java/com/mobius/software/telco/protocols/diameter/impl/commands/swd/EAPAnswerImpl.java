@@ -17,7 +17,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5779.Mobi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc6942.ERPRealmImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIReplacementImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ContextIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.DEAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWANConnectionModeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInterimInterval;
@@ -333,21 +332,15 @@ public class EAPAnswerImpl extends SwdAnswerImpl implements EAPAnswer
 	}
 	
 	@Override
-	public Long getDEAFlags()
+	public DEAFlags getDEAFlags()
 	{
-		if(deaFlags == null)
-			return null;
-		
-		return deaFlags.getUnsigned();
+		return deaFlags;
 	}
 	
 	@Override
-	public void setDEAFlags(Long value)
+	public void setDEAFlags(DEAFlags value)
 	{
-		if(value==null)
-			this.deaFlags = null;
-		else
-			this.deaFlags = new DEAFlagsImpl(value, null, null);
+		this.deaFlags = value;
 	}
 	
 	@Override

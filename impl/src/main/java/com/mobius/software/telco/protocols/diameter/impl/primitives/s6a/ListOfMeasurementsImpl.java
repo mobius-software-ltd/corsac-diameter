@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ListOfMeasurements;
 
@@ -29,20 +29,99 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.ListOfMeasure
 *
 */
 @DiameterAvpImplementation(code = 1625L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ListOfMeasurementsImpl extends DiameterUnsigned32Impl implements ListOfMeasurements
+public class ListOfMeasurementsImpl extends DiameterBitmask32Impl implements ListOfMeasurements
 {
-	protected ListOfMeasurementsImpl()
+	public ListOfMeasurementsImpl()
 	{
 		super();
 	}
-
-	protected ListOfMeasurementsImpl(Long minValue, Long maxValue)
+	
+	protected ListOfMeasurementsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ListOfMeasurementsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setCPICHRSCPBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(CPICH_RSCP_BIT, isOn);
+	}
+
+	@Override
+	public boolean isCPICHRSCPBitSet()
+	{
+		return getBit(CPICH_RSCP_BIT);
+	}
+
+	@Override
+	public void setPCCPCHBit(boolean isOn)
+	{
+		setBit(P_CCPCH_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPCCPCHBitSet()
+	{
+		return getBit(P_CCPCH_BIT);
+	}
+
+	@Override
+	public void setSIRAndSIRErrorBit(boolean isOn)
+	{
+		setBit(SIR_AND_SIR_ERROR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSIRAndSIRErrorBitSet()
+	{
+		return getBit(SIR_AND_SIR_ERROR_BIT);
+	}
+
+	@Override
+	public void setUEPowerHeadroomBit(boolean isOn)
+	{
+		setBit(UE_POWER_HEADROOM_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUEPowerHeadroomBitSet()
+	{
+		return getBit(UE_POWER_HEADROOM_BIT);
+	}
+
+	@Override
+	public void setReceivedTotalWidebandPowerBit(boolean isOn)
+	{
+		setBit(RECEIVED_TOTAL_WIDEBAND_POWER_BIT, isOn);
+	}
+
+	@Override
+	public boolean isReceivedTotalWidebandPowerBitSet()
+	{
+		return getBit(RECEIVED_TOTAL_WIDEBAND_POWER_BIT);
+	}
+
+	@Override
+	public void setDataVolumeMeasurementBit(boolean isOn)
+	{
+		setBit(DATA_VOLUME_MEASUREMENT_BIT, isOn);
+	}
+
+	@Override
+	public boolean isDataVolumeMeasurementBitSet()
+	{
+		return getBit(DATA_VOLUME_MEASUREMENT_BIT);
+	}
+
+	@Override
+	public void setThroughputMeasurementBit(boolean isOn)
+	{
+		setBit(THROUGHPUT_MEASUREMENT_BIT, isOn);
+	}
+
+	@Override
+	public boolean isThroughputMeasurementBitSet()
+	{
+		return getBit(THROUGHPUT_MEASUREMENT_BIT);
 	}
 }

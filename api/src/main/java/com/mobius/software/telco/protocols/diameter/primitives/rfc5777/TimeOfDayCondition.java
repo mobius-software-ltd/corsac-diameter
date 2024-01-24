@@ -68,17 +68,17 @@ public interface TimeOfDayCondition extends DiameterGroupedAvp
 	
 	void setTimeOfDayEnd(Long value);
 	
-	Long getDayOfWeekMask();
+	DayOfWeekMask getDayOfWeekMask();
 	
-	void setDayOfWeekMask(Long value);	
+	void setDayOfWeekMask(DayOfWeekMask value);	
 	
-	Long getDayOfMonthMask();
+	DayOfMonthMask getDayOfMonthMask();
 	
-	void setDayOfMonthMask(Long value);
+	void setDayOfMonthMask(DayOfMonthMask value);
 	
-	Long getMonthOfYearMask();
+	MonthOfYearMask getMonthOfYearMask();
 	
-	void setMonthOfYearMask(Long value);
+	void setMonthOfYearMask(MonthOfYearMask value);
 	
 	Date getAbsoluteStartTime();
 	

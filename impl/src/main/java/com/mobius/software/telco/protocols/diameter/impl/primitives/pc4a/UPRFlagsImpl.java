@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.UPRFlags;
 
@@ -29,20 +29,63 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.UPRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3705L, vendorId = KnownVendorIDs.TGPP_ID)
-public class UPRFlagsImpl extends DiameterUnsigned32Impl implements UPRFlags
+public class UPRFlagsImpl extends DiameterBitmask32Impl implements UPRFlags
 {
-	protected UPRFlagsImpl()
+	public UPRFlagsImpl()
 	{
 		super();
 	}
 
-	protected UPRFlagsImpl(Long minValue, Long maxValue)
+	protected UPRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public UPRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUpdateBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UPDATE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUpdateBitSet()
+	{
+		return getBit(UPDATE_BIT);
+	}
+
+	@Override
+	public void setRemovalBit(boolean isOn)
+	{
+		setBit(REMOVAL_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRemovalBitSet()
+	{
+		return getBit(REMOVAL_BIT);
+	}
+
+	@Override
+	public void setResetIDUpdateBit(boolean isOn)
+	{
+		setBit(RESET_ID_UPDATE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isResetIDUpdateBitSet()
+	{
+		return getBit(RESET_ID_UPDATE_BIT);
+	}
+
+	@Override
+	public void setResetIDRemovalBit(boolean isOn)
+	{
+		setBit(RESET_ID_REMOVAL_BIT, isOn);
+	}
+
+	@Override
+	public boolean isResetIDRemovalBitSet()
+	{
+		return getBit(RESET_ID_REMOVAL_BIT);
 	}
 }

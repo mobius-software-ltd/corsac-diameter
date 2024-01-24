@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.slg;
 import java.net.InetAddress;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.slg.LRAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.ReportingPLMNList;
 
 import io.netty.buffer.ByteBuf;
@@ -62,9 +63,9 @@ public interface LocationReportAnswer extends SlgAnswer
 	
 	void setGMLCAddress(InetAddress value);
 	
-	Long getLRAFlags();
+	LRAFlags getLRAFlags();
 	
-	void setLRAFlags(Long value);
+	void setLRAFlags(LRAFlags value);
 	
 	ReportingPLMNList getReportingPLMNList();
 	

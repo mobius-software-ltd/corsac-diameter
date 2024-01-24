@@ -57,7 +57,7 @@ public interface TMGIAllocationResponse extends DiameterGroupedAvp
 	
 	void setMBMSSessionDuration(ByteBuf value);
 	
-	Long getTMGIAllocationResult();
+	TMGIAllocationResult getTMGIAllocationResult();
 	
-	void setTMGIAllocationResult(Long value);	
+	void setTMGIAllocationResult(TMGIAllocationResult value);	
 }

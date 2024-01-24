@@ -49,9 +49,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterAvpDefinition(code = 1685L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Subscription-Data-Deletion")
 public interface SubscriptionDataDeletion extends DiameterGroupedAvp
 {
-	Long getDSRFlags();
+	DSRFlags getDSRFlags();
 	
-	void setDSRFlags(Long value);
+	void setDSRFlags(DSRFlags value);
 	
 	String getSCEFID();
 	

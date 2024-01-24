@@ -64,9 +64,9 @@ public interface LCSPrivacyException extends DiameterGroupedAvp
 	
 	void setExternalClient(List<ExternalClient> value);
 	
-	List<PLMNClient> getPLMNClient();
+	List<PLMNClientEnum> getPLMNClient();
 	
-	void setPLMNClient(List<PLMNClient> value);
+	void setPLMNClient(List<PLMNClientEnum> value);
 	
 	List<ServiceType> getServiceType();
 	

@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.MonitoringFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RuleActivationTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RuleDeactivationTimeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
@@ -116,20 +115,14 @@ public class ADCRuleInstallImpl extends DiameterGroupedAvpImpl implements ADCRul
 		}
 	}
 	
-	public Long getMonitoringFlags()
+	public MonitoringFlags getMonitoringFlags()
 	{
-		if(monitoringFlags==null)
-			return null;
-		
-		return monitoringFlags.getUnsigned();
+		return monitoringFlags;
 	}
 	
-	public void setMonitoringFlags(Long value)
+	public void setMonitoringFlags(MonitoringFlags value)
 	{
-		if(value==null)
-			this.monitoringFlags = null;
-		else
-			this.monitoringFlags = new MonitoringFlagsImpl(value, null, null);			
+		this.monitoringFlags = value;			
 	}
 	
 	public Date getRuleActivationTime()

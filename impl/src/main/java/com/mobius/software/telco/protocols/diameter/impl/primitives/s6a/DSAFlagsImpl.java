@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSAFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSAFlags;
 *
 */
 @DiameterAvpImplementation(code = 1422L, vendorId = KnownVendorIDs.TGPP_ID)
-public class DSAFlagsImpl extends DiameterUnsigned32Impl implements DSAFlags
+public class DSAFlagsImpl extends DiameterBitmask32Impl implements DSAFlags
 {
-	protected DSAFlagsImpl()
+	public DSAFlagsImpl()
 	{
 		super();
 	}
-
-	protected DSAFlagsImpl(Long minValue, Long maxValue)
+	
+	protected DSAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public DSAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setNetworkNodeAreaRestrictedBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(NETWORK_NODE_AREA_RESTRICTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNetworkNodeAreaRestrictedBitSet()
+	{
+		return getBit(NETWORK_NODE_AREA_RESTRICTED_BIT);
 	}
 }

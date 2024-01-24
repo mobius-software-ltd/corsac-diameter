@@ -96,19 +96,13 @@ public class PresenceReportingAreaInformationImpl extends DiameterGroupedAvpImpl
 			this.presenceReportingAreaElementsList = new PresenceReportingAreaElementsListImpl(value, null, null);			
 	}
 	
-	public Long getPresenceReportingAreaNode()
+	public PresenceReportingAreaNode getPresenceReportingAreaNode()
 	{
-		if(presenceReportingAreaNode==null)
-			return null;
-		
-		return presenceReportingAreaNode.getUnsigned();
+		return presenceReportingAreaNode;
 	}
 	
-	public void setPresenceReportingAreaNode(Long value)
+	public void setPresenceReportingAreaNode(PresenceReportingAreaNode value)
 	{
-		if(value==null)
-			this.presenceReportingAreaNode = null;
-		else
-			this.presenceReportingAreaNode = new PresenceReportingAreaNodeImpl(value, null, null);			
+		this.presenceReportingAreaNode = value;			
 	}
 }

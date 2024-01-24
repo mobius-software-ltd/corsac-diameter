@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.PMRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchRequest;
@@ -72,21 +71,15 @@ public class ProSeMatchRequestImpl extends Pc6RequestImpl implements ProSeMatchR
 	}
 	
 	@Override	
-	public Long getPMRFlags()
+	public PMRFlags getPMRFlags()
 	{
-		if(pmrFlags == null)
-			return null;
-		
-		return pmrFlags.getUnsigned();
+		return pmrFlags;
 	}
 	
 	@Override	
-	public void setPMRFlags(Long value)
+	public void setPMRFlags(PMRFlags value)
 	{
-		if(value == null)
-			this.pmrFlags = null;
-		else
-			this.pmrFlags = new PMRFlagsImpl(value, null, null);
+		this.pmrFlags = value;
 	}
 		
 	@DiameterValidate

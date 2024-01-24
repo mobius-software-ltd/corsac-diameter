@@ -256,7 +256,7 @@ public class INInformationImpl implements INInformation
 	
 	private ChargeNumberNature chargeNumberNature;
 	
-	protected INInformationImpl()
+	public INInformationImpl()
 	{
 		
 	}

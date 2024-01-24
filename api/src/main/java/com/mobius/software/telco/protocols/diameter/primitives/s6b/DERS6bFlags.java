@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6b;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
  */
 @DiameterAvpDefinition(code = 1523L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "DER-S6b-Flags")
-public interface DERS6bFlags extends DiameterUnsigned32
+public interface DERS6bFlags extends DiameterBitmask32
 {
+	public static final int INITIAL_ATTACH_INDICATOR_BIT = 0;	
+	
+	public void setInitialAttachIndicatorBit(boolean isOn);
+	
+	public boolean isInitialAttachIndicatorBitSet();
 }

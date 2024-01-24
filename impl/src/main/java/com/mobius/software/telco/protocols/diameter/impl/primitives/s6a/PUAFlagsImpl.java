@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PUAFlags;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.PUAFlags;
 *
 */
 @DiameterAvpImplementation(code = 1442L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PUAFlagsImpl extends DiameterUnsigned32Impl implements PUAFlags
+public class PUAFlagsImpl extends DiameterBitmask32Impl implements PUAFlags
 {
-	protected PUAFlagsImpl()
+	public PUAFlagsImpl()
 	{
 		super();
 	}
-
-	protected PUAFlagsImpl(Long minValue, Long maxValue)
+	
+	protected PUAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PUAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setFreezeMTMSIBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(FREEZE_MTMSI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isFreezeMTMSIBitSet()
+	{
+		return getBit(FREEZE_MTMSI_BIT);
+	}
+
+	@Override
+	public void setFreezePTMSIBit(boolean isOn)
+	{
+		setBit(FREEZE_PTMSI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isFreezePTMSIBitSet()
+	{
+		return getBit(FREEZE_PTMSI_BIT);
 	}
 }

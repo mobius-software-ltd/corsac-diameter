@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVAFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVAFlags;
 *
 */
 @DiameterAvpImplementation(code = 1640L, vendorId = KnownVendorIDs.TGPP_ID)
-public class UVAFlagsImpl extends DiameterUnsigned32Impl implements UVAFlags
+public class UVAFlagsImpl extends DiameterBitmask32Impl implements UVAFlags
 {
-	protected UVAFlagsImpl()
+	public UVAFlagsImpl()
 	{
 		super();
 	}
-
-	protected UVAFlagsImpl(Long minValue, Long maxValue)
+	
+	protected UVAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public UVAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setTemporaryEmptyVPLMNCSGSubscriptionDataBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(TEMPORARY_EMPTY_VPLMN_CSG_SUBSCRIPTION_DATA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTemporaryEmptyVPLMNCSGSubscriptionDataBitSet()
+	{
+		return getBit(TEMPORARY_EMPTY_VPLMN_CSG_SUBSCRIPTION_DATA_BIT);
 	}
 }

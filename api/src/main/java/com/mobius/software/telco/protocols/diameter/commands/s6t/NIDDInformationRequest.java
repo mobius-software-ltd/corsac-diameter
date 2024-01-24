@@ -27,6 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupUserIden
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MTCProviderInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthorizationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthorizationUpdate;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIRFlags;
 
 /**
 *
@@ -78,9 +79,9 @@ public interface NIDDInformationRequest extends S6tRequest
 	
 	void setNIDDAuthorizationUpdate(NIDDAuthorizationUpdate value);
 	
-	Long getNIRFlags();
+	NIRFlags getNIRFlags();
 	
-	void setNIRFlags(Long value);
+	void setNIRFlags(NIRFlags value);
 	
 	List<GroupUserIdentifier> getGroupUserIdentifier();
 	

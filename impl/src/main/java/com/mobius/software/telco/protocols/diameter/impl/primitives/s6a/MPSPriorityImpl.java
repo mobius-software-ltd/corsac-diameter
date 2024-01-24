@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MPSPriority;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.MPSPriority;
 *
 */
 @DiameterAvpImplementation(code = 1616L, vendorId = KnownVendorIDs.TGPP_ID)
-public class MPSPriorityImpl extends DiameterUnsigned32Impl implements MPSPriority
+public class MPSPriorityImpl extends DiameterBitmask32Impl implements MPSPriority
 {
-	protected MPSPriorityImpl()
+	public MPSPriorityImpl()
 	{
 		super();
 	}
-
-	protected MPSPriorityImpl(Long minValue, Long maxValue)
+	
+	protected MPSPriorityImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public MPSPriorityImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setMPSCSPriorityBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(MPS_CS_PRIORITY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMPSCSPriorityBitSet()
+	{
+		return getBit(MPS_CS_PRIORITY_BIT);
+	}
+
+	@Override
+	public void setMPSEPSPriorityBit(boolean isOn)
+	{
+		setBit(MPS_EPS_PRIORITY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMPSEPSPriorityBitSet()
+	{
+		return getBit(MPS_EPS_PRIORITY_BIT);
 	}
 }

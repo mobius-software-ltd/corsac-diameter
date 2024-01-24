@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -48,6 +48,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE: 	Bits not defined in this table shall be cleared by the sending BM-SC and ignored by the receiving MBMS GW.
  */
 @DiameterAvpDefinition(code = 931L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBMS-Flags")
-public interface MBMSFlags extends DiameterUnsigned32
+public interface MBMSFlags extends DiameterBitmask32
 {
+	public static final int MSRI_BIT = 0;	
+	public static final int LMBCRI_BIT = 1;	
+	
+	public void setMSRIBit(boolean isOn);
+	
+	public boolean isMSRIBitSet();
+	
+	public void setLMBCRIBit(boolean isOn);
+	
+	public boolean isLMBCRIBitSet();
 }

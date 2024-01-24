@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
+import com.mobius.software.telco.protocols.diameter.primitives.t6a.TDAFlags;
 
 /**
 *
@@ -80,7 +81,7 @@ public interface MTDataAnswer extends T6aAnswer
 	
 	void setRequestedRetransmissionTime	(Date value);	
 	
-	Long getTDAFlags();
+	TDAFlags getTDAFlags();
 	
-	void setTDAFlags(Long value);	
+	void setTDAFlags(TDAFlags value);	
 }

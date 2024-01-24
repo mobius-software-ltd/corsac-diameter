@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.PURFlags;
 
 /**
 *
@@ -58,9 +59,9 @@ public interface PurgeUERequest extends S6aRequest
 	 
 	void setOCSupportedFeatures(OCSupportedFeatures value);
 	 		
-	Long getPURFlags();
+	PURFlags getPURFlags();
 	
-	void setPURFlags(Long value);
+	void setPURFlags(PURFlags value);
 	
 	EPSLocationInformation getEPSLocationInformation();
 	

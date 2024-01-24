@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	3 AMF The requested data apply to the AMF (for 3GPP access) 
  */
 @DiameterAvpDefinition(code = 713L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Requested-Nodes")
-public interface RequestedNodes extends DiameterUnsigned32
+public interface RequestedNodes extends DiameterBitmask32
 {
+	public static final int MME_BIT = 0;	
+	public static final int SGSN_BIT = 1;	
+	public static final int TGPP_AAASERVER_TWAN_BIT = 2;	
+	public static final int AMF_BIT = 3;	
+	
+	public void setMMEBit(boolean isOn);
+	
+	public boolean isMMEBitSet();
+	
+	public void setSGSNBit(boolean isOn);
+	
+	public boolean isSGSNBitSet();
+	
+	public void set3GPPAAASERVERTWANBit(boolean isOn);
+	
+	public boolean is3GPPAAASERVERTWANBitSet();
+	
+	public void setAMFBit(boolean isOn);
+	
+	public boolean isAMFBitSet();
 }

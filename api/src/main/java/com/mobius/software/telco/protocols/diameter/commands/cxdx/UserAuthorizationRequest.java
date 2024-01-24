@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserAuthorizationTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
@@ -74,7 +75,7 @@ public interface UserAuthorizationRequest extends CxDxRequest
 	
 	void setUserAuthorizationType(UserAuthorizationTypeEnum value);
 	
-	Long getUARFlags();
+	UARFlags getUARFlags();
 	
-	void setUARFlags(Long value);	
+	void setUARFlags(UARFlags value);	
 }

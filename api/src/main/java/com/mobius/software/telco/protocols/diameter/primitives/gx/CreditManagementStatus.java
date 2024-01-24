@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -69,6 +69,41 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE: Applicable only over Sd reference point. 
  */
 @DiameterAvpDefinition(code = 1082L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Credit-Management-Status")
-public interface CreditManagementStatus extends DiameterUnsigned32
+public interface CreditManagementStatus extends DiameterBitmask32
 {
+	public static final int END_USER_SERVICE_DENIED_BIT = 0;	
+	public static final int CREDIT_CONTROL_NOT_APPLICABLE_BIT = 1;	
+	public static final int AUTHORIZATION_REJECTED_BIT = 2;	
+	public static final int USER_UNKNOWN_BIT = 3;	
+	public static final int RATING_FAILED_BIT = 4;	
+	public static final int NO_GYN_SESSION_SERVICE_ALLOWED_BIT = 5;	
+	public static final int NO_GYN_SESSION_SERVICE_NOT_ALLOWED_BIT = 6;	
+	
+	public void setEndUserServiceDeniedBit(boolean isOn);
+	
+	public boolean isEndUserServiceDeniedBitSet();
+	
+	public void setCreditControlNotApplicableBit(boolean isOn);
+	
+	public boolean isCreditControlNotApplicableBitSet();
+	
+	public void setAuthorizationRejectedBit(boolean isOn);
+	
+	public boolean isAuthorizationRejectedBitSet();
+	
+	public void setUserUnknownBit(boolean isOn);
+	
+	public boolean isUserUnknownBitSet();
+	
+	public void setRatingFailedBit(boolean isOn);
+	
+	public boolean isRatingFailedBitSet();
+	
+	public void setNoGynSessionServiceAllowedBit(boolean isOn);
+	
+	public boolean isNoGynSessionServiceAllowedBitSet();
+	
+	public void setNoGynSessionServiceNotAllowedBit(boolean isOn);
+	
+	public boolean isNoGynSessionServiceNotAllowedBitSet();
 }

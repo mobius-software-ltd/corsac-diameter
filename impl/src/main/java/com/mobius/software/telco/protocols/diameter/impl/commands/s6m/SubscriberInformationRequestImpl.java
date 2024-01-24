@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SCSIdentityImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ServiceIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -66,7 +65,7 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 		super();
 	}
 	
-	public SubscriberInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,Long sirFlags)
+	public SubscriberInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,SIRFlags sirFlags)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -142,21 +141,18 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 	}
 	
 	@Override
-	public Long getSIRFlags()
+	public SIRFlags getSIRFlags()
 	{
-		if(sirFlags == null)
-			return null;
-		
-		return sirFlags.getUnsigned();
+		return sirFlags;
 	}
 	
 	@Override
-	public void setSIRFlags(Long value)
+	public void setSIRFlags(SIRFlags value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("SIR-Flags is required");
 		
-		this.sirFlags = new SIRFlagsImpl(value, null, null);
+		this.sirFlags = value;
 	}	
 	
 	@Override

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.slh;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -46,6 +46,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE1: Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving GMLC. 
  */
 @DiameterAvpDefinition(code = 2411L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RIA-Flags")
-public interface RIAFlags extends DiameterUnsigned32
+public interface RIAFlags extends DiameterBitmask32
 {
+	public static final int COMBINED_MME_BIT = 0;	
+	
+	public void setCombinedMMEBit(boolean isOn);
+	
+	public boolean isCombinedMMEBitSet();	
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE1:	Bits not defined in this table shall be cleared by the sending GMLC and discarded by the receiving MME or SGSN.
  */
 @DiameterAvpDefinition(code = 2549L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "LRA-Flags")
-public interface LRAFlags extends DiameterUnsigned32
+public interface LRAFlags extends DiameterBitmask32
 {
+	public static final int MOLR_SHORT_CIRCUIT_INDICATOR_BIT = 0;	
+	
+	public void setMOLRShortCircuitIndicatorBit(boolean isOn);
+	
+	public boolean isMOLRShortCircuitIndicatorBitSet();	
 }

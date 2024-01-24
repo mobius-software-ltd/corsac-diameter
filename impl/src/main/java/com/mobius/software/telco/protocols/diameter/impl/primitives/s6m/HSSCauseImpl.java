@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.HSSCause;
 
@@ -29,20 +29,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.HSSCause;
 *
 */
 @DiameterAvpImplementation(code = 3109L, vendorId = KnownVendorIDs.TGPP_ID)
-public class HSSCauseImpl extends DiameterUnsigned32Impl implements HSSCause
+public class HSSCauseImpl extends DiameterBitmask32Impl implements HSSCause
 {
-	protected HSSCauseImpl()
+	public HSSCauseImpl()
 	{
 		super();
 	}
 
-	protected HSSCauseImpl(Long minValue, Long maxValue)
+	public HSSCauseImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public HSSCauseImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setAbsentSubscriberBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(ABSENT_SUBSCRIBER_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAbsentSubscriberBitSet()
+	{
+		return getBit(ABSENT_SUBSCRIBER_BIT);
+	}
+
+	@Override
+	public void setTeleserviceNotProvisionedBit(boolean isOn)
+	{
+		setBit(TELESERVICE_NOT_PROVISIONED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTeleserviceNotProvisionedBitSet()
+	{
+		return getBit(TELESERVICE_NOT_PROVISIONED_BIT);
+	}
+
+	@Override
+	public void setCallBarredBit(boolean isOn)
+	{
+		setBit(CALL_BARRED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isCallBarredBitSet()
+	{
+		return getBit(CALL_BARRED_BIT);
 	}
 }

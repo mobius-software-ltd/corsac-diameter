@@ -327,6 +327,12 @@ public class EAPAnswerImpl extends SwmAnswerWithIdImpl implements EAPAnswer
 	}
 	
 	@Override
+	public void setSupportedFeatures(List<SupportedFeatures> value)
+	{
+		this.supportedFeatures = value;
+	}
+    
+	@Override
 	public OCSupportedFeatures getOCSupportedFeatures()
 	{
 		return this.ocSupportedFeatures;
@@ -362,12 +368,6 @@ public class EAPAnswerImpl extends SwmAnswerWithIdImpl implements EAPAnswer
 		this.load = value;
 	}
 			 
-	@Override
-	public void setSupportedFeatures(List<SupportedFeatures> value)
-	{
-		this.supportedFeatures = value;
-	}
-    
 	@Override
 	public AccessNetworkInfo getAccessNetworkInfo()
 	{

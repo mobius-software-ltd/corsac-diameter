@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -46,6 +46,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when set, indicates that the time window of the transfer policy has not yet occurred.
  */
 @DiameterAvpDefinition(code = 548L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Service-Authorization-Info")
-public interface ServiceAuthorizationInfo extends DiameterUnsigned32
+public interface ServiceAuthorizationInfo extends DiameterBitmask32
 {
+	public static final int THE_TRANSFER_POLICY_IS_KNOWN_BIT = 0;	
+	public static final int THE_TRANSFER_POLICY_HAS_EXPIRED_BIT = 1;	
+	public static final int THE_TIME_WINDOW_OF_THE_TRANSFER_POLICY_HAS_OCCURED_BIT = 2;	
+	
+	public void setTheTransferPolicyIsKnownBit(boolean isOn);
+	
+	public boolean isTheTransferPolicyIsKnownBitSet();
+	
+	public void setTheTransferPolicyHasExpiredBit(boolean isOn);
+	
+	public boolean isTheTransferPolicyHasExpiredBitSet();
+	
+	public void setTheTimeWindowOfTheTransferPolicyHasOccurredBit(boolean isOn);
+	
+	public boolean isTheTimeWindowOfTheTransferPolicyHasOccurredBitSet();
 }

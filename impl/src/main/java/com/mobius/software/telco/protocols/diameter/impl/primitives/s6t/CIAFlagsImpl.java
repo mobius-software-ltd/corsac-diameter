@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.CIAFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.CIAFlags;
 *
 */
 @DiameterAvpImplementation(code = 3164L, vendorId = KnownVendorIDs.TGPP_ID)
-public class CIAFlagsImpl extends DiameterUnsigned32Impl implements CIAFlags
+public class CIAFlagsImpl extends DiameterBitmask32Impl implements CIAFlags
 {
-	protected CIAFlagsImpl()
+	public CIAFlagsImpl()
 	{
 		super();
 	}
 
-	protected CIAFlagsImpl(Long minValue, Long maxValue)
+	protected CIAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public CIAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setGroupConfigurationInProgressBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(GROUP_CONFIGURATION_IN_PROGRESS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isGroupConfigurationInProgressBitSet()
+	{
+		return getBit(GROUP_CONFIGURATION_IN_PROGRESS_BIT);
 	}
 }

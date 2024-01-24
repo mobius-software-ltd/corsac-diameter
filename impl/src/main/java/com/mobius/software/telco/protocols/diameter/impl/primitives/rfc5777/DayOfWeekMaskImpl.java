@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfWeekMask;
 
 /**
@@ -28,20 +28,33 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfWeek
 *
 */
 @DiameterAvpImplementation(code = 563L, vendorId = -1L)
-public class DayOfWeekMaskImpl extends DiameterUnsigned32Impl implements DayOfWeekMask
+public class DayOfWeekMaskImpl extends DiameterBitmask32Impl implements DayOfWeekMask
 {
-	protected DayOfWeekMaskImpl() 
+	public DayOfWeekMaskImpl() 
 	{
 		super();
 	}
 	
-	protected DayOfWeekMaskImpl(Long minValue,Long maxValue) 
+	protected DayOfWeekMaskImpl(Integer value) 
 	{
-		super(minValue,maxValue);
+		super(value);
 	}
-	
-	public DayOfWeekMaskImpl(Long value,Long minValue,Long maxValue) 
+
+	@Override
+	public void setDayBit(int dom, boolean isOn)
 	{
-		super(value,minValue,maxValue);
+		if(dom<0 || dom>7)
+			throw new RuntimeException("Invalid day of week(should be between 1 and 7)");
+		
+		setBit(dom-1, isOn);
+	}
+
+	@Override
+	public boolean isDayBitSet(int dom)
+	{
+		if(dom<0 || dom>7)
+			throw new RuntimeException("Invalid day of week(should be between 1 and 7)");		
+		
+		return getBit(dom-1);
 	}
 }

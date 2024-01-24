@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.ConnectivityFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.ConnectivityF
 *
 */
 @DiameterAvpImplementation(code = 1529L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ConnectivityFlagsImpl extends DiameterUnsigned32Impl implements ConnectivityFlags
+public class ConnectivityFlagsImpl extends DiameterBitmask32Impl implements ConnectivityFlags
 {
-	protected ConnectivityFlagsImpl()
+	public ConnectivityFlagsImpl()
 	{
 		super();
 	}
 
-	protected ConnectivityFlagsImpl(Long minValue, Long maxValue)
+	public ConnectivityFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ConnectivityFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setInitialAttachIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(INITIAL_ATTACH_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isInitialAttachIndicatorBitSet()
+	{
+		return getBit(INITIAL_ATTACH_INDICATOR_BIT);
 	}
 }

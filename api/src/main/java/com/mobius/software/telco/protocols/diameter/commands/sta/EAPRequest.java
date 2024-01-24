@@ -29,6 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSCapabi
 import com.mobius.software.telco.protocols.diameter.primitives.rfc6942.ERPRKRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.sta.DERFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANConnectivityParameters;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.WLANIdentifier;
 
@@ -146,9 +147,9 @@ public interface EAPRequest extends StaRequest
 	
 	void setWLANIdentifier(WLANIdentifier value);
 	
-	Long getDERFlags();
+	DERFlags getDERFlags();
 	
-	void setDERFlags(Long value);
+	void setDERFlags(DERFlags value);
 
 	Long getTWANConnectionMode();
 	

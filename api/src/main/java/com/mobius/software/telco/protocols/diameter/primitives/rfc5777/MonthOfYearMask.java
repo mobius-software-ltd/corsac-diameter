@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 
 /**
 *
@@ -55,6 +55,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	Condition AVP, the time windows match during all months of the year.
  */
 @DiameterAvpDefinition(code = 565L, vendorId = -1L, name = "Month-Of-Year-Mask")
-public interface MonthOfYearMask extends DiameterUnsigned32
+public interface MonthOfYearMask extends DiameterBitmask32
 {
+	public static final int JANUARY = 1;
+	public static final int FEBRUARY = 2;
+	public static final int MARCH = 3;
+	public static final int APRIL = 4;
+	public static final int MAY = 5;
+	public static final int JUNE = 6;
+	public static final int JULY = 7;
+	public static final int AUGUST = 8;
+	public static final int SEPTEMBER = 9;
+	public static final int OCTOBER = 10;
+	public static final int NOVEMBER = 11;
+	public static final int DECEMBER = 12;
+	
+	public void setMonthBit(int dow, boolean isOn);
+	
+	public boolean isMonthBitSet(int dow);
 }

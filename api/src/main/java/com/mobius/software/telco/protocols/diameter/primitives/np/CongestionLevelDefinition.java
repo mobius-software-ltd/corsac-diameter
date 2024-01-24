@@ -43,7 +43,7 @@ public interface CongestionLevelDefinition extends DiameterGroupedAvp
 	
 	void setCongestionLevelSetId(Long value);
 	
-	Long getCongestionLevelRange();
+	CongestionLevelRange getCongestionLevelRange();
 	
-	void setCongestionLevelRange(Long value);
+	void setCongestionLevelRange(CongestionLevelRange value);
 }

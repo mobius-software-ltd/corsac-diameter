@@ -226,20 +226,14 @@ public class MonitoringEventReportImpl extends DiameterGroupedAvpImpl implements
 			this.roamingInformation = new RoamingInformationImpl(value, null, null);
 	}
 	
-	public Long getIMEIChange()
+	public IMEIChange getIMEIChange()
 	{
-		if(imeiChange == null)
-			return null;
-		
-		return imeiChange.getUnsigned();
+		return imeiChange;
 	}
 	
-	public void setIMEIChange(Long value)
+	public void setIMEIChange(IMEIChange value)
 	{
-		if(value == null)
-			this.imeiChange = null;
-		else
-			this.imeiChange = new IMEIChangeImpl(value, null, null);
+		this.imeiChange = value;
 	}
 	
 	public TerminalInformation getTerminalInformation()

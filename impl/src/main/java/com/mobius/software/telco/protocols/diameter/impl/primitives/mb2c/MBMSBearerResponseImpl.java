@@ -113,20 +113,14 @@ public class MBMSBearerResponseImpl extends DiameterGroupedAvpImpl implements MB
 			this.mbmsSessionDuration = new MBMSSessionDurationImpl(value, null, null);			
 	}
 	
-	public Long getMBMSBearerResult()
+	public MBMSBearerResult getMBMSBearerResult()
 	{
-		if(mbmsBearerResult==null)
-			return null;
-		
-		return mbmsBearerResult.getUnsigned();
+		return mbmsBearerResult;
 	}
 	
-	public void setMBMSBearerResult(Long value)
+	public void setMBMSBearerResult(MBMSBearerResult value)
 	{
-		if(value==null)
-			this.mbmsBearerResult = null;
-		else
-			this.mbmsBearerResult = new MBMSBearerResultImpl(value, null, null);			
+		this.mbmsBearerResult = value;			
 	}
 	
 	public List<InetAddress> getBMSCAddress()

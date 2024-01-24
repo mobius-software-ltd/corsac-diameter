@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.pc4a.PNRFlags;
+import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSePermission;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 import io.netty.buffer.ByteBuf;
@@ -61,17 +63,17 @@ public interface ProSeNotifyRequest extends Pc4aRequest
 	
 	void setAuthSessionState(AuthSessionStateEnum value);
 
-	Long getProSePermission();
+	ProSePermission getProSePermission();
 	
-	void setProSePermission(Long value);
+	void setProSePermission(ProSePermission value);
 			 
 	ByteBuf getVisitedPLMNId();
 	
 	void setVisitedPLMNId(ByteBuf value);
 		
-	Long getPNRFlags();
+	PNRFlags getPNRFlags();
 	
-	void setPNRFlags(Long value);
+	void setPNRFlags(PNRFlags value);
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	 

@@ -364,21 +364,21 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	}
 
 	@Override
-	public void setOriginatingLineInfo(ByteBuf value) 
-	{
-		if(value == null)
-			this.originatingLineInfo = null;
-		else
-			this.originatingLineInfo = new OriginatingLineInfoImpl(value, null, null);
-	}
-
-	@Override
 	public ByteBuf getOriginatingLineInfo() 
 	{
 		if(originatingLineInfo == null)
 			return null;
 		
 		return originatingLineInfo.getValue();
+	}
+
+	@Override
+	public void setOriginatingLineInfo(ByteBuf value) 
+	{
+		if(value == null)
+			this.originatingLineInfo = null;
+		else
+			this.originatingLineInfo = new OriginatingLineInfoImpl(value, null, null);
 	}
 
 	@Override

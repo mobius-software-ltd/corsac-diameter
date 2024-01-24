@@ -18,7 +18,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeIm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.NIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RetryIntervalImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceAuthorizationInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -231,20 +230,14 @@ public class AAAnswerImpl extends RxAnswerImpl implements AAAnswer
 			this.anTrusted = new ANTrustedImpl(value, null, null);
 	}		
 	
-	public Long getServiceAuthorizationInfo()
+	public ServiceAuthorizationInfo getServiceAuthorizationInfo()
 	{
-		if(serviceAuthorizationInfo==null)
-			return null;
-		
-		return this.serviceAuthorizationInfo.getUnsigned();
+		return this.serviceAuthorizationInfo;
 	}
 	
-	public void setServiceAuthorizationInfo(Long value)
+	public void setServiceAuthorizationInfo(ServiceAuthorizationInfo value)
 	{
-		if(value==null)
-			this.serviceAuthorizationInfo = null;
-		else
-			this.serviceAuthorizationInfo = new ServiceAuthorizationInfoImpl(value, null, null);
+		this.serviceAuthorizationInfo = value;
 	}	
 	
 	@Override

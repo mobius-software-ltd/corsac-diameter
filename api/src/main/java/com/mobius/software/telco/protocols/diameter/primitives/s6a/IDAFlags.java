@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Note: Bits not defined in this table shall be cleared by the sending SGSN and discarded by the receiving HSS.
  */
 @DiameterAvpDefinition(code = 1441L, vendorId = KnownVendorIDs.TGPP_ID, name = "IDA-Flags")
-public interface IDAFlags extends DiameterUnsigned32
+public interface IDAFlags extends DiameterBitmask32
 {
+	public static final int NETWORK_NODE_AREA_RESTRICTED_BIT = 0;
+	
+	public void setNetworkNodeAreaRestrictedBit(boolean isOn);
+	
+	public boolean isNetworkNodeAreaRestrictedBitSet();
 }

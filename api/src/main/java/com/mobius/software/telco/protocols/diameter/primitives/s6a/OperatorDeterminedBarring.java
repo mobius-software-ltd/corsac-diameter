@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -55,6 +55,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
  */
 @DiameterAvpDefinition(code = 1425L, vendorId = KnownVendorIDs.TGPP_ID, name = "Operator-Determined-Barring")
-public interface OperatorDeterminedBarring extends DiameterUnsigned32
+public interface OperatorDeterminedBarring extends DiameterBitmask32
 {
+	public static final int ALL_PACKET_ORIENTED_SERVICES_BARRED_BIT = 0;
+	public static final int ROAMER_ACCESS_HPLMN_AP_BARRED_BIT = 1;
+	public static final int ROAMER_ACCESS_VPLMN_AP_BARRED_BIT = 2;
+	public static final int BARRING_ALL_OUTGOING_CALLS_BIT = 3;
+	public static final int BARRING_ALL_OUTGOING_INTERNATIONAL_CALLS_BIT = 4;
+	public static final int BARRING_ALL_OUTGOING_INTERNATIONAL_BUT_HOME_CALLS_BIT = 5;
+	public static final int BARRING_ALL_OUTGOING_INTERZONAL_CALLS_BIT = 6;
+	public static final int BARRING_ALL_OUTGOING_INTERZONAL_BUT_HOME_CALLS_BIT = 7;
+	public static final int BARRING_ALL_OUTGOING_INTERNATIONAL_BUT_HOME_AND_INTERZONAL_CALLS_BIT = 8;
+	
+	public void setAllPacketOrientedServicesBarredBit(boolean isOn);
+	
+	public boolean isAllPacketOrientedServicesBarredBitSet();
+	
+	public void setRoamerAccessHPLMNAPBarredBit(boolean isOn);
+	
+	public boolean isRoamerAccessHPLMNAPBarredBitSet();
+	
+	public void setRoamerAccessVPLMNAPBarredBit(boolean isOn);
+	
+	public boolean isRoamerAccessVPLMNAPBarredBitSet();
+	
+	public void setBarringAllOutgoingCallsBit(boolean isOn);
+	
+	public boolean isBarringAllOutgoingCallsBitSet();
+	
+	public void setBarringAllOutgoingInternationalCallsBit(boolean isOn);
+	
+	public boolean isBarringAllOutgoingInternationalCallsBitSet();
+	
+	public void setBarringAllOutgoingInternationalButHomeCallsBit(boolean isOn);
+	
+	public boolean isBarringAllOutgoingInternationalButHomeCallsBitSet();
+	
+	public void setBarringAllOutgoingInterzonalCallsBit(boolean isOn);
+	
+	public boolean isBarringAllOutgoingInterzonalCallsBitSet();
+	
+	public void setBarringAllOutgoingInterzonalButHomeCallsBit(boolean isOn);
+	
+	public boolean isBarringAllOutgoingInterzonalButHomeCallsBitSet();
+	
+	public void setBarringAllOutgoingInternationalButHomeAndInterzonalCallsBit(boolean isOn);
+	
+	public boolean isBarringAllOutgoingInternationalButHomeAndInterzonalCallsBitSet();
 }

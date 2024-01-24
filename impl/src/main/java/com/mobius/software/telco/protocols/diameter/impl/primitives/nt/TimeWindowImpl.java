@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nt;
 import java.util.Date;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TimeWindow;
@@ -39,8 +40,11 @@ public class TimeWindowImpl extends DiameterGroupedAvpImpl implements TimeWindow
 	
 	private TransferEndTime transferEndTime;
 	
-	public TimeWindowImpl()
+	public TimeWindowImpl(Date transferStartTime,Date transferEndTime)
 	{
+		setTransferStartTime(transferStartTime);
+		
+		setTransferEndTime(transferEndTime);
 	}
 	
 	public Date getTransferStartTime()
@@ -54,9 +58,9 @@ public class TimeWindowImpl extends DiameterGroupedAvpImpl implements TimeWindow
 	public void setTransferStartTime(Date value)
 	{
 		if(value==null)
-			this.transferStartTime = null;
-		else
-			this.transferStartTime = new TransferStartTimeImpl(value, null, null);
+			throw new IllegalArgumentException("Transfer-Start-Time is required");
+		
+		this.transferStartTime = new TransferStartTimeImpl(value, null, null);
 	}
 	
 	public Date getTransferEndTime()
@@ -70,8 +74,20 @@ public class TimeWindowImpl extends DiameterGroupedAvpImpl implements TimeWindow
 	public void setTransferEndTime(Date value)
 	{
 		if(value==null)
-			this.transferEndTime = null;
-		else
-			this.transferEndTime = new TransferEndTimeImpl(value, null, null);
+			throw new IllegalArgumentException("Transfer-End-Time is required");
+		
+		this.transferEndTime = new TransferEndTimeImpl(value, null, null);
+	}
+	
+	@DiameterValidate
+	public String validate()
+	{
+		if(transferStartTime==null)
+			return "Transfer-Start-Time is required";
+		
+		if(transferEndTime==null)
+			return "Transfer-End-Time is required";
+		
+		return null;
 	}
 }

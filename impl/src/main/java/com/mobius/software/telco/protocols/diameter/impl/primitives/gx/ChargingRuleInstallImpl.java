@@ -140,20 +140,14 @@ public class ChargingRuleInstallImpl extends DiameterGroupedAvpImpl implements C
 			this.bearerIdentifier = new BearerIdentifierImpl(value, null, null);			
 	}
 	
-	public Long getMonitoringFlags()
+	public MonitoringFlags getMonitoringFlags()
 	{
-		if(monitoringFlags==null)
-			return null;
-		
-		return monitoringFlags.getUnsigned();
+		return monitoringFlags;
 	}
 	
-	public void setMonitoringFlags(Long value)
+	public void setMonitoringFlags(MonitoringFlags value)
 	{
-		if(value==null)
-			this.monitoringFlags = null;
-		else
-			this.monitoringFlags = new MonitoringFlagsImpl(value, null, null);			
+		this.monitoringFlags = value;			
 	}
 	
 	public Date getRuleActivationTime()

@@ -55,22 +55,13 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
     	super();
     }
     
-    public MBMSBearerEventNotificationImpl(ByteBuf tmgi,ByteBuf mbmsFlowIdentifier,Long mbmsBearerEvent)
+    public MBMSBearerEventNotificationImpl(ByteBuf tmgi,ByteBuf mbmsFlowIdentifier,MBMSBearerEvent mbmsBearerEvent)
     {
-    	if(tmgi==null)
-			throw new IllegalArgumentException("TMGI is required");
-		
-    	if(mbmsFlowIdentifier==null)
-			throw new IllegalArgumentException("MBMS-Flow-Identifier is required");
-		
-    	if(mbmsBearerEvent==null)
-			throw new IllegalArgumentException("MBMS‑Bearer‑Event is required");
-		
-		this.tmgi = new TMGIImpl(tmgi,null,null);
+    	setTMGI(tmgi);
     	
-    	this.mbmsFlowIdentifier = new MBMSFlowIdentifierImpl(mbmsFlowIdentifier,null,null);
+    	setMBMSFlowIdentifier(mbmsFlowIdentifier);
     	
-    	this.mbmsBearerEvent = new MBMSBearerEventImpl(mbmsBearerEvent,null,null);
+    	setMBMSBearerEvent(mbmsBearerEvent);    	
     }
     
 	public ByteBuf getTMGI()
@@ -105,20 +96,17 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
 		this.mbmsFlowIdentifier = new MBMSFlowIdentifierImpl(value, null, null);	
 	}
 	
-	public Long getMBMSBearerEvent()
+	public MBMSBearerEvent getMBMSBearerEvent()
 	{
-		if(mbmsBearerEvent==null)
-			return null;
-		
-		return mbmsBearerEvent.getUnsigned();
+		return mbmsBearerEvent;
 	}
 	
-	public void setMBMSBearerEvent(Long value)
+	public void setMBMSBearerEvent(MBMSBearerEvent value)
 	{
 		if(value==null)
 			throw new IllegalArgumentException("MBMS‑Bearer‑Event is required");
 		
-		this.mbmsBearerEvent = new MBMSBearerEventImpl(value, null, null);	
+		this.mbmsBearerEvent = value;	
 	}
 	
 	public MBMSBearerEventDiagnosticInfoEnum getMBMSBearerEventDiagnosticInfo()

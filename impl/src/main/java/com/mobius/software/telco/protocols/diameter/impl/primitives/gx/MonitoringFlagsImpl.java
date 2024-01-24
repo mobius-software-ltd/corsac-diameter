@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.MonitoringFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.MonitoringFlag
 *
 */
 @DiameterAvpImplementation(code = 2828L, vendorId = KnownVendorIDs.TGPP_ID)
-public class MonitoringFlagsImpl extends DiameterUnsigned32Impl implements MonitoringFlags
+public class MonitoringFlagsImpl extends DiameterBitmask32Impl implements MonitoringFlags
 {
-	protected MonitoringFlagsImpl()
+	public MonitoringFlagsImpl()
 	{
 		super();
 	}
 
-	protected MonitoringFlagsImpl(Long minValue, Long maxValue)
+	public MonitoringFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public MonitoringFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setEnableExcludingServiceDataFlowsBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(ENABLE_EXCLUDING_DATA_FLOWS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEnableExcludingServiceDataFlowsBitSet()
+	{
+		return getBit(ENABLE_EXCLUDING_DATA_FLOWS_BIT);
 	}
 }

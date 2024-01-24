@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swm;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
 *
 */
 @DiameterAvpImplementation(code = 1539L, vendorId = KnownVendorIDs.TGPP_ID)
-public class AARFlagsImpl extends DiameterUnsigned32Impl implements AARFlags
+public class AARFlagsImpl extends DiameterBitmask32Impl implements AARFlags
 {
-	protected AARFlagsImpl()
+	public AARFlagsImpl()
 	{
 		super();
 	}
-
-	protected AARFlagsImpl(Long minValue, Long maxValue)
+	
+	protected AARFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public AARFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setWLANLocationInfoRequestBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(WLAN_LOCATION_INFO_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isWLANLocationInfoRequestBitSet()
+	{
+		return getBit(WLAN_LOCATION_INFO_REQUEST_BIT);
 	}
 }

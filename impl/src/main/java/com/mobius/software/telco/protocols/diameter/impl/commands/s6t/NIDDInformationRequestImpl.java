@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.NIDDInformationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.NIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -126,21 +125,15 @@ public class NIDDInformationRequestImpl extends S6tRequestImpl implements NIDDIn
 	}
 	
 	@Override
-	public Long getNIRFlags()
+	public NIRFlags getNIRFlags()
 	{
-		if(nirFlags == null)
-			return null;
-		
-		return nirFlags.getUnsigned();
+		return nirFlags;
 	}
 	
 	@Override
-	public void setNIRFlags(Long value)
+	public void setNIRFlags(NIRFlags value)
 	{
-		if(value == null)
-			this.nirFlags = null;
-		else
-			this.nirFlags = new NIRFlagsImpl(value, null, null);
+		this.nirFlags = value;
 	}	
 	
 	@Override

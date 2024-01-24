@@ -18,16 +18,15 @@ package com.mobius.software.telco.protocols.diameter.commands.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Date;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
-import com.mobius.software.telco.protocols.diameter.primitives.s6c.MaximumUEAvailabilityTime;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.APNRateControlStatus;
+import com.mobius.software.telco.protocols.diameter.primitives.t6a.CMRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ConnectionActionEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.t6a.ExtendedPCO;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ServingPLMNRateControl;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.TerminalInformation;
 
@@ -92,33 +91,33 @@ public interface ConnectionManagementRequest extends T6aRequest
 	 
 	void setOCSupportedFeatures(OCSupportedFeatures value);	 
 	
-	Long getCMRFlags();
+	CMRFlags getCMRFlags();
 	
-	void setCMRFlags(Long value);
+	void setCMRFlags(CMRFlags value);
 	
-	MaximumUEAvailabilityTime getMaximumUEAvailabilityTime();
+	Date getMaximumUEAvailabilityTime();
 	
-	void setMaximumUEAvailabilityTime(MaximumUEAvailabilityTime value);
+	void setMaximumUEAvailabilityTime(Date value);
 	
 	ConnectionActionEnum getConnectionAction();
 	
 	void setConnectionAction(ConnectionActionEnum value);
 	
-	ServiceSelection getServiceSelection();
+	String getServiceSelection();
 	
-	void setServiceSelection(ServiceSelection value);	
+	void setServiceSelection(String value);	
 	
 	ServingPLMNRateControl getServingPLMNRateControl();
 	
 	void setServingPLMNRateControl(ServingPLMNRateControl value);
 	
-	ExtendedPCO getExtendedPCO();
+	ByteBuf getExtendedPCO();
 	
-	void setExtendedPCO(ExtendedPCO value);
+	void setExtendedPCO(ByteBuf value);
 	
-	TGPPChargingCharacteristics getTGPPChargingCharacteristics();
+	String getTGPPChargingCharacteristics();
 	
-	void setTGPPChargingCharacteristics(TGPPChargingCharacteristics value);
+	void setTGPPChargingCharacteristics(String value);
 	
 	RATTypeEnum getRATType();
 	

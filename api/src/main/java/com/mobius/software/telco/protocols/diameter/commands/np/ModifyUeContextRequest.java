@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
+import com.mobius.software.telco.protocols.diameter.primitives.np.ConditionalRestriction;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.np.RUCIActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.np.ReportingRestrictionEnum;
@@ -73,9 +74,9 @@ public interface ModifyUeContextRequest extends NpRequest
 	 
 	void setReportingRestriction(ReportingRestrictionEnum value);
 	
-	Long getConditionalRestriction();
+	ConditionalRestriction getConditionalRestriction();
 	 
-	void setConditionalRestriction(Long value);
+	void setConditionalRestriction(ConditionalRestriction value);
 	 		
 	RUCIActionEnum getRUCIAction();
 	 

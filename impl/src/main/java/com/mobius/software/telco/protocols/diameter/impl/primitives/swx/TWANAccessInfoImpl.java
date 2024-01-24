@@ -42,20 +42,14 @@ public class TWANAccessInfoImpl extends DiameterGroupedAvpImpl implements TWANAc
 		
 	}
 	
-	public Long getAccessAuthorizationFlags()
+	public AccessAuthorizationFlags getAccessAuthorizationFlags()
 	{
-		if(accessAuthorizationFlags==null)
-			return null;
-		
-		return accessAuthorizationFlags.getUnsigned();
+		return accessAuthorizationFlags;
 	}
 	
-	public void setAccessAuthorizationFlags(Long value)
+	public void setAccessAuthorizationFlags(AccessAuthorizationFlags value)
 	{
-		if(value==null)
-			this.accessAuthorizationFlags = null;
-		else
-			this.accessAuthorizationFlags = new AccessAuthorizationFlagsImpl(value, null, null);
+		this.accessAuthorizationFlags = value;
 	}
 	
 	public WLANIdentifier getWLANIdentifier()

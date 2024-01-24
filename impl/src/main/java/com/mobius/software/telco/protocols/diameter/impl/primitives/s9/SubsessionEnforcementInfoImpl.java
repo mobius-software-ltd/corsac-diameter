@@ -43,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AccessAva
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerOperationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerUsageImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.CreditManagementStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.HeNBLocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.IPCANTypeImpl;
@@ -608,21 +607,15 @@ public class SubsessionEnforcementInfoImpl extends DiameterGroupedAvpImpl implem
 	}
 	
 	@Override
-	public Long getCreditManagementStatus() 
+	public CreditManagementStatus getCreditManagementStatus() 
 	{
-		if(creditManagementStatus==null)
-			return null;
-		
-		return creditManagementStatus.getUnsigned();
+		return creditManagementStatus;
 	}
 	
 	@Override
-	public void setCreditManagementStatus(Long value)
+	public void setCreditManagementStatus(CreditManagementStatus value)
 	{
-		if(value==null)
-			this.creditManagementStatus = null;
-		else
-			this.creditManagementStatus = new CreditManagementStatusImpl(value, null, null);
+		this.creditManagementStatus = value;
 	}
 	
 	@Override

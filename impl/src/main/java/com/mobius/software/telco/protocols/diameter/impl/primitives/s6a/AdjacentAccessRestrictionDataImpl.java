@@ -44,7 +44,7 @@ public class AdjacentAccessRestrictionDataImpl extends DiameterGroupedAvpImpl im
 	{
 	}
 	
-	public AdjacentAccessRestrictionDataImpl(ByteBuf visitedPLMNId,Long accessRestrictionData)
+	public AdjacentAccessRestrictionDataImpl(ByteBuf visitedPLMNId,AccessRestrictionData accessRestrictionData)
 	{
 		if(visitedPLMNId==null)
 			throw new IllegalArgumentException("Visited-PLMN-Id is required");
@@ -52,9 +52,9 @@ public class AdjacentAccessRestrictionDataImpl extends DiameterGroupedAvpImpl im
 		if(accessRestrictionData==null)
 			throw new IllegalArgumentException("Access-Restriction-Data is required");
 		
-		this.visitedPLMNId = new VisitedPLMNIdImpl(visitedPLMNId, null, null);
+		setVisitedPLMNId(visitedPLMNId);
 		
-		this.accessRestrictionData = new AccessRestrictionDataImpl(accessRestrictionData, null, null);
+		setAccessRestrictionData(accessRestrictionData);
 	}
 	
 	public ByteBuf getVisitedPLMNId()
@@ -73,20 +73,20 @@ public class AdjacentAccessRestrictionDataImpl extends DiameterGroupedAvpImpl im
 		this.visitedPLMNId = new VisitedPLMNIdImpl(value, null, null);	
 	}
 	
-	public Long getAccessRestrictionData()
+	public AccessRestrictionData getAccessRestrictionData()
 	{
 		if(accessRestrictionData==null)
 			return null;
 		
-		return accessRestrictionData.getUnsigned();
+		return accessRestrictionData;
 	}
 	
-	public void setAccessRestrictionData(Long value)
+	public void setAccessRestrictionData(AccessRestrictionData value)
 	{
 		if(value==null)
 			throw new IllegalArgumentException("Access-Restriction-Data is required");
 		
-		this.accessRestrictionData = new AccessRestrictionDataImpl(value, null, null);	
+		this.accessRestrictionData = value;	
 	}
 	
 	@DiameterValidate

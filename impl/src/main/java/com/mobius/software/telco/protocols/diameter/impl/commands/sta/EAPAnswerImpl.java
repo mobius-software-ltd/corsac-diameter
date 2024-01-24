@@ -20,12 +20,10 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIRep
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ContextIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UEUsageTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.DEAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.MIPFARKImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.MIPFARKSPIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.TWANConnectionModeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.WLCPKeyImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.swm.EmergencyServicesImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctInterimInterval;
@@ -513,21 +511,15 @@ public class EAPAnswerImpl extends StaAnswerWithIdImpl implements EAPAnswer
 	}
 	
 	@Override
-	public Long getDEAFlags()
+	public DEAFlags getDEAFlags()
 	{
-		if(deaFlags == null)
-			return null;
-		
-		return deaFlags.getUnsigned();
+		return deaFlags;
 	}
 	
 	@Override
-	public void setDEAFlags(Long value)
+	public void setDEAFlags(DEAFlags value)
 	{
-		if(value==null)
-			this.deaFlags = null;
-		else
-			this.deaFlags = new DEAFlagsImpl(value, null, null);
+		this.deaFlags = value;
 	}
 	
 	@Override
@@ -609,21 +601,15 @@ public class EAPAnswerImpl extends StaAnswerWithIdImpl implements EAPAnswer
 	}
     
 	@Override
-	public Long getEmergencyServices()
+	public EmergencyServices getEmergencyServices()
 	{
-		if(emergencyServices == null)
-			return null;
-		
-		return emergencyServices.getUnsigned();
+		return emergencyServices;
 	}
     
 	@Override
-	public void setEmergencyServices(Long value)
+	public void setEmergencyServices(EmergencyServices value)
 	{
-		if(value==null)
-			this.emergencyServices = null;
-		else
-			this.emergencyServices = new EmergencyServicesImpl(value, null, null);
+		this.emergencyServices = value;
 	}
     
 	@Override

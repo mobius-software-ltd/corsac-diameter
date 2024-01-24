@@ -34,7 +34,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.APNConfigurat
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EmergencyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.ANTrustedEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.sta.DEAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANConnectivityParameters;
+import com.mobius.software.telco.protocols.diameter.primitives.swm.EmergencyServices;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.TraceInfo;
 
 import io.netty.buffer.ByteBuf;
@@ -191,9 +193,9 @@ public interface EAPAnswer extends StaAnswer
 	
 	public void setNSWOAuthorization(NSWOAuthorization value);*/
 	
-	public Long getDEAFlags();
+	public DEAFlags getDEAFlags();
 	
-	public void setDEAFlags(Long value);
+	public void setDEAFlags(DEAFlags value);
 	
 	public Long getTWANConnectionMode();
 	
@@ -215,9 +217,9 @@ public interface EAPAnswer extends StaAnswer
     
     public void setUEUsageType(Long value);
     
-    public Long getEmergencyServices();
+    public EmergencyServices getEmergencyServices();
     
-    public void setEmergencyServices(Long value);
+    public void setEmergencyServices(EmergencyServices value);
     
     public EmergencyInfo getEmergencyInfo();
     

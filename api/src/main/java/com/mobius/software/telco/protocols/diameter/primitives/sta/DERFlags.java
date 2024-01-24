@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -63,6 +63,41 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the receiver of the command.
  */
 @DiameterAvpDefinition(code = 1520L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "DER-Flags")
-public interface DERFlags extends DiameterUnsigned32
+public interface DERFlags extends DiameterBitmask32
 {
+	public static final int NSWO_CAPABILITY_INDICATION_BIT = 0;	
+	public static final int TWAN_S2A_CONNECTIVITY_INDICATOR_BIT = 1;	
+	public static final int IMEI_CHECK_REQUIRED_IN_VPLMN_BIT = 2;	
+	public static final int IMEI_CHECK_REQUEST_IN_VPLMN_BIT = 3;	
+	public static final int EMERGENCY_CAPABILIY_INDICATION_BIT = 4;	
+	public static final int ERP_SUPPORT_INDICATOR_BIT = 5;	
+	public static final int ERP_REAUTHENTICATION_BIT = 6;	
+	
+	public void setNSWOCapabilityBit(boolean isOn);
+	
+	public boolean isNSWOCapabilityBitSet();
+	
+	public void setTWANS2aConnectivityIndicatorBit(boolean isOn);
+	
+	public boolean isTWANS2aConnectivityIndicatorBitSet();
+	
+	public void setIMEICheckRequiredInVPLMNBit(boolean isOn);
+	
+	public boolean isIMEICheckRequiredInVPLMNBitSet();
+	
+	public void setIMEICheckRequestInVPLMNBit(boolean isOn);
+	
+	public boolean isIMEICheckRequestInVPLMNBitSet();
+	
+	public void setEmergencyCapabilityIndicationBit(boolean isOn);
+	
+	public boolean isEmergencyCapabilityIndicationBitSet();
+	
+	public void setERPSupportIndicationBit(boolean isOn);
+	
+	public boolean isERPSupportIndicationBitSet();		
+	
+	public void setERPReAuthenticationBit(boolean isOn);
+	
+	public boolean isERPReAuthenticationBitSet();	
 }

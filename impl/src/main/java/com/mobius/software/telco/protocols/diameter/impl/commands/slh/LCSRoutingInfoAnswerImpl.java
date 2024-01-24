@@ -11,7 +11,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImp
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.LMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.PPRAddressImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.RIAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
@@ -175,21 +174,15 @@ public class LCSRoutingInfoAnswerImpl extends SlhAnswerImpl implements LCSRoutin
 	}
 	
 	@Override
-	public Long getRIAFlags()
+	public RIAFlags getRIAFlags()
 	{
-		if(riaFlags == null)
-			return null;
-		
-		return riaFlags.getUnsigned();
+		return riaFlags;
 	}
 	 
 	@Override
-	public void setRIAFlags(Long value)
+	public void setRIAFlags(RIAFlags value)
 	{
-		if(value == null)
-			this.riaFlags = null;
-		else
-			this.riaFlags = new RIAFlagsImpl(value, null, null);
+		this.riaFlags = value;
 	}
 	
 	@DiameterOrder

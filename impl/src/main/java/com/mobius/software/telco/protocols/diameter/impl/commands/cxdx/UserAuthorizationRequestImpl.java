@@ -9,7 +9,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.UserAuthorizationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UARFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserAuthorizationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -148,20 +147,14 @@ public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implem
 			this.userAuthorizationType = new UserAuthorizationTypeImpl(value, null, null);
 	}
 	
-	public Long getUARFlags()
+	public UARFlags getUARFlags()
 	{
-		if(uarFlags == null)
-			return null;
-		
-		return uarFlags.getUnsigned();
+		return uarFlags;
 	}
 	
-	public void setUARFlags(Long value)
+	public void setUARFlags(UARFlags value)
 	{
-		if(value == null)
-			this.uarFlags = null;
-		else
-			this.uarFlags = new UARFlagsImpl(value, null, null);
+		this.uarFlags = value;
 	}
 	
 	@DiameterValidate

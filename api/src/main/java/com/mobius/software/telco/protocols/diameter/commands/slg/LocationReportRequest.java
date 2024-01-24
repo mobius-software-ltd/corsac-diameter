@@ -28,6 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.ESMLCCellInfo
 import com.mobius.software.telco.protocols.diameter.primitives.slg.GERANPositioningInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSEPSClientName;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSQoSClassEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.slg.LRRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LocationEventEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PeriodicLDRInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PseudonymIndicatorEnum;
@@ -166,9 +167,9 @@ public interface LocationReportRequest extends SlgRequest
 	 
 	void setServingNode(ServingNode value);
 	
-	Long getLRRFlags();
+	LRRFlags getLRRFlags();
 	
-	void setLRRFlags(Long value);	
+	void setLRRFlags(LRRFlags value);	
 	
 	ByteBuf getLCSReferenceNumber();
 	

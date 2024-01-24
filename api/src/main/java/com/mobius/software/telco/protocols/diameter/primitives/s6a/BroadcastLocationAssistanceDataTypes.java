@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask64;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -147,6 +147,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving MME or SGSN.
  */
 @DiameterAvpDefinition(code = 1700L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Broadcast-Location-Assistance-Data-Types")
-public interface BroadcastLocationAssistanceDataTypes extends DiameterUnsigned64
+public interface BroadcastLocationAssistanceDataTypes extends DiameterBitmask64
 {
+	public void setPositioningSIBBit(int type, int bit,boolean isOn);
+	
+	public boolean isPositioningSIBBitSet(int type, int bit);
+	
 }

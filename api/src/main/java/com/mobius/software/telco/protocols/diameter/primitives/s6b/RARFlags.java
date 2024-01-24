@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6b;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the recever of the command.
  */
 @DiameterAvpDefinition(code = 1522L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RAR-Flags")
-public interface RARFlags extends DiameterUnsigned32
+public interface RARFlags extends DiameterBitmask32
 {
+	public static final int TRUST_RELATIONSHIP_UPDATE_INDICATION_BIT = 0;	
+	public static final int PCSCF_RESTORATION_REQUEST_BIT = 1;	
+	
+	public void setTrustRelationshipUpdateIndicationBit(boolean isOn);
+	
+	public boolean isTrustRelationshipUpdateIndicationBitSet();
+	
+	public void setPCSCFRestorationRequestBit(boolean isOn);
+	
+	public boolean isPCSCFRestorationRequestBitSet();
 }

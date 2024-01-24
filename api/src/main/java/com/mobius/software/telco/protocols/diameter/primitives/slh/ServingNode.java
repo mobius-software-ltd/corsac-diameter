@@ -79,9 +79,9 @@ public interface ServingNode extends DiameterGroupedAvp
 	
 	void set3GPPAAAServerName(String value);
 	
-	Long getLCSCapabilitiesSets();
+	LCSCapabilitiesSets getLCSCapabilitiesSets();
 	
-	void setLCSCapabilitiesSets(Long value);
+	void setLCSCapabilitiesSets(LCSCapabilitiesSets value);
 	
 	InetAddress getGMLCAddress();
 	

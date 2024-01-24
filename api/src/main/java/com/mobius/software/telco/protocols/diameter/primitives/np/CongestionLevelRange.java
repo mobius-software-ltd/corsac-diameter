@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -46,6 +46,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when set, indicates that the RCAF shall report the corresponding congestion level set id to the PCRF when congestion level 1+n is reached for a certain  user id and PDN ID.
  */
 @DiameterAvpDefinition(code = 4003L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Congestion-Level-Range")
-public interface CongestionLevelRange extends DiameterUnsigned32
+public interface CongestionLevelRange extends DiameterBitmask32
 {
+	public static final int NO_CONGESTION_BIT = 0;	
+	
+	public void setNoCongestionBit(boolean isOn);
+	
+	public boolean isNoCongestionBitSet();
+	
+	public void setCongestionLevelBit(int level, boolean isOn);
+	
+	public boolean isCongestionLevelBitSet(int level);
 }

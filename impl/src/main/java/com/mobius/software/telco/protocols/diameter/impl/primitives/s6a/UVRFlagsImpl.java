@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
 *
 */
 @DiameterAvpImplementation(code = 1639L, vendorId = KnownVendorIDs.TGPP_ID)
-public class UVRFlagsImpl extends DiameterUnsigned32Impl implements UVRFlags
+public class UVRFlagsImpl extends DiameterBitmask32Impl implements UVRFlags
 {
-	protected UVRFlagsImpl()
+	public UVRFlagsImpl()
 	{
 		super();
 	}
-
-	protected UVRFlagsImpl(Long minValue, Long maxValue)
+	
+	protected UVRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public UVRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setSkipSubscriberDataBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(SKIP_SUBSCRIBER_DATA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSkipSubscriberDataBitSet()
+	{
+		return getBit(SKIP_SUBSCRIBER_DATA_BIT);
 	}
 }

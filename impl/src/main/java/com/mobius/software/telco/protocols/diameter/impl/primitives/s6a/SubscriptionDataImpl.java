@@ -251,36 +251,24 @@ public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements Subs
 			this.networkAccessMode = new NetworkAccessModeImpl(value, null, null);
 	}
 	
-	public Long getOperatorDeterminedBarring()
+	public OperatorDeterminedBarring getOperatorDeterminedBarring()
 	{
-		if(operatorDeterminedBarring == null)
-			return null;
-		
-		return operatorDeterminedBarring.getUnsigned();
+		return operatorDeterminedBarring;
 	}
 	
-	public void setOperatorDeterminedBarring(Long value)
+	public void setOperatorDeterminedBarring(OperatorDeterminedBarring value)
 	{
-		if(value == null)
-			this.operatorDeterminedBarring = null;
-		else
-			this.operatorDeterminedBarring = new OperatorDeterminedBarringImpl(value, null, null);
+		this.operatorDeterminedBarring = value;
 	}
 	
-	public Long getHPLMNODB()
+	public HPLMNODB getHPLMNODB()
 	{
-		if(hplmODB == null)
-			return null;
-		
-		return hplmODB.getUnsigned();
+		return hplmODB;
 	}
 	
-	public void setHPLMNODB(Long value)
+	public void setHPLMNODB(HPLMNODB value)
 	{
-		if(value == null)
-			this.hplmODB = null;
-		else
-			this.hplmODB = new HPLMNODBImpl(value, null, null);
+		this.hplmODB = value;
 	}
 	
 	public List<ByteBuf> getRegionalSubscriptionZoneCode()
@@ -309,20 +297,14 @@ public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements Subs
 		}
 	}
 	
-	public Long getAccessRestrictionData()
+	public AccessRestrictionData getAccessRestrictionData()
 	{
-		if(accessRestrictionData == null)
-			return null;
-		
-		return accessRestrictionData.getUnsigned();
+		return accessRestrictionData;
 	}
 	
-	public void setAccessRestrictionData(Long value)
+	public void setAccessRestrictionData(AccessRestrictionData value)
 	{
-		if(value == null)
-			this.accessRestrictionData = null;
-		else
-			this.accessRestrictionData = new AccessRestrictionDataImpl(value, null, null);
+		this.accessRestrictionData = value;
 	}
 	
 	public String getAPNOIReplacement()
@@ -485,20 +467,14 @@ public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements Subs
 			this.subscribedPeriodicRAUTAUTimer = new SubscribedPeriodicRAUTAUTimerImpl(value, null, null);
 	}	
 	
-	public Long getMPSPriority()
+	public MPSPriority getMPSPriority()
 	{
-		if(mpsPriority == null)
-			return null;
-		
-		return mpsPriority.getUnsigned();
+		return mpsPriority;
 	}
 	
-	public void setMPSPriority(Long value)
+	public void setMPSPriority(MPSPriority value)
 	{
-		if(value == null)
-			this.mpsPriority = null;
-		else
-			this.mpsPriority = new MPSPriorityImpl(value, null, null);
+		this.mpsPriority = value;
 	}
 	
 	public VPLMNLIPAAllowedEnum getVPLMNLIPAAllowed()
@@ -575,20 +551,14 @@ public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements Subs
 		this.proSeSubscriptionData = value;
 	}
 	
-	public Long getSubscriptionDataFlags()
+	public SubscriptionDataFlags getSubscriptionDataFlags()
 	{
-		if(subscriptionDataFlags == null)
-			return null;
-		
-		return subscriptionDataFlags.getUnsigned();
+		return subscriptionDataFlags;
 	}
 	
-	public void setSubscriptionDataFlags(Long value)
+	public void setSubscriptionDataFlags(SubscriptionDataFlags value)
 	{
-		if(value == null)
-			this.subscriptionDataFlags = null;
-		else
-			this.subscriptionDataFlags = new SubscriptionDataFlagsImpl(value, null, null);
+		this.subscriptionDataFlags = value;
 	}
 	
 	public List<AdjacentAccessRestrictionData> getAdjacentAccessRestrictionData()
@@ -751,20 +721,14 @@ public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements Subs
 			this.serviceGapTime = new ServiceGapTimeImpl(value, null, null);
 	}
 	
-	public Long getBroadcastLocationAssistanceDataTypes()
+	public BroadcastLocationAssistanceDataTypes getBroadcastLocationAssistanceDataTypes()
 	{
-		if(broadcastLocationAssistanceDataTypes == null)
-			return null;
-		
-		return broadcastLocationAssistanceDataTypes.getLong();
+		return broadcastLocationAssistanceDataTypes;
 	}
 	
-	public void setBroadcastLocationAssistanceDataTypes(Long value)
+	public void setBroadcastLocationAssistanceDataTypes(BroadcastLocationAssistanceDataTypes value)
 	{
-		if(value == null)
-			this.broadcastLocationAssistanceDataTypes = null;
-		else
-			this.broadcastLocationAssistanceDataTypes = new BroadcastLocationAssistanceDataTypesImpl(value, null, null);
+		this.broadcastLocationAssistanceDataTypes = value;
 	}
 	
 	public AerialUESubscriptionInformationEnum getAerialUESubscriptionInformation()

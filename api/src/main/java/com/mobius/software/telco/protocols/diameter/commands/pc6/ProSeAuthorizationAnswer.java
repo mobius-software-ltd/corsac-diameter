@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeDirectAllowed;
 
 /**
 *
@@ -57,9 +58,9 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 @DiameterCommandDefinition(applicationId = 16777340, commandCode = 8388668, request = false, proxyable = true, name="ProSe-Authorization-Answer")
 public interface ProSeAuthorizationAnswer extends Pc6Answer
 {
-	Long getProSeDirectAllowed();
+	ProSeDirectAllowed getProSeDirectAllowed();
 	 
-	void setProSeDirectAllowed(Long value);
+	void setProSeDirectAllowed(ProSeDirectAllowed value);
 	 		
 	Long getValidityTimeAnnounce();
 	 

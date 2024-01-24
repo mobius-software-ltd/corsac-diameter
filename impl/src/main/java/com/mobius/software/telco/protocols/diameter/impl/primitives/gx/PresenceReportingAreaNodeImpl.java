@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaNode;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReport
 *
 */
 @DiameterAvpImplementation(code = 2855L, vendorId = KnownVendorIDs.TGPP_ID) 
-public class PresenceReportingAreaNodeImpl extends DiameterUnsigned32Impl implements PresenceReportingAreaNode
+public class PresenceReportingAreaNodeImpl extends DiameterBitmask32Impl implements PresenceReportingAreaNode
 {
-	protected PresenceReportingAreaNodeImpl()
+	public PresenceReportingAreaNodeImpl()
 	{
 		super();
 	}
 
-	protected PresenceReportingAreaNodeImpl(Long minValue, Long maxValue)
+	public PresenceReportingAreaNodeImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PresenceReportingAreaNodeImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setOCSBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(OCS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isOCSBitSet()
+	{
+		return getBit(OCS_BIT);
+	}
+
+	@Override
+	public void setPCRFBit(boolean isOn)
+	{
+		setBit(PCRF_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPCRFBitSet()
+	{
+		return getBit(PCRF_BIT);
 	}
 }

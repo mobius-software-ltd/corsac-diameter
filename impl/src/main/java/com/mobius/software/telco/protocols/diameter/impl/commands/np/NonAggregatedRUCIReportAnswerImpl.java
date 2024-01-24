@@ -6,7 +6,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ConditionalRestrictionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RUCIActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ReportingRestrictionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s9a.PCRFAddressImpl;
@@ -92,21 +91,15 @@ public class NonAggregatedRUCIReportAnswerImpl extends NpAnswerImpl implements N
 	}
 	
 	@Override
-	public Long getConditionalRestriction()
+	public ConditionalRestriction getConditionalRestriction()
 	{
-		if(conditionalRestriction==null)
-			return null;
-		
-		return conditionalRestriction.getUnsigned();
+		return conditionalRestriction;
 	}
 	 
 	@Override
-	public void setConditionalRestriction(Long value)
+	public void setConditionalRestriction(ConditionalRestriction value)
 	{
-		if(value==null)
-			this.conditionalRestriction = null;
-		else
-			this.conditionalRestriction = new ConditionalRestrictionImpl(value, null, null);
+		this.conditionalRestriction = value;
 	}
 	 		
 	@Override

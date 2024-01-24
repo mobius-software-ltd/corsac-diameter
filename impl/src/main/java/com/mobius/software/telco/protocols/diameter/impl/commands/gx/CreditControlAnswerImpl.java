@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerControlModeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerUsageImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.CSGInformationReportingImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.IPCANTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.NBIFOMModeImpl;
@@ -39,6 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerControlM
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerUsage;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReporting;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReportingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleRemove;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ConditionalPolicyInformation;
@@ -509,15 +511,29 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 	
 	@Override
-	public List<CSGInformationReporting> getCSGInformationReporting()
+	public List<CSGInformationReportingEnum> getCSGInformationReporting()
 	{
-		return this.csgInformationReporting;
+		if(this.csgInformationReporting==null || this.csgInformationReporting.size()==0)
+			return null;
+		
+		List<CSGInformationReportingEnum> result=new ArrayList<CSGInformationReportingEnum>();
+		for(CSGInformationReporting curr:this.csgInformationReporting)
+			result.add(curr.getEnumerated(CSGInformationReportingEnum.class));
+		
+		return result;
 	}
 	
 	@Override
-	public void setCSGInformationReporting(List<CSGInformationReporting> value)
+	public void setCSGInformationReporting(List<CSGInformationReportingEnum> value)
 	{
-		this.csgInformationReporting = value;
+		if(value==null || value.size()==0)
+			this.csgInformationReporting = null;
+		else
+		{
+			this.csgInformationReporting = new ArrayList<CSGInformationReporting>();
+			for(CSGInformationReportingEnum curr:value)
+				this.csgInformationReporting.add(new CSGInformationReportingImpl(curr, null, null));
+		}
 	}
 	
 	@Override

@@ -41,9 +41,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 3143L, vendorId = KnownVendorIDs.TGPP_ID, name = "Supported-Services")
 public interface SupportedServices extends DiameterGroupedAvp
 {
-	Long getSupportedMonitoringEvents();
+	SupportedMonitoringEvents getSupportedMonitoringEvents();
 	
-	void setSupportedMonitoringEvents(Long value);
+	void setSupportedMonitoringEvents(SupportedMonitoringEvents value);
 	
 	NodeTypeEnum getNodeType();
 	

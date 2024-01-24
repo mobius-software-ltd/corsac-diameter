@@ -23,6 +23,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.FailedPCSCF;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.MultipleRegistrationIndicationEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SARFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SCSCFRestorationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerAssignmentTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SessionPriorityEnum;
@@ -105,9 +106,9 @@ public interface ServerAssignmentRequest extends CxDxRequest
 	
 	void setSessionPriority(SessionPriorityEnum value);	
 	
-	Long getSARFlags();
+	SARFlags getSARFlags();
 	
-	void setSARFlags(Long value);
+	void setSARFlags(SARFlags value);
 	
 	FailedPCSCF getFailedPCSCF();
 	

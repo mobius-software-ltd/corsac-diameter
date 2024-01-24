@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfWeekMask;
 
 /**
 *
@@ -46,9 +47,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 3118L, vendorId = KnownVendorIDs.TGPP_ID, name = "Scheduled-Communication-Time")
 public interface ScheduledCommunicationTime extends DiameterGroupedAvp
 {
-	Long getDayOfWeekMask();
+	DayOfWeekMask getDayOfWeekMask();
 	
-	void setDayOfWeekMask(Long value);
+	void setDayOfWeekMask(DayOfWeekMask value);
 	
 	Long getTimeOfDayStart();
 	

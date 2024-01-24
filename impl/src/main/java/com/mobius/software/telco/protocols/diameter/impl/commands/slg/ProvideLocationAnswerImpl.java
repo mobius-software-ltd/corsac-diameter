@@ -15,7 +15,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.Barometr
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.CivicAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.ECGIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.EUTRANPositioningDataImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.PLAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.VelocityEstimateImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LocationEstimate;
@@ -288,21 +287,15 @@ public class ProvideLocationAnswerImpl extends SlgAnswerImpl implements ProvideL
 	}
 	
 	@Override
-	public Long getPLAFlags()
+	public PLAFlags getPLAFlags()
 	{
-		if(plaFlags == null)
-			return null;
-		
-		return plaFlags.getUnsigned();
+		return plaFlags;
 	}
 	 
 	@Override
-	public void setPLAFlags(Long value)
+	public void setPLAFlags(PLAFlags value)
 	{
-		if(value == null)
-			this.plaFlags = null;
-		else
-			this.plaFlags = new PLAFlagsImpl(value, null, null);
+		this.plaFlags = value;
 	}
 	
 	@Override

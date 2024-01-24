@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.IMEIChange;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.IMEIChange;
 *
 */
 @DiameterAvpImplementation(code = 3141L, vendorId = KnownVendorIDs.TGPP_ID)
-public class IMEIChangeImpl extends DiameterUnsigned32Impl implements IMEIChange
+public class IMEIChangeImpl extends DiameterBitmask32Impl implements IMEIChange
 {
-	protected IMEIChangeImpl()
+	public IMEIChangeImpl()
 	{
 		super();
 	}
 
-	protected IMEIChangeImpl(Long minValue, Long maxValue)
+	protected IMEIChangeImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public IMEIChangeImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setIMEIBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(IMEI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isIMEIBitSet()
+	{
+		return getBit(IMEI_BIT);
+	}
+
+	@Override
+	public void setIMEISVBit(boolean isOn)
+	{
+		setBit(IMEISV_BIT, isOn);
+	}
+
+	@Override
+	public boolean isIMEISVBitSet()
+	{
+		return getBit(IMEISV_BIT);
 	}
 }

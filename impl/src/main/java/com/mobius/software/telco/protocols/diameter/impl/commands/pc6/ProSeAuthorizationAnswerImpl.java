@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAuthorizationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.AuthorizedDiscoveryRangeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.ProSeDirectAllowedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeAnnounceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeCommunicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeMonitorImpl;
@@ -67,21 +66,15 @@ public class ProSeAuthorizationAnswerImpl extends Pc6AnswerImpl implements ProSe
 	}
 	
 	@Override
-	public Long getProSeDirectAllowed()
+	public ProSeDirectAllowed getProSeDirectAllowed()
 	{
-		if(proSeDirectAllowed == null)
-			return null;
-		
-		return proSeDirectAllowed.getUnsigned();
+		return proSeDirectAllowed;
 	}
 	 
 	@Override
-	public void setProSeDirectAllowed(Long value)
+	public void setProSeDirectAllowed(ProSeDirectAllowed value)
 	{
-		if(value==null)
-			this.proSeDirectAllowed = null;
-		else
-			this.proSeDirectAllowed = new ProSeDirectAllowedImpl(value, null, null);
+		this.proSeDirectAllowed = value;
 	}
 	 		
 	@Override

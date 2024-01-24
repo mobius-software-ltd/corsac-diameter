@@ -33,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Use
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfoExtension;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
-import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReporting;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReportingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FixedUserLocationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.IPCANTypeEnum;
@@ -262,9 +262,9 @@ public interface TDFSessionRequest extends VendorSpecificRequest
 	
 	void setUsageMonitoringInformation(List<UsageMonitoringInformation> value);	
 	
-	List<CSGInformationReporting> getCSGInformationReporting();
+	List<CSGInformationReportingEnum> getCSGInformationReporting();
 	
-	void setCSGInformationReporting(List<CSGInformationReporting> value);	
+	void setCSGInformationReporting(List<CSGInformationReportingEnum> value);	
 	
 	List<EventTriggerEnum> getEventTrigger();
 	

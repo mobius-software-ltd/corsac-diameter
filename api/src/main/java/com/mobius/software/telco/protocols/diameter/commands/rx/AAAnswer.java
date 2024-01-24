@@ -35,6 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AcceptableServ
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AccessNetworkChargingIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.Flows;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MAInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.ServiceAuthorizationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.ANTrustedEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -118,9 +119,9 @@ public interface AAAnswer extends RxAnswer
 	
 	void setANTrusted(ANTrustedEnum value);		
 	
-	Long getServiceAuthorizationInfo();
+	ServiceAuthorizationInfo getServiceAuthorizationInfo();
 	
-	void setServiceAuthorizationInfo(Long value);		
+	void setServiceAuthorizationInfo(ServiceAuthorizationInfo value);		
 	
 	IPCANTypeEnum getIPCANType();
 	

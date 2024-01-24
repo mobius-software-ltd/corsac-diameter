@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 
 /**
 *
@@ -59,15 +59,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
       accounting messages for this session.   
 */
 @DiameterAvpDefinition(code = 270L, vendorId = -1L, name = "Session-Binding")
-public interface SessionBinding extends DiameterUnsigned32
+public interface SessionBinding extends DiameterBitmask32
 {
-	public static final Long RE_AUTH = 1L;
-	public static final Long STR = 2L;
-	public static final Long ACCOUNTING = 4L;	
+	public static final Integer RE_AUTH_BIT = 0;
+	public static final Integer STR_BIT = 1;
+	public static final Integer ACCOUNTING_BIT = 2;	
 	
-	public Boolean getIsReauth();
+	public void setReauthBit(boolean isOn);
 	
-	public Boolean getIsStr();
+	public boolean isReauthBitSet();
 	
-	public Boolean getIsAccounting();
+	public void setSTRBit(boolean isOn);
+	
+	public boolean isSTRBitSet();
+	
+	public void setAccountingBit(boolean isOn);
+	
+	public boolean isAccountingBitSet();
 }

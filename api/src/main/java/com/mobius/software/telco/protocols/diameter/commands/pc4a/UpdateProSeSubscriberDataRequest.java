@@ -23,6 +23,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
+import com.mobius.software.telco.protocols.diameter.primitives.pc4a.UPRFlags;
 
 import io.netty.buffer.ByteBuf;
 
@@ -71,9 +72,9 @@ public interface UpdateProSeSubscriberDataRequest extends Pc4aRequest
 	
 	void setVisitedPLMNId(ByteBuf value);
 		
-	Long getUPRFlags();
+	UPRFlags getUPRFlags();
 	
-	void setUPRFlags(Long value);
+	void setUPRFlags(UPRFlags value);
 	
 	List<ByteBuf> getResetID();
 	 

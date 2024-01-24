@@ -179,20 +179,14 @@ public class ServingNodeImpl extends DiameterGroupedAvpImpl implements ServingNo
 			this.tgppAAAServerName = new TGPPAAAServerNameImpl(value, null ,null);
 	}
 	
-	public Long getLCSCapabilitiesSets()
+	public LCSCapabilitiesSets getLCSCapabilitiesSets()
 	{
-		if(lcsCapabilitiesSets == null)
-			return null;
-		
-		return lcsCapabilitiesSets.getUnsigned();
+		return lcsCapabilitiesSets;
 	}
 	
-	public void setLCSCapabilitiesSets(Long value)
+	public void setLCSCapabilitiesSets(LCSCapabilitiesSets value)
 	{
-		if(value==null)
-			this.lcsCapabilitiesSets = null;
-		else 
-			this.lcsCapabilitiesSets = new LCSCapabilitiesSetsImpl(value, null ,null);
+		this.lcsCapabilitiesSets = value;
 	}
 	
 	public InetAddress getGMLCAddress()

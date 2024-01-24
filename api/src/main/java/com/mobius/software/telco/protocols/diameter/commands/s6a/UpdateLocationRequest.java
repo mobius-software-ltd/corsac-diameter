@@ -31,6 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.HomogeneousSu
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SMSRegisterRequestEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UESRVCCCapabilityEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.ULRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedServices;
 
 import io.netty.buffer.ByteBuf;
@@ -93,9 +94,9 @@ public interface UpdateLocationRequest extends S6aRequest
 	
 	void setRATType(RATTypeEnum value);
 	
-	Long getULRFlags();
+	ULRFlags getULRFlags();
 	
-	void setULRFlags(Long value);
+	void setULRFlags(ULRFlags value);
 	
 	UESRVCCCapabilityEnum getUESRVCCCapability();
 	

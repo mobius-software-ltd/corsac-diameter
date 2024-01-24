@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -72,6 +72,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE 2:	Bits not defined in this table shall be cleared by the sending MME or SGSN and discarded by the receiving HSS.
 */
 @DiameterAvpDefinition(code = 1443L, vendorId = KnownVendorIDs.TGPP_ID, name = "NOR-Flags")
-public interface NORFlags extends DiameterUnsigned32
+public interface NORFlags extends DiameterBitmask32
 {
+	public static final int SINGLE_REGISTRATION_INDICATION_BIT = 0;
+	public static final int SGSN_AREA_RESTRICTED_BIT = 1;
+	public static final int READY_FOR_SM_FROM_SGSN_BIT = 2;
+	public static final int UE_REACHABILITY_FROM_MME_BIT = 3;
+	public static final int UE_REACHABILITY_FROM_SGSN_BIT = 5;
+	public static final int READY_FOR_SM_FROM_MME_BIT = 6;
+	public static final int HOMOGENOUS_SUPPORT_OF_IMS_VOICE_OVER_PS_SESSIONS_BIT = 7;
+	public static final int S6A_S6D_INDICATOR_BIT = 8;
+	public static final int REMOVAL_OF_MME_REGISTRATION_FOR_SMS_BIT = 9;
+	
+	public void setSingleRegistrationIndicationBit(boolean isOn);
+	
+	public boolean isSingleRegistrationIndicationBitSet();
+	
+	public void setSGSNAreaRestrictedBit(boolean isOn);
+	
+	public boolean isSGSNAreaRestrictedBitSet();
+	
+	public void setReadyForSMFromSGSNBit(boolean isOn);
+	
+	public boolean isReadyForSMFromSGSNBitSet();
+	
+	public void setUEReachabilityFromMMEBit(boolean isOn);
+	
+	public boolean isUEReachabilityFromMMEBitSet();
+	
+	public void setUEReachabilityFromSGSNBit(boolean isOn);
+	
+	public boolean isUEReachabilityFromSGSNBitSet();
+	
+	public void setReadyForSMFromMMEBit(boolean isOn);
+	
+	public boolean isReadyForSMFromMMEBitSet();
+	
+	public void setHomogenousSupportOfIMSVoiceOverPSSessionsBit(boolean isOn);
+	
+	public boolean isHomogenousSupportOfIMSVoiceOverPSSessionsBitSet();
+	
+	public void setS6AS6DIndicatorBit(boolean isOn);
+	
+	public boolean isS6AS6DIndicatorBitSet();
+	
+	public void setRemovalOfMMERegistrationForSMSBit(boolean isOn);
+	
+	public boolean isRemovalOfMMERegistrationForSMSBitSet();
 }

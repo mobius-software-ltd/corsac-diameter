@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SARFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SARFlags;
 *
 */
 @DiameterAvpImplementation(code = 655L, vendorId = KnownVendorIDs.TGPP_ID)
-public class SARFlagsImpl extends DiameterUnsigned32Impl implements SARFlags
+public class SARFlagsImpl extends DiameterBitmask32Impl implements SARFlags
 {
-	protected SARFlagsImpl()
+	public SARFlagsImpl()
 	{
 		super();
 	}
 
-	protected SARFlagsImpl(Long minValue, Long maxValue)
+	protected SARFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public SARFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setPCSCFRestorationIndicationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(PCSCF_RESTORATION_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPCSCFRestorationIndicationBitSet()
+	{
+		return getBit(PCSCF_RESTORATION_INDICATION_BIT);
 	}
 }

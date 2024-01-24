@@ -26,6 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ErrorDiagnosticEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionData;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.ULAFlags;
 
 import io.netty.buffer.ByteBuf;
 
@@ -81,9 +82,9 @@ public interface UpdateLocationAnswer extends S6aAnswer
 	 
 	void setLoad(List<Load> value);
 	 		
-	Long getULAFlags();
+	ULAFlags getULAFlags();
 	
-	void setULAFlags(Long value);
+	void setULAFlags(ULAFlags value);
 	
 	SubscriptionData getSubscriptionData();
 	 

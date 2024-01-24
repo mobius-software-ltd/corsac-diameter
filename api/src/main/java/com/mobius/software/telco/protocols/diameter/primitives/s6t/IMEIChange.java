@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -49,6 +49,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When a change of IMEI(SV) is reported, the new IMEI(SV) values may be reported to the SCEF in the Terminal-Information AVP inside the Monitoring-Event-Report AVP (see clause 8.4.3).
  */
 @DiameterAvpDefinition(code = 3141L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMEI-Change")
-public interface IMEIChange extends DiameterUnsigned32
+public interface IMEIChange extends DiameterBitmask32
 {
+	public static final int IMEI_BIT = 0;
+	public static final int IMEISV_BIT = 1;
+	
+	public void setIMEIBit(boolean isOn);
+	
+	public boolean isIMEIBitSet();
+	
+	public void setIMEISVBit(boolean isOn);
+	
+	public boolean isIMEISVBitSet();
 }

@@ -23,6 +23,7 @@ import java.net.InetAddress;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
 
 /**
 *
@@ -61,9 +62,9 @@ public interface AARequest extends SwmRequest
 			 
 	void setOCSupportedFeatures(OCSupportedFeatures value);
 	
-	Long getAARFlags();
+	AARFlags getAARFlags();
 	
-	void setAARFlags(Long value);	
+	void setAARFlags(AARFlags value);	
 	
 	public InetAddress getUELocalIPAddress();
 	

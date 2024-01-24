@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sy;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
 *
 */
 @DiameterAvpImplementation(code = 2907L, vendorId = KnownVendorIDs.TGPP_ID)
-public class SNRequestTypeImpl extends DiameterUnsigned32Impl implements SNRequestType
+public class SNRequestTypeImpl extends DiameterBitmask32Impl implements SNRequestType
 {
-	protected SNRequestTypeImpl()
+	public SNRequestTypeImpl()
 	{
 		super();
 	}
 
-	protected SNRequestTypeImpl(Long minValue, Long maxValue)
+	public SNRequestTypeImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public SNRequestTypeImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setNormalRequestBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(NORMAL_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNormalRequestSet()
+	{
+		return getBit(NORMAL_REQUEST_BIT);
+	}
+
+	@Override
+	public void setAbortSessionRequestBit(boolean isOn)
+	{
+		setBit(ABORT_SESSION_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAbortSessionRequestSet()
+	{
+		return getBit(ABORT_SESSION_REQUEST_BIT);
 	}
 }

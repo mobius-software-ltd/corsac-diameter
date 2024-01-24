@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.UpdateLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ErrorDiagnosticImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ULAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -130,21 +129,15 @@ public class UpdateLocationAnswerImpl extends S6aAnswerImpl implements UpdateLoc
 	}
 	
 	@Override
-	public Long getULAFlags()
+	public ULAFlags getULAFlags()
 	{
-		if(ulaFlags==null)
-			return null;
-		
-		return ulaFlags.getUnsigned();
+		return ulaFlags;
 	}
 	
 	@Override
-	public void setULAFlags(Long value)
+	public void setULAFlags(ULAFlags value)
 	{
-		if(value==null)
-			this.ulaFlags = null;
-		else
-			this.ulaFlags = new ULAFlagsImpl(value, null, null);
+		this.ulaFlags = value;
 	}
 	
 	@Override

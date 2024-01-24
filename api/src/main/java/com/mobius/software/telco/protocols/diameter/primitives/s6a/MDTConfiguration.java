@@ -71,13 +71,13 @@ public interface MDTConfiguration extends DiameterGroupedAvp
 	
 	void setAreaScope(AreaScope value);
 	
-	Long getListOfMeasurements();
+	ListOfMeasurements getListOfMeasurements();
 	
-	void setListOfMeasurements(Long value);
+	void setListOfMeasurements(ListOfMeasurements value);
 	
-	Long getReportingTrigger();
+	ReportingTrigger getReportingTrigger();
 	
-	void setReportingTrigger(Long value);
+	void setReportingTrigger(ReportingTrigger value);
 	
 	ReportIntervalEnum getReportInterval();
 	

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -61,6 +61,46 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The FEC execution was terminated because the BM-SC did not detect any user plane traffic for a longer period.
 */
 @DiameterAvpDefinition(code = 3531L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "FEC‑Result")
-public interface FECResult extends DiameterUnsigned32
+public interface FECResult extends DiameterBitmask32
 {
+	public static final int SUCCESS_BIT = 0;
+	public static final int TRYING_BIT = 1;
+	public static final int AUTHORIZATION_BIT = 2;
+	public static final int RESOURCES_EXCEEDED_BIT = 3;
+	public static final int UNKOWN_CONFIGURATION_BIT = 4;
+	public static final int INVALID_SDP_BIT = 5;
+	public static final int SYSTEM_ERROR_BIT = 6;
+	public static final int NO_TRAFFIC_BIT = 7;
+	
+	public void setSucessBit(boolean isOn);
+	
+	public boolean isSucessBitSet();
+	
+	public void setTryingBit(boolean isOn);
+	
+	public boolean isTryingBitSet();
+	
+	public void setAuthorizationBit(boolean isOn);
+	
+	public boolean isAuthorizationBitSet();
+	
+	public void setResouceExceededBit(boolean isOn);
+	
+	public boolean isResouceExceededSet();
+	
+	public void setUnknownConfigurationBit(boolean isOn);
+	
+	public boolean isUnknownConfigurationBitSet();
+	
+	public void setInvalidSDPBit(boolean isOn);
+	
+	public boolean isInvalidSDPBitSet();
+	
+	public void setSystemErrorBit(boolean isOn);
+	
+	public boolean isSystemErrorBitSet();
+	
+	public void setNoTrafficBit(boolean isOn);
+	
+	public boolean isNoTrafficBitSet();
 }

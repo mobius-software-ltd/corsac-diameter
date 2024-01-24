@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777.DayOfWeekMaskImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777.TimeOfDayEndImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777.TimeOfDayStartImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
@@ -48,20 +47,14 @@ public class ScheduledCommunicationTimeImpl extends DiameterGroupedAvpImpl imple
 		
 	}
 	
-	public Long getDayOfWeekMask()
+	public DayOfWeekMask getDayOfWeekMask()
 	{
-		if(dayOfWeekMask == null)
-			return null;
-		
-		return dayOfWeekMask.getUnsigned();
+		return dayOfWeekMask;
 	}
 	
-	public void setDayOfWeekMask(Long value)
+	public void setDayOfWeekMask(DayOfWeekMask value)
 	{
-		if(value==null)
-			this.dayOfWeekMask = null;
-		else
-			this.dayOfWeekMask = new DayOfWeekMaskImpl(value, null, null);
+		this.dayOfWeekMask = value;
 	}
 	
 	public Long getTimeOfDayStart()

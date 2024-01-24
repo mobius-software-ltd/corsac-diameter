@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.AccessAuthorizationFlags;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.AccessAuthori
 *
 */
 @DiameterAvpImplementation(code = 1511L, vendorId = KnownVendorIDs.TGPP_ID)
-public class AccessAuthorizationFlagsImpl extends DiameterUnsigned32Impl implements AccessAuthorizationFlags
+public class AccessAuthorizationFlagsImpl extends DiameterBitmask32Impl implements AccessAuthorizationFlags
 {
-	protected AccessAuthorizationFlagsImpl()
+	public AccessAuthorizationFlagsImpl()
 	{
 		super();
 	}
 
-	protected AccessAuthorizationFlagsImpl(Long minValue, Long maxValue)
+	public AccessAuthorizationFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public AccessAuthorizationFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setEPCAccessAuthorizationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(EPC_ACCCESS_AUTHORIZATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEPCAccessAuthorizationBitSet()
+	{
+		return getBit(EPC_ACCCESS_AUTHORIZATION_BIT);
+	}
+
+	@Override
+	public void setNSWOAccessAuthorizationBit(boolean isOn)
+	{
+		setBit(NSWO_ACCCESS_AUTHORIZATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNSWOAccessAuthorizationBitSet()
+	{
+		return getBit(NSWO_ACCCESS_AUTHORIZATION_BIT);
 	}
 }

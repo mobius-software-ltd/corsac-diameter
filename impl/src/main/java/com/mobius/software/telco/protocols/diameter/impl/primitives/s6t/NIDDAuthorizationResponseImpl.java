@@ -40,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
 @DiameterAvpImplementation(code = 3151L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NIDDAuthorizationResponseImpl extends DiameterGroupedAvpImpl implements NIDDAuthorizationResponse
 {
-private UserName userName;
+	private UserName userName;
 	
 	private MSISDN msisdn;
 	

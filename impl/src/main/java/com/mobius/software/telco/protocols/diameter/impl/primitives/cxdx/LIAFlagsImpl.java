@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.LIAFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.LIAFlags;
 *
 */
 @DiameterAvpImplementation(code = 653L, vendorId = KnownVendorIDs.TGPP_ID)
-public class LIAFlagsImpl extends DiameterUnsigned32Impl implements LIAFlags
+public class LIAFlagsImpl extends DiameterBitmask32Impl implements LIAFlags
 {
-	protected LIAFlagsImpl()
+	public LIAFlagsImpl()
 	{
 		super();
 	}
 
-	protected LIAFlagsImpl(Long minValue, Long maxValue)
+	protected LIAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public LIAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setPSIDirectRoutingIndicationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(PSI_DIRECT_ROUTING_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPSIDirectRoutingIndicationBitSet()
+	{
+		return getBit(PSI_DIRECT_ROUTING_INDICATION_BIT);
 	}
 }

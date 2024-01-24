@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6b;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6b.RARFlags;
 
 /**
 *
@@ -52,7 +53,7 @@ public interface ReAuthRequest extends S6bRequest
 	
 	void setReAuthRequestType(ReAuthRequestTypeEnum value);
 	
-	Long getRARFlags();
+	RARFlags getRARFlags();
 	
-	void setRARFlags(Long value);
+	void setRARFlags(RARFlags value);
 }

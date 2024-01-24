@@ -29,9 +29,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInfo
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.LooseRouteIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PriviledgedSenderIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SCSCFRestorationInfo;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserData;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
+
+import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -87,9 +88,9 @@ public interface ServerAssignmentAnswer extends CxDxAnswer
 	 
 	void setLoad(List<Load> value);
 	 		
-	List<UserData> getUserData();
+	List<ByteBuf> getUserData();
 	
-	void setUserData(List<UserData> value);	
+	void setUserData(List<ByteBuf> value);	
 	
 	ChargingInformation getChargingInformation();
 	 

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSePermission;
 
@@ -29,20 +29,111 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSePermiss
 *
 */
 @DiameterAvpImplementation(code = 3702L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ProSePermissionImpl extends DiameterUnsigned32Impl implements ProSePermission
+public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSePermission
 {
-	protected ProSePermissionImpl()
+	public ProSePermissionImpl()
 	{
 		super();
 	}
 
-	protected ProSePermissionImpl(Long minValue, Long maxValue)
+	protected ProSePermissionImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ProSePermissionImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setProSeDirectDiscoveryBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(PROSE_DIRECT_DISCOVERY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isProSeDirectDiscoverySet()
+	{
+		return getBit(PROSE_DIRECT_DISCOVERY_BIT);
+	}
+
+	@Override
+	public void setEPCLevelProSeDiscoveryBit(boolean isOn)
+	{
+		setBit(EPC_LEVEL_PROSE_DISCOVERY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEPCLevelProSeDiscoveryBitSet()
+	{
+		return getBit(EPC_LEVEL_PROSE_DISCOVERY_BIT);
+	}
+
+	@Override
+	public void setEPCSupportWLANDirectDiscoveryAndCommunicationBit(boolean isOn)
+	{
+		setBit(EPC_SUPPORT_WLAN_DIRECT_DISCOVERY_AND_COMMUNICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEPCSupportWLANDirectDiscoveryAndCommunicationBitSet()
+	{
+		return getBit(EPC_SUPPORT_WLAN_DIRECT_DISCOVERY_AND_COMMUNICATION_BIT);
+	}
+
+	@Override
+	public void setOneToManyProSeDirectCommunicationBit(boolean isOn)
+	{
+		setBit(ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isOneToManyProSeDirectCommunicationBitSet()
+	{
+		return getBit(ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT);
+	}
+
+	@Override
+	public void setOneToOneProSeDirectCommunicationBit(boolean isOn)
+	{
+		setBit(ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isOneToOneProSeDirectCommunicationBitSet()
+	{
+		return getBit(ONE_TO_ONE_PROSE_DIRECT_COMMUNICATION_BIT);
+	}
+
+	@Override
+	public void setUEToNetworkRelayBit(boolean isOn)
+	{
+		setBit(UE_TO_NETWORK_RELAY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUEToNetworkRelayBitSet()
+	{
+		return getBit(UE_TO_NETWORK_RELAY_BIT);
+	}
+
+	@Override
+	public void setRemoteUEAccessBit(boolean isOn)
+	{
+		setBit(REMOTE_UE_ACCESS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRemoteUEAccessBitSet()
+	{
+		return getBit(REMOTE_UE_ACCESS_BIT);
+	}
+
+	@Override
+	public void setRestrictedProSeDirectDiscoveryBit(boolean isOn)
+	{
+		setBit(RESTRICTED_PROSE_DIRECT_DISCOVERY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRestrictedProSeDirectDiscoveryBitSet()
+	{
+		return getBit(RESTRICTED_PROSE_DIRECT_DISCOVERY_BIT);
 	}
 }

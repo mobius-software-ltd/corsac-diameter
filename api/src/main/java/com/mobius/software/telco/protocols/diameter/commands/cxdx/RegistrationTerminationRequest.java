@@ -23,6 +23,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AssociatedIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.RTRFlags;
 
 /**
 *
@@ -68,7 +69,7 @@ public interface RegistrationTerminationRequest extends CxDxRequest
 	
 	void setDeregistrationReason(DeregistrationReason value);	
 	
-	Long getRTRFlags();
+	RTRFlags getRTRFlags();
 	
-	void setRTRFlags(Long value);		
+	void setRTRFlags(RTRFlags value);		
 }

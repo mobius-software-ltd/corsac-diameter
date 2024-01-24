@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfMonthMask;
 
 /**
@@ -28,20 +28,33 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfMont
 *
 */
 @DiameterAvpImplementation(code = 564L, vendorId = -1L)
-public class DayOfMonthMaskImpl extends DiameterUnsigned32Impl implements DayOfMonthMask
+public class DayOfMonthMaskImpl extends DiameterBitmask32Impl implements DayOfMonthMask
 {
-	protected DayOfMonthMaskImpl() 
+	public DayOfMonthMaskImpl() 
 	{
 		super();
 	}
 	
-	protected DayOfMonthMaskImpl(Long minValue,Long maxValue) 
+	protected DayOfMonthMaskImpl(Integer value) 
 	{
-		super(minValue,maxValue);
+		super(value);
 	}
-	
-	public DayOfMonthMaskImpl(Long value,Long minValue,Long maxValue) 
+
+	@Override
+	public void setDayBit(int dom, boolean isOn)
 	{
-		super(value,minValue,maxValue);
+		if(dom<0 || dom>31)
+			throw new RuntimeException("Invalid day of month(should be between 1 and 31)");
+		
+		setBit(dom-1, isOn);
+	}
+
+	@Override
+	public boolean isDayBitSet(int dom)
+	{
+		if(dom<0 || dom>31)
+			throw new RuntimeException("Invalid day of month(should be between 1 and 31)");		
+		
+		return getBit(dom-1);
 	}
 }

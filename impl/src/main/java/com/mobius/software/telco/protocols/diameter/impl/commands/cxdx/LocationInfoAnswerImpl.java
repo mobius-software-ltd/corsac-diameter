@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.LIAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -156,21 +155,15 @@ public class LocationInfoAnswerImpl extends CxDxAnswerImpl implements LocationIn
 	}
 	
 	@Override
-	public Long getLIAFlags()
+	public LIAFlags getLIAFlags()
 	{
-		if(liaFlags==null)
-			return null;
-		
-		return liaFlags.getUnsigned();
+		return liaFlags;
 	}
 	
 	@Override
-	public void setLIAFlags(Long value)
+	public void setLIAFlags(LIAFlags value)
 	{
-		if(value==null)
-			this.liaFlags = null;
-		else
-			this.liaFlags = new LIAFlagsImpl(value, null, null);
+		this.liaFlags = value;
 	}
 
 	@Override

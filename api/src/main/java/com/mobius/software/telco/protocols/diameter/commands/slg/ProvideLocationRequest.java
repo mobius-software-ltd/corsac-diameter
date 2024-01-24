@@ -23,12 +23,14 @@ import java.net.InetAddress;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaEventInfo;
+import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredLocationType;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSEPSClientName;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSPrivacyCheckNonSession;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSPrivacyCheckSession;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSRequestorName;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.MotionEventInfo;
+import com.mobius.software.telco.protocols.diameter.primitives.slg.PLRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PeriodicLDRInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.ReportingPLMNList;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.SLgLocationTypeEnum;
@@ -148,9 +150,9 @@ public interface ProvideLocationRequest extends SlgRequest
 	
 	void setServiceSelection(String value);	
 	
-	Long getDeferredLocationType();
+	DeferredLocationType getDeferredLocationType();
 	
-	void setDeferredLocationType(Long value);	
+	void setDeferredLocationType(DeferredLocationType value);	
 	
 	ByteBuf getLCSReferenceNumber();
 	
@@ -164,9 +166,9 @@ public interface ProvideLocationRequest extends SlgRequest
 	
 	void setGMLCAddress(InetAddress value);
 	
-	Long getPLRFlags();
+	PLRFlags getPLRFlags();
 	
-	void setPLRFlags(Long value);
+	void setPLRFlags(PLRFlags value);
 	
 	PeriodicLDRInfo getPeriodicLDRInformation();
 	

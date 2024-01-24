@@ -92,9 +92,9 @@ public interface FilterRule extends DiameterGroupedAvp
 	
 	void setTreatmentAction(TreatmentActionEnum value);	
 	
-	QoSSemantics getQoSSemantics();
+	QoSSemanticsEnum getQoSSemantics();
 	
-	void setQoSSemantics(QoSSemantics value);	
+	void setQoSSemantics(QoSSemanticsEnum value);	
 	
 	QoSProfileTemplate getQoSProfileTemplate();
 	

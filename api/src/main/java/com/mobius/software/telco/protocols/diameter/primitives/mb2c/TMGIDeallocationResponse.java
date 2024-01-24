@@ -51,7 +51,7 @@ public interface TMGIDeallocationResponse extends DiameterGroupedAvp
 	
 	void setTMGI(List<ByteBuf> value);	
 	
-	Long getTMGIDeallocationResult();
+	TMGIDeallocationResult getTMGIDeallocationResult();
 	
-	void setTMGIDeallocationResult(Long value);	
+	void setTMGIDeallocationResult(TMGIDeallocationResult value);	
 }

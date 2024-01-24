@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.DeleteSubscriberDataRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.DSRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
@@ -46,7 +45,7 @@ public class DeleteSubscriberDataRequestImpl extends S7aRequestImpl implements D
 		super();
 	}
 	
-	public DeleteSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,Long dsrFlags)
+	public DeleteSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,DSRFlags dsrFlags)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -54,21 +53,18 @@ public class DeleteSubscriberDataRequestImpl extends S7aRequestImpl implements D
 	}
 	
 	@Override
-	public Long getDSRFlags()
+	public DSRFlags getDSRFlags()
 	{
-		if(dsrFlags == null)
-			return null;
-		
-		return dsrFlags.getUnsigned();
+		return dsrFlags;
 	}
 	
 	@Override
-	public void setDSRFlags(Long value)
+	public void setDSRFlags(DSRFlags value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("DSR-Flags is required");
 		
-		this.dsrFlags = new DSRFlagsImpl(value, null, null);
+		this.dsrFlags = value;
 	}
 	
 	@DiameterValidate

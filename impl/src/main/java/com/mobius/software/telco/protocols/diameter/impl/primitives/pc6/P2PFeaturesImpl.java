@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.P2PFeatures;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.P2PFeatures;
 *
 */
 @DiameterAvpImplementation(code = 3809L, vendorId = KnownVendorIDs.TGPP_ID)
-public class P2PFeaturesImpl extends DiameterUnsigned32Impl implements P2PFeatures
+public class P2PFeaturesImpl extends DiameterBitmask32Impl implements P2PFeatures
 {
-	protected P2PFeaturesImpl()
+	public P2PFeaturesImpl()
 	{
 		super();
 	}
 
-	protected P2PFeaturesImpl(Long minValue, Long maxValue)
+	protected P2PFeaturesImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public P2PFeaturesImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setGroupOwnerIndicationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(GROUP_OWNER_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isGroupOwnerIndicationBitSet()
+	{
+		return getBit(GROUP_OWNER_INDICATION_BIT);
 	}
 }

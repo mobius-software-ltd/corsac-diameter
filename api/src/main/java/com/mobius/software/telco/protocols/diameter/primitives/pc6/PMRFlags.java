@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sending Prose Function and discarded by the receiving receiving ProSe function.
  */
 @DiameterAvpDefinition(code = 3852L, vendorId = KnownVendorIDs.TGPP_ID, name = "PMR-Flags")
-public interface PMRFlags extends DiameterUnsigned32
+public interface PMRFlags extends DiameterBitmask32
 {
+	public static final int METADATA_REQUESTED_BIT = 0;	
+	
+	public void setMetadataRequestedBit(boolean isOn);
+	
+	public boolean isMetadataRequestedBitSet();	
 }

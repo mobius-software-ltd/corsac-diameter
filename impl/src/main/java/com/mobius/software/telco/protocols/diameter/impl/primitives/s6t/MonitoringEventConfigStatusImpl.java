@@ -24,7 +24,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImple
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
-import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportItem;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFID;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFReferenceID;
@@ -43,7 +42,6 @@ public class MonitoringEventConfigStatusImpl extends DiameterGroupedAvpImpl impl
 	private SCEFReferenceID scefReferenceID;
 	private SCEFReferenceIDExt scefReferenceIDExt;
 	private SCEFID scefID;
-	private List<GroupReportItem> groupReportItem;
 	
 	protected MonitoringEventConfigStatusImpl() 
 	{
@@ -116,16 +114,6 @@ public class MonitoringEventConfigStatusImpl extends DiameterGroupedAvpImpl impl
 			this.scefID = null;
 		else
 			this.scefID = new SCEFIDImpl(value, null, null);
-	}	
-	
-	public List<GroupReportItem> getGroupReportItem()
-	{
-		return groupReportItem;
-	}
-	
-	public void setGroupReportItem(List<GroupReportItem> value)
-	{
-		this.groupReportItem = value;
 	}
 	
 	@DiameterValidate

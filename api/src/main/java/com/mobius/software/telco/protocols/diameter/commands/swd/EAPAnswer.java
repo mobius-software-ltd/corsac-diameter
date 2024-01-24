@@ -27,6 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 import com.mobius.software.telco.protocols.diameter.primitives.rfc6734.Key;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.APNConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.sta.DEAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANConnectivityParameters;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.TraceInfo;
 
@@ -128,9 +129,9 @@ public interface EAPAnswer extends SwdAnswer
 	 
 	void setSupportedFeatures(List<SupportedFeatures> value);		
 	
-	public Long getDEAFlags();
+	public DEAFlags getDEAFlags();
 	
-	public void setDEAFlags(Long value);
+	public void setDEAFlags(DEAFlags value);
 	
 	public Long getTWANConnectionMode();
 	

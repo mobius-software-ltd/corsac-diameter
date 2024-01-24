@@ -66,9 +66,9 @@ public interface MBMSBearerResponse extends DiameterGroupedAvp
 	
 	void setMBMSFlowIdentifier(ByteBuf value);
 	
-	Long getMBMSBearerResult();
+	MBMSBearerResult getMBMSBearerResult();
 	
-	void setMBMSBearerResult(Long value);
+	void setMBMSBearerResult(MBMSBearerResult value);
 	
 	List<InetAddress> getBMSCAddress();
 	

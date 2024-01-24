@@ -35,6 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerOperatio
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleReport;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CoAInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.IPCANTypeEnum;
@@ -211,9 +212,9 @@ public interface SubsessionEnforcementInfo extends DiameterGroupedAvp
 	
 	void setChargingRuleReport(List<ChargingRuleReport> value);	
 	
-	Long getCreditManagementStatus();
+	CreditManagementStatus getCreditManagementStatus();
 	
-	void setCreditManagementStatus(Long value);
+	void setCreditManagementStatus(CreditManagementStatus value);
 	
 	List<QoSRuleReport> getQoSRuleReport();
 	

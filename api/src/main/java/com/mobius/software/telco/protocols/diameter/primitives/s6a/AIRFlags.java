@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sending MME or SGSN and discarded by the receiving HSS.
 */
 @DiameterAvpDefinition(code = 1679L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "AIR-Flags")
-public interface AIRFlags extends DiameterUnsigned32
+public interface AIRFlags extends DiameterBitmask32
 {
+	public static final int UE_USAGE_REQUESTED_BIT = 0;
+	
+	public void setUEUsageRequestedBit(boolean isOn);
+	
+	public boolean isUEUsageRequestedBitSet();
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
 
@@ -29,20 +29,99 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManageme
 *
 */
 @DiameterAvpImplementation(code = 1082L, vendorId = KnownVendorIDs.TGPP_ID)
-public class CreditManagementStatusImpl extends DiameterUnsigned32Impl implements CreditManagementStatus
+public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements CreditManagementStatus
 {
-	protected CreditManagementStatusImpl()
+	public CreditManagementStatusImpl()
 	{
 		super();
 	}
 
-	protected CreditManagementStatusImpl(Long minValue, Long maxValue)
+	public CreditManagementStatusImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public CreditManagementStatusImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setEndUserServiceDeniedBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(END_USER_SERVICE_DENIED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEndUserServiceDeniedBitSet()
+	{
+		return getBit(END_USER_SERVICE_DENIED_BIT);
+	}
+
+	@Override
+	public void setCreditControlNotApplicableBit(boolean isOn)
+	{
+		setBit(CREDIT_CONTROL_NOT_APPLICABLE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isCreditControlNotApplicableBitSet()
+	{
+		return getBit(CREDIT_CONTROL_NOT_APPLICABLE_BIT);
+	}
+
+	@Override
+	public void setAuthorizationRejectedBit(boolean isOn)
+	{
+		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAuthorizationRejectedBitSet()
+	{
+		return getBit(AUTHORIZATION_REJECTED_BIT);
+	}
+
+	@Override
+	public void setUserUnknownBit(boolean isOn)
+	{
+		setBit(USER_UNKNOWN_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUserUnknownBitSet()
+	{
+		return getBit(USER_UNKNOWN_BIT);
+	}
+
+	@Override
+	public void setRatingFailedBit(boolean isOn)
+	{
+		setBit(RATING_FAILED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isRatingFailedBitSet()
+	{
+		return getBit(RATING_FAILED_BIT);				
+	}
+
+	@Override
+	public void setNoGynSessionServiceAllowedBit(boolean isOn)
+	{
+		setBit(NO_GYN_SESSION_SERVICE_ALLOWED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNoGynSessionServiceAllowedBitSet()
+	{
+		return getBit(NO_GYN_SESSION_SERVICE_ALLOWED_BIT);
+	}
+
+	@Override
+	public void setNoGynSessionServiceNotAllowedBit(boolean isOn)
+	{
+		setBit(NO_GYN_SESSION_SERVICE_NOT_ALLOWED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNoGynSessionServiceNotAllowedBitSet()
+	{
+		return getBit(NO_GYN_SESSION_SERVICE_NOT_ALLOWED_BIT);
 	}
 }

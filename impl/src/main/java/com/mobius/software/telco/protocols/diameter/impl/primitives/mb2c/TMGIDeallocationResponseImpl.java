@@ -81,20 +81,14 @@ public class TMGIDeallocationResponseImpl extends DiameterGroupedAvpImpl impleme
 			this.tmgi.add(new TMGIImpl(curr, null, null));
 	}
 	
-	public Long getTMGIDeallocationResult()
+	public TMGIDeallocationResult getTMGIDeallocationResult()
 	{
-		if(tmgiDeallocationResult==null)
-			return null;
-		
-		return tmgiDeallocationResult.getUnsigned();
+		return tmgiDeallocationResult;
 	}
 	
-	public void setTMGIDeallocationResult(Long value)
+	public void setTMGIDeallocationResult(TMGIDeallocationResult value)
 	{
-		if(value==null)
-			this.tmgiDeallocationResult = null;
-		else
-			this.tmgiDeallocationResult = new TMGIDeallocationResultImpl(value, null, null);			
+		this.tmgiDeallocationResult = value;			
 	}
 	
 	@DiameterValidate

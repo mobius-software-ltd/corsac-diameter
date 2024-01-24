@@ -63,7 +63,7 @@ public interface PresenceReportingAreaInformation extends DiameterGroupedAvp
 	
 	void setPresenceReportingAreaElementsList(ByteBuf value);	
 	
-	Long getPresenceReportingAreaNode();
+	PresenceReportingAreaNode getPresenceReportingAreaNode();
 	
-	void setPresenceReportingAreaNode(Long value);			  
+	void setPresenceReportingAreaNode(PresenceReportingAreaNode value);			  
 }

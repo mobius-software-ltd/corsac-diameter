@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swm;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.swm.EmergencyServices;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.swm.EmergencyServ
 *
 */
 @DiameterAvpImplementation(code = 1538L, vendorId = KnownVendorIDs.TGPP_ID)
-public class EmergencyServicesImpl extends DiameterUnsigned32Impl implements EmergencyServices
+public class EmergencyServicesImpl extends DiameterBitmask32Impl implements EmergencyServices
 {
-	protected EmergencyServicesImpl()
+	public EmergencyServicesImpl()
 	{
 		super();
 	}
-
-	protected EmergencyServicesImpl(Long minValue, Long maxValue)
+	
+	protected EmergencyServicesImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public EmergencyServicesImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setEstablishPDNConnectionBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(ESTABLISH_PDN_CONNECTION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEstablishPDNConnectionBitSet()
+	{
+		return getBit(ESTABLISH_PDN_CONNECTION_BIT);
 	}
 }

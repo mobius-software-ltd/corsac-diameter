@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerResult;
 
@@ -29,20 +29,183 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerRe
 *
 */
 @DiameterAvpImplementation(code = 3506L, vendorId = KnownVendorIDs.TGPP_ID)
-public class MBMSBearerResultImpl extends DiameterUnsigned32Impl implements MBMSBearerResult
+public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSBearerResult
 {	
-	protected MBMSBearerResultImpl()
+	public MBMSBearerResultImpl()
 	{
 		super();
 	}
 
-	protected MBMSBearerResultImpl(Long minValue, Long maxValue)
+	protected MBMSBearerResultImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public MBMSBearerResultImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setSuccessBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(SUCCESS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSuccessBitSet()
+	{
+		return getBit(SUCCESS_BIT);
+	}
+
+	@Override
+	public void setAuthorizationRejectBit(boolean isOn)
+	{
+		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAuthorizationRejectBitSet()
+	{
+		return getBit(AUTHORIZATION_REJECTED_BIT);
+	}
+
+	@Override
+	public void setResourcesExceededBit(boolean isOn)
+	{
+		setBit(RESOURCES_EXCEEDED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isResourcesExceededBitSet()
+	{
+		return getBit(RESOURCES_EXCEEDED_BIT);
+	}
+
+	@Override
+	public void setUnknownTMGIBit(boolean isOn)
+	{
+		setBit(UNKNOWN_TMGI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUnknownTMGIBitSet()
+	{
+		return getBit(UNKNOWN_TMGI_BIT);
+	}
+
+	@Override
+	public void setTMGINotInUseBit(boolean isOn)
+	{
+		setBit(TMGI_NOT_IN_USE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTMGINotInUseBitSet()
+	{
+		return getBit(TMGI_NOT_IN_USE_BIT);
+	}
+
+	@Override
+	public void setOverlappingMBMSServiceAreaBit(boolean isOn)
+	{
+		setBit(OVERLAPPING_MBMS_SERVICE_AREA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isOverlappingMBMSServiceAreaBitSet()
+	{
+		return getBit(OVERLAPPING_MBMS_SERVICE_AREA_BIT);
+	}
+
+	@Override
+	public void setUnknownFlowIdentifierBit(boolean isOn)
+	{
+		setBit(UNKNOWN_FLOW_IDENTIFIER_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUnknownFlowIdentifierBitSet()
+	{
+		return getBit(UNKNOWN_FLOW_IDENTIFIER_BIT);
+	}
+
+	@Override
+	public void setQoSAuthorizationRejectedBit(boolean isOn)
+	{
+		setBit(QOS_AUTHORIZATION_REJECTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isQoSAuthorizationRejectedBitSet()
+	{
+		return getBit(QOS_AUTHORIZATION_REJECTED_BIT);
+	}
+
+	@Override
+	public void setUnknownMBMSServiceAreaBit(boolean isOn)
+	{
+		setBit(UNKNOWN_MBMS_SERVICE_AREA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUnknownMBMSServiceAreaBitSet()
+	{
+		return getBit(UNKNOWN_MBMS_SERVICE_AREA_BIT);
+	}
+
+	@Override
+	public void setMBMSServiceAreaAuthorizationRejectedBit(boolean isOn)
+	{
+		setBit(MBMS_SERVICE_AREA_AUTHORIZATION_REJECTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMBMSServiceAreaAuthorizationRejectedBitSet()
+	{
+		return getBit(MBMS_SERVICE_AREA_AUTHORIZATION_REJECTED_BIT);
+	}
+
+	@Override
+	public void setMBMSStartTimeBit(boolean isOn)
+	{
+		setBit(MBMS_START_TIME_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMBMSStartTimeBitSet()
+	{
+		return getBit(MBMS_START_TIME_BIT);
+	}
+
+	@Override
+	public void setInvalidAVPCombinationBit(boolean isOn)
+	{
+		setBit(INVALID_AVP_COMBINATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isInvalidAVPCombinationBitSet()
+	{
+		return getBit(INVALID_AVP_COMBINATION_BIT);
+	}
+
+	@Override
+	public void setSystemErrorBit(boolean isOn)
+	{
+		setBit(SYSTEM_ERROR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSystemErrorBitSet()
+	{
+		return getBit(SYSTEM_ERROR_BIT);
+	}
+
+	@Override
+	public void setActivationOngoingBit(boolean isOn)
+	{
+		setBit(ACTIVATION_ONGOING_BIT, isOn);
+	}
+
+	@Override
+	public boolean isActivationOngoingBitSet()
+	{
+		return getBit(ACTIVATION_ONGOING_BIT);
 	}
 }

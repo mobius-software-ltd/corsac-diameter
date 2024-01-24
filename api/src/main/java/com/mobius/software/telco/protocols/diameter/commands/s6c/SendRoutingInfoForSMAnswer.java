@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6c;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AdditionalServingNode;
+import com.mobius.software.telco.protocols.diameter.primitives.s6c.MWDStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSF3GPPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSFNon3GPPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.ServingNode;
@@ -93,9 +94,9 @@ public interface SendRoutingInfoForSMAnswer extends S6cAnswer
 	 
 	void setUserIdentifier(UserIdentifier value);
 	
-	Long getMWDStatus();
+	MWDStatus getMWDStatus();
 	 
-	void setMWDStatus(Long value);
+	void setMWDStatus(MWDStatus value);
 	 		
 	Long getMMEAbsentUserDiagnosticSM();
 	 

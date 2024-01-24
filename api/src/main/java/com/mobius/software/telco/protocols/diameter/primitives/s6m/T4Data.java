@@ -46,9 +46,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 3108L, vendorId = KnownVendorIDs.TGPP_ID, name = "T4-Data")
 public interface T4Data extends DiameterGroupedAvp
 {
-	Long getHSSCause();
+	HSSCause getHSSCause();
 	
-	void setHSSCause(Long value);
+	void setHSSCause(HSSCause value);
 	
 	ServingNode getServingNode();
 	

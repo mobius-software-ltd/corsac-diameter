@@ -22,6 +22,7 @@ import java.util.Date;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelationID;
+import com.mobius.software.telco.protocols.diameter.primitives.sgd.TFRFlags;
 
 import io.netty.buffer.ByteBuf;
 
@@ -84,9 +85,9 @@ public interface MTForwardShortMessageRequest extends SgdRequest
 	
 	void setSGSNNumber(String value);
 	
-	Long getTFRFlags();
+	TFRFlags getTFRFlags();
 	
-	void setTFRFlags(Long value);	
+	void setTFRFlags(TFRFlags value);	
 	
 	Long getSMDeliveryTimer();
 	 

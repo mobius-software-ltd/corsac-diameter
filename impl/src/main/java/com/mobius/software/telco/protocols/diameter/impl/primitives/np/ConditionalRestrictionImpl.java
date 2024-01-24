@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.np;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.np.ConditionalRestriction;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.ConditionalRes
 *
 */
 @DiameterAvpImplementation(code = 4007L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ConditionalRestrictionImpl extends DiameterUnsigned32Impl implements ConditionalRestriction
+public class ConditionalRestrictionImpl extends DiameterBitmask32Impl implements ConditionalRestriction
 {
-	protected ConditionalRestrictionImpl()
+	public ConditionalRestrictionImpl()
 	{
 		super();
 	}
 
-	protected ConditionalRestrictionImpl(Long minValue, Long maxValue)
+	public ConditionalRestrictionImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ConditionalRestrictionImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUELocationInfoNotIncludedInRUCIBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UE_LOCATION_INFO_NOT_INCLUDED_IN_RUCI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUELocationInfoNotIncludedInRUCIBitSet()
+	{
+		return getBit(UE_LOCATION_INFO_NOT_INCLUDED_IN_RUCI_BIT);
 	}
 }

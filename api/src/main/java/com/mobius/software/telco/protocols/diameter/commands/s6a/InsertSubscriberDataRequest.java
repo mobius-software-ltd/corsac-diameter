@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionData;
 
 import io.netty.buffer.ByteBuf;
@@ -60,9 +61,9 @@ public interface InsertSubscriberDataRequest extends S6aRequest
 	 
 	void setSubscriptionData(SubscriptionData value);
 	
-	Long getIDRFlags();
+	IDRFlags getIDRFlags();
 	
-	void setIDRFlags(Long value);
+	void setIDRFlags(IDRFlags value);
 	
 	List<ByteBuf> getResetID();
 	 

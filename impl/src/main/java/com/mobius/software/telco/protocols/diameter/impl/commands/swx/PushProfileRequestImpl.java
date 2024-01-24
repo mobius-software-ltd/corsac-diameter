@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swx.PushProfileRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.PPRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.Non3GPPUserData;
@@ -86,21 +85,15 @@ public class PushProfileRequestImpl extends SwxRequestImpl implements PushProfil
 	}
 	 
 	@Override
-	public Long getPPRFlags()
+	public PPRFlags getPPRFlags()
 	{
-		if(pprFlags==null)
-			return null;
-
-		return pprFlags.getUnsigned();
+		return pprFlags;
 	}
 
 	@Override
-	public void setPPRFlags(Long value)
+	public void setPPRFlags(PPRFlags value)
 	{
-		if(value == null)
-			this.pprFlags = null;
-		else
-			this.pprFlags = new PPRFlagsImpl(value, null, null);
+		this.pprFlags = value;
 	}
 	
 	@DiameterValidate

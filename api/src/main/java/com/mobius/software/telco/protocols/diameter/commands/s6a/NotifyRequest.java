@@ -26,9 +26,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6Agent
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AlertReasonEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.HomogeneousSupportOfIMSVoiceOverPSSessionsEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.NORFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UESRVCCCapabilityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
+import com.mobius.software.telco.protocols.diameter.primitives.swm.EmergencyServices;
 
 import io.netty.buffer.ByteBuf;
 
@@ -106,9 +108,9 @@ public interface NotifyRequest extends S6aRequest
 	
 	void setUESRVCCCapability(UESRVCCCapabilityEnum value);	
 	
-	Long getNORFlags();
+	NORFlags getNORFlags();
 	
-	void setNORFlags(Long value);
+	void setNORFlags(NORFlags value);
 	
 	HomogeneousSupportOfIMSVoiceOverPSSessionsEnum getHomogeneousSupportOfIMSVoiceOverPSSessions();
 	
@@ -122,7 +124,7 @@ public interface NotifyRequest extends S6aRequest
 	
 	void setMonitoringEventConfigStatus(List<MonitoringEventConfigStatus> value);
 	
-	Long getEmergencyServices();
+	EmergencyServices getEmergencyServices();
 	
-	void setEmergencyServices(Long value);		
+	void setEmergencyServices(EmergencyServices value);		
 }

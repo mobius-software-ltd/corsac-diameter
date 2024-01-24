@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.sgmb;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticInfo;
 
 /**
 *
@@ -50,9 +51,9 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 @DiameterCommandDefinition(applicationId = 16777292, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest
 {
-	Long getDiagnosticInfo();
+	DiagnosticInfo getDiagnosticInfo();
 	
-	void setDiagnosticInfo(Long value);
+	void setDiagnosticInfo(DiagnosticInfo value);
 	
 	Long getRestartCounter();
 	

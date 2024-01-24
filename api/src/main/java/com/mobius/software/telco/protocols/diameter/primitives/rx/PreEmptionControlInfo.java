@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -47,6 +47,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when set, indicates that the highest bandwidth flow is to be pre-empted.
 */
 @DiameterAvpDefinition(code = 553L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Pre-Emption-Control-Info")
-public interface PreEmptionControlInfo extends DiameterUnsigned32
+public interface PreEmptionControlInfo extends DiameterBitmask32
 {
+	public static final int MOST_RECENT_ADDED_FLOW_BIT = 0;	
+	public static final int LEAST_RECENT_ADDED_FLOW_BIT = 1;	
+	public static final int HIGHEST_BANDWIDTH_FLOW_BIT = 2;	
+	
+	public void setMostRecentAddedFlowBit(boolean isOn);
+	
+	public boolean isMostRecentAddedFlowBitSet();
+	
+	public void setLeastRecentAddedFlowBit(boolean isOn);
+	
+	public boolean isLeastRecentAddedFlowBitSet();
+	
+	public void setHighestBandwidthFlowBit(boolean isOn);
+	
+	public boolean isHighestBandwidthFlowBitSet();
 }

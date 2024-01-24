@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -45,6 +45,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Note: Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving MME or SGSN.
  */
 @DiameterAvpDefinition(code = 1442L, vendorId = KnownVendorIDs.TGPP_ID, name = "PUA-Flags")
-public interface PUAFlags extends DiameterUnsigned32
+public interface PUAFlags extends DiameterBitmask32
 {
+	public static final int FREEZE_MTMSI_BIT = 0;
+	public static final int FREEZE_PTMSI_BIT = 1;
+	
+	public void setFreezeMTMSIBit(boolean isOn);
+	
+	public boolean isFreezeMTMSIBitSet();
+	
+	public void setFreezePTMSIBit(boolean isOn);
+	
+	public boolean isFreezePTMSIBitSet();
 }

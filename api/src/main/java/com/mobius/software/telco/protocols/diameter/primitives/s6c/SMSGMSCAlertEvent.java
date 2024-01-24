@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -45,6 +45,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE 1:	Bits not defined in this table shall be cleared by the sending entity and discarded by the receiving entity.
  */
 @DiameterAvpDefinition(code = 3333L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SMS-GMSC-Alert-Event")
-public interface SMSGMSCAlertEvent extends DiameterUnsigned32
+public interface SMSGMSCAlertEvent extends DiameterBitmask32
 {
+	public static final int UE_AVAILABLE_FOR_MT_SMS_BIT = 0;	
+	public static final int UE_UNDER_NEW_SERVING_NODE_BIT = 1;	
+	
+	public void setUEAvailableForMTSMSBit(boolean isOn);
+	
+	public boolean isUEAvailableForMTSMSBitSet();
+	
+	public void setUEUnderNewServingNodeBit(boolean isOn);
+	
+	public boolean isUEUnderNewServingNodeBitSet();
 }

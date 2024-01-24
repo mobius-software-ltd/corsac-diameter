@@ -6,7 +6,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ReportingInformationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.RIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -120,21 +119,15 @@ public class ReportingInformationRequestImpl extends S6tRequestImpl implements R
 	}
 	
 	@Override
-	public Long getRIRFlags()
+	public RIRFlags getRIRFlags()
 	{
-		if(rirFlags == null)
-			return null;
-		
-		return rirFlags.getUnsigned();
+		return rirFlags;
 	}
 	
 	@Override
-	public void setRIRFlags(Long value)
+	public void setRIRFlags(RIRFlags value)
 	{
-		if(value == null)
-			this.rirFlags = null;
-		else
-			this.rirFlags = new RIRFlagsImpl(value, null, null);
+		this.rirFlags = value;
 	}
 	
 	@Override

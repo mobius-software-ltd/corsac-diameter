@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.ServiceAuthorizationInfo;
 
@@ -29,20 +29,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.ServiceAuthori
 *
 */
 @DiameterAvpImplementation(code = 548L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ServiceAuthorizationInfoImpl extends DiameterUnsigned32Impl implements ServiceAuthorizationInfo
+public class ServiceAuthorizationInfoImpl extends DiameterBitmask32Impl implements ServiceAuthorizationInfo
 {
-	protected ServiceAuthorizationInfoImpl()
+	public ServiceAuthorizationInfoImpl()
 	{
 		super();
 	}
 
-	protected ServiceAuthorizationInfoImpl(Long minValue, Long maxValue)
+	public ServiceAuthorizationInfoImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ServiceAuthorizationInfoImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setTheTransferPolicyIsKnownBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(THE_TRANSFER_POLICY_IS_KNOWN_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTheTransferPolicyIsKnownBitSet()
+	{
+		return getBit(THE_TRANSFER_POLICY_IS_KNOWN_BIT);				
+	}
+
+	@Override
+	public void setTheTransferPolicyHasExpiredBit(boolean isOn)
+	{
+		setBit(THE_TRANSFER_POLICY_HAS_EXPIRED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTheTransferPolicyHasExpiredBitSet()
+	{
+		return getBit(THE_TRANSFER_POLICY_HAS_EXPIRED_BIT);
+	}
+
+	@Override
+	public void setTheTimeWindowOfTheTransferPolicyHasOccurredBit(boolean isOn)
+	{
+		setBit(THE_TIME_WINDOW_OF_THE_TRANSFER_POLICY_HAS_OCCURED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTheTimeWindowOfTheTransferPolicyHasOccurredBitSet()
+	{
+		return getBit(THE_TIME_WINDOW_OF_THE_TRANSFER_POLICY_HAS_OCCURED_BIT);
 	}
 }

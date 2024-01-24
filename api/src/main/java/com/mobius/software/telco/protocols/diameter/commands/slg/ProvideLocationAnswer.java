@@ -22,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AccuracyFulfilmentIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.ESMLCCellInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.GERANPositioningInfo;
+import com.mobius.software.telco.protocols.diameter.primitives.slg.PLAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.UTRANPositioningInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 
@@ -115,9 +116,9 @@ public interface ProvideLocationAnswer extends SlgAnswer
 	 
 	void setServingNode(ServingNode value);
 	
-	Long getPLAFlags();
+	PLAFlags getPLAFlags();
 	 
-	void setPLAFlags(Long value);
+	void setPLAFlags(PLAFlags value);
 	
 	ESMLCCellInfo getESMLCCellInfo();
 	 

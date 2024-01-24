@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -54,6 +54,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving MME.
  */
 @DiameterAvpDefinition(code = 3312L, vendorId = KnownVendorIDs.TGPP_ID, name = "MWD-Status")
-public interface MWDStatus extends DiameterUnsigned32
+public interface MWDStatus extends DiameterBitmask32
 {
+	public static final int MNRF_BIT = 0;	
+	public static final int MCEF_BIT = 1;	
+	public static final int MNRG_BIT = 2;	
+	public static final int MNRG5G_BIT = 3;	
+	
+	public void setMNRFBit(boolean isOn);
+	
+	public boolean isMNRFBitSet();
+	
+	public void setMCEFFlowBit(boolean isOn);
+	
+	public boolean isMCEFBitSet();
+	
+	public void setMNRGBit(boolean isOn);
+	
+	public boolean isMNRGBitSet();
+	
+	public void setMNRG5GBit(boolean isOn);
+	
+	public boolean isMNRG5GBitSet();
 }

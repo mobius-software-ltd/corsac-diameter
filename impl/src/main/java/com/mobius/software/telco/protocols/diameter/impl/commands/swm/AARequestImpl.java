@@ -10,7 +10,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.commands.swm.AARequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.swm.AARFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -96,21 +95,15 @@ public class AARequestImpl extends SwmRequestImpl implements AARequest
 	}
 	
 	@Override
-	public Long getAARFlags()
+	public AARFlags getAARFlags()
 	{
-		if(aarFlags==null)
-			return null;
-		
-		return this.aarFlags.getUnsigned();
+		return this.aarFlags;
 	}
 	
 	@Override
-	public void setAARFlags(Long value) 
+	public void setAARFlags(AARFlags value) 
 	{
-		if(value==null)
-			this.aarFlags = null;
-		else
-			this.aarFlags = new AARFlagsImpl(value, null, null);
+		this.aarFlags = value;
 	}
 	
 	@Override

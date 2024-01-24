@@ -40,9 +40,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 @DiameterAvpDefinition(code = 2311L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Service")
 public interface AoCService extends DiameterAvp
 {
-	AoCServiceObligatoryType getAoCServiceObligatoryType();
+	AoCServiceObligatoryTypeEnum getAoCServiceObligatoryType();
 	
-	void setAoCServiceObligatoryType(AoCServiceObligatoryType value);
+	void setAoCServiceObligatoryType(AoCServiceObligatoryTypeEnum value);
 	
 	AoCServiceTypeEnum getAoCServiceType();
 	

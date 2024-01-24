@@ -61,28 +61,19 @@ public class SubscriptionDataDeletionImpl extends DiameterGroupedAvpImpl impleme
 		
 	}
 	
-	public SubscriptionDataDeletionImpl(Long dsrFlags)
+	public SubscriptionDataDeletionImpl(DSRFlags dsrFlags)
 	{
-		if(dsrFlags==null)
-			throw new IllegalArgumentException("DSR-Flags is required");
-		
-		this.dsrFlags = new DSRFlagsImpl(dsrFlags, null, null);
+		setDSRFlags(dsrFlags);
 	}
 	
-	public Long getDSRFlags()
+	public DSRFlags getDSRFlags()
 	{
-		if(dsrFlags == null)
-			return null;
-		
-		return dsrFlags.getUnsigned();
+		return dsrFlags;
 	}
 	
-	public void setDSRFlags(Long value)
+	public void setDSRFlags(DSRFlags value)
 	{
-		if(value == null)
-			throw new IllegalArgumentException("DSR-Flags is required");
-		
-		this.dsrFlags = new DSRFlagsImpl(value, null, null);
+		this.dsrFlags = value;
 	}
 	
 	public String getSCEFID()

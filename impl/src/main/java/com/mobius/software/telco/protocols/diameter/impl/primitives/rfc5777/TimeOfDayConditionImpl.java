@@ -94,52 +94,34 @@ public class TimeOfDayConditionImpl extends DiameterGroupedAvpImpl implements Ti
 			this.timeOfDayEnd = new TimeOfDayEndImpl(value, null, null);
 	}
 	
-	public Long getDayOfWeekMask()
+	public DayOfWeekMask getDayOfWeekMask()
 	{
-		if(dayOfWeekMask == null)
-			return null;
-		
-		return dayOfWeekMask.getUnsigned();
+		return dayOfWeekMask;
 	}
 	
-	public void setDayOfWeekMask(Long value)
+	public void setDayOfWeekMask(DayOfWeekMask value)
 	{
-		if(value == null)
-			this.dayOfWeekMask = null;
-		else
-			this.dayOfWeekMask = new DayOfWeekMaskImpl(value, null, null);
+		this.dayOfWeekMask = value;
 	}
 	
-	public Long getDayOfMonthMask()
+	public DayOfMonthMask getDayOfMonthMask()
 	{
-		if(dayOfMonthMask == null)
-			return null;
-		
-		return dayOfMonthMask.getUnsigned();
+		return dayOfMonthMask;
 	}
 	
-	public void setDayOfMonthMask(Long value)
+	public void setDayOfMonthMask(DayOfMonthMask value)
 	{
-		if(value == null)
-			this.dayOfMonthMask = null;
-		else
-			this.dayOfMonthMask = new DayOfMonthMaskImpl(value, null, null);
+		this.dayOfMonthMask = value;
 	}
 	
-	public Long getMonthOfYearMask()
+	public MonthOfYearMask getMonthOfYearMask()
 	{
-		if(monthOfYearMask == null)
-			return null;
-		
-		return monthOfYearMask.getUnsigned();
+		return monthOfYearMask;
 	}
 	
-	public void setMonthOfYearMask(Long value)
+	public void setMonthOfYearMask(MonthOfYearMask value)
 	{
-		if(value == null)
-			this.monthOfYearMask = null;
-		else
-			this.monthOfYearMask = new MonthOfYearMaskImpl(value, null, null);
+		this.monthOfYearMask = value;
 	}
 	
 	public Date getAbsoluteStartTime()

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -79,6 +79,76 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The requested bearer activation is still ongoing.
  */
 @DiameterAvpDefinition(code = 3506L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Result")
-public interface MBMSBearerResult extends DiameterUnsigned32
+public interface MBMSBearerResult extends DiameterBitmask32
 {
+	public static final int SUCCESS_BIT = 0;
+	public static final int AUTHORIZATION_REJECTED_BIT = 1;
+	public static final int RESOURCES_EXCEEDED_BIT = 2;
+	public static final int UNKNOWN_TMGI_BIT = 3;
+	public static final int TMGI_NOT_IN_USE_BIT = 4;
+	public static final int OVERLAPPING_MBMS_SERVICE_AREA_BIT = 5;
+	public static final int UNKNOWN_FLOW_IDENTIFIER_BIT = 6;
+	public static final int QOS_AUTHORIZATION_REJECTED_BIT = 7;
+	public static final int UNKNOWN_MBMS_SERVICE_AREA_BIT = 8;
+	public static final int MBMS_SERVICE_AREA_AUTHORIZATION_REJECTED_BIT = 9;
+	public static final int MBMS_START_TIME_BIT = 10;
+	public static final int INVALID_AVP_COMBINATION_BIT = 11;
+	public static final int SYSTEM_ERROR_BIT = 12;
+	public static final int ACTIVATION_ONGOING_BIT = 13;
+	
+	public void setSuccessBit(boolean isOn);
+	
+	public boolean isSuccessBitSet();
+	
+	public void setAuthorizationRejectBit(boolean isOn);
+	
+	public boolean isAuthorizationRejectBitSet();
+	
+	public void setResourcesExceededBit(boolean isOn);
+	
+	public boolean isResourcesExceededBitSet();
+	
+	public void setUnknownTMGIBit(boolean isOn);
+	
+	public boolean isUnknownTMGIBitSet();
+	
+	public void setTMGINotInUseBit(boolean isOn);
+	
+	public boolean isTMGINotInUseBitSet();
+	
+	public void setOverlappingMBMSServiceAreaBit(boolean isOn);
+	
+	public boolean isOverlappingMBMSServiceAreaBitSet();
+	
+	public void setUnknownFlowIdentifierBit(boolean isOn);
+	
+	public boolean isUnknownFlowIdentifierBitSet();
+	
+	public void setQoSAuthorizationRejectedBit(boolean isOn);
+	
+	public boolean isQoSAuthorizationRejectedBitSet();
+	
+	public void setUnknownMBMSServiceAreaBit(boolean isOn);
+	
+	public boolean isUnknownMBMSServiceAreaBitSet();
+	
+	public void setMBMSServiceAreaAuthorizationRejectedBit(boolean isOn);
+	
+	public boolean isMBMSServiceAreaAuthorizationRejectedBitSet();
+	
+	public void setMBMSStartTimeBit(boolean isOn);
+	
+	public boolean isMBMSStartTimeBitSet();
+	
+	public void setInvalidAVPCombinationBit(boolean isOn);
+	
+	public boolean isInvalidAVPCombinationBitSet();
+	
+	public void setSystemErrorBit(boolean isOn);
+	
+	public boolean isSystemErrorBitSet();
+	
+	public void setActivationOngoingBit(boolean isOn);
+	
+	public boolean isActivationOngoingBitSet();
 }

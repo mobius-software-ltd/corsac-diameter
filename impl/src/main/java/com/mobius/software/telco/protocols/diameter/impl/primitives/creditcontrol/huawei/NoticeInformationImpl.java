@@ -54,7 +54,7 @@ public class NoticeInformationImpl implements NoticeInformation
 	
 	private ReceiveMessageAddr receiveMessageAddr;
 	
-	protected NoticeInformationImpl()
+	public NoticeInformationImpl()
 	{
 		
 	}

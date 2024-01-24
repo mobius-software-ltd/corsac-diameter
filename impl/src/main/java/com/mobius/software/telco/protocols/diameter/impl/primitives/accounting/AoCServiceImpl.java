@@ -22,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImple
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCService;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCServiceObligatoryType;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCServiceObligatoryTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCServiceType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCServiceTypeEnum;
 
@@ -41,14 +42,20 @@ public class AoCServiceImpl implements AoCService
 		
 	}
 	
-	public AoCServiceObligatoryType getAoCServiceObligatoryType()
+	public AoCServiceObligatoryTypeEnum getAoCServiceObligatoryType()
 	{
-		return aocServiceObligatoryType;
+		if(aocServiceObligatoryType==null)
+			return null;
+		
+		return aocServiceObligatoryType.getEnumerated(AoCServiceObligatoryTypeEnum.class);
 	}
 	
-	public void setAoCServiceObligatoryType(AoCServiceObligatoryType value)
+	public void setAoCServiceObligatoryType(AoCServiceObligatoryTypeEnum value)
 	{
-		this.aocServiceObligatoryType = value;
+		if(value==null)
+			this.aocServiceObligatoryType = null;
+		else
+			this.aocServiceObligatoryType = new AoCServiceObligatoryTypeImpl(value, null, null);
 	}
 	
 	public AoCServiceTypeEnum getAoCServiceType()

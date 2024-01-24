@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -49,6 +49,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The requested TMGI deallocation failed due to internal system error in the BM-SC.
  */
 @DiameterAvpDefinition(code = 3514L, vendorId = KnownVendorIDs.TGPP_ID, name = "TMGI‑Deallocation‑Result")
-public interface TMGIDeallocationResult extends DiameterUnsigned32
+public interface TMGIDeallocationResult extends DiameterBitmask32
 {
+	public static final int SUCCESS_BIT = 0;
+	public static final int AUTHORIZATION_REJECTED_BIT = 1;
+	public static final int UNKNOWN_TMGI_BIT = 2;
+	public static final int SYSTEM_ERROR_BIT = 3;
+	
+	public void setSuccessBit(boolean isOn);
+	
+	public boolean isSuccessBitSet();
+	
+	public void setAuthorizationRejectBit(boolean isOn);
+	
+	public boolean isAuthorizationRejectBitSet();
+	
+	public void setUnknownTMGIBit(boolean isOn);
+	
+	public boolean isUnknownTMGIBitSet();
+	
+	public void setSystemErrorBit(boolean isOn);
+	
+	public boolean isSystemErrorBitSet();
 }

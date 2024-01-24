@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 
 /**
 *
@@ -41,6 +41,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	month.
  */
 @DiameterAvpDefinition(code = 564L, vendorId = -1L, name = "Day-Of-Month-Mask")
-public interface DayOfMonthMask extends DiameterUnsigned32
+public interface DayOfMonthMask extends DiameterBitmask32
 {
+	public void setDayBit(int dom, boolean isOn);
+	
+	public boolean isDayBitSet(int dom);	
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -50,6 +50,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE 3: For the purpose of withdrawing "Aerial UE Subscription", HSS may send CLR with CLR-Flag set to Reattach-Required.
 */
 @DiameterAvpDefinition(code = 1638L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "CLR-Flags")
-public interface CLRFlags extends DiameterUnsigned32
+public interface CLRFlags extends DiameterBitmask32
 {
+	public static final int S6A_S6D_INDICATOR_BIT = 0;
+	public static final int REATTACH_REQUIRED_BIT = 1;
+	
+	public void setS6AS6DIndicatorBit(boolean isOn);
+	
+	public boolean isS6AS6DIndicatorBitSet();
+	
+	public void setReattachedRequiredBit(boolean isOn);
+	
+	public boolean isReattachedRequiredBitSet();
 }

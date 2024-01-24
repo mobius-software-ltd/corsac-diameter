@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.FECResult;
 
@@ -29,20 +29,111 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.FECResult;
 *
 */
 @DiameterAvpImplementation(code = 3531L, vendorId = KnownVendorIDs.TGPP_ID)
-public class FECResultImpl extends DiameterUnsigned32Impl implements FECResult
+public class FECResultImpl extends DiameterBitmask32Impl implements FECResult
 {
-	protected FECResultImpl()
+	public FECResultImpl()
 	{
 		super();
 	}
 
-	protected FECResultImpl(Long minValue, Long maxValue)
+	protected FECResultImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public FECResultImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setSucessBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(SUCCESS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSucessBitSet()
+	{
+		return getBit(SUCCESS_BIT);
+	}
+
+	@Override
+	public void setTryingBit(boolean isOn)
+	{
+		setBit(TRYING_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTryingBitSet()
+	{
+		return getBit(TRYING_BIT);
+	}
+
+	@Override
+	public void setAuthorizationBit(boolean isOn)
+	{
+		setBit(AUTHORIZATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAuthorizationBitSet()
+	{
+		return getBit(AUTHORIZATION_BIT);
+	}
+
+	@Override
+	public void setResouceExceededBit(boolean isOn)
+	{
+		setBit(RESOURCES_EXCEEDED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isResouceExceededSet()
+	{
+		return getBit(RESOURCES_EXCEEDED_BIT);
+	}
+
+	@Override
+	public void setUnknownConfigurationBit(boolean isOn)
+	{
+		setBit(UNKOWN_CONFIGURATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUnknownConfigurationBitSet()
+	{
+		return getBit(UNKOWN_CONFIGURATION_BIT);
+	}
+
+	@Override
+	public void setInvalidSDPBit(boolean isOn)
+	{
+		setBit(INVALID_SDP_BIT, isOn);
+	}
+
+	@Override
+	public boolean isInvalidSDPBitSet()
+	{
+		return getBit(INVALID_SDP_BIT);
+	}
+
+	@Override
+	public void setSystemErrorBit(boolean isOn)
+	{
+		setBit(SYSTEM_ERROR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSystemErrorBitSet()
+	{
+		return getBit(SYSTEM_ERROR_BIT);
+	}
+
+	@Override
+	public void setNoTrafficBit(boolean isOn)
+	{
+		setBit(NO_TRAFFIC_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNoTrafficBitSet()
+	{
+		return getBit(NO_TRAFFIC_BIT);
 	}
 }

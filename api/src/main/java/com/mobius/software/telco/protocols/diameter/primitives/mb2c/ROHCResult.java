@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -58,6 +58,41 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ROHC execution was terminated because the BM-SC did not detect any user plane traffic for a longer period.
 */
 @DiameterAvpDefinition(code = 3530L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ROHC‑Result")
-public interface ROHCResult extends DiameterUnsigned32
+public interface ROHCResult extends DiameterBitmask32
 {
+	public static final int SUCCESS_BIT = 0;
+	public static final int TRYING_BIT = 1;
+	public static final int AUTHORIZATION_REJECTED_BIT = 2;
+	public static final int RESOURCED_EXCEEDED_BIT = 3;
+	public static final int UNKNOWN_PROFILE_BIT = 4;
+	public static final int SYSTEM_ERROR_BIT = 5;
+	public static final int NO_TRAFFIC_BIT = 6;
+	
+	public void setSuccessBit(boolean isOn);
+	
+	public boolean isSuccessBitSet();
+	
+	public void setTryingBit(boolean isOn);
+	
+	public boolean isTryingBitSet();
+	
+	public void setAuthorizationRejectBit(boolean isOn);
+	
+	public boolean isAuthorizationRejectBitSet();
+	
+	public void setResourcesExceededBit(boolean isOn);
+	
+	public boolean isResourcesExceededBitSet();
+	
+	public void setUnknownProfileBit(boolean isOn);
+	
+	public boolean isUnknownProfileBitSet();
+	
+	public void setSystemErrorBit(boolean isOn);
+	
+	public boolean isSystemErrorBitSet();
+	
+	public void setNoTrafficBit(boolean isOn);
+	
+	public boolean isNoTrafficBitSet();
 }

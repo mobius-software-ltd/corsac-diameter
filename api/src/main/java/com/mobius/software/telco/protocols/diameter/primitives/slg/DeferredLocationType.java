@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -61,6 +61,46 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	An event where the maximum reporting interval has expired. This event is applicable to a deferred EPC-MT-LR only.
  */
 @DiameterAvpDefinition(code = 2532L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Deferred-Location-Type")
-public interface DeferredLocationType extends DiameterUnsigned32
+public interface DeferredLocationType extends DiameterBitmask32
 {
+	public static final int UE_AVAILABLE_BIT = 0;
+	public static final int ENTERING_INTO_AREA_BIT = 1;
+	public static final int LEAVING_FROM_AREA_BIT = 2;
+	public static final int BEING_INSIDE_AREA_BIT = 3;
+	public static final int PERIOD_LDR_BIT = 4;
+	public static final int MOTION_EVENT_BIT = 5;
+	public static final int LDR_ACTIVATED_BIT = 6;
+	public static final int MAXIMUM_INTERVAL_EXPIRATION_BIT = 7;
+	
+	public void setUEAvailableBit(boolean isOn);
+	
+	public boolean isUEAvailableBitSet();
+	
+	public void setEnteringIntoAreaBit(boolean isOn);
+	
+	public boolean isEnteringIntoAreaBitSet();
+	
+	public void setLeavingFromAreaBit(boolean isOn);
+	
+	public boolean isLeavingFromAreaBitSet();
+	
+	public void setBeingInsideAreaBit(boolean isOn);
+	
+	public boolean isBeingInsideAreaBitSet();
+	
+	public void setPeriodicLDRBit(boolean isOn);
+	
+	public boolean isPeriodicLDRBitSet();
+	
+	public void setMotionEventBit(boolean isOn);
+	
+	public boolean isMotionEventBitSet();
+	
+	public void setLDRActivatedBit(boolean isOn);
+	
+	public boolean isLDRActivatedBitSet();
+	
+	public void setMaximumIntervalExpirationBit(boolean isOn);
+	
+	public boolean isMaximumIntervalExpirationBitSet();
 }

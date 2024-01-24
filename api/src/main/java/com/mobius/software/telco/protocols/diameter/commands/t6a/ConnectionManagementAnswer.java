@@ -22,7 +22,6 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
-import com.mobius.software.telco.protocols.diameter.primitives.accounting.PDNConnectionChargingID;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.APNRateControlStatus;
@@ -81,9 +80,9 @@ public interface ConnectionManagementAnswer extends T6aAnswer
 	 
 	void setLoad(List<Load> value);
 	 
-	PDNConnectionChargingID getPDNConnectionChargingID();
+	Long getPDNConnectionChargingID();
 	 
-	void setPDNConnectionChargingID(PDNConnectionChargingID value);	
+	void setPDNConnectionChargingID(Long value);	
 	
 	ByteBuf getExtendedPCO();
 	 

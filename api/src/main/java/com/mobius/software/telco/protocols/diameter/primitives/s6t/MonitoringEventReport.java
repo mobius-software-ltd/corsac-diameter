@@ -96,9 +96,9 @@ public interface MonitoringEventReport extends DiameterGroupedAvp
 	
 	void setRoamingInformation(RoamingInformationEnum value);
 	
-	Long getIMEIChange();
+	IMEIChange getIMEIChange();
 	
-	void setIMEIChange(Long value);
+	void setIMEIChange(IMEIChange value);
 	
 	TerminalInformation getTerminalInformation();
 	

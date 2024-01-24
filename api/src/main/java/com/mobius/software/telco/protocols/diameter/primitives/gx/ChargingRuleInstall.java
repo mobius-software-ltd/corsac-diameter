@@ -109,9 +109,9 @@ public interface ChargingRuleInstall extends DiameterGroupedAvp
 	
 	void setBearerIdentifier(ByteBuf value);
 	
-	Long getMonitoringFlags();
+	MonitoringFlags getMonitoringFlags();
 	
-	void setMonitoringFlags(Long value);	
+	void setMonitoringFlags(MonitoringFlags value);	
 	
 	Date getRuleActivationTime();
 	

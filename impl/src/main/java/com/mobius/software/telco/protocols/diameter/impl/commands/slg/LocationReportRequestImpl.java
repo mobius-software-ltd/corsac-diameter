@@ -22,7 +22,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.EUTRANPo
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSQoSClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSServiceTypeIDImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LRRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LocationEventImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.OneXRTTRCIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.PseudonymIndicatorImpl;
@@ -465,21 +464,15 @@ public class LocationReportRequestImpl extends SlgRequestImpl implements Locatio
 	}
 	
 	@Override
-	public Long getLRRFlags()
+	public LRRFlags getLRRFlags()
 	{
-		if(lrrFlags == null)
-			return null;
-		
-		return lrrFlags.getUnsigned();
+		return lrrFlags;
 	}
 	
 	@Override
-	public void setLRRFlags(Long value)
+	public void setLRRFlags(LRRFlags value)
 	{
-		if(value == null)
-			this.lrrFlags = null;
-		else
-			this.lrrFlags = new LRRFlagsImpl(value, null, null);
+		this.lrrFlags = value;
 	}	
 	
 	@Override

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSFlags;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSFlags;
 *
 */
 @DiameterAvpImplementation(code = 931L, vendorId = KnownVendorIDs.TGPP_ID)
-public class MBMSFlagsImpl extends DiameterUnsigned32Impl implements MBMSFlags
+public class MBMSFlagsImpl extends DiameterBitmask32Impl implements MBMSFlags
 {
-	protected MBMSFlagsImpl()
+	public MBMSFlagsImpl()
 	{
 		super();
 	}
 
-	protected MBMSFlagsImpl(Long minValue, Long maxValue)
+	public MBMSFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public MBMSFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setMSRIBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(MSRI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMSRIBitSet()
+	{
+		return getBit(MSRI_BIT);
+	}
+
+	@Override
+	public void setLMBCRIBit(boolean isOn)
+	{
+		setBit(LMBCRI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isLMBCRIBitSet()
+	{
+		return getBit(LMBCRI_BIT);
 	}
 }

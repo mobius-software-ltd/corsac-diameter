@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -42,6 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the receiver of the command.	
  */
 @DiameterAvpDefinition(code = 3164L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "CIA-Flags")
-public interface CIAFlags extends DiameterUnsigned32
+public interface CIAFlags extends DiameterBitmask32
 {
+	public static final int GROUP_CONFIGURATION_IN_PROGRESS_BIT = 0;
+	
+	public void setGroupConfigurationInProgressBit(boolean isOn);
+	
+	public boolean isGroupConfigurationInProgressBitSet();
 }

@@ -16,7 +16,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMDelive
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMDeliveryTimerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMSGMSCAddressImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.TFRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MMENumberForMTSMS;
@@ -178,21 +177,15 @@ public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 	}
 	
 	@Override
-	public Long getTFRFlags()
+	public TFRFlags getTFRFlags()
 	{
-		if(tfrFlags == null)
-			return null;
-		
-		return tfrFlags.getUnsigned();
+		return tfrFlags;
 	}
 	
 	@Override
-	public void setTFRFlags(Long value)
+	public void setTFRFlags(TFRFlags value)
 	{
-		if(value == null)
-			this.tfrFlags = null;
-		else
-			this.tfrFlags = new TFRFlagsImpl(value, null, null);
+		this.tfrFlags = value;
 	}	
 	
 	@Override

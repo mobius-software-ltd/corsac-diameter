@@ -275,6 +275,12 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	}
 	
 	@Override
+	public void setQoSInformation(QoSInformation value)
+	{
+		this.qosInformation = value;
+	}
+	
+	@Override
 	public void setTDFInformation(TDFInformation value)
 	{
 		this.tdfInformation = value;
@@ -284,12 +290,6 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	public TDFInformation getTDFInformation()
 	{
 		return this.tdfInformation;
-	}
-	
-	@Override
-	public void setQoSInformation(QoSInformation value)
-	{
-		this.qosInformation = value;
 	}
 	
 	@Override

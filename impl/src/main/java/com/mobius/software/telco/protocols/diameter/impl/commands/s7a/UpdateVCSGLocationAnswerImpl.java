@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ErrorDiagnosticImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UVAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ErrorDiagnostic;
@@ -91,21 +90,15 @@ public class UpdateVCSGLocationAnswerImpl extends S7aAnswerImpl implements Updat
 	}
 	
 	@Override
-	public Long getUVAFlags()
+	public UVAFlags getUVAFlags()
 	{
-		if(uvaFlags==null)
-			return null;
-		
-		return uvaFlags.getUnsigned();
+		return uvaFlags;
 	}
 	
 	@Override
-	public void setUVAFlags(Long value)
+	public void setUVAFlags(UVAFlags value)
 	{
-		if(value==null)
-			this.uvaFlags = null;
-		else
-			this.uvaFlags = new UVAFlagsImpl(value, null, null);
+		this.uvaFlags = value;
 	}
 	
 	@DiameterOrder

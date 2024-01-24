@@ -49,20 +49,14 @@ public class UEReachabilityConfigurationImpl extends DiameterGroupedAvpImpl impl
 		
 	}
 	
-	public Long getReachabilityType()
+	public ReachabilityType getReachabilityType()
 	{
-		if(reachabilityType == null)
-			return null;
-		
-		return reachabilityType.getUnsigned();
+		return reachabilityType;
 	}
 	
-	public void setReachabilityType(Long value)
+	public void setReachabilityType(ReachabilityType value)
 	{
-		if(value == null)
-			this.reachabilityType = null;
-		else
-			this.reachabilityType = new ReachabilityTypeImpl(value, null, null);
+		this.reachabilityType = value;
 	}
 	
 	public Long getMaximumLatency()

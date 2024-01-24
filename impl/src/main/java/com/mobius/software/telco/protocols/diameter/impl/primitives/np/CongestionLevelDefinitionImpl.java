@@ -43,17 +43,11 @@ public class CongestionLevelDefinitionImpl extends DiameterGroupedAvpImpl implem
 		
 	}
 	
-	public CongestionLevelDefinitionImpl(Long congestionLevelSetId,Long congestionLevelRange)
+	public CongestionLevelDefinitionImpl(Long congestionLevelSetId,CongestionLevelRange congestionLevelRange)
 	{
-		if(congestionLevelSetId == null)
-			throw new IllegalArgumentException("Congestion-Level-Set-Id is required");
+		setCongestionLevelSetId(congestionLevelSetId);
 		
-		if(congestionLevelRange == null)
-			throw new IllegalArgumentException("Congestion-Level-Range is required");
-		
-		this.congestionLevelSetId = new CongestionLevelSetIdImpl(congestionLevelSetId, null, null);
-		
-		this.congestionLevelRange = new CongestionLevelRangeImpl(congestionLevelRange, null, null);
+		setCongestionLevelRange(congestionLevelRange);
 	}
 	
 	public Long getCongestionLevelSetId()
@@ -72,20 +66,17 @@ public class CongestionLevelDefinitionImpl extends DiameterGroupedAvpImpl implem
 		this.congestionLevelSetId = new CongestionLevelSetIdImpl(value, null, null);		
 	}
 	
-	public Long getCongestionLevelRange()
+	public CongestionLevelRange getCongestionLevelRange()
 	{
-		if(congestionLevelRange==null)
-			return null;
-		
-		return this.congestionLevelRange.getUnsigned();
+		return this.congestionLevelRange;
 	}
 	
-	public void setCongestionLevelRange(Long value)
+	public void setCongestionLevelRange(CongestionLevelRange value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("Congestion-Level-Range is required");
 		
-		this.congestionLevelRange = new CongestionLevelRangeImpl(value, null, null);
+		this.congestionLevelRange = value;
 	}
 	
 	@DiameterValidate

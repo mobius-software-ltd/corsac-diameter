@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CLRFlags;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.CLRFlags;
 *
 */
 @DiameterAvpImplementation(code = 1638L, vendorId = KnownVendorIDs.TGPP_ID)
-public class CLRFlagsImpl extends DiameterUnsigned32Impl implements CLRFlags
+public class CLRFlagsImpl extends DiameterBitmask32Impl implements CLRFlags
 {
-	protected CLRFlagsImpl()
+	public CLRFlagsImpl()
 	{
 		super();
 	}
-
-	protected CLRFlagsImpl(Long minValue, Long maxValue)
+	
+	protected CLRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public CLRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setS6AS6DIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(S6A_S6D_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isS6AS6DIndicatorBitSet()
+	{
+		return getBit(S6A_S6D_INDICATOR_BIT);
+	}
+
+	@Override
+	public void setReattachedRequiredBit(boolean isOn)
+	{
+		setBit(REATTACH_REQUIRED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isReattachedRequiredBitSet()
+	{
+		return getBit(REATTACH_REQUIRED_BIT);
 	}
 }

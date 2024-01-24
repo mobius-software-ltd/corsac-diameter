@@ -67,6 +67,11 @@ public class DiameterInteger64Impl implements DiameterInteger64
 		return value;
 	}
 
+	protected void setLong(Long value)
+	{
+		this.value = value;
+	}
+	
 	@DiameterLength
 	public Integer getLength() 
 	{
@@ -107,7 +112,7 @@ public class DiameterInteger64Impl implements DiameterInteger64
 		
 		return null;
 	}
-
+	
 	@Override
 	public int hashCode() 
 	{

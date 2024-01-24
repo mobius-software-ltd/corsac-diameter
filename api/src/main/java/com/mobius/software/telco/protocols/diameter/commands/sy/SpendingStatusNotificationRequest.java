@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
+import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
 
 /**
 *
@@ -56,7 +57,7 @@ public interface SpendingStatusNotificationRequest extends SyRequest
 	 
 	void setPolicyCounterStatusReport(List<PolicyCounterStatusReport> value);
 	
-	public Long getSNRequestType();
+	public SNRequestType getSNRequestType();
 	
-	void setSNRequestType(Long value);
+	void setSNRequestType(SNRequestType value);
 }

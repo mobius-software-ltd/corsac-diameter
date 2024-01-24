@@ -15,7 +15,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeIm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.swm.EmergencyServicesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
@@ -296,21 +295,15 @@ public class EAPRequestImpl extends SwmRequestImpl implements EAPRequest
 	}
 	 
 	@Override
-	public Long getEmergencyServices()
+	public EmergencyServices getEmergencyServices()
 	{
-		if(emergencyServices==null)
-			return null;
-
-		return emergencyServices.getUnsigned();
+		return emergencyServices;
 	}
 
 	@Override
-	public void setEmergencyServices(Long value)
+	public void setEmergencyServices(EmergencyServices value)
 	{
-		if(value == null)
-			this.emergencyServices = null;
-		else
-			this.emergencyServices = new EmergencyServicesImpl(value, null, null);
+		this.emergencyServices = value;
 	}
 	
 	@DiameterValidate

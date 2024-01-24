@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgd;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.TFRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.TFRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3302L, vendorId = KnownVendorIDs.TGPP_ID)
-public class TFRFlagsImpl extends DiameterUnsigned32Impl implements TFRFlags
+public class TFRFlagsImpl extends DiameterBitmask32Impl implements TFRFlags
 {
-	protected TFRFlagsImpl()
+	public TFRFlagsImpl()
 	{
 		super();
 	}
 
-	protected TFRFlagsImpl(Long minValue, Long maxValue)
+	public TFRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public TFRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setMoreMessagesToSendBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(MORE_MESSAGES_TO_SEND_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMoreMessagesToSendBitSet()
+	{
+		return getBit(MORE_MESSAGES_TO_SEND_BIT);
 	}
 }

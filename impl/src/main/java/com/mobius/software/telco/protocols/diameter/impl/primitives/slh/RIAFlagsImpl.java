@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slh;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.RIAFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.RIAFlags;
 *
 */
 @DiameterAvpImplementation(code = 2411L, vendorId = KnownVendorIDs.TGPP_ID)
-public class RIAFlagsImpl extends DiameterUnsigned32Impl implements RIAFlags
+public class RIAFlagsImpl extends DiameterBitmask32Impl implements RIAFlags
 {
-	protected RIAFlagsImpl()
+	public RIAFlagsImpl()
 	{
 		super();
 	}
 
-	protected RIAFlagsImpl(Long minValue, Long maxValue)
+	public RIAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public RIAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setCombinedMMEBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(COMBINED_MME_BIT, isOn);
+	}
+
+	@Override
+	public boolean isCombinedMMEBitSet()
+	{
+		return getBit(COMBINED_MME_BIT);
 	}
 }

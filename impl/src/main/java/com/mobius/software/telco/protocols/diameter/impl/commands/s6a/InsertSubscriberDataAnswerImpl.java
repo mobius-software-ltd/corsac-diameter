@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.InsertSubscriberDataAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IDAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IMSVoiceOverPSSessionsSupportedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.LastUEActivityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -140,21 +139,15 @@ public class InsertSubscriberDataAnswerImpl extends S6aAnswerImpl implements Ins
 	}
 	
 	@Override
-	public Long getIDAFlags()
+	public IDAFlags getIDAFlags()
 	{
-		if(idaFlags==null)
-			return null;
-		
-		return idaFlags.getUnsigned();
+		return idaFlags;
 	}
 	
 	@Override
-	public void setIDAFlags(Long value)
+	public void setIDAFlags(IDAFlags value)
 	{
-		if(value==null)
-			this.idaFlags = null;
-		else
-			this.idaFlags = new IDAFlagsImpl(value, null, null);
+		this.idaFlags = value;
 	}
 	
 	@Override

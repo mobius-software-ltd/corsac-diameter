@@ -47,20 +47,14 @@ public class T4DataImpl extends DiameterGroupedAvpImpl implements T4Data
 		
 	}
 	
-	public Long getHSSCause()
+	public HSSCause getHSSCause()
 	{
-		if(hssCause==null)
-			return null;
-		
-		return hssCause.getUnsigned();
+		return hssCause;
 	}
 	
-	public void setHSSCause(Long value)
+	public void setHSSCause(HSSCause value)
 	{
-		if(value == null)
-			this.hssCause = null;
-		else
-			this.hssCause = new HSSCauseImpl(value, null, null);
+		this.hssCause = value;
 		
 	}
 	

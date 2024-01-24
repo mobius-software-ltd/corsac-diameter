@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6b.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.RARFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
@@ -76,21 +75,15 @@ public class ReAuthRequestImpl extends S6bRequestImpl implements ReAuthRequest
 	}
 	
 	@Override
-	public Long getRARFlags()
+	public RARFlags getRARFlags()
 	{
-		if(rarFlags==null)
-			return null;
-		
-		return rarFlags.getUnsigned();
+		return rarFlags;
 	}
 	
 	@Override
-	public void setRARFlags(Long value)
+	public void setRARFlags(RARFlags value)
 	{
-		if(value == null)
-			this.rarFlags = null;
-		else
-			this.rarFlags = new RARFlagsImpl(value, null, null);
+		this.rarFlags = value;
 	}
 	
 	@DiameterValidate

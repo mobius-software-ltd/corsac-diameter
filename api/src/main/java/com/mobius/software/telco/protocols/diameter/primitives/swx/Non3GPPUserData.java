@@ -24,7 +24,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
-import com.mobius.software.telco.protocols.diameter.primitives.gx.RATType;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AMBR;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.APNConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EmergencyInfo;
@@ -87,9 +87,9 @@ public interface Non3GPPUserData extends DiameterGroupedAvp
 	
 	void setNon3GPPIPAccessAPN(Non3GPPIPAccessAPNEnum value);
 	
-	List<RATType> getRATType();
+	List<RATTypeEnum> getRATType();
 	
-	void setRATType(List<RATType> value);
+	void setRATType(List<RATTypeEnum> value);
 	
 	Long getSessionTimeout();
 	

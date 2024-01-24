@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumberImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UVRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -54,7 +53,7 @@ public class UpdateVCSGLocationRequestImpl extends S7aRequestImpl implements Upd
 		super();
 	}
 	
-	public UpdateVCSGLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,Long uvrFlags)
+	public UpdateVCSGLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UVRFlags uvrFlags)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -98,21 +97,18 @@ public class UpdateVCSGLocationRequestImpl extends S7aRequestImpl implements Upd
 	}	
 	
 	@Override
-	public Long getUVRFlags()
+	public UVRFlags getUVRFlags()
 	{
-		if(uvrFlags == null)
-			return null;
-		
-		return uvrFlags.getUnsigned();
+		return uvrFlags;
 	}
 	
 	@Override
-	public void setUVRFlags(Long value)
+	public void setUVRFlags(UVRFlags value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("ULR-Flags is required");
 		
-		this.uvrFlags = new UVRFlagsImpl(value, null, null);
+		this.uvrFlags = value;
 	}				
 	
 	@DiameterValidate

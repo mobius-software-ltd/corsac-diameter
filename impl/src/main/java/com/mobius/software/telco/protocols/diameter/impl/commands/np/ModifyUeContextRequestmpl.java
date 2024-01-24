@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ConditionalRestrictionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RUCIActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ReportingRestrictionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -119,21 +118,15 @@ public class ModifyUeContextRequestmpl extends NpRequestImpl implements ModifyUe
 	}
 	
 	@Override
-	public Long getConditionalRestriction()
+	public ConditionalRestriction getConditionalRestriction()
 	{
-		if(conditionalRestriction==null)
-			return null;
-		
-		return conditionalRestriction.getUnsigned();
+		return conditionalRestriction;
 	}
 	 
 	@Override
-	public void setConditionalRestriction(Long value)
+	public void setConditionalRestriction(ConditionalRestriction value)
 	{
-		if(value==null)
-			this.conditionalRestriction = null;
-		else
-			this.conditionalRestriction = new ConditionalRestrictionImpl(value, null, null);
+		this.conditionalRestriction = value;
 	}
 	 		
 	@Override

@@ -127,6 +127,15 @@ public class MTForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MT
 	}
 	
 	@Override
+	public void setUserIdentifier(UserIdentifier value)
+	{
+		if(value == null)
+			this.userIdentifier = null;
+		else
+			this.userIdentifier = value;
+	}
+	
+	@Override
 	public Date getRequestedRetransmissionTime()
 	{
 		if(requestedRetransmissionTime == null)
@@ -142,15 +151,6 @@ public class MTForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MT
 			this.requestedRetransmissionTime = null;
 		else
 			this.requestedRetransmissionTime = new RequestedRetransmissionTimeImpl(value, null, null);
-	}
-	
-	@Override
-	public void setUserIdentifier(UserIdentifier value)
-	{
-		if(value == null)
-			this.userIdentifier = null;
-		else
-			this.userIdentifier = value;
 	}
 	
 	@Override

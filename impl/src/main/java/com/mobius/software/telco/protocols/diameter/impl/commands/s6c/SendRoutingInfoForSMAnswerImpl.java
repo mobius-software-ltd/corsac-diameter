@@ -8,7 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMAnswer;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MMEAbsentUserDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MSCAbsentUserDiagnosticSMImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MWDStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SGSNAbsentSubscriberDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMSF3GPPAbsentUserDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMSFNon3GPPAbsentUserDiagnosticSMImpl;
@@ -172,21 +171,15 @@ public class SendRoutingInfoForSMAnswerImpl extends S6cAnswerImpl implements Sen
 	}
 	 		
 	@Override
-	public Long getMWDStatus()
+	public MWDStatus getMWDStatus()
 	{
-		if(mwdStatus==null)
-			return null;
-		
-		return mwdStatus.getUnsigned();
+		return mwdStatus;
 	}
 	 
 	@Override
-	public void setMWDStatus(Long value)
+	public void setMWDStatus(MWDStatus value)
 	{
-		if(value==null)
-			this.mwdStatus = null;
-		else
-			this.mwdStatus = new MWDStatusImpl(value, null, null);
+		this.mwdStatus = value;
 	}
 	 		
 	@Override

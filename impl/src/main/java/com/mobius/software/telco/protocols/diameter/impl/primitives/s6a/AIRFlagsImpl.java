@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AIRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.AIRFlags;
 *
 */
 @DiameterAvpImplementation(code = 1679L, vendorId = KnownVendorIDs.TGPP_ID)
-public class AIRFlagsImpl extends DiameterUnsigned32Impl implements AIRFlags
+public class AIRFlagsImpl extends DiameterBitmask32Impl implements AIRFlags
 {
-	protected AIRFlagsImpl()
+	public AIRFlagsImpl()
 	{
 		super();
 	}
-
-	protected AIRFlagsImpl(Long minValue, Long maxValue)
+	
+	protected AIRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public AIRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUEUsageRequestedBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UE_USAGE_REQUESTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUEUsageRequestedBitSet()
+	{
+		return getBit(UE_USAGE_REQUESTED_BIT);
 	}
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.DERFlags;
 
@@ -29,20 +29,99 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.DERFlags;
 *
 */
 @DiameterAvpImplementation(code = 1520L, vendorId = KnownVendorIDs.TGPP_ID)
-public class DERFlagsImpl extends DiameterUnsigned32Impl implements DERFlags
+public class DERFlagsImpl extends DiameterBitmask32Impl implements DERFlags
 {
-	protected DERFlagsImpl()
+	public DERFlagsImpl()
 	{
 		super();
 	}
 
-	protected DERFlagsImpl(Long minValue, Long maxValue)
+	public DERFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public DERFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setNSWOCapabilityBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(NSWO_CAPABILITY_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isNSWOCapabilityBitSet()
+	{
+		return getBit(NSWO_CAPABILITY_INDICATION_BIT);
+	}
+
+	@Override
+	public void setTWANS2aConnectivityIndicatorBit(boolean isOn)
+	{
+		setBit(TWAN_S2A_CONNECTIVITY_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTWANS2aConnectivityIndicatorBitSet()
+	{
+		return getBit(TWAN_S2A_CONNECTIVITY_INDICATOR_BIT);
+	}
+
+	@Override
+	public void setIMEICheckRequiredInVPLMNBit(boolean isOn)
+	{
+		setBit(IMEI_CHECK_REQUIRED_IN_VPLMN_BIT, isOn);
+	}
+
+	@Override
+	public boolean isIMEICheckRequiredInVPLMNBitSet()
+	{
+		return getBit(IMEI_CHECK_REQUIRED_IN_VPLMN_BIT);
+	}
+
+	@Override
+	public void setIMEICheckRequestInVPLMNBit(boolean isOn)
+	{
+		setBit(IMEI_CHECK_REQUEST_IN_VPLMN_BIT, isOn);
+	}
+
+	@Override
+	public boolean isIMEICheckRequestInVPLMNBitSet()
+	{
+		return getBit(IMEI_CHECK_REQUEST_IN_VPLMN_BIT);
+	}
+
+	@Override
+	public void setEmergencyCapabilityIndicationBit(boolean isOn)
+	{
+		setBit(EMERGENCY_CAPABILIY_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEmergencyCapabilityIndicationBitSet()
+	{
+		return getBit(EMERGENCY_CAPABILIY_INDICATION_BIT);
+	}
+
+	@Override
+	public void setERPSupportIndicationBit(boolean isOn)
+	{
+		setBit(ERP_SUPPORT_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isERPSupportIndicationBitSet()
+	{
+		return getBit(ERP_SUPPORT_INDICATOR_BIT);
+	}
+
+	@Override
+	public void setERPReAuthenticationBit(boolean isOn)
+	{
+		setBit(ERP_REAUTHENTICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isERPReAuthenticationBitSet()
+	{
+		return getBit(ERP_REAUTHENTICATION_BIT);
 	}
 }

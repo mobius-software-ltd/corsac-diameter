@@ -6,7 +6,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.PurgeUEAnswer;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.PUAFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -98,21 +97,15 @@ public class PurgeUEAnswerImpl extends S6aAnswerImpl implements PurgeUEAnswer
 	}
 	
 	@Override
-	public Long getPUAFlags()
+	public PUAFlags getPUAFlags()
 	{
-		if(puaFlags==null)
-			return null;
-		
-		return puaFlags.getUnsigned();
+		return puaFlags;
 	}
 	
 	@Override
-	public void setPUAFlags(Long value)
+	public void setPUAFlags(PUAFlags value)
 	{
-		if(value==null)
-			this.puaFlags = null;
-		else
-			this.puaFlags = new PUAFlagsImpl(value, null, null);
+		this.puaFlags = value;
 	}
 	
 	@DiameterOrder

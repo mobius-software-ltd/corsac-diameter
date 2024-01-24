@@ -6,7 +6,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.DiagnosticInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.RestartCounterImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
@@ -55,21 +54,15 @@ public class SessionTerminationRequestImpl extends com.mobius.software.telco.pro
 	}
 	
 	@Override
-	public Long getDiagnosticInfo() 
+	public DiagnosticInfo getDiagnosticInfo() 
 	{
-		if(diagnosticInfo == null)
-			return null;
-		
-		return diagnosticInfo.getUnsigned();
+		return diagnosticInfo;
 	}
 
 	@Override
-	public void setDiagnosticInfo(Long value) 
+	public void setDiagnosticInfo(DiagnosticInfo value) 
 	{
-		if(value == null)
-			this.diagnosticInfo = null;
-		else
-			this.diagnosticInfo = new DiagnosticInfoImpl(value, null, null);
+		this.diagnosticInfo = value;
 	}
 	
 	@Override

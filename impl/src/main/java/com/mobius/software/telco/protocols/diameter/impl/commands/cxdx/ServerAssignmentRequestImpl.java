@@ -9,7 +9,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.MultipleRegistrationIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SARFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerAssignmentTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SessionPriorityImpl;
@@ -243,20 +242,14 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 			this.sessionPriority = new SessionPriorityImpl(value, null, null);
 	}
 	
-	public Long getSARFlags()
+	public SARFlags getSARFlags()
 	{
-		if(sarFlags == null)
-			return null;
-		
-		return sarFlags.getUnsigned();
+		return sarFlags;
 	}
 	
-	public void setSARFlags(Long value)
+	public void setSARFlags(SARFlags value)
 	{
-		if(value == null)
-			this.sarFlags = null;
-		else
-			this.sarFlags = new SARFlagsImpl(value, null, null);
+		this.sarFlags = value;
 	}
 	
 	public FailedPCSCF getFailedPCSCF()

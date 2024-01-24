@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.PNRFlags;
 
@@ -29,20 +29,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.PNRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3706L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PNRFlagsImpl extends DiameterUnsigned32Impl implements PNRFlags
+public class PNRFlagsImpl extends DiameterBitmask32Impl implements PNRFlags
 {
-	protected PNRFlagsImpl()
+	public PNRFlagsImpl()
 	{
 		super();
 	}
 
-	protected PNRFlagsImpl(Long minValue, Long maxValue)
+	protected PNRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PNRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setDirectDiscoveryRevokedBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(DIRECT_DISCOVERY_REVOKED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isDirectDiscoveryRevokedBitSet()
+	{
+		return getBit(DIRECT_DISCOVERY_REVOKED_BIT);
+	}
+
+	@Override
+	public void setDirectCommunicationRevokedBit(boolean isOn)
+	{
+		setBit(DIRECT_COMMUNICATION_REVOKED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isDirectCommunicationRevokedBitSet()
+	{
+		return getBit(DIRECT_COMMUNICATION_REVOKED_BIT);	
+	}
+
+	@Override
+	public void setPurgedUEBit(boolean isOn)
+	{
+		setBit(PURGED_UE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPurgedUEBitSet()
+	{
+		return getBit(PURGED_UE_BIT);
 	}
 }

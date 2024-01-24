@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.TDAFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.TDAFlags;
 *
 */
 @DiameterAvpImplementation(code = 4321L, vendorId = KnownVendorIDs.TGPP_ID)
-public class TDAFlagsImpl extends DiameterUnsigned32Impl implements TDAFlags
+public class TDAFlagsImpl extends DiameterBitmask32Impl implements TDAFlags
 {
-	protected TDAFlagsImpl()
+	public TDAFlagsImpl()
 	{
 		super();
 	}
-
-	protected TDAFlagsImpl(Long minValue, Long maxValue)
+	
+	protected TDAFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public TDAFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setAcknowledgedDeliveryBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(ACKNOWLEDGED_DELIVERY_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAcknowledgedDeliveryBitSet()
+	{
+		return getBit(ACKNOWLEDGED_DELIVERY_BIT);
 	}
 }

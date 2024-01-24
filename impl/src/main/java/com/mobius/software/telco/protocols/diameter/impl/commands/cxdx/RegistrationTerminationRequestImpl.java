@@ -9,7 +9,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.RegistrationTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.RTRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AssociatedIdentities;
@@ -128,20 +127,14 @@ public class RegistrationTerminationRequestImpl extends CxDxRequestImpl implemen
 		this.deregistrationReason = value;
 	}
 	
-	public Long getRTRFlags()
+	public RTRFlags getRTRFlags()
 	{
-		if(rtrFlags==null)
-			return null;
-		
-		return rtrFlags.getUnsigned();
+		return rtrFlags;
 	}
 	
-	public void setRTRFlags(Long value)
+	public void setRTRFlags(RTRFlags value)
 	{
-		if(value == null)
-			this.rtrFlags = null;
-		else
-			this.rtrFlags = new RTRFlagsImpl(value, null, null);		
+		this.rtrFlags = value;		
 	}
 	
 	@DiameterValidate

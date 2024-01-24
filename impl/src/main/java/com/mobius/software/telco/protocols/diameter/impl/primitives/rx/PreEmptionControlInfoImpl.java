@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.PreEmptionControlInfo;
 
@@ -29,20 +29,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.PreEmptionCont
 *
 */
 @DiameterAvpImplementation(code = 553L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PreEmptionControlInfoImpl extends DiameterUnsigned32Impl implements PreEmptionControlInfo
+public class PreEmptionControlInfoImpl extends DiameterBitmask32Impl implements PreEmptionControlInfo
 {
-	protected PreEmptionControlInfoImpl()
+	public PreEmptionControlInfoImpl()
 	{
 		super();
 	}
 
-	protected PreEmptionControlInfoImpl(Long minValue, Long maxValue)
+	public PreEmptionControlInfoImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PreEmptionControlInfoImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setMostRecentAddedFlowBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(MOST_RECENT_ADDED_FLOW_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMostRecentAddedFlowBitSet()
+	{
+		return getBit(MOST_RECENT_ADDED_FLOW_BIT);
+	}
+
+	@Override
+	public void setLeastRecentAddedFlowBit(boolean isOn)
+	{
+		setBit(LEAST_RECENT_ADDED_FLOW_BIT, isOn);
+	}
+
+	@Override
+	public boolean isLeastRecentAddedFlowBitSet()
+	{
+		return getBit(LEAST_RECENT_ADDED_FLOW_BIT);
+	}
+
+	@Override
+	public void setHighestBandwidthFlowBit(boolean isOn)
+	{
+		setBit(HIGHEST_BANDWIDTH_FLOW_BIT, isOn);
+	}
+
+	@Override
+	public boolean isHighestBandwidthFlowBitSet()
+	{
+		return getBit(HIGHEST_BANDWIDTH_FLOW_BIT);
 	}
 }

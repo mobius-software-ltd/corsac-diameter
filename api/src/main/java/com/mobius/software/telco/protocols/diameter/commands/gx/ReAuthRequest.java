@@ -24,7 +24,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReporting;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReportingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleRemove;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ConditionalPolicyInformation;
@@ -166,7 +166,7 @@ public interface ReAuthRequest extends AuthenticationRequest
 	
 	void setPRARemove(PRARemove value);
 	
-	List<CSGInformationReporting> getCSGInformationReporting();
+	List<CSGInformationReportingEnum> getCSGInformationReporting();
 	
-	void setCSGInformationReporting(List<CSGInformationReporting> value);		
+	void setCSGInformationReporting(List<CSGInformationReportingEnum> value);		
 }

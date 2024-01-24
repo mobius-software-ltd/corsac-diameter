@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swx;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.PPRFlags;
 
@@ -29,20 +29,63 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.PPRFlags;
 *
 */
 @DiameterAvpImplementation(code = 1508L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PPRFlagsImpl extends DiameterUnsigned32Impl implements PPRFlags
+public class PPRFlagsImpl extends DiameterBitmask32Impl implements PPRFlags
 {
-	protected PPRFlagsImpl()
+	public PPRFlagsImpl()
 	{
 		super();
 	}
 
-	protected PPRFlagsImpl(Long minValue, Long maxValue)
+	public PPRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PPRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setResetIndicationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(RESET_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isResetIndicationBitSet()
+	{
+		return getBit(RESET_INDICATION_BIT);			
+	}
+
+	@Override
+	public void setAccessNetworkInfoRequestBit(boolean isOn)
+	{
+		setBit(ACCESS_NETWORK_INFO_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAccessNetworkInfoRequestBitSet()
+	{
+		return getBit(ACCESS_NETWORK_INFO_REQUEST_BIT);
+	}
+
+	@Override
+	public void setUELocalTimeZoneRequestBit(boolean isOn)
+	{
+		setBit(UE_LOCAL_TIMEZONE_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUELocalTimeZoneRequestBitSet()
+	{
+		return getBit(UE_LOCAL_TIMEZONE_REQUEST_BIT);
+	}
+
+	@Override
+	public void setPCSCFRestorationRequestBit(boolean isOn)
+	{
+		setBit(PCSCF_RESTORATION_REQUEST_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPCSCFRestorationRequestBitSet()
+	{
+		return getBit(PCSCF_RESTORATION_REQUEST_BIT);
 	}
 }

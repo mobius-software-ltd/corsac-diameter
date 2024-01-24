@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerControlModeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReporting;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformationReportingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleInstall;
@@ -134,9 +134,9 @@ public interface CreditControlAnswer extends AuthenticationAnswer
 	
 	void setSubsessionDecisionInfo(List<SubsessionDecisionInfo> value);	
 	
-	List<CSGInformationReporting> getCSGInformationReporting();
+	List<CSGInformationReportingEnum> getCSGInformationReporting();
 	
-	void setCSGInformationReporting(List<CSGInformationReporting> value);	
+	void setCSGInformationReporting(List<CSGInformationReportingEnum> value);	
 	
 	List<InetAddress> getANGWAddress();
 	

@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.AuthenticationInformationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.AIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -123,21 +122,18 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 	}
 	
 	@Override
-	public Long getAIRFlags()
+	public AIRFlags getAIRFlags()
 	{
-		if(airFlags == null)
-			return null;
-		
-		return airFlags.getUnsigned();
+		return airFlags;
 	}
 	
 	@Override
-	public void setAIRFlags(Long value)
+	public void setAIRFlags(AIRFlags value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("AIR-Flags is required");
 		
-		this.airFlags = new AIRFlagsImpl(value, null, null);
+		this.airFlags = value;
 	}		
 	
 	@DiameterValidate

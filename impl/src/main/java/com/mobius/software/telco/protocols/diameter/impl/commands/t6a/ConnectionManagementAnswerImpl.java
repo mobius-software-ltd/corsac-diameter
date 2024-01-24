@@ -6,6 +6,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ConnectionManagementAnswer;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PDNConnectionChargingIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ExtendedPCOImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -106,16 +107,23 @@ public class ConnectionManagementAnswerImpl extends T6aAnswerImpl implements Con
 	}
 	
 	@Override
-	public PDNConnectionChargingID getPDNConnectionChargingID() 
+	public Long getPDNConnectionChargingID() 
 	{
-		return pdnConnectionChargingID;
+		if(pdnConnectionChargingID==null)
+			return null;
+		
+		return pdnConnectionChargingID.getUnsigned();
 	}
 	
 	@Override
-	public void setPDNConnectionChargingID(PDNConnectionChargingID value)
+	public void setPDNConnectionChargingID(Long value)
 	{	
-		this.pdnConnectionChargingID = value;
+		if(value==null)
+			this.pdnConnectionChargingID = null;
+		else
+			this.pdnConnectionChargingID = new PDNConnectionChargingIDImpl(value, null, null);
 	}
+	
 	@Override
 	public ByteBuf getExtendedPCO()
 	{

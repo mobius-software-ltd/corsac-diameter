@@ -22,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.sgd.OFRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelationID;
 
 import io.netty.buffer.ByteBuf;
@@ -65,9 +66,9 @@ public interface MOForwardShortMessageRequest extends SgdRequest
 	
 	void setSCAddress(String value);
 	
-	Long getOFRFlags();
+	OFRFlags getOFRFlags();
 	
-	void setOFRFlags(Long value);	
+	void setOFRFlags(OFRFlags value);	
 	
 	UserIdentifier getUserIdentifier();
 	 

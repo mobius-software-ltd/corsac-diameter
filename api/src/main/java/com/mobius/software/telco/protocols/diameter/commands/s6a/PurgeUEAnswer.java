@@ -24,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.PUAFlags;
 
 /**
 *
@@ -70,7 +71,7 @@ public interface PurgeUEAnswer extends S6aAnswer
 	 
 	void setLoad(List<Load> value);
 	 		
-	Long getPUAFlags();
+	PUAFlags getPUAFlags();
 	
-	void setPUAFlags(Long value);
+	void setPUAFlags(PUAFlags value);
 }

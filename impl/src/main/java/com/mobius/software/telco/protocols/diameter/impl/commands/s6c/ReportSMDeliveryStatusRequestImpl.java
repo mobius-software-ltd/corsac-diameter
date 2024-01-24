@@ -7,7 +7,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandI
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.ReportSMDeliveryStatusRequest;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.RDRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -131,21 +130,15 @@ public class ReportSMDeliveryStatusRequestImpl extends S6cRequestImpl implements
 	}
 	
 	@Override
-	public Long getRDRFlags()
+	public RDRFlags getRDRFlags()
 	{
-		if(rdrFlags == null)
-			return null;
-		
-		return rdrFlags.getUnsigned();
+		return rdrFlags;
 	}
 	
 	@Override
-	public void setRDRFlags(Long value)
+	public void setRDRFlags(RDRFlags value)
 	{
-		if(value == null)
-			this.rdrFlags = null;
-		else
-			this.rdrFlags = new RDRFlagsImpl(value, null, null);
+		this.rdrFlags = value;
 	}	
 	
 	@DiameterValidate

@@ -27,6 +27,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.Authenticat
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ApplicationDetectionInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.UsageMonitoringInformation;
@@ -93,9 +94,9 @@ public interface CreditControlRequest extends AuthenticationRequest
 	
 	void setCcRequestNumber(Long value);
 	
-	Long getCreditManagementStatus();
+	CreditManagementStatus getCreditManagementStatus();
 	
-	void setCreditManagementStatus(Long value);
+	void setCreditManagementStatus(CreditManagementStatus value);
 	
 	InetAddress getFramedIPAddress();
 	

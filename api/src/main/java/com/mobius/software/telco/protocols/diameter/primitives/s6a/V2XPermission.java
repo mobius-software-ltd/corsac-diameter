@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -45,6 +45,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the HSS and discarded by the MME.
  */
 @DiameterAvpDefinition(code = 1689L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "V2X-Permission")
-public interface V2XPermission extends DiameterUnsigned32
+public interface V2XPermission extends DiameterBitmask32
 {
+	public static final int ALLOW_V2X_COMMUNICATION_OVER_PC5_AS_VEHICLE_UE_BIT = 0;
+	public static final int ALLOW_V2X_COMMUNICATION_OVER_PC5_AS_PEDESTRIAN_UE_BIT = 0;
+	
+	public void setAllowV2XCommunicationOverPC5AsVehicleUEBit(boolean isOn);
+	
+	public boolean isAllowV2XCommunicationOverPC5AsVehicleUEBitSet();
+	
+	public void setAllowV2XCommunicationOverPC5AsPedestrianUEBit(boolean isOn);
+	
+	public boolean isAllowV2XCommunicationOverPC5AsPedestrianUEBitSet();
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -51,6 +51,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE 2:	If Purged UE bit is set, all other bits in this table shall be cleared by the sending ProSe Function and discarded by the receiving HSS.
  */
 @DiameterAvpDefinition(code = 3706L, vendorId = KnownVendorIDs.TGPP_ID, name = "PNR-Flags")
-public interface PNRFlags extends DiameterUnsigned32
+public interface PNRFlags extends DiameterBitmask32
 {
+	public static final int DIRECT_DISCOVERY_REVOKED_BIT = 0;	
+	public static final int DIRECT_COMMUNICATION_REVOKED_BIT = 1;	
+	public static final int PURGED_UE_BIT = 2;	
+	
+	public void setDirectDiscoveryRevokedBit(boolean isOn);
+	
+	public boolean isDirectDiscoveryRevokedBitSet();	
+	
+	public void setDirectCommunicationRevokedBit(boolean isOn);
+	
+	public boolean isDirectCommunicationRevokedBitSet();	
+	
+	public void setPurgedUEBit(boolean isOn);
+	
+	public boolean isPurgedUEBitSet();
 }

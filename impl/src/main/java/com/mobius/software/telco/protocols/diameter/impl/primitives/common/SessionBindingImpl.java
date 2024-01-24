@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SessionBinding;
 
 /**
@@ -28,55 +28,51 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionBin
 *
 */
 @DiameterAvpImplementation(code = 270L, vendorId = -1L)
-public class SessionBindingImpl extends DiameterUnsigned32Impl implements SessionBinding
+public class SessionBindingImpl extends DiameterBitmask32Impl implements SessionBinding
 {
-	protected SessionBindingImpl() 
+	public SessionBindingImpl() 
 	{
 		super();
 	}
 	
-	protected SessionBindingImpl(Long minValue,Long maxValue) 
+	public SessionBindingImpl(Integer value) 
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
-	
-	public SessionBindingImpl(Long value,Long minValue,Long maxValue) 
+
+	@Override
+	public void setReauthBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(RE_AUTH_BIT, isOn);
 	}
-	
-	public SessionBindingImpl(Boolean reAuth,Boolean str,Boolean accounting,Long minValue,Long maxValue) 
+
+	@Override
+	public boolean isReauthBitSet()
 	{
-		super(parseBitMask(reAuth,str,accounting), minValue, maxValue);
+		return getBit(RE_AUTH_BIT);
 	}
-	
-	public Boolean getIsReauth()
+
+	@Override
+	public void setSTRBit(boolean isOn)
 	{
-		return (this.getUnsigned() & RE_AUTH) != 0;
+		setBit(STR_BIT, isOn);
 	}
-	
-	public Boolean getIsStr()
+
+	@Override
+	public boolean isSTRBitSet()
 	{
-		return (this.getUnsigned() & STR) != 0;
+		return getBit(STR_BIT);
 	}
-	
-	public Boolean getIsAccounting()
+
+	@Override
+	public void setAccountingBit(boolean isOn)
 	{
-		return (this.getUnsigned() & ACCOUNTING) != 0;
+		setBit(ACCOUNTING_BIT, isOn);
 	}
-	
-	public static Long parseBitMask(Boolean reAuth,Boolean str,Boolean accounting)
+
+	@Override
+	public boolean isAccountingBitSet()
 	{
-		Long result = 0L;
-		if(reAuth!=null && reAuth)
-			result = 1L;
-		
-		if(str!=null && str)
-			result += 2L;
-		
-		if(accounting!=null && accounting)
-			result += 4L;
-		
-		return result;
+		return getBit(ACCOUNTING_BIT);
 	}
 }

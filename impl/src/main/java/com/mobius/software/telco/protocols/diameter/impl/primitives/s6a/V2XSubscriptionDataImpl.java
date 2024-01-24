@@ -42,20 +42,14 @@ public class V2XSubscriptionDataImpl extends DiameterGroupedAvpImpl implements V
 		
 	}
 	
-	public Long getV2XPermission()
+	public V2XPermission getV2XPermission()
 	{
-		if(v2xPermission==null)
-			return null;
-		
-		return v2xPermission.getUnsigned();
+		return v2xPermission;
 	}
 	
-	public void setV2XPermission(Long value)
+	public void setV2XPermission(V2XPermission value)
 	{
-		if(value == null)
-			this.v2xPermission = null;
-		else
-			this.v2xPermission = new V2XPermissionImpl(value, null, null);
+		this.v2xPermission = value;
 	}
 	
 	public Long getUEPC5AMBR()

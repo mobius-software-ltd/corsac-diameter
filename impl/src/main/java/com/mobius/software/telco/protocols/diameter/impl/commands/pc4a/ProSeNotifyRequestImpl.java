@@ -8,8 +8,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeNotifyRequest;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.PNRFlagsImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.ProSePermissionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
@@ -89,21 +87,15 @@ public class ProSeNotifyRequestImpl extends Pc4aRequestImpl implements ProSeNoti
 	}
 	
 	@Override
-	public Long getProSePermission()
+	public ProSePermission getProSePermission()
 	{
-		if(proSePermission == null)
-			return null;
-		
-		return proSePermission.getUnsigned();
+		return proSePermission;
 	}
 	
 	@Override
-	public void setProSePermission(Long value)
+	public void setProSePermission(ProSePermission value)
 	{
-		if(value == null)
-			this.proSePermission = null;
-		else
-			this.proSePermission = new ProSePermissionImpl(value, null, null);	
+		this.proSePermission = value;	
 	}
 	
 	@Override	
@@ -125,21 +117,15 @@ public class ProSeNotifyRequestImpl extends Pc4aRequestImpl implements ProSeNoti
 	}
 	
 	@Override
-	public Long getPNRFlags()
+	public PNRFlags getPNRFlags()
 	{
-		if(pnrFlags == null)
-			return null;
-		
-		return pnrFlags.getUnsigned();
+		return pnrFlags;
 	}
 	
 	@Override
-	public void setPNRFlags(Long value)
+	public void setPNRFlags(PNRFlags value)
 	{
-		if(value == null)
-			this.pnrFlags = null;
-		else
-			this.pnrFlags = new PNRFlagsImpl(value, null, null);	
+		this.pnrFlags = value;	
 	}
 	
 	@Override

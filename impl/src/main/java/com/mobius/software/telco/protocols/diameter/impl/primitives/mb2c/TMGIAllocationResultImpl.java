@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIAllocationResult;
 
@@ -29,20 +29,87 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIAllocati
 *
 */
 @DiameterAvpImplementation(code = 3511L, vendorId = KnownVendorIDs.TGPP_ID)
-public class TMGIAllocationResultImpl extends DiameterUnsigned32Impl implements TMGIAllocationResult
+public class TMGIAllocationResultImpl extends DiameterBitmask32Impl implements TMGIAllocationResult
 {
-	protected TMGIAllocationResultImpl()
+	public TMGIAllocationResultImpl()
 	{
 		super();
 	}
 
-	protected TMGIAllocationResultImpl(Long minValue, Long maxValue)
+	protected TMGIAllocationResultImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public TMGIAllocationResultImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setSuccessBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(SUCCESS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSuccessBitSet()
+	{
+		return getBit(SUCCESS_BIT);
+	}
+
+	@Override
+	public void setAuthorizationRejectBit(boolean isOn)
+	{
+		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAuthorizationRejectBitSet()
+	{
+		return getBit(AUTHORIZATION_REJECTED_BIT);
+	}
+
+	@Override
+	public void setResourcesExceededBit(boolean isOn)
+	{
+		setBit(RESOURCED_EXCEEDED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isResourcesExceededBitSet()
+	{
+		return getBit(RESOURCED_EXCEEDED_BIT);
+	}
+
+	@Override
+	public void setUnknownTMGIBit(boolean isOn)
+	{
+		setBit(UNKNOWN_TMGI_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUnknownTMGIBitSet()
+	{
+		return getBit(UNKNOWN_TMGI_BIT);
+	}
+
+	@Override
+	public void setTooManyTMGIsRequestedBit(boolean isOn)
+	{
+		setBit(TOO_MANY_TMGIS_REQUESTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isTooManyTMGIsRequestedBitSet()
+	{
+		return getBit(TOO_MANY_TMGIS_REQUESTED_BIT);
+	}
+
+	@Override
+	public void setSystemErrorBit(boolean isOn)
+	{
+		setBit(SYSTEM_ERROR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSystemErrorBitSet()
+	{
+		return getBit(SYSTEM_ERROR_BIT);
 	}
 }

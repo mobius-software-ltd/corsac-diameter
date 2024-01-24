@@ -37,7 +37,7 @@ public class CumInfoImpl implements CumInfo
 	
 	private ByteBuf cumId;
 	
-	protected CumInfoImpl()
+	public CumInfoImpl()
 	{
 		
 	}

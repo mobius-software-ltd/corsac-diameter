@@ -34,11 +34,6 @@ import io.netty.buffer.ByteBuf;
 @DiameterAvpImplementation(code = 2017L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMSCAddressImpl extends DiameterAddressImpl implements SMSCAddress
 {
-	public SMSCAddressImpl(DiameterAddressTypeEnum addressType, ByteBuf value, Integer minLength, Integer maxLength)
-	{
-		super(addressType, value, minLength, maxLength);
-	}
-
 	protected SMSCAddressImpl()
 	{
 		super();
@@ -48,4 +43,9 @@ public class SMSCAddressImpl extends DiameterAddressImpl implements SMSCAddress
 	{
 		super(minLength, maxLength);
 	}
+	
+	public SMSCAddressImpl(DiameterAddressTypeEnum addressType, ByteBuf value, Integer minLength, Integer maxLength)
+	{
+		super(addressType, value, minLength, maxLength);
+	}	
 }

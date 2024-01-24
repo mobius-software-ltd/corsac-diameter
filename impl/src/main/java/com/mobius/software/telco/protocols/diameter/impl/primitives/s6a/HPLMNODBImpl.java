@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.HPLMNODB;
 
@@ -29,20 +29,63 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.HPLMNODB;
 *
 */
 @DiameterAvpImplementation(code = 1418L, vendorId = KnownVendorIDs.TGPP_ID)
-public class HPLMNODBImpl extends DiameterUnsigned32Impl implements HPLMNODB
+public class HPLMNODBImpl extends DiameterBitmask32Impl implements HPLMNODB
 {
-	protected HPLMNODBImpl()
+	public HPLMNODBImpl()
 	{
 		super();
 	}
-
-	protected HPLMNODBImpl(Long minValue, Long maxValue)
+	
+	protected HPLMNODBImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public HPLMNODBImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setType1Bit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(TYPE_1_BIT, isOn);
+	}
+
+	@Override
+	public boolean isType1BitSet()
+	{
+		return getBit(TYPE_1_BIT);
+	}
+
+	@Override
+	public void setType2Bit(boolean isOn)
+	{
+		setBit(TYPE_2_BIT, isOn);
+	}
+
+	@Override
+	public boolean isType2BitSet()
+	{
+		return getBit(TYPE_2_BIT);
+	}
+
+	@Override
+	public void setType3Bit(boolean isOn)
+	{
+		setBit(TYPE_3_BIT, isOn);
+	}
+
+	@Override
+	public boolean isType3BitSet()
+	{
+		return getBit(TYPE_3_BIT);
+	}
+
+	@Override
+	public void setType4Bit(boolean isOn)
+	{
+		setBit(TYPE_4_BIT, isOn);
+	}
+
+	@Override
+	public boolean isType4BitSet()
+	{
+		return getBit(TYPE_4_BIT);
 	}
 }

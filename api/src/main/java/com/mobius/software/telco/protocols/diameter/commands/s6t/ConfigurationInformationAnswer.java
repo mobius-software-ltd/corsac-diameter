@@ -28,6 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.IMSIGroupId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.ServiceData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AESECommunicationPatternConfigStatus;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.CIAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EnhancedCoverageRestriction;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventReport;
@@ -124,9 +125,9 @@ public interface ConfigurationInformationAnswer extends S6tAnswer
 	
 	void setEnhancedCoverageRestriction(EnhancedCoverageRestriction value);	
 	
-	Long getCIAFlags();
+	CIAFlags getCIAFlags();
 	
-	void setCIAFlags(Long value);
+	void setCIAFlags(CIAFlags value);
 	
 	List<IMSIGroupId> getIMSIGroupId();
 	

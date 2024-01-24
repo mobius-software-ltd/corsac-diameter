@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEvent;
 
@@ -29,20 +29,63 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEv
 *
 */
 @DiameterAvpImplementation(code = 3502L, vendorId = KnownVendorIDs.TGPP_ID)
-public class MBMSBearerEventImpl extends DiameterUnsigned32Impl implements MBMSBearerEvent
+public class MBMSBearerEventImpl extends DiameterBitmask32Impl implements MBMSBearerEvent
 {
-	protected MBMSBearerEventImpl()
+	public MBMSBearerEventImpl()
 	{
 		super();
 	}
 
-	protected MBMSBearerEventImpl(Long minValue, Long maxValue)
+	protected MBMSBearerEventImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public MBMSBearerEventImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setBearerTerminatedBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(BEARER_TERMINATED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBearerTerminatedBitSet()
+	{
+		return getBit(BEARER_TERMINATED_BIT);
+	}
+
+	@Override
+	public void setBearerActivatedBit(boolean isOn)
+	{
+		setBit(BEARER_ACTIVATED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBearerActivatedBitSet()
+	{
+		return getBit(BEARER_ACTIVATED_BIT);
+	}
+	
+	@Override
+	public void setUserplaneEventBit(boolean isOn)
+	{
+		setBit(USERPLANE_EVENT_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUserplaneEventBitSet()
+	{
+		return getBit(USERPLANE_EVENT_BIT);
+	}
+
+	@Override
+	public void setBearerActivationFailureBit(boolean isOn)
+	{
+		setBit(BEARER_ACTIVATION_FAILURE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBearerActivationFailureBitSet()
+	{
+		return getBit(BEARER_ACTIVATION_FAILURE_BIT);
 	}
 }

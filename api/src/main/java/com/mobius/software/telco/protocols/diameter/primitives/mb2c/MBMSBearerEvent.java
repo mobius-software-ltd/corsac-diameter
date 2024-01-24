@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -49,6 +49,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The MBMS bearer is not activated successfully based on the MBMS-Start-Time.
  */
 @DiameterAvpDefinition(code = 3502L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Event")
-public interface MBMSBearerEvent extends DiameterUnsigned32
+public interface MBMSBearerEvent extends DiameterBitmask32
 {
+	public static final int BEARER_TERMINATED_BIT = 0;
+	public static final int BEARER_ACTIVATED_BIT = 1;
+	public static final int USERPLANE_EVENT_BIT = 2;
+	public static final int BEARER_ACTIVATION_FAILURE_BIT = 3;
+	
+	public void setBearerTerminatedBit(boolean isOn);
+	
+	public boolean isBearerTerminatedBitSet();
+	
+	public void setBearerActivatedBit(boolean isOn);
+	
+	public boolean isBearerActivatedBitSet();
+	
+	public void setUserplaneEventBit(boolean isOn);
+	
+	public boolean isUserplaneEventBitSet();
+	
+	public void setBearerActivationFailureBit(boolean isOn);
+	
+	public boolean isBearerActivationFailureBitSet();
 }

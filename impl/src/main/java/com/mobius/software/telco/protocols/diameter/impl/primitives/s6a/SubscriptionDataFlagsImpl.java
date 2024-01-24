@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionDataFlags;
 
@@ -29,20 +29,75 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionD
 *
 */
 @DiameterAvpImplementation(code = 1654L, vendorId = KnownVendorIDs.TGPP_ID)
-public class SubscriptionDataFlagsImpl extends DiameterUnsigned32Impl implements SubscriptionDataFlags
+public class SubscriptionDataFlagsImpl extends DiameterBitmask32Impl implements SubscriptionDataFlags
 {
-	protected SubscriptionDataFlagsImpl()
+	public SubscriptionDataFlagsImpl()
 	{
 		super();
 	}
-
-	protected SubscriptionDataFlagsImpl(Long minValue, Long maxValue)
+	
+	protected SubscriptionDataFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public SubscriptionDataFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setPSAndSMSOnlyServiceProvisionIndicationBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(PS_AND_SMS_ONLY_SERVICE_PROVISION_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPSAndSMSOnlyServiceProvisionIndicationBitSet()
+	{
+		return getBit(PS_AND_SMS_ONLY_SERVICE_PROVISION_INDICATION_BIT);
+	}
+
+	@Override
+	public void setSMSInSGSNAllowedIndicationBit(boolean isOn)
+	{
+		setBit(SMS_IN_SGSN_ALLOWED_INDICATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isSMSInSGSNAllowedIndicationBitSet()
+	{
+		return getBit(SMS_IN_SGSN_ALLOWED_INDICATION_BIT);
+	}
+
+	@Override
+	public void setUserPlaneIntegrityIndicationBit(boolean isOn)
+	{
+		setBit(USER_PLANE_INTEGRITY_PROTECTION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUserPlaneIntegrityIndicationBitSet()
+	{
+		return getBit(USER_PLANE_INTEGRITY_PROTECTION_BIT);
+	}
+
+	@Override
+	public void setPDNConnectionRestrictedBit(boolean isOn)
+	{
+		setBit(PDN_CONNECTION_RESTRICTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPDNConnectionRestrictedBitSet()
+	{
+		return getBit(PDN_CONNECTION_RESTRICTED_BIT);
+	}
+
+	@Override
+	public void setAcknowledgmentOfDownlinkNASDataPDUSDisabledBit(boolean isOn)
+	{
+		setBit(ACKNOWLEDGEMENT_OF_DOWNLINK_NAS_DATA_PDUS_DISABLED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAcknowledgmentOfDownlinkNASDataPDUSDisabledBitSet()
+	{
+		return getBit(ACKNOWLEDGEMENT_OF_DOWNLINK_NAS_DATA_PDUS_DISABLED_BIT);
 	}
 }

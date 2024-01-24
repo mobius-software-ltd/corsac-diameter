@@ -16,7 +16,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumb
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGsMMEIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SMSRegisterRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UESRVCCCapabilityImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ULRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -111,7 +110,7 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 		super();
 	}
 	
-	public UpdateLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,RATTypeEnum ratType,Long ulrFlags,ByteBuf visitedPLMNId)
+	public UpdateLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,RATTypeEnum ratType,ULRFlags ulrFlags,ByteBuf visitedPLMNId)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -165,21 +164,18 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 	}
 	
 	@Override
-	public Long getULRFlags()
+	public ULRFlags getULRFlags()
 	{
-		if(ulrFlags == null)
-			return null;
-		
-		return ulrFlags.getUnsigned();
+		return ulrFlags;
 	}
 	
 	@Override
-	public void setULRFlags(Long value)
+	public void setULRFlags(ULRFlags value)
 	{
 		if(value == null)
 			throw new IllegalArgumentException("ULR-Flags is required");
 		
-		this.ulrFlags = new ULRFlagsImpl(value, null, null);
+		this.ulrFlags = value;
 	}
 	
 	@Override

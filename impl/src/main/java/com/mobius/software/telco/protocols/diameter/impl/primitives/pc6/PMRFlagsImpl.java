@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.PMRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.PMRFlags;
 *
 */
 @DiameterAvpImplementation(code = 3852L, vendorId = KnownVendorIDs.TGPP_ID)
-public class PMRFlagsImpl extends DiameterUnsigned32Impl implements PMRFlags
+public class PMRFlagsImpl extends DiameterBitmask32Impl implements PMRFlags
 {
-	protected PMRFlagsImpl()
+	public PMRFlagsImpl()
 	{
 		super();
 	}
 
-	protected PMRFlagsImpl(Long minValue, Long maxValue)
+	protected PMRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public PMRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setMetadataRequestedBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(METADATA_REQUESTED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMetadataRequestedBitSet()
+	{
+		return getBit(METADATA_REQUESTED_BIT);
 	}
 }

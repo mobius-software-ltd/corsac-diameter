@@ -14,7 +14,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPM
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.MaximumWaitTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.OriginationTimeStampImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.swm.EmergencyServicesImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -270,21 +269,15 @@ public class AARequestImpl extends S6bRequestImpl implements AARequest
 	}
 					 
 	@Override
-	public Long getEmergencyServices()
+	public EmergencyServices getEmergencyServices()
 	{
-		if(emergencyServices==null)
-			return null;
-		
-		return emergencyServices.getUnsigned();
+		return emergencyServices;
 	}
 	
 	@Override
-	public void setEmergencyServices(Long value)
+	public void setEmergencyServices(EmergencyServices value)
 	{
-		if(value == null)
-			this.emergencyServices = null;
-		else
-			this.emergencyServices = new EmergencyServicesImpl(value, null, null);
+		this.emergencyServices = value;
 	}
 	
 	@DiameterValidate

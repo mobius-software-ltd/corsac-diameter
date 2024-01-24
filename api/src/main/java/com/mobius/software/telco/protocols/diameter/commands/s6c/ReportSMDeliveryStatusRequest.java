@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6c;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6c.RDRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelationID;
@@ -72,7 +73,7 @@ public interface ReportSMDeliveryStatusRequest extends S6cRequest
 	
 	void setSMDeliveryOutcome(SMDeliveryOutcome value);
 	
-	Long getRDRFlags();
+	RDRFlags getRDRFlags();
 	
-	void setRDRFlags(Long value);	
+	void setRDRFlags(RDRFlags value);	
 }

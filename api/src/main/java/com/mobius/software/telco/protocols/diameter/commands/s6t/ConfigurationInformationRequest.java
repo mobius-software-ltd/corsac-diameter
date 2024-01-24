@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AESECommunicationPattern;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AdditionalIdentifiers;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.CIRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EnhancedCoverageRestriction;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SuggestedNetworkConfiguration;
@@ -77,9 +78,9 @@ public interface ConfigurationInformationRequest extends S6tRequest
 	
 	void setMonitoringEventConfiguration(List<MonitoringEventConfiguration> value);
 	
-	Long getCIRFlags();
+	CIRFlags getCIRFlags();
 	
-	void setCIRFlags(Long value);
+	void setCIRFlags(CIRFlags value);
 	
 	List<AESECommunicationPattern> getAESECommunicationPattern();
 	

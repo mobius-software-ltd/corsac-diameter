@@ -26,6 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.swm.EmergencyServices;
 
 import io.netty.buffer.ByteBuf;
 
@@ -132,7 +133,7 @@ public interface AARequest extends S6bRequest
 	
 	void setMaximumWaitTime(Long value);
 					 
-	Long getEmergencyServices();
+	EmergencyServices getEmergencyServices();
 	
-	void setEmergencyServices(Long value);
+	void setEmergencyServices(EmergencyServices value);
 }

@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
@@ -43,6 +43,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE:	Bits not defined in this table shall be cleared by the sending ProSe Function and discarded by the receiving ProSe Function.
  */
 @DiameterAvpDefinition(code = 3809L, vendorId = KnownVendorIDs.TGPP_ID, name = "P2P-Features")
-public interface P2PFeatures extends DiameterUnsigned32
+public interface P2PFeatures extends DiameterBitmask32
 {
+	public static final int GROUP_OWNER_INDICATION_BIT = 0;	
+	
+	public void setGroupOwnerIndicationBit(boolean isOn);
+	
+	public boolean isGroupOwnerIndicationBitSet();	
 }

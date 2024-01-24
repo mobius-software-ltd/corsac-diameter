@@ -24,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReport;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventReport;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.RIRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedServices;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.UpdatedNetworkConfiguration;
 
@@ -76,9 +77,9 @@ public interface ReportingInformationRequest extends S6tRequest
 	
 	void setUpdatedNetworkConfiguration(UpdatedNetworkConfiguration value);
 	
-	Long getRIRFlags();
+	RIRFlags getRIRFlags();
 	
-	void setRIRFlags(Long value);
+	void setRIRFlags(RIRFlags value);
 	
 	List<SupportedServices> getSupportedServices();
 	

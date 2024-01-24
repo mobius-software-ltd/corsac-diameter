@@ -32,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSUserDataM
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.LocalM1Information;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSAccessIndicatorEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSGWUDPPortIndicatorEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -176,9 +177,9 @@ public interface ReAuthRequest extends com.mobius.software.telco.protocols.diame
 	
 	void setMBMSDataTransferStop(Long value);
 	
-	Long getMBMSFlags();
+	MBMSFlags getMBMSFlags();
 	
-	void setMBMSFlags(Long value);
+	void setMBMSFlags(MBMSFlags value);
 	
 	MBMSUserDataModeIndicationEnum getMBMSUserDataModeIndication();	
 	

@@ -27,6 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSCapability;
+import com.mobius.software.telco.protocols.diameter.primitives.s6b.DERS6bFlags;
 
 import io.netty.buffer.ByteBuf;
 
@@ -111,9 +112,9 @@ public interface EAPRequest extends S6bRequest
 	 
 	void setSupportedFeatures(List<SupportedFeatures> value);
 	
-	Long getDERS6bFlags();
+	DERS6bFlags getDERS6bFlags();
 	
-	void setDERS6bFlags(Long value);
+	void setDERS6bFlags(DERS6bFlags value);
 	
 	public InetAddress getUELocalIPAddress();
 	

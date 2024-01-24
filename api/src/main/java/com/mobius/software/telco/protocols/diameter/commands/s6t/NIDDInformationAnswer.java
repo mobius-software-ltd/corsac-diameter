@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupUserIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthorizationResponse;
 
 /**
@@ -81,7 +82,7 @@ public interface NIDDInformationAnswer extends S6tAnswer
 	 
 	void setGroupUserIdentifier(List<GroupUserIdentifier> value);
 	
-	Long getNIAFlags();
+	NIAFlags getNIAFlags();
 	
-	void setNIAFlags(Long value);
+	void setNIAFlags(NIAFlags value);
 }

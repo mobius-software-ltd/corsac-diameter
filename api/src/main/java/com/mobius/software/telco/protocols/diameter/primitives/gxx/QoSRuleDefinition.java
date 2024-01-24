@@ -25,7 +25,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
-import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfo;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfoEnum;
 
 import io.netty.buffer.ByteBuf;
 
@@ -74,9 +74,9 @@ public interface QoSRuleDefinition extends DiameterGroupedAvp
 	
 	void setPrecedence(Long value);	
 	
-	List<RequiredAccessInfo> getRequiredAccessInfo();
+	List<RequiredAccessInfoEnum> getRequiredAccessInfo();
 	
-	void setRequiredAccessInfo(List<RequiredAccessInfo> value);
+	void setRequiredAccessInfo(List<RequiredAccessInfoEnum> value);
 	
 	Long getSharingKeyDL();
 	

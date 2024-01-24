@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredLocationType;
 
@@ -29,20 +29,111 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredLocat
 *
 */
 @DiameterAvpImplementation(code = 2532L, vendorId = KnownVendorIDs.TGPP_ID)
-public class DeferredLocationTypeImpl extends DiameterUnsigned32Impl implements DeferredLocationType
+public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements DeferredLocationType
 {
-	protected DeferredLocationTypeImpl()
+	public DeferredLocationTypeImpl()
 	{
 		super();
 	}
 
-	protected DeferredLocationTypeImpl(Long minValue, Long maxValue)
+	protected DeferredLocationTypeImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public DeferredLocationTypeImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUEAvailableBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UE_AVAILABLE_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUEAvailableBitSet()
+	{
+		return getBit(UE_AVAILABLE_BIT);
+	}
+
+	@Override
+	public void setEnteringIntoAreaBit(boolean isOn)
+	{
+		setBit(ENTERING_INTO_AREA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEnteringIntoAreaBitSet()
+	{
+		return getBit(ENTERING_INTO_AREA_BIT);
+	}
+
+	@Override
+	public void setLeavingFromAreaBit(boolean isOn)
+	{
+		setBit(LEAVING_FROM_AREA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isLeavingFromAreaBitSet()
+	{
+		return getBit(LEAVING_FROM_AREA_BIT);
+	}
+
+	@Override
+	public void setBeingInsideAreaBit(boolean isOn)
+	{
+		setBit(BEING_INSIDE_AREA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isBeingInsideAreaBitSet()
+	{
+		return getBit(BEING_INSIDE_AREA_BIT);
+	}
+
+	@Override
+	public void setPeriodicLDRBit(boolean isOn)
+	{
+		setBit(PERIOD_LDR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPeriodicLDRBitSet()
+	{
+		return getBit(PERIOD_LDR_BIT);
+	}
+
+	@Override
+	public void setMotionEventBit(boolean isOn)
+	{
+		setBit(MOTION_EVENT_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMotionEventBitSet()
+	{
+		return getBit(MOTION_EVENT_BIT);
+	}
+
+	@Override
+	public void setLDRActivatedBit(boolean isOn)
+	{
+		setBit(LDR_ACTIVATED_BIT, isOn);
+	}
+
+	@Override
+	public boolean isLDRActivatedBitSet()
+	{
+		return getBit(LDR_ACTIVATED_BIT);
+	}
+
+	@Override
+	public void setMaximumIntervalExpirationBit(boolean isOn)
+	{
+		setBit(MAXIMUM_INTERVAL_EXPIRATION_BIT, isOn);
+	}
+
+	@Override
+	public boolean isMaximumIntervalExpirationBitSet()
+	{
+		return getBit(MAXIMUM_INTERVAL_EXPIRATION_BIT);
 	}
 }

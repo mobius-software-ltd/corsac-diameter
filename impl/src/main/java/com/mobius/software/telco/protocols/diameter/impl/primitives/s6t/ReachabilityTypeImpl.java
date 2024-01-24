@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.ReachabilityType;
 
@@ -29,20 +29,39 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.ReachabilityT
 *
 */
 @DiameterAvpImplementation(code = 3132L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ReachabilityTypeImpl extends DiameterUnsigned32Impl implements ReachabilityType
+public class ReachabilityTypeImpl extends DiameterBitmask32Impl implements ReachabilityType
 {
-	protected ReachabilityTypeImpl()
+	public ReachabilityTypeImpl()
 	{
 		super();
 	}
 
-	protected ReachabilityTypeImpl(Long minValue, Long maxValue)
+	protected ReachabilityTypeImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ReachabilityTypeImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setReachabilityForSMSBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(REACHABILITY_FOR_SMS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isReachabilityForSMSBitSet()
+	{
+		return getBit(REACHABILITY_FOR_SMS_BIT);
+	}
+
+	@Override
+	public void setReachabilityForDataBit(boolean isOn)
+	{
+		setBit(REACHABILITY_FOR_DATA_BIT, isOn);
+	}
+
+	@Override
+	public boolean isReachabilityForDataBitSet()
+	{
+		return getBit(REACHABILITY_FOR_DATA_BIT);
 	}
 }

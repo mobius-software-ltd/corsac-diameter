@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.CMRFlags;
 
@@ -29,20 +29,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.CMRFlags;
 *
 */
 @DiameterAvpImplementation(code = 4317L, vendorId = KnownVendorIDs.TGPP_ID)
-public class CMRFlagsImpl extends DiameterUnsigned32Impl implements CMRFlags
+public class CMRFlagsImpl extends DiameterBitmask32Impl implements CMRFlags
 {
-	protected CMRFlagsImpl()
+	public CMRFlagsImpl()
 	{
 		super();
 	}
 
-	protected CMRFlagsImpl(Long minValue, Long maxValue)
+	public CMRFlagsImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public CMRFlagsImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setUEReachableIndicatorBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(UE_REACHABLE_INDICATOR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isUEReachableIndicatorSet()
+	{
+		return getBit(UE_REACHABLE_INDICATOR_BIT);
 	}
 }

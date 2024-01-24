@@ -43,6 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerOperatio
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleReport;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CoAInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultQoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
@@ -190,9 +191,9 @@ public interface CreditControlRequest extends AuthenticationRequest
 	
 	void setCcRequestNumber(Long value);
 	
-	Long getCreditManagementStatus();
+	CreditManagementStatus getCreditManagementStatus();
 	
-	void setCreditManagementStatus(Long value);
+	void setCreditManagementStatus(CreditManagementStatus value);
 	
 	public List<SubscriptionId> getSubscriptionId();
 	

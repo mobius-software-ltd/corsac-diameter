@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ReportingTrigger;
 
@@ -29,20 +29,99 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.ReportingTrig
 *
 */
 @DiameterAvpImplementation(code = 1626L, vendorId = KnownVendorIDs.TGPP_ID)
-public class ReportingTriggerImpl extends DiameterUnsigned32Impl implements ReportingTrigger
+public class ReportingTriggerImpl extends DiameterBitmask32Impl implements ReportingTrigger
 {
-	protected ReportingTriggerImpl()
+	public ReportingTriggerImpl()
 	{
 		super();
 	}
-
-	protected ReportingTriggerImpl(Long minValue, Long maxValue)
+	
+	protected ReportingTriggerImpl(Integer value)
 	{
-		super(minValue, maxValue);
+		super(value);
 	}
 
-	public ReportingTriggerImpl(Long value, Long minValue, Long maxValue)
+	@Override
+	public void setPeriodicalBit(boolean isOn)
 	{
-		super(value, minValue, maxValue);
+		setBit(PERIODICAL_BIT, isOn);
+	}
+
+	@Override
+	public boolean isPeriodicalBitSet()
+	{
+		return getBit(PERIODICAL_BIT);
+	}
+
+	@Override
+	public void setEventA2Bit(boolean isOn)
+	{
+		setBit(EVENT_A2_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEventA2BitSet()
+	{
+		return getBit(EVENT_A2_BIT);
+	}
+
+	@Override
+	public void setEvent1FBit(boolean isOn)
+	{
+		setBit(EVENT_1F_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEvent1FBitSet()
+	{
+		return getBit(EVENT_1F_BIT);
+	}
+
+	@Override
+	public void setEvent1IBit(boolean isOn)
+	{
+		setBit(EVENT_1I_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEvent1IBitSet()
+	{
+		return getBit(EVENT_1I_BIT);
+	}
+
+	@Override
+	public void setEventA2PeriodicBit(boolean isOn)
+	{
+		setBit(EVENT_A2_PERIODIC_BIT, isOn);
+	}
+
+	@Override
+	public boolean isEventA2PeriodicBitSet()
+	{
+		return getBit(EVENT_A2_PERIODIC_BIT);
+	}
+
+	@Override
+	public void setAllConfiguredRRMEventTriggersForLTEAndNRBit(boolean isOn)
+	{
+		setBit(ALL_CONFIGURED_RRM_EVENT_TRIGGERS_FOR_LTE_AND_NR_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAllConfiguredRRMEventTriggersForLTEAndNRBitSet()
+	{
+		return getBit(ALL_CONFIGURED_RRM_EVENT_TRIGGERS_FOR_LTE_AND_NR_BIT);
+	}
+
+	@Override
+	public void setAllConfiguredRRMEventTriggersForUMTSBit(boolean isOn)
+	{
+		setBit(ALL_CONFIGURED_RRM_EVENT_TRIGGERS_FOR_UMTS_BIT, isOn);
+	}
+
+	@Override
+	public boolean isAllConfiguredRRMEventTriggersForUMTSBitSet()
+	{
+		return getBit(ALL_CONFIGURED_RRM_EVENT_TRIGGERS_FOR_UMTS_BIT);
 	}
 }

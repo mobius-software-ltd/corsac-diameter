@@ -22,7 +22,8 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserData;
+
+import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -57,9 +58,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserData;
 @DiameterCommandDefinition(applicationId = 16777216, commandCode = 305, request = true, proxyable = true, name="Push-Profile-Request")
 public interface PushProfileRequest extends CxDxRequest
 {
-	UserData getUserData();
+	ByteBuf getUserData();
 	
-	void setUserData(UserData value);	
+	void setUserData(ByteBuf value);	
 	
 	ChargingInformation getChargingInformation();
 	 

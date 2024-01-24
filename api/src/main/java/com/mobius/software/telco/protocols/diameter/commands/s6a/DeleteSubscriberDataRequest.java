@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXRelatedRAT;
 
 import io.netty.buffer.ByteBuf;
@@ -62,9 +63,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = 16777251, commandCode = 320, request = true, proxyable = true, name="Delete-Subscriber-Data-Request")
 public interface DeleteSubscriberDataRequest extends S6aRequest
 {
-	Long getDSRFlags();
+	DSRFlags getDSRFlags();
 	
-	void setDSRFlags(Long value);
+	void setDSRFlags(DSRFlags value);
 	
 	String getSCEFID();
 	 
