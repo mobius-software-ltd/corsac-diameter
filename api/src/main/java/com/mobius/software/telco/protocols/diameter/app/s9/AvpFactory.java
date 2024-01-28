@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.app.s9;
  */
 
 import java.net.InetAddress;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -140,7 +141,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ChargingRuleReport getChargingRuleReport();
 	
-	public ChargingRuleDefinition getChargingRuleDefinition();
+	public ChargingRuleDefinition getChargingRuleDefinition(ByteBuf chargingRuleName);
 	
 	public MonitoringFlags getMonitoringFlags();
 	
@@ -182,32 +183,32 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AccessNetworkChargingIdentifierGx getAccessNetworkChargingIdentifierGx(ByteBuf accessNetworkChargingIdentifierValue);
 	
-	public PacketFilterContent getPacketFilterContent(String rule);
-	
-	public RestrictionFilterRule getRestrictionFilterRule(String rule);
-	
-	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes);
-	
-	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress);
+	public PacketFilterContent getPacketFilterContent(String rule) throws ParseException;
 	
 	public PacketFilterContent getPacketFilterContent(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts,
 			DiameterRuleAddress to, List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes);
+			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
 	
-	public TFTFilter getTFTFilter(String rule);
+	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws ParseException;
+	
+	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+	
+	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress);
+	
+	public TFTFilter getTFTFilter(String rule) throws ParseException;
 	
 	public TFTFilter getTFTFilter(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes);
+			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
 	
-	public FlowDescription getFlowDescription(String rule);
+	public FlowDescription getFlowDescription(String rule) throws ParseException;
 	
 	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes);
+			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
 	
 	public Flows getFlows(Long mediaComponentNumber);
 	
@@ -243,10 +244,10 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public TunnelInformation getTunnelInformation();
 	
-	public TunnelHeaderFilter getTunnelHeaderFilter(String rule);
+	public TunnelHeaderFilter getTunnelHeaderFilter(String rule) throws ParseException;
 	
 	public TunnelHeaderFilter getTunnelHeaderFilter(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts,
 			DiameterRuleAddress to, List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes);		
+			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;		
 }

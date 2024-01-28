@@ -45,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.ReportingRestr
 *
 */
 @DiameterCommandImplementation(applicationId = 16777342, commandCode = 8388722, request = true)
-public class ModifyUeContextRequestmpl extends NpRequestImpl implements ModifyUeContextRequest
+public class ModifyUeContextRequestImpl extends NpRequestImpl implements ModifyUeContextRequest
 {
 	private SubscriptionId subscriptionId;
 	
@@ -59,12 +59,12 @@ public class ModifyUeContextRequestmpl extends NpRequestImpl implements ModifyUe
 	 
 	private List<CongestionLevelDefinition> congestionLevelDefinition;
 	
-	protected ModifyUeContextRequestmpl() 
+	protected ModifyUeContextRequestImpl() 
 	{
 		super();
 	}
 	
-	public ModifyUeContextRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
+	public ModifyUeContextRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
 	}

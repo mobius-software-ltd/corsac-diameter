@@ -20,11 +20,10 @@ package com.mobius.software.telco.protocols.diameter.app.mb2c;
 
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 public interface SessionFactory
 {
-	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationRealm,AuthSessionStateEnum authSessionState);	
+	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationRealm);	
 	
-	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationRealm);
 }

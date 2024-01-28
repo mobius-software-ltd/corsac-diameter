@@ -80,7 +80,7 @@ public class TriggerEstablishmentRequestImpl extends AuthenticationRequestWithHo
 		super();
 	}
 
-	protected TriggerEstablishmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState)
+	public TriggerEstablishmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);		
 		

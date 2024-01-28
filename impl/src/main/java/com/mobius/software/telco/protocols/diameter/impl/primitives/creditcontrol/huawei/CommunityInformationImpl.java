@@ -80,7 +80,7 @@ public class CommunityInformationImpl implements CommunityInformation
 	
 	private ScreenZoneID screenZoneID;
 	
-	protected CommunityInformationImpl()
+	public CommunityInformationImpl()
 	{
 		
 	}

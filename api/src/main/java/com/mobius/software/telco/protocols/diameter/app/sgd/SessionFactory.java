@@ -20,14 +20,13 @@ package com.mobius.software.telco.protocols.diameter.app.sgd;
 
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 
 import io.netty.buffer.ByteBuf;
 
 public interface SessionFactory
 {
-	public MOForwardShortMessageRequest createMOForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState, UserIdentifier userIdentifier, ByteBuf smRPUI);			
+	public MOForwardShortMessageRequest createMOForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentifier userIdentifier, ByteBuf smRPUI);			
 	
-	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,String scAddress,ByteBuf smRPUI);	
+	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String scAddress,ByteBuf smRPUI);	
 }

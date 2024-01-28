@@ -37,7 +37,7 @@ private PortStart portStart;
 	
 	private PortEnd portEnd;
 	
-	public PortRangeImpl() 
+	protected PortRangeImpl() 
 	{
 	}
 	

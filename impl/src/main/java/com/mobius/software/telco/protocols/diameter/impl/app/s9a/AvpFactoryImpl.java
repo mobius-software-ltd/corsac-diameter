@@ -1,0 +1,243 @@
+package com.mobius.software.telco.protocols.diameter.impl.app.s9a;
+/*
+ * Mobius Software LTD
+ * Copyright 2023, Mobius Software LTD and individual contributors
+ * by the @authors tag.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation; either version 3 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
+import java.net.InetAddress;
+import java.text.ParseException;
+import java.util.List;
+
+import com.mobius.software.telco.protocols.diameter.app.s9a.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.OCOLRImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.UserCSGInformationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AllocationRetentionPriorityImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.ConditionalAPNAggregateMaxBitrateImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventReportIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.FlowInformationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PresenceReportingAreaInformationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PresenceReportingAreaNodeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.QoSInformationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.TunnelHeaderFilterImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.TunnelInformationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gxx.QoSRuleDefinitionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gxx.QoSRuleInstallImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gxx.QoSRuleRemoveImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gxx.QoSRuleReportImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683.OCSupportedFeaturesImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc8583.LoadImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.FlowDescriptionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.AreaScopeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ListOfMeasurementsImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.MBSFNAreaImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.MDTConfigurationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ReportingTriggerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.TraceDataImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleIcmpType;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleIpOption;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleOption;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpFlag;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpOption;
+import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.CSGAccessModeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.AllocationRetentionPriority;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.ConditionalAPNAggregateMaxBitrate;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaNode;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelHeaderFilter;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleInstall;
+import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleRemove;
+import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleReport;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
+import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescription;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.AreaScope;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.JobTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.ListOfMeasurements;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.MBSFNArea;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.MDTConfiguration;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.ReportingTrigger;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.TraceData;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.TraceDepthEnum;
+
+import io.netty.buffer.ByteBuf;
+
+public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
+{
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)
+	{
+		return new SubscriptionIdImpl(subscriptionIdType, subscriptionIdData);
+	}
+	
+	public QoSInformation getQoSInformation()
+	{
+		return new QoSInformationImpl();
+	}
+	
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel)
+	{
+		return new AllocationRetentionPriorityImpl(priorityLevel);
+	}
+	
+	public ConditionalAPNAggregateMaxBitrate getConditionalAPNAggregateMaxBitrate()
+	{
+		return new ConditionalAPNAggregateMaxBitrateImpl();
+	}
+	
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	{
+		return new OCOLRImpl(ocSequenceNumber, ocReportType);
+	}
+	
+	public OCSupportedFeatures getOCSupportedFeatures()
+	{
+		return new OCSupportedFeaturesImpl();
+	}
+	
+	public Load getLoad()
+	{
+		return new LoadImpl();
+	}
+	
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	{
+		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
+	}
+	
+	public QoSRuleInstall getQoSRuleInstall()
+	{
+		return new QoSRuleInstallImpl();
+	}
+	
+	public QoSRuleRemove getQoSRuleRemove()
+	{
+		return new QoSRuleRemoveImpl();
+	}
+	
+	public QoSRuleReport getQoSRuleReport()
+	{
+		return new QoSRuleReportImpl();
+	}
+	
+	public QoSRuleDefinition getQoSRuleDefinition(ByteBuf qosRuleName)
+	{
+		return new QoSRuleDefinitionImpl(qosRuleName);
+	}
+	
+	public TunnelInformation getTunnelInformation()
+	{
+		return new TunnelInformationImpl();
+	}
+	
+	public TunnelHeaderFilter getTunnelHeaderFilter(String rule) throws ParseException
+	{
+		return new TunnelHeaderFilterImpl(rule, null, null);
+	}
+	
+	public TunnelHeaderFilter getTunnelHeaderFilter(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts,
+			DiameterRuleAddress to, List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
+			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
+			List<DiameterRuleIcmpType> icmpTypes) throws ParseException
+	{
+		return new TunnelHeaderFilterImpl(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, null, null);
+	}
+	
+	public FlowInformation getFlowInformation()
+	{
+		return new FlowInformationImpl();
+	}
+	
+	public FlowDescription getFlowDescription(String rule) throws ParseException
+	{
+		return new FlowDescriptionImpl(rule, null, null);
+	}
+	
+	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
+			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
+			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
+			List<DiameterRuleIcmpType> icmpTypes) throws ParseException
+	{
+		return new FlowDescriptionImpl(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, null, null);
+	}
+	
+	public EventReportIndication getEventReportIndication()
+	{
+		return new EventReportIndicationImpl();
+	}
+	
+	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode)
+	{
+		return new UserCSGInformationImpl(csgId, csgAccessMode);
+	}	
+	
+	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity)
+	{
+		return new TraceDataImpl(traceReference, traceDepth, traceNETypeList, traceEventList, traceCollectionEntity);
+	}
+	
+	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType)
+	{
+		return new MDTConfigurationImpl(jobType);
+	}
+	
+	public AreaScope getAreaScope()
+	{
+		return new AreaScopeImpl();
+	}
+	
+	public ListOfMeasurements getListOfMeasurements()
+	{
+		return new ListOfMeasurementsImpl();
+	}
+	
+	public ReportingTrigger getReportingTrigger()
+	{
+		return new ReportingTriggerImpl();
+	}
+	
+	public MBSFNArea getMBSFNArea()
+	{
+		return new MBSFNAreaImpl();
+	}
+	
+	public PresenceReportingAreaInformation getPresenceReportingAreaInformation()
+	{
+		return new PresenceReportingAreaInformationImpl();
+	}
+	
+	public PresenceReportingAreaNode getPresenceReportingAreaNode()
+	{
+		return new PresenceReportingAreaNodeImpl();
+	}
+}

@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.swd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.commands.swa.EAPRequest;
+import com.mobius.software.telco.protocols.diameter.commands.swd.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 
 import io.netty.buffer.ByteBuf;

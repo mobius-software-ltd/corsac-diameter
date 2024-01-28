@@ -19,11 +19,10 @@ package com.mobius.software.telco.protocols.diameter.app.s6m;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.SIRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 
 public interface SessionFactory
 {
-	public SubscriberInformationRequest createSubscriberInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,SIRFlags sirFlags);			
+	public SubscriberInformationRequest createSubscriberInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,SIRFlags sirFlags);			
 }

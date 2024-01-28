@@ -62,6 +62,17 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 		setAcctMultiSessionIdAllowed(false);
 		setAccountingRealtimeRequiredAllowed(false);		
 	}
+	
+	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long applicationId, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber)
+	{
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, accountingRecordType, accountingRecordNumber);
+		setVendorSpecificApplicationIdAllowed(false);
+		setAccountingSubSessionIdAllowed(false);
+		setAcctSessionIdAllowed(false);
+		setAcctMultiSessionIdAllowed(false);
+		setAccountingRealtimeRequiredAllowed(false);
+		setAcctApplicationId(applicationId);
+	}
 
 	@Override
 	public String getServiceContextId()

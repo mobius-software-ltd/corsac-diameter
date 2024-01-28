@@ -31,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MaximumUEAvailabilityTime;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EventHandling;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EventHandlingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportItem;

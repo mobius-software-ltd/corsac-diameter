@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.app.t4;
 
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportRequest;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeviceTriggerRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.SMDeliveryOutcomeT4Enum;
 
@@ -28,7 +27,7 @@ import io.netty.buffer.ByteBuf;
 
 public interface SessionFactory
 {
-	public DeliveryReportRequest createDeliveryReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf smRPSMEA,SMDeliveryOutcomeT4Enum smDeliveryOutcomeT4);			
+	public DeliveryReportRequest createDeliveryReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf smRPSMEA,SMDeliveryOutcomeT4Enum smDeliveryOutcomeT4);			
 	
-	public DeviceTriggerRequest createDeviceTriggerRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf smRPSMEA,ByteBuf payload);
+	public DeviceTriggerRequest createDeviceTriggerRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf smRPSMEA,ByteBuf payload);
 }

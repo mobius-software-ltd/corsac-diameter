@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.app.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.text.ParseException;
+
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoHAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoMNMSA;
@@ -53,5 +55,5 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public MIPOriginatingForeignAAA getMIPOriginatingForeignAAA(String originHost,String originRealm);
 	
-	public MIPFilterRule getMIPFilterRule(String rule);		
+	public MIPFilterRule getMIPFilterRule(String rule) throws ParseException;		
 }

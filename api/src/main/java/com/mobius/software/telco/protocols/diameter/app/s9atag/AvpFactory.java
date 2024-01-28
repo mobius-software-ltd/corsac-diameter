@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.s9atag;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
@@ -52,6 +53,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportT
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
+import io.netty.buffer.ByteBuf;
+
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
@@ -77,15 +80,15 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ChargingRuleReport getChargingRuleReport();
 	
-	public ChargingRuleDefinition getChargingRuleDefinition();
+	public ChargingRuleDefinition getChargingRuleDefinition(ByteBuf chargingRuleName);
 	
 	public MonitoringFlags getMonitoringFlags();
 	
 	public FinalUnitIndication getFinalUnitIndication(FinalUnitActionEnum finalUnitAction, List<RestrictionFilterRule> restrictionFilterRule, List<String> filterId, RedirectServer redirectServer);
 	
-	public RestrictionFilterRule getRestrictionFilterRule(String rule);
+	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws ParseException;
 	
-	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes);
+	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
 	
 	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress);
 	

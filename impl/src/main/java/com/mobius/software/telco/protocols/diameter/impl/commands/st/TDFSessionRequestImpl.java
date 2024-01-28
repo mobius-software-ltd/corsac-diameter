@@ -13,7 +13,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.st.RequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CalledStationId;
@@ -74,14 +73,9 @@ public class TDFSessionRequestImpl extends StRequestImpl implements TDFSessionRe
 		super();
 	}
 	
-	public TDFSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public TDFSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID)
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
-	}
-
-	protected TDFSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
-	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);
 	}
 	
 	@Override

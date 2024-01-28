@@ -21,14 +21,13 @@ package com.mobius.software.telco.protocols.diameter.app.slg;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportRequest;
 import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSEPSClientName;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LocationEventEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.SLgLocationTypeEnum;
 
 public interface SessionFactory
 {
-	public ProvideLocationRequest createProvideLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,SLgLocationTypeEnum slgLocationType,LCSEPSClientName lcsEPSClientName,LCSClientTypeEnum lcsClientType);			
+	public ProvideLocationRequest createProvideLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,SLgLocationTypeEnum slgLocationType,LCSEPSClientName lcsEPSClientName,LCSClientTypeEnum lcsClientType);			
 	
-	public LocationReportRequest createLocationReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,LocationEventEnum locationEvent);
+	public LocationReportRequest createLocationReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,LocationEventEnum locationEvent);
 }

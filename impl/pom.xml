@@ -34,6 +34,24 @@
 			<version>${netty.version}</version>
 		</dependency>	
 		<dependency>
+			<groupId>com.mobius-software.cluster</groupId>
+			<artifactId>cache-core</artifactId>
+			<version>${cluster.version}</version>
+			<!--<scope>provided</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>com.mobius-software.cluster</groupId>
+			<artifactId>cache-spi</artifactId>
+			<version>${cluster.version}</version>
+			<!--<scope>provided</scope>-->
+		</dependency>
+        <dependency>
+			<groupId>com.mobius-software.cluster</groupId>
+			<artifactId>timers</artifactId>
+			<version>${cluster.version}</version>
+			<!--<scope>provided</scope>-->
+		</dependency>	
+		<dependency>
 		    <groupId>org.mobicents.diameter</groupId>
 		    <artifactId>jdiameter-impl</artifactId>		    
 		    <version>1.7.1-123</version>

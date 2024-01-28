@@ -36,7 +36,7 @@ public class CreditUseNotificationImpl implements CreditUseNotification
 	
 	private POSAccountNotify posAccountNotify;
 	
-	protected CreditUseNotificationImpl()
+	public CreditUseNotificationImpl()
 	{
 		
 	}

@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.InitialRecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.OriginatingInterfaceEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.ServedUserIdentity;
@@ -30,5 +29,5 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEvent
 
 public interface SessionFactory
 {
-	public MessageProcessRequest createMessageProcessRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface);		
+	public MessageProcessRequest createMessageProcessRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface);		
 }

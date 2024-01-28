@@ -20,11 +20,10 @@ package com.mobius.software.telco.protocols.diameter.app.tsp;
 
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 public interface SessionFactory
 {
-	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationRealm,AuthSessionStateEnum authSessionState);			
+	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationRealm);			
 	
-	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationRealm, AuthSessionStateEnum authSessionState);	
+	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationRealm);	
 }

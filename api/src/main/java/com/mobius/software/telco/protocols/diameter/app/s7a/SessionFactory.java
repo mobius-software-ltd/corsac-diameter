@@ -25,7 +25,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s7a.DeleteSubscribe
 import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.ResetRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CancellationTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
@@ -33,13 +32,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubsc
 
 public interface SessionFactory
 {
-	public CancelVCSGLocationRequest createCancelVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,CancellationTypeEnum cancellationType);			
+	public CancelVCSGLocationRequest createCancelVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CancellationTypeEnum cancellationType);			
 	
-	public DeleteSubscriberDataRequest createDeleteSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,DSRFlags dsrFlags);
+	public DeleteSubscriberDataRequest createDeleteSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,DSRFlags dsrFlags);
 	
-	public InsertSubscriberDataRequest createInsertSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData);
+	public InsertSubscriberDataRequest createInsertSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData);
 	
-	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
-	public UpdateVCSGLocationRequest createUpdateVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,UVRFlags uvrFlags);
+	public UpdateVCSGLocationRequest createUpdateVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UVRFlags uvrFlags);
 }

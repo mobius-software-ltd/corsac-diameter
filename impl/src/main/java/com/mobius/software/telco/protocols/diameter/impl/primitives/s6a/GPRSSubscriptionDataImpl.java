@@ -26,6 +26,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGrou
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CompleteDataListIncludedIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CompleteDataListIncludedIndicatorEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.GPRSSubscriptionData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PDPContext;
 
 /**
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.PDPContext;
 *
 */
 @DiameterAvpImplementation(code = 1467L, vendorId = KnownVendorIDs.TGPP_ID)
-public class GPRSSubscriptionDataImpl extends DiameterGroupedAvpImpl
+public class GPRSSubscriptionDataImpl extends DiameterGroupedAvpImpl implements GPRSSubscriptionData
 {
 	private CompleteDataListIncludedIndicator completeDataListIncludedIndicator;
 	

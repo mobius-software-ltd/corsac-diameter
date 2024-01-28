@@ -26,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeLocationUp
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchReportInfoRequest;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchRequest;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeProximityRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.DiscoveryAuthRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchReportInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchRequest;
@@ -37,19 +36,19 @@ import io.netty.buffer.ByteBuf;
 
 public interface SessionFactory
 {
-	public ProSeAlertRequest createProSeAlertRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,String appLayerUserId,String targetedEPUID);		
+	public ProSeAlertRequest createProSeAlertRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String appLayerUserId,String targetedEPUID);		
 	
-	public ProSeAuthorizationRequest createProSeAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,UserIdentity userIdentity,ByteBuf visitedPLMNId);
+	public ProSeAuthorizationRequest createProSeAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentity userIdentity,ByteBuf visitedPLMNId);
 	
-	public ProSeCancellationRequest createProSeCancellationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,String requestingEPUID,String targetedEPUID);
+	public ProSeCancellationRequest createProSeCancellationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String requestingEPUID,String targetedEPUID);
 	
-	public ProSeDiscoveryRequest createProSeDiscoveryRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,DiscoveryAuthRequest discoveryAuthRequest);
+	public ProSeDiscoveryRequest createProSeDiscoveryRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,DiscoveryAuthRequest discoveryAuthRequest);
 	
-	public ProSeLocationUpdateRequest createProSeLocationUpdateRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,String targetedEPUID,ByteBuf locationEstimate);
+	public ProSeLocationUpdateRequest createProSeLocationUpdateRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String targetedEPUID,ByteBuf locationEstimate);
 	
-	public ProSeMatchReportInfoRequest createProSeMatchReportInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,MatchReportInfo matchReportInfo);
+	public ProSeMatchReportInfoRequest createProSeMatchReportInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,MatchReportInfo matchReportInfo);
 	
-	public ProSeMatchRequest createProSeMatchRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,MatchRequest matchRequest);
+	public ProSeMatchRequest createProSeMatchRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,MatchRequest matchRequest);
 	
-	public ProSeProximityRequest createProSeProximityRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,PRRFlags prrFlags,String requestingEPUID,String targetedEPUID,Long timeWindow,ByteBuf locationEstimate);
+	public ProSeProximityRequest createProSeProximityRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,PRRFlags prrFlags,String requestingEPUID,String targetedEPUID,Long timeWindow,ByteBuf locationEstimate);
 }

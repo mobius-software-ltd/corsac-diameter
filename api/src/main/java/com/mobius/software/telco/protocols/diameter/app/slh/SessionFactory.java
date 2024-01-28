@@ -19,9 +19,8 @@ package com.mobius.software.telco.protocols.diameter.app.slh;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 public interface SessionFactory
 {
-	public LCSRoutingInfoRequest createLCSRoutingInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);				
+	public LCSRoutingInfoRequest createLCSRoutingInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);				
 }

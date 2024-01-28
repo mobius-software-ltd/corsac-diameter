@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
@@ -47,11 +48,11 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public Tunneling getTunneling(TunnelTypeEnum tunnelType, TunnelMediumTypeEnum tunnelMediumType,String tunnelClientEndpoint,String tunnelServerEndpoint,Long tunnelPreference,String tunnelClientAuthId,String tunnelServerAuthId,ByteBuf tunnelAssignmentId, ByteBuf tunnelPassword, ByteBuf tunnelPrivateGroupId);
 	
-	public DiameterQosFilterRule getDiameterQosFilterRule(String rule);
+	public DiameterQosFilterRule getDiameterQosFilterRule(String rule) throws ParseException;
 	
-	public DiameterQosFilterRule getDiameterQosFilterRule(DiameterQosAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,String dscpColor,Long meteringRate,String colorUnder,String colorOver);
+	public DiameterQosFilterRule getDiameterQosFilterRule(DiameterQosAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,String dscpColor,Long meteringRate,String colorUnder,String colorOver) throws ParseException;
 	
-	public NASFilterRule getNASFilterRule(String rule);
+	public NASFilterRule getNASFilterRule(String rule) throws ParseException;
 	
-	public NASFilterRule getNASFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes);
+	public NASFilterRule getNASFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
 }

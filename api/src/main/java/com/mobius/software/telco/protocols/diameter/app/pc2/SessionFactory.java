@@ -20,12 +20,11 @@ package com.mobius.software.telco.protocols.diameter.app.pc2;
 
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
 
 public interface SessionFactory
 {
-	public ProXimityApplicationRequest createProXimityApplicationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType);		
+	public ProXimityApplicationRequest createProXimityApplicationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, ProSeRequestTypeEnum proSeRequestType);		
 	
-	public ProXimityActionRequest createProXimityActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType);
+	public ProXimityActionRequest createProXimityActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, ProSeRequestTypeEnum proSeRequestType);
 }

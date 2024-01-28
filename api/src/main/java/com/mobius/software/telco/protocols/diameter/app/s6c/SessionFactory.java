@@ -21,15 +21,14 @@ package com.mobius.software.telco.protocols.diameter.app.s6c;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.AlertServiceCentreRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.ReportSMDeliveryStatusRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 
 public interface SessionFactory
 {
-	public AlertServiceCentreRequest createAlertServiceCentreRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,String scAddress,UserIdentifier userIdentifier);			
+	public AlertServiceCentreRequest createAlertServiceCentreRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String scAddress,UserIdentifier userIdentifier);			
 	
-	public ReportSMDeliveryStatusRequest createReportSMDeliveryStatusRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,String scAddress, SMDeliveryOutcome smDeliveryOutcome);
+	public ReportSMDeliveryStatusRequest createReportSMDeliveryStatusRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,String scAddress, SMDeliveryOutcome smDeliveryOutcome);
 	
-	public SendRoutingInfoForSMRequest createSendRoutingInfoForSMRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public SendRoutingInfoForSMRequest createSendRoutingInfoForSMRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 }

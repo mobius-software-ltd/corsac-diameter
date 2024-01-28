@@ -19,9 +19,8 @@ package com.mobius.software.telco.protocols.diameter.app.s13;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 public interface SessionFactory
 {
-	public MEIdentityCheckRequest createMEIdentityCheckRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);			
+	public MEIdentityCheckRequest createMEIdentityCheckRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);			
 }

@@ -23,17 +23,16 @@ import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeNotifyReq
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeSubscriberInformationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ResetRequest;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.UpdateProSeSubscriberDataRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 public interface SessionFactory
 {
-	public ProSeInitialLocationInformationRequest createProSeInitialLocationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);		
+	public ProSeInitialLocationInformationRequest createProSeInitialLocationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);		
 	
-	public ProSeNotifyRequest createProSeNotifyRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public ProSeNotifyRequest createProSeNotifyRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
-	public ProSeSubscriberInformationRequest createProSeSubscriberInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public ProSeSubscriberInformationRequest createProSeSubscriberInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
 	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
-	public UpdateProSeSubscriberDataRequest createUpdateProSeSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public UpdateProSeSubscriberDataRequest createUpdateProSeSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 }

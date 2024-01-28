@@ -213,7 +213,7 @@ public class TDFSessionRequestImpl extends VendorSpecificRequestWithHostBase imp
 		super();
 	}
 	
-	protected TDFSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID)
+	public TDFSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
 	}

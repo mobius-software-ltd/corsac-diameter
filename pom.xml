@@ -25,6 +25,7 @@
 		<compile.source>1.8</compile.source>
 		<netty.version>4.1.53.Final</netty.version>		
 		<sctp.version>2.2.9</sctp.version>
+		<cluster.version>8.0.0-39</cluster.version>
 	</properties>
 
 	<modules>

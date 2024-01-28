@@ -41,7 +41,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
 	
-	public UserIdentity getUserIdentity();
+	public UserIdentity getUserIdentity(String publicIdentity, String msisdn, String externalIdentifier);
 	
 	public RepositoryDataID getRepositoryDataID(ByteBuf serviceIndication, Long sequenceNumber);
 	

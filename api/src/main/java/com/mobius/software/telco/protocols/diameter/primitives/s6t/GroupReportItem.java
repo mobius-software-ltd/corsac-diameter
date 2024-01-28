@@ -25,7 +25,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.IdleStatusIndication;
 
 import io.netty.buffer.ByteBuf;

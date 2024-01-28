@@ -26,6 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AllocationRetentionPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdentifierEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSSubscribedQoSProfile;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdenti
 *
 */
 @DiameterAvpImplementation(code = 1431L, vendorId = KnownVendorIDs.TGPP_ID)
-public class EPSSubscribedQoSProfileImpl extends DiameterGroupedAvpImpl
+public class EPSSubscribedQoSProfileImpl extends DiameterGroupedAvpImpl implements EPSSubscribedQoSProfile
 {
 	private QoSClassIdentifier qoSClassIdentifier;
 	

@@ -54,7 +54,7 @@ public class FlowDescriptionImpl extends DiameterIpFilterRuleImpl implements Flo
 		super(minLength, maxLength);
 	}
 
-	protected FlowDescriptionImpl(String rule, Integer minLength, Integer maxLength) throws ParseException
+	public FlowDescriptionImpl(String rule, Integer minLength, Integer maxLength) throws ParseException
 	{
 		super(rule, minLength, maxLength);
 	}

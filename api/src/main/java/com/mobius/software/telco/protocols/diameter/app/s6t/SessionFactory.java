@@ -21,14 +21,13 @@ package com.mobius.software.telco.protocols.diameter.app.s6t;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.NIDDInformationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ReportingInformationRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 
 public interface SessionFactory
 {
-	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier);			
+	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentifier userIdentifier);			
 	
-	public NIDDInformationRequest createNIDDInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier);
+	public NIDDInformationRequest createNIDDInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier);
 	
-	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 }

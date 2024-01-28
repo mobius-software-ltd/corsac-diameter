@@ -26,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s6a.NotifyRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.PurgeUERequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.ResetRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.UpdateLocationRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CancellationTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
@@ -37,19 +36,19 @@ import io.netty.buffer.ByteBuf;
 
 public interface SessionFactory
 {
-	public AuthenticationInformationRequest createAuthenticationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,ByteBuf visitedPLMNId);			
+	public AuthenticationInformationRequest createAuthenticationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ByteBuf visitedPLMNId);			
 	
-	public CancelLocationRequest createCancelLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,CancellationTypeEnum cancellationType);
+	public CancelLocationRequest createCancelLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CancellationTypeEnum cancellationType);
 	
-	public DeleteSubscriberDataRequest createDeleteSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,DSRFlags dsrFlags);
+	public DeleteSubscriberDataRequest createDeleteSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,DSRFlags dsrFlags);
 	
-	public InsertSubscriberDataRequest createInsertSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,SubscriptionData subscriptionData);
+	public InsertSubscriberDataRequest createInsertSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,SubscriptionData subscriptionData);
 	
-	public NotifyRequest createNotifyRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public NotifyRequest createNotifyRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
-	public PurgeUERequest createPurgeUERequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public PurgeUERequest createPurgeUERequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
-	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
-	public UpdateLocationRequest createUpdateLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,RATTypeEnum ratType,ULRFlags ulrFlags,ByteBuf visitedPLMNId);
+	public UpdateLocationRequest createUpdateLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,RATTypeEnum ratType,ULRFlags ulrFlags,ByteBuf visitedPLMNId);
 }

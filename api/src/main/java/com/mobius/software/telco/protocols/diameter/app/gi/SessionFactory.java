@@ -24,7 +24,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 
 public interface SessionFactory
 {
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm,Long authApplicationId);		
+	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm);		
 	
-	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber, Long acctApplicationId);
+	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber);
 }

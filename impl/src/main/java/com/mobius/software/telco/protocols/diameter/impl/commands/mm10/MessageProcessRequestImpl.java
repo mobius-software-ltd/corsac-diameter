@@ -95,7 +95,7 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 		super();
 	}
 	
-	protected MessageProcessRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface)
+	public MessageProcessRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface)
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
 		

@@ -20,11 +20,10 @@ package com.mobius.software.telco.protocols.diameter.app.e4;
 
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 public interface SessionFactory
 {
-	public UserDataRequest createUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);	
+	public UserDataRequest createUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);	
 	
-	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);	
+	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);	
 }

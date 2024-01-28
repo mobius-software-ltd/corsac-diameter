@@ -21,13 +21,12 @@ package com.mobius.software.telco.protocols.diameter.app.np;
 import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportRequest;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextRequest;
 import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportRequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 public interface SessionFactory
 {
-	public ModifyUeContextRequest createModifyUeContextRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);	
+	public ModifyUeContextRequest createModifyUeContextRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);	
 	
-	public AggregatedRUCIReportRequest createAggregatedRUCIReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);
+	public AggregatedRUCIReportRequest createAggregatedRUCIReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
 	
-	public NonAggregatedRUCIReportRequest createNonAggregatedRUCIReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState);	
+	public NonAggregatedRUCIReportRequest createNonAggregatedRUCIReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);	
 }

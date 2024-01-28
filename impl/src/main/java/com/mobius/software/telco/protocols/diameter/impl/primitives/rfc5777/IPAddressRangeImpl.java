@@ -39,7 +39,7 @@ public class IPAddressRangeImpl extends DiameterGroupedAvpImpl implements IPAddr
 	
 	private IPAddressEnd ipAddressEnd;
 	
-	public IPAddressRangeImpl() 
+	protected IPAddressRangeImpl() 
 	{
 	}
 	

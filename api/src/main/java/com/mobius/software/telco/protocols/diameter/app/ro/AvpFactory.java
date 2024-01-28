@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.app.ro;
 
 import java.net.InetAddress;
 import java.util.Date;
+import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInfoChange;
@@ -60,6 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Messag
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NIDDSubmission;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NNIInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NextTariff;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.NodeFunctionalityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OriginatorAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OriginatorInterface;
@@ -123,7 +125,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public TGPPOCSpecificReduction getTGPPOCSpecificReduction();
 	
-	public ServiceInformation getServiceInformation();
+	public ServiceInformation getServiceInformation(List<SubscriptionId> subscriptionId);
 	
 	public RemainingBalance getRemainingBalance(UnitValue unitValue,Long currencyCode);	
 	
@@ -139,7 +141,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 					
 	public PSInformation getPSInformation();
 			
-	public IMSInformation getIMSInformation();
+	public IMSInformation getIMSInformation(NodeFunctionalityEnum nodeFunctionality);
 			
 	public MMSInformation getMMSInformation();
 			
@@ -203,7 +205,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 			
 	public RealTimeTariffInformation getRealTimeTariffInformation();
 			
-	public TariffInformation getTariffInformation();
+	public TariffInformation getTariffInformation(CurrentTariff currentTariff);
 			
 	public CurrentTariff getCurrentTariff();
 			

@@ -28,6 +28,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeIm
 import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATType;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXRelatedRAT;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 *
 */
 @DiameterAvpImplementation(code = 1705L, vendorId = KnownVendorIDs.TGPP_ID)
-public class EDRXRelatedRATImpl extends DiameterGroupedAvpImpl
+public class EDRXRelatedRATImpl extends DiameterGroupedAvpImpl implements EDRXRelatedRAT
 {
 	private List<RATType> ratType;
 	

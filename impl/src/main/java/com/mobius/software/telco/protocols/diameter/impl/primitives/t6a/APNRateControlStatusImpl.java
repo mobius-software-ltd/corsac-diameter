@@ -48,7 +48,7 @@ public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements 
 	
 	private APNRateControlStatusValidityTime apnRateControlStatusValidityTime;
 	
-	protected APNRateControlStatusImpl(String apn,Long uplinkNumberOfPacketsAllowed,Long numberOfAdditionalExceptionReports,Long downlinkNumberOfPacketsAllowed,Long apnRateControlStatusValidityTime)
+	public APNRateControlStatusImpl(String apn,Long uplinkNumberOfPacketsAllowed,Long numberOfAdditionalExceptionReports,Long downlinkNumberOfPacketsAllowed,Long apnRateControlStatusValidityTime)
 	{
 		if(apn==null)
 			throw new IllegalArgumentException("Service-Selection is required");
