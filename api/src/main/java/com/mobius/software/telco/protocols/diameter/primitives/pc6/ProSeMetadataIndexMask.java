@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.60	ProSe-Metadata-Index-Mask
 	The ProSe-Metadata-Index-Mask AVP is of type OctetString. This AVP contains a ProSe metadata index mask (see 3GPP TS 24.334 [22]).
  */
-@DiameterAvpDefinition(code = 3839L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ProSe-Metadata-Index-Mask")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_METADATA_INDEX_MASK, vendorId = VendorIDs.TGPP_ID, must = false, name = "ProSe-Metadata-Index-Mask")
 public interface ProSeMetadataIndexMask extends DiameterOctetString
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    
    	o  REMOVE_SIP_SERVER (3)
  */
-@DiameterAvpDefinition(code = 384L, vendorId = -1, name = "SIP-Reason-Code")
+@DiameterAvpDefinition(code = AvpCodes.SIP_REASON_CODE, vendorId = -1, name = "SIP-Reason-Code")
 public interface SIPReasonCode extends DiameterEnumerated<SIPReasonCodeEnum>
 {
 }

@@ -20,13 +20,16 @@ package com.mobius.software.telco.protocols.diameter.app.sgd;
 
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 
 import io.netty.buffer.ByteBuf;
 
 public interface SessionFactory
 {
-	public MOForwardShortMessageRequest createMOForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentifier userIdentifier, ByteBuf smRPUI);			
+	public MOForwardShortMessageRequest createMOForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentifier userIdentifier, ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;			
 	
-	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String scAddress,ByteBuf smRPUI);	
+	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;	
 }

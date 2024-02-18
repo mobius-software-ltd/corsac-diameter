@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	REMOVAL_OF_ACCESS (0)
  		This value indicates that one access shall be removed from multi access IP-CAN session.
  */
-@DiameterAvpDefinition(code = 2842L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Removal-Of-Access")
+@DiameterAvpDefinition(code = TgppAvpCodes.REMOVAL_OF_ACCESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "Removal-Of-Access")
 public interface RemovalOfAccess extends DiameterEnumerated<RemovalOfAccessEnum>
 {
 }

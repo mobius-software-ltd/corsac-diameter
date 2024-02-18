@@ -21,8 +21,11 @@ package com.mobius.software.telco.protocols.diameter.commands.mm10;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReportEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.InitialRecipientAddress;
@@ -66,24 +69,24 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEvent
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777226, commandCode = 311, request = true, proxyable = true, name="Message-Process-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MM10, commandCode = CommandCodes.MESSAGE_PROCESS, request = true, proxyable = true, name="Message-Process-Request")
 public interface MessageProcessRequest extends VendorSpecificRequest
 {
 	public AuthSessionStateEnum getAuthSessionState(); 
 	
-	public void setAuthSessionState(AuthSessionStateEnum value); 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException; 
 	
 	Date getEventTimestamp();
 	
-	void setEventTimestamp(Date value);
+	void setEventTimestamp(Date value) throws MissingAvpException;
 	
 	TriggerEventEnum getTriggerEvent();
 	
-	void setTriggerEvent(TriggerEventEnum value);
+	void setTriggerEvent(TriggerEventEnum value) throws MissingAvpException;
 	
 	public ServedUserIdentity getServedUserIdentity();
 	
-	void setServedUserIdentity(ServedUserIdentity value);
+	void setServedUserIdentity(ServedUserIdentity value) throws MissingAvpException;
 
 	public String getTGPPIMSI();
 	 
@@ -95,11 +98,11 @@ public interface MessageProcessRequest extends VendorSpecificRequest
 	
 	List<InitialRecipientAddress> getInitialRecipientAddress();
 	
-	void setInitialRecipientAddress(List<InitialRecipientAddress> value);
+	void setInitialRecipientAddress(List<InitialRecipientAddress> value) throws MissingAvpException;
 	
 	OriginatingInterfaceEnum getOriginatingInterface();
 	
-	void setOriginatingInterface(OriginatingInterfaceEnum value);
+	void setOriginatingInterface(OriginatingInterfaceEnum value) throws MissingAvpException;
 	
 	String getServiceKey();
 	

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5779;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
    assign a DHCP server to the MAG in deployments where the MAG acts as
    a DHCP Relay [NETLMM-PMIP6].
  */
-@DiameterAvpDefinition(code = 504L, vendorId = -1L, name = "PMIP6-DHCP-Server-Address")
+@DiameterAvpDefinition(code = AvpCodes.PMIP6_DHCP_SERVER_ADDRESS, vendorId = -1L, name = "PMIP6-DHCP-Server-Address")
 public interface PMIP6DHCPServerAddress extends DiameterAddress
 {
 }

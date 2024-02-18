@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask64Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.BroadcastLocationAssistanceDataTypes;
 
 /**
@@ -28,7 +30,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.BroadcastLoca
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1700L, vendorId = KnownVendorIDs.TGPP_ID)
 public class BroadcastLocationAssistanceDataTypesImpl extends DiameterBitmask64Impl implements BroadcastLocationAssistanceDataTypes
 {
 	public BroadcastLocationAssistanceDataTypesImpl()
@@ -42,66 +43,66 @@ public class BroadcastLocationAssistanceDataTypesImpl extends DiameterBitmask64I
 	}
 
 	@Override
-	public void setPositioningSIBBit(int type, int bit, boolean isOn)
+	public void setPositioningSIBBit(int type, int bit, boolean isOn) throws InvalidAvpValueException
 	{
 		if(bit<1)
-			throw new RuntimeException("Invalid bit(should be positive)");
+			throw new InvalidAvpValueException("Invalid bit(should be positive)", Arrays.asList(new DiameterAvp[] { this }));
 					
 		switch(type)
 		{
 			case 1:
 				if(bit>8)
-					throw new RuntimeException("Invalid bit(should be 1 to 8)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1 to 8)", Arrays.asList(new DiameterAvp[] { this }));
 			
 				if(bit<8)
-					setBit(bit-1, isOn);
+					setBitUnchecked(bit-1, isOn);
 				else
-					setBit(27, isOn);
+					setBitUnchecked(27, isOn);
 				break;
 			case 2:
 				if(bit>25)
-					throw new RuntimeException("Invalid bit(should be 1 to 25)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1 to 25)", Arrays.asList(new DiameterAvp[] { this }));
 			
 				if(bit<20)
-					setBit(bit+6, isOn);
+					setBitUnchecked(bit+6, isOn);
 				else
-					setBit(bit+8, isOn);
+					setBitUnchecked(bit+8, isOn);
 				break;
 			case 3:
 				if(bit!=1)
-					throw new RuntimeException("Invalid bit(should be 1)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1)", Arrays.asList(new DiameterAvp[] { this }));
 				
-				setBit(26, isOn);
+				setBitUnchecked(26, isOn);
 				break;
 			case 4:
 				if(bit!=1)
-					throw new RuntimeException("Invalid bit(should be 1)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1)", Arrays.asList(new DiameterAvp[] { this }));
 				
-				setBit(34, isOn);
+				setBitUnchecked(34, isOn);
 				break;
 			case 5:
 				if(bit!=1)
-					throw new RuntimeException("Invalid bit(should be 1)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1)", Arrays.asList(new DiameterAvp[] { this }));
 				
-				setBit(35, isOn);
+				setBitUnchecked(35, isOn);
 				break;
 			default:
-				throw new RuntimeException("Invalid type(should be 1 to 5)");
+				throw new InvalidAvpValueException("Invalid type(should be 1 to 5)", Arrays.asList(new DiameterAvp[] { this }));
 				
 		}
 	}
 
 	@Override
-	public boolean isPositioningSIBBitSet(int type, int bit)
+	public boolean isPositioningSIBBitSet(int type, int bit) throws InvalidAvpValueException
 	{
 		if(bit<1)
-			throw new RuntimeException("Invalid bit(should be positive)");
+			throw new InvalidAvpValueException("Invalid bit(should be positive)", Arrays.asList(new DiameterAvp[] { this }));
 					
 		switch(type)
 		{
 			case 1:
 				if(bit>8)
-					throw new RuntimeException("Invalid bit(should be 1 to 8)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1 to 8)", Arrays.asList(new DiameterAvp[] { this }));
 			
 				if(bit<8)
 					return getBit(bit-1);
@@ -109,7 +110,7 @@ public class BroadcastLocationAssistanceDataTypesImpl extends DiameterBitmask64I
 					return getBit(27);
 			case 2:
 				if(bit>25)
-					throw new RuntimeException("Invalid bit(should be 1 to 25)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1 to 25)", Arrays.asList(new DiameterAvp[] { this }));
 			
 				if(bit<20)
 					return getBit(bit+6);
@@ -117,21 +118,21 @@ public class BroadcastLocationAssistanceDataTypesImpl extends DiameterBitmask64I
 					return getBit(bit+8);
 			case 3:
 				if(bit!=1)
-					throw new RuntimeException("Invalid bit(should be 1)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1)", Arrays.asList(new DiameterAvp[] { this }));
 				
 				return getBit(26);
 			case 4:
 				if(bit!=1)
-					throw new RuntimeException("Invalid bit(should be 1)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1)", Arrays.asList(new DiameterAvp[] { this }));
 				
 				return getBit(34);
 			case 5:
 				if(bit!=1)
-					throw new RuntimeException("Invalid bit(should be 1)");
+					throw new InvalidAvpValueException("Invalid bit(should be 1)", Arrays.asList(new DiameterAvp[] { this }));
 				
 				return getBit(35);
 			default:
-				throw new RuntimeException("Invalid type(should be 1 to 5)");
+				throw new InvalidAvpValueException("Invalid type(should be 1 to 5)", Arrays.asList(new DiameterAvp[] { this }));
 				
 		}
 	}

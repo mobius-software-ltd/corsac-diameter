@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -53,12 +55,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
    AVP is absent, the Negated AVP feature applies to the ICMP-Type-
    Number.
  */
-@DiameterAvpDefinition(code = 545L, vendorId = -1L, name = "ICMP-Type")
+@DiameterAvpDefinition(code = AvpCodes.ICMP_TYPE, vendorId = -1L, name = "ICMP-Type")
 public interface ICMPType extends DiameterGroupedAvp
 {
 	ICMPTypeNumberEnum getICMPTypeNumber();
 	
-	void setICMPTypeNumber(ICMPTypeNumberEnum value);	
+	void setICMPTypeNumber(ICMPTypeNumberEnum value) throws MissingAvpException;	
 	
 	List<ICMPCodeEnum> getICMPCode();
 	

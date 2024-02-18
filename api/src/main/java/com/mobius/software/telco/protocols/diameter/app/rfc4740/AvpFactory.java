@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAccountingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthenticate;
@@ -35,17 +36,17 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public SIPServerCapabilities getSIPServerCapabilities();
 	
-	public SIPAuthDataItem getSIPAuthDataItem(SIPAuthenticationSchemeEnum sipAuthenticationScheme);
+	public SIPAuthDataItem getSIPAuthDataItem(SIPAuthenticationSchemeEnum sipAuthenticationScheme) throws MissingAvpException;
 	
 	public SIPAccountingInformation getSIPAccountingInformation();
 	
-	public SIPUserData getSIPUserData(String sipUserDataType,ByteBuf sipUserDataContents);
+	public SIPUserData getSIPUserData(String sipUserDataType,ByteBuf sipUserDataContents) throws MissingAvpException;
 	
-	public SIPDeregistrationReason getSIPDeregistrationReason(SIPReasonCodeEnum sipReasonCode);
+	public SIPDeregistrationReason getSIPDeregistrationReason(SIPReasonCodeEnum sipReasonCode) throws MissingAvpException;
 	
 	public SIPAuthenticationInfo getSIPAuthenticationInfo();
 	
-	public SIPAuthorization getSIPAuthorization(String digestUsername,String digestRealm,String digestNonce,String digestURI,String digestResponse);
+	public SIPAuthorization getSIPAuthorization(String digestUsername,String digestRealm,String digestNonce,String digestURI,String digestResponse) throws MissingAvpException;
 	
-	public SIPAuthenticate getSIPAuthenticate(String digestRealm);
+	public SIPAuthenticate getSIPAuthenticate(String digestRealm) throws MissingAvpException;
 }

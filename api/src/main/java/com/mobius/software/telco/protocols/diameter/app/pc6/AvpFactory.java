@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.app.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCSpecificReduction;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -61,13 +63,13 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public TGPPOCSpecificReduction getTGPPOCSpecificReduction();
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public AssistanceInfo getAssistanceInfo();
 	
@@ -83,39 +85,39 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ProSeDirectAllowed getProSeDirectAllowed();
 	
-	public UserIdentity getUserIdentity(String publicIdentity, String msisdn, String externalIdentifier);
+	public UserIdentity getUserIdentity(String publicIdentity, String msisdn, String externalIdentifier) throws MissingAvpException, AvpOccursTooManyTimesException;
 	
-	public DiscoveryAuthResponse getDiscoveryAuthResponse(DiscoveryTypeEnum discoveryType);
+	public DiscoveryAuthResponse getDiscoveryAuthResponse(DiscoveryTypeEnum discoveryType) throws MissingAvpException;
 	
-	public DiscoveryAuthRequest getDiscoveryAuthRequest(DiscoveryTypeEnum discoveryType);
+	public DiscoveryAuthRequest getDiscoveryAuthRequest(DiscoveryTypeEnum discoveryType) throws MissingAvpException;
 	
-	public MatchReport getMatchReport(DiscoveryTypeEnum discoveryType);
+	public MatchReport getMatchReport(DiscoveryTypeEnum discoveryType) throws MissingAvpException;
 	
-	public MatchReportInfo getMatchReportInfo(DiscoveryTypeEnum discoveryType);
+	public MatchReportInfo getMatchReportInfo(DiscoveryTypeEnum discoveryType) throws MissingAvpException;
 	
-	public MatchRequest getMatchRequest(DiscoveryTypeEnum discoveryType);
+	public MatchRequest getMatchRequest(DiscoveryTypeEnum discoveryType) throws MissingAvpException;
 	
-	public LocationUpdateTrigger getLocationUpdateTrigger(LocationUpdateEventTypeEnum locationUpdateEventType);
+	public LocationUpdateTrigger getLocationUpdateTrigger(LocationUpdateEventTypeEnum locationUpdateEventType) throws MissingAvpException;
 	
 	public CodeReceivingSecurityMaterial getCodeReceivingSecurityMaterial();
 	
 	public CodeSendingSecurityMaterial getCodeSendingSecurityMaterial();
 	
-	public ProSeDiscoveryFilter getProSeDiscoveryFilter(ByteBuf filterId,String proSeAppId,Long proSeValidityTimer,ByteBuf proSeAppCode);
+	public ProSeDiscoveryFilter getProSeDiscoveryFilter(ByteBuf filterId,String proSeAppId,Long proSeValidityTimer,ByteBuf proSeAppCode) throws MissingAvpException;
 	
 	public ServiceResult getServiceResult();
 	
-	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix);
+	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException;
 	
-	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix);
+	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException;
 	
-	public AppIdentifier getAppIdentifier(ByteBuf osID,String osAppID);
+	public AppIdentifier getAppIdentifier(ByteBuf osID,String osAppID) throws MissingAvpException;
 	
-	public ProSeAppCodeInfo getProSeAppCodeInfo(ByteBuf proSeAppCode,ByteBuf mic,Long utcBasedCounter);
+	public ProSeAppCodeInfo getProSeAppCodeInfo(ByteBuf proSeAppCode,ByteBuf mic,Long utcBasedCounter) throws MissingAvpException;
 	
-	public PeriodicLocationType getPeriodicLocationType(Long locationReportIntervalTime,Long totalNumberOfReports);
+	public PeriodicLocationType getPeriodicLocationType(Long locationReportIntervalTime,Long totalNumberOfReports) throws MissingAvpException;
 	
-	public ChangeOfAreaType getChangeOfAreaType(LocationUpdateEventTriggerEnum locationUpdateEventTrigger,ReportCardinalityEnum reportCardinality);
+	public ChangeOfAreaType getChangeOfAreaType(LocationUpdateEventTriggerEnum locationUpdateEventTrigger,ReportCardinalityEnum reportCardinality) throws MissingAvpException;
 	
 	public PMRFlags getPMRFlags();
 	

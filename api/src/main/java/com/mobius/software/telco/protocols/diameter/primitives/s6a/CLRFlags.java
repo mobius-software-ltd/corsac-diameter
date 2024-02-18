@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE 3: For the purpose of withdrawing "Aerial UE Subscription", HSS may send CLR with CLR-Flag set to Reattach-Required.
 */
-@DiameterAvpDefinition(code = 1638L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "CLR-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.CLR_FLAGS, vendorId = VendorIDs.TGPP_ID, must = false, name = "CLR-Flags")
 public interface CLRFlags extends DiameterBitmask32
 {
 	public static final int S6A_S6D_INDICATOR_BIT = 0;

@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -39,10 +41,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                    1*{ Filter-Rule }
                    * [ AVP ]
  */
-@DiameterAvpDefinition(code = 508L, vendorId = -1L, name = "QoS-Resources")
+@DiameterAvpDefinition(code = AvpCodes.QOS_RESOURCES, vendorId = -1L, name = "QoS-Resources")
 public interface QoSResources extends DiameterGroupedAvp
 {
 	List<FilterRule> getFilterRule();
 	
-	void setFilterRule(List<FilterRule> value);
+	void setFilterRule(List<FilterRule> value) throws MissingAvpException;
 }

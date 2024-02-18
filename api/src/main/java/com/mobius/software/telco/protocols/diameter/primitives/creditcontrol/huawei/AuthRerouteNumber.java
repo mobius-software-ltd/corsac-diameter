@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	If [Auth-action] bit1 is 3, indicate reroute number.
  */
-@DiameterAvpDefinition(code = 21190L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Auth-Reroute-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.AUTH_REROUTE_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "Auth-Reroute-Number")
 public interface AuthRerouteNumber extends DiameterOctetString
 {
 }

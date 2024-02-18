@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.8	Alternative-APN AVP
 	The Alternative-APN AVP (AVP code 905) is of type UTF8String, and contains the value of a new APN. This AVP is optional within the Gmb interface. BM-SC only includes it if the UE must use a different APN for the MBMS PDP Context from the one used in the Join message.
  */
-@DiameterAvpDefinition(code = 905L, vendorId = KnownVendorIDs.TGPP_ID, name = "Alternative-APN")
+@DiameterAvpDefinition(code = TgppAvpCodes.ALTERNATIVE_APN, vendorId = VendorIDs.TGPP_ID, name = "Alternative-APN")
 public interface AlternativeAPN extends DiameterUTF8String
 {
 }

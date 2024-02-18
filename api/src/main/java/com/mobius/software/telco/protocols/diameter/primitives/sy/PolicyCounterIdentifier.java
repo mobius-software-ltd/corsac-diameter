@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.1	Policy-Counter-Identifier AVP
 	The Policy-Counter-Identifier AVP (AVP code 2901) is of type UTF8String, and it uniquely identifies a policy counter that is maintained per subscriber within the OCS.
  */
-@DiameterAvpDefinition(code = 2901L, vendorId = KnownVendorIDs.TGPP_ID, name = "Policy-Counter-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.POLICY_COUNTER_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Policy-Counter-Identifier")
 public interface PolicyCounterIdentifier extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 The Serving Network has been selected by the UE
 	1 The Serving Network has been selected by the network
  */
-@DiameterAvpDefinition(code = 3421L, vendorId = KnownVendorIDs.TGPP_ID, name = "CN-Operator-Selection-Entity")
+@DiameterAvpDefinition(code = TgppAvpCodes.CN_OPERATION_SELECTION_ENTITY, vendorId = VendorIDs.TGPP_ID, name = "CN-Operator-Selection-Entity")
 public interface CNOperatorSelectionEntity extends DiameterEnumerated<CNOperatorSelectionEntityEnum>
 {
 }

@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportTypeEnum;
 
@@ -43,16 +45,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportT
 		*  [ 3GPP-OC-Specific-Reduction ]
 		*  [ AVP ]
  */
-@DiameterAvpDefinition(code = 623L, vendorId = -1, must = false, name = "OC-OLR")
+@DiameterAvpDefinition(code = AvpCodes.OC_OLR, vendorId = -1, must = false, name = "OC-OLR")
 public interface OCOLR extends DiameterGroupedAvp
 {
 	Long getOCSequenceNumber();
 	
-	void setOCSequenceNumber(Long value);
+	void setOCSequenceNumber(Long value) throws MissingAvpException;
 	
 	OCReportTypeEnum getOCReportType();
 	
-	void setOCReportType(OCReportTypeEnum value);
+	void setOCReportType(OCReportTypeEnum value) throws MissingAvpException;
 	
 	Long getOCReductionPercentage();
 	

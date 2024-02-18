@@ -21,7 +21,10 @@ package com.mobius.software.telco.protocols.diameter.commands.swm;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
@@ -64,12 +67,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.TraceInfo;
 			…
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777264, commandCode = 265, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWM, commandCode = CommandCodes.AAA, request = false, proxyable = true, name="AA-Answer")
 public interface AAAnswer extends SwmAnswer
 {
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	String getAPNOIReplacement();
 	

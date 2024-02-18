@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the content id.
  */
-@DiameterAvpDefinition(code = 20508L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Content-ID")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CONTENT_ID_BINARY, vendorId = VendorIDs.HUAWEI_ID, name = "Content-ID")
 public interface ContentIDBinary extends DiameterOctetString
 {
 }

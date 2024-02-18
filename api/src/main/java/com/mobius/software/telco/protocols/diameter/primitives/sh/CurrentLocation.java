@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	InitiateActiveLocationRetrieval (1)
 		It is requested that an active location retrieval is initiated. 
  */
-@DiameterAvpDefinition(code = 707L, vendorId = KnownVendorIDs.TGPP_ID, name = "Current-Location")
+@DiameterAvpDefinition(code = TgppAvpCodes.CURRENT_LOCATION, vendorId = VendorIDs.TGPP_ID, name = "Current-Location")
 public interface CurrentLocation extends DiameterEnumerated<CurrentLocationEnum>
 {
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /**
@@ -58,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
    which MUST contain an example of an Auth-Application-Id AVP and an
    Acct-Application-Id AVP.
  */
-@DiameterAvpDefinition(code = 260L, vendorId = -1L, name = "Vendor-Specific-Application-Id")
+@DiameterAvpDefinition(code = AvpCodes.VENDOR_SPECIFIC_APPLICATION_ID, vendorId = -1L, name = "Vendor-Specific-Application-Id")
 public interface VendorSpecificApplicationId extends DiameterAvp 
 {
 	Long getVendorId();
@@ -67,9 +69,9 @@ public interface VendorSpecificApplicationId extends DiameterAvp
 	
 	Long getAuthApplicationId();
 	
-	void setAuthApplicationId(Long authApplicationId);
+	void setAuthApplicationId(Long authApplicationId) throws MissingAvpException;
 	
 	Long getAcctApplicationId();
 	
-	void setAcctApplicationId(Long acctApplication);
+	void setAcctApplicationId(Long acctApplication) throws MissingAvpException;
 }

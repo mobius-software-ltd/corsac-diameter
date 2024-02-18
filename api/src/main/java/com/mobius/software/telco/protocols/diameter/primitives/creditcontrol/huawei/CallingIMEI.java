@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the IMEI number of the calling party.
  */
-@DiameterAvpDefinition(code = 20309L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Calling-IMEI")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALLING_IMEI, vendorId = VendorIDs.HUAWEI_ID, name = "Calling-IMEI")
 public interface CallingIMEI extends DiameterUTF8String
 {
 }

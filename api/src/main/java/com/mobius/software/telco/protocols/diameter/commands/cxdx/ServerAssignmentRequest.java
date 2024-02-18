@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.FailedPCSCF;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.MultipleRegistrationIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SARFlags;
@@ -67,7 +70,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 301, request = true, proxyable = true, name="Server-Assignment-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.SERVER_ASSIGNMENT, request = true, proxyable = true, name="Server-Assignment-Request")
 public interface ServerAssignmentRequest extends CxDxRequest
 {
 	OCSupportedFeatures getOCSupportedFeatures();
@@ -84,15 +87,15 @@ public interface ServerAssignmentRequest extends CxDxRequest
 	
 	String getServerName();
 	
-	void setServerName(String value);
+	void setServerName(String value) throws MissingAvpException;
 	
 	ServerAssignmentTypeEnum getServerAssignmentType();
 	
-	void setServerAssignmentType(ServerAssignmentTypeEnum value);
+	void setServerAssignmentType(ServerAssignmentTypeEnum value) throws MissingAvpException;
 	
 	UserDataAlreadyAvailableEnum getUserDataAlreadyAvailable();
 	
-	void setUserDataAlreadyAvailable(UserDataAlreadyAvailableEnum value);
+	void setUserDataAlreadyAvailable(UserDataAlreadyAvailableEnum value) throws MissingAvpException;
 	
 	SCSCFRestorationInfo getSCSCFRestorationInfo();
 	

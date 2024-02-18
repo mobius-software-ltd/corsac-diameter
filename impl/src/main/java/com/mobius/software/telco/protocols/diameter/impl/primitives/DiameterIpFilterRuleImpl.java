@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
@@ -71,15 +74,16 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 		super(minLength,maxLength);		
 	}
 		
-	public DiameterIpFilterRuleImpl(String rule,Integer minLength,Integer maxLength) throws ParseException 
+	public DiameterIpFilterRuleImpl(String rule,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
 		super(rule,minLength,maxLength);	
 		parseRule();
 	}
 
-	public DiameterIpFilterRuleImpl(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes,Integer minLength,Integer maxLength) throws ParseException 
+	public DiameterIpFilterRuleImpl(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
-		super(buildRule(action,direction,protocol,from,fromPorts,to,toPorts,options,ipOptions,negativeIpOptions,tcpOptions,negativeTcpOptions,tcpFlags,negativeTcpFlags,icmpTypes),minLength,maxLength);	
+		super(minLength,maxLength);
+		value=buildRule(action,direction,protocol,from,fromPorts,to,toPorts,options,ipOptions,negativeIpOptions,tcpOptions,negativeTcpOptions,tcpFlags,negativeTcpFlags,icmpTypes);
 		this.action=action;
 		this.direction=direction;
 		this.protocol=protocol;
@@ -178,7 +182,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 	}
 
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		super.decode(buffer, length);
 		if(getString()!=null)
@@ -187,9 +191,9 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 			{
 				parseRule();
 			}
-			catch(ParseException ex)
+			catch(InvalidAvpValueException ex)
 			{
-				return ex.getMessage();
+				return ex;
 			}
 		}
 		
@@ -229,7 +233,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 		return true;
 	}
 	
-	private void parseRule() throws ParseException
+	private void parseRule() throws InvalidAvpValueException
 	{
 		String rule=getString();
 		
@@ -245,32 +249,32 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 		int errorOffset = 0;
 		
 		if(segments.length<8)
-			throw new ParseException("Invalid rule " + rule, errorOffset);
+			throw new InvalidAvpValueException("Invalid rule " + rule + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 		
 		action=DiameterIpAction.fromString(segments[0]);
 		if(action==null)
-			throw new ParseException("Invalid action " + segments[0], errorOffset);
+			throw new InvalidAvpValueException("Invalid action " + segments[0]+ rule + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 		
 		errorOffset += segments[0].length()+1;
 		
 		direction=DiameterRuleDirection.fromString(segments[1]);
 		if(direction==null)
-			throw new ParseException("Invalid dir " + segments[1], errorOffset);
+			throw new InvalidAvpValueException("Invalid dir " + segments[1]+ rule + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 		
 		errorOffset += segments[1].length()+1;
 		
 		protocol=InternetProtocol.fromString(segments[2]);
 		if(protocol==null)
-			throw new ParseException("Invalid proto " + segments[2], errorOffset);
+			throw new InvalidAvpValueException("Invalid proto " + segments[2]+ rule + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 		
 		errorOffset += segments[2].length()+1;
 		
 		if(!segments[3].equalsIgnoreCase("from"))
-			throw new ParseException("Invalid word, expecting from " + segments[3], errorOffset);
+			throw new InvalidAvpValueException("Invalid word, expecting from " + segments[3]+ rule + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 			
 		errorOffset += segments[3].length()+1;
 		
-		from=new DiameterRuleAddressImpl(segments[4]);
+		from=new DiameterRuleAddressImpl(this, segments[4]);
 		errorOffset += segments[4].length()+1;
 		
 		Integer nextIndex=5;
@@ -282,7 +286,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 			fromPorts=new ArrayList<DiameterRulePorts>();
 			for(int i=0;i<portSegments.length;i++)
 			{
-				DiameterRulePortsImpl currPorts=new DiameterRulePortsImpl(portSegments[i]);
+				DiameterRulePortsImpl currPorts=new DiameterRulePortsImpl(this,portSegments[i]);
 				fromPorts.add(currPorts);
 			}
 		}
@@ -290,11 +294,11 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 		errorOffset += segments[5].length()+1;
 		
 		if(!segments[nextIndex].equalsIgnoreCase("to"))
-			throw new ParseException("Invalid word, expecting from " + segments[nextIndex], errorOffset);
+			throw new InvalidAvpValueException("Invalid word, expecting from " + segments[nextIndex] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 			
 		errorOffset += segments[nextIndex++].length()+1;
 		
-		to=new DiameterRuleAddressImpl(segments[nextIndex]);
+		to=new DiameterRuleAddressImpl(this, segments[nextIndex]);
 		errorOffset += segments[nextIndex++].length()+1;
 		
 		if(nextIndex==segments.length)
@@ -310,7 +314,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 			toPorts=new ArrayList<DiameterRulePorts>();
 			for(int i=0;i<portSegments.length;i++)
 			{
-				DiameterRulePortsImpl currPorts=new DiameterRulePortsImpl(portSegments[i]);
+				DiameterRulePortsImpl currPorts=new DiameterRulePortsImpl(this,portSegments[i]);
 				toPorts.add(currPorts);
 			}
 		}
@@ -319,7 +323,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 		{
 			option=DiameterRuleOption.fromString(segments[nextIndex]);
 			if(option==null)
-				throw new ParseException("Invalid option " + segments[nextIndex], errorOffset);
+				throw new InvalidAvpValueException("Invalid option " + segments[nextIndex] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 
 			errorOffset += segments[nextIndex].length()+1;
 			nextIndex++;
@@ -328,7 +332,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 			{
 				case IP_OPTS:
 					if(nextIndex==segments.length)
-						throw new ParseException("Invalid option " + segments[nextIndex-1], errorOffset);
+						throw new InvalidAvpValueException("Invalid option " + segments[nextIndex-1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 					String[] ipOptionSegments=segments[nextIndex].split(",");
 					for(int i=0;i<ipOptionSegments.length;i++)
@@ -342,7 +346,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 						
 						DiameterRuleIpOption ipOption=DiameterRuleIpOption.fromString(ipOptionSegments[i]);
 						if(ipOption==null)
-							throw new ParseException("Invalid ip option " + segments[nextIndex], errorOffset);
+							throw new InvalidAvpValueException("Invalid ip option " + segments[nextIndex] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 						if(isNegative)
 						{
@@ -365,7 +369,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 					break;
 				case TCP_OPTS:
 					if(nextIndex==segments.length)
-						throw new ParseException("Invalid option " + segments[nextIndex-1], errorOffset);
+						throw new InvalidAvpValueException("Invalid option " + segments[nextIndex-1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 					String[] tcpOptionSegments=segments[nextIndex].split(",");
 					for(int i=0;i<tcpOptionSegments.length;i++)
@@ -379,7 +383,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 						
 						DiameterRuleTcpOption tcpOption=DiameterRuleTcpOption.fromString(tcpOptionSegments[i]);
 						if(tcpOption==null)
-							throw new ParseException("Invalid tcp option " + segments[nextIndex], errorOffset);
+							throw new InvalidAvpValueException("Invalid tcp option " + segments[nextIndex] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 						if(isNegative)
 						{
@@ -402,7 +406,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 					break;
 				case TCP_FLAGS:
 					if(nextIndex==segments.length)
-						throw new ParseException("Invalid option " + segments[nextIndex-1], errorOffset);
+						throw new InvalidAvpValueException("Invalid option " + segments[nextIndex-1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 					String[] tcpFlagSegments=segments[nextIndex].split(",");
 					for(int i=0;i<tcpFlagSegments.length;i++)
@@ -416,7 +420,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 						
 						DiameterRuleTcpFlag tcpFlag=DiameterRuleTcpFlag.fromString(tcpFlagSegments[i]);
 						if(tcpFlag==null)
-							throw new ParseException("Invalid tcp flags " + segments[nextIndex], errorOffset);
+							throw new InvalidAvpValueException("Invalid tcp flags " + segments[nextIndex] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 						if(isNegative)
 						{
@@ -439,7 +443,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 					break;
 				case ICMP_TYPES:
 					if(nextIndex==segments.length)
-						throw new ParseException("Invalid option " + segments[nextIndex-1], errorOffset);
+						throw new InvalidAvpValueException("Invalid option " + segments[nextIndex-1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 					String[] icmpTypeSegments=segments[nextIndex].split(",");
 					for(int i=0;i<icmpTypeSegments.length;i++)
@@ -451,12 +455,12 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 						}
 						catch(NumberFormatException ex)
 						{
-							throw new ParseException("Invalid icmp types " + segments[nextIndex], errorOffset);							
+							throw new InvalidAvpValueException("Invalid icmp types " + segments[nextIndex] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));							
 						}
 						
 						DiameterRuleIcmpType icmpType=DiameterRuleIcmpType.fromInt(icmpTypeValue);
 						if(icmpType==null)
-							throw new ParseException("Invalid icmp types " + segments[nextIndex], errorOffset);
+							throw new InvalidAvpValueException("Invalid icmp types " + segments[nextIndex] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 	
 						if(icmpTypes==null)
 							icmpTypes=new ArrayList<DiameterRuleIcmpType>();
@@ -477,29 +481,29 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 		}
 	}
 	
-	public static String buildRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws IllegalArgumentException
+	public String buildRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
 	{
 		if(action==null)
-			throw new IllegalArgumentException("action can not be null");
+			throw new InvalidAvpValueException("action can not be null", Arrays.asList(new DiameterAvp[] { this }));
 		
 		if(direction==null)
-			throw new IllegalArgumentException("direction can not be null");
+			throw new InvalidAvpValueException("direction can not be null", Arrays.asList(new DiameterAvp[] { this }));
 		
 		if(protocol==null)
-			throw new IllegalArgumentException("protocol can not be null");
+			throw new InvalidAvpValueException("protocol can not be null", Arrays.asList(new DiameterAvp[] { this }));
 		
 		if(from==null)
-			throw new IllegalArgumentException("src can not be null");
+			throw new InvalidAvpValueException("src can not be null", Arrays.asList(new DiameterAvp[] { this }));
 		
 		if(to==null)
-			throw new IllegalArgumentException("dst can not be null");
+			throw new InvalidAvpValueException("dst can not be null", Arrays.asList(new DiameterAvp[] { this }));
 		
 		if(options!=null && options.size()>0)
 		{
 			for(int i=0;i<options.size();i++)
 			{
 				if(options.get(i)==DiameterRuleOption.IP_OPTS || options.get(i)==DiameterRuleOption.TCP_OPTS || options.get(i)==DiameterRuleOption.TCP_FLAGS || options.get(i)==DiameterRuleOption.ICMP_TYPES)
-					throw new IllegalArgumentException("illegal option " + options.get(i));				
+					throw new InvalidAvpValueException("illegal option " + options.get(i), Arrays.asList(new DiameterAvp[] { this }));				
 			}
 		}
 		

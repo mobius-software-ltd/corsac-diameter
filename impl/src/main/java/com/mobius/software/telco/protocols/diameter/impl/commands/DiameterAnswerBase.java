@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ErrorMessageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ErrorReportingHostImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ExperimentalResultImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.FailedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ResultCodeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -64,16 +68,11 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 		super();
 	}
 	
-	public DiameterAnswerBase(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
+	public DiameterAnswerBase(String originHost,String originRealm,Boolean isRetransmit, Long resultCode) throws MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit);
-		if(resultCode==null)
-			throw new IllegalArgumentException("Result-Code is required");
 		
-		if(resultCode>=3000)
-			this.isError = true;
-		
-		this.resultCode = new ResultCodeImpl(resultCode, null, null);		
+		setResultCode(resultCode);
 	}
 
 	protected void setExperimentalResultAllowed(boolean allowed) 
@@ -102,12 +101,17 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void setResultCode(Long value)
+	public void setResultCode(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			this.resultCode = null;
+			throw new MissingAvpException("Result-Code is required", Arrays.asList(new DiameterAvp[] {new ResultCodeImpl() }));
+		
+		if(value>=3000)
+			this.isError = true;
 		else
-			this.resultCode = new ResultCodeImpl(value, null, null);
+			this.isError = false;
+		
+		this.resultCode = new ResultCodeImpl(value, null, null);
 	}
 	
 	@Override
@@ -138,7 +142,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	public String getErrorReportingHost() throws AvpNotSupportedException
 	{
 		if(!errorReportingHostAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorReportingHostImpl() }));
 		
 		if(errorReportingHost==null)
 			return null;
@@ -149,8 +153,8 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	@Override
 	public void setErrorReportingHost(String value) throws AvpNotSupportedException
 	{
-		if(!errorReportingHostAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!errorReportingHostAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorReportingHostImpl(value, null, null) }));
 		
 		if(value==null)
 			this.errorReportingHost = null;
@@ -189,7 +193,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	public ExperimentalResult getExperimentalResult() throws AvpNotSupportedException
 	{
 		if(!experimentalResultAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ExperimentalResultImpl() }));
 		else
 			return this.experimentalResult;
 	}
@@ -197,17 +201,23 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	@Override
 	public void setExperimentalResult(ExperimentalResult value) throws AvpNotSupportedException
 	{
-		if(!experimentalResultAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		else
-			this.experimentalResult = value;
+		if(!experimentalResultAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value }));
+		
+		this.experimentalResult = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(resultCode==null)
-			return "Result-Code is required";
+			return new MissingAvpException("Result-Code is required", Arrays.asList(new DiameterAvp[] {new ResultCodeImpl() }));
+		
+		if(!errorReportingHostAllowed && errorReportingHost!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { errorReportingHost }));
+		
+		if(!experimentalResultAllowed && experimentalResult!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { experimentalResult }));
 		
 		return super.validate();
 	}

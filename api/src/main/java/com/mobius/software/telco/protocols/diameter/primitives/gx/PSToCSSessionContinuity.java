@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value is used to indicate that the service data flow carries video and is a candidate for PS to CS session
 		continuity. 
  */
-@DiameterAvpDefinition(code = 1099L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-to-CS-Session-Continuity")
+@DiameterAvpDefinition(code = TgppAvpCodes.PS_TO_CS_SESSION_CONTINUITY, vendorId = VendorIDs.TGPP_ID, name = "PS-to-CS-Session-Continuity")
 public interface PSToCSSessionContinuity extends DiameterEnumerated<PSToCSSessionContinuityEnum>
 {
 }

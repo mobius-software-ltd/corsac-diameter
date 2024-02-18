@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,12 +40,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ Reason-Info ]
 			* [AVP]
  */
-@DiameterAvpDefinition(code = 615L, vendorId = KnownVendorIDs.TGPP_ID, name = "Deregistration-Reason")
+@DiameterAvpDefinition(code = TgppAvpCodes.DEREGISTRATION_REASON, vendorId = VendorIDs.TGPP_ID, name = "Deregistration-Reason")
 public interface DeregistrationReason extends DiameterGroupedAvp
 {
 	ReasonCodeEnum getReasonCode();
 	
-	void setReasonCode(ReasonCodeEnum value);
+	void setReasonCode(ReasonCodeEnum value) throws MissingAvpException;
 	
 	String getReasonInfo();
 	

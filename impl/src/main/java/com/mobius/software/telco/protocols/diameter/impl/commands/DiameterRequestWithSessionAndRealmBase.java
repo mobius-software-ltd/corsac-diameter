@@ -1,7 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DestinationRealmImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -34,75 +41,41 @@ public abstract class DiameterRequestWithSessionAndRealmBase extends DiameterReq
 		super();
 	}
 	
-	public DiameterRequestWithSessionAndRealmBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID)
+	public DiameterRequestWithSessionAndRealmBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID) throws AvpNotSupportedException, MissingAvpException
 	{	
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit);
 		
-		if(sessionID==null)
-			throw new IllegalArgumentException("Session-ID is required");
+		setSessionId(sessionID);
 		
-		if(destinationRealm==null)
-			throw new IllegalArgumentException("Destination-Realm is required");
-		
-		try
-		{
-			setSessionId(sessionID);
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
-		
-		try
-		{
-			setDestinationRealm(destinationRealm);
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		setDestinationRealm(destinationRealm);		
 	}
 
 	@Override
-	public void setSessionId(String value) throws AvpNotSupportedException
+	public void setSessionId(String value) throws AvpNotSupportedException, MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Session-ID is required");
+			throw new MissingAvpException("Session-ID is required", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() }));
 		
 		super.setSessionId(value);
 	}	
 
 	@Override
-	public void setDestinationRealm(String value) throws AvpNotSupportedException
+	public void setDestinationRealm(String value) throws AvpNotSupportedException, MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Destination-Realm is required");
+			throw new MissingAvpException("Destination-Realm is required", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl() }));
 		
 		super.setDestinationRealm(value);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getSessionId()==null)
-				return "Session-ID is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			return ex.getMessage();
-		}
+		if(sessionId==null)
+			return new MissingAvpException("Session-ID is required", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() }));
 		
-		try
-		{
-			if(getDestinationRealm()==null)
-				return "Destination-Realm is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			return ex.getMessage();
-		}
+		if(destinationRealm==null)
+			return new MissingAvpException("Destination-Realm is required", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl() }));
 		
 		return super.validate();
 	}

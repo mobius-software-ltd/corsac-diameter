@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.91	Client-Identity
 	The Client-Identity AVP is of type OctetString and it shall contain the ISDN number of the external client in international number format as described in ITU-T Rec E.164 [41] and shall be encoded as a TBCD-string. See 3GPP TS 29.002 [24] for encoding of TBCD-strings. This AVP shall not include leading indicators for the nature of address and the numbering plan; it shall contain only the TBCD-encoded digits of the address.
  */
-@DiameterAvpDefinition(code = 1480L, vendorId = KnownVendorIDs.TGPP_ID, name = "Client-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.CLIENT_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "Client-Identity")
 public interface ClientIdentity extends DiameterE164Address
 {
 }

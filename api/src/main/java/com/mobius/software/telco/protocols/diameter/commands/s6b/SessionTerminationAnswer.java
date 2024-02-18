@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6b;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -60,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 			*[ Load ]
 			*[ AVP ]			
  */
-@DiameterCommandDefinition(applicationId = 16777272, commandCode = 275, request = false, proxyable = true, name="Session-Termination-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6B, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
 public interface SessionTerminationAnswer extends S6bAnswer
 {
 	public OCSupportedFeatures getOCSupportedFeatures();

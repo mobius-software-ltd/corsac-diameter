@@ -23,6 +23,8 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
@@ -70,7 +72,7 @@ import io.netty.buffer.ByteBuf;
                         * [ Route-Record ]
                         * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 258, request = true, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Length from the SGSN's CDR (S-CDR).
 	The coding of this field is as specified in 3GPP TS 29.060 [24] and represented as Octet String type. 
  */
-@DiameterAvpDefinition(code = 24L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-CAMELCharging-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_CAMEL_CHARGING_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-CAMELCharging-Info")
 public interface TGPPCAMELChargingInfo extends DiameterOctetString
 {
 }

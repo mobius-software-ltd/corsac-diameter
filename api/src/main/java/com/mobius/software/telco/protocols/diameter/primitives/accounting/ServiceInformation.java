@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.IMInformation;
@@ -58,7 +59,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGeneri
 			 [ M2M-Information ]
  			 [ CPDT-Information ] 
  */
-@DiameterAvpDefinition(code = 873L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Service-Information")
 public interface ServiceInformation extends DiameterAvp 
 {
 	List<SubscriptionId> getSubscriptionId();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	ID of the tenant to which a subscriber belongs.
  */
-@DiameterAvpDefinition(code = 21193L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "I-Tenant-ID")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ITENANT_ID, vendorId = VendorIDs.HUAWEI_ID, name = "I-Tenant-ID")
 public interface ITenantID extends DiameterInteger32
 {
 }

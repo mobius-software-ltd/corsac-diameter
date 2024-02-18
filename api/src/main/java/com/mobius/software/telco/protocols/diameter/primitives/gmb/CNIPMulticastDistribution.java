@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	IP-MULTICAST	(1)
 	Value 1 indicates that MBMS user plane data to UTRAN should be delivered by IP multicast mechanism.
  */
-@DiameterAvpDefinition(code = 921L, vendorId = KnownVendorIDs.TGPP_ID, name = "CN-IP-Multicast-Distribution")
+@DiameterAvpDefinition(code = TgppAvpCodes.CNIP_MULTICAST_DISTRIBUTION, vendorId = VendorIDs.TGPP_ID, name = "CN-IP-Multicast-Distribution")
 public interface CNIPMulticastDistribution extends DiameterEnumerated<CNIPMulticastDistributionEnum>
 {
 }

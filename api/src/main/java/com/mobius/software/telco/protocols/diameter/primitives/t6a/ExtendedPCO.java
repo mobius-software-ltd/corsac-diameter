@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.26	Extended-PCO
 	The Extended-PCO AVP is of type OctetString. The Extended-PCO AVP shall contain the value part of the ePCO IE, starting from octet 4, as specified in clause 9.9.4.26 of 3GPP TS 24.301[28].	
  */
-@DiameterAvpDefinition(code = 4313L, vendorId = KnownVendorIDs.TGPP_ID, name = "Extended-PCO")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXTENDED_PCO, vendorId = VendorIDs.TGPP_ID, name = "Extended-PCO")
 public interface ExtendedPCO extends DiameterOctetString
 {
 }

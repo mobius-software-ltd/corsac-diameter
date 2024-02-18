@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 
 /**
@@ -40,10 +42,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32
    	Time-Of-Day-Condition AVP, the time windows match on all days of the
    	month.
  */
-@DiameterAvpDefinition(code = 564L, vendorId = -1L, name = "Day-Of-Month-Mask")
+@DiameterAvpDefinition(code = AvpCodes.DAY_OF_MONTH_MASK, vendorId = -1L, name = "Day-Of-Month-Mask")
 public interface DayOfMonthMask extends DiameterBitmask32
 {
-	public void setDayBit(int dom, boolean isOn);
+	public void setDayBit(int dom, boolean isOn) throws InvalidAvpValueException;
 	
-	public boolean isDayBitSet(int dom);	
+	public boolean isDayBitSet(int dom) throws InvalidAvpValueException;	
 }

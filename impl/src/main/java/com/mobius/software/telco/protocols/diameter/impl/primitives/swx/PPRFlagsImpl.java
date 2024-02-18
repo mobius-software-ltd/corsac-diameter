@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.PPRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.PPRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1508L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PPRFlagsImpl extends DiameterBitmask32Impl implements PPRFlags
 {
 	public PPRFlagsImpl()
@@ -44,7 +41,7 @@ public class PPRFlagsImpl extends DiameterBitmask32Impl implements PPRFlags
 	@Override
 	public void setResetIndicationBit(boolean isOn)
 	{
-		setBit(RESET_INDICATION_BIT, isOn);
+		setBitUnchecked(RESET_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class PPRFlagsImpl extends DiameterBitmask32Impl implements PPRFlags
 	@Override
 	public void setAccessNetworkInfoRequestBit(boolean isOn)
 	{
-		setBit(ACCESS_NETWORK_INFO_REQUEST_BIT, isOn);
+		setBitUnchecked(ACCESS_NETWORK_INFO_REQUEST_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class PPRFlagsImpl extends DiameterBitmask32Impl implements PPRFlags
 	@Override
 	public void setUELocalTimeZoneRequestBit(boolean isOn)
 	{
-		setBit(UE_LOCAL_TIMEZONE_REQUEST_BIT, isOn);
+		setBitUnchecked(UE_LOCAL_TIMEZONE_REQUEST_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class PPRFlagsImpl extends DiameterBitmask32Impl implements PPRFlags
 	@Override
 	public void setPCSCFRestorationRequestBit(boolean isOn)
 	{
-		setBit(PCSCF_RESTORATION_REQUEST_BIT, isOn);
+		setBitUnchecked(PCSCF_RESTORATION_REQUEST_BIT, isOn);
 	}
 
 	@Override

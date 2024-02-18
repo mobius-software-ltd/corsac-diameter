@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SDP-Media-Name AVP (AVP code 844) is of type UTF8String and holds the content of the SDP "m=" line in a
 	media description, as described in RFC 4566 [406]. 
  */
-@DiameterAvpDefinition(code = 844L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Media-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.SDP_MEDIA_NAME, vendorId = VendorIDs.TGPP_ID, name = "SDP-Media-Name")
 public interface SDPMediaName extends DiameterUTF8String
 {
 }

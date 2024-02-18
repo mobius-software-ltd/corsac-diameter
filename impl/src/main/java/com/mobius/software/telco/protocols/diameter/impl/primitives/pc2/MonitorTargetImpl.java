@@ -18,13 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetRPAUIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MetadataIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MetadataIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MonitorTarget;
@@ -39,7 +41,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3607L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MonitorTargetImpl extends DiameterGroupedAvpImpl implements MonitorTarget
 {
 	private TargetRPAUID targetRPAUID;
@@ -51,17 +52,11 @@ public class MonitorTargetImpl extends DiameterGroupedAvpImpl implements Monitor
 	{
 	}
 	
-	public MonitorTargetImpl(String targetRPAUID,ByteBuf pduid)
+	public MonitorTargetImpl(String targetRPAUID,ByteBuf pduid) throws MissingAvpException
 	{
-		if(targetRPAUID==null)
-			throw new IllegalArgumentException("Target-RPAUID is required");
+		setTargetRPAUID(targetRPAUID);
 		
-		if(pduid==null)
-			throw new IllegalArgumentException("PDUID is required");
-		
-		this.targetRPAUID = new TargetRPAUIDImpl(targetRPAUID, null, null);				
-		
-		this.pduid = new PDUIDImpl(pduid, null, null);
+		setPDUID(pduid);
 	}
 	
 	public String getTargetRPAUID()
@@ -72,11 +67,11 @@ public class MonitorTargetImpl extends DiameterGroupedAvpImpl implements Monitor
 		return targetRPAUID.getString();
 	}
 	
-	public void setTargetRPAUID(String value)
+	public void setTargetRPAUID(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Target-RPAUID is required");
-		
+			throw new MissingAvpException("Target-RPAUID is required", Arrays.asList(new DiameterAvp[] { new TargetRPAUIDImpl() }));
+			
 		this.targetRPAUID = new TargetRPAUIDImpl(value, null, null);
 	}
 	
@@ -88,10 +83,10 @@ public class MonitorTargetImpl extends DiameterGroupedAvpImpl implements Monitor
 		return pduid.getValue();
 	}
 	
-	public void setPDUID(ByteBuf value)
+	public void setPDUID(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("PDUID is required");
+			throw new MissingAvpException("PDUID is required", Arrays.asList(new DiameterAvp[] { new PDUIDImpl() }));
 		
 		this.pduid = new PDUIDImpl(value, null, null);
 	}
@@ -123,13 +118,13 @@ public class MonitorTargetImpl extends DiameterGroupedAvpImpl implements Monitor
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(targetRPAUID==null)
-			return "Target-RPAUID is required";
+			return new MissingAvpException("Target-RPAUID is required", Arrays.asList(new DiameterAvp[] { new TargetRPAUIDImpl() }));
 		
 		if(pduid==null)
-			return "PDUID is required";
+			return new MissingAvpException("PDUID is required", Arrays.asList(new DiameterAvp[] { new PDUIDImpl() }));
 		
 		return null;
 	}

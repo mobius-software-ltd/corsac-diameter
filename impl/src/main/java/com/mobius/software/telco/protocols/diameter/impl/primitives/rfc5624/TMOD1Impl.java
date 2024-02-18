@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.BucketDepth;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.MaximumPacketSize;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.MinimumPolicedUnit;
@@ -33,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.TokenRate
 *
 */
 
-@DiameterAvpImplementation(code = 495L, vendorId = -1L)
 public class TMOD1Impl implements TMOD1
 {
 	private TokenRate tokenRate;
@@ -46,32 +49,17 @@ public class TMOD1Impl implements TMOD1
 	{
 	}
 	
-	public TMOD1Impl(Float tokenRate,Float bucketDepth,Float peakTrafficRate,Long minimumPolicedUnit,Long maximumPacketSize)
+	public TMOD1Impl(Float tokenRate,Float bucketDepth,Float peakTrafficRate,Long minimumPolicedUnit,Long maximumPacketSize) throws MissingAvpException
 	{
-		if(tokenRate==null)
-			throw new IllegalArgumentException("Token-Rate is required");
+		setTokenRate(tokenRate);
 		
-		if(bucketDepth==null)
-			throw new IllegalArgumentException("Bucket-Depth is required");
+		setBucketDepth(bucketDepth);
 		
-		if(peakTrafficRate==null)
-			throw new IllegalArgumentException("Peak-Traffic-Rate is required");
+		setPeakTrafficRate(peakTrafficRate);
 		
-		if(minimumPolicedUnit==null)
-			throw new IllegalArgumentException("Minimum-Policed-Unit is required");
+		setMinimumPolicedUnit(minimumPolicedUnit);
 		
-		if(maximumPacketSize==null)
-			throw new IllegalArgumentException("Maximum-Packet-Size is required");
-		
-		this.tokenRate = new TokenRateImpl(tokenRate, null, null);
-		
-		this.bucketDepth = new BucketDepthImpl(bucketDepth, null, null);
-		
-		this.peakTrafficRate = new PeakTrafficRateImpl(peakTrafficRate, null, null);
-		
-		this.minimumPolicedUnit = new MinimumPolicedUnitImpl(minimumPolicedUnit, null, null);
-		
-		this.maximumPacketSize = new MaximumPacketSizeImpl(maximumPacketSize, null, null);
+		setMaximumPacketSize(maximumPacketSize);
 	}
 	
 	public Float getTokenRate()
@@ -82,10 +70,10 @@ public class TMOD1Impl implements TMOD1
 		return tokenRate.getFloat();
 	}
 	
-	public void setTokenRate(Float value)
+	public void setTokenRate(Float value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Token-Rate is required");
+			throw new MissingAvpException("Token-Rate is required is required", Arrays.asList(new DiameterAvp[] { new TokenRateImpl() }));
 		
 		this.tokenRate = new TokenRateImpl(value, null, null);
 	}
@@ -98,10 +86,10 @@ public class TMOD1Impl implements TMOD1
 		return bucketDepth.getFloat();
 	}
 	
-	public void setBucketDepth(Float value)
+	public void setBucketDepth(Float value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Bucket-Depth is required");
+			throw new MissingAvpException("Bucket-Depth is required is required", Arrays.asList(new DiameterAvp[] { new BucketDepthImpl() }));
 		
 		this.bucketDepth = new BucketDepthImpl(value, null, null);
 	}
@@ -114,11 +102,11 @@ public class TMOD1Impl implements TMOD1
 		return peakTrafficRate.getFloat();
 	}
 	
-	public void setPeakTrafficRate(Float value)
+	public void setPeakTrafficRate(Float value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Peak-Traffic-Rate is required");
-		
+			throw new MissingAvpException("Peak-Traffic-Rate is required is required", Arrays.asList(new DiameterAvp[] { new PeakTrafficRateImpl() }));
+			
 		this.peakTrafficRate = new PeakTrafficRateImpl(value, null, null);
 	}
 	
@@ -130,10 +118,10 @@ public class TMOD1Impl implements TMOD1
 		return minimumPolicedUnit.getUnsigned();
 	}
 	
-	public void setMinimumPolicedUnit(Long value)
+	public void setMinimumPolicedUnit(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Minimum-Policed-Unit is required");
+			throw new MissingAvpException("Minimum-Policed-Unit is required is required", Arrays.asList(new DiameterAvp[] { new MinimumPolicedUnitImpl() }));
 		
 		this.minimumPolicedUnit = new MinimumPolicedUnitImpl(value, null, null);
 	}
@@ -146,31 +134,31 @@ public class TMOD1Impl implements TMOD1
 		return maximumPacketSize.getUnsigned();
 	}
 	
-	public void setMaximumPacketSize(Long value)
+	public void setMaximumPacketSize(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Maximum-Packet-Size is required");
+			throw new MissingAvpException("Maximum-Packet-Size is required is required", Arrays.asList(new DiameterAvp[] { new MaximumPacketSizeImpl() }));
 		
 		this.maximumPacketSize = new MaximumPacketSizeImpl(value, null, null);
-	}	
+	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tokenRate==null)
-			return "Token-Rate is required";
+			return new MissingAvpException("Token-Rate is required is required", Arrays.asList(new DiameterAvp[] { new TokenRateImpl() }));
 		
 		if(bucketDepth==null)
-			return "Bucket-Depth is required";
+			return new MissingAvpException("Bucket-Depth is required is required", Arrays.asList(new DiameterAvp[] { new BucketDepthImpl() }));
 		
 		if(peakTrafficRate==null)
-			return "Peak-Traffic-Rate is required";
+			return new MissingAvpException("Peak-Traffic-Rate is required is required", Arrays.asList(new DiameterAvp[] { new PeakTrafficRateImpl() }));
 		
 		if(minimumPolicedUnit==null)
-			return "Minimum-Policed-Unit is required";
+			return new MissingAvpException("Minimum-Policed-Unit is required is required", Arrays.asList(new DiameterAvp[] { new MinimumPolicedUnitImpl() }));
 		
 		if(maximumPacketSize==null)
-			return "Maximum-Packet-Size is required";
+			return new MissingAvpException("Maximum-Packet-Size is required is required", Arrays.asList(new DiameterAvp[] { new MaximumPacketSizeImpl() }));
 		
 		return null;
 	}

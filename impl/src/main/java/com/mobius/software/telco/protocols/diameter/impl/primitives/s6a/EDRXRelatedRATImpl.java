@@ -19,13 +19,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATType;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXRelatedRAT;
@@ -35,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXRelatedRA
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1705L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EDRXRelatedRATImpl extends DiameterGroupedAvpImpl implements EDRXRelatedRAT
 {
 	private List<RATType> ratType;
@@ -44,14 +45,9 @@ public class EDRXRelatedRATImpl extends DiameterGroupedAvpImpl implements EDRXRe
 	{
 	}
 	
-	public EDRXRelatedRATImpl(List<RATTypeEnum> ratType)
+	public EDRXRelatedRATImpl(List<RATTypeEnum> ratType) throws MissingAvpException
 	{
-		if(ratType==null || ratType.size()==0)
-			throw new IllegalArgumentException("RAT-Type is required");
-		
-		this.ratType = new ArrayList<RATType>();
-		for(RATTypeEnum curr:ratType)
-			this.ratType.add(new RATTypeImpl(curr, null, null));					
+		setRATType(ratType);					
 	}
 	
 	public List<RATTypeEnum> getRATType()
@@ -66,23 +62,21 @@ public class EDRXRelatedRATImpl extends DiameterGroupedAvpImpl implements EDRXRe
 		return result;
 	}
 	
-	public void setRATType(List<RATTypeEnum> value)
+	public void setRATType(List<RATTypeEnum> value) throws MissingAvpException
 	{
-		if(value==null || value.size()==0)
-			this.ratType = null;
-		else
-		{
-			this.ratType = new ArrayList<RATType>();
-			for(RATTypeEnum curr:value)
-				this.ratType.add(new RATTypeImpl(curr, null, null));
-		}
+		if(ratType==null || ratType.size()==0)
+			throw new MissingAvpException("RAT-Type is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
+					
+		this.ratType = new ArrayList<RATType>();
+		for(RATTypeEnum curr:value)
+			this.ratType.add(new RATTypeImpl(curr, null, null));
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ratType==null || ratType.size()==0)
-			return "RAT-Type is required";
+			return new MissingAvpException("RAT-Type is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
 		
 		return null;
 	}

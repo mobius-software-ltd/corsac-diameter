@@ -20,8 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPDTInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.IMSInformation;
@@ -46,7 +44,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGeneri
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 873L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServiceInformationImpl implements ServiceInformation
 {
 	private List<SubscriptionId> subscriptionId;
@@ -67,14 +64,9 @@ public class ServiceInformationImpl implements ServiceInformation
 	private M2MInformation m2mInformation;
  	private CPDTInformation cpdtInformation; 
  					 
-	protected ServiceInformationImpl()
+ 	public ServiceInformationImpl()
 	{
 		
-	}
-	
-	public ServiceInformationImpl(List<SubscriptionId> subscriptionId)
-	{
-		this.subscriptionId = subscriptionId;		
 	}
 
 	@Override

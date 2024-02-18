@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Address;
 
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Addre
    allow the user to select an address.  The value 0 indicates that the
    NAS SHOULD select a host to connect the user to.
  */
-@DiameterAvpDefinition(code = 98L, vendorId = -1L, name = "Login-IPv6-Host")
+@DiameterAvpDefinition(code = AvpCodes.LOGIN_IPV6_HOST, vendorId = -1L, name = "Login-IPv6-Host")
 public interface LoginIPv6Host extends DiameterIpv6Address
 {
 }

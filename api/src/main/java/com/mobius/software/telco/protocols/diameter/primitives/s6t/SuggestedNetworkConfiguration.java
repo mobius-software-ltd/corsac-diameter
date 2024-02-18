@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,12 +52,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	If the values of SCEF-Reference-ID and SCEF-Reference-ID-for-Deletion are the same, no Network Parameter Configurations AVP(s) shall be present, that is, SCEF-Reference-ID-for-Deletion takes precedence. If the values of SCEF-Reference-ID and SCEF-Reference-ID-for-Deletion are not the same, Network Parameter Configurations AVP(s) are related to SCEF-Reference-ID.
 	When the "Extended Reference IDs" feature is supported by the HSS and SCEF, the SCEF-Reference-ID-Ext and SCEF-Reference-ID-for-Deletion-Ext AVPs shall be used insted of SCEF-Reference-ID and SCEF-Reference-ID-for-Deletion respectively; in such case, the required AVP "SCEF-Reference-ID" shall be included in the grouped AVP by the sender, but its content shall be discarded by the receiver.
  */
-@DiameterAvpDefinition(code = 3170L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Suggested-Network-Configuration")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUGGESTED_NETWORK_CONFIGURATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Suggested-Network-Configuration")
 public interface SuggestedNetworkConfiguration extends DiameterGroupedAvp
 {
 	Long getSCEFReferenceID();
 	
-	void setSCEFReferenceID(Long value);
+	void setSCEFReferenceID(Long value) throws MissingAvpException;
 	
 	Long getSCEFReferenceIDExt();
 	
@@ -63,7 +65,7 @@ public interface SuggestedNetworkConfiguration extends DiameterGroupedAvp
 	
 	String getSCEFID();
 	
-	void setSCEFID(String value);	
+	void setSCEFID(String value) throws MissingAvpException;	
 	
 	Long getSubscribedPeriodicRAUTAUTimer();
 	

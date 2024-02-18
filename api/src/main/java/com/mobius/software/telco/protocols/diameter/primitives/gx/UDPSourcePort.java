@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	used for the IKEv2 tunnel in the case that a NAT is detected and the IKEv2 messages exchanged between the UE and
 	the ePDG are encapsulated in the UDP messages according to IETF RFC 3948 [58]. 
  */
-@DiameterAvpDefinition(code = 2806L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "UDP-Source-Port")
+@DiameterAvpDefinition(code = TgppAvpCodes.UDP_SOURCE_PORT, vendorId = VendorIDs.TGPP_ID, must = false, name = "UDP-Source-Port")
 public interface UDPSourcePort extends DiameterUnsigned32
 {
 }

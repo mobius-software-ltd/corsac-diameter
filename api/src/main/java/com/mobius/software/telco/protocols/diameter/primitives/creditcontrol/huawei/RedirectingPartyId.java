@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
     	- International prefix + Country code + MSISDN
     	- International prefix + Country code + Area number + PSTN
  */
-@DiameterAvpDefinition(code = 20316L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Redirecting-Party-Id")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.REDIRECTING_PARTY_ID, vendorId = VendorIDs.HUAWEI_ID, name = "Redirecting-Party-Id")
 public interface RedirectingPartyId extends DiameterUTF8String
 {
 }

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc8583;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.LoadType;
@@ -31,7 +30,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.SourceID;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 650L, vendorId = -1L)
 public class LoadImpl extends DiameterGroupedAvpImpl implements Load
 {
 	private LoadType loadType;

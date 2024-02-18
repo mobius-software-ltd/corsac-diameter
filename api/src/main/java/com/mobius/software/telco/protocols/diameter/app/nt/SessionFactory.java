@@ -19,9 +19,12 @@ package com.mobius.software.telco.protocols.diameter.app.nt;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferRequestTypeEnum;
 
 public interface SessionFactory
 {
-	public BackgroundDataTransferRequest createBackgroundDataTransferRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,TransferRequestTypeEnum transferRequestType);		
+	public BackgroundDataTransferRequest createBackgroundDataTransferRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,TransferRequestTypeEnum transferRequestType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;		
 }

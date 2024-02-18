@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.52	ProSe-Match-Refresh-Timer
 	The ProSe-Match-Refresh-Timer AVP is of type Unsigned32 and it shall contain the number of seconds indicating how long the UE shall wait before sending a new Match Report for the associated ProSe Application Code.
  */
-@DiameterAvpDefinition(code = 3838L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Match-Refresh-Timer")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_MATCH_REFRESH_TIMER, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Match-Refresh-Timer")
 public interface ProSeMatchRefreshTimer extends DiameterUnsigned32
 {
 }

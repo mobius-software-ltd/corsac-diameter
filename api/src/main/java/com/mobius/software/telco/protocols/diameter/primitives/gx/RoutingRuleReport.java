@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -47,7 +48,7 @@ import io.netty.buffer.ByteBuf;
 
 	Multiple instances of Routing-Rule-Report AVPs shall be used in the case it is required to report different Routing-Rule-Failure-Code values for different groups of rules within the same Diameter command.
  */
-@DiameterAvpDefinition(code = 2835L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Routing-Rule-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTING_RULE_REPORT, vendorId = VendorIDs.TGPP_ID, must=false, name = "Routing-Rule-Report")
 public interface RoutingRuleReport extends DiameterGroupedAvp
 {
 	List<ByteBuf> getRoutingRuleIdentifier();

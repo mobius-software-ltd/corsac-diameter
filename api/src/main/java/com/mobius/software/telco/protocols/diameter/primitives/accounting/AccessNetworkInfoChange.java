@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 				[ Cellular-Network-Information ]
 				[ Change-Time ]
  */
-@DiameterAvpDefinition(code = 4401L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Network-Info-Change")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_NETWORK_INFO_CHANGE, vendorId = VendorIDs.TGPP_ID, name = "Access-Network-Info-Change")
 public interface AccessNetworkInfoChange extends DiameterAvp
 {
 	List<ByteBuf> getAccessNetworkInformation();

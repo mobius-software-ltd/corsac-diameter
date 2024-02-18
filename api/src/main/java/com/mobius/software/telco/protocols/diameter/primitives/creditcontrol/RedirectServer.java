@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /**
@@ -43,14 +45,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
                              { Redirect-Address-Type }
                              { Redirect-Server-Address }
  */
-@DiameterAvpDefinition(code = 434L, vendorId = -1, name = "Redirect-Server")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_SERVER, vendorId = -1, name = "Redirect-Server")
 public interface RedirectServer extends DiameterAvp 
 {
 	RedirectAddressTypeEnum getRedirectAddressType();
 	
-	void setRedirectAddressType(RedirectAddressTypeEnum redirectAddressType);
+	void setRedirectAddressType(RedirectAddressTypeEnum redirectAddressType) throws MissingAvpException;
 	
 	String getRedirectServerAddress();
 	
-	void setRedirectServerAddress(String redirectServerAddress);
+	void setRedirectServerAddress(String redirectServerAddress) throws MissingAvpException;
 }

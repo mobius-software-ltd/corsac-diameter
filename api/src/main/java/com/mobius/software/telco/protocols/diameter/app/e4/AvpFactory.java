@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.app.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
@@ -31,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpFlag;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpOption;
 import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AccessNetworkType;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.GloballyUniqueAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.InitialGateSettingDescription;
@@ -47,11 +47,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public InitialGateSettingDescription getInitialGateSettingDescription();
 	
-	public AccessNetworkType getAccessNetworkType(NASPortTypeEnum nasPortType);
+	public AccessNetworkType getAccessNetworkType(NASPortTypeEnum nasPortType) throws MissingAvpException;
 	
-	public RouteRecord getRouteRecord(String uri);
+	public NASFilterRule getNASFilterRule(String rule) throws InvalidAvpValueException;
 	
-	public NASFilterRule getNASFilterRule(String rule) throws ParseException;
-	
-	public NASFilterRule getNASFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+	public NASFilterRule getNASFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 }

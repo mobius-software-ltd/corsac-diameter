@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -59,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	MONITORING_RESPONSE_FOR_RESTRICTED_PROSE_DIRECT_DISCOVERY (8)
 	This value is used when the Direct Discovery Authorization Request message is sent for the ProSe Function reporting the result of an authorization for monitoring in restricted ProSe Direct Discovery (Model A). 
  */
-@DiameterAvpDefinition(code = 3804L, vendorId = KnownVendorIDs.TGPP_ID, name = "Discovery-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.DISCOVERY_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Discovery-Type")
 public interface DiscoveryType extends DiameterEnumerated<DiscoveryTypeEnum>
 {
 }

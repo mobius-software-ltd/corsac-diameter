@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc8583;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
              [ SourceID ]
            * [ AVP ]
  */
-@DiameterAvpDefinition(code = 650L, vendorId = -1L, must = false, name = "Load")
+@DiameterAvpDefinition(code = AvpCodes.LOAD, vendorId = -1L, must = false, name = "Load")
 public interface Load extends DiameterGroupedAvp
 {
 	LoadTypeEnum getLoadType();

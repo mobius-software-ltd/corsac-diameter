@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
     and the minimum policed unit (m) = large when only bandwidth has to
     be expressed.
  */
-@DiameterAvpDefinition(code = 502L, vendorId = -1L, name = "Bandwidth")
+@DiameterAvpDefinition(code = AvpCodes.BANDWIDTH, vendorId = -1L, name = "Bandwidth")
 public interface Bandwidth extends DiameterFloat32
 {
 }

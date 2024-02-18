@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
        2   | BOTH - The classifier applies to flows both to
            | and from the managed terminal.
  */
-@DiameterAvpDefinition(code = 514L, vendorId = -1L, name = "Direction")
+@DiameterAvpDefinition(code = AvpCodes.DIRECTION, vendorId = -1L, name = "Direction")
 public interface Direction extends DiameterEnumerated<DirectionEnum>
 {
 }

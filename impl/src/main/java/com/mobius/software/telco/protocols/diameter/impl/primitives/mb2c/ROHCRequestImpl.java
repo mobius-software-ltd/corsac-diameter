@@ -18,12 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.FlowDescriptionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.ROHCFullHeaderPeriodicity;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.ROHCProfile;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.ROHCRequest;
@@ -34,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescriptio
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3526L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ROHCRequestImpl extends DiameterGroupedAvpImpl implements ROHCRequest
 {
 	private List<FlowDescription> flowDescription;
@@ -43,17 +45,11 @@ public class ROHCRequestImpl extends DiameterGroupedAvpImpl implements ROHCReque
 	
 	private ROHCProfile rohcProfile;
 	
-	public ROHCRequestImpl(List<FlowDescription> flowDescription,Long rohcProfile)
+	public ROHCRequestImpl(List<FlowDescription> flowDescription,Long rohcProfile) throws MissingAvpException
 	{
-		if(flowDescription==null || flowDescription.size()==0)
-			throw new IllegalArgumentException("Flow-Description is required");
-			
-		if(rohcProfile==null)
-			throw new IllegalArgumentException("ROHC-Profile is required");
-			
-		this.flowDescription = flowDescription;
-	    	
-		this.rohcProfile = new ROHCProfileImpl(rohcProfile,null,null);	    	
+		setFlowDescription(flowDescription);
+		
+		setROHCProfile(rohcProfile);
 	}
 	 
 	public List<FlowDescription> getFlowDescription()
@@ -61,10 +57,10 @@ public class ROHCRequestImpl extends DiameterGroupedAvpImpl implements ROHCReque
 		return flowDescription;
 	}
 	
-	public void setFlowDescription(List<FlowDescription> value)
+	public void setFlowDescription(List<FlowDescription> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Flow-Description is required");
+			throw new MissingAvpException("Flow-Description is required is required", Arrays.asList(new DiameterAvp[] { new FlowDescriptionImpl() }));
 		
 		this.flowDescription = value;	
 	}
@@ -93,22 +89,22 @@ public class ROHCRequestImpl extends DiameterGroupedAvpImpl implements ROHCReque
 		return rohcProfile.getUnsigned();
 	}
 	
-	public void setROHCProfile(Long value)
+	public void setROHCProfile(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ROHC-Profile is required");
-		
+			throw new MissingAvpException("ROHC-Profile is required is required", Arrays.asList(new DiameterAvp[] { new ROHCProfileImpl() }));
+			
 		this.rohcProfile = new ROHCProfileImpl(value, null, null);	
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(flowDescription==null || flowDescription.size()==0)
-			return "Flow-Description is required";
+			return new MissingAvpException("Flow-Description is required is required", Arrays.asList(new DiameterAvp[] { new FlowDescriptionImpl() }));
 		
 		if(rohcProfile == null)
-			return "ROHC-Profile is required";
+			return new MissingAvpException("ROHC-Profile is required is required", Arrays.asList(new DiameterAvp[] { new ROHCProfileImpl() }));
 		
 		return null;
 	}

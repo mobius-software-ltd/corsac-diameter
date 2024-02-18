@@ -1,14 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
@@ -20,6 +22,9 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CheckBalanceResultImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CreditControlFailureHandlingImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.DirectDebitingFailureHandlingImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.FinalUnitIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GrantedServiceUnitImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.QoSFinalUnitIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
@@ -68,7 +73,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = false)
 public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements CreditControlAnswer
 {
 	protected CcRequestType ccRequestType;
@@ -119,7 +123,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 		setExperimentalResultAllowed(false);
 	}
 	
-	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, 4L);
 		setExperimentalResultAllowed(false);
@@ -130,7 +134,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 	
 	//for overriding with different auth application ID
-	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);
@@ -195,10 +199,10 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 
 	@Override
-	public void setCcRequestType(CcRequestTypeEnum value) 
+	public void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
+			throw new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() } ));
 		
 		this.ccRequestType = new CcRequestTypeImpl(value, null, null);
 	}
@@ -213,10 +217,10 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 
 	@Override
-	public void setCcRequestNumber(Long value) 
+	public void setCcRequestNumber(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
+			throw new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() } ));
 		
 		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
@@ -243,7 +247,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public Long getCcSubSessionId() throws AvpNotSupportedException
 	{
 		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl() } ));
 		
 		if(this.ccSubSessionId==null)
 			return null;
@@ -254,8 +258,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setCcSubSessionId(Long value) throws AvpNotSupportedException
 	{
-		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!ccSubSessionIdAllowed && value != null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl(value, null, null) } ));
 		
 		if(value == null)
 			this.ccSubSessionId = null;
@@ -267,8 +271,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public String getAcctMultiSessionId() throws AvpNotSupportedException
 	{
 		if(!acctMultiSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl() } ));
+			
 		if(this.acctMultiSessionId == null)
 			return null;
 		
@@ -278,9 +282,9 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setAcctMultiSessionId(String value) throws AvpNotSupportedException
 	{
-		if(!acctMultiSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
+		if(!acctMultiSessionIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl(value, null, null) } ));
+			
 		if(value == null)
 			this.acctMultiSessionId = null;
 		else
@@ -291,7 +295,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public Date getEventTimestamp() throws AvpNotSupportedException
 	{
 		if(!eventTimestampAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new EventTimestampImpl() } ));
 		
 		if(eventTimestamp == null)
 			return null;
@@ -302,8 +306,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setEventTimestamp(Date value) throws AvpNotSupportedException 
 	{
-		if(!eventTimestampAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!eventTimestampAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new EventTimestampImpl(value, null, null) } ));			
 		
 		if(value == null)
 			this.eventTimestamp = null;
@@ -315,7 +319,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public GrantedServiceUnit getGrantedServiceUnit() throws AvpNotSupportedException
 	{
 		if(!grantedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new GrantedServiceUnitImpl() } ));
 		
 		return grantedServiceUnit;
 	}
@@ -323,8 +327,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setGrantedServiceUnit(GrantedServiceUnit value) throws AvpNotSupportedException 
 	{
-		if(!grantedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!grantedServiceUnitAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value } ));			
 		
 		this.grantedServiceUnit = value;
 	}	
@@ -357,7 +361,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public FinalUnitIndication getFinalUnitIndication() throws AvpNotSupportedException
 	{
 		if(!finalUnitIndicationAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new FinalUnitIndicationImpl() } ));
 		
 		return finalUnitIndication;
 	}
@@ -365,8 +369,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setFinalUnitIndication(FinalUnitIndication value) throws AvpNotSupportedException
 	{
-		if(!finalUnitIndicationAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!finalUnitIndicationAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value } ));			
 		
 		this.finalUnitIndication = value;
 	}
@@ -375,7 +379,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public QoSFinalUnitIndication getQosFinalUnitIndication() throws AvpNotSupportedException
 	{
 		if(!qosFinalUnitIndicationAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new QoSFinalUnitIndicationImpl() } ));
 		
 		return qosFinalUnitIndication;
 	}
@@ -383,8 +387,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setQosFinalUnitIndication(QoSFinalUnitIndication value) throws AvpNotSupportedException
 	{
-		if(!qosFinalUnitIndicationAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!qosFinalUnitIndicationAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value } ));			
 		
 		this.qosFinalUnitIndication = value;
 	}
@@ -393,7 +397,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public CheckBalanceResultEnum getCheckBalanceResult() throws AvpNotSupportedException 
 	{
 		if(!checkBalanceResultAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CheckBalanceResultImpl() } ));
 		
 		if(checkBalanceResult==null)
 			return null;
@@ -404,8 +408,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setCheckBalanceResult(CheckBalanceResultEnum value) throws AvpNotSupportedException 
 	{
-		if(!checkBalanceResultAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!checkBalanceResultAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CheckBalanceResultImpl(value, null, null) } ));			
 		
 		if(value==null)
 			this.checkBalanceResult = null;
@@ -453,7 +457,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public Long getValidityTime() throws AvpNotSupportedException
 	{
 		if(!validityTimeAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ValidityTimeImpl() } ));
 		
 		if(validityTime == null)
 			return null;
@@ -464,8 +468,8 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setValidityTime(Long value) throws AvpNotSupportedException
 	{
-		if(!validityTimeAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!validityTimeAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ValidityTimeImpl(value, null, null) } ));			
 		
 		if(value == null)
 			this.validityTime = null;
@@ -477,7 +481,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	public List<String> getRouteRecords() throws AvpNotSupportedException 
 	{
 		if(!routeRecordsAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RouteRecordImpl() } ));
 		
 		if(this.routeRecords==null)
 			return null;
@@ -494,8 +498,14 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	@Override
 	public void setRouteRecords(List<String> value) throws AvpNotSupportedException
 	{
-		if(!routeRecordsAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!routeRecordsAllowed && value!=null && value.size()>0)
+		{
+			List<DiameterAvp> routeRecords = new ArrayList<DiameterAvp>();
+			for(String curr:value)
+				routeRecords.add(new RouteRecordImpl(curr, null, null));
+				
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", routeRecords );
+		}
 		
 		if(value == null || value.size()==0)
 			this.routeRecords = null;
@@ -508,13 +518,46 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ccRequestType==null)
-			return "CC-Request-Type is required";
+			return new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() } ));
 		
 		if(ccRequestNumber==null)
-			return "CC-Request-Number is required";
+			return new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() } ));
+		
+		if(!ccSubSessionIdAllowed && ccSubSessionId != null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { ccSubSessionId } ));
+		
+		if(!acctMultiSessionIdAllowed && acctMultiSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { acctMultiSessionId } ));
+		
+		if(!eventTimestampAllowed && eventTimestamp!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { eventTimestamp } ));			
+		
+		if(!grantedServiceUnitAllowed && grantedServiceUnit!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { grantedServiceUnit } ));			
+		
+		if(!finalUnitIndicationAllowed && finalUnitIndication!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { finalUnitIndication } ));			
+		
+		if(!qosFinalUnitIndicationAllowed && qosFinalUnitIndication!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { qosFinalUnitIndication } ));			
+		
+		if(!checkBalanceResultAllowed && checkBalanceResult!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { checkBalanceResult } ));			
+		
+		if(!validityTimeAllowed && validityTime!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { validityTime } ));			
+		
+		if(!routeRecordsAllowed && routeRecords!=null && routeRecords.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(RouteRecord curr:routeRecords)
+				avps.add(curr);
+			
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps );
+		}
 		
 		return super.validate();
 	}

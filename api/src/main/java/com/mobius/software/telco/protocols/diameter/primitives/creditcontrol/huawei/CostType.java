@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Indicates the service fee. The value of Cost-Type refers to local fee, roaming fee, deduction fee of e-commerce, free times of e-commerce and so on.
  */
-@DiameterAvpDefinition(code = 20392L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Cost-Type")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.COST_TYPE, vendorId = VendorIDs.HUAWEI_ID, name = "Cost-Type")
 public interface CostType extends DiameterUnsigned32
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.ActionTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeviceAction;
@@ -28,11 +29,11 @@ import io.netty.buffer.ByteBuf;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
-	public DeviceAction getDeviceAction(Long  referenceNumber, ActionTypeEnum actionType);
+	public DeviceAction getDeviceAction(Long  referenceNumber, ActionTypeEnum actionType) throws MissingAvpException;
 	
-	public DeviceNotification getDeviceNotification(Long  referenceNumber, ActionTypeEnum actionType);
+	public DeviceNotification getDeviceNotification(Long  referenceNumber, ActionTypeEnum actionType) throws MissingAvpException;
 	
-	public TriggerData getTriggerData(ByteBuf payload);
+	public TriggerData getTriggerData(ByteBuf payload) throws MissingAvpException;
 }

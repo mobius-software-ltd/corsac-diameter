@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.tsp;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.tsp.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.DeviceActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.DeviceNotificationImpl;
@@ -33,22 +34,22 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
 	
-	public DeviceAction getDeviceAction(Long  referenceNumber, ActionTypeEnum actionType)
+	public DeviceAction getDeviceAction(Long  referenceNumber, ActionTypeEnum actionType) throws MissingAvpException
 	{
 		return new DeviceActionImpl(referenceNumber, actionType);
 	}
 	
-	public DeviceNotification getDeviceNotification(Long  referenceNumber, ActionTypeEnum actionType)
+	public DeviceNotification getDeviceNotification(Long  referenceNumber, ActionTypeEnum actionType) throws MissingAvpException
 	{
 		return new DeviceNotificationImpl(referenceNumber, actionType);
 	}
 	
-	public TriggerData getTriggerData(ByteBuf payload)
+	public TriggerData getTriggerData(ByteBuf payload) throws MissingAvpException
 	{
 		return new TriggerDataImpl(payload);
 	}

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
          messages to be exchanged in the near future.  A receiver of a
          DPR with above result code SHOULD NOT attempt reconnection.
  */
-@DiameterAvpDefinition(code = 273L, vendorId = -1L, name = "Disconnect-Cause")
+@DiameterAvpDefinition(code = AvpCodes.DISCONNECT_CAUSE, vendorId = -1L, name = "Disconnect-Cause")
 public interface DisconnectCause extends DiameterEnumerated<DisconnectCauseEnum>
 {
 }

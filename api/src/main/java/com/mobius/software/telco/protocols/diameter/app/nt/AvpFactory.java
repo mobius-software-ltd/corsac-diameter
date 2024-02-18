@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.app.nt;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TimeWindow;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferPolicy;
@@ -32,13 +33,13 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
-	public TransferPolicy getTransferPolicy(Long transferPolicyId);
+	public TransferPolicy getTransferPolicy(Long transferPolicyId) throws MissingAvpException;
 	
-	public TimeWindow getTimeWindow(Date transferStartTime,Date transferEndTime);
+	public TimeWindow getTimeWindow(Date transferStartTime,Date transferEndTime) throws MissingAvpException;
 }

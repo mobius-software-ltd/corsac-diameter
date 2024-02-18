@@ -4,9 +4,10 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -42,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777255, commandCode = 8388621, request = false)
 public class LocationReportAnswerImpl extends SlgAnswerImpl implements LocationReportAnswer
 {
 	private GMLCAddress gmlcAddress;
@@ -59,7 +59,7 @@ public class LocationReportAnswerImpl extends SlgAnswerImpl implements LocationR
 		setExperimentalResultAllowed(false);
 	}
 	
-	public LocationReportAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public LocationReportAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value is used to indicate that the reserved QoS, the filter, the precedence, or any of the fields for the
 		provided packet filter identifiers are being modified.
  */
-@DiameterAvpDefinition(code = 1062L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Operation")
+@DiameterAvpDefinition(code = TgppAvpCodes.PACKET_FILTER_OPERATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Operation")
 public interface PacketFilterOperation extends DiameterEnumerated<PacketFilterOperationEnum>
 {
 }

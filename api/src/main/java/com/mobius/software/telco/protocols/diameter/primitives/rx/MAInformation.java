@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.IPCANTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 						 [ MA-Information-Action ]
 						*[ AVP ]
  */
-@DiameterAvpDefinition(code = 570L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MA-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.MA_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "MA-Information")
 public interface MAInformation extends DiameterGroupedAvp
 {
 	IPCANTypeEnum getIPCANType();

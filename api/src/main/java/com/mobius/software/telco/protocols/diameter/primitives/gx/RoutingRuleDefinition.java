@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -50,12 +52,12 @@ import io.netty.buffer.ByteBuf;
 		 [ IP-CAN-Type ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1076L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Routing-Rule-Definition")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTING_RULE_DEFINITION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Routing-Rule-Definition")
 public interface RoutingRuleDefinition extends DiameterGroupedAvp
 {
 	ByteBuf getRoutingRuleIdentifier();
 	
-	void setRoutingRuleIdentifier(ByteBuf value);	
+	void setRoutingRuleIdentifier(ByteBuf value) throws MissingAvpException;	
 	
 	List<RoutingFilter> getRoutingFilter();
 	

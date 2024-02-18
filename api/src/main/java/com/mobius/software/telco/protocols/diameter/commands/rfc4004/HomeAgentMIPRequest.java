@@ -21,8 +21,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoFAMSA;
@@ -88,24 +91,24 @@ import io.netty.buffer.ByteBuf;
                                     * [ Route-Record ]
                                     * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 2, commandCode = 262, request = true, proxyable = true, name="Home-Agent-MIP-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.HOME_AGENT_MIP, request = true, proxyable = true, name="Home-Agent-MIP-Request")
 public interface HomeAgentMIPRequest extends AuthenticationRequest
 {
 	Long getAuthorizationLifetime();
 	
-	void setAuthorizationLifetime(Long value);	
+	void setAuthorizationLifetime(Long value) throws MissingAvpException;	
 	
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 	
 	ByteBuf getMIPRegRequest();
 	
-	void setMIPRegRequest(ByteBuf value);
+	void setMIPRegRequest(ByteBuf value) throws MissingAvpException;
 	
 	public Long getMIPFeatureVector();
 	
-	void setMIPFeatureVector(Long value);
+	void setMIPFeatureVector(Long value) throws MissingAvpException;
 	
 	MIPMNtoHAMSA getMIPMNtoHAMSA();
 	

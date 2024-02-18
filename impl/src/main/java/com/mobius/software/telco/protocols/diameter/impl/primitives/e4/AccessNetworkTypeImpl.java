@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortTypeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AccessNetworkType;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AggregationNetworkType;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AggregationNetworkTypeEnum;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEn
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 306L, vendorId = KnownVendorIDs.ETSI_ID)
 public class AccessNetworkTypeImpl implements AccessNetworkType
 {
 	private NASPortType nasPortType;
@@ -45,12 +47,9 @@ public class AccessNetworkTypeImpl implements AccessNetworkType
 		
 	}
 	
-	public AccessNetworkTypeImpl(NASPortTypeEnum nasPortType)
+	public AccessNetworkTypeImpl(NASPortTypeEnum nasPortType) throws MissingAvpException
 	{
-		if(nasPortType == null)
-			throw new IllegalArgumentException("NAS-Port-Type is required");
-		
-		this.nasPortType = new NASPortTypeImpl(nasPortType, null, null);		
+		setNASPortType(nasPortType);
 	}
 	
 	public NASPortTypeEnum getNASPortType()
@@ -61,11 +60,11 @@ public class AccessNetworkTypeImpl implements AccessNetworkType
 		return nasPortType.getEnumerated(NASPortTypeEnum.class);
 	}
 	
-	public void setNASPortType(NASPortTypeEnum value)
+	public void setNASPortType(NASPortTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("NAS-Port-Type is required");
-		
+			throw new MissingAvpException("NAS-Port-Type is required", Arrays.asList(new DiameterAvp[] { new NASPortTypeImpl() }));
+			
 		this.nasPortType = new NASPortTypeImpl(value, null, null);
 		
 	}
@@ -87,10 +86,10 @@ public class AccessNetworkTypeImpl implements AccessNetworkType
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(nasPortType == null)
-			return "NAS-Port-Type is required";
+			return new MissingAvpException("NAS-Port-Type is required", Arrays.asList(new DiameterAvp[] { new NASPortTypeImpl() }));
 		
 		return null;
 	}

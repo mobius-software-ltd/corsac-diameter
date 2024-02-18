@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc4a;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.pc4a.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.OCOLRImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPPOCSpecificReductionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
@@ -52,7 +53,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
@@ -67,7 +68,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
@@ -82,7 +83,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ProSePermissionImpl();
 	}
 	
-	public ProSeSubscriptionData getProSeSubscriptionData(ProSePermission proSePermission)
+	public ProSeSubscriptionData getProSeSubscriptionData(ProSePermission proSePermission) throws MissingAvpException
 	{
 		return new ProSeSubscriptionDataImpl(proSePermission);
 	}

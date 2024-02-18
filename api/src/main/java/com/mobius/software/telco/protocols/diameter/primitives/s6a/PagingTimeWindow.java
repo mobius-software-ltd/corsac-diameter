@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 			 { Paging-Time-Window-Length }
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1701L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Paging-Time-Window")
+@DiameterAvpDefinition(code = TgppAvpCodes.PAGING_TIME_WINDOW, vendorId = VendorIDs.TGPP_ID, must = false, name = "Paging-Time-Window")
 public interface PagingTimeWindow extends DiameterGroupedAvp
 {
 	OperationModeEnum getOperationMode();
 	
-	void setOperationMode(OperationModeEnum value);
+	void setOperationMode(OperationModeEnum value) throws MissingAvpException;
 	
 	ByteBuf getPagingTimeWindowLength();
 	
-	void setPagingTimeWindowLength(ByteBuf value);
+	void setPagingTimeWindowLength(ByteBuf value) throws MissingAvpException;
 }

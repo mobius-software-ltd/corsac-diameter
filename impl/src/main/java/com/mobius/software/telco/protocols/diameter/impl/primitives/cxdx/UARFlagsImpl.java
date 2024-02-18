@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 637L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UARFlagsImpl extends DiameterBitmask32Impl implements UARFlags
 {
 	public UARFlagsImpl()
@@ -44,7 +41,7 @@ public class UARFlagsImpl extends DiameterBitmask32Impl implements UARFlags
 	@Override
 	public void setIMSEmergencyRegistrationBit(boolean isOn)
 	{
-		setBit(IMS_EMERGENCY_REGISTRATION_BIT, isOn);
+		setBitUnchecked(IMS_EMERGENCY_REGISTRATION_BIT, isOn);
 	}
 
 	@Override

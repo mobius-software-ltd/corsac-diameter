@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
@@ -77,7 +80,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = true)
 public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealmBase implements CreditControlRequest
 {	
 	private AuthApplicationId authApplicationId;
@@ -128,7 +130,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		setDestinationHostAllowed(false);
 	}
 		
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
 		setDestinationHostAllowed(false);
@@ -142,7 +144,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		setCcRequestNumber(ccRequestNumber);		
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
 		setDestinationHostAllowed(false);
@@ -169,11 +171,11 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setServiceContextId(String value) 
+	public void setServiceContextId(String value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Context-Id is required");
-		
+			throw new MissingAvpException("Service-Context-Id is required", Arrays.asList(new DiameterAvp[] { new ServiceContextIdImpl() }));
+			
 		this.serviceContextId = new ServiceContextIdImpl(value, null, null);		
 	}
 
@@ -187,10 +189,10 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setCcRequestType(CcRequestTypeEnum value) 
+	public void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
+			throw new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
 		
 		this.ccRequestType = new CcRequestTypeImpl(value, null, null);		
 	}
@@ -205,10 +207,10 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setCcRequestNumber(Long value) 
+	public void setCcRequestNumber(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
+			throw new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));	
 		
 		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
@@ -503,16 +505,16 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceContextId==null)
-			return "Service-Context-Id is required";
+			return new MissingAvpException("Service-Context-Id is required", Arrays.asList(new DiameterAvp[] { new ServiceContextIdImpl() }));
 		
 		if(ccRequestType==null)
-			return "CC-Request-Type is required";
+			return new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
 		
 		if(ccRequestNumber==null)
-			return "CC-Request-Request is required";
+			return new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));	
 		
 		return super.validate();
 	}

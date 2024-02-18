@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -76,7 +77,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	113 Multiple accesses to a PDN connection not allowed
 	This value is used to indicate that the request for the additional access to a PDN connection was rejected by the PDN GW.
  */
-@DiameterAvpDefinition(code = 1533L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAN-S2a-Failure-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.TWAN_S2A_FAILURE_CAUSE, vendorId = VendorIDs.TGPP_ID, must = false, name = "TWAN-S2a-Failure-Cause")
 public interface TWANS2aFailureCause extends DiameterUnsigned32
 {
 }

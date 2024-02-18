@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.9	Transfer-Policy-Id AVP
 	The Transfer-Policy-Id AVP (AVP code 4208) is of type Unsigned32. It indicates the identity of the transfer policy. It is assigned by the PCRF and is unique per Reference-Id.
  */
-@DiameterAvpDefinition(code = 4208L, vendorId = KnownVendorIDs.TGPP_ID, name = "Transfer-Policy-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRANSFER_POLICY_ID, vendorId = VendorIDs.TGPP_ID, name = "Transfer-Policy-Id")
 public interface TransferPolicyId extends DiameterUnsigned32
 {
 }

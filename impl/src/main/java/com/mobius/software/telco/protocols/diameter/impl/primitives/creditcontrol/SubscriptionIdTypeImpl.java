@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Sub
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 450L, vendorId = -1L)
 public class SubscriptionIdTypeImpl extends DiameterEnumeratedImpl<SubscriptionIdTypeEnum> implements SubscriptionIdType
 {
 	protected SubscriptionIdTypeImpl() 

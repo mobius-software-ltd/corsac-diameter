@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc8583;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.SourceID;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.SourceID;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 649L, vendorId = -1L)
 public class SourceIDImpl extends DiameterIdentityImpl implements SourceID
 {
 	protected SourceIDImpl() 

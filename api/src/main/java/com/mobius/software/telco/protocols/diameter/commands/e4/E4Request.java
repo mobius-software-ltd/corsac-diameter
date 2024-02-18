@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.e4;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
@@ -31,5 +32,5 @@ public abstract interface E4Request extends VendorSpecificRequest
 {
 	public AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 }

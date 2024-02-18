@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.pc2;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
 
@@ -32,9 +33,9 @@ public abstract interface Pc2Answer extends AuthenticationAnswer
 {
 	public AuthSessionStateEnum getAuthSessionState(); 
 
-	public void setAuthSessionState(AuthSessionStateEnum value); 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException; 
 	
 	public ProSeRequestTypeEnum getProSeRequestType();
 	 
-	void setProSeRequestType(ProSeRequestTypeEnum value);	
+	void setProSeRequestType(ProSeRequestTypeEnum value) throws MissingAvpException;	
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Base-Time-Interval AVP (AVP code 1265) is of type Unsigned32. It contains the length of the base time interval,
 	for controlling the consumption of time quota, in seconds. 
  */
-@DiameterAvpDefinition(code = 1265L, vendorId = KnownVendorIDs.TGPP_ID, name = "Base-Time-Interval")
+@DiameterAvpDefinition(code = TgppAvpCodes.BASE_TIME_INTERVAL, vendorId = VendorIDs.TGPP_ID, name = "Base-Time-Interval")
 public interface BaseTimeInterval extends DiameterUnsigned32
 {
 }

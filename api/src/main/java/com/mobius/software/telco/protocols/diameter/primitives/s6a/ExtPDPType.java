@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.75A	Ext-PDP-Type
 	The Ext-PDP-Type AVP is of type OctetString. Octets are coded according to 3GPP TS 29.002 [24] and 3GPP TS 29.060 [39] and shall contain the value of IPv4v6.
  */
-@DiameterAvpDefinition(code = 1620L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Ext-PDP-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXT_PDP_TYPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Ext-PDP-Type")
 public interface ExtPDPType extends DiameterOctetString
 {
 }

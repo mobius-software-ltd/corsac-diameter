@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.37	LCS-Reference-Number
 	The LCS-Reference-Number AVP is of type OctetString of length 1. It shall contain the reference number identifying the deferred location request.
  */
-@DiameterAvpDefinition(code = 2531L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "LCS-Reference-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_REFENRECE_NUMBER, vendorId = VendorIDs.TGPP_ID, must = false, name = "LCS-Reference-Number")
 public interface LCSReferenceNumber extends DiameterOctetString
 {
 }

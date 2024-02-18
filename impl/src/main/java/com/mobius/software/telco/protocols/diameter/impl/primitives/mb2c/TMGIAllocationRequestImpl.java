@@ -19,13 +19,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.TMGI;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIAllocationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGINumber;
@@ -37,7 +39,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3509L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TMGIAllocationRequestImpl extends DiameterGroupedAvpImpl implements TMGIAllocationRequest
 {
 	private TMGINumber tmgiNumber;
@@ -49,12 +50,9 @@ public class TMGIAllocationRequestImpl extends DiameterGroupedAvpImpl implements
 		
 	}
 	
-	public TMGIAllocationRequestImpl(Long tmgiNumber)
+	public TMGIAllocationRequestImpl(Long tmgiNumber) throws MissingAvpException
 	{
-		if(tmgiNumber==null)
-			throw new IllegalArgumentException("TMGI‑Number is required");
-		
-		this.tmgiNumber = new TMGINumberImpl(tmgiNumber,null,null);	
+		setTMGINumber(tmgiNumber);
 	}
 	
 	public Long getTMGINumber()
@@ -65,10 +63,10 @@ public class TMGIAllocationRequestImpl extends DiameterGroupedAvpImpl implements
 		return tmgiNumber.getUnsigned();
 	}
 	
-	public void setTMGINumber(Long value)
+	public void setTMGINumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("TMGI‑Number is required");
+			throw new MissingAvpException("TMGI‑Number is required is required", Arrays.asList(new DiameterAvp[] { new TMGINumberImpl() }));
 		
 		this.tmgiNumber = new TMGINumberImpl(value, null, null);	
 	}
@@ -98,10 +96,10 @@ public class TMGIAllocationRequestImpl extends DiameterGroupedAvpImpl implements
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tmgiNumber==null)
-			return "TMGI-Number is required";
+			return new MissingAvpException("TMGI‑Number is required is required", Arrays.asList(new DiameterAvp[] { new TMGINumberImpl() }));
 		
 		return null;
 	}		

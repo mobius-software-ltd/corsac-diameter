@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	as a filler when there is an odd number of digits; bits 8 to 5 of octet n encode digit 2n; bits 4 to 1 of octet n encode digit
 	2(n-1)+1. 
  */
-@DiameterAvpDefinition(code = 701L, vendorId = KnownVendorIDs.TGPP_ID, name = "MSISDN")
+@DiameterAvpDefinition(code = TgppAvpCodes.MSISDN, vendorId = VendorIDs.TGPP_ID, name = "MSISDN")
 public interface MSISDN extends DiameterE164Address
 {
 }

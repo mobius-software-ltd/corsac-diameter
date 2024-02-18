@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Bearer Request message (3GPP TS 29.274 [81]) for the P-GW. Where 3GPP TS 29.060 [24] provides for interpretation
 	of the value, e.g. map '3' to '2', this shall be done by the GGSN. 
  */
-@DiameterAvpDefinition(code = 12L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-SelectionMode")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_SELECTION_MODE, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-SelectionMode")
 public interface TGPPSelectionMode extends DiameterUTF8String
 {
 }

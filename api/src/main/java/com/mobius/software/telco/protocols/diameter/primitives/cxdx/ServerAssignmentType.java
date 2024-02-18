@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -85,7 +86,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	RESTORATION (14)
     	• 	Used in the SWx protocol, defined in 3GPP TS 29.273 [18]. This value is not used in the Cx protocol.
  */
-@DiameterAvpDefinition(code = 614L, vendorId = KnownVendorIDs.TGPP_ID, name = "Server-Assignment-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVER_ASSIGNMENT_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Server-Assignment-Type")
 public interface ServerAssignmentType extends DiameterEnumerated<ServerAssignmentTypeEnum>
 {
 }

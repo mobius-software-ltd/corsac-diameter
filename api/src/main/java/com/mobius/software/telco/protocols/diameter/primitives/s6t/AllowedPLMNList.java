@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 	
 	Absence of Visited-PLMN-Id AVPs indicates that Enhanced Coverage is restricted in all serving PLMNs.
  */
-@DiameterAvpDefinition(code = 3158L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Allowed-PLMN-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.ALLOWED_PLMN_LIST, vendorId = VendorIDs.TGPP_ID, must = false, name = "Allowed-PLMN-List")
 public interface AllowedPLMNList extends DiameterGroupedAvp
 {
 	List<ByteBuf> getVisitedPLMNId();

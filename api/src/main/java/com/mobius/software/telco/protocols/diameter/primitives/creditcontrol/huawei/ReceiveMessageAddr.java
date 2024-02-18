@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates the destination address of an SM receiving party.
 	The AVP is not generally used, the default value of this AVP is NULL.
  */
-@DiameterAvpDefinition(code = 20732L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Receive-Message-Addr")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.RECEIVE_MESSAGE_ADDR, vendorId = VendorIDs.HUAWEI_ID, name = "Receive-Message-Addr")
 public interface ReceiveMessageAddr extends DiameterUTF8String
 {
 }

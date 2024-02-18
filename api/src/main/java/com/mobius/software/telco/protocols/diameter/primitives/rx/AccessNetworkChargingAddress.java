@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.2	Access-Network-Charging-Address AVP
 	The Access-Network-Charging-Address AVP (AVP code 501) is of type Address, and it indicates the IP Address of the network entity within the access network performing charging (e.g. the GGSN IP address). The Access‑Network‑Charging-Address AVP should not be forwarded over an inter-operator interface.
  */
-@DiameterAvpDefinition(code = 501L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Network-Charging-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_NETWORK_CHARGING_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Access-Network-Charging-Address")
 public interface AccessNetworkChargingAddress extends DiameterAddress
 {
 }

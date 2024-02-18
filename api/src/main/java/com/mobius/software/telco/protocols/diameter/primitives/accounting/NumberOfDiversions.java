@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Number-of-Diversions AVP (AVP Code 2034) is of type Unsigned32 and holds the number of diversions related to
 	a CDIV service. When counting the number of diversions, all types of diversion are included. 
  */
-@DiameterAvpDefinition(code = 2034L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Diversions")
+@DiameterAvpDefinition(code = TgppAvpCodes.NUMBER_OF_DIVERSIONS, vendorId = VendorIDs.TGPP_ID, name = "Number-Of-Diversions")
 public interface NumberOfDiversions extends DiameterUnsigned32
 {
 }

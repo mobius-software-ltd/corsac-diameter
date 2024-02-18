@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.SenderAddress;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.SenderAddres
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1104L, vendorId = -1L)
 public class SenderAddressImpl extends DiameterUTF8StringImpl implements SenderAddress
 {
 	protected SenderAddressImpl()

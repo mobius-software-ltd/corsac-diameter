@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.MMENumberForMTSMSImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumberImpl;
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.MMERealm
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.MSCNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.SGSNNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.SGSNRealmImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MMENumberForMTSMS;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SGSNNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.IPSMGWName;
@@ -45,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.SGSNRealm;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2401L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServingNodeImpl extends DiameterGroupedAvpImpl implements ServingNode
 {
 	private SGSNName sgsnName;

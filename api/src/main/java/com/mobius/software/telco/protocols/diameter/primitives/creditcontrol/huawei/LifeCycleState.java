@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 4: Suspended
 	    - 5: Pool
  */
-@DiameterAvpDefinition(code = 20772L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Lifecycle-State")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.LIFECYCLE_STATE, vendorId = VendorIDs.HUAWEI_ID, name = "Lifecycle-State")
 public interface LifeCycleState extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.app.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterQosAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
@@ -38,17 +39,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelMediumT
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.Tunneling;
 
-import io.netty.buffer.ByteBuf;
-
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public Tunneling getTunneling(TunnelTypeEnum tunnelType, TunnelMediumTypeEnum tunnelMediumType,String tunnelClientEndpoint,String tunnelServerEndpoint,Long tunnelPreference,String tunnelClientAuthId,String tunnelServerAuthId,ByteBuf tunnelAssignmentId, ByteBuf tunnelPassword, ByteBuf tunnelPrivateGroupId);
+	public Tunneling getTunneling(TunnelTypeEnum tunnelType, TunnelMediumTypeEnum tunnelMediumType,String tunnelClientEndpoint,String tunnelServerEndpoint) throws MissingAvpException;
 	
-	public DiameterQosFilterRule getDiameterQosFilterRule(String rule) throws ParseException;
+	public DiameterQosFilterRule getDiameterQosFilterRule(String rule) throws InvalidAvpValueException;
 	
-	public DiameterQosFilterRule getDiameterQosFilterRule(DiameterQosAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,String dscpColor,Long meteringRate,String colorUnder,String colorOver) throws ParseException;
+	public DiameterQosFilterRule getDiameterQosFilterRule(DiameterQosAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,String dscpColor,Long meteringRate,String colorUnder,String colorOver) throws InvalidAvpValueException;
 	
-	public NASFilterRule getNASFilterRule(String rule) throws ParseException;
+	public NASFilterRule getNASFilterRule(String rule) throws InvalidAvpValueException;
 	
-	public NASFilterRule getNASFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+	public NASFilterRule getNASFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 }

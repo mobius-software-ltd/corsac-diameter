@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.13	Additional-MBMS-Trace-Info AVP
 	The Additional-MBMS-Trace-Info AVP (AVP Code 910) is of type OctetString. This AVP contains Trace Reference2, Trace Recording Session Reference, Triggering Events in BM-SC, Trace Depth for BM-SC, List of interfaces in BM-SC, Trace Activity Control For BM-SC which are all part of the Additional MBMS Trace Info IE as specified in TS 29.060 [24].
  */
-@DiameterAvpDefinition(code = 910L, vendorId = KnownVendorIDs.TGPP_ID, name = "Additional-MBMS-Trace-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADDITIONAL_MBMS_TRACE_INFO, vendorId = VendorIDs.TGPP_ID, name = "Additional-MBMS-Trace-Info")
 public interface AdditionalMBMSTraceInfo extends DiameterOctetString
 {
 }

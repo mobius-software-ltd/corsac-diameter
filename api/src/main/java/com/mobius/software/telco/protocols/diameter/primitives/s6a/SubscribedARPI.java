@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.233	Subscribed-ARPI
 	The Subscribed-ARPI AVP is of type Unsigned32 and shall contain the subscribed value of the Additional RRM Policy Index. For details, see 3GPP TS 23.401 [2].
  */
-@DiameterAvpDefinition(code = 1708L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Subscribed-ARPI")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUBSCRIBED_ARPI, vendorId = VendorIDs.TGPP_ID, must = false, name = "Subscribed-ARPI")
 public interface SubscribedARPI extends DiameterUnsigned32
 {
 }

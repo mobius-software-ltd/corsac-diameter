@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -66,7 +67,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    be done; only the price of the service will be returned in the
    Cost-Information AVP in the Credit-Control-Answer command.
  */
-@DiameterAvpDefinition(code = 436L, vendorId = -1L, name = "Requested-Action")
+@DiameterAvpDefinition(code = AvpCodes.REQUESTED_ACTION, vendorId = -1L, name = "Requested-Action")
 public interface RequestedAction extends DiameterEnumerated<RequestedActionEnum>
 {
 }

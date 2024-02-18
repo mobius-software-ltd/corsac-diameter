@@ -18,13 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeAllowedPLMN;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSePermission;
@@ -35,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscri
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3701L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeSubscriptionDataImpl extends DiameterGroupedAvpImpl implements ProSeSubscriptionData
 {
 	private ProSePermission proSePermission;
@@ -49,10 +50,9 @@ public class ProSeSubscriptionDataImpl extends DiameterGroupedAvpImpl implements
 		super();
 	}
 	
-	public ProSeSubscriptionDataImpl(ProSePermission proSePermission)
+	public ProSeSubscriptionDataImpl(ProSePermission proSePermission) throws MissingAvpException
 	{
-		setProSePermission(proSePermission);
-		
+		setProSePermission(proSePermission);		
 	}
 	
 	public ProSePermission getProSePermission()
@@ -60,10 +60,10 @@ public class ProSeSubscriptionDataImpl extends DiameterGroupedAvpImpl implements
 		return proSePermission;
 	}
 	
-	public void setProSePermission(ProSePermission value)
+	public void setProSePermission(ProSePermission value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("ProSe-Permission is required");
+			throw new MissingAvpException("ProSe-Permission is required is required", Arrays.asList(new DiameterAvp[] { new ProSePermissionImpl() }));
 		
 		this.proSePermission = value;		
 	}
@@ -95,10 +95,10 @@ public class ProSeSubscriptionDataImpl extends DiameterGroupedAvpImpl implements
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(proSePermission == null)
-			return "ProSe-Permission is required";
+			return new MissingAvpException("ProSe-Permission is required is required", Arrays.asList(new DiameterAvp[] { new ProSePermissionImpl() }));
 		
 		return null;
 	}

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5447;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	MAY override the prefix allocation hint proposed by the NAS/ASP and
    	return a different prefix in the response message.
  */
-@DiameterAvpDefinition(code = 125L, vendorId = -1L, name = "MIP6-Home-Link-Prefix")
+@DiameterAvpDefinition(code = AvpCodes.MIP6_HOME_LINK_PREFIX, vendorId = -1L, name = "MIP6-Home-Link-Prefix")
 public interface MIP6HomeLinkPrefix extends DiameterOctetString
 {
 }

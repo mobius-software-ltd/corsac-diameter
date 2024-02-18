@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.3.34	SMSF-Non-3GPP-Realm
 	The SMSF-Non-3GPP-Realm AVP is of type DiameterIdentity and it shall contain the Diameter Realm Identity of the serving SMSF registered for Non-3GPP access. For further details on the encoding of this AVP, see IETF RFC 6733 [20].
  */
-@DiameterAvpDefinition(code = 3343L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SMSF-Non-3GPP-Realm")
+@DiameterAvpDefinition(code = TgppAvpCodes.SMSF_NON_3GPP_REALM, vendorId = VendorIDs.TGPP_ID, must = false, name = "SMSF-Non-3GPP-Realm")
 public interface SMSFNon3GPPRealm extends DiameterIdentity
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32
    	The Port-Start AVP (AVP Code 532) is of type Integer32 and specifies
    	the first port number of an IP port range.
  */
-@DiameterAvpDefinition(code = 532L, vendorId = -1L, name = "Port-Start")
+@DiameterAvpDefinition(code = AvpCodes.PORT_START, vendorId = -1L, name = "Port-Start")
 public interface PortStart extends DiameterInteger32
 {
 }

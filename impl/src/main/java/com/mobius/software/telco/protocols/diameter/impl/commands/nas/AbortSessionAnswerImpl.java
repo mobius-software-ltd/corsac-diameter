@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.nas;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAAAProtocolImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -39,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 1, commandCode = 274, request = false)
 public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionAnswerImpl implements AbortSessionAnswer
 {
 	private OriginAAAProtocol originAAAProtocol;
@@ -50,7 +50,7 @@ public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.
 	{
 	}
 	
-	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}

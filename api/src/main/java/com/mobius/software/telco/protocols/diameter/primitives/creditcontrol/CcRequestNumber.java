@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    Type AVP has the value EVENT_REQUEST), the CC-Request-Number AVP
    should be set to 0 for a credit-control request.
  */
-@DiameterAvpDefinition(code = 415L, vendorId = -1L, name = "Cc-Request-Number")
+@DiameterAvpDefinition(code = AvpCodes.CC_REQUEST_NUMBER, vendorId = -1L, name = "Cc-Request-Number")
 public interface CcRequestNumber extends DiameterUnsigned32
 {
 }

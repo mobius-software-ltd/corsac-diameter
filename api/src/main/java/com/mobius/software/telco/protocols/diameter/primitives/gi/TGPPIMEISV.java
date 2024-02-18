@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	n = 15 for IMEI, where TAC = 8 digits SNR = 6 digits & Spare = 1 digit;
 	n = 14 for IMEI, where TAC = 8 digits SNR = 6 digits (Spare digit is not sent) 
  */
-@DiameterAvpDefinition(code = 20L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-IMEISV")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_IMESV, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-IMEISV")
 public interface TGPPIMEISV extends DiameterOctetString
 {
 }

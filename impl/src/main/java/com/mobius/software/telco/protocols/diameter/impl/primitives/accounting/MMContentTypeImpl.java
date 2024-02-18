@@ -20,8 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AdditionalContentInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AdditionalTypeInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ContentSize;
@@ -34,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TypeNu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1203L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MMContentTypeImpl implements MMContentType
 {
 	private TypeNumber typeNumber;

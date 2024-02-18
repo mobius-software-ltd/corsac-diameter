@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ TDF-Destination-Host ]
 		[ TDF-IP-Address ]
  */
-@DiameterAvpDefinition(code = 1087L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "TDF-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.TDF_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "TDF-Information")
 public interface TDFInformation extends DiameterAvp
 {
 	String getTDFDestinationRealm();

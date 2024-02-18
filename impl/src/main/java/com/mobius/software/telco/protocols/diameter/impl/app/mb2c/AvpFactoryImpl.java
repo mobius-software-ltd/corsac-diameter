@@ -18,10 +18,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.mb2c.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AllocationRetentionPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.ConditionalAPNAggregateMaxBitrateImpl;
@@ -89,12 +90,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
 	
-	public TMGIExpiry getTMGIExpiry(List<ByteBuf> tmgi)
+	public TMGIExpiry getTMGIExpiry(List<ByteBuf> tmgi) throws MissingAvpException
 	{
 		return new TMGIExpiryImpl(tmgi);
 	}
@@ -104,12 +105,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new MBMSBearerEventImpl();
 	}
 	
-	public MBMSBearerEventNotification getMBMSBearerEventNotification(ByteBuf tmgi,ByteBuf mbmsFlowIdentifier,MBMSBearerEvent mbmsBearerEvent)
+	public MBMSBearerEventNotification getMBMSBearerEventNotification(ByteBuf tmgi,ByteBuf mbmsFlowIdentifier,MBMSBearerEvent mbmsBearerEvent) throws MissingAvpException
 	{
 		return new MBMSBearerEventNotificationImpl(tmgi, mbmsFlowIdentifier, mbmsBearerEvent);
 	}
 	
-	public MBMSBearerRequest getMBMSBearerRequest(MBMSStartStopIndicationEnum mbmsStartStopIndication)
+	public MBMSBearerRequest getMBMSBearerRequest(MBMSStartStopIndicationEnum mbmsStartStopIndication) throws MissingAvpException
 	{
 		return new MBMSBearerRequestImpl(mbmsStartStopIndication);
 	}
@@ -124,7 +125,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new MBMSBearerResultImpl();
 	}
 	
-	public TMGIAllocationRequest getTMGIAllocationRequest(Long tmgiNumber)
+	public TMGIAllocationRequest getTMGIAllocationRequest(Long tmgiNumber) throws MissingAvpException
 	{
 		return new TMGIAllocationRequestImpl(tmgiNumber);
 	}
@@ -139,7 +140,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new TMGIDeallocationRequestImpl();
 	}
 	
-	public TMGIDeallocationResponse getTMGIDeallocationResponse(List<ByteBuf> tmgi)
+	public TMGIDeallocationResponse getTMGIDeallocationResponse(List<ByteBuf> tmgi) throws MissingAvpException
 	{
 		return new TMGIDeallocationResponseImpl(tmgi);
 	}
@@ -159,7 +160,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new QoSInformationImpl();
 	}
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel)
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException
 	{
 		return new AllocationRetentionPriorityImpl(priorityLevel);
 	}
@@ -174,7 +175,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new UserplaneProtocolResultImpl();
 	}
 	
-	public FlowDescription getFlowDescription(String rule) throws ParseException
+	public FlowDescription getFlowDescription(String rule) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(rule, null, null);				
 	}
@@ -182,12 +183,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, null, null);
 	}
 	
-	public ROHCRequest getROHCRequest(List<FlowDescription> flowDescription,Long rohcProfile)
+	public ROHCRequest getROHCRequest(List<FlowDescription> flowDescription,Long rohcProfile) throws MissingAvpException
 	{
 		return new ROHCRequestImpl(flowDescription, rohcProfile);
 	}

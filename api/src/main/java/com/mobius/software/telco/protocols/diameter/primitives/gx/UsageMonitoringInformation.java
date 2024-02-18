@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
 
@@ -56,7 +58,7 @@ import io.netty.buffer.ByteBuf;
 			[ Usage-Monitoring-Support ]
 		*	[ AVP ]
  */
-@DiameterAvpDefinition(code = 1067L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Usage-Monitoring-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.USAGE_MONITORING_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Usage-Monitoring-Information")
 public interface UsageMonitoringInformation extends DiameterGroupedAvp
 {
 	ByteBuf getMonitoringKey();
@@ -65,11 +67,11 @@ public interface UsageMonitoringInformation extends DiameterGroupedAvp
 	
 	List<GrantedServiceUnit> getGrantedServiceUnit();
 	
-	void setGrantedServiceUnit(List<GrantedServiceUnit> value);	
+	void setGrantedServiceUnit(List<GrantedServiceUnit> value) throws AvpOccursTooManyTimesException;	
 	
 	List<UsedServiceUnit> getUsedServiceUnit();
 	
-	void setUsedServiceUnit(List<UsedServiceUnit> value);	
+	void setUsedServiceUnit(List<UsedServiceUnit> value) throws AvpOccursTooManyTimesException;	
 	
 	Long getQuotaConsumptionTime();
 	

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.P2PFeatures;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.P2PFeatures;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3809L, vendorId = KnownVendorIDs.TGPP_ID)
 public class P2PFeaturesImpl extends DiameterBitmask32Impl implements P2PFeatures
 {
 	public P2PFeaturesImpl()
@@ -44,7 +41,7 @@ public class P2PFeaturesImpl extends DiameterBitmask32Impl implements P2PFeature
 	@Override
 	public void setGroupOwnerIndicationBit(boolean isOn)
 	{
-		setBit(GROUP_OWNER_INDICATION_BIT, isOn);
+		setBitUnchecked(GROUP_OWNER_INDICATION_BIT, isOn);
 	}
 
 	@Override

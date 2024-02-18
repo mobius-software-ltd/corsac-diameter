@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gmb;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -72,7 +74,7 @@ import io.netty.buffer.ByteBuf;
 	The Framed-IP-Address AVP contains the IPv4 multicast address identifying the MBMS bearer service.
 	The Called-Station-Id AVP contains the Access Point Name (APN) on which the MBMS bearer service authorisation request was received.
  */
-@DiameterCommandDefinition(applicationId = 16777223, commandCode = 265, request = true, proxyable = true, name="AA-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GMB, commandCode = CommandCodes.AAA, request = true, proxyable = true, name="AA-Request")
 public interface AARequest extends AuthenticationRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();

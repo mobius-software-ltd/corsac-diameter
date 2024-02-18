@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -41,12 +43,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                     [ SIP-Reason-Info ]
                                   * [ AVP ]                            
  */
-@DiameterAvpDefinition(code = 383L, vendorId = -1L, name = "SIP-Deregistration-Reason")
+@DiameterAvpDefinition(code = AvpCodes.SIP_DEREGISTRATION_REASON, vendorId = -1L, name = "SIP-Deregistration-Reason")
 public interface SIPDeregistrationReason extends DiameterGroupedAvp
 {
 	SIPReasonCodeEnum getSIPReasonCode();
 	
-	void setSIPReasonCode(SIPReasonCodeEnum value);	
+	void setSIPReasonCode(SIPReasonCodeEnum value) throws MissingAvpException;	
 	
 	String getSIPReasonInfo();
 	

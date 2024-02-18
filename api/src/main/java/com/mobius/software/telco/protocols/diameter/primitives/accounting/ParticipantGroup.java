@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Participant-Access-Priority ]
 		[ User-Participating-Type ]
  */
-@DiameterAvpDefinition(code = 1260L, vendorId = KnownVendorIDs.TGPP_ID, name = "Participant-Group")
+@DiameterAvpDefinition(code = TgppAvpCodes.PARTICIPANT_GROUP, vendorId = VendorIDs.TGPP_ID, name = "Participant-Group")
 public interface ParticipantGroup extends DiameterAvp
 {
 	String getCalledPartyAddress();

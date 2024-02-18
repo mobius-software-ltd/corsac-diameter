@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.RRCCounterTimestamp;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.RRCCounterTim
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4320L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RRCCounterTimestampImpl extends DiameterTimeImpl implements RRCCounterTimestamp
 {
 	protected RRCCounterTimestampImpl()

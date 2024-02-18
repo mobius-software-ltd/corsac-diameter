@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CalledIMEI;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CallingIMEI;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.DCS;
@@ -55,7 +53,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20400L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class P2PSMSInformationImpl implements P2PSMSInformation 
 {
 	private SmsType smsType;

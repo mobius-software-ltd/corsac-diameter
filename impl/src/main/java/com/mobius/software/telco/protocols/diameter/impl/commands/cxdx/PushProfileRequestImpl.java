@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.PushProfileRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -42,7 +45,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 305, request = true)
 public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements PushProfileRequest
 {
 	private UserData sipUserData;
@@ -58,7 +60,7 @@ public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements P
 		super();
 	}
 	
-	public PushProfileRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String username)
+	public PushProfileRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String username) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -66,19 +68,12 @@ public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements P
 	}
 	
 	@Override
-	public void setUsername(String value)
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Username is required");
+			throw new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
-		try
-		{
-			super.setUsername(value);
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		super.setUsername(value);		
 	}
 	
 	@Override
@@ -132,17 +127,10 @@ public class PushProfileRequestImpl extends CxDxRequestWithHostBase implements P
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getUsername() == null)
-				return "Username is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		if(username == null)
+			return new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		return super.validate();
 	}

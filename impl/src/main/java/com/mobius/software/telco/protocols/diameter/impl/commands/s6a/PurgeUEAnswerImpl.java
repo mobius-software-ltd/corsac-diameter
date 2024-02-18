@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.PurgeUEAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -37,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.PUAFlags;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 321, request = false)
 public class PurgeUEAnswerImpl extends S6aAnswerImpl implements PurgeUEAnswer
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -54,7 +54,7 @@ public class PurgeUEAnswerImpl extends S6aAnswerImpl implements PurgeUEAnswer
 		setExperimentalResultAllowed(false);
 	}
 	
-	public PurgeUEAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public PurgeUEAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

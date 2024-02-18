@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2G-AND-3G (2)
 	The MBMS bearer service shall be delivered both in 2G and 3G coverage areas.
  */
-@DiameterAvpDefinition(code = 907L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-2G-3G-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_2G_3G_NDICATOR, vendorId = VendorIDs.TGPP_ID, name = "MBMS-2G-3G-Indicator")
 public interface MBMS2G3GIndicator extends DiameterEnumerated<MBMS2G3GIndicatorEnum>
 {
 }

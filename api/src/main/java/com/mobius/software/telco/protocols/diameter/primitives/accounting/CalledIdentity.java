@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	E.164, etc.) of the called party after a change.
 	The address is obtained from the From SIP header field of a SIP UPDATE request or SIP RE-INVITE request. 
  */
-@DiameterAvpDefinition(code = 3916L, vendorId = KnownVendorIDs.TGPP_ID, name = "Called-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.CALLED_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "Called-Identity")
 public interface CalledIdentity extends DiameterUTF8String
 {
 }

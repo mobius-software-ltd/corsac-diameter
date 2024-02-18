@@ -22,6 +22,8 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
@@ -97,7 +99,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777236, commandCode = 265, request = true, proxyable = true, name="AA-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.AAA, request = true, proxyable = true, name="AA-Request")
 public interface AARequest extends RxRequest
 {	
 	public ByteBuf getIPDomainId();

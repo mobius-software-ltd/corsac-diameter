@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 
       "2001:db8::/32 :: 1"
  */
-@DiameterAvpDefinition(code = 99L, vendorId = -1L, name = "Framed-IPv6-Route")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_IPV6_ROUTE, vendorId = -1L, name = "Framed-IPv6-Route")
 public interface FramedIPv6Route extends DiameterUTF8String
 {
 }

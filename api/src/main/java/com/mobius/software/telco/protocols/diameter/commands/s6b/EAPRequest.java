@@ -21,7 +21,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6b;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
@@ -65,12 +68,12 @@ import io.netty.buffer.ByteBuf;
 			...
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777272, commandCode = 268, request = true, proxyable = true, name="Diameter-EAP-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6B, commandCode = CommandCodes.EAP, request = true, proxyable = true, name="Diameter-EAP-Request")
 public interface EAPRequest extends S6bRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	RATTypeEnum getRATType();
 	
@@ -82,7 +85,7 @@ public interface EAPRequest extends S6bRequest
 	
 	ByteBuf getEAPPayload();
 	
-	void setEAPPayload(ByteBuf value);	
+	void setEAPPayload(ByteBuf value) throws MissingAvpException;	
 	
 	Long getMIP6FeatureVector();
 	

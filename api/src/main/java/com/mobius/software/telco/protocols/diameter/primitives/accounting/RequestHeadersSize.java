@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Request-Headers-Size AVP (AVP Code 1016) is of type Unsigned32 and represents the number of bytes 
 	in the control information header in the Request.
  */
-@DiameterAvpDefinition(code = 1016L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Request-Headers-Size")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.REQUEST_HEADER_SIZE, vendorId = VendorIDs.ONEM2M_ID, name = "Request-Headers-Size")
 public interface RequestHeadersSize extends DiameterUnsigned32
 {
 }

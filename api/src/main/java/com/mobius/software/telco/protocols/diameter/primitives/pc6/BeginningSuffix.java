@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.69	Beginning-Suffix 
 	The Beginning-Suffix AVP is of type OctetString. This AVP shall contain the lowest ProSe Restricted Code Suffix in a consecutive sequence of ProSe Restricted Code suffixes, or the lowest ProSe Application Code Suffix in a consecutive sequence of ProSe Application Code Suffixes. The format of ProSe Restricted Code Suffix or ProSe Application Code Suffix is defined in 3GPP TS 23.003 [4]. The size of this suffix shall align with octet boundary.
  */
-@DiameterAvpDefinition(code = 3848L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Beginning-Suffix")
+@DiameterAvpDefinition(code = TgppAvpCodes.BEGINING_SUFFIX, vendorId = VendorIDs.TGPP_ID, must = false, name = "Beginning-Suffix")
 public interface BeginningSuffix extends DiameterOctetString
 {
 }

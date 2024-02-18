@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s6m;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -39,7 +40,7 @@ public abstract interface S6mRequest extends DiameterRequest
 	
 	public AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 
 	public List<SupportedFeatures> getSupportedFeatures();
 	 

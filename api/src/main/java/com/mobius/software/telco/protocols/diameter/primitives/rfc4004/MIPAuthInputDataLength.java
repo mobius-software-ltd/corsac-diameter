@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	used to determine whether the Authenticator Data supplied by the
    	mobile node is valid..  	   
  */
-@DiameterAvpDefinition(code = 338L, vendorId = -1, name = "MIP-Auth-Input-Data-Length")
+@DiameterAvpDefinition(code = AvpCodes.MIP_AUTH_INPUT_DATA_LENGTH, vendorId = -1, name = "MIP-Auth-Input-Data-Length")
 public interface MIPAuthInputDataLength extends DiameterUnsigned32
 {
 }

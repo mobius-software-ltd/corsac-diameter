@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.65	Linear-Distance
 	The Linear-Distance AVP is of type Unsigned32 and it contains the minimum linear (straight line) distance for motion event reports, in meters. The minimum value shall be 1 and maximum value shall be 10,000. The Linear-Distance AVP is only applicable to a deferred EPC-MT-LR. 
  */
-@DiameterAvpDefinition(code = 2560L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Linear-Distance")
+@DiameterAvpDefinition(code = TgppAvpCodes.LINEAR_DISTANCE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Linear-Distance")
 public interface LinearDistance extends DiameterUnsigned32
 {
 }

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProt
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 408L, vendorId = -1L)
 public class OriginAAAProtocolImpl extends DiameterEnumeratedImpl<OriginAAAProtocolEnum> implements OriginAAAProtocol
 {
 	protected OriginAAAProtocolImpl() 

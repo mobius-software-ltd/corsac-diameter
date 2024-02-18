@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE: The maximum number of packet filters sent to UE is limited by the IP-CAN type. See access specific
 	annexes. 
  */
-@DiameterAvpDefinition(code = 1072L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Usage")
+@DiameterAvpDefinition(code = TgppAvpCodes.PACKET_FILTER_USAGE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Usage")
 public interface PacketFilterUsage extends DiameterEnumerated<PacketFilterUsageEnum>
 {
 }

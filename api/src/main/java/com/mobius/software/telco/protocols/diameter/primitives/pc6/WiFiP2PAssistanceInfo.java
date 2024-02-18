@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -45,7 +46,7 @@ import io.netty.buffer.ByteBuf;
 		 [ Assistance-Info-Validity-Timer ]
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 3819L, vendorId = KnownVendorIDs.TGPP_ID, name = "WiFi-P2P-Assistance-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.WIFI_P2P_ASSISTANCE_INFO, vendorId = VendorIDs.TGPP_ID, name = "WiFi-P2P-Assistance-Info")
 public interface WiFiP2PAssistanceInfo extends DiameterGroupedAvp
 {
 	String getSSID();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.2	BMSC‑Address AVP
 	The BMSC‑Address AVP (AVP code 3500) is of type Address and indicates the IP address where the BM‑SC wants to receive user data via the MB2‑U interface.
  */
-@DiameterAvpDefinition(code = 3500L, vendorId = KnownVendorIDs.TGPP_ID, name = "BMSC‑Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.BMSC_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "BMSC‑Address")
 public interface BMSCAddress extends DiameterAddress
 {
 }

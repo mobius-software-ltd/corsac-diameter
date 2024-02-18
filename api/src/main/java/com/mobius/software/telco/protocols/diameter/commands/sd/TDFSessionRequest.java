@@ -23,8 +23,11 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagExtensionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
@@ -115,7 +118,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777303, commandCode = 8388637, request = true, proxyable = true, name="TS-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SD, commandCode = CommandCodes.TDF_SESSION, request = true, proxyable = true, name="TS-Request")
 public interface TDFSessionRequest extends VendorSpecificRequest
 {
 	DRMPEnum getDRMP();
@@ -168,7 +171,7 @@ public interface TDFSessionRequest extends VendorSpecificRequest
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	ByteBuf getTGPPSGSNAddress();
 	

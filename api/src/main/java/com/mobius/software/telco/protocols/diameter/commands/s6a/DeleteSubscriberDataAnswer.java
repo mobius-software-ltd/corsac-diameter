@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSAFlags;
 
@@ -48,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSAFlags;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 320, request = false, proxyable = true, name="Delete-Subscriber-Data-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.DELETE_SUBSCRIBER_DATA, request = false, proxyable = true, name="Delete-Subscriber-Data-Answer")
 public interface DeleteSubscriberDataAnswer extends S6aAnswer
 {
 	DSAFlags getDSAFlags();

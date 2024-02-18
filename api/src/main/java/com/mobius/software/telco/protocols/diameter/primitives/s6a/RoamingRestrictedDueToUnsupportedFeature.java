@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Roaming-Restricted-Due-To-Unsupported-Feature (0)
  */
-@DiameterAvpDefinition(code = 1457L, vendorId = KnownVendorIDs.TGPP_ID, name = "Roaming-Restricted-Due-To-Unsupported-Feature")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROAMING_RESTICTED_DUE_TO_UNSUPPORTED_FEATURE, vendorId = VendorIDs.TGPP_ID, name = "Roaming-Restricted-Due-To-Unsupported-Feature")
 public interface RoamingRestrictedDueToUnsupportedFeature extends DiameterEnumerated<RoamingRestrictedDueToUnsupportedFeatureEnum>
 {
 }

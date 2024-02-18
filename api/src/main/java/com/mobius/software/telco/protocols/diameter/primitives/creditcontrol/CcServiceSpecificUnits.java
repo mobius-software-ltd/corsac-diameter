@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
    Identifier AVP (or Rating-Group AVP when the Multiple-Services-
    Credit-Control AVP is used).
  */
-@DiameterAvpDefinition(code = 417L, vendorId = -1L, name = "Cc-Service-Specific-Units")
+@DiameterAvpDefinition(code = AvpCodes.CC_SERVICE_SPECIFIC_UNITS, vendorId = -1L, name = "Cc-Service-Specific-Units")
 public interface CcServiceSpecificUnits extends DiameterUnsigned64
 {
 }

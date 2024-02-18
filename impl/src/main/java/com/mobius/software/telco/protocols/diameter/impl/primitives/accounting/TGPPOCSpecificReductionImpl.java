@@ -21,10 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683.OCReductionPercentageImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCRatingGroup;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCRequestTypeEnum;
@@ -36,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReducti
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1320L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TGPPOCSpecificReductionImpl extends DiameterGroupedAvpImpl implements TGPPOCSpecificReduction
 {
 	private List<TGPPOCRatingGroup> tgppOCRatingGroup;

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	DELETED (1)
 	The value DELETED (1) indicates that the event corresponds to the deletion of a PDN Connection on the monitored APN.
  */
-@DiameterAvpDefinition(code = 3182L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PDN-Connectivity-Status-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDN_CONNECTIVITY_STATUS_TYPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "PDN-Connectivity-Status-Type")
 public interface PDNConnectivityStatusType extends DiameterEnumerated<PDNConnectivityStatusTypeEnum>
 {
 }

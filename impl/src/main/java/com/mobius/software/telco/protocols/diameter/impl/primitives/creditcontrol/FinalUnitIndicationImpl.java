@@ -19,11 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FilterIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitAction;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
@@ -36,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FilterId;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 430L, vendorId = -1)
 public class FinalUnitIndicationImpl implements FinalUnitIndication
 {
 	private FinalUnitAction finalUnitAction;
@@ -47,17 +49,14 @@ public class FinalUnitIndicationImpl implements FinalUnitIndication
 	
 	private RedirectServer redirectServer;
 	
-	protected FinalUnitIndicationImpl()
+	public FinalUnitIndicationImpl()
 	{
 		
 	}
 	
-	public FinalUnitIndicationImpl(FinalUnitActionEnum finalUnitAction, List<RestrictionFilterRule> restrictionFilterRule, List<String> filterId, RedirectServer redirectServer)
+	public FinalUnitIndicationImpl(FinalUnitActionEnum finalUnitAction) throws MissingAvpException
 	{
-		if(finalUnitAction==null)
-			throw new IllegalArgumentException("Final-Unit-Action is required");		
-
-		this.finalUnitAction = new FinalUnitActionImpl(finalUnitAction, null, null);
+		setFinalUnitAction(finalUnitAction);
 	}
 	
 	public FinalUnitActionEnum getFinalUnitAction()
@@ -68,11 +67,11 @@ public class FinalUnitIndicationImpl implements FinalUnitIndication
 		return finalUnitAction.getEnumerated(FinalUnitActionEnum.class);
 	}
 	
-	public void setFinalUnitAction(FinalUnitActionEnum value)
+	public void setFinalUnitAction(FinalUnitActionEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Final-Unit-Action is required");		
-		
+			throw new MissingAvpException("Final-Unit-Action is required", Arrays.asList(new DiameterAvp[] { new FinalUnitActionImpl() }));
+			
 		this.finalUnitAction = new FinalUnitActionImpl(value, null, null);
 	}
 	
@@ -121,10 +120,10 @@ public class FinalUnitIndicationImpl implements FinalUnitIndication
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(finalUnitAction==null)
-			return "Final-Unit-Action is required";
+			return new MissingAvpException("Final-Unit-Action is required", Arrays.asList(new DiameterAvp[] { new FinalUnitActionImpl() }));
 		
 		return null;
 	}

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 
 /**
@@ -44,12 +46,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 
 	The Serving-Node refers to the node where the UE has moved to and shall be included, if available.
  */
-@DiameterAvpDefinition(code = 2547L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Deferred-MT-LR-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.DEFERRED_MT_LR_DATA, vendorId = VendorIDs.TGPP_ID, must = false, name = "Deferred-MT-LR-Data")
 public interface DeferredMTLRData extends DiameterGroupedAvp
 {
 	DeferredLocationType getDeferredLocationType();
 	
-	void setDeferredLocationType(DeferredLocationType value);
+	void setDeferredLocationType(DeferredLocationType value) throws MissingAvpException;
 	
 	Long getTerminationCause();
 	

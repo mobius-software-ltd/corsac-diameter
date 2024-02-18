@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5779;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5779.MobileNodeIdentifier;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5779.MobileNod
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 506L, vendorId = -1L)
 public class MobileNodeIdentifierImpl extends DiameterUTF8StringImpl implements MobileNodeIdentifier
 {
 	protected MobileNodeIdentifierImpl()

@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeProximityRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LocationEstimateImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.PRRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetedEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TimeWindowImpl;
@@ -46,7 +50,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388672, request = true)
 public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSeProximityRequest
 {
 	private PRRFlags prrFlags;
@@ -67,7 +70,7 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 		super();
 	}
 	
-	public ProSeProximityRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,PRRFlags prrFlags,String requestingEPUID,String targetedEPUID,Long timeWindow,ByteBuf locationEstimate)
+	public ProSeProximityRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,PRRFlags prrFlags,String requestingEPUID,String targetedEPUID,Long timeWindow,ByteBuf locationEstimate) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -89,11 +92,11 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 	}
 	
 	@Override	
-	public void setPRRFlags(PRRFlags value)
+	public void setPRRFlags(PRRFlags value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("PRR-Flags is required");
-		
+			throw new MissingAvpException("PRR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new PRRFlagsImpl() }));
+			
 		this.prrFlags = value;
 	}
 	
@@ -107,10 +110,10 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 	}
 	
 	@Override	
-	public void setRequestingEPUID(String value)
+	public void setRequestingEPUID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Requesting-EPUID is required");
+			throw new MissingAvpException("Requesting-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new RequestingEPUIDImpl() }));
 		
 		this.requestingEPUID = new RequestingEPUIDImpl(value, null, null);
 	}
@@ -125,10 +128,10 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 	}
 	
 	@Override	
-	public void setTargetedEPUID(String value)
+	public void setTargetedEPUID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Targeted-EPUID is required");
+			throw new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		this.targetedEPUID = new TargetedEPUIDImpl(value, null, null);
 	}
@@ -143,10 +146,10 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 	}
 	
 	@Override	
-	public void setTimeWindow(Long value)
+	public void setTimeWindow(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Time-Window is required");
+			throw new MissingAvpException("Time-Window is required is required", Arrays.asList(new DiameterAvp[] { new TimeWindowImpl() }));
 		
 		this.timeWindow = new TimeWindowImpl(value, null, null);
 	}
@@ -161,10 +164,10 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 	}
 	
 	@Override	
-	public void setLocationEstimate(ByteBuf value)
+	public void setLocationEstimate(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Location-Estimate is required");
+			throw new MissingAvpException("Location-Estimate is required is required", Arrays.asList(new DiameterAvp[] { new LocationEstimateImpl() }));
 		
 		this.locationEstimate = new LocationEstimateImpl(value, null, null);
 	}
@@ -182,22 +185,22 @@ public class ProSeProximityRequestImpl extends Pc6RequestImpl implements ProSePr
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(prrFlags == null)
-			return "PRR-Flags is required";
+			return new MissingAvpException("PRR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new PRRFlagsImpl() }));
 		
 		if(requestingEPUID == null)
-			return "Requesting-EPUID is required";
+			return new MissingAvpException("Requesting-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new RequestingEPUIDImpl() }));
 		
 		if(targetedEPUID == null)
-			return "Targeted-EPUID is required";
+			return new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		if(timeWindow == null)
-			return "Time-Window is required";
+			return new MissingAvpException("Time-Window is required is required", Arrays.asList(new DiameterAvp[] { new TimeWindowImpl() }));
 		
 		if(locationEstimate == null)
-			return "Location-Estimate is required";
+			return new MissingAvpException("Location-Estimate is required is required", Arrays.asList(new DiameterAvp[] { new LocationEstimateImpl() }));
 		
 		return super.validate();
 	}	

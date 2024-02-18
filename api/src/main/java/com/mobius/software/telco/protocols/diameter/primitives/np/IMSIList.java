@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -68,7 +69,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	In the above figure showing an example of encoding, it is assumed that n IMSIs are included in the IMSI-List AVP. The digit length of IMSI-1, IMSI-2, IMSI-3 and IMSI-n are 15, 14, 14, 15 respectively. 
 */
-@DiameterAvpDefinition(code = 4009L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMSI-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMSI_LIST, vendorId = VendorIDs.TGPP_ID, name = "IMSI-List")
 public interface IMSIList extends DiameterOctetString
 {
 }

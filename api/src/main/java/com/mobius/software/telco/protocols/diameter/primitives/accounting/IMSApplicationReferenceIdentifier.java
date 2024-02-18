@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Editor's Note: The SIP parameter from which the IMS Application Reference ID (IARI) is to be extracted requires
 	further investigation in CT1. A mechanism to identify the IARI in use is FFS. 
  */
-@DiameterAvpDefinition(code = 2601L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Application-Reference-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMS_APPLICATION_REFERENCE_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "IMS-Application-Reference-Identifier")
 public interface IMSApplicationReferenceIdentifier extends DiameterUTF8String
 {
 }

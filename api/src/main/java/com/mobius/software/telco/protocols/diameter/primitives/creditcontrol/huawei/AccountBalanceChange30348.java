@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	-
  */
-@DiameterAvpDefinition(code = 20351L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Account-Balance-Change")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACCOUNT_BALANCE_CHANGE_30348, vendorId = VendorIDs.HUAWEI_ID, name = "Account-Balance-Change")
 public interface AccountBalanceChange30348 extends DiameterInteger64
 {
 }

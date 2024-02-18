@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Restoration-Priority AVP is of type Unsigned32. It shall indicate the relative priority of a user's PDN connection among PDN connections to the same APN when restoring PDN connections affected by an SGW or PGW failure/restart (see 3GPP TS 23.007 [43]).
 	Values 1 to 16 are defined, with value 1 as the highest level of priority.
  */
-@DiameterAvpDefinition(code = 1663L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Event-Threshold-Event-1I")
+@DiameterAvpDefinition(code = TgppAvpCodes.RESTORATION_PRIORITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "Event-Threshold-Event-1I")
 public interface RestorationPriority extends DiameterUnsigned32
 {
 }

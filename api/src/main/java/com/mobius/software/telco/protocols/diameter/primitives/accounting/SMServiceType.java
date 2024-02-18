@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The SM-Service-Type AVP shall be present if the SM-Message-Type AVP has value 2, SM Service Request.
  */
-@DiameterAvpDefinition(code = 2029L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Service-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_SERVICE_TYPE, vendorId = VendorIDs.TGPP_ID, name = "SM-Service-Type")
 public interface SMServiceType extends DiameterEnumerated<SMServiceTypeEnum>
 {
 }

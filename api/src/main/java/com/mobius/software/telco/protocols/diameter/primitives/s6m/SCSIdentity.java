@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The encoding of the SCS-Identity AVP is defined per SCS service.
 	For the device triggering service, the SCS-Identity AVP shall contain the ISDN number of the SCS in international ISDN number format as described in ITU-T Rec E.164 [41]. It shall be encoded as a TBCD-string. See 3GPP TS 29.002 [24] for encoding of TBCD-strings. This AVP shall not include leading indicators for the nature of address and the numbering plan. 
  */
-@DiameterAvpDefinition(code = 3104L, vendorId = KnownVendorIDs.TGPP_ID, name = "SCS-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCI_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "SCS-Identity")
 public interface SCSIdentity extends DiameterOctetString
 {
 }

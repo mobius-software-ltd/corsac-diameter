@@ -1,13 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc2;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Request;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingRPAUIDImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.BannedUserTarget;
@@ -55,7 +60,7 @@ public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase i
 		setDestinationHostAllowed(true);
 	}
 		
-	public Pc2RequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
+	public Pc2RequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
 		setDestinationHostAllowed(true);
@@ -75,10 +80,10 @@ public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase i
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
@@ -93,10 +98,10 @@ public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase i
 	}
 
 	@Override
-	public void setProSeRequestType(ProSeRequestTypeEnum value) 
+	public void setProSeRequestType(ProSeRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(proSeRequestType==null)
-			throw new IllegalArgumentException("ProSe-Request-Type is required");
+			throw new MissingAvpException("ProSe-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ProSeRequestTypeImpl() }));
 		
 		this.proSeRequestType = new ProSeRequestTypeImpl(value, null, null);
 	}
@@ -132,13 +137,13 @@ public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase i
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		if(proSeRequestType==null)
-			return "ProSe-Request-Type is required";
+			return new MissingAvpException("ProSe-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ProSeRequestTypeImpl() }));
 		
 		return super.validate();
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.71	Reporting-Time-Stamp
 	The Reporting-Time-Stamp AVP is of type Time (see IETF RFC 6733 [23]), and contains the point of time when the report was generated.
  */
-@DiameterAvpDefinition(code = 3175L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Reporting-Time-Stamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPORTING_TIMESTAMP, vendorId = VendorIDs.TGPP_ID,must = false, name = "Reporting-Time-Stamp")
 public interface ReportingTimeStamp extends DiameterTime
 {
 }

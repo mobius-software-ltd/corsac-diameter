@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAlgorithm;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAlgorithmEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CHAPAuth;
@@ -34,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 402L, vendorId = -1L)
 public class CHAPAuthImpl extends DiameterGroupedAvpImpl implements CHAPAuth
 {
 	private CHAPAlgorithm chapAlgorithm;
@@ -48,22 +51,11 @@ public class CHAPAuthImpl extends DiameterGroupedAvpImpl implements CHAPAuth
 		super();
 	}
 	
-	public CHAPAuthImpl(CHAPAlgorithmEnum chapAlgorithm, ByteBuf chapIdent, ByteBuf chapResponse)
+	public CHAPAuthImpl(CHAPAlgorithmEnum chapAlgorithm, ByteBuf chapIdent) throws MissingAvpException
 	{
-		super();
+		setCHAPAlgorithm(chapAlgorithm);
 		
-		if(chapAlgorithm==null)
-			throw new IllegalArgumentException("CHAP-Algorithm is required");
-		
-		if(chapIdent==null)
-			throw new IllegalArgumentException("CHAP-Ident is required");
-		
-		this.chapAlgorithm = new CHAPAlgorithmImpl(chapAlgorithm, null, null);
-		
-		this.chapIdent = new CHAPIdentImpl(chapIdent, null, null);
-		
-		if(chapResponse!=null)
-			this.chapResponse = new CHAPResponseImpl(chapResponse, null, null);			
+		setCHAPIdent(chapIdent);
 	}
 	
 	public CHAPAlgorithmEnum getCHAPAlgorithm() 
@@ -74,10 +66,10 @@ public class CHAPAuthImpl extends DiameterGroupedAvpImpl implements CHAPAuth
 		return chapAlgorithm.getEnumerated(CHAPAlgorithmEnum.class);
 	}
 	
-	public void setCHAPAlgorithm(CHAPAlgorithmEnum value)
+	public void setCHAPAlgorithm(CHAPAlgorithmEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CHAP-Algorithm is required");
+			throw new MissingAvpException("CHAP-Algorithm is required", Arrays.asList(new DiameterAvp[] { new CHAPAlgorithmImpl() }));
 		
 		this.chapAlgorithm = new CHAPAlgorithmImpl(value, null, null);		
 	}
@@ -90,10 +82,10 @@ public class CHAPAuthImpl extends DiameterGroupedAvpImpl implements CHAPAuth
 		return chapIdent.getValue();
 	}
 	
-	public void setCHAPIdent(ByteBuf value)
+	public void setCHAPIdent(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CHAP-Ident is required");
+			throw new MissingAvpException("CHAP-Ident is required", Arrays.asList(new DiameterAvp[] { new CHAPIdentImpl() }));
 		
 		this.chapIdent = new CHAPIdentImpl(value, null, null);
 	}
@@ -115,13 +107,13 @@ public class CHAPAuthImpl extends DiameterGroupedAvpImpl implements CHAPAuth
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(chapAlgorithm==null)
-			return "CHAP-Algorithm is required";
+			return new MissingAvpException("CHAP-Algorithm is required", Arrays.asList(new DiameterAvp[] { new CHAPAlgorithmImpl() }));
 		
 		if(chapIdent==null)
-			return "CHAP-Ident is required";
+			return new MissingAvpException("CHAP-Ident is required", Arrays.asList(new DiameterAvp[] { new CHAPIdentImpl() }));
 		
 		return null;
 	}

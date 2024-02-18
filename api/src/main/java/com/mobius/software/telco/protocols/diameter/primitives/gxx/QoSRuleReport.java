@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gxx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PCCRuleStatusEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RuleFailureCodeEnum;
 
@@ -51,7 +52,7 @@ import io.netty.buffer.ByteBuf;
 
 	Multiple instances of QoS-Rule-Report AVPs shall be used in the case it is required to report different PCC-Rule-Status or Rule-Failure-Code values for different rules within the same Diameter command. If the Content-Version AVP is included within a QoS-Rule-Report AVP, then only the one corresponding QoS-Rule-Name AVP shall be included.
  */
-@DiameterAvpDefinition(code = 1055L, vendorId = KnownVendorIDs.TGPP_ID, name = "QoS-Rule-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.QOS_RULE_REPORT, vendorId = VendorIDs.TGPP_ID, name = "QoS-Rule-Report")
 public interface QoSRuleReport extends DiameterGroupedAvp
 {
 	List<ByteBuf> getQoSRuleName();

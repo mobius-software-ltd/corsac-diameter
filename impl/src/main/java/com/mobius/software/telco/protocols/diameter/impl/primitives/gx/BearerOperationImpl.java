@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerOperation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerOperationEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerOperatio
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1021L, vendorId = KnownVendorIDs.TGPP_ID)
 public class BearerOperationImpl extends DiameterEnumeratedImpl<BearerOperationEnum> implements BearerOperation
 {
 	protected BearerOperationImpl()

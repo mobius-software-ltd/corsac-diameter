@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sh;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sh.ProfileUpdateRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.DataReferenceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UserDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -43,7 +46,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777217, commandCode = 307, request = true)
 public class ProfileUpdateRequestImpl extends ShRequestImpl implements ProfileUpdateRequest
 {
 	private List<DataReference> dataReference;
@@ -57,11 +59,12 @@ public class ProfileUpdateRequestImpl extends ShRequestImpl implements ProfileUp
 		super();
 	}
 	
-	public ProfileUpdateRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity, ByteBuf userData,List<DataReferenceEnum> dataReference)
+	public ProfileUpdateRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity, ByteBuf userData,List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState, userIdentity);		
 		
 		setUserData(userData);
+		
 		setDataReference(dataReference);
 	}
 	
@@ -77,10 +80,10 @@ public class ProfileUpdateRequestImpl extends ShRequestImpl implements ProfileUp
 		return result;
 	}
 	 
-	public void setDataReference(List<DataReferenceEnum> value)
+	public void setDataReference(List<DataReferenceEnum> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Data-Reference is required");
+			throw new MissingAvpException("Data-Reference is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
 			
 		this.dataReference = new ArrayList<DataReference>();
 		for(DataReferenceEnum curr:value)
@@ -95,10 +98,10 @@ public class ProfileUpdateRequestImpl extends ShRequestImpl implements ProfileUp
 		return userData.getValue();
 	}
 	
-	public void setUserData(ByteBuf value)
+	public void setUserData(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("User-Data is required");
+			throw new MissingAvpException("User-Data is required is required", Arrays.asList(new DiameterAvp[] { new UserDataImpl() }));
 			
 		this.userData = new UserDataImpl(value, null, null);
 	}
@@ -114,13 +117,13 @@ public class ProfileUpdateRequestImpl extends ShRequestImpl implements ProfileUp
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userData == null)
-			return "User-Data is required";
+			return new MissingAvpException("User-Data is required is required", Arrays.asList(new DiameterAvp[] { new UserDataImpl() }));
 		
 		if(dataReference == null || dataReference.size()==0)
-			return "Data-Reference is required";
+			return new MissingAvpException("Data-Reference is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
 		
 		return super.validate();
 	}

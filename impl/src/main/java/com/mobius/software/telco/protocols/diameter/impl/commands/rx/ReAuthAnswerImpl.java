@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rx.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceURNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -39,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777236, commandCode = 258, request = false)
 public class ReAuthAnswerImpl extends RxAnswerImpl implements ReAuthAnswer
 {
 	private List<MediaComponentDescription> mediaComponentDescription;
@@ -52,7 +52,7 @@ public class ReAuthAnswerImpl extends RxAnswerImpl implements ReAuthAnswer
 	{
 	}
 	
-	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 	}

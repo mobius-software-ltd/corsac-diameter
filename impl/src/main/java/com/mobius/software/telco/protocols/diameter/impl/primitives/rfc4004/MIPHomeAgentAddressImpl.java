@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentAddress;
 
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAg
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 334L, vendorId = -1L)
 public class MIPHomeAgentAddressImpl extends DiameterAddressImpl implements MIPHomeAgentAddress
 {
 	protected MIPHomeAgentAddressImpl() 

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Route-Header-Transmitted AVP (AVP code 3404) is of type UTF8String and includes the information in the route
 	header representing the destination in a transmitted initial SIP INVITE or non-session related SIP MESSAGE request. 
  */
-@DiameterAvpDefinition(code = 3404L, vendorId = KnownVendorIDs.TGPP_ID, name = "Route-Header-Transmitted")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTE_HEADER_TRANSMITTED, vendorId = VendorIDs.TGPP_ID, name = "Route-Header-Transmitted")
 public interface RouteHeaderTransmitted extends DiameterUTF8String
 {
 }

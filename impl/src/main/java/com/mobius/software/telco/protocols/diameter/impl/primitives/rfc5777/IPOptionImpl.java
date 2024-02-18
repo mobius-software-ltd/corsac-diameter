@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPOption;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPOptionType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPOptionTypeEnum;
@@ -36,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 537L, vendorId = -1L)
 public class IPOptionImpl extends DiameterGroupedAvpImpl implements IPOption
 {
 	private IPOptionType ipOptionType;
@@ -49,12 +52,9 @@ public class IPOptionImpl extends DiameterGroupedAvpImpl implements IPOption
 	{
 	}
 	
-	public IPOptionImpl(IPOptionTypeEnum ipOptionType)
+	public IPOptionImpl(IPOptionTypeEnum ipOptionType) throws MissingAvpException
 	{
-		if(ipOptionType==null)
-			throw new IllegalArgumentException("IP-Option-Type is required");
-		
-		this.ipOptionType = new IPOptionTypeImpl(ipOptionType, null, null);				
+		setIPOptionType(ipOptionType);
 	}
 	
 	public IPOptionTypeEnum getIPOptionType()
@@ -65,11 +65,11 @@ public class IPOptionImpl extends DiameterGroupedAvpImpl implements IPOption
 		return this.ipOptionType.getEnumerated(IPOptionTypeEnum.class);
 	}
 	
-	public void setIPOptionType(IPOptionTypeEnum value)
+	public void setIPOptionType(IPOptionTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("IP-Option-Type is required");
-		
+			throw new MissingAvpException("IP-Option-Type is required", Arrays.asList(new DiameterAvp[] { new IPOptionTypeImpl() }));
+			
 		this.ipOptionType = new IPOptionTypeImpl(value, null, null);	
 	}
 	
@@ -106,10 +106,10 @@ public class IPOptionImpl extends DiameterGroupedAvpImpl implements IPOption
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ipOptionType==null)
-			return "IP-Option-Type is required";
+			return new MissingAvpException("IP-Option-Type is required", Arrays.asList(new DiameterAvp[] { new IPOptionTypeImpl() }));
 		
 		return null;
 	}	

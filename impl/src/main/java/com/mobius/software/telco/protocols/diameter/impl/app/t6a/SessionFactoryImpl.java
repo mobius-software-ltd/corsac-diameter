@@ -26,6 +26,8 @@ import com.mobius.software.telco.protocols.diameter.commands.t6a.ConnectionManag
 import com.mobius.software.telco.protocols.diameter.commands.t6a.MODataRequest;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.MTDataRequest;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ReportingInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.t6a.ConfigurationInformationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.t6a.ConnectionManagementRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.t6a.MODataRequestImpl;
@@ -47,27 +49,27 @@ public class SessionFactoryImpl implements SessionFactory
 		this.idGenerator = idGenerator;
 	}
 	
-	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm)
+	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ConfigurationInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}			
 	
-	public ConnectionManagementRequest createConnectionManagementRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier)
+	public ConnectionManagementRequest createConnectionManagementRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ConnectionManagementRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, bearerIdentifier);
 	}
 	
-	public MODataRequest createMODataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier)
+	public MODataRequest createMODataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new MODataRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, bearerIdentifier);
 	}
 	
-	public MTDataRequest createMTDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier)
+	public MTDataRequest createMTDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new MTDataRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, bearerIdentifier);
 	}
 	
-	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm)
+	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ReportingInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCFeatureVector;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCFeature
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 622L, vendorId = -1L)
 public class OCFeatureVectorImpl extends DiameterUnsigned64Impl implements OCFeatureVector
 {
 	protected OCFeatureVectorImpl() 

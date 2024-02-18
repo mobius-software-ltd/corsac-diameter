@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CalledAssertedIdentity;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Called
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1250L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CalledAssertedIdentityImpl extends DiameterUTF8StringImpl implements CalledAssertedIdentity
 {
 	protected CalledAssertedIdentityImpl()

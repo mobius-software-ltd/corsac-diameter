@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Transaction ID, same as transaction ID in the CCR(initial).
  */
-@DiameterAvpDefinition(code = 20796L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Transaction-ID")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.TRANSACTION_ID_20796, vendorId = VendorIDs.HUAWEI_ID, name = "Transaction-ID")
 public interface TransactionId20796 extends DiameterUTF8String
 {
 }

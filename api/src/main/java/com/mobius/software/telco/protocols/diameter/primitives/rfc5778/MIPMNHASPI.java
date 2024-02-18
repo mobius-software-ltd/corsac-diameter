@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    Diameter server returns a valid MIP-MN-HA-MSA AVP in the MIA message,
    this AVP MUST be present inside the MIP-MN-HA-MSA AVP.	   
  */
-@DiameterAvpDefinition(code = 491L, vendorId = -1, name = "MIP-MN-AAA-SPI")
+@DiameterAvpDefinition(code = AvpCodes.MIP_MN_HA_SPI, vendorId = -1, name = "MIP-MN-AAA-SPI")
 public interface MIPMNHASPI extends DiameterUnsigned32
 {
 }

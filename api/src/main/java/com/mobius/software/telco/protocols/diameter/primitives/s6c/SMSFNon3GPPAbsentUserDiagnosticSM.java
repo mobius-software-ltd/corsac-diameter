@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.3.26	SMSF-Non-3GPP-Absent-User-Diagnostic-SM
 	The SMSF-Non-3GPP-Absent-User-Diagnostic-SM AVP is of type Unsigned32 and shall indicate the diagnostic explaining the absence of the user given by the SMSF registered for Non-3GPP access. The values are defined in 3GPP TS 23.040 [3] clause 3.3.2.
  */
-@DiameterAvpDefinition(code = 3335L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SMSF-Non-3GPP-Absent-User-Diagnostic-SM")
+@DiameterAvpDefinition(code = TgppAvpCodes.SMSF_NON_3GPP_ABSCENT_USER_DIAGNOSTIC_SM, vendorId = VendorIDs.TGPP_ID, must = false, name = "SMSF-Non-3GPP-Absent-User-Diagnostic-SM")
 public interface SMSFNon3GPPAbsentUserDiagnosticSM extends DiameterUnsigned32
 {
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -42,14 +44,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                           { Origin-Host }
                                         * [ AVP ]
  */
-@DiameterAvpDefinition(code = 347L, vendorId = -1L, name = "MIP-Originating-Foreign-AAA")
+@DiameterAvpDefinition(code = AvpCodes.MIP_ORIGINATING_FOREIGN_AAA, vendorId = -1L, name = "MIP-Originating-Foreign-AAA")
 public interface MIPOriginatingForeignAAA extends DiameterGroupedAvp
 {
 	String getOriginHost();
 	
-	void setOriginHost(String value);	
+	void setOriginHost(String value) throws MissingAvpException;	
 	
 	String getOriginRealm();
 	
-	void setOriginRealm(String value);		
+	void setOriginRealm(String value) throws MissingAvpException;		
 }

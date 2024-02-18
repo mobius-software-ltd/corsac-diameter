@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /**
@@ -54,18 +56,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
                                     { CC-Unit-Type }
                                     { Unit-Value }
  */
-@DiameterAvpDefinition(code = 457L, vendorId = -1, name = "G-S-U-Pool-Reference")
+@DiameterAvpDefinition(code = AvpCodes.GSU_POOL_REFERENCE, vendorId = -1, name = "G-S-U-Pool-Reference")
 public interface GSUPoolReference extends DiameterAvp 
 {
 	Long getGSUPoolIdentifier();
 	
-	void setGSUPoolIdentifier(Long gsuPoolIdentifier);
+	void setGSUPoolIdentifier(Long gsuPoolIdentifier) throws MissingAvpException;
 	
 	CcUnitTypeEnum getCCUnitType();
 	
-	void setCCUnitType(CcUnitTypeEnum ccUnitType);
+	void setCCUnitType(CcUnitTypeEnum ccUnitType) throws MissingAvpException;
 	
 	UnitValue getUnitValue();
 	
-	void setUnitValue(UnitValue unitValue);	
+	void setUnitValue(UnitValue unitValue) throws MissingAvpException;	
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	BROADCAST (1)
 	The Start Procedure signalled by the BM-SC is for a Broadcast Service.
  */
-@DiameterAvpDefinition(code = 906L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Service-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_SERVICE_TYPE, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Service-Type")
 public interface MBMSServiceType extends DiameterEnumerated<MBMSServiceTypeEnum>
 {
 }

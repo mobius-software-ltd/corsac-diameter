@@ -1,7 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swa;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.swa.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 
 /*
@@ -28,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777250, commandCode = 258, request = true)
 public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.sta.ReAuthRequestImpl implements ReAuthRequest
 {
 	protected ReAuthRequestImpl() 
@@ -36,7 +36,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 		super();
 	}
 		
-	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType)
+	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, reAuthRequestType);
 	}

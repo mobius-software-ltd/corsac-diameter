@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 import io.netty.buffer.ByteBuf;
@@ -61,7 +63,7 @@ import io.netty.buffer.ByteBuf;
                   * [ Proxy-Info ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 0, commandCode = 275, request = false, proxyable = true, name="Session-Termination-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.COMMON, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
 public interface SessionTerminationAnswer extends AuthenticationAnswer	
 {  
 	public List<ByteBuf> getDiameterClass();

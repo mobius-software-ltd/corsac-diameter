@@ -18,13 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.QuotaConsumptionTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.QuotaConsumptionTime;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
@@ -44,7 +46,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1067L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UsageMonitoringInformationImpl extends DiameterGroupedAvpImpl implements UsageMonitoringInformation
 {
 	private MonitoringKey monitoringKey;
@@ -81,10 +82,14 @@ public class UsageMonitoringInformationImpl extends DiameterGroupedAvpImpl imple
 		return grantedServiceUnit;
 	}
 	
-	public void setGrantedServiceUnit(List<GrantedServiceUnit> value)
+	public void setGrantedServiceUnit(List<GrantedServiceUnit> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 Granted-Service-Unit allowed");
+		{
+			List<DiameterAvp> failedAvps = new ArrayList<DiameterAvp>();
+			failedAvps.addAll(value);
+			throw new AvpOccursTooManyTimesException("Up to 2 Granted-Service-Unit allowed",failedAvps);
+		}
 		
 		this.grantedServiceUnit = value;
 	}
@@ -94,10 +99,14 @@ public class UsageMonitoringInformationImpl extends DiameterGroupedAvpImpl imple
 		return usedServiceUnit;
 	}
 	
-	public void setUsedServiceUnit(List<UsedServiceUnit> value)
+	public void setUsedServiceUnit(List<UsedServiceUnit> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 Used-Service-Unit allowed");
+		{
+			List<DiameterAvp> failedAvps = new ArrayList<DiameterAvp>();
+			failedAvps.addAll(value);
+			throw new AvpOccursTooManyTimesException("Up to 2 Used-Service-Unit allowed",failedAvps);
+		}
 		
 		this.usedServiceUnit = value;
 	}
@@ -167,13 +176,23 @@ public class UsageMonitoringInformationImpl extends DiameterGroupedAvpImpl imple
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(grantedServiceUnit!=null && grantedServiceUnit.size()>2)
-			return "Up to 2 Granted-Service-Unit allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(grantedServiceUnit);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 Granted-Service-Unit allowed", failedAvps);
+		}
 		
 		if(usedServiceUnit!=null && usedServiceUnit.size()>2)
-			return "Up to 2 Used-Service-Unit allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(usedServiceUnit);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 Used-Service-Unit allowed", failedAvps);
+		}
 		
 		return null;
 	}		  		  	  

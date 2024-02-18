@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.gqtag;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AARequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.AuthorizationPackageIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.LatchingIndicationImpl;
@@ -49,7 +50,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.ServiceClass;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777222, commandCode = 265, request = true)
 public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.gq.AARequestImpl implements AARequest
 {
 	protected BindingInformation bindingInformation;
@@ -73,7 +73,7 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 		super();
 	}
 	
-	public AARequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId)
+	public AARequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
 	}

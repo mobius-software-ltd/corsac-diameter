@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,14 +41,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The OCS may include this AVP in a Multiple-Services-Credit-Control AVP, when granting time quota. 
  */
-@DiameterAvpDefinition(code = 1270L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Quota-Mechanism")
+@DiameterAvpDefinition(code = TgppAvpCodes.TIME_QUOTA_MECHANISM, vendorId = VendorIDs.TGPP_ID, name = "Time-Quota-Mechanism")
 public interface TimeQuotaMechanism extends DiameterAvp
 {
 	TimeQuotaTypeEnum getTimeQuotaType();
 	
-	void setTimeQuotaType(TimeQuotaTypeEnum value);
+	void setTimeQuotaType(TimeQuotaTypeEnum value) throws MissingAvpException;
 	
 	Long getBaseTimeInterval();
 	
-	void setBaseTimeInterval(Long value);
+	void setBaseTimeInterval(Long value) throws MissingAvpException;
 }

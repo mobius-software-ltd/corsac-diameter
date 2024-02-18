@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Content-ID]
 		[ Content-provider-ID]
  */
-@DiameterAvpDefinition(code = 2115L, vendorId = KnownVendorIDs.TGPP_ID, name = "DCD-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.DCD_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "DCD-Information")
 public interface DCDInformation extends DiameterAvp
 {
 	String getContentID();

@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.nas;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nas.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAAAProtocolImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocol;
@@ -35,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProt
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 1, commandCode = 275, request = false)
 public class SessionTerminationAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.SessionTerminationAnswerImpl implements SessionTerminationAnswer
 {
 	private OriginAAAProtocol originAAAProtocol;
@@ -44,7 +44,7 @@ public class SessionTerminationAnswerImpl extends com.mobius.software.telco.prot
 	{
 	}
 	
-	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}

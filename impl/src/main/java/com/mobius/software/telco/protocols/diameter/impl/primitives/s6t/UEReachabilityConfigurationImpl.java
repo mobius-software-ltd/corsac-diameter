@@ -18,10 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.DLBufferingSuggestedPacketCountImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DLBufferingSuggestedPacketCount;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MaximumLatency;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MaximumResponseTime;
@@ -33,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.UEReachabilit
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3129L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UEReachabilityConfigurationImpl extends DiameterGroupedAvpImpl implements UEReachabilityConfiguration
 {
 	private ReachabilityType reachabilityType;

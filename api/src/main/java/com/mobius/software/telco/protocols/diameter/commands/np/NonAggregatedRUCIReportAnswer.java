@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.np.ConditionalRestriction;
@@ -67,7 +69,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
                 *[ Load ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777342, commandCode = 8388720, request = false, proxyable = true, name="Non-Aggregated-RUCI-Report-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NP, commandCode = CommandCodes.NON_AGGREGATED_RUCI_REPORT, request = false, proxyable = true, name="Non-Aggregated-RUCI-Report-Answer")
 public interface NonAggregatedRUCIReportAnswer extends NpAnswer
 {
 	ReportingRestrictionEnum getReportingRestriction();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		session termination if the Ipv4 address of a dual stack IP-CAN session is released and if there is an active Ipv4
 		address related TDF session for that IP-CAN session. 
  */
-@DiameterAvpDefinition(code = 1045L, vendorId = KnownVendorIDs.TGPP_ID, name = "Session-Release-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.SESSION_RELEASE_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "Session-Release-Cause")
 public interface SessionReleaseCause extends DiameterEnumerated<SessionReleaseCauseEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	assigned the NBIFOM routing ruleidentifier, i.e. "PCEF" or "PCRF", the remainder of the Routing-Rule-Identifier AVP
 	is delimited by a ";" character and may be any sequence. 
  */
-@DiameterAvpDefinition(code = 1077L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Routing-Rule-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTING_RULE_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Routing-Rule-Identifier")
 public interface RoutingRuleIdentifier extends DiameterOctetString
 {
 }

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,7 +43,7 @@ import io.netty.buffer.ByteBuf;
 
 	NOTE: The RAN-NAS-Release-Cause AVP is under a grouped AVP to allow extensions to other types of release causes in the future. 
  */
-@DiameterAvpDefinition(code = 3901L, vendorId = KnownVendorIDs.TGPP_ID, name = "Enhanced-Diagnostics")
+@DiameterAvpDefinition(code = TgppAvpCodes.ENHANCED_DIAGNOSTICS, vendorId = VendorIDs.TGPP_ID, name = "Enhanced-Diagnostics")
 public interface EnhancedDiagnostics extends DiameterAvp
 {
 	List<ByteBuf> getRANNASReleaseCause();

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -51,22 +53,22 @@ import io.netty.buffer.ByteBuf;
                               { MIP-nonce }
                             * [ AVP ]
  */
-@DiameterAvpDefinition(code = 331L, vendorId = -1L, name = "MIP-MN-to-HA-MSA")
+@DiameterAvpDefinition(code = AvpCodes.MIP_MN_TO_HA_SPI, vendorId = -1L, name = "MIP-MN-to-HA-MSA")
 public interface MIPMNtoHAMSA extends DiameterGroupedAvp
 {
 	Long getMIPMNHASPI();
 	
-	void setMIPMNHASPI(Long value);	
+	void setMIPMNHASPI(Long value) throws MissingAvpException;	
 	
 	MIPAlgorithmTypeEnum getMIPAlgorithmType();
 	
-	void setMIPAlgorithmType(MIPAlgorithmTypeEnum value);	
+	void setMIPAlgorithmType(MIPAlgorithmTypeEnum value) throws MissingAvpException;	
 	
 	MIPReplayModeEnum getMIPReplayMode();
 	
-	void setMIPReplayMode(MIPReplayModeEnum value);	
+	void setMIPReplayMode(MIPReplayModeEnum value) throws MissingAvpException;	
 	
 	ByteBuf getMIPNonce();
 	
-	void setMIPNonce(ByteBuf value);
+	void setMIPNonce(ByteBuf value) throws MissingAvpException;
 }

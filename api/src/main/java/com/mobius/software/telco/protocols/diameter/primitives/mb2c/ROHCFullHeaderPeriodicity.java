@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ROHC-Full-Header-Periodicity AVP (AVP code 3527) is of type Float32.
 	It shall indicate the target periodicity for ROHC (see IETF RFC 5795 [29] and IETF RFC 3095 [30]) full header packets in units of seconds.
  */
-@DiameterAvpDefinition(code = 3527L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ROHC-Full-Header-Periodicity")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROHC_FULL_HEADER_PERIODICITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "ROHC-Full-Header-Periodicity")
 public interface ROHCFullHeaderPeriodicity extends DiameterFloat32
 {
 }

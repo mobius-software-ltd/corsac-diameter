@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sgmb;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.sgmb.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AllocationRetentionPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.ConditionalAPNAggregateMaxBitrateImpl;
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSFlags;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
@@ -46,7 +47,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new QoSInformationImpl();
 	}
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel)
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException
 	{
 		return new AllocationRetentionPriorityImpl(priorityLevel);
 	}

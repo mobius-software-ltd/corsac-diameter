@@ -18,10 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
-
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.TariffChangeUsage;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.TariffChangeUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
@@ -31,22 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Use
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 446L, vendorId = -1)
 public class UsedServiceUnitImpl extends RequestedServiceUnitImpl implements UsedServiceUnit
 {
 	private TariffChangeUsage tariffChangeUsage;
 	
-	protected UsedServiceUnitImpl()
+	public UsedServiceUnitImpl()
 	{
 		super();
-	}
-	
-	public UsedServiceUnitImpl(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage)
-	{
-		super(ccTime, ccMoney, ccTotalOctets, ccInputOctets, ccOutputOctets, ccServiceSpecificUnits);
-		
-		if(tariffChangeUsage!=null)
-			this.tariffChangeUsage = new TariffChangeUsageImpl(tariffChangeUsage, null, null);
 	}
 	
 	public TariffChangeUsageEnum getTariffChangeUsage()

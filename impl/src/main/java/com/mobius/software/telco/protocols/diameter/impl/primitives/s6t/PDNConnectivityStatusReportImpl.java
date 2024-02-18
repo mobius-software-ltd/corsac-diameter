@@ -20,17 +20,20 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ServedPartyIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.NonIPDataDeliveryMechanismImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.NonIPPDNTypeIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.PDNTypeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServedPartyIPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NonIPDataDeliveryMechanism;
@@ -48,7 +51,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.PDNConnectivi
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3181L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PDNConnectivityStatusReportImpl extends DiameterGroupedAvpImpl implements PDNConnectivityStatusReport
 {
 	private ServiceSelection serviceSelection;
@@ -62,17 +64,11 @@ public class PDNConnectivityStatusReportImpl extends DiameterGroupedAvpImpl impl
 	{
 	}
 	
-	public PDNConnectivityStatusReportImpl(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection)
+	public PDNConnectivityStatusReportImpl(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection) throws MissingAvpException
 	{
-		if(pdnConnectivityStatusType==null)
-			throw new IllegalArgumentException("PDN-Connectivity-Status-Type");
+		setPDNConnectivityStatusType(pdnConnectivityStatusType);
 		
-		if(serviceSelection==null)
-			throw new IllegalArgumentException("Service-Selection is required");
-		
-		this.pdnConnectivityStatusType = new PDNConnectivityStatusTypeImpl(pdnConnectivityStatusType, null, null);
-		
-		this.serviceSelection = new ServiceSelectionImpl(serviceSelection, null, null);
+		setServiceSelection(serviceSelection);
 	}
 	
 	public String getServiceSelection()
@@ -83,10 +79,10 @@ public class PDNConnectivityStatusReportImpl extends DiameterGroupedAvpImpl impl
 		return serviceSelection.getString();
 	}
 	
-	public void setServiceSelection(String value)
+	public void setServiceSelection(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Selection is required");
+			throw new MissingAvpException("Service-Selection is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
 		
 		this.serviceSelection = new ServiceSelectionImpl(value, null, null);
 	}	
@@ -99,10 +95,10 @@ public class PDNConnectivityStatusReportImpl extends DiameterGroupedAvpImpl impl
 		return pdnConnectivityStatusType.getEnumerated(PDNConnectivityStatusTypeEnum.class);
 	}
 	
-	public void setPDNConnectivityStatusType(PDNConnectivityStatusTypeEnum value)
+	public void setPDNConnectivityStatusType(PDNConnectivityStatusTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("PDN-Connectivity-Status-Type is required");
+			throw new MissingAvpException("PDN-Connectivity-Status-Type is required", Arrays.asList(new DiameterAvp[] { new PDNConnectivityStatusTypeImpl() }));
 		
 		this.pdnConnectivityStatusType = new PDNConnectivityStatusTypeImpl(value, null, null);		
 	}
@@ -167,10 +163,16 @@ public class PDNConnectivityStatusReportImpl extends DiameterGroupedAvpImpl impl
 		return result;
 	}
 	
-	public void setServedPartyIPAddress(List<InetAddress> value)
+	public void setServedPartyIPAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 Served-Party-IP-Address allowed");	
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new ServedPartyIPAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 Served-Party-IP-Address allowed", failedAvps);
+		}
 		
 		if(value==null || value.size()==0)
 			this.servedPartyIPAddress = null;
@@ -183,16 +185,20 @@ public class PDNConnectivityStatusReportImpl extends DiameterGroupedAvpImpl impl
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceSelection==null)
-			return "Service-Selection is required";
+			return new MissingAvpException("Service-Selection is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
 		
 		if(pdnConnectivityStatusType==null)
-			return "PDN-Connectivity-Status-Type is required";
+			return new MissingAvpException("PDN-Connectivity-Status-Type is required", Arrays.asList(new DiameterAvp[] { new PDNConnectivityStatusTypeImpl() }));
 		
 		if(servedPartyIPAddress!=null && servedPartyIPAddress.size()>2)
-			return "Up to 2 Served-Party-IP-Address allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(servedPartyIPAddress);
+			return new AvpOccursTooManyTimesException("Up to 2 Served-Party-IP-Address are allowed", failedAvps);
+		}
 		
 		return null;
 	}

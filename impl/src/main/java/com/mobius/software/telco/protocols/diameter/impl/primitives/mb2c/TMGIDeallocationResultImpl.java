@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDeallocationResult;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDealloca
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3514L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TMGIDeallocationResultImpl extends DiameterBitmask32Impl implements TMGIDeallocationResult
 {
 	public TMGIDeallocationResultImpl()
@@ -44,7 +41,7 @@ public class TMGIDeallocationResultImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setSuccessBit(boolean isOn)
 	{
-		setBit(SUCCESS_BIT, isOn);
+		setBitUnchecked(SUCCESS_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class TMGIDeallocationResultImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setAuthorizationRejectBit(boolean isOn)
 	{
-		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+		setBitUnchecked(AUTHORIZATION_REJECTED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class TMGIDeallocationResultImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setUnknownTMGIBit(boolean isOn)
 	{
-		setBit(UNKNOWN_TMGI_BIT, isOn);
+		setBitUnchecked(UNKNOWN_TMGI_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class TMGIDeallocationResultImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setSystemErrorBit(boolean isOn)
 	{
-		setBit(SYSTEM_ERROR_BIT, isOn);
+		setBitUnchecked(SYSTEM_ERROR_BIT, isOn);
 	}
 
 	@Override

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 [ SMSF-Non-3GPP-SM-Delivery-Outcome ]
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 3316L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Delivery-Outcome")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_DELIVERY_OUTCOME, vendorId = VendorIDs.TGPP_ID, name = "SM-Delivery-Outcome")
 public interface SMDeliveryOutcome extends DiameterGroupedAvp
 {
 	MMESMDeliveryOutcome getMMESMDeliveryOutcome();

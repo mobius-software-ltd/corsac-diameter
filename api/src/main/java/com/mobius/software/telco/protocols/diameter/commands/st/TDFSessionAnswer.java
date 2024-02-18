@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.st;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -57,7 +59,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleReport;
 				*[ Load ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777349, commandCode = 8388637, request = false, proxyable = true, name="TS-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.ST, commandCode = CommandCodes.TDF_SESSION, request = false, proxyable = true, name="TS-Answer")
 public interface TDFSessionAnswer extends StAnswer
 {
 	List<ADCRuleReport> getADCRuleReport();

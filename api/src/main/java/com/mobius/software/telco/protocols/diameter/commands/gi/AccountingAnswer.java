@@ -23,6 +23,8 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.ServiceTypeEnum;
@@ -68,7 +70,7 @@ import io.netty.buffer.ByteBuf;
                       *	[ Route-Record ]
                       *	[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 271, request = false, proxyable = true, name="Accounting-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.ACCOUNTING, request = false, proxyable = true, name="Accounting-Answer")
 public interface AccountingAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer
 {
 	String getNASIdentifier();

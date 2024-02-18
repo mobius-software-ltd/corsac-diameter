@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.39	Retry-Interval AVP
 	The Retry-Interval AVP (AVP code 541) is of type Unsigned32, and it indicates a time interval in seconds to wait until which the AF retries to send the same service information to the PCRF (for the same IP-CAN session) when the service information is temporarily rejected by the PCRF (e.g. due to the detected congestion status of the cell the user is located in).
  */
-@DiameterAvpDefinition(code = 541L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Retry-Interval")
+@DiameterAvpDefinition(code = TgppAvpCodes.RETRY_INTERVAL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Retry-Interval")
 public interface RetryInterval extends DiameterUnsigned32
 {
 }

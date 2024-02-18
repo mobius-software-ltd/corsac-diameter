@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPriorityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.TrafficProfileEnum;
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.TrafficProfil
 
 	Absence of the Media-Type AVP indicates that the QoS Profile element applies to any media type.  
  */
-@DiameterAvpDefinition(code = 303L, vendorId = KnownVendorIDs.ETSI_ID,must = false, name = "QoS-Profile-Description")
+@DiameterAvpDefinition(code = EtsiAvpCodes.QOS_PROFILE_DESCRIPTION, vendorId = VendorIDs.ETSI_ID,must = false, name = "QoS-Profile-Description")
 public interface QoSProfileDescription extends DiameterAvp
 {
 	List<String> getApplicationClassID();

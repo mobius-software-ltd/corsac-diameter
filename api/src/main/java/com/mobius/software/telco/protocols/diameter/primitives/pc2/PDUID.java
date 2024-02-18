@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.6	PDUID AVP
 	The PDUID AVP (AVP code 3604) is of type OctetString, and it indicates a ProSe Discovery UE ID that identifies a UE identity used in restricted ProSe direct discovery.
  */
-@DiameterAvpDefinition(code = 3604L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PDUID")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDUID, vendorId = VendorIDs.TGPP_ID, must = false, name = "PDUID")
 public interface PDUID extends DiameterOctetString
 {
 }

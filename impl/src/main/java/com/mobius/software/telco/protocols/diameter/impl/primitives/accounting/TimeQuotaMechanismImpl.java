@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BaseTimeInterval;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQuotaMechanism;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQuotaType;
@@ -31,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1270L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TimeQuotaMechanismImpl implements TimeQuotaMechanism
 {
 	private TimeQuotaType timeQuotaType;
@@ -41,17 +43,11 @@ public class TimeQuotaMechanismImpl implements TimeQuotaMechanism
 	{
 	}
 	
-	public TimeQuotaMechanismImpl(TimeQuotaTypeEnum timeQuotaType,Long baseTimeInterval)
+	public TimeQuotaMechanismImpl(TimeQuotaTypeEnum timeQuotaType,Long baseTimeInterval) throws MissingAvpException
 	{
-		if(timeQuotaType==null)
-			throw new IllegalArgumentException("Time-Quota-Type is required");
+		setTimeQuotaType(timeQuotaType);
 		
-		if(baseTimeInterval==null)
-			throw new IllegalArgumentException("Base-Time-Interval is required");
-		
-		this.timeQuotaType = new TimeQuotaTypeImpl(timeQuotaType, null, null);				
-		
-		this.baseTimeInterval = new BaseTimeIntervalImpl(baseTimeInterval, null, null);
+		setBaseTimeInterval(baseTimeInterval);
 	}
 	
 	public TimeQuotaTypeEnum getTimeQuotaType()
@@ -62,10 +58,10 @@ public class TimeQuotaMechanismImpl implements TimeQuotaMechanism
 		return timeQuotaType.getEnumerated(TimeQuotaTypeEnum.class);
 	}
 	
-	public void setTimeQuotaType(TimeQuotaTypeEnum value)
+	public void setTimeQuotaType(TimeQuotaTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Time-Quota-Type is required");
+			throw new MissingAvpException("Time-Quota-Type is required is required", Arrays.asList(new DiameterAvp[] { new TimeQuotaTypeImpl() }));
 		
 		this.timeQuotaType = new TimeQuotaTypeImpl(value, null, null);
 	}
@@ -78,22 +74,22 @@ public class TimeQuotaMechanismImpl implements TimeQuotaMechanism
 		return baseTimeInterval.getUnsigned();
 	}
 	
-	public void setBaseTimeInterval(Long value)
+	public void setBaseTimeInterval(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Base-Time-Interval is required");
+			throw new MissingAvpException("Base-Time-Interval is required is required", Arrays.asList(new DiameterAvp[] { new BaseTimeIntervalImpl() }));
 		
 		this.baseTimeInterval = new BaseTimeIntervalImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(timeQuotaType==null)
-			return "Time-Quota-Type is required";
+			return new MissingAvpException("Time-Quota-Type is required is required", Arrays.asList(new DiameterAvp[] { new TimeQuotaTypeImpl() }));
 		
 		if(baseTimeInterval==null)
-			return "Base-Time-Interval is required";
+			return new MissingAvpException("Base-Time-Interval is required is required", Arrays.asList(new DiameterAvp[] { new BaseTimeIntervalImpl() }));
 		
 		return null;
 	}

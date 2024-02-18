@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfileTemplate;
 
@@ -32,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfil
 *
 */
 
-@DiameterAvpImplementation(code = 578L, vendorId = -1L)
 public class QoSCapabilityImpl extends DiameterGroupedAvpImpl implements QoSCapability
 {
 	private List<QoSProfileTemplate> qoSProfileTemplate;
@@ -42,12 +44,9 @@ public class QoSCapabilityImpl extends DiameterGroupedAvpImpl implements QoSCapa
 		
 	}
 	
-	public QoSCapabilityImpl(List<QoSProfileTemplate> qoSProfileTemplate)
+	public QoSCapabilityImpl(List<QoSProfileTemplate> qoSProfileTemplate) throws MissingAvpException
 	{
-		if(qoSProfileTemplate == null || qoSProfileTemplate.size()==0)
-			throw new IllegalArgumentException("QoS-Profile-Template is required");
-		
-		this.qoSProfileTemplate = qoSProfileTemplate;
+		setQoSProfileTemplate(qoSProfileTemplate);
 	}
 	
 	public List<QoSProfileTemplate> getQoSProfileTemplate()
@@ -55,19 +54,19 @@ public class QoSCapabilityImpl extends DiameterGroupedAvpImpl implements QoSCapa
 		return qoSProfileTemplate;
 	}
 	
-	public void setQoSProfileTemplate(List<QoSProfileTemplate> value)
+	public void setQoSProfileTemplate(List<QoSProfileTemplate> value) throws MissingAvpException
 	{
 		if(qoSProfileTemplate == null || qoSProfileTemplate.size()==0)
-			throw new IllegalArgumentException("QoS-Profile-Template is required");
+			throw new MissingAvpException("QoS-Profile-Template is required is required", Arrays.asList(new DiameterAvp[] { new QoSProfileTemplateImpl() }));
 		
 		this.qoSProfileTemplate = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(qoSProfileTemplate == null || qoSProfileTemplate.size()==0)
-			return "QoS-Profile-Template is required";
+			return new MissingAvpException("QoS-Profile-Template is required is required", Arrays.asList(new DiameterAvp[] { new QoSProfileTemplateImpl() }));
 		
 		return null;
 	}

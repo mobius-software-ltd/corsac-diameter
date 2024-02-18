@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
@@ -73,7 +75,7 @@ import io.netty.buffer.ByteBuf;
 				 [ Failed-AVP ]
 
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 301, request = false, proxyable = true, name="Server-Assignment-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.SERVER_ASSIGNMENT, request = false, proxyable = true, name="Server-Assignment-Answer")
 public interface ServerAssignmentAnswer extends CxDxAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

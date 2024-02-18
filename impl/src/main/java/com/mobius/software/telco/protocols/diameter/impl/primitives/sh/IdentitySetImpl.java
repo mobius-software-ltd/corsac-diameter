@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.IdentitySet;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.IdentitySetEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.IdentitySetEnu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 708L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IdentitySetImpl extends DiameterEnumeratedImpl<IdentitySetEnum> implements IdentitySet
 {
 	protected IdentitySetImpl() 

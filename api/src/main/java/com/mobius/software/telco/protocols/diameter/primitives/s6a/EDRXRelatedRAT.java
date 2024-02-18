@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 
 /**
@@ -40,10 +42,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 			1 * { RAT-Type }
 			*	[AVP]
  */
-@DiameterAvpDefinition(code = 1705L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "eDRX-Related-RAT")
+@DiameterAvpDefinition(code = TgppAvpCodes.EDRX_RELATED_RAT, vendorId = VendorIDs.TGPP_ID, must = false, name = "eDRX-Related-RAT")
 public interface EDRXRelatedRAT extends DiameterGroupedAvp
 {
 	List<RATTypeEnum> getRATType();
 	
-	void setRATType(List<RATTypeEnum> value);
+	void setRATType(List<RATTypeEnum> value) throws MissingAvpException;
 }

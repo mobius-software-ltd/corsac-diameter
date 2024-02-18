@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeliveryOutcome;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeliveryOutcomeEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeliveryOutco
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3009L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DeliveryOutcomeImpl extends DiameterEnumeratedImpl<DeliveryOutcomeEnum> implements DeliveryOutcome
 {
 	protected DeliveryOutcomeImpl()

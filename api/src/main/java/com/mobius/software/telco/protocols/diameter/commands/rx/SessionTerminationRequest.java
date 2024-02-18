@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.rx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfoEnum;
 
@@ -53,12 +56,12 @@ import io.netty.buffer.ByteBuf;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777236, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends RxRequest
 {
 	TerminationCauseEnum getTerminationCause();
 
-	void setTerminationCause(TerminationCauseEnum value);	
+	void setTerminationCause(TerminationCauseEnum value) throws MissingAvpException;	
 	
 	List<RequiredAccessInfoEnum> getRequiredAccessInfo();
 

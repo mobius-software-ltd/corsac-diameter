@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcTime;
 
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcT
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 420L, vendorId = -1L)
 public class CcTimeImpl extends DiameterTimeImpl implements CcTime
 {
 	protected CcTimeImpl() 

@@ -21,8 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.*;
 
@@ -33,7 +31,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20400L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class INInformationImpl implements INInformation
 {
 	private ActiveFlag activeFlag;

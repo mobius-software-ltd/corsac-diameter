@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.29	RRC-Counter-Timestamp
 	The RRC-Counter-Timestamp AVP is of type Time and shall contain a timestamp.	
  */
-@DiameterAvpDefinition(code = 4320L, vendorId = KnownVendorIDs.TGPP_ID, name = "RRC-Counter-Timestamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.RRC_CAUSE_TIMESTAMP, vendorId = VendorIDs.TGPP_ID, name = "RRC-Counter-Timestamp")
 public interface RRCCounterTimestamp extends DiameterTime
 {
 }

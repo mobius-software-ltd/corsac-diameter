@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterOctetStringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.SCalledPBXDisplayNumber;
 
 import io.netty.buffer.ByteBuf;
@@ -30,7 +28,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 21218L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class SCalledPBXDisplayNumberImpl extends DiameterOctetStringImpl implements SCalledPBXDisplayNumber
 {
 	protected SCalledPBXDisplayNumberImpl()

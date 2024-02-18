@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MonitoredPLMNIdentifier;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Monito
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3430L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MonitoredPLMNIdentifierImpl extends DiameterUTF8StringImpl implements MonitoredPLMNIdentifier
 {
 	protected MonitoredPLMNIdentifierImpl()

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			*[ User-Name ]
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 647L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Associated-Registered-Identities")
+@DiameterAvpDefinition(code = TgppAvpCodes.ASSOCIATED_REGISTERED_IDENTITIES, vendorId = VendorIDs.TGPP_ID, must = false, name = "Associated-Registered-Identities")
 public interface AssociatedRegisteredIdentities extends DiameterGroupedAvp
 {
 	List<String> getUserName();

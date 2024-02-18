@@ -19,12 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  */
 
 import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.IPCANType;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.IPCANTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.Precedence;
@@ -40,7 +42,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1076L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RoutingRuleDefinitionImpl extends DiameterGroupedAvpImpl implements RoutingRuleDefinition
 {
 	private RoutingRuleIdentifier routingRuleIdentifier;
@@ -54,12 +55,9 @@ public class RoutingRuleDefinitionImpl extends DiameterGroupedAvpImpl implements
 		
 	}
 	
-	public RoutingRuleDefinitionImpl(ByteBuf routingRuleIdentifier)
+	public RoutingRuleDefinitionImpl(ByteBuf routingRuleIdentifier) throws MissingAvpException
 	{
-		if(routingRuleIdentifier==null)
-			throw new IllegalArgumentException("Routing-Rule-Identifier is required");
-		
-		this.routingRuleIdentifier = new RoutingRuleIdentifierImpl(routingRuleIdentifier, null, null);
+		setRoutingRuleIdentifier(routingRuleIdentifier);
 	}
 	
 	public ByteBuf getRoutingRuleIdentifier()
@@ -70,10 +68,10 @@ public class RoutingRuleDefinitionImpl extends DiameterGroupedAvpImpl implements
 		return routingRuleIdentifier.getValue();
 	}
 	
-	public void setRoutingRuleIdentifier(ByteBuf value)
+	public void setRoutingRuleIdentifier(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Routing-Rule-Identifier is required");
+			throw new MissingAvpException("Routing-Rule-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new RoutingRuleIdentifierImpl() }));
 		
 		this.routingRuleIdentifier = new RoutingRuleIdentifierImpl(value, null, null);
 	}
@@ -137,10 +135,10 @@ public class RoutingRuleDefinitionImpl extends DiameterGroupedAvpImpl implements
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(routingRuleIdentifier==null)
-			return "Routing-Rule-Identifier is required";
+			return new MissingAvpException("Routing-Rule-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new RoutingRuleIdentifierImpl() }));
 		
 		return null;
 	}		  		  

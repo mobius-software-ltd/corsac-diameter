@@ -19,6 +19,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.commons;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ProxyInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
@@ -28,12 +30,12 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl implements AvpFactory
 {
-	public ProxyInfo getProxyInfo(String proxyHost,ByteBuf proxyState)
+	public ProxyInfo getProxyInfo(String proxyHost,ByteBuf proxyState) throws MissingAvpException
 	{
 		return new ProxyInfoImpl(proxyHost, proxyState);
 	}
 	
-	public VendorSpecificApplicationId getVendorSpecificApplicationId(Long vendorId,Long authApplicationId,Long acctAppicationId)
+	public VendorSpecificApplicationId getVendorSpecificApplicationId(Long vendorId,Long authApplicationId,Long acctAppicationId) throws AvpOccursTooManyTimesException, MissingAvpException
 	{
 		return new VendorSpecificApplicationIdImpl(vendorId, authApplicationId, acctAppicationId);
 	}

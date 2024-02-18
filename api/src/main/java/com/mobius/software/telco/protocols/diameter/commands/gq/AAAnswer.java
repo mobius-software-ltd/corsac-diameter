@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gq;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AccessNetworkChargingIdentifier;
@@ -54,7 +56,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777222, commandCode = 265, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GQ, commandCode = CommandCodes.AAA, request = false, proxyable = true, name="AA-Answer")
 public interface AAAnswer extends AuthenticationAnswer
 {
 	public ByteBuf getAuthorizationToken();

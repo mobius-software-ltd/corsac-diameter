@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.MultipleRegistrationIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerAssignmentTypeImpl;
@@ -56,7 +59,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 301, request = true)
 public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase implements ServerAssignmentRequest
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -86,12 +88,14 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 		super();
 	}
 	
-	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String serverName, ServerAssignmentTypeEnum serverAssignmentType,UserDataAlreadyAvailableEnum userDataAlreadyAvailable)
+	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String serverName, ServerAssignmentTypeEnum serverAssignmentType,UserDataAlreadyAvailableEnum userDataAlreadyAvailable) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
 		setServerName(serverName);
-		setServerAssignmentType(serverAssignmentType);		
+		
+		setServerAssignmentType(serverAssignmentType);
+		
 		setUserDataAlreadyAvailable(userDataAlreadyAvailable);
 	}
 	
@@ -156,11 +160,11 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 	}
 	
 	@Override
-	public void setServerName(String value)
+	public void setServerName(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Server-Name is required");
-		
+			throw new MissingAvpException("Server-Name is required is required", Arrays.asList(new DiameterAvp[] { new ServerNameImpl() }));
+			
 		this.serverName = new ServerNameImpl(value, null, null);
 	}
 
@@ -174,11 +178,11 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 	}
 
 	@Override
-	public void setServerAssignmentType(ServerAssignmentTypeEnum value) 
+	public void setServerAssignmentType(ServerAssignmentTypeEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Server-Assignment-Type is required");
-		
+			throw new MissingAvpException("Server-Assignment-Type is required is required", Arrays.asList(new DiameterAvp[] { new ServerAssignmentTypeImpl() }));
+			
 		this.serverAssignmentType = new ServerAssignmentTypeImpl(value, null, null);
 	}
 	
@@ -192,11 +196,11 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 	}
 	
 	@Override
-	public void setUserDataAlreadyAvailable(UserDataAlreadyAvailableEnum value)
+	public void setUserDataAlreadyAvailable(UserDataAlreadyAvailableEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Data-Already-Available is required");
-		
+			throw new MissingAvpException("User-Data-Already-Available is required is required", Arrays.asList(new DiameterAvp[] { new UserDataAlreadyAvailableImpl() }));
+			
 		this.userDataAlreadyAvailable = new UserDataAlreadyAvailableImpl(value, null, null);
 	}
 	
@@ -263,16 +267,16 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serverName == null)
-			return "Server-Name is required";
+			return new MissingAvpException("Server-Name is required is required", Arrays.asList(new DiameterAvp[] { new ServerNameImpl() }));
 		
 		if(serverAssignmentType == null)
-			return "Server-Assignment-Type is required";
+			return new MissingAvpException("Server-Assignment-Type is required is required", Arrays.asList(new DiameterAvp[] { new ServerAssignmentTypeImpl() }));
 		
 		if(userDataAlreadyAvailable == null)
-			return "User-Data-Already-Available is required";
+			return new MissingAvpException("User-Data-Already-Available is required is required", Arrays.asList(new DiameterAvp[] { new UserDataAlreadyAvailableImpl() }));
 		
 		return super.validate();
 	}

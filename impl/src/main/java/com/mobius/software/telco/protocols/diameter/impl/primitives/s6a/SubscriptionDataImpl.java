@@ -21,14 +21,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ActiveTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AMBR;
@@ -97,7 +98,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1400L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements SubscriptionData
 {
 	private SubscriberStatus subscriberStatus;
@@ -283,12 +283,18 @@ public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements Subs
 		return result;
 	}
 	
-	public void setRegionalSubscriptionZoneCode(List<ByteBuf> value)
+	public void setRegionalSubscriptionZoneCode(List<ByteBuf> value) throws AvpOccursTooManyTimesException
 	{
 		if(value == null || value.size()==0)
 			this.regionalSubscriptionZoneCode = null;
 		else if(value.size()>10)
-			throw new IllegalArgumentException("Up to 10 Regional-Subscription-Zone-Code are allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(ByteBuf curr:value)
+				failedAvps.add(new RegionalSubscriptionZoneCodeImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 10 Regional-Subscription-Zone-Code are allowed", failedAvps);
+		}
 		else
 		{
 			this.regionalSubscriptionZoneCode = new ArrayList<RegionalSubscriptionZoneCode>();
@@ -806,10 +812,14 @@ public class SubscriptionDataImpl extends DiameterGroupedAvpImpl implements Subs
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(regionalSubscriptionZoneCode!=null && regionalSubscriptionZoneCode.size()>10)
-			return "Up to 10 Regional-Subscription-Zone-Code are allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(regionalSubscriptionZoneCode);
+			return new AvpOccursTooManyTimesException("Up to 50 Regional-Subscription-Zone-Code are allowed", failedAvps);
+		}
 		
 		return null;
 	}

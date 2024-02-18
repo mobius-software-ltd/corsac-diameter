@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Monitoring-Event-Report-Number AVP (AVP code 3923) is of type Unsigned32 and indicates the number of the
 	report being sent for the specific Monitoring Event request from this node. 
  */
-@DiameterAvpDefinition(code = 3923L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Report-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_EVENT_REPORT_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Event-Report-Number")
 public interface MonitoringEventReportNumber extends DiameterUnsigned32
 {
 }

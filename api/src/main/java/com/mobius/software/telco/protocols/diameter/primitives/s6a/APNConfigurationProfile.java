@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -51,12 +53,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	If present, the Additional-Context-Identifier AVP shall identify another default APN configuration, only for those subscriptions containing more than one types of APNs i.e. among APNs with an IP-based PDN type, APNs with a Non-IP PDN type, and APNs with an Ethernet PDN type; in this case, each of those two default APN configurations shall have a different PDN type category (e.g. one default APN with an IP-based PDN type, and another default APN with a Non-IP PDN type).
 	If present, the Third-Context-Identifier AVP shall identify another default APN configuration, only for those subscriptions containing more than two types of APNs i.e. among APNs with an IP-based PDN type, APNs with a Non-IP PDN type, and APNs with an Ethernet PDN type; in this case, each of those three default APN configurations shall have a different PDN type category (i.e. one default APN with an IP-based PDN type, and another default APN with a Non-IP PDN type and one default APN with an Ethernet PDN type).
  */
-@DiameterAvpDefinition(code = 1429L, vendorId = KnownVendorIDs.TGPP_ID, name = "APN-Configuration-Profile")
+@DiameterAvpDefinition(code = TgppAvpCodes.APN_CONFIGURATION_PROFILE, vendorId = VendorIDs.TGPP_ID, name = "APN-Configuration-Profile")
 public interface APNConfigurationProfile extends DiameterGroupedAvp
 {
 	Long getContextIdentifier();
 	
-	void setContextIdentifier(Long value);	
+	void setContextIdentifier(Long value) throws MissingAvpException;	
 	
 	Long getAdditionalContextIdentifier();
 	
@@ -72,5 +74,5 @@ public interface APNConfigurationProfile extends DiameterGroupedAvp
 	
 	List<APNConfiguration> getAPNConfiguration();
 	
-	void setAPNConfiguration(List<APNConfiguration> value);
+	void setAPNConfiguration(List<APNConfiguration> value) throws MissingAvpException;
 }

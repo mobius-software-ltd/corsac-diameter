@@ -21,11 +21,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
@@ -36,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedApp
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 631L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SupportedApplicationsImpl extends DiameterGroupedAvpImpl implements SupportedApplications
 {
 	private List<AuthApplicationId> authApplicationId;

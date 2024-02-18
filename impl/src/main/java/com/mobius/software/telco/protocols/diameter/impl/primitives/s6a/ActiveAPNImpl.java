@@ -18,12 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.VisitedNetworkIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
@@ -38,7 +41,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1612L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ActiveAPNImpl extends DiameterGroupedAvpImpl implements ActiveAPN
 {
 	private ContextIdentifier contextIdentifier;
@@ -55,12 +57,9 @@ public class ActiveAPNImpl extends DiameterGroupedAvpImpl implements ActiveAPN
 	{
 	}
 	
-	public ActiveAPNImpl(Long contextIdentifier)
+	public ActiveAPNImpl(Long contextIdentifier) throws MissingAvpException
 	{
-		if(contextIdentifier==null)
-			throw new IllegalArgumentException("Context-Identifier is required");
-		
-		this.contextIdentifier = new ContextIdentifierImpl(contextIdentifier, null, null);				
+		setContextIdentifier(contextIdentifier);
 	}
 	
 	public Long getContextIdentifier()
@@ -71,11 +70,11 @@ public class ActiveAPNImpl extends DiameterGroupedAvpImpl implements ActiveAPN
 		return contextIdentifier.getUnsigned();
 	}
 	
-	public void setContextIdentifier(Long value)
+	public void setContextIdentifier(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Context-Identifier is required");
-		
+			throw new MissingAvpException("Context-Identifier is required", Arrays.asList(new DiameterAvp[] { new ContextIdentifierImpl() }));
+			
 		this.contextIdentifier = new ContextIdentifierImpl(value, null, null);	
 	}
 	
@@ -132,10 +131,10 @@ public class ActiveAPNImpl extends DiameterGroupedAvpImpl implements ActiveAPN
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(contextIdentifier==null)
-			return "Context-Identifier is required";
+			return new MissingAvpException("Context-Identifier is required", Arrays.asList(new DiameterAvp[] { new ContextIdentifierImpl() }));
 		
 		return null;
 	}

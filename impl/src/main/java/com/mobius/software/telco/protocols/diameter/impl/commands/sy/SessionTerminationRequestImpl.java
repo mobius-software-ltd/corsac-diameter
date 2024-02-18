@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
@@ -36,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777302, commandCode = 275, request = true)
 public class SessionTerminationRequestImpl extends SyRequestImpl implements SessionTerminationRequest
 {
 	private TerminationCause terminationCause;
@@ -46,12 +48,12 @@ public class SessionTerminationRequestImpl extends SyRequestImpl implements Sess
 		super();
 	}
 	
-	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause)
+	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
 		setTerminationCause(terminationCause);
-	}	
+	}
 
 	@Override
 	public TerminationCauseEnum getTerminationCause() 
@@ -63,19 +65,19 @@ public class SessionTerminationRequestImpl extends SyRequestImpl implements Sess
 	}
 
 	@Override
-	public void setTerminationCause(TerminationCauseEnum value) 
+	public void setTerminationCause(TerminationCauseEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Termination-Cause is required");
+			throw new MissingAvpException("Termination-Cause is required is required", Arrays.asList(new DiameterAvp[] { new TerminationCauseImpl() }));
 		
 		this.terminationCause = new TerminationCauseImpl(value, null, null);
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(terminationCause==null)
-			return "Termination-Cause is required";
+			return new MissingAvpException("Termination-Cause is required is required", Arrays.asList(new DiameterAvp[] { new TerminationCauseImpl() }));
 		
 		return super.validate();
 	}	

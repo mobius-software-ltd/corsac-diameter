@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,14 +40,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			{ Public-Identity }
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 651L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Identity-with-Emergency-Registration")
+@DiameterAvpDefinition(code = TgppAvpCodes.IDENTITY_WITH_EMERGENCY_REGISTRATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Identity-with-Emergency-Registration")
 public interface IdentityWithEmergencyRegistration extends DiameterGroupedAvp
 {
 	String getUserName();
 	
-	void setUserName(String value);
+	void setUserName(String value) throws MissingAvpException;
 	
 	String getPublicIdentity();
 	
-	void setPublicIdentity(String value);
+	void setPublicIdentity(String value) throws MissingAvpException;
 }

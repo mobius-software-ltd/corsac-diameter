@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDataAlreadyAvailable;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDataAlreadyAvailableEnum;
@@ -28,10 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 392L, vendorId = -1)
 public class SIPUserDataAlreadyAvailableImpl extends DiameterEnumeratedImpl<SIPUserDataAlreadyAvailableEnum> implements SIPUserDataAlreadyAvailable
 {
-	protected SIPUserDataAlreadyAvailableImpl()
+	public SIPUserDataAlreadyAvailableImpl()
 	{
 		super();
 	}

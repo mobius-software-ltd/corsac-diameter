@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Request-Body-Size AVP (AVP Code 1015) is of type Unsigned32 and represents the number of bytes 
 	of the body transported in the Request.
  */
-@DiameterAvpDefinition(code = 1015L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Request-Body-Size")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.REQUEST_BODY_SIZE, vendorId = VendorIDs.ONEM2M_ID, name = "Request-Body-Size")
 public interface RequestBodySize extends DiameterUnsigned32
 {
 }

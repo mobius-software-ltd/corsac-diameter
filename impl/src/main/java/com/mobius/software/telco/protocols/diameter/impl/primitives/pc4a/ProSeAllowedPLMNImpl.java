@@ -18,10 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.AuthorizedDiscoveryRange;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeAllowedPLMN;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeDirectAllowed;
@@ -34,7 +32,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3703L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeAllowedPLMNImpl extends DiameterGroupedAvpImpl implements ProSeAllowedPLMN
 {
 	private VisitedPLMNId visitedPLMNId;

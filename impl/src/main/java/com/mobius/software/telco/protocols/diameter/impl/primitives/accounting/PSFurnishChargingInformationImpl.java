@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PSAppendFreeFormatData;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PSAppendFreeFormatDataEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PSFreeFormatData;
@@ -35,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 865L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PSFurnishChargingInformationImpl implements PSFurnishChargingInformation
 {
 	private TGPPChargingId tgppChargingId;
@@ -46,17 +48,11 @@ public class PSFurnishChargingInformationImpl implements PSFurnishChargingInform
 	{
 	}
 	
-	public PSFurnishChargingInformationImpl(ByteBuf tgppChargingId,ByteBuf psFreeFormatData)
+	public PSFurnishChargingInformationImpl(ByteBuf tgppChargingId,ByteBuf psFreeFormatData) throws MissingAvpException
 	{
-		if(tgppChargingId==null)
-			throw new IllegalArgumentException("3GPP-Charging-Id is required");
+		setTGPPChargingId(tgppChargingId);
 		
-		if(psFreeFormatData==null)
-			throw new IllegalArgumentException("PS-Free-Format-Data is required");
-		
-		this.tgppChargingId = new TGPPChargingIdImpl(tgppChargingId, null, null);				
-		
-		this.psFreeFormatData = new PSFreeFormatDataImpl(psFreeFormatData, null, null);
+		setPSFreeFormatData(psFreeFormatData);
 	}
 	
 	public ByteBuf getTGPPChargingId()
@@ -67,10 +63,10 @@ public class PSFurnishChargingInformationImpl implements PSFurnishChargingInform
 		return tgppChargingId.getValue();
 	}
 	
-	public void setTGPPChargingId(ByteBuf value)
+	public void setTGPPChargingId(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("3GPP-Charging-Id is required");
+			throw new MissingAvpException("3GPP-Charging-Id is required", Arrays.asList(new DiameterAvp[] { new TGPPChargingIdImpl() }));
 		
 		this.tgppChargingId = new TGPPChargingIdImpl(value, null, null);		
 	}
@@ -83,10 +79,10 @@ public class PSFurnishChargingInformationImpl implements PSFurnishChargingInform
 		return psFreeFormatData.getValue();
 	}
 	
-	public void setPSFreeFormatData(ByteBuf value)
+	public void setPSFreeFormatData(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("PS-Free-Format-Data is required");
+			throw new MissingAvpException("PS-Free-Format-Data is required", Arrays.asList(new DiameterAvp[] { new PSFreeFormatDataImpl() }));
 		
 		this.psFreeFormatData = new PSFreeFormatDataImpl(value, null, null);
 	}
@@ -108,13 +104,13 @@ public class PSFurnishChargingInformationImpl implements PSFurnishChargingInform
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tgppChargingId==null)
-			return "3GPP-Charging-Id is required";
+			return new MissingAvpException("3GPP-Charging-Id is required", Arrays.asList(new DiameterAvp[] { new TGPPChargingIdImpl() }));
 		
 		if(psFreeFormatData==null)
-			return "PS-Free-Format-Data is required";
+			return new MissingAvpException("PS-Free-Format-Data is required", Arrays.asList(new DiameterAvp[] { new PSFreeFormatDataImpl() }));
 		
 		return null;
 	}

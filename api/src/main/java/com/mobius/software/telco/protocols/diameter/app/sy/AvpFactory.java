@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.app.sy;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
@@ -36,13 +37,13 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData);
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException;
 	
-	public PolicyCounterStatusReport getPolicyCounterStatusReport(String policyCounterIdentifier,String policyCounterStatus);
+	public PolicyCounterStatusReport getPolicyCounterStatusReport(String policyCounterIdentifier,String policyCounterStatus) throws MissingAvpException;
 	
-	public PendingPolicyCounterInformation getPendingPolicyCounterInformation(String policyCounterStatus,Date pendingPolicyCounterChangeTime);
+	public PendingPolicyCounterInformation getPendingPolicyCounterInformation(String policyCounterStatus,Date pendingPolicyCounterChangeTime) throws MissingAvpException;
 }

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -30,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
  * 	6.3.18	Billing-Information AVP
 	The Billing-Information AVP (AVP code 1115) is of type UTF8String. It contains transparent information to be forwarded to the billing system.
  */
-@DiameterAvpDefinition(code = 1115L, vendorId = -1L, name = "Billing-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.BILLING_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Billing-Information")
 public interface BillingInformation extends DiameterUTF8String
 {
 }

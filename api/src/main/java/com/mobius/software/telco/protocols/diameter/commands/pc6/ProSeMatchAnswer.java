@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchReport;
 
@@ -53,7 +55,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchReport;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777340, commandCode = 8388670, request = false, proxyable = true, name="ProSe-Match-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC6, commandCode = CommandCodes.PROSE_MATCH, request = false, proxyable = true, name="ProSe-Match-Answer")
 public interface ProSeMatchAnswer extends Pc6Answer
 {
 	List<MatchReport> getMatchReport();

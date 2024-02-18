@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterQosAction;
@@ -125,7 +126,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
          color_over option may contain the keyword "drop" to prevent
          forwarding of traffic that exceeds the rate parameter.
  */
-@DiameterAvpDefinition(code = 407L, vendorId = -1L, name = "QoS-Filter-Rule")
+@DiameterAvpDefinition(code = AvpCodes.QOS_FILTER_RULE, vendorId = -1L, name = "QoS-Filter-Rule")
 public interface DiameterQosFilterRule extends DiameterAvp 
 {
 	public String getRule();

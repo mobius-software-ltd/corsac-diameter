@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.gmb;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.gmb.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.AlternativeAPNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.RequiredMBMSBearerCapabilitiesImpl;
@@ -42,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777223, commandCode = 271, request = false)
 public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl implements AAAnswer
 {
 	private AlternativeAPN alternativeAPN;
@@ -60,7 +60,7 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 		setExperimentalResultAllowed(false);
 	}
 	
-	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);

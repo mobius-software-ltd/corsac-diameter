@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthenticate;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthenticationInfo;
@@ -34,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPItemNu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 376L, vendorId = -1L)
 public class SIPAuthDataItemImpl extends DiameterGroupedAvpImpl implements SIPAuthDataItem
 {
 	private SIPAuthenticationScheme sipAuthenticationScheme;
@@ -52,12 +55,9 @@ public class SIPAuthDataItemImpl extends DiameterGroupedAvpImpl implements SIPAu
 		
 	}
 	
-	public SIPAuthDataItemImpl(SIPAuthenticationSchemeEnum sipAuthenticationScheme)
+	public SIPAuthDataItemImpl(SIPAuthenticationSchemeEnum sipAuthenticationScheme) throws MissingAvpException
 	{
-		if(sipAuthenticationScheme == null)
-			throw new IllegalArgumentException("SIP-Authentication-Scheme is required");
-		
-		this.sipAuthenticationScheme = new SIPAuthenticationSchemeImpl(sipAuthenticationScheme, null, null);
+		setSIPAuthenticationScheme(sipAuthenticationScheme);
 	}
 	
 	public SIPAuthenticationSchemeEnum getSIPAuthenticationScheme()
@@ -68,10 +68,10 @@ public class SIPAuthDataItemImpl extends DiameterGroupedAvpImpl implements SIPAu
 		return sipAuthenticationScheme.getEnumerated(SIPAuthenticationSchemeEnum.class);
 	}
 	
-	public void setSIPAuthenticationScheme(SIPAuthenticationSchemeEnum value)
+	public void setSIPAuthenticationScheme(SIPAuthenticationSchemeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-Authentication-Scheme is required");
+			throw new MissingAvpException("SIP-Authentication-Scheme is required is required", Arrays.asList(new DiameterAvp[] { new SIPAuthenticationSchemeImpl() }));
 		
 		this.sipAuthenticationScheme = new SIPAuthenticationSchemeImpl(value, null, null);
 	}	
@@ -123,10 +123,10 @@ public class SIPAuthDataItemImpl extends DiameterGroupedAvpImpl implements SIPAu
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(sipAuthenticationScheme == null)
-			return "SIP-Authentication-Scheme is required";
+			return new MissingAvpException("SIP-Authentication-Scheme is required is required", Arrays.asList(new DiameterAvp[] { new SIPAuthenticationSchemeImpl() }));
 		
 		return null;
 	}	

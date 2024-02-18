@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
@@ -32,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777302, commandCode = 8388636, request = false)
 public class SpendingStatusNotificationAnswerImpl extends SyAnswerImpl implements SpendingStatusNotificationAnswer
 {
 	protected SpendingStatusNotificationAnswerImpl() 
@@ -40,7 +40,7 @@ public class SpendingStatusNotificationAnswerImpl extends SyAnswerImpl implement
 		super();
 	}
 	
-	public SpendingStatusNotificationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public SpendingStatusNotificationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 	}

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SRRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.SRRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3310L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SRRFlagsImpl extends DiameterBitmask32Impl implements SRRFlags
 {
 	public SRRFlagsImpl()
@@ -44,7 +41,7 @@ public class SRRFlagsImpl extends DiameterBitmask32Impl implements SRRFlags
 	@Override
 	public void setGPRSIndicatorBit(boolean isOn)
 	{
-		setBit(GPRS_INDICATOR_BIT, isOn);
+		setBitUnchecked(GPRS_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class SRRFlagsImpl extends DiameterBitmask32Impl implements SRRFlags
 	@Override
 	public void setSMRPPRIBit(boolean isOn)
 	{
-		setBit(SM_RP_PRI_BIT, isOn);
+		setBitUnchecked(SM_RP_PRI_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class SRRFlagsImpl extends DiameterBitmask32Impl implements SRRFlags
 	@Override
 	public void setSingleAttemptDeliveryBit(boolean isOn)
 	{
-		setBit(SINGLE_ATTEMPT_DELIVERY_BIT, isOn);
+		setBitUnchecked(SINGLE_ATTEMPT_DELIVERY_BIT, isOn);
 	}
 
 	@Override

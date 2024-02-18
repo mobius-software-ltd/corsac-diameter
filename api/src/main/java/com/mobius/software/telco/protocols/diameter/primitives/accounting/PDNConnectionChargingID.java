@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	uniquely identifies the PDN connection for charging.
 	Coding of this AVP is same as 3GPP-Charging-Id coding described in TS 29.061 [207]. 
  */
-@DiameterAvpDefinition(code = 2050L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDN-Connection-Charging-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDN_CONNECTION_CHARGING_ID, vendorId = VendorIDs.TGPP_ID, name = "PDN-Connection-Charging-ID")
 public interface PDNConnectionChargingID extends DiameterUnsigned32
 {
 }

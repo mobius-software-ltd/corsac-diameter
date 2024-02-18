@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE
 	The AVP is used in RTBP process.
  */
-@DiameterAvpDefinition(code = 20602L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Service-Id")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.SERVICE_ID, vendorId = VendorIDs.HUAWEI_ID, name = "Service-Id")
 public interface ServiceId extends DiameterUTF8String
 {
 }

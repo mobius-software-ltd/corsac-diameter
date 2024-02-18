@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -58,7 +59,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ VASP-Id ]
 			[ VAS-Id ]
  */
-@DiameterAvpDefinition(code = 877L, vendorId = KnownVendorIDs.TGPP_ID, name = "MMS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.MMS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "MMS-Information")
 public interface MMSInformation extends DiameterAvp
 {
 	OriginatorAddress getOriginatorAddress();

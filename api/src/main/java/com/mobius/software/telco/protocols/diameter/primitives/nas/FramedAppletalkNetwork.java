@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    65,535 (inclusive) indicates to the AppleTalk network that the NAS
    should probe to find an address for the user.
  */
-@DiameterAvpDefinition(code = 38L, vendorId = -1L, name = "Framed-Appletalk-Network")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_APPLETALK_NETWORK, vendorId = -1L, name = "Framed-Appletalk-Network")
 public interface FramedAppletalkNetwork extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionDataFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionD
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1654L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SubscriptionDataFlagsImpl extends DiameterBitmask32Impl implements SubscriptionDataFlags
 {
 	public SubscriptionDataFlagsImpl()
@@ -44,7 +41,7 @@ public class SubscriptionDataFlagsImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setPSAndSMSOnlyServiceProvisionIndicationBit(boolean isOn)
 	{
-		setBit(PS_AND_SMS_ONLY_SERVICE_PROVISION_INDICATION_BIT, isOn);
+		setBitUnchecked(PS_AND_SMS_ONLY_SERVICE_PROVISION_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class SubscriptionDataFlagsImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setSMSInSGSNAllowedIndicationBit(boolean isOn)
 	{
-		setBit(SMS_IN_SGSN_ALLOWED_INDICATION_BIT, isOn);
+		setBitUnchecked(SMS_IN_SGSN_ALLOWED_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class SubscriptionDataFlagsImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setUserPlaneIntegrityIndicationBit(boolean isOn)
 	{
-		setBit(USER_PLANE_INTEGRITY_PROTECTION_BIT, isOn);
+		setBitUnchecked(USER_PLANE_INTEGRITY_PROTECTION_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class SubscriptionDataFlagsImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setPDNConnectionRestrictedBit(boolean isOn)
 	{
-		setBit(PDN_CONNECTION_RESTRICTED_BIT, isOn);
+		setBitUnchecked(PDN_CONNECTION_RESTRICTED_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class SubscriptionDataFlagsImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setAcknowledgmentOfDownlinkNASDataPDUSDisabledBit(boolean isOn)
 	{
-		setBit(ACKNOWLEDGEMENT_OF_DOWNLINK_NAS_DATA_PDUS_DISABLED_BIT, isOn);
+		setBitUnchecked(ACKNOWLEDGEMENT_OF_DOWNLINK_NAS_DATA_PDUS_DISABLED_BIT, isOn);
 	}
 
 	@Override

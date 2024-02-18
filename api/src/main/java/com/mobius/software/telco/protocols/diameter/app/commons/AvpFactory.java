@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.app.commons;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
@@ -25,7 +27,7 @@ import io.netty.buffer.ByteBuf;
 
 public interface AvpFactory
 {
-	public ProxyInfo getProxyInfo(String proxyHost,ByteBuf proxyState);
+	public ProxyInfo getProxyInfo(String proxyHost,ByteBuf proxyState) throws MissingAvpException;
 	
-	public VendorSpecificApplicationId getVendorSpecificApplicationId(Long vendorId,Long authApplicationId,Long acctAppicationId);
+	public VendorSpecificApplicationId getVendorSpecificApplicationId(Long vendorId,Long authApplicationId,Long acctAppicationId) throws AvpOccursTooManyTimesException, MissingAvpException;
 }

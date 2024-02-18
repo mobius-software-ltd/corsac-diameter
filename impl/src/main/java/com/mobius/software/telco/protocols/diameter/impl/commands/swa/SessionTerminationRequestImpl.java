@@ -1,7 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swa;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.swa.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 
 /*
@@ -28,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777250, commandCode = 275, request = true)
 public class SessionTerminationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.sta.SessionTerminationRequestImpl implements SessionTerminationRequest
 {
 	protected SessionTerminationRequestImpl() 
@@ -36,7 +36,7 @@ public class SessionTerminationRequestImpl extends com.mobius.software.telco.pro
 		super();
 	}
 		
-	public SessionTerminationRequestImpl(String originHost,String originRealm, String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause)
+	public SessionTerminationRequestImpl(String originHost,String originRealm, String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, terminationCause);		
 	}

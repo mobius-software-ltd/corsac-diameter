@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.slh;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.slh.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.AdditionalServingNodeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.RIAFlagsImpl;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}

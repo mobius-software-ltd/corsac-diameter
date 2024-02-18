@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AllocationRetentionPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ConditionalAPNAggregateMaxBitrate;
@@ -29,11 +30,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSFlags;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public QoSInformation getQoSInformation();
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel);
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException;
 	
 	public ConditionalAPNAggregateMaxBitrate getConditionalAPNAggregateMaxBitrate();
 	

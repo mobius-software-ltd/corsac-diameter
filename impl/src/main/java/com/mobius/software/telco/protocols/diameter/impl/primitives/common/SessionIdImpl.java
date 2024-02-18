@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SessionId;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionId;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 263L, vendorId = -1L)
 public class SessionIdImpl extends DiameterUTF8StringImpl implements SessionId
 {
-	protected SessionIdImpl() 
+	public SessionIdImpl() 
 	{
 		super();
 	}

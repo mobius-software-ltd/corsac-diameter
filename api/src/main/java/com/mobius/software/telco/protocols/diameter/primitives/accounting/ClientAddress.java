@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Client-Address AVP (AVP code 2018) is of type Address and is the address of the messaging Node which the OCS
 	is connected to. 
  */
-@DiameterAvpDefinition(code = 2018L, vendorId = KnownVendorIDs.TGPP_ID, name = "Client-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.CLIENT_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Client-Address")
 public interface ClientAddress extends DiameterAddress
 {
 }

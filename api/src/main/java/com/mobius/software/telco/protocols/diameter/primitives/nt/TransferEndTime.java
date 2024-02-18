@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.6	Transfer-End-Time AVP
 	The Transfer-End-Time AVP (AVP code 4205) is of type Time. It indicates the NTP time at which the SCS/AS shall stop the background data transfer.
  */
-@DiameterAvpDefinition(code = 4205L, vendorId = KnownVendorIDs.TGPP_ID, name = "Transfer-End-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRANSFER_END_TIME, vendorId = VendorIDs.TGPP_ID, name = "Transfer-End-Time")
 public interface TransferEndTime extends DiameterTime
 {
 }

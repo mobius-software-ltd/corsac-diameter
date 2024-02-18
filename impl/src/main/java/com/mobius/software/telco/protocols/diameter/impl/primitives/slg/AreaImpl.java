@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.Area;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaIdentification;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaType;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2535L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AreaImpl extends DiameterGroupedAvpImpl implements Area
 {
 	private AreaType areaType;
@@ -44,17 +46,11 @@ public class AreaImpl extends DiameterGroupedAvpImpl implements Area
 	{
 	}
 	
-	public AreaImpl(Long areaType, ByteBuf areaIdentification)
+	public AreaImpl(Long areaType, ByteBuf areaIdentification) throws MissingAvpException
 	{
-		if(areaType==null)
-			throw new IllegalArgumentException("Area-Type is required");
+		setAreaType(areaType);
 		
-		if(areaIdentification==null)
-			throw new IllegalArgumentException("Area-Identification is required");
-		
-		this.areaType = new AreaTypeImpl(areaType, null, null);				
-		
-		this.areaIdentification = new AreaIdentificationImpl(areaIdentification, null, null);
+		setAreaIdentification(areaIdentification);
 	}
 	
 	public Long getAreaType()
@@ -65,11 +61,11 @@ public class AreaImpl extends DiameterGroupedAvpImpl implements Area
 		return areaType.getUnsigned();
 	}
 	
-	public void setAreaType(Long value)
+	public void setAreaType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Area-Type is required");
-		
+			throw new MissingAvpException("Area-Type is required", Arrays.asList(new DiameterAvp[] { new AreaTypeImpl() }));
+			
 		this.areaType = new AreaTypeImpl(value, null, null);						
 	}
 	
@@ -81,22 +77,22 @@ public class AreaImpl extends DiameterGroupedAvpImpl implements Area
 		return areaIdentification.getValue();
 	}
 	
-	public void setAreaIdentification(ByteBuf value)
+	public void setAreaIdentification(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Area-Identification is required");
+			throw new MissingAvpException("Area-Identification is required", Arrays.asList(new DiameterAvp[] { new AreaIdentificationImpl() }));
 		
 		this.areaIdentification = new AreaIdentificationImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(areaType==null)
-			return "Area-Type is required";
+			return new MissingAvpException("Area-Type is required", Arrays.asList(new DiameterAvp[] { new AreaTypeImpl() }));
 		
 		if(areaIdentification==null)
-			return "Area-Identification is required";
+			return new MissingAvpException("Area-Identification is required", Arrays.asList(new DiameterAvp[] { new AreaIdentificationImpl() }));
 		
 		return null;
 	}

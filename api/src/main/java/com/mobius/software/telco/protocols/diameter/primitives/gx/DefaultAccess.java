@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	access determined by the PCRF. The values defined in the Default-Access AVP are the same as the ones defined in IPCAN-Type AVP.
 	NOTE: Only the 3GPP-EPS and Non-3GPP-EPS IP-CAN type values are applicable in this release. 
  */
-@DiameterAvpDefinition(code = 2829L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Default-Access")
+@DiameterAvpDefinition(code = TgppAvpCodes.DEFAULT_ACCESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "Default-Access")
 public interface DefaultAccess extends DiameterEnumerated<IPCANTypeEnum>
 {
 }

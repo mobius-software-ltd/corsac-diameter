@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Node-Id AVP (AVP code 2064) is of type UTF8String and includes an optional, operator configurable identifier
 	string for the node. 
  */
-@DiameterAvpDefinition(code = 2064L, vendorId = KnownVendorIDs.TGPP_ID, name = "Node-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.NODE_ID, vendorId = VendorIDs.TGPP_ID, name = "Node-Id")
 public interface NodeId extends DiameterUTF8String
 {
 }

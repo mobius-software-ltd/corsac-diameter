@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
       An authentication and authorization re-auth is expected upon
       expiration of the Authorization-Lifetime.
  */
-@DiameterAvpDefinition(code = 285L, vendorId = -1L, name = "Re-Auth-Request-Type")
+@DiameterAvpDefinition(code = AvpCodes.REAUTH_REQUEST_TYPE, vendorId = -1L, name = "Re-Auth-Request-Type")
 public interface ReAuthRequestType extends DiameterEnumerated<ReAuthRequestTypeEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 Highest bandwidth flow 
 	This bit, when set, indicates that the highest bandwidth flow is to be pre-empted.
 */
-@DiameterAvpDefinition(code = 553L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Pre-Emption-Control-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.PREEMPTION_CONTROL_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Pre-Emption-Control-Info")
 public interface PreEmptionControlInfo extends DiameterBitmask32
 {
 	public static final int MOST_RECENT_ADDED_FLOW_BIT = 0;	

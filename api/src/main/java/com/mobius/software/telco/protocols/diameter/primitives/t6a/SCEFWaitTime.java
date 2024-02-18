@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.24	SCEF-Wait-Time
 	The SCEF-Wait-Time is of type Time and it shall contain the timestamp (in UTC) until which the SCEF expects a response.
  */
-@DiameterAvpDefinition(code = 4316L, vendorId = KnownVendorIDs.TGPP_ID, name = "SCEF-Wait-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCEF_WAIT_TIME, vendorId = VendorIDs.TGPP_ID, name = "SCEF-Wait-Time")
 public interface SCEFWaitTime extends DiameterTime
 {
 }

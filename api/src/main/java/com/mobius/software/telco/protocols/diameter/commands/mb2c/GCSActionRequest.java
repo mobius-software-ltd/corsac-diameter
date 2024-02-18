@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.mb2c;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerRequest;
@@ -59,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
                  [ Restart-Counter ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777335, commandCode = 8388662, request = true, proxyable = true, name="GCS-Action-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MB2C, commandCode = CommandCodes.GCS_ACTION, request = true, proxyable = true, name="GCS-Action-Request")
 public interface GCSActionRequest extends AuthenticationRequest
 {	
 	DRMPEnum getDRMP();
@@ -68,7 +71,7 @@ public interface GCSActionRequest extends AuthenticationRequest
 	
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);	
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
 	
 	public List<SupportedFeatures> getSupportedFeatures();
 	 

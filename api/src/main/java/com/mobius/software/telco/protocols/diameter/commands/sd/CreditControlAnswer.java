@@ -21,8 +21,11 @@ package com.mobius.software.telco.protocols.diameter.commands.sd;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -90,7 +93,7 @@ import io.netty.buffer.ByteBuf;
 	
 	NOTE 3	Load AVP is only applicable to the unsolicited application reporting.
  */
-@DiameterCommandDefinition(applicationId = 16777303, commandCode = 272, request = false, proxyable = true, name="Credit-Control-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SD, commandCode = CommandCodes.CREDIT_CONTROL, request = false, proxyable = true, name="Credit-Control-Answer")
 public interface CreditControlAnswer extends AuthenticationAnswer
 {
 	DRMPEnum getDRMP();
@@ -99,11 +102,11 @@ public interface CreditControlAnswer extends AuthenticationAnswer
 	
 	CcRequestTypeEnum getCcRequestType();
 	
-	void setCcRequestType(CcRequestTypeEnum value);
+	void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException;
 	
 	Long getCcRequestNumber();
 	
-	void setCcRequestNumber(Long value);
+	void setCcRequestNumber(Long value) throws MissingAvpException;
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	

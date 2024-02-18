@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.cxdx;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.cxdx.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.AllowedWAFWWSFIdentitiesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.AssociatedIdentitiesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.AssociatedRegisteredIdentitiesImpl;
@@ -73,7 +74,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
@@ -83,7 +84,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
@@ -98,7 +99,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new FailedPCSCFImpl();
 	}
 	
-	public SCSCFRestorationInfo getSCSCFRestorationInfo(String username,List<RestorationInfo> restorationInfo)
+	public SCSCFRestorationInfo getSCSCFRestorationInfo(String username,List<RestorationInfo> restorationInfo) throws MissingAvpException
 	{
 		return new SCSCFRestorationInfoImpl(username, restorationInfo);
 	}
@@ -123,7 +124,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ChargingInformationImpl();
 	}
 	
-	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode)
+	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode) throws MissingAvpException
 	{
 		return new DeregistrationReasonImpl(reasonCode);
 	}
@@ -133,22 +134,22 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SIPAuthDataItemImpl();
 	}
 	
-	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm)
+	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm) throws MissingAvpException
 	{
 		return new SIPDigestAuthenticateImpl(digestRealm);
 	}
 	
-	public RestorationInfo getRestorationInfo(ByteBuf path,ByteBuf contact)
+	public RestorationInfo getRestorationInfo(ByteBuf path,ByteBuf contact) throws MissingAvpException
 	{
 		return new RestorationInfoImpl(path, contact);
 	}
 	
-	public SubscriptionInfo getSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf recordRoute,ByteBuf contact)
+	public SubscriptionInfo getSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf recordRoute,ByteBuf contact) throws MissingAvpException
 	{
 		return new SubscriptionInfoImpl(callIDSIPHeader, fromSIPHeader, toSIPHeader, recordRoute, contact);
 	}
 	
-	public PCSCFSubscriptionInfo getPCSCFSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf contact)
+	public PCSCFSubscriptionInfo getPCSCFSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf contact) throws MissingAvpException
 	{
 		return new PCSCFSubscriptionInfoImpl(callIDSIPHeader, fromSIPHeader, toSIPHeader, contact);
 	}

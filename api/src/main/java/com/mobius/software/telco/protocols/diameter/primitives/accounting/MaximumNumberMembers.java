@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	the group for the Create and Update operations. This is the same as the attribute "maxNrOfMembers" for the group as described 
 	in Table 7.4.14.1-137
  */
-@DiameterAvpDefinition(code = 1009L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Maximum-Number-Members")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.MAXIMUM_NUMBER_MEMBERS, vendorId = VendorIDs.ONEM2M_ID, name = "Maximum-Number-Members")
 public interface MaximumNumberMembers extends DiameterUnsigned32
 {
 }

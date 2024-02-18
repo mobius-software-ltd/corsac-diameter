@@ -2,12 +2,14 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
@@ -52,7 +54,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 0, commandCode = 257, request = false)
 public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implements CapabilitiesExchangeAnswer
 {
 	private List<HostIpAddress> hostIpAddresses;
@@ -83,7 +84,7 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 		setUsernameAllowed(false);
 	}
 	
-	public CapabilitiesExchangeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, List<InetAddress> hostIpAddresses, Long vendorId, String productName)
+	public CapabilitiesExchangeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, List<InetAddress> hostIpAddresses, Long vendorId, String productName) throws MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode);
 		
@@ -116,10 +117,10 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	}
 
 	@Override
-	public void setHostIpAddress(List<InetAddress> value) 
+	public void setHostIpAddress(List<InetAddress> value) throws MissingAvpException 
 	{
 		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
-			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
+			throw new MissingAvpException("At least 1 Host-IP-Address is required", Arrays.asList(new DiameterAvp[] { new HostIpAddressImpl() }));
 		
 		this.hostIpAddresses = new ArrayList<HostIpAddress>();
 		for(InetAddress curr:value)
@@ -136,11 +137,11 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	}
 
 	@Override
-	public void setVendorId(Long value) 
+	public void setVendorId(Long value) throws MissingAvpException 
 	{
 		if(vendorId==null)
-			throw new IllegalArgumentException("Vendor-Id is required");
-		
+			throw new MissingAvpException("Vendor-Id is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
+			
 		this.vendorId = new VendorIdImpl(value, null, null);
 	}
 
@@ -154,10 +155,10 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	}
 
 	@Override
-	public void setProductName(String value) 
+	public void setProductName(String value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Product-Name is required");
+			throw new MissingAvpException("Product-Name is required", Arrays.asList(new DiameterAvp[] { new ProductNameImpl() }));
 		
 		this.productName = new ProductNameImpl(value, null, null);
 	}
@@ -308,16 +309,16 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
-			throw new IllegalArgumentException("At least 1 Host-IP-Address is required");
-		
+			return new MissingAvpException("At least 1 Host-IP-Address is required", Arrays.asList(new DiameterAvp[] { new HostIpAddressImpl() }));
+			
 		if(vendorId==null)
-			return "Vendor-Id is required";
-		
+			return new MissingAvpException("Vendor-Id is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
+			
 		if(productName==null)
-			return "Product-Name is required";
+			return new MissingAvpException("Product-Name is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
 		
 		return super.validate();
 	}

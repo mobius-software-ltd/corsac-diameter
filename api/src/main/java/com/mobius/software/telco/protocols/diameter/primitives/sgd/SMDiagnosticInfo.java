@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.3.7	SM-Diagnostic-Info
 	The SM-Diagnostic-Info AVP is of type OctetString and it shall contain a complementary information associated to the SM Delivery Failure cause.
  */
-@DiameterAvpDefinition(code = 3305L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Diagnostic-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_DIAGNOSTIC_INFO, vendorId = VendorIDs.TGPP_ID, name = "SM-Diagnostic-Info")
 public interface SMDiagnosticInfo extends DiameterOctetString
 {
 }

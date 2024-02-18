@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when set, indicates that the OFR message is sent on the Gdd interface, i.e. the source node is an SGSN (or a combined MME/SGSN to which the UE is attached via UTRAN).
 	This bit, when cleared, indicates that the OFR message is sent on the SGd interface, i.e. the source node is an MME (or a combined MME/SGSN to which the UE is attached via UTRAN or GERAN).
  */
-@DiameterAvpDefinition(code = 3328L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "OFR-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.OFR_FLAGS, vendorId = VendorIDs.TGPP_ID, must = false, name = "OFR-Flags")
 public interface OFRFlags extends DiameterBitmask32
 {
 	public static final int S6A_S6D_INDICATOR_BIT = 0;	

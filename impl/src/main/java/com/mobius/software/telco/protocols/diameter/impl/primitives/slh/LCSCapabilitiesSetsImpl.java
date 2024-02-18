@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.LCSCapabilitiesSets;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.LCSCapabiliti
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2404L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LCSCapabilitiesSetsImpl extends DiameterBitmask32Impl implements LCSCapabilitiesSets
 {
 	public LCSCapabilitiesSetsImpl()
@@ -44,7 +41,7 @@ public class LCSCapabilitiesSetsImpl extends DiameterBitmask32Impl implements LC
 	@Override
 	public void setRel9899Bit(boolean isOn)
 	{
-		setBit(REL98_99_BIT, isOn);
+		setBitUnchecked(REL98_99_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class LCSCapabilitiesSetsImpl extends DiameterBitmask32Impl implements LC
 	@Override
 	public void setRel4Bit(boolean isOn)
 	{
-		setBit(REL4_BIT, isOn);
+		setBitUnchecked(REL4_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class LCSCapabilitiesSetsImpl extends DiameterBitmask32Impl implements LC
 	@Override
 	public void setRel5Bit(boolean isOn)
 	{
-		setBit(REL5_BIT, isOn);
+		setBitUnchecked(REL5_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class LCSCapabilitiesSetsImpl extends DiameterBitmask32Impl implements LC
 	@Override
 	public void setRel6Bit(boolean isOn)
 	{
-		setBit(REL6_BIT, isOn);
+		setBitUnchecked(REL6_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class LCSCapabilitiesSetsImpl extends DiameterBitmask32Impl implements LC
 	@Override
 	public void setRel7Bit(boolean isOn)
 	{
-		setBit(REL7_BIT, isOn);
+		setBitUnchecked(REL7_BIT, isOn);
 	}
 
 	@Override

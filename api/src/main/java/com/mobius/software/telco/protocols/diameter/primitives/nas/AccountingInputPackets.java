@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
    User.  It can only be present in ACR messages with an Accounting-
    Record-Type of INTERIM_RECORD or STOP_RECORD.
  */
-@DiameterAvpDefinition(code = 365L, vendorId = -1L, name = "Accounting-Input-Packets")
+@DiameterAvpDefinition(code = AvpCodes.ACCOUNTING_INPUT_PACKETS, vendorId = -1L, name = "Accounting-Input-Packets")
 public interface AccountingInputPackets extends DiameterUnsigned64
 {
 }

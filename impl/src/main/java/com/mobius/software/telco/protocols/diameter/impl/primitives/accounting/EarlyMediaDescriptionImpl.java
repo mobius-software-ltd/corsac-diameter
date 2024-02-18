@@ -21,8 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EarlyMediaDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPMediaComponent;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPSessionDescription;
@@ -33,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPTim
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1272L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EarlyMediaDescriptionImpl implements EarlyMediaDescription
 {
 	private SDPTimeStamps sdpTimeStamps; 

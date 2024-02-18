@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.RIRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.RIRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3167L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RIRFlagsImpl extends DiameterBitmask32Impl implements RIRFlags
 {
 	public RIRFlagsImpl()
@@ -44,7 +41,7 @@ public class RIRFlagsImpl extends DiameterBitmask32Impl implements RIRFlags
 	@Override
 	public void setGroupConfigurationInProgressBit(boolean isOn)
 	{
-		setBit(GROUP_CONFIGURATION_IN_PROGRESS_BIT, isOn);
+		setBitUnchecked(GROUP_CONFIGURATION_IN_PROGRESS_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class RIRFlagsImpl extends DiameterBitmask32Impl implements RIRFlags
 	@Override
 	public void setAllMonitoringEventsCancelledBit(boolean isOn)
 	{
-		setBit(ALL_MONITORING_EVENTS_CANCELLED_BIT, isOn);
+		setBitUnchecked(ALL_MONITORING_EVENTS_CANCELLED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class RIRFlagsImpl extends DiameterBitmask32Impl implements RIRFlags
 	@Override
 	public void setChangeOfAuthorizedMonitoringEventsBit(boolean isOn)
 	{
-		setBit(CHANGE_OF_AUTHORIZED_MONITORING_EVENTS_BIT, isOn);
+		setBitUnchecked(CHANGE_OF_AUTHORIZED_MONITORING_EVENTS_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class RIRFlagsImpl extends DiameterBitmask32Impl implements RIRFlags
 	@Override
 	public void setAllCommunicationPatternCancelledBit(boolean isOn)
 	{
-		setBit(ALL_COMMUNICATION_PATTERN_CANCELLED_BIT, isOn);
+		setBitUnchecked(ALL_COMMUNICATION_PATTERN_CANCELLED_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class RIRFlagsImpl extends DiameterBitmask32Impl implements RIRFlags
 	@Override
 	public void setAllSuggestedNetworkConfigurationCancelledBit(boolean isOn)
 	{
-		setBit(ALL_SUGGESTED_NETWORK_CONFIGURATION_CANCELLED_BIT, isOn);
+		setBitUnchecked(ALL_SUGGESTED_NETWORK_CONFIGURATION_CANCELLED_BIT, isOn);
 	}
 
 	@Override

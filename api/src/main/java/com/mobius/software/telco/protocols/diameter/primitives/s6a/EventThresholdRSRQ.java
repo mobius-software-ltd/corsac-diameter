@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.144	Event-Threshold-RSRQ
 	The Event-Threshold-RSRQ AVP is of type Unsigned32. See 3GPP TS 32.422 [23] for allowed values
  */
-@DiameterAvpDefinition(code = 1630L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Event-Threshold-RSRQ")
+@DiameterAvpDefinition(code = TgppAvpCodes.EVENT_THRESHOLD_RSRQ, vendorId = VendorIDs.TGPP_ID, must = false, name = "Event-Threshold-RSRQ")
 public interface EventThresholdRSRQ extends DiameterUnsigned32
 {
 }

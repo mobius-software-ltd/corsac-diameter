@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.129 Outgoing-Trunk-Group-ID AVP
 	The Outgoing-Trunk-Group-ID AVP (AVP code 853) is of type UTF8String and identifies the outgoing PSTN leg. 
  */
-@DiameterAvpDefinition(code = 853L, vendorId = KnownVendorIDs.TGPP_ID, name = "Outgoing-Trunk-Group-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.OUTGOING_TRUNK_GROUP_ID, vendorId = VendorIDs.TGPP_ID, name = "Outgoing-Trunk-Group-ID")
 public interface OutgoingTrunkGroupID extends DiameterUTF8String
 {
 }

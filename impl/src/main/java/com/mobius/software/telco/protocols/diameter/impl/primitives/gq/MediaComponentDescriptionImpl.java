@@ -18,10 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFApplicationIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.FlowStatusImpl;
@@ -31,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MediaComp
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MediaTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RRBandwidthImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RSBandwidthImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaComponentDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaSubComponent;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFApplicationIdentifier;
@@ -52,7 +54,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 517L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implements MediaComponentDescription
 {
 	private MediaComponentNumber mediaComponentNumber;
@@ -78,12 +79,9 @@ public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implem
 		
 	}
 	
-	public MediaComponentDescriptionImpl(Long mediaComponentNumber)
+	public MediaComponentDescriptionImpl(Long mediaComponentNumber) throws MissingAvpException
 	{
-		if(mediaComponentNumber==null)
-			throw new IllegalArgumentException("Media-Component-Number is required");
-		
-		this.mediaComponentNumber = new MediaComponentNumberImpl(mediaComponentNumber, null, null);
+		setMediaComponentNumber(mediaComponentNumber);
 	}
 	
 	public Long getMediaComponentNumber()
@@ -94,10 +92,10 @@ public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implem
 		return mediaComponentNumber.getUnsigned();
 	}
 	
-	public void setMediaComponentNumber(Long value)
+	public void setMediaComponentNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Media-Component-Number is required");
+			throw new MissingAvpException("Media-Component-Number is required", Arrays.asList(new DiameterAvp[] { new MediaComponentNumberImpl() }));
 		
 		this.mediaComponentNumber = new MediaComponentNumberImpl(value, null, null);
 	}
@@ -225,10 +223,10 @@ public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implem
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mediaComponentNumber==null)
-			return "Media-Component-Number is required";
+			return new MissingAvpException("Media-Component-Number is required", Arrays.asList(new DiameterAvp[] { new MediaComponentNumberImpl() }));
 		
 		return null;
 	}

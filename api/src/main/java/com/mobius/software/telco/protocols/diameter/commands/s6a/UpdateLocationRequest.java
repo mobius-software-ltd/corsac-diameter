@@ -21,7 +21,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ActiveAPN;
@@ -79,7 +82,7 @@ import io.netty.buffer.ByteBuf;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 316, request = true, proxyable = true, name="Update-Location-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.UPDATE_LOCATION, request = true, proxyable = true, name="Update-Location-Request")
 public interface UpdateLocationRequest extends S6aRequest
 {
 	OCSupportedFeatures getOCSupportedFeatures();
@@ -92,11 +95,11 @@ public interface UpdateLocationRequest extends S6aRequest
 	
 	RATTypeEnum getRATType();
 	
-	void setRATType(RATTypeEnum value);
+	void setRATType(RATTypeEnum value) throws MissingAvpException;
 	
 	ULRFlags getULRFlags();
 	
-	void setULRFlags(ULRFlags value);
+	void setULRFlags(ULRFlags value) throws MissingAvpException;
 	
 	UESRVCCCapabilityEnum getUESRVCCCapability();
 	
@@ -104,7 +107,7 @@ public interface UpdateLocationRequest extends S6aRequest
 	
 	ByteBuf getVisitedPLMNId();
 	
-	void setVisitedPLMNId(ByteBuf value);	
+	void setVisitedPLMNId(ByteBuf value) throws MissingAvpException;	
 	
 	String getSGSNNumber();
 	

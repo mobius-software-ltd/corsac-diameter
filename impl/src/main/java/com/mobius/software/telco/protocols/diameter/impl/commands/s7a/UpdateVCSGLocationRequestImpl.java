@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s7a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumberImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UVRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -39,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777308, commandCode = 8388638, request = true)
 public class UpdateVCSGLocationRequestImpl extends S7aRequestImpl implements UpdateVCSGLocationRequest
 {
 	private MSISDN msisdn;
@@ -53,7 +56,7 @@ public class UpdateVCSGLocationRequestImpl extends S7aRequestImpl implements Upd
 		super();
 	}
 	
-	public UpdateVCSGLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UVRFlags uvrFlags)
+	public UpdateVCSGLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UVRFlags uvrFlags) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -103,19 +106,19 @@ public class UpdateVCSGLocationRequestImpl extends S7aRequestImpl implements Upd
 	}
 	
 	@Override
-	public void setUVRFlags(UVRFlags value)
+	public void setUVRFlags(UVRFlags value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("ULR-Flags is required");
+			throw new MissingAvpException("ULR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new UVRFlagsImpl() }));
 		
 		this.uvrFlags = value;
 	}				
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(uvrFlags == null)
-			return "ULR-Flags is required";
+			return new MissingAvpException("ULR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new UVRFlagsImpl() }));
 		
 		return super.validate();
 	}		

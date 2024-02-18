@@ -19,15 +19,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.net.InetAddress;
+import java.util.Arrays;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PDPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.SCEFIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PDPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
@@ -59,7 +61,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1469L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PDPContextImpl extends DiameterGroupedAvpImpl implements PDPContext
 {
 	private ContextIdentifier contextIdentifier;
@@ -84,22 +85,13 @@ public class PDPContextImpl extends DiameterGroupedAvpImpl implements PDPContext
 	{
 	}
 	
-	public PDPContextImpl(Long contextIdentifier,ByteBuf qoSSubscribed ,String serviceSelection)
+	public PDPContextImpl(Long contextIdentifier,ByteBuf qoSSubscribed ,String serviceSelection) throws MissingAvpException
 	{
-		if(contextIdentifier==null)
-			throw new IllegalArgumentException("Context-Identifier is required");
+		setContextIdentifier(contextIdentifier);
 		
-		if(qoSSubscribed==null)
-			throw new IllegalArgumentException("QoS-Subscribed is required");
+		setQoSSubscribed(qoSSubscribed);
 		
-		if(serviceSelection==null)
-			throw new IllegalArgumentException("Service-Selection is required");
-		
-		this.contextIdentifier = new ContextIdentifierImpl(contextIdentifier, null, null);				
-		
-		this.qoSSubscribed = new QoSSubscribedImpl(qoSSubscribed, null, null);
-		
-		this.serviceSelection = new ServiceSelectionImpl(serviceSelection, null, null);
+		setServiceSelection(serviceSelection);
 	}
 	
 	public Long getContextIdentifier()
@@ -110,10 +102,10 @@ public class PDPContextImpl extends DiameterGroupedAvpImpl implements PDPContext
 		return contextIdentifier.getUnsigned();
 	}
 	
-	public void setContextIdentifier(Long value)
+	public void setContextIdentifier(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Context-Identifier is required");
+			throw new MissingAvpException("Context-Identifier is required", Arrays.asList(new DiameterAvp[] { new ContextIdentifierImpl() }));
 		
 		this.contextIdentifier = new ContextIdentifierImpl(value, null, null);	
 	}	
@@ -158,10 +150,10 @@ public class PDPContextImpl extends DiameterGroupedAvpImpl implements PDPContext
 		return qoSSubscribed.getValue();
 	}
 	
-	public void setQoSSubscribed(ByteBuf value)
+	public void setQoSSubscribed(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("QoS-Subscribed is required");
+			throw new MissingAvpException("QoS-Subscribed is required", Arrays.asList(new DiameterAvp[] { new QoSSubscribedImpl() }));
 		
 		this.qoSSubscribed = new QoSSubscribedImpl(value, null, null);	
 	}	
@@ -190,10 +182,10 @@ public class PDPContextImpl extends DiameterGroupedAvpImpl implements PDPContext
 		return serviceSelection.getString();
 	}
 	
-	public void setServiceSelection(String value)
+	public void setServiceSelection(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Selection is required");
+			throw new MissingAvpException("Service-Selection is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
 		
 		this.serviceSelection = new ServiceSelectionImpl(value, null, null);
 	}
@@ -369,16 +361,16 @@ public class PDPContextImpl extends DiameterGroupedAvpImpl implements PDPContext
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(contextIdentifier==null)
-			return "Context-Identifier is required";
+			return new MissingAvpException("Context-Identifier is required", Arrays.asList(new DiameterAvp[] { new ContextIdentifierImpl() }));
 		
 		if(qoSSubscribed==null)
-			return "QoS-Subscribed is required";
+			return new MissingAvpException("QoS-Subscribed is required", Arrays.asList(new DiameterAvp[] { new QoSSubscribedImpl() }));
 		
 		if(serviceSelection==null)
-			return "Service-Selection is required";
+			return new MissingAvpException("Service-Selection is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
 		
 		return null;
 	}

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.MinimumPolicedUnit;
 
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.MinimumPo
 *
 */
 
-@DiameterAvpImplementation(code = 499L, vendorId = -1L)
 public class MinimumPolicedUnitImpl extends DiameterUnsigned32Impl implements MinimumPolicedUnit
 {
 	protected MinimumPolicedUnitImpl() 

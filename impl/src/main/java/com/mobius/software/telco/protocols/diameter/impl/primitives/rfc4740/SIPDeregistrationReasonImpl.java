@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPDeregistrationReason;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPReasonCode;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPReasonCodeEnum;
@@ -31,24 +35,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPReason
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 383L, vendorId = -1L)
 public class SIPDeregistrationReasonImpl extends DiameterGroupedAvpImpl implements SIPDeregistrationReason
 {
 	private SIPReasonCode sipReasonCode;
 	
 	private SIPReasonInfo sipReasonInfo;
 	
-	protected SIPDeregistrationReasonImpl()
+	public SIPDeregistrationReasonImpl()
 	{
 		
 	}
 	
-	public SIPDeregistrationReasonImpl(SIPReasonCodeEnum sipReasonCode) 
+	public SIPDeregistrationReasonImpl(SIPReasonCodeEnum sipReasonCode) throws MissingAvpException 
 	{
-		if(sipReasonCode == null)
-			throw new IllegalArgumentException("SIP-Reason-Code is required");
-		
-		this.sipReasonCode = new SIPReasonCodeImpl(sipReasonCode, null, null);
+		setSIPReasonCode(sipReasonCode);
 	}
 	
 	public SIPReasonCodeEnum getSIPReasonCode()
@@ -59,10 +59,10 @@ public class SIPDeregistrationReasonImpl extends DiameterGroupedAvpImpl implemen
 		return sipReasonCode.getEnumerated(SIPReasonCodeEnum.class);
 	}
 	
-	public void setSIPReasonCode(SIPReasonCodeEnum value)
+	public void setSIPReasonCode(SIPReasonCodeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-Reason-Code is required");
+			throw new MissingAvpException("SIP-Reason-Code is required is required", Arrays.asList(new DiameterAvp[] { new SIPReasonCodeImpl() }));
 		
 		this.sipReasonCode = new SIPReasonCodeImpl(value, null, null);
 	}
@@ -84,10 +84,10 @@ public class SIPDeregistrationReasonImpl extends DiameterGroupedAvpImpl implemen
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(sipReasonCode == null)
-			return "SIP-Reason-Code is required";
+			return new MissingAvpException("SIP-Reason-Code is required is required", Arrays.asList(new DiameterAvp[] { new SIPReasonCodeImpl() }));
 		
 		return null;
 	}				

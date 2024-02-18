@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AdditionalServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.ServingNode;
@@ -25,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifie
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public UserIdentifier getUserIdentifier();
 	

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.MTCErrorDiagnosticEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.TriggerActionEnum;
@@ -51,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.t4.TriggerActionE
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777311, commandCode = 8388643, request = false, proxyable = true, name="Device-Trigger-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T4, commandCode = CommandCodes.DEVICE_TRIGGER, request = false, proxyable = true, name="Device-Trigger-Answer")
 public interface DeviceTriggerAnswer extends T4Answer
 {
 	MTCErrorDiagnosticEnum getMTCErrorDiagnostic();

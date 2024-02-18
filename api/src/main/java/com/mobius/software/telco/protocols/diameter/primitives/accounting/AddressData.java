@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Address-Data AVP (AVP code 897) is of type UTF8String and indicates the address information and formatted
 	according type of address indicated in the Address-Type AVP and according to MMS encapsulation [209]. 
  */
-@DiameterAvpDefinition(code = 897L, vendorId = KnownVendorIDs.TGPP_ID, name = "Address-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADDRESS_DATA, vendorId = VendorIDs.TGPP_ID, name = "Address-Data")
 public interface AddressData extends DiameterUTF8String
 {
 }

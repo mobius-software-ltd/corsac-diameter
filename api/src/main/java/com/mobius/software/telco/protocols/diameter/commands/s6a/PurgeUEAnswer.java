@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -56,7 +58,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.PUAFlags;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 321, request = false, proxyable = true, name="Purge-UE-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.PURGE_UE, request = false, proxyable = true, name="Purge-UE-Answer")
 public interface PurgeUEAnswer extends S6aAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

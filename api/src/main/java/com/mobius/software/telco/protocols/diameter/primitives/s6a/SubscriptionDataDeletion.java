@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -46,12 +48,12 @@ import io.netty.buffer.ByteBuf;
 			*[ SS-Code ]
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1685L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Subscription-Data-Deletion")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUBSCRIPTION_DATA_DELETION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Subscription-Data-Deletion")
 public interface SubscriptionDataDeletion extends DiameterGroupedAvp
 {
 	DSRFlags getDSRFlags();
 	
-	void setDSRFlags(DSRFlags value);
+	void setDSRFlags(DSRFlags value) throws MissingAvpException;
 	
 	String getSCEFID();
 	

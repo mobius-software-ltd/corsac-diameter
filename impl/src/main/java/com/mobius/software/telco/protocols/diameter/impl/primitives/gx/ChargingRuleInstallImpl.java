@@ -22,9 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingCorrelationIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingCorrelationIndicatorEnum;
@@ -47,7 +45,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1001L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ChargingRuleInstallImpl extends DiameterGroupedAvpImpl implements ChargingRuleInstall
 {
 	private List<ChargingRuleDefinition> chargingRuleDefinition;

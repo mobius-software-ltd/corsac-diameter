@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.ro;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.AoCRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestType;
@@ -38,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = true)
 public class CreditControlRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.CreditControlRequestImpl implements CreditControlRequest
 {
 	private AoCRequestType aocRequestType;
@@ -61,7 +61,7 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		setUserEquipmentInfoExtensionAllowed(false);
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, serviceContextId, ccRequestType, ccRequestNumber);
 		
@@ -75,7 +75,7 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		setUserEquipmentInfoExtensionAllowed(false);	
 	}
 
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, serviceContextId, ccRequestType, ccRequestNumber);
 		

@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionTimeoutImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
@@ -46,7 +49,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.TraceInfo;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777264, commandCode = 271, request = false)
 public class AAAnswerImpl extends SwmAnswerWithIdImpl implements AAAnswer
 {
 	private AuthRequestType authRequestType;
@@ -79,7 +81,7 @@ public class AAAnswerImpl extends SwmAnswerWithIdImpl implements AAAnswer
 		setExperimentalResultAllowed(false);
 	}
 	
-	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType)
+	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);
@@ -97,10 +99,10 @@ public class AAAnswerImpl extends SwmAnswerWithIdImpl implements AAAnswer
 	}
 
 	@Override
-	public void setAuthRequestType(AuthRequestTypeEnum value) 
+	public void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Auth-Request-Type is required");	
+			throw new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));	
 		
 		this.authRequestType = new AuthRequestTypeImpl(value, null, null);
 	}
@@ -262,10 +264,10 @@ public class AAAnswerImpl extends SwmAnswerWithIdImpl implements AAAnswer
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authRequestType==null)
-			return "Auth-Request-Type is required";
+			return new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));
 		
 		return super.validate();
 	}

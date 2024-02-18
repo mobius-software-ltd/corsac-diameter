@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Bearer-Service AVP (AVP code 854) is of type OctetString and holds the used bearer service for the PSTN leg of
 	an IMS session or a voice call service.
  */
-@DiameterAvpDefinition(code = 854L, vendorId = KnownVendorIDs.TGPP_ID, name = "Bearer-Service")
+@DiameterAvpDefinition(code = TgppAvpCodes.BEARER_SERVICE, vendorId = VendorIDs.TGPP_ID, name = "Bearer-Service")
 public interface BearerService extends DiameterOctetString
 {
 }

@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.e4;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -35,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777231, commandCode = 309, request = false)
 public class PushNotificationsAnswerImpl extends E4AnswerImpl implements PushNotificationAnswer
 {
 	private List<RouteRecord> routeRecords;
@@ -46,7 +46,7 @@ public class PushNotificationsAnswerImpl extends E4AnswerImpl implements PushNot
 		setExperimentalResultAllowed(false);
 	}
 	
-	public PushNotificationsAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState)
+	public PushNotificationsAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.ro;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LowBalanceIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBalanceIndication;
@@ -40,7 +41,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = false)
 public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.CreditControlAnswerImpl implements CreditControlAnswer
 {
 	private LowBalanceIndication lowBalanceIndication;
@@ -71,7 +71,7 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 		setUsernameAllowed(false);
 	}
 	
-	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, ccRequestType, ccRequestNumber);
 		setExperimentalResultAllowed(true);
@@ -89,7 +89,7 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 		setUsernameAllowed(false);
 	}
 	
-	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
 		setExperimentalResultAllowed(true);

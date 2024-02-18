@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.83	SCEF-Reference-ID-for-Deletion-Ext
 	The SCEF-Reference-ID-for-Deletion-Ext AVP is of type Unsigned64 and it shall contain a 64-bit identifier provided by the SCEF, which shall be used instead of the 32-bit identifier SCEF-Reference-ID-for-Deletion, when supported by both SCEF and HSS.
  */
-@DiameterAvpDefinition(code = 3187L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "SCEF-Reference-ID-for-Deletion-Ext")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCEF_REFERENCE_ID_FOR_DELETION_EXT, vendorId = VendorIDs.TGPP_ID,must = false, name = "SCEF-Reference-ID-for-Deletion-Ext")
 public interface SCEFReferenceIDForDeletionExt extends DiameterUnsigned64
 {
 }

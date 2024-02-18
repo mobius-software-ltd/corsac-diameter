@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.tsp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
@@ -37,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeviceNotific
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777309, commandCode = 8388640, request = true)
 public class DeviceNotificationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestImpl implements DeviceNotificationRequest
 {
 	private AuthSessionState authSessionState;
@@ -49,7 +51,7 @@ public class DeviceNotificationRequestImpl extends com.mobius.software.telco.pro
 		super();
 	}
 	
-	public DeviceNotificationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState)
+	public DeviceNotificationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -60,18 +62,18 @@ public class DeviceNotificationRequestImpl extends com.mobius.software.telco.pro
 	public AuthSessionStateEnum getAuthSessionState() 
 	{
 		if(authSessionState==null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			return null;
 		
 		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			this.authSessionState = null;
-		else
-			this.authSessionState = new AuthSessionStateImpl(value, null, null);
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
+			
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -87,10 +89,10 @@ public class DeviceNotificationRequestImpl extends com.mobius.software.telco.pro
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState==null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		return super.validate();
 	}	

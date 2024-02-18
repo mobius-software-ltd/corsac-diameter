@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ProSe-Target-Layer-2-ID AVP (AVP code4410) is of type OctetString and carries the identifier of UE that
 	uniquely represents a specific one-to-one ProSe Direct Communication. 
  */
-@DiameterAvpDefinition(code = 4410L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Target-Layer-2-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_TARGET_LAYER2_ID, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Target-Layer-2-ID")
 public interface ProSeTargetLayer2ID extends DiameterOctetString
 {
 }

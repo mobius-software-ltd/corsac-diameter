@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	20.5a.3	MBMS-GW-SSM-IPv6-Address AVP
 	The MBMS-GW-SSM-IPv6-Address AVP (AVP code 925) is of type OctetString and contains the Sgi-mb (transport) plane IPv6 prefix of the destination multicast address used by BM-SC for IP multicast encapsulation of application IP multicast datagrams.
  */
-@DiameterAvpDefinition(code = 925L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBMS-BMSC-SSM-IPv6-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_GW_SSM_IPV6_ADDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "MBMS-BMSC-SSM-IPv6-Address")
 public interface MBMSGWSSMIPv6Address extends DiameterIpv6Address
 {
 }

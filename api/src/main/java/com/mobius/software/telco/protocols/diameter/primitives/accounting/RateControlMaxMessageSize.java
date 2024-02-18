@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Rate-Control-Max-Message-Size AVP (AVP code 3937) is of type Unsigned32 and holds the maximum data PDU
 	size in octets.
  */
-@DiameterAvpDefinition(code = 3937L, vendorId = KnownVendorIDs.TGPP_ID, name = "Rate-Control-Max-Message-Size")
+@DiameterAvpDefinition(code = TgppAvpCodes.RATE_CONTROL_MAX_MESSAGES_SIZE, vendorId = VendorIDs.TGPP_ID, name = "Rate-Control-Max-Message-Size")
 public interface RateControlMaxMessageSize extends DiameterUnsigned32
 {
 }

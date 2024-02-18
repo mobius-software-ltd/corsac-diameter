@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.31 AS-Number AVP
 	The AS-Number AVP is of type OctetString. The exact content and format of this AVP corresponds to the gmscaddress parameter described in 3GPP TS 29.002 [11]. 
  */
-@DiameterAvpDefinition(code = 722L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "AS-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.AS_NUMBER, vendorId = VendorIDs.TGPP_ID, must = false, name = "AS-Number")
 public interface ASNumber extends DiameterOctetString
 {
 }

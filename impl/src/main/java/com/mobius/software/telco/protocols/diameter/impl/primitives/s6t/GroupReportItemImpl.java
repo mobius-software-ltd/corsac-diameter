@@ -19,19 +19,20 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MaximumUEAvailabilityTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MaximumUEAvailabilityTime;
-import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EventHandling;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EventHandlingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportItem;
@@ -51,6 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFReference
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFReferenceIDForDeletionExt;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.ServiceReport;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.UpdatedNetworkConfiguration;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.IdleStatusIndication;
 
 import io.netty.buffer.ByteBuf;
@@ -60,7 +62,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3166L, vendorId = KnownVendorIDs.TGPP_ID)
 public class GroupReportItemImpl extends DiameterGroupedAvpImpl implements GroupReportItem
 {
 	private UserIdentifier userIdentifier;
@@ -87,12 +88,9 @@ public class GroupReportItemImpl extends DiameterGroupedAvpImpl implements Group
 		 
 	}
 	 
-	public GroupReportItemImpl(UserIdentifier userIdentifier) 
+	public GroupReportItemImpl(UserIdentifier userIdentifier) throws MissingAvpException 
 	{
-		if(userIdentifier==null)
-			throw new IllegalArgumentException("User-Identifier is required");
-		
-		this.userIdentifier = userIdentifier;
+		setUserIdentifier(userIdentifier);
 	}
 	 
 	public UserIdentifier getUserIdentifier()
@@ -100,11 +98,11 @@ public class GroupReportItemImpl extends DiameterGroupedAvpImpl implements Group
 		return userIdentifier;
 	}
 	
-	public void setUserIdentifier(UserIdentifier value)
+	public void setUserIdentifier(UserIdentifier value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identifier is required");
-		
+			throw new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
+			
 		this.userIdentifier = value;
 	}
 	
@@ -361,10 +359,10 @@ public class GroupReportItemImpl extends DiameterGroupedAvpImpl implements Group
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userIdentifier==null)
-			return "User-Identifier is required";
+			return new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		return null;
 	}

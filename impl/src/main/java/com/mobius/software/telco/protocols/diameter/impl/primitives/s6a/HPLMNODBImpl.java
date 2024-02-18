@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.HPLMNODB;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.HPLMNODB;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1418L, vendorId = KnownVendorIDs.TGPP_ID)
 public class HPLMNODBImpl extends DiameterBitmask32Impl implements HPLMNODB
 {
 	public HPLMNODBImpl()
@@ -44,7 +41,7 @@ public class HPLMNODBImpl extends DiameterBitmask32Impl implements HPLMNODB
 	@Override
 	public void setType1Bit(boolean isOn)
 	{
-		setBit(TYPE_1_BIT, isOn);
+		setBitUnchecked(TYPE_1_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class HPLMNODBImpl extends DiameterBitmask32Impl implements HPLMNODB
 	@Override
 	public void setType2Bit(boolean isOn)
 	{
-		setBit(TYPE_2_BIT, isOn);
+		setBitUnchecked(TYPE_2_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class HPLMNODBImpl extends DiameterBitmask32Impl implements HPLMNODB
 	@Override
 	public void setType3Bit(boolean isOn)
 	{
-		setBit(TYPE_3_BIT, isOn);
+		setBitUnchecked(TYPE_3_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class HPLMNODBImpl extends DiameterBitmask32Impl implements HPLMNODB
 	@Override
 	public void setType4Bit(boolean isOn)
 	{
-		setBit(TYPE_4_BIT, isOn);
+		setBitUnchecked(TYPE_4_BIT, isOn);
 	}
 
 	@Override

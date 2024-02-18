@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.196 Service-Specific-Type AVP
 	The Service-Specific-Type AVP (AVP Code 1257) is of type Unsigned32 and holds the type of the Service-SpecificData. 
  */
-@DiameterAvpDefinition(code = 1257L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Specific-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_SPECIFIC_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Service-Specific-Type")
 public interface ServiceSpecificType extends DiameterUnsigned32
 {
 }

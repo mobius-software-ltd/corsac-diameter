@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	The state associated to a "Network determined not reachable" condition should also be used by HSS when reporting to the requesting entity, e.g. over Sh, that the user was found to be not reachable (for instance, if the HSS receives no answer from the MME/SGSN to the user state query).
  */
-@DiameterAvpDefinition(code = 1499L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "User-State")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_STATE, vendorId = VendorIDs.TGPP_ID, must = false, name = "User-State")
 public interface UserState extends DiameterEnumerated<UserStateEnum>
 {
 }

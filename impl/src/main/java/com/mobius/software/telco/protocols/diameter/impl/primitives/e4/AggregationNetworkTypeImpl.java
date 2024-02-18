@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AggregationNetworkType;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AggregationNetworkTypeEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.e4.AggregationNet
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 307L, vendorId = KnownVendorIDs.ETSI_ID)
 public class AggregationNetworkTypeImpl extends DiameterEnumeratedImpl<AggregationNetworkTypeEnum> implements AggregationNetworkType
 {
 	protected AggregationNetworkTypeImpl()

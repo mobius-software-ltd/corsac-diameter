@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 import io.netty.buffer.ByteBuf;
 
@@ -64,12 +67,12 @@ import io.netty.buffer.ByteBuf;
                                    * [ Proxy-Info ]
                                    * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 2, commandCode = 262, request = false, proxyable = true, name="Home-Agent-MIP-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.HOME_AGENT_MIP, request = false, proxyable = true, name="Home-Agent-MIP-Answer")
 public interface HomeAgentMIPAnswer extends DiameterAnswer
 {
 	Long getAuthApplicationId(); 
 	
-	void setAuthApplicationId(Long value); 
+	void setAuthApplicationId(Long value) throws MissingAvpException; 
 	
 	String getAcctMultiSessionId();
 	

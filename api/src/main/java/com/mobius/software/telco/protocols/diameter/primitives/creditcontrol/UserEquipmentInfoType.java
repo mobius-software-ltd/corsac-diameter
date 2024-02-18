@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -61,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    EUI-64 format as described in [RFC4291] or by using some other
    methods referred to in the service-specific documentation.
  */
-@DiameterAvpDefinition(code = 459L, vendorId = -1L, must = false, name = "User-Equipment-Info-Type")
+@DiameterAvpDefinition(code = AvpCodes.USER_EQUIPMENT_INFO_TYPE, vendorId = -1L, must = false, name = "User-Equipment-Info-Type")
 public interface UserEquipmentInfoType extends DiameterEnumerated<UserEquipmentInfoTypeEnum>
 {
 }

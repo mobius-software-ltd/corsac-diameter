@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.8	Reference-Number AVP
 	Reference-Number AVP (AVP code 3007) is of type Unsigned32, and is used to uniquely identify a transaction. The reference number is allocated by the initiator of a transaction and is used in all subsequent messages related to that transaction.
  */
-@DiameterAvpDefinition(code = 3007L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reference-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.REFERENCE_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "Reference-Number")
 public interface ReferenceNumber extends DiameterUnsigned32
 {
 }

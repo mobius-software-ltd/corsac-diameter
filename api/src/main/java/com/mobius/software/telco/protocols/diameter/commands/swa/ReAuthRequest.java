@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.swa;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -43,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 			…
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777250, commandCode = 258, request = true, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.STA, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.sta.ReAuthRequest
 {
 }

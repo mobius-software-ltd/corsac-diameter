@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The values 1, 2 and 3 of RAT field and SESS field do not apply for the present specification. For specifications referencing the present RADIUS VSA, they shall only apply if it is explicitely endorsed within the referencing specification. Bit 6 to bit 8 of octet 3 is spare and reserved for future use.
 	The encoding of octets 4 to 28 is specified in Secondary RAT Usage Data Report IE of 3GPP TS 29.274 [81].
 */
-@DiameterAvpDefinition(code = 31L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-Secondary-RAT-Usage")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_SECONDARY_RAT_USAGE, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-Secondary-RAT-Usage")
 public interface TGPPSecondaryRATUsage extends DiameterOctetString
 {
 }

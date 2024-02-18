@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,12 +48,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ Privacy-Indicator ]
 		 	[ Language ]
  */
-@DiameterAvpDefinition(code = 3904L, vendorId = KnownVendorIDs.TGPP_ID, name = "Announcement-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.ANNOUNCEMENT_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Announcement-Information")
 public interface AnnouncementInformation extends DiameterAvp
 {
 	Long getAnnouncementIdentifier();
 	
-	void setAnnouncementIdentifier(Long value);
+	void setAnnouncementIdentifier(Long value) throws MissingAvpException;
 	
 	List<VariablePart> getVariablePart();
 	

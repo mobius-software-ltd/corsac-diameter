@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 
    The format of the Data field of this AVP is site specific.
  */
-@DiameterAvpDefinition(code = 78L, vendorId = -1L, name = "Configuration-Token")
+@DiameterAvpDefinition(code = AvpCodes.CONFIGURATION_TOKEN, vendorId = -1L, name = "Configuration-Token")
 public interface ConfigurationToken extends DiameterOctetString
 {
 }

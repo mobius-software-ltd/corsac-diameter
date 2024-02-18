@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.huawei;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPDTInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSInformation;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,10 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
-import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPDTInformation;
-import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.M2MInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MBMSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MMSInformation;
@@ -44,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGeneri
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 873L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServiceInformationImpl implements ServiceInformation
 {
 	private PSInformation psInformation;

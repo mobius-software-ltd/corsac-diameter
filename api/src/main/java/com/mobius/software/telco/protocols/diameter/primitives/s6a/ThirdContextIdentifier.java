@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.244	Third-Context-Identifier
 	The Third-Context-Identifier AVP is of type Unsigned32 and indicates the identity of another default APN to be used when the subscription profile of the user contains APNs with three PDN types, i.e. IP-based PDN types, non-IP PDN types and Ethernet PDN types.
  */
-@DiameterAvpDefinition(code = 1719L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Third-Context-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.THIRD_CONTEXT_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Third-Context-Identifier")
 public interface ThirdContextIdentifier extends DiameterUnsigned32
 {
 }

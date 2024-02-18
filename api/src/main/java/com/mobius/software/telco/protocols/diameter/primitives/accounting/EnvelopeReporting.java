@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	If this AVP is included within the Offline-Charging AVP, the value shall dictate the mechanism by which offline
 	charging information is generated. 
  */
-@DiameterAvpDefinition(code = 1268L, vendorId = KnownVendorIDs.TGPP_ID, name = "Envelope-Reporting")
+@DiameterAvpDefinition(code = TgppAvpCodes.ENVELOPE_REPORTING, vendorId = VendorIDs.TGPP_ID, name = "Envelope-Reporting")
 public interface EnvelopeReporting extends DiameterEnumerated<EnvelopeReportingEnum>
 {
 }

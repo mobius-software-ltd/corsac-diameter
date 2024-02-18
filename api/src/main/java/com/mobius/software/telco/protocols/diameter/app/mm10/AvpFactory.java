@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.InitialRecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.ResultRecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.ServedUserIdentity;
@@ -26,11 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.Status;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public InitialRecipientAddress getInitialRecipientAddress(Long sequenceNumber,String recipientAddress);
+	public InitialRecipientAddress getInitialRecipientAddress(Long sequenceNumber,String recipientAddress) throws MissingAvpException;
 	
 	public ServedUserIdentity getServedUserIdentity();
 	
-	public ResultRecipientAddress getResultRecipientAddress(Long sequenceNumber,String recipientAddress);
+	public ResultRecipientAddress getResultRecipientAddress(Long sequenceNumber,String recipientAddress) throws MissingAvpException;
 	
 	public Status getStatus();
 }

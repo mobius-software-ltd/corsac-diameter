@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
     The Token-Rate AVP (AVP Code 496) is of type Float32.
  */
-@DiameterAvpDefinition(code = 496L, vendorId = -1L, must = false, name = "Token-Rate")
+@DiameterAvpDefinition(code = AvpCodes.TOKEN_RATE, vendorId = -1L, must = false, name = "Token-Rate")
 public interface TokenRate extends DiameterFloat32
 {
 }

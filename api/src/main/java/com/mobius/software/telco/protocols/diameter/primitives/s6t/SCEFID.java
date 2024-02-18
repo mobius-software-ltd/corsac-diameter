@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.5	SCEF-ID
 	The SCEF- ID AVP is of type DiameterIdentity and it shall contain the identity of the SCEF which has originated the service request towards the HSS, i.e. when sent within a Monitoring-Event-Configuration AVP in S6t-CIR, SCEF-ID AVP and Origin-Host AVP shall have the same value.
  */
-@DiameterAvpDefinition(code = 3125L, vendorId = KnownVendorIDs.TGPP_ID, name = "SCEF-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCEF_ID, vendorId = VendorIDs.TGPP_ID, name = "SCEF-ID")
 public interface SCEFID extends DiameterIdentity
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Reservation-class AVP (AVP code 456) is of type Unsigned32 and contains an integer used as an index pointing to
 	the traffic characteristic of the flow (e.g. burstiness and packet size). 
  */
-@DiameterAvpDefinition(code = 456L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Reservation-Class")
+@DiameterAvpDefinition(code = EtsiAvpCodes.RESERVATION_CLASS, vendorId = VendorIDs.ETSI_ID, must = false, name = "Reservation-Class")
 public interface ReservationClass extends DiameterUnsigned32
 {
 }

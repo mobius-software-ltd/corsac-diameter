@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFeatureVector;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFeatur
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 337L, vendorId = -1)
 public class MIPFeatureVectorImpl extends DiameterUnsigned32Impl implements MIPFeatureVector
 {
-	protected MIPFeatureVectorImpl() 
+	public MIPFeatureVectorImpl() 
 	{
 		super();
 	}

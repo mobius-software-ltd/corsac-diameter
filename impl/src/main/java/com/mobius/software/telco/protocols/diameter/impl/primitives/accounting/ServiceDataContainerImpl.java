@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPRATTypeImpl;
@@ -36,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.Accounti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ApplicationServiceProviderIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SponsorIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sd.ADCRuleBaseNameImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AFCorrelationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChangeCondition;
@@ -81,7 +79,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2040L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServiceDataContainerImpl implements ServiceDataContainer
 {
    	private AFCorrelationInformation afCorrelationInformation;

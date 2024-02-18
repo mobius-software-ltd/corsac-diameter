@@ -18,9 +18,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdE164;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdExtension;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdIMSI;
@@ -33,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Sub
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 659L, vendorId = -1)
 public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implements SubscriptionIdExtension
 {
 	private SubscriptionIdE164 e164;
@@ -46,45 +52,54 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 	
 	private SubscriptionIdPrivate uePrivate;
 	
-	protected SubscriptionIdExtensionImpl() 
+	public SubscriptionIdExtensionImpl() 
 	{
 	}
 	
-	public SubscriptionIdExtensionImpl(String e164,String imsi,String sipURI,String nai,String uePrivate)
+	public SubscriptionIdExtensionImpl(String e164,String imsi,String sipURI,String nai,String uePrivate) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		Integer itemsDefined = 0;
+		List<DiameterAvp> avps=new ArrayList<DiameterAvp>(); 
 		if(e164!=null)
 		{
 			itemsDefined ++;
 			this.e164 = new SubscriptionIdE164Impl(e164, null, null);
+			avps.add(this.e164);
 		}
 		
 		if(imsi!=null)
 		{
 			itemsDefined ++;
 			this.imsi = new SubscriptionIdIMSIImpl(imsi, null, null);
+			avps.add(this.imsi);
 		}
 		
 		if(sipURI!=null)
 		{
 			itemsDefined ++;
 			this.sipURI = new SubscriptionIdSIPURIImpl(sipURI, null, null);
+			avps.add(this.sipURI);
 		}
 		
 		if(nai!=null)
 		{
 			itemsDefined ++;
 			this.nai = new SubscriptionIdNAIImpl(nai, null, null);
+			avps.add(this.nai);
 		}
 		
 		if(uePrivate!=null)
 		{
 			itemsDefined ++;
 			this.uePrivate = new SubscriptionIdPrivateImpl(uePrivate, null, null);
+			avps.add(this.uePrivate);
 		}
 		
-		if(itemsDefined!=1)
-			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");		
+		if(itemsDefined==0)
+			throw new MissingAvpException("Subscription-Id-Extension is required is required", Arrays.asList(new DiameterAvp[] {  }));
+			
+		if(itemsDefined>0)
+			throw new AvpOccursTooManyTimesException("Subscription-Id-Extension requires exactly one child to be defined", avps);		
 	}
 	
 	public String getE164()
@@ -95,10 +110,10 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return e164.getString();
 	}
 	
-	public void setE164(String value)
+	public void setE164(String value) throws MissingAvpException
 	{
-		if(this.e164!=null && e164==null)
-			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
+		if(value==null)
+			throw new MissingAvpException("Subscription-Id-Extension is required is required", Arrays.asList(new DiameterAvp[] {  }));
 		
 		this.e164 = new SubscriptionIdE164Impl(value, null, null);				
 		this.imsi = null;
@@ -115,10 +130,10 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return imsi.getString();
 	}
 	
-	public void setIMSI(String value)
+	public void setIMSI(String value) throws MissingAvpException
 	{
-		if(this.imsi!=null && imsi==null)
-			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
+		if(value==null)
+			throw new MissingAvpException("Subscription-Id-Extension is required is required", Arrays.asList(new DiameterAvp[] {  }));
 		
 		this.imsi = new SubscriptionIdIMSIImpl(value, null, null);				
 		this.e164 = null;
@@ -135,10 +150,10 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return sipURI.getString();
 	}
 	
-	public void setSIPURI(String value)
+	public void setSIPURI(String value) throws MissingAvpException
 	{
-		if(this.sipURI!=null && sipURI==null)
-			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
+		if(value==null)
+			throw new MissingAvpException("Subscription-Id-Extension is required is required", Arrays.asList(new DiameterAvp[] {  }));
 		
 		this.sipURI = new SubscriptionIdSIPURIImpl(value, null, null);				
 		this.e164 = null;
@@ -155,10 +170,10 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return nai.getString();
 	}
 	
-	public void setNAI(String value)
+	public void setNAI(String value) throws MissingAvpException
 	{
-		if(this.nai!=null && nai==null)
-			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
+		if(value==null)
+			throw new MissingAvpException("Subscription-Id-Extension is required is required", Arrays.asList(new DiameterAvp[] {  }));
 		
 		this.nai = new SubscriptionIdNAIImpl(value, null, null);				
 		this.e164 = null;
@@ -175,10 +190,10 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 		return uePrivate.getString();
 	}
 	
-	public void setPrivate(String value)
+	public void setPrivate(String value) throws MissingAvpException
 	{
-		if(this.uePrivate!=null && uePrivate==null)
-			throw new IllegalArgumentException("Subscription-Id-Extension requires exactly one child to be defined");
+		if(value==null)
+			throw new MissingAvpException("Subscription-Id-Extension is required is required", Arrays.asList(new DiameterAvp[] {  }));
 		
 		this.uePrivate = new SubscriptionIdPrivateImpl(value, null, null);				
 		this.e164 = null;
@@ -188,26 +203,46 @@ public class SubscriptionIdExtensionImpl extends DiameterGroupedAvpImpl implemen
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		Integer itemsDefined = 0;
+		List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+		
 		if(e164!=null)
+		{
 			itemsDefined ++;
+			avps.add(e164);
+		}
 		
 		if(imsi!=null)
+		{
 			itemsDefined ++;
+			avps.add(imsi);
+		}
 		
 		if(sipURI!=null)
+		{
 			itemsDefined ++;
+			avps.add(sipURI);
+		}
 		
 		if(nai!=null)
+		{
 			itemsDefined ++;
+			avps.add(nai);
+		}
 		
 		if(uePrivate!=null)
+		{
 			itemsDefined ++;
+			avps.add(uePrivate);
+		}
+		
+		if(itemsDefined==0)
+			return new MissingAvpException("Subscription-Id-Extension is required is required", Arrays.asList(new DiameterAvp[] {  }));
 		
 		if(itemsDefined!=1)
-			return "Subscription-Id-Extension requires exactly one child to be defined";
+			return new AvpOccursTooManyTimesException("Subscription-Id-Extension requires exactly one child to be defined", avps);
 		
 		return null;
 	}

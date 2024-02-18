@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    the value of ARAP.  See RFC 2869 for more information about the
    format of this AVP.
  */
-@DiameterAvpDefinition(code = 71L, vendorId = -1L, name = "ARAP-Features")
+@DiameterAvpDefinition(code = AvpCodes.ARAP_FEATURES, vendorId = -1L, name = "ARAP-Features")
 public interface ARAPFeatures extends DiameterOctetString
 {
 }

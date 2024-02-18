@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -148,7 +149,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Note 5:	When this AVP is transferred over the S7a/S7d interface, only the bit 9 (CSG Deleted) is meaningful, other bits shall be cleared.
  */
-@DiameterAvpDefinition(code = 1421L, vendorId = KnownVendorIDs.TGPP_ID, name = "DSR-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.DSR_FLAGS, vendorId = VendorIDs.TGPP_ID, name = "DSR-Flags")
 public interface DSRFlags extends DiameterBitmask32
 {
 	public static final int REGIONAL_SUBSCRIPTION_WITHDRAWAL_BIT = 0;

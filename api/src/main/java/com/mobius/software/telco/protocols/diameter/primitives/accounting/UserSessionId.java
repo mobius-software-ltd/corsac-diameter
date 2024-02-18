@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	User-Session-Id contains the SIP Call ID, as defined in RFC 3261 [405]. When the AS acts as B2BUA, the incoming
 	Session-ID leg is covered. 
  */
-@DiameterAvpDefinition(code = 830L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Session-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_SESSION_ID, vendorId = VendorIDs.TGPP_ID, name = "User-Session-Id")
 public interface UserSessionId extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -401,7 +402,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		DTS invocation/revocation have been successfully allocated. Applicable only to 3GPP-EPS access type and to
 		functionality introduced with the MPSforDTS feature as described in clause 5.4.1.
  */
-@DiameterAvpDefinition(code = 1006L, vendorId = KnownVendorIDs.TGPP_ID, name = "Event-Trigger")
+@DiameterAvpDefinition(code = TgppAvpCodes.EVENT_TRIGGER, vendorId = VendorIDs.TGPP_ID, name = "Event-Trigger")
 public interface EventTrigger extends DiameterEnumerated<EventTriggerEnum>
 {
 }

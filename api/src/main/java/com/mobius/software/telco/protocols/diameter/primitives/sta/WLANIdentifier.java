@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 [HESSID ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1509L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "WLAN-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.WLAN_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "WLAN-Identifier")
 public interface WLANIdentifier extends DiameterGroupedAvp
 {
 	String getSSID();

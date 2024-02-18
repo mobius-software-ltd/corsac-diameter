@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSePermission;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSePermiss
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3702L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSePermission
 {
 	public ProSePermissionImpl()
@@ -44,7 +41,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setProSeDirectDiscoveryBit(boolean isOn)
 	{
-		setBit(PROSE_DIRECT_DISCOVERY_BIT, isOn);
+		setBitUnchecked(PROSE_DIRECT_DISCOVERY_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setEPCLevelProSeDiscoveryBit(boolean isOn)
 	{
-		setBit(EPC_LEVEL_PROSE_DISCOVERY_BIT, isOn);
+		setBitUnchecked(EPC_LEVEL_PROSE_DISCOVERY_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setEPCSupportWLANDirectDiscoveryAndCommunicationBit(boolean isOn)
 	{
-		setBit(EPC_SUPPORT_WLAN_DIRECT_DISCOVERY_AND_COMMUNICATION_BIT, isOn);
+		setBitUnchecked(EPC_SUPPORT_WLAN_DIRECT_DISCOVERY_AND_COMMUNICATION_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setOneToManyProSeDirectCommunicationBit(boolean isOn)
 	{
-		setBit(ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT, isOn);
+		setBitUnchecked(ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setOneToOneProSeDirectCommunicationBit(boolean isOn)
 	{
-		setBit(ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT, isOn);
+		setBitUnchecked(ONE_TO_MANY_PROSE_DIRECT_COMMUNICATION_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setUEToNetworkRelayBit(boolean isOn)
 	{
-		setBit(UE_TO_NETWORK_RELAY_BIT, isOn);
+		setBitUnchecked(UE_TO_NETWORK_RELAY_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setRemoteUEAccessBit(boolean isOn)
 	{
-		setBit(REMOTE_UE_ACCESS_BIT, isOn);
+		setBitUnchecked(REMOTE_UE_ACCESS_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class ProSePermissionImpl extends DiameterBitmask32Impl implements ProSeP
 	@Override
 	public void setRestrictedProSeDirectDiscoveryBit(boolean isOn)
 	{
-		setBit(RESTRICTED_PROSE_DIRECT_DISCOVERY_BIT, isOn);
+		setBitUnchecked(RESTRICTED_PROSE_DIRECT_DISCOVERY_BIT, isOn);
 	}
 
 	@Override

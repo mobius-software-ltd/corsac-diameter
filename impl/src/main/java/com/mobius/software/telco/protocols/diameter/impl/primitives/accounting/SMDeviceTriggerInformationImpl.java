@@ -20,12 +20,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ApplicationPortIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.PriorityIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ReferenceNumberImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MTCIWFAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SMDeviceTriggerInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ValidityTime;
@@ -40,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.ReferenceNumb
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3405L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMDeviceTriggerInformationImpl implements SMDeviceTriggerInformation
 {
 	private MTCIWFAddress mtcIWFAddress;

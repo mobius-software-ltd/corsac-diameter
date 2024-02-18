@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.DiversionCount;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.DiversionReason;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.DiversionReasonEnum;
@@ -33,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 876L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IMSInformationImpl extends com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.IMSInformationImpl implements IMSInformation 
 {
 	private DiversionReason diversionReason;
@@ -101,7 +99,7 @@ public class IMSInformationImpl extends com.mobius.software.telco.protocols.diam
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		//required to clear the parent validation of field that is not used for Huawei
 		return null;

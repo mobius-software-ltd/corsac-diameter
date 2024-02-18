@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -44,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
                  *	[ Route-Record ]
                  	[ Restart-Counter ]
  */
-@DiameterCommandDefinition(applicationId = 16777292, commandCode = 274, request = true, proxyable = true, name="Abort-Session-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SGMB, commandCode = CommandCodes.ABORT_SESSION, request = true, proxyable = true, name="Abort-Session-Request")
 public interface AbortSessionRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest
 {
 	Long getRestartCounter();

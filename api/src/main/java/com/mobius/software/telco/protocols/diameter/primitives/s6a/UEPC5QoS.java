@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,12 +42,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			  [ PC5-Link-AMBR ]
 			* [AVP]
  */
-@DiameterAvpDefinition(code = 1711L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "UE-PC5-QoS")
+@DiameterAvpDefinition(code = TgppAvpCodes.UE_PC5_QOS, vendorId = VendorIDs.TGPP_ID, must = false, name = "UE-PC5-QoS")
 public interface UEPC5QoS extends DiameterGroupedAvp
 {
 	List<PC5QoSFlow> getPC5QoSFlow();
 	
-	void setPC5QoSFlow(List<PC5QoSFlow> value);
+	void setPC5QoSFlow(List<PC5QoSFlow> value) throws MissingAvpException;
 	
 	Integer getPC5LinkAMBR();
 	

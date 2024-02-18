@@ -19,12 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.FilterId;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ProSeAppCode;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ProSeAppId;
@@ -39,7 +41,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3813L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeDiscoveryFilterImpl extends DiameterGroupedAvpImpl implements ProSeDiscoveryFilter
 {
 	private FilterId filterId;
@@ -52,27 +53,15 @@ public class ProSeDiscoveryFilterImpl extends DiameterGroupedAvpImpl implements 
 	{
 	}
 	
-	public ProSeDiscoveryFilterImpl(ByteBuf filterId,String proSeAppId,Long proSeValidityTimer,ByteBuf proSeAppCode)
+	public ProSeDiscoveryFilterImpl(ByteBuf filterId,String proSeAppId,Long proSeValidityTimer,ByteBuf proSeAppCode) throws MissingAvpException
 	{
-		if(filterId==null)
-			throw new IllegalArgumentException("Filter-Id is required");
+		setFilterId(filterId);
 		
-		if(proSeAppId==null)
-			throw new IllegalArgumentException("ProSe-App-Id is required");
+		setProSeAppId(proSeAppId);
 		
-		if(proSeValidityTimer==null)
-			throw new IllegalArgumentException("ProSe-Validity-Timer is required");
+		setProSeValidityTimer(proSeValidityTimer);
 		
-		if(proSeAppCode==null)
-			throw new IllegalArgumentException("ProSe-App-Code is required");
-		
-		this.filterId = new FilterIdImpl(filterId, null, null);
-		
-		this.proSeAppId = new ProSeAppIdImpl(proSeAppId, null, null);
-		
-		this.proSeValidityTimer = new ProSeValidityTimerImpl(proSeValidityTimer, null, null);
-		
-		this.proSeAppCode = new ProSeAppCodeImpl(proSeAppCode, null, null);
+		setProSeAppCode(proSeAppCode);
 	}
 	
 	public ByteBuf getFilterId()
@@ -83,10 +72,10 @@ public class ProSeDiscoveryFilterImpl extends DiameterGroupedAvpImpl implements 
 		return filterId.getValue();
 	}
 	
-	public void setFilterId(ByteBuf value)
+	public void setFilterId(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Filter-Id is required");
+			throw new MissingAvpException("Filter-Id is required is required", Arrays.asList(new DiameterAvp[] { new FilterIdImpl() }));
 		
 		this.filterId = new FilterIdImpl(value, null, null);
 	}
@@ -99,10 +88,10 @@ public class ProSeDiscoveryFilterImpl extends DiameterGroupedAvpImpl implements 
 		return proSeAppId.getString();
 	}
 	
-	public void setProSeAppId(String value)
+	public void setProSeAppId(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ProSe-App-Id is required");
+			throw new MissingAvpException("ProSe-App-Id is required is required", Arrays.asList(new DiameterAvp[] { new ProSeAppIdImpl() }));
 		
 		this.proSeAppId = new ProSeAppIdImpl(value, null, null);
 	}
@@ -115,10 +104,10 @@ public class ProSeDiscoveryFilterImpl extends DiameterGroupedAvpImpl implements 
 		return proSeValidityTimer.getUnsigned();
 	}
 	
-	public void setProSeValidityTimer(Long value)
+	public void setProSeValidityTimer(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ProSe-Validity-Timer is required");
+			throw new MissingAvpException("ProSe-Validity-Timer is required is required", Arrays.asList(new DiameterAvp[] { new ProSeValidityTimerImpl() }));
 
 		this.proSeValidityTimer = new ProSeValidityTimerImpl(value, null, null);
 	}
@@ -131,11 +120,11 @@ public class ProSeDiscoveryFilterImpl extends DiameterGroupedAvpImpl implements 
 		return proSeAppCode.getValue();
 	}
 	
-	public void setProSeAppCode(ByteBuf value)
+	public void setProSeAppCode(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ProSe-App-Code is required");
-		
+			throw new MissingAvpException("ProSe-App-Code is required is required", Arrays.asList(new DiameterAvp[] { new ProSeAppCodeImpl() }));
+			
 		this.proSeAppCode = new ProSeAppCodeImpl(value, null, null);
 	}
 	
@@ -164,19 +153,19 @@ public class ProSeDiscoveryFilterImpl extends DiameterGroupedAvpImpl implements 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(filterId==null)
-			return "Filter-Id is required";
+			return new MissingAvpException("Filter-Id is required is required", Arrays.asList(new DiameterAvp[] { new FilterIdImpl() }));
 		
 		if(proSeAppId==null)
-			return "ProSe-App-Id is required";
+			return new MissingAvpException("ProSe-App-Id is required is required", Arrays.asList(new DiameterAvp[] { new ProSeAppIdImpl() }));
 		
 		if(proSeValidityTimer==null)
-			return "ProSe-Validity-Timer is required";
+			return new MissingAvpException("ProSe-Validity-Timer is required is required", Arrays.asList(new DiameterAvp[] { new ProSeValidityTimerImpl() }));
 		
 		if(proSeAppCode==null)
-			return "ProSe-App-Code is required";
+			return new MissingAvpException("ProSe-App-Code is required is required", Arrays.asList(new DiameterAvp[] { new ProSeAppCodeImpl() }));
 		
 		return null;
 	}

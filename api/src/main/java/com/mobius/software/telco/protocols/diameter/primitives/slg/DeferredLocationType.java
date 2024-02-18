@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -60,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7 Maximum-Interval-Expiration
 	An event where the maximum reporting interval has expired. This event is applicable to a deferred EPC-MT-LR only.
  */
-@DiameterAvpDefinition(code = 2532L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Deferred-Location-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.DEFERRED_LOCATION_TYPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Deferred-Location-Type")
 public interface DeferredLocationType extends DiameterBitmask32
 {
 	public static final int UE_AVAILABLE_BIT = 0;

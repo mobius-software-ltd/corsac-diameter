@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc6734;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    If additional values are needed, they are to be assigned by IANA
    according to the policy stated in Section 5.2.
  */
-@DiameterAvpDefinition(code = 582L, vendorId = -1L, must = false, name = "Key-Type")
+@DiameterAvpDefinition(code = AvpCodes.KEY_TYPE, vendorId = -1L, must = false, name = "Key-Type")
 public interface KeyType extends DiameterEnumerated<KeyTypeEnum>
 {
 }

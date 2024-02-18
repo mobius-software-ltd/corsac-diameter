@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Individual payment amount.
  */
-@DiameterAvpDefinition(code = 30016L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Personal-Pay-Cost-Value")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.PERSONAL_PAY_COST_VALUE, vendorId = VendorIDs.HUAWEI_ID, name = "Personal-Pay-Cost-Value")
 public interface PersonalPayCostValue extends DiameterInteger64
 {
 }

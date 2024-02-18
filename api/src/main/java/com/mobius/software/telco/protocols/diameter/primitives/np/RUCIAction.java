@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 (Release Context):
 	This value shall be used by the PCRF to indicate to the RCAF that the context shall be released for a specific user id and PDN ID.
  */
-@DiameterAvpDefinition(code = 4012L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RUCI-Action")
+@DiameterAvpDefinition(code = TgppAvpCodes.RUCI_ACTION, vendorId = VendorIDs.TGPP_ID, must = false, name = "RUCI-Action")
 public interface RUCIAction extends DiameterEnumerated<RUCIActionEnum>
 {
 }

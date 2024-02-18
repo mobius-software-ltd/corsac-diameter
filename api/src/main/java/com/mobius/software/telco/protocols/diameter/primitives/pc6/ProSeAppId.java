@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.17	ProSe-App-Id
 	The ProSe-App-Id AVP is of type UTF8String. This AVP contains a ProSe Application ID (see 3GPP TS 23.003 [4]).
  */
-@DiameterAvpDefinition(code = 3811L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-App-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_APP_ID, vendorId = VendorIDs.TGPP_ID, name = "ProSe-App-Id")
 public interface ProSeAppId extends DiameterUTF8String
 {
 }

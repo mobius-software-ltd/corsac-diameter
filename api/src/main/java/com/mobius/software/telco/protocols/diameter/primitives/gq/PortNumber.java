@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.6 Port-number AVP
 	The Port-Number AVP (AVP code 455) is of type Unsigned32 and contains the end point port number.
  */
-@DiameterAvpDefinition(code = 455L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Port-Number")
+@DiameterAvpDefinition(code = EtsiAvpCodes.PORT_NUMBER, vendorId = VendorIDs.ETSI_ID, must = false, name = "Port-Number")
 public interface PortNumber extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	UE local IP address field: It is encoded in Octet String type, with 4 octets when the IP Type is UE local IPv4 address, or with 16 octets when the IP Type is UE local IPv6 address.
 */
-@DiameterAvpDefinition(code = 32L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-UE-Local-IP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_UE_LOCAL_IP_ADDDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-UE-Local-IP-Address")
 public interface TGPPUELocalIPAddress extends DiameterOctetString
 {
 }

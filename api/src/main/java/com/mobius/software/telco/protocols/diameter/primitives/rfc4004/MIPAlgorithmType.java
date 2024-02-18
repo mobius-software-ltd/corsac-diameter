@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
          2   HMAC-SHA-1 [HMAC]
  */
-@DiameterAvpDefinition(code = 345L, vendorId = -1L, name = "MIP-Algorithm-Type")
+@DiameterAvpDefinition(code = AvpCodes.MIP_ALGORITHM_TYPE, vendorId = -1L, name = "MIP-Algorithm-Type")
 public interface MIPAlgorithmType extends DiameterEnumerated<MIPAlgorithmTypeEnum>
 {
 }

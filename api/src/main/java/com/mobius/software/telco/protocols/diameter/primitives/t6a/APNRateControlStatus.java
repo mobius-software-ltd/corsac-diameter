@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,27 +35,27 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The APN-Rate-Control-Status AVP is of type Grouped. It shall contain APN Rate Control Status Information as specified in 
 	figure 8.38-10 of 3GPP TS 29.274 [33].
  */
-@DiameterAvpDefinition(code = 4326L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "APN-Rate-Control-Status")
+@DiameterAvpDefinition(code = TgppAvpCodes.APN_RATE_CONTROL_STATUS, vendorId = VendorIDs.TGPP_ID, must = false, name = "APN-Rate-Control-Status")
 public interface APNRateControlStatus extends DiameterGroupedAvp
 {
 	//this one should be service selection according to spec
 	String getAPN();
 	
-	void setAPN(String value);
+	void setAPN(String value) throws MissingAvpException;
 	
 	Long getUplinkNumberOfPacketsAllowed();
 	
-	void setUplinkNumberOfPacketsAllowed(Long value);
+	void setUplinkNumberOfPacketsAllowed(Long value) throws MissingAvpException;
 	
 	Long getNumberOfAdditionalExceptionReports();
 	
-	void setNumberOfAdditionalExceptionReports(Long value);
+	void setNumberOfAdditionalExceptionReports(Long value) throws MissingAvpException;
 	
 	Long getDownlinkNumberOfPacketsAllowed();
 	
-	void setDownlinkNumberOfPacketsAllowed(Long value);
+	void setDownlinkNumberOfPacketsAllowed(Long value) throws MissingAvpException;
 	
 	Long getAPNRateControlStatusValidityTime();
 	
-	void setAPNRateControlStatusValidityTime(Long value);
+	void setAPNRateControlStatusValidityTime(Long value) throws MissingAvpException;
 }

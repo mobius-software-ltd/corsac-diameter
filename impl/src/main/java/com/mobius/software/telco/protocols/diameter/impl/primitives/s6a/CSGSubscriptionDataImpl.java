@@ -19,14 +19,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CSGId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CSGSubscriptionData;
@@ -40,7 +42,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1436L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CSGSubscriptionDataImpl extends DiameterGroupedAvpImpl implements CSGSubscriptionData
 {
 	private CSGId csgId;
@@ -56,12 +57,9 @@ public class CSGSubscriptionDataImpl extends DiameterGroupedAvpImpl implements C
 		
 	}
 	
-	public CSGSubscriptionDataImpl(Long csgId)
+	public CSGSubscriptionDataImpl(Long csgId) throws MissingAvpException
 	{
-		if(csgId==null)
-			throw new IllegalArgumentException("CSG-Id is required");
-		
-		this.csgId = new CSGIdImpl(csgId, null, null);
+		setCSGId(csgId);
 	}
 	
 	public Long getCSGId()
@@ -72,10 +70,10 @@ public class CSGSubscriptionDataImpl extends DiameterGroupedAvpImpl implements C
 		return csgId.getUnsigned();
 	}
 	
-	public void setCSGId(Long value)
+	public void setCSGId(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CSG-Id is required");
+			throw new MissingAvpException("CSG-Id is required", Arrays.asList(new DiameterAvp[] { new CSGIdImpl() }));
 		
 		this.csgId = new CSGIdImpl(value, null, null);
 	}
@@ -137,10 +135,10 @@ public class CSGSubscriptionDataImpl extends DiameterGroupedAvpImpl implements C
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(csgId==null)
-			return "CSG-Id is required";
+			return new MissingAvpException("CSG-Id is required", Arrays.asList(new DiameterAvp[] { new CSGIdImpl() }));
 		
 		return null;
 	}

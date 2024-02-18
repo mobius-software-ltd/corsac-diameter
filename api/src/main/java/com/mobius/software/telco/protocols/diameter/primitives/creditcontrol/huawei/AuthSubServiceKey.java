@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the function ID of a service component when the first digit of the Auth-action AVP is 2, that is, when the service logic is released and connected to the service component.
  */
-@DiameterAvpDefinition(code = 30806L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Auth-Sub-Service-Key")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.AUTH_SUBSERVICE_KEY, vendorId = VendorIDs.HUAWEI_ID, name = "Auth-Sub-Service-Key")
 public interface AuthSubServiceKey extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	character.
 	For P-GW, the value of this sub-attribute represents the EPS Bearer ID as specified in 3GPP TS 29.274 [81]. 
  */
-@DiameterAvpDefinition(code = 10L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-NSAPI")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_NSAPI, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-NSAPI")
 public interface TGPPNSAPI extends DiameterOctetString
 {
 }

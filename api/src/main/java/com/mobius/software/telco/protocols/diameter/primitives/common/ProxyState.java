@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    Diameter entity that created it.  As such, this AVP MUST be treated
    as opaque data by other Diameter entities.
  */
-@DiameterAvpDefinition(code = 33L, vendorId = -1L, name = "Proxy-State")
+@DiameterAvpDefinition(code = AvpCodes.PROXY_STATE, vendorId = -1L, name = "Proxy-State")
 public interface ProxyState extends DiameterOctetString
 {
 }

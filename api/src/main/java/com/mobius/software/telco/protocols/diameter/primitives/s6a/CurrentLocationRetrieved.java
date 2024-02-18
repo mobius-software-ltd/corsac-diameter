@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This value is used when location information was obtained after a successful paging procedure for Active Location Retrieval when the UE is in 
 	idle mode or after retrieving the most up-to-date location information from the eNB when the UE is in connected mode.
  */
-@DiameterAvpDefinition(code = 1610L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Current-Location-Retrieved")
+@DiameterAvpDefinition(code = TgppAvpCodes.CURRENT_LOCATION_RETRIEVED, vendorId = VendorIDs.TGPP_ID, must = false, name = "Current-Location-Retrieved")
 public interface CurrentLocationRetrieved extends DiameterEnumerated<CurrentLocationRetrievedEnum>
 {
 }

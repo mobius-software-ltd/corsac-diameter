@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -35,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleReport;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777349, commandCode = 8388637, request = false)
 public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnswer
 {
 	private List<ADCRuleReport>  adcRuleReport;
@@ -52,7 +52,7 @@ public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnsw
 		setUsernameAllowed(false);
 	}
 	
-	protected TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	protected TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	In the MO, MT, or MF process, this AVP indicates the hunting access number of the calling party, which can be dialed to access the hunting list. If the calling party is not a group subscriber, this AVP is left empty.
  */
-@DiameterAvpDefinition(code = 21211L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "S-Caller-Hunting-Main-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.S_CALLER_HUNTING_MAIN_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "S-Caller-Hunting-Main-Number")
 public interface SCallerHuntingMainNumber extends DiameterOctetString
 {
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDAFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDAFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1441L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IDAFlagsImpl extends DiameterBitmask32Impl implements IDAFlags
 {
 	public IDAFlagsImpl()
@@ -44,7 +41,7 @@ public class IDAFlagsImpl extends DiameterBitmask32Impl implements IDAFlags
 	@Override
 	public void setNetworkNodeAreaRestrictedBit(boolean isOn)
 	{
-		setBit(NETWORK_NODE_AREA_RESTRICTED_BIT, isOn);
+		setBitUnchecked(NETWORK_NODE_AREA_RESTRICTED_BIT, isOn);
 	}
 
 	@Override

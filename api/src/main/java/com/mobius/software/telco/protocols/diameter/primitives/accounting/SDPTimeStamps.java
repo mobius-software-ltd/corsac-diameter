@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		  [ SDP-Offer-Timestamp ]
 		  [ SDP-Answer-Timestamp ]
  */
-@DiameterAvpDefinition(code = 1273L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-TimeStamps")
+@DiameterAvpDefinition(code = TgppAvpCodes.SDP_TIMESTAMPS, vendorId = VendorIDs.TGPP_ID, name = "SDP-TimeStamps")
 public interface SDPTimeStamps extends DiameterAvp
 {
 	Date getSDPOfferTimestamp();

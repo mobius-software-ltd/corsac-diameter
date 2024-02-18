@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.119 Number-Of-Talk-Bursts AVP
 	The Number-Of-Talk-Bursts AVP (AVP code 1283) is of type Unsigned32 and holds the number of the sent talk bursts.
  */
-@DiameterAvpDefinition(code = 1283L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Talk-Bursts")
+@DiameterAvpDefinition(code = TgppAvpCodes.NUMBER_OF_TALK_BURSTS, vendorId = VendorIDs.TGPP_ID, name = "Number-Of-Talk-Bursts")
 public interface NumberOfTalkBursts extends DiameterUnsigned32
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -56,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          more than one "quality of protection" value, it puts each
          qop-value into a separate Digest-Qop attribute.
  */
-@DiameterAvpDefinition(code = 110L, vendorId = -1, name = "Digest-Qop")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_QOP, vendorId = -1, name = "Digest-Qop")
 public interface DigestQop extends DiameterUTF8String
 {
 }

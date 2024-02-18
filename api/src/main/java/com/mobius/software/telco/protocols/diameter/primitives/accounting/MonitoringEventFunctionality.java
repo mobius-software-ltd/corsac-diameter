@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 Configuration
 	1 Reporting 
  */
-@DiameterAvpDefinition(code = 3922L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Functionality")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_EVENT_FUNCTIONALITY, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Event-Functionality")
 public interface MonitoringEventFunctionality extends DiameterEnumerated<MonitoringEventFunctionalityEnum>
 {
 }

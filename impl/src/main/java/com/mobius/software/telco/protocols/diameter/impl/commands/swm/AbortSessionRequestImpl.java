@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.swm;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
@@ -35,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777264, commandCode = 274, request = true)
 public class AbortSessionRequestImpl extends SwmRequestImpl implements AbortSessionRequest
 {
 	private AuthSessionState authSessionState;
@@ -45,7 +45,7 @@ public class AbortSessionRequestImpl extends SwmRequestImpl implements AbortSess
 		super();
 	}
 		
-	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID)
+	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.10	SM-Cause
 	The SM-Cause AVP is of type Unsigned32. It shall contain the SM cause code as specified in clause 10.5.6.6 and 10.5.6.6A of 3GPP TS 24.008 [12].
  */
-@DiameterAvpDefinition(code = 4305L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "SM-Cause")
 public interface SMCause extends DiameterUnsigned32
 {
 }

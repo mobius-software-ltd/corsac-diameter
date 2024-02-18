@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    in [RFC3986].  Note that individual URL schemes may restrict the
    contents of the UTF8String.
  */
-@DiameterAvpDefinition(code = 667L, vendorId = -1L, must = false, name = "Redirect-Address-URL")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_ADDRESS_URL, vendorId = -1L, must = false, name = "Redirect-Address-URL")
 public interface RedirectAddressURL extends DiameterUTF8String
 {
 }

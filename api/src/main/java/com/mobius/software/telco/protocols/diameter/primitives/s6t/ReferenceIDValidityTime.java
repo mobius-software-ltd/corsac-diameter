@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.42	Reference-ID-Validity-Time
 	The Reference-ID-Validity-Time AVP is of type Time (see IETF RFC 6733 [23]), and contains the point of time when the CP sets associated to an SCEF-Reference-ID (in combination with an SCEF-ID) becoming invalid and shall be deleted.
  */
-@DiameterAvpDefinition(code = 3148L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reference-ID-Validity-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.REFERENCE_ID_VALIDITY_TIME, vendorId = VendorIDs.TGPP_ID, name = "Reference-ID-Validity-Time")
 public interface ReferenceIDValidityTime extends DiameterTime
 {
 }

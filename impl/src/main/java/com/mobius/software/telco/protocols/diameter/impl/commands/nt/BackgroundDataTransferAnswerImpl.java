@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.nt;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.ReferenceIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s9a.PCRFAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -43,7 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777348, commandCode = 8388723, request = false)
 public class BackgroundDataTransferAnswerImpl extends NtAnswerImpl implements BackgroundDataTransferAnswer
 {
 	private ReferenceId referenceId;
@@ -64,7 +64,7 @@ public class BackgroundDataTransferAnswerImpl extends NtAnswerImpl implements Ba
 		setExperimentalResultAllowed(true);
 	}
 	
-	public BackgroundDataTransferAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState)
+	public BackgroundDataTransferAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(true);

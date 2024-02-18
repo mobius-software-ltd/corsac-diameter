@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Communication Service Identifier (ICSI) as contained in the P-Asserted-Service header of a SIP request to identify an
 	IMS Communication Service as defined in TS 24.229 [202]. 
  */
-@DiameterAvpDefinition(code = 1281L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Communication-Service-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMS_COMMUNICATION_SERVICE_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "IMS-Communication-Service-Identifier")
 public interface IMSCommunicationServiceIdentifier extends DiameterUTF8String
 {
 }

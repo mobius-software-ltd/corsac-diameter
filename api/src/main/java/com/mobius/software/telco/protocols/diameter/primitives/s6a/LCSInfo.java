@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		*[ MO-LR ]
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 1473L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_INFO, vendorId = VendorIDs.TGPP_ID, name = "LCS-Info")
 public interface LCSInfo extends DiameterGroupedAvp
 {
 	List<String> getGMLCNumber();

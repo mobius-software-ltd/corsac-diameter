@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.MTCErrorDiagnosticEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -48,7 +50,7 @@ import io.netty.buffer.ByteBuf;
 			 [ Application-Port-Identifier ]
  			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 3002L, vendorId = KnownVendorIDs.TGPP_ID, name = "Device-Notification")
+@DiameterAvpDefinition(code = TgppAvpCodes.DEVICE_NOTIFICATION, vendorId = VendorIDs.TGPP_ID, name = "Device-Notification")
 public interface DeviceNotification extends DiameterGroupedAvp
 {
 	String getExternalID();
@@ -65,11 +67,11 @@ public interface DeviceNotification extends DiameterGroupedAvp
 	
 	Long getReferenceNumber();
 	
-	void setReferenceNumber(Long value);
+	void setReferenceNumber(Long value) throws MissingAvpException;
 	
 	ActionTypeEnum getActionType();
 	
-	void setActionType(ActionTypeEnum value);
+	void setActionType(ActionTypeEnum value) throws MissingAvpException;
 	
 	RequestStatusEnum getRequestStatus();
 	

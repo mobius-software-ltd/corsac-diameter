@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.15	Re-Synchronization-Info
 	The Re-Synchronization-Info AVP is of type OctetString. It shall contain the concatenation of RAND and AUTS.
  */
-@DiameterAvpDefinition(code = 1411L, vendorId = KnownVendorIDs.TGPP_ID, name = "Re-Synchronization-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.RESYNCHRONIZATION_INFO, vendorId = VendorIDs.TGPP_ID, name = "Re-Synchronization-Info")
 public interface ReSynchronizationInfo extends DiameterOctetString
 {
 }

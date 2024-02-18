@@ -19,13 +19,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingIdentifierValueImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AccessNetworkChargingIdentifierGx;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleBaseName;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleName;
@@ -40,7 +42,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1022L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AccessNetworkChargingIdentifierGxImpl extends DiameterGroupedAvpImpl implements AccessNetworkChargingIdentifierGx
 {
 	private AccessNetworkChargingIdentifierValue accessNetworkChargingIdentifierValue;
@@ -53,12 +54,9 @@ public class AccessNetworkChargingIdentifierGxImpl extends DiameterGroupedAvpImp
 		
 	}
 	
-	public AccessNetworkChargingIdentifierGxImpl(ByteBuf accessNetworkChargingIdentifierValue)
+	public AccessNetworkChargingIdentifierGxImpl(ByteBuf accessNetworkChargingIdentifierValue) throws MissingAvpException
 	{
-		if(accessNetworkChargingIdentifierValue==null)
-			throw new IllegalArgumentException("Access-Network-Charging-Identifier-Value is required");
-		
-		this.accessNetworkChargingIdentifierValue = new AccessNetworkChargingIdentifierValueImpl(accessNetworkChargingIdentifierValue, null, null);				
+		setAccessNetworkChargingIdentifierValue(accessNetworkChargingIdentifierValue);
 	}
 	
 	public ByteBuf getAccessNetworkChargingIdentifierValue()
@@ -69,11 +67,11 @@ public class AccessNetworkChargingIdentifierGxImpl extends DiameterGroupedAvpImp
 		return accessNetworkChargingIdentifierValue.getValue();
 	}
 	
-	public void setAccessNetworkChargingIdentifierValue(ByteBuf value)
+	public void setAccessNetworkChargingIdentifierValue(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Access-Network-Charging-Identifier-Value is required");
-		
+			throw new MissingAvpException("Access-Network-Charging-Identifier-Value is required", Arrays.asList(new DiameterAvp[] { new AccessNetworkChargingIdentifierValueImpl() }));
+			
 		this.accessNetworkChargingIdentifierValue = new AccessNetworkChargingIdentifierValueImpl(value, null, null);				
 	}
 	
@@ -142,10 +140,10 @@ public class AccessNetworkChargingIdentifierGxImpl extends DiameterGroupedAvpImp
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(accessNetworkChargingIdentifierValue==null)
-			return "Access-Network-Charging-Identifier-Value is required";
+			return new MissingAvpException("Access-Network-Charging-Identifier-Value is required", Arrays.asList(new DiameterAvp[] { new AccessNetworkChargingIdentifierValueImpl() }));
 		
 		return null;
 	}		  

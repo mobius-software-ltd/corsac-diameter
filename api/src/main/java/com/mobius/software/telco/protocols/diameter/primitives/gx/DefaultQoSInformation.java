@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 [ Default-QoS-Name ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 2816L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Default-QoS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.DEFAULT_QOS_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Default-QoS-Information")
 public interface DefaultQoSInformation extends DiameterGroupedAvp
 {
 	QoSClassIdentifierEnum getQoSClassIdentifier();

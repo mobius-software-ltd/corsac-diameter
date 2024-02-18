@@ -18,16 +18,17 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.er
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EricssonAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 1067L, vendorId = KnownVendorIDs.ERICSSON_ID, name = "Result-Code-Extension")
+@DiameterAvpDefinition(code = EricssonAvpCodes.RESULT_CODE_EXTENSION, vendorId = VendorIDs.ERICSSON_ID, name = "Result-Code-Extension")
 public interface ResultCodeExtension extends DiameterUnsigned32
 {
 }

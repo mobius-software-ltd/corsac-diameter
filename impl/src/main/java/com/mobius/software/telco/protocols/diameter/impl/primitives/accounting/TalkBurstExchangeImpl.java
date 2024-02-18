@@ -18,11 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NumberOfParticipants;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NumberOfReceivedTalkBursts;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NumberOfTalkBursts;
@@ -40,7 +42,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1255L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TalkBurstExchangeImpl implements TalkBurstExchange
 {
 	private PoCChangeTime pocChangeTime;
@@ -57,12 +58,9 @@ public class TalkBurstExchangeImpl implements TalkBurstExchange
 	{
 	}
 	
-	public TalkBurstExchangeImpl(Date pocChangeTime)
+	public TalkBurstExchangeImpl(Date pocChangeTime) throws MissingAvpException
 	{
-		if(pocChangeTime==null)
-			throw new IllegalArgumentException("PoC-Change-Time is required");
-		
-		this.pocChangeTime = new PoCChangeTimeImpl(pocChangeTime, null, null);		
+		setPoCChangeTime(pocChangeTime);
 	}
 			
 	public Date getPoCChangeTime()
@@ -73,10 +71,10 @@ public class TalkBurstExchangeImpl implements TalkBurstExchange
 		return pocChangeTime.getDateTime();
 	}
 	
-	public void setPoCChangeTime(Date value)
+	public void setPoCChangeTime(Date value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("PoC-Change-Time is required");
+			throw new MissingAvpException("PoC-Change-Time is required is required", Arrays.asList(new DiameterAvp[] { new PoCChangeTimeImpl() }));
 		
 		this.pocChangeTime = new PoCChangeTimeImpl(value, null, null);		
 	}
@@ -210,10 +208,10 @@ public class TalkBurstExchangeImpl implements TalkBurstExchange
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(pocChangeTime==null)
-			return "PoC-Change-Time is required";
+			return new MissingAvpException("PoC-Change-Time is required is required", Arrays.asList(new DiameterAvp[] { new PoCChangeTimeImpl() }));
 		
 		return null;
 	}

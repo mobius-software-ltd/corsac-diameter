@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.19	ECGI
 	The ECGI AVP is of type OctetString. It indicates the E-UTRAN Cell Global Identifier. It is coded according to clause 8.21.5, in 3GPP TS 29.274 [8]. 
  */
-@DiameterAvpDefinition(code = 2517L, vendorId = KnownVendorIDs.TGPP_ID, name = "ECGI")
+@DiameterAvpDefinition(code = TgppAvpCodes.ECGI, vendorId = VendorIDs.TGPP_ID, name = "ECGI")
 public interface ECGI extends DiameterOctetString
 {
 }

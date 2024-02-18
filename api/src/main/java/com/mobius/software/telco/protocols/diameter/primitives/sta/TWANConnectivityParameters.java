@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PDNTypeEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -61,7 +63,7 @@ import io.netty.buffer.ByteBuf;
 	The TWAN-S2a-Failure-Cause AVP may be present to indicate the cause of S2a connectivity establishment failure.
 	The SM-Back-Off-Timer AVP may be present to provide a Session Management back-off timer to be sent to the UE. The exact value of the SM-Back-Off-Timer is operator dependant.
  */
-@DiameterAvpDefinition(code = 1528L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAN-Connectivity-Parameters")
+@DiameterAvpDefinition(code = TgppAvpCodes.TWAN_CONNECTIVITY_PARAMETERS, vendorId = VendorIDs.TGPP_ID, must = false, name = "TWAN-Connectivity-Parameters")
 public interface TWANConnectivityParameters extends DiameterGroupedAvp
 {
 	ConnectivityFlags getConnectivityFlags();
@@ -78,7 +80,7 @@ public interface TWANConnectivityParameters extends DiameterGroupedAvp
 	
 	List<InetAddress> getServedPartyIPAddress();
 	
-	void setServedPartyIPAddress(List<InetAddress> value);
+	void setServedPartyIPAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	ByteBuf getTWANPCO();
 	

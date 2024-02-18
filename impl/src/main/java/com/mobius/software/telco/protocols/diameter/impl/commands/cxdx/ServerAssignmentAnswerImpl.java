@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.LooseRouteIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PriviledgedSenderIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
@@ -55,7 +56,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 301, request = false)
 public class ServerAssignmentAnswerImpl extends CxDxAnswerImpl implements ServerAssignmentAnswer
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -90,7 +90,7 @@ public class ServerAssignmentAnswerImpl extends CxDxAnswerImpl implements Server
 		setExperimentalResultAllowed(false);
 	}
 	
-	public ServerAssignmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState)
+	public ServerAssignmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

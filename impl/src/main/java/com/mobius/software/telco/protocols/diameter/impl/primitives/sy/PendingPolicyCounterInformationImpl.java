@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PendingPolicyCounterChangeTime;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PendingPolicyCounterInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatus;
@@ -33,28 +35,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterS
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2905L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PendingPolicyCounterInformationImpl extends DiameterGroupedAvpImpl implements PendingPolicyCounterInformation
 {
 	private PolicyCounterStatus policyCounterStatus;
 	
 	private PendingPolicyCounterChangeTime pendingPolicyCounterChangeTime;
 	
-	public PendingPolicyCounterInformationImpl()
+	protected PendingPolicyCounterInformationImpl()
 	{
 	}
 	
-	public PendingPolicyCounterInformationImpl(String policyCounterStatus,Date pendingPolicyCounterChangeTime)
+	public PendingPolicyCounterInformationImpl(String policyCounterStatus,Date pendingPolicyCounterChangeTime) throws MissingAvpException
 	{
-		if(policyCounterStatus==null)
-			throw new IllegalArgumentException("Policy-Counter-Status is required");
+		setPolicyCounterStatus(policyCounterStatus);
 		
-		if(pendingPolicyCounterChangeTime==null)
-			throw new IllegalArgumentException("Pending-Policy-Counter-Change-Time is required");
-		
-		this.policyCounterStatus = new PolicyCounterStatusImpl(policyCounterStatus, null, null);				
-		
-		this.pendingPolicyCounterChangeTime = new PendingPolicyCounterChangeTimeImpl(pendingPolicyCounterChangeTime, null, null);
+		setPendingPolicyCounterChangeTime(pendingPolicyCounterChangeTime);
 	}
 	
 	public String getPolicyCounterStatus()
@@ -65,10 +60,10 @@ public class PendingPolicyCounterInformationImpl extends DiameterGroupedAvpImpl 
 		return policyCounterStatus.getString();
 	}
 	
-	public void setPolicyCounterStatus(String value)
+	public void setPolicyCounterStatus(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Policy-Counter-Status is required");
+			throw new MissingAvpException("Policy-Counter-Status is required", Arrays.asList(new DiameterAvp[] { new PolicyCounterStatusImpl() }));
 		
 		this.policyCounterStatus = new PolicyCounterStatusImpl(value, null, null);
 	}
@@ -81,22 +76,22 @@ public class PendingPolicyCounterInformationImpl extends DiameterGroupedAvpImpl 
 		return pendingPolicyCounterChangeTime.getDateTime();
 	}
 
-	public void setPendingPolicyCounterChangeTime(Date value)
+	public void setPendingPolicyCounterChangeTime(Date value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Pending-Policy-Counter-Change-Time is required");
+			throw new MissingAvpException("Pending-Policy-Counter-Change-Time is required", Arrays.asList(new DiameterAvp[] { new PendingPolicyCounterChangeTimeImpl() }));
 		
 		this.pendingPolicyCounterChangeTime = new PendingPolicyCounterChangeTimeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(policyCounterStatus==null)
-			return "Transfer-Policy-Id is required";
+			return new MissingAvpException("Policy-Counter-Status is required", Arrays.asList(new DiameterAvp[] { new PolicyCounterStatusImpl() }));
 		
 		if(pendingPolicyCounterChangeTime==null)
-			return "Pending-Policy-Counter-Change-Time is required";
+			return new MissingAvpException("Pending-Policy-Counter-Change-Time is required", Arrays.asList(new DiameterAvp[] { new PendingPolicyCounterChangeTimeImpl() }));
 		
 		return null;
 	}

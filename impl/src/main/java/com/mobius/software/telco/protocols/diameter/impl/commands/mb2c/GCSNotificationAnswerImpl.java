@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.mb2c;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.RestartCounterImpl;
@@ -41,7 +44,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.RestartCount
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777335, commandCode = 8388663, request = false)
 public class GCSNotificationAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl implements GCSNotificationAnswer
 {
 	private DRMP drmp;
@@ -55,7 +57,7 @@ public class GCSNotificationAnswerImpl extends com.mobius.software.telco.protoco
 		super();
 	}
 	
-	public GCSNotificationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState)
+	public GCSNotificationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		
@@ -84,18 +86,18 @@ public class GCSNotificationAnswerImpl extends com.mobius.software.telco.protoco
 	public AuthSessionStateEnum getAuthSessionState() 
 	{
 		if(authSessionState==null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			return null;
 		
 		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
-		if(value == null)
-			this.authSessionState = null;
-		else
-			this.authSessionState = new AuthSessionStateImpl(value, null, null);
+		if(value==null)
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 	
 	@Override
@@ -117,10 +119,10 @@ public class GCSNotificationAnswerImpl extends com.mobius.software.telco.protoco
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState==null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		return super.validate();
 	}

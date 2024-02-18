@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 
     The Maximum-Packet-Size AVP (AVP Code 500) is of type Unsigned32.
  */
-@DiameterAvpDefinition(code = 500L, vendorId = -1L, name = "Maximum-Packet-Size")
+@DiameterAvpDefinition(code = AvpCodes.MAXIMUM_PACKET_SIZE, vendorId = -1L, name = "Maximum-Packet-Size")
 public interface MaximumPacketSize extends DiameterUnsigned32
 {
 }

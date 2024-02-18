@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
    The values 2-4294967295 are unassigned.
  */
-@DiameterAvpDefinition(code = 626L, vendorId = -1L, must = false, name = "OC-Report-Type")
+@DiameterAvpDefinition(code = AvpCodes.OC_REPORT_TYPE, vendorId = -1L, must = false, name = "OC-Report-Type")
 public interface OCReportType extends DiameterEnumerated<OCReportTypeEnum>
 {
 }

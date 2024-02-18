@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.71	AMF-Instance-Id
 	The AMF-Instance-Id AVP is of type UTF8String and contain the AMF Instance ID. It is coded as the NfInstanceId according to clause 5.3.2-1, in 3GPP TS 29.571 [26].
  */
-@DiameterAvpDefinition(code = 2566L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "AMF-Instance-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.AMF_INSTANCE_IF, vendorId = VendorIDs.TGPP_ID, must = false, name = "AMF-Instance-Id")
 public interface AMFInstanceId extends DiameterUTF8String
 {
 }

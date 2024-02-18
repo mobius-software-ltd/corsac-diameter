@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.DeleteSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ContextIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.DSRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SSCodeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.TSCodeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.TraceReferenceImpl;
@@ -50,7 +54,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777251, commandCode = 320, request = true)
 public class DeleteSubscriberDataRequestImpl extends S6aRequestImpl implements DeleteSubscriberDataRequest
 {
 	private DSRFlags dsrFlags;
@@ -74,7 +77,7 @@ public class DeleteSubscriberDataRequestImpl extends S6aRequestImpl implements D
 		super();
 	}
 	
-	public DeleteSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,DSRFlags dsrFlags)
+	public DeleteSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,DSRFlags dsrFlags) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -88,10 +91,10 @@ public class DeleteSubscriberDataRequestImpl extends S6aRequestImpl implements D
 	}
 	
 	@Override
-	public void setDSRFlags(DSRFlags value)
+	public void setDSRFlags(DSRFlags value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("DSR-Flags is required");
+			throw new MissingAvpException("DSR-Flags is required", Arrays.asList(new DiameterAvp[] { new DSRFlagsImpl() }));
 		
 		this.dsrFlags = value;
 	}
@@ -106,11 +109,11 @@ public class DeleteSubscriberDataRequestImpl extends S6aRequestImpl implements D
 	}
 	 
 	@Override
-	public void setSCEFID(String value)
+	public void setSCEFID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SCEF-ID is required");
-		
+			throw new MissingAvpException("SCEF-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
+			
 		this.scefID = new SCEFIDImpl(value, null, null);
 	}
 		
@@ -249,10 +252,13 @@ public class DeleteSubscriberDataRequestImpl extends S6aRequestImpl implements D
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(dsrFlags == null)
-			return "DSR-Flags is required";
+			return new MissingAvpException("DSR-Flags is required", Arrays.asList(new DiameterAvp[] { new DSRFlagsImpl() }));
+		
+		if(scefID == null)
+			return new MissingAvpException("SCEF-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
 		
 		return super.validate();
 	}	

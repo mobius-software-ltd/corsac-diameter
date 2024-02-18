@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Unbilled amount.
  */
-@DiameterAvpDefinition(code = 30022L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "U-Billed-Fee")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.UBILLED_FEE, vendorId = VendorIDs.HUAWEI_ID, name = "U-Billed-Fee")
 public interface UBilledFee extends DiameterInteger32
 {
 }

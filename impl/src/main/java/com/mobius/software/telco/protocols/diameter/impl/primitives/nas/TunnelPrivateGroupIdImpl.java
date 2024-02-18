@@ -1,6 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -30,7 +28,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 81L, vendorId = -1L)
 public class TunnelPrivateGroupIdImpl extends DiameterOctetStringImpl implements TunnelPrivateGroupId
 {
 	protected TunnelPrivateGroupIdImpl() 

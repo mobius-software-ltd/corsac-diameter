@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gxx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.SessionLinkingIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.SessionLinkingIndicatorEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gxx.SessionLinkin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1064L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SessionLinkingIndicatorImpl extends DiameterEnumeratedImpl<SessionLinkingIndicatorEnum> implements SessionLinkingIndicator
 {
 	protected SessionLinkingIndicatorImpl()

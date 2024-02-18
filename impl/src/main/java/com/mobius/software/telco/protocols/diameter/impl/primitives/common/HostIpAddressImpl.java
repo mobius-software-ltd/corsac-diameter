@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.HostIpAddress;
 
@@ -29,10 +28,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.HostIpAddr
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 257, vendorId = -1L)
 public class HostIpAddressImpl extends DiameterAddressImpl implements HostIpAddress
 {
-	protected HostIpAddressImpl() 
+	public HostIpAddressImpl() 
 	{
 		super();
 	}

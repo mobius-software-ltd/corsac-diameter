@@ -1,14 +1,19 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.Pc6Answer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -64,7 +69,7 @@ public abstract class Pc6AnswerImpl extends VendorSpecificAnswerImpl implements 
 		super();
 	}
 	
-	public Pc6AnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState)
+	public Pc6AnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);		
 		
@@ -99,10 +104,10 @@ public abstract class Pc6AnswerImpl extends VendorSpecificAnswerImpl implements 
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
@@ -178,10 +183,10 @@ public abstract class Pc6AnswerImpl extends VendorSpecificAnswerImpl implements 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		return super.validate();
 	}

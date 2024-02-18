@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Exponent;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ValueDigits;
@@ -29,27 +33,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 445L, vendorId = -1)
 public class UnitValueImpl implements UnitValue 
 {
 	private ValueDigits valueDigits;
 	
 	private Exponent exponent;
 	
-	protected UnitValueImpl()
+	public UnitValueImpl()
 	{
 		
 	}
 	
-	public UnitValueImpl(Long valueDigits,Long exponent)
+	public UnitValueImpl(Long valueDigits) throws MissingAvpException
 	{
-		if(valueDigits==null)
-			throw new IllegalArgumentException("Value-Digits is required");
-		
-		this.valueDigits = new ValueDigitsImpl(valueDigits, null, null);
-		
-		if(exponent!=null)
-			this.exponent = new ExponentImpl(exponent, null, null);
+		setValueDigits(valueDigits);
 	}
 	
 	public Long getValueDigits()
@@ -60,11 +57,11 @@ public class UnitValueImpl implements UnitValue
 		return valueDigits.getLong();
 	}
 	
-	public void setValueDigits(Long value)
+	public void setValueDigits(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Value-Digits is required");
-		
+			throw new MissingAvpException("Value-Digits is required", Arrays.asList(new DiameterAvp[] { new ValueDigitsImpl() }));
+			
 		this.valueDigits = new ValueDigitsImpl(value, null, null);		
 	}
 	
@@ -85,10 +82,10 @@ public class UnitValueImpl implements UnitValue
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(valueDigits==null)
-			return "Value-Digits is required";
+			return new MissingAvpException("Value-Digits is required", Arrays.asList(new DiameterAvp[] { new ValueDigitsImpl() }));
 		
 		return null;
 	}

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpFilterRuleImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFilterRule;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFilter
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 342L, vendorId = -1L)
 public class MIPFilterRuleImpl extends DiameterIpFilterRuleImpl implements MIPFilterRule
 {
 	protected MIPFilterRuleImpl() 
@@ -42,7 +39,7 @@ public class MIPFilterRuleImpl extends DiameterIpFilterRuleImpl implements MIPFi
 		super(minLength,maxLength);		
 	}
 		
-	public MIPFilterRuleImpl(String rule,Integer minLength,Integer maxLength) throws ParseException 
+	public MIPFilterRuleImpl(String rule,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
 		super(rule,minLength,maxLength);
 	}

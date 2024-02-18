@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelAssignmentId;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelClientAuthId;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelClientEndpoint;
@@ -41,7 +45,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 401L, vendorId = -1L)
 public class TunnelingImpl implements Tunneling
 {
 	private TunnelType tunnelType;
@@ -68,45 +71,15 @@ public class TunnelingImpl implements Tunneling
 	{
 	}
 	
-	public TunnelingImpl(TunnelTypeEnum tunnelType, TunnelMediumTypeEnum tunnelMediumType,String tunnelClientEndpoint,String tunnelServerEndpoint,Long tunnelPreference,String tunnelClientAuthId,String tunnelServerAuthId,ByteBuf tunnelAssignmentId, ByteBuf tunnelPassword, ByteBuf tunnelPrivateGroupId) 
+	public TunnelingImpl(TunnelTypeEnum tunnelType, TunnelMediumTypeEnum tunnelMediumType,String tunnelClientEndpoint,String tunnelServerEndpoint) throws MissingAvpException 
 	{
-		if(tunnelType==null)
-			throw new IllegalArgumentException("Tunnel-Type is required");
+		setTunnelType(tunnelType);
 		
-		if(tunnelMediumType==null)
-			throw new IllegalArgumentException("Tunnel-Medium-Type is required");	
+		setTunnelMediumType(tunnelMediumType);
 		
-		if(tunnelClientEndpoint==null)
-			throw new IllegalArgumentException("Tunnel-Client-Endpoint is required");
+		setTunnelClientEndpoint(tunnelClientEndpoint);
 		
-		if(tunnelServerEndpoint==null)
-			throw new IllegalArgumentException("Tunnel-Server-Endpoint is required");
-		
-		this.tunnelType = new TunnelTypeImpl(tunnelType, null, null);
-		
-		this.tunnelMediumType = new TunnelMediumTypeImpl(tunnelMediumType, null, null);
-		
-		this.tunnelClientEndpoint = new TunnelClientEndpointImpl(tunnelClientEndpoint, null, null);
-		
-		this.tunnelServerEndpoint = new TunnelServerEndpointImpl(tunnelServerEndpoint, null, null);				
-		
-		if(tunnelPreference!=null)
-			this.tunnelPreference = new TunnelPreferenceImpl(tunnelPreference, null, null);
-		
-		if(tunnelClientAuthId!=null)
-			this.tunnelClientAuthId = new TunnelClientAuthIdImpl(tunnelClientAuthId, null, null);
-		
-		if(tunnelServerAuthId!=null)
-			this.tunnelServerAuthId = new TunnelServerAuthIdImpl(tunnelServerAuthId, null, null);
-		
-		if(tunnelAssignmentId!=null)
-			this.tunnelAssignmentId = new TunnelAssignmentIdImpl(tunnelAssignmentId, null, null);
-		
-		if(tunnelPassword!=null)
-			this.tunnelPassword = new TunnelPasswordImpl(tunnelPassword, null, null);
-		
-		if(tunnelPrivateGroupId!=null)
-			this.tunnelPrivateGroupId = new TunnelPrivateGroupIdImpl(tunnelPrivateGroupId, null, null);		
+		setTunnelServerEndpoint(tunnelServerEndpoint);			
 	}
 	
 	public TunnelTypeEnum getTunnelType()
@@ -117,10 +90,10 @@ public class TunnelingImpl implements Tunneling
 		return tunnelType.getEnumerated(TunnelTypeEnum.class);
 	}
 	
-	public void setTunnelType(TunnelTypeEnum value)
+	public void setTunnelType(TunnelTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Tunnel-Type is required");
+			throw new MissingAvpException("Tunnel-Type is required is required", Arrays.asList(new DiameterAvp[] { new TunnelTypeImpl() }));
 		
 		this.tunnelType = new TunnelTypeImpl(value, null, null);				
 	}
@@ -133,10 +106,10 @@ public class TunnelingImpl implements Tunneling
 		return tunnelMediumType.getEnumerated(TunnelMediumTypeEnum.class);
 	}
 	
-	public void setTunnelMediumType(TunnelMediumTypeEnum value)
+	public void setTunnelMediumType(TunnelMediumTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Tunnel-Medium-Type is required");	
+			throw new MissingAvpException("Tunnel-Medium-Type is required is required", Arrays.asList(new DiameterAvp[] { new TunnelMediumTypeImpl() }));
 		
 		this.tunnelMediumType = new TunnelMediumTypeImpl(value, null, null);				
 	}
@@ -149,11 +122,11 @@ public class TunnelingImpl implements Tunneling
 		return tunnelClientEndpoint.getString();
 	}
 	
-	public void setTunnelClientEndpoint(String value)
+	public void setTunnelClientEndpoint(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Tunnel-Client-Endpoint is required");
-		
+			throw new MissingAvpException("Tunnel-Client-Endpoint is required is required", Arrays.asList(new DiameterAvp[] { new TunnelClientEndpointImpl() }));
+			
 		this.tunnelClientEndpoint = new TunnelClientEndpointImpl(value, null, null);				
 	}	
 	
@@ -165,11 +138,11 @@ public class TunnelingImpl implements Tunneling
 		return tunnelServerEndpoint.getString();
 	}
 	
-	public void setTunnelServerEndpoint(String value)
+	public void setTunnelServerEndpoint(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Tunnel-Server-Endpoint is required");
-		
+			throw new MissingAvpException("Tunnel-Server-Endpoint is required is required", Arrays.asList(new DiameterAvp[] { new TunnelServerEndpointImpl() }));
+			
 		this.tunnelServerEndpoint = new TunnelServerEndpointImpl(value, null, null);		
 	}	
 	
@@ -270,19 +243,19 @@ public class TunnelingImpl implements Tunneling
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tunnelType==null)
-			return "Tunnel-Type is required";
+			return new MissingAvpException("Tunnel-Type is required is required", Arrays.asList(new DiameterAvp[] { new TunnelTypeImpl() }));
 		
 		if(tunnelMediumType==null)
-			return "Tunnel-Medium-Type is required";
+			return new MissingAvpException("Tunnel-Medium-Type is required is required", Arrays.asList(new DiameterAvp[] { new TunnelMediumTypeImpl() }));
 		
 		if(tunnelClientEndpoint==null)
-			return "Tunnel-Client-Endpoint is required";
+			return new MissingAvpException("Tunnel-Client-Endpoint is required is required", Arrays.asList(new DiameterAvp[] { new TunnelClientEndpointImpl() }));
 		
 		if(tunnelServerEndpoint==null)
-			return "Tunnel-Server-Endpoint is required";
+			return new MissingAvpException("Tunnel-Server-Endpoint is required is required", Arrays.asList(new DiameterAvp[] { new TunnelServerEndpointImpl() }));
 		
 		return null;
 	}

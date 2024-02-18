@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.2	Origin-App-Layer-User-Id AVP
 	The Origin-App-Layer-User-Id AVP (AVP code 3600) is of type UTF8String, and it contains an identity identifying an origin user within the context of a specific application (e.g. alice@social.net).
  */
-@DiameterAvpDefinition(code = 3600L, vendorId = KnownVendorIDs.TGPP_ID, name = "Origin-App-Layer-User-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.ORIGIN_APP_LAYER_USER_ID, vendorId = VendorIDs.TGPP_ID, name = "Origin-App-Layer-User-Id")
 public interface OriginAppLayerUserId extends DiameterUTF8String
 {
 }

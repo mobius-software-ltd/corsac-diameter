@@ -20,11 +20,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.DLBufferingSuggestedPacketCountImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SubscribedPeriodicRAUTAUTimerImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DLBufferingSuggestedPacketCount;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXCycleLength;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscribedPeriodicRAUTAUTimer;
@@ -37,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.IdleStatusTim
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4322L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IdleStatusIndicationImpl extends DiameterGroupedAvpImpl implements IdleStatusIndication
 {
 	private IdleStatusTimestamp idleStatusTimestamp;

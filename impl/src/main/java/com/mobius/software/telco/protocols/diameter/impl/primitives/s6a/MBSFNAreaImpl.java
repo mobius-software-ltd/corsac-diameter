@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CarrierFrequency;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MBSFNArea;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MBSFNAreaID;
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.MBSFNAreaID;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1694L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBSFNAreaImpl extends DiameterGroupedAvpImpl implements MBSFNArea
 {
 	private MBSFNAreaID mbsfnAreaID;

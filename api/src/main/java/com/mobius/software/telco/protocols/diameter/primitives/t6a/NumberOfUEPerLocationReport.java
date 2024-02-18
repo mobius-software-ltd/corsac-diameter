@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IMSIGroupId;
 
@@ -41,16 +43,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.IMSIGroupId;
 			 [ IMSI-Group-Id ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 4307L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-of-UE-Per-Location-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.NUMBER_OF_UE_PER_LOCATION_REPORT, vendorId = VendorIDs.TGPP_ID, name = "Number-of-UE-Per-Location-Report")
 public interface NumberOfUEPerLocationReport extends DiameterGroupedAvp
 {
 	EPSLocationInformation getEPSLocationInformation();
 	
-	void setEPSLocationInformation(EPSLocationInformation value);
+	void setEPSLocationInformation(EPSLocationInformation value) throws MissingAvpException;
 	
 	Long getUECount();
 	
-	void setUECount(Long value);
+	void setUECount(Long value) throws MissingAvpException;
 	
 	IMSIGroupId getIMSIGroupId();
 	

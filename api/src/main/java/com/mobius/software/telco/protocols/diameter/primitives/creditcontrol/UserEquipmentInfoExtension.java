@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -55,26 +57,26 @@ import io.netty.buffer.ByteBuf;
                                   [ User-Equipment-Info-IMEI ]
                                   [ AVP ]  
  */
-@DiameterAvpDefinition(code = 653L, vendorId = -1, must = false, name = "User-Equipment-Info-Extension")
+@DiameterAvpDefinition(code = AvpCodes.USER_EQUIPMENT_INFO_EXTENSION, vendorId = -1, must = false, name = "User-Equipment-Info-Extension")
 public interface UserEquipmentInfoExtension extends DiameterGroupedAvp 
 {
 	ByteBuf getIMEISV();
 	
-	void setIMEISV(ByteBuf imeiSV);
+	void setIMEISV(ByteBuf imeiSV) throws MissingAvpException;
 	
 	ByteBuf getMAC();
 	
-	void setMAC(ByteBuf mac);
+	void setMAC(ByteBuf mac) throws MissingAvpException;
 	
 	ByteBuf getEUI64();
 	
-	void setEUI64(ByteBuf eui64);
+	void setEUI64(ByteBuf eui64) throws MissingAvpException;
 	
 	ByteBuf getModifiedEUI64();
 	
-	void setModifiedEUI64(ByteBuf modifiedEUI64);
+	void setModifiedEUI64(ByteBuf modifiedEUI64) throws MissingAvpException;
 	
 	ByteBuf getIMEI();
 	
-	void setIMEI(ByteBuf imei);
+	void setIMEI(ByteBuf imei) throws MissingAvpException;
 }

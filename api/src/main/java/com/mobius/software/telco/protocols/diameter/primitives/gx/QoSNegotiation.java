@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value indicates that a QoS negotiation is allowed for the corresponding PCC rule request. This is the default
 		value applicable if this AVP is not supplied. 
  */
-@DiameterAvpDefinition(code = 1029L, vendorId = KnownVendorIDs.TGPP_ID, name = "QoS-Negotiation")
+@DiameterAvpDefinition(code = TgppAvpCodes.QOS_NEGOTIATION, vendorId = VendorIDs.TGPP_ID, name = "QoS-Negotiation")
 public interface QoSNegotiation extends DiameterEnumerated<QoSNegotiationEnum>
 {
 }

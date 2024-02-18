@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MMELocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SGSNLocationInformation;
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SGSNLocationI
 *
 */
 
-@DiameterAvpImplementation(code = 1496L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EPSLocationInformationImpl extends DiameterGroupedAvpImpl implements EPSLocationInformation
 {
 	private MMELocationInformation mmeLocationInformation;

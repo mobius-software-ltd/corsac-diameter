@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.FeatureList;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.FeatureListID;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFea
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 628L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SupportedFeaturesImpl extends DiameterGroupedAvpImpl implements SupportedFeatures
 {
 	private VendorId vendorId;
@@ -47,22 +49,13 @@ public class SupportedFeaturesImpl extends DiameterGroupedAvpImpl implements Sup
 		super();
 	}
 	
-	public SupportedFeaturesImpl(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeaturesImpl(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
-		if(vendorId == null)
-			throw new IllegalArgumentException("Vendor-Id is required");
+		setVendorId(vendorId);
 		
-		if(featureListID == null)
-			throw new IllegalArgumentException("Feature-List-ID is required");
+		setFeatureListID(featureListID);
 		
-		if(featureList == null)
-			throw new IllegalArgumentException("Feature-List is required");
-		
-		this.vendorId = new VendorIdImpl(vendorId, null, null);
-		
-		this.featureListID = new FeatureListIDImpl(featureListID, null, null);
-		
-		this.featureList = new FeatureListImpl(featureList, null, null);		
+		setFeatureList(featureList);
 	}
 	
 	public Long getVendorId()
@@ -73,10 +66,10 @@ public class SupportedFeaturesImpl extends DiameterGroupedAvpImpl implements Sup
 		return vendorId.getUnsigned();
 	}
 	
-	public void setVendorId(Long value)
+	public void setVendorId(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Vendor-Id is required");	
+			throw new MissingAvpException("Vendor-Id is required is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
 		
 		this.vendorId = new VendorIdImpl(value, null, null);
 	}
@@ -89,10 +82,10 @@ public class SupportedFeaturesImpl extends DiameterGroupedAvpImpl implements Sup
 		return featureListID.getUnsigned();
 	}
 	
-	public void setFeatureListID(Long value)
+	public void setFeatureListID(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Feature-List-ID is required");
+			throw new MissingAvpException("Feature-List-ID is required is required", Arrays.asList(new DiameterAvp[] { new FeatureListIDImpl() }));
 		
 		this.featureListID = new FeatureListIDImpl(value, null, null);
 	}
@@ -105,25 +98,25 @@ public class SupportedFeaturesImpl extends DiameterGroupedAvpImpl implements Sup
 		return featureList.getUnsigned();
 	}
 	
-	public void setFeatureList(Long value)
+	public void setFeatureList(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Feature-List is required");
+			throw new MissingAvpException("Feature-List is required is required", Arrays.asList(new DiameterAvp[] { new FeatureListImpl() }));
 		
 		this.featureList = new FeatureListImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(vendorId == null)
-			return "Vendor-Id is required";
+			return new MissingAvpException("Vendor-Id is required is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
 		
 		if(featureListID == null)
-			return "Feature-List-ID is required";
+			return new MissingAvpException("Feature-List-ID is required is required", Arrays.asList(new DiameterAvp[] { new FeatureListIDImpl() }));
 		
 		if(featureList == null)
-			return "Feature-List is required";
+			return new MissingAvpException("Feature-List is required is required", Arrays.asList(new DiameterAvp[] { new FeatureListImpl() }));
 		
 		return null;
 	}

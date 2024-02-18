@@ -23,8 +23,11 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
@@ -142,12 +145,12 @@ import io.netty.buffer.ByteBuf;
                        * [ Proxy-Info ]
                        * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 265, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.AAA, request = false, proxyable = true, name="AA-Answer")
 public interface AAAnswer extends AuthenticationAnswer
 {
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	ServiceTypeEnum getServiceType();		
 	

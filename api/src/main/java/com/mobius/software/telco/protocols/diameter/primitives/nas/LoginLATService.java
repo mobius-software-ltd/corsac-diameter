@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -56,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    alphabetics, and the ISO Latin-1 character set extension
    [ISO.8859-1.1987].  All LAT string comparisons are case insensitive.
  */
-@DiameterAvpDefinition(code = 34L, vendorId = -1L, name = "Login-LAT-Service")
+@DiameterAvpDefinition(code = AvpCodes.LOGIN_LAT_SERVICE, vendorId = -1L, name = "Login-LAT-Service")
 public interface LoginLATService extends DiameterOctetString
 {
 }

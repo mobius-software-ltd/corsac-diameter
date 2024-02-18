@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	identifying a standardized service or set of services in the AS and standardized format of the related repository data are
 	defined in 3GPP TS 29.364 [10]. 
  */
-@DiameterAvpDefinition(code = 704L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_INDICATION, vendorId = VendorIDs.TGPP_ID, name = "Service-Indication")
 public interface ServiceIndication extends DiameterOctetString
 {
 }

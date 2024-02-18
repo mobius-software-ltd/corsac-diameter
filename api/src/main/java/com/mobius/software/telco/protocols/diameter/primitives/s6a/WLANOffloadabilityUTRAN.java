@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	Bits not defined in this table shall be cleared by the sending HSS and discarded by the receiving MME or SGSN..
 */
-@DiameterAvpDefinition(code = 1669L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "WLAN-offloadability-UTRAN")
+@DiameterAvpDefinition(code = TgppAvpCodes.WLAN_OFFLOADABILITY_UTRAN, vendorId = VendorIDs.TGPP_ID, must = false, name = "WLAN-offloadability-UTRAN")
 public interface WLANOffloadabilityUTRAN extends DiameterUnsigned32
 {
 }

@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.swx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerAssignmentTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -64,7 +67,7 @@ import io.netty.buffer.ByteBuf;
 			…
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777265, commandCode = 301, request = true, proxyable = true, name="Server-Assignment-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWX, commandCode = CommandCodes.SERVER_ASSIGNMENT, request = true, proxyable = true, name="Server-Assignment-Request")
 public interface ServerAssignmentRequest extends SwxRequest
 {
 	String getServiceSelection();
@@ -85,7 +88,7 @@ public interface ServerAssignmentRequest extends SwxRequest
 	
 	ServerAssignmentTypeEnum getServerAssignmentType();
 	
-	void setServerAssignmentType(ServerAssignmentTypeEnum value);
+	void setServerAssignmentType(ServerAssignmentTypeEnum value) throws MissingAvpException;
 	
 	List<ActiveAPN> getActiveAPN();
 	

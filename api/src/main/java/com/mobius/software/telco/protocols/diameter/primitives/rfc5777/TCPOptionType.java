@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -28,12 +29,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 */
 
 /*
- * 4.1.8.8.  TCP-Option-Value AVP
+ * 4.1.8.7.  TCP-Option-Type AVP
 
-   The TCP-Option-Value AVP (AVP Code 542) is of type OctetString and
-   contains the option value that must be matched.
+   The TCP-Option-Type AVP (AVP Code 541) is of type Enumerated and the
+   values are managed by IANA under the TCP Option Numbers registry as
+   defined in [RFC2780].
  */
-@DiameterAvpDefinition(code = 542L, vendorId = -1L, name = "TCP-Option-Type")
+@DiameterAvpDefinition(code = AvpCodes.TCP_OPTION_TYPE, vendorId = -1L, name = "TCP-Option-Type")
 public interface TCPOptionType extends DiameterEnumerated<TCPOptionTypeEnum>
 {
 }

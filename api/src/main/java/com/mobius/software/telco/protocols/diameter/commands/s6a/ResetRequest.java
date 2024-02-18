@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionDataDeletion;
@@ -55,7 +57,7 @@ import io.netty.buffer.ByteBuf;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 322, request = true, proxyable = true, name="Reset-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.RESET, request = true, proxyable = true, name="Reset-Request")
 public interface ResetRequest extends S6aRequest
 {
 	List<String> getUserId();

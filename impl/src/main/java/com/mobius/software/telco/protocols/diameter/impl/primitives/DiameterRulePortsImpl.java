@@ -18,8 +18,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
+import java.util.Arrays;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts;
 /**
 *
@@ -39,29 +41,29 @@ public class DiameterRulePortsImpl implements DiameterRulePorts
 		
 	}
 	
-	public DiameterRulePortsImpl(String value) throws ParseException
+	public DiameterRulePortsImpl(DiameterAvp avp,String value) throws InvalidAvpValueException
 	{
 		this.value = value;
-		parsePorts();
+		parsePorts(avp);
 	}
 		
-	public DiameterRulePortsImpl(Integer port) throws IllegalArgumentException 
+	public DiameterRulePortsImpl(Integer port) throws InvalidAvpValueException 
 	{
 		if(port<1 || port>65535)
-			throw new IllegalArgumentException("port has invalid value");
+			throw new InvalidAvpValueException("port has invalid value", Arrays.asList(new DiameterAvp[] {  }));
 		
 		this.min = port;
 		this.max = port;
 		value = port.toString();		
 	}
 	
-	public DiameterRulePortsImpl(Integer min,Integer max) throws IllegalArgumentException 
+	public DiameterRulePortsImpl(Integer min,Integer max) throws InvalidAvpValueException 
 	{
 		if(min<1 || min>65535)
-			throw new IllegalArgumentException("min port has invalid value");
+			throw new InvalidAvpValueException("min port has invalid value", Arrays.asList(new DiameterAvp[] {  }));
 		
 		if(max<1 || max>65535)
-			throw new IllegalArgumentException("max port has invalid value");
+			throw new InvalidAvpValueException("max port has invalid value", Arrays.asList(new DiameterAvp[] {  }));
 		
 		this.min = min;
 		this.max = max;
@@ -116,14 +118,14 @@ public class DiameterRulePortsImpl implements DiameterRulePorts
 		return true;
 	}
 	
-	private void parsePorts() throws ParseException
+	private void parsePorts(DiameterAvp avp) throws InvalidAvpValueException
 	{
 		String remaining=getPortsAsString();
 		if(remaining.indexOf("-")>0)
 		{
 			String[] segments=remaining.split("-");
 			if(segments.length!=2)
-				throw new ParseException("Invalid ports",0);
+				throw new InvalidAvpValueException("Invalid ports", Arrays.asList(new DiameterAvp[] { avp }));
 			
 			try 
 			{
@@ -131,11 +133,11 @@ public class DiameterRulePortsImpl implements DiameterRulePorts
 			}
 			catch(NumberFormatException ex)
 			{
-				throw new ParseException("Invalid port " + segments[0], 0);					
+				throw new InvalidAvpValueException("Invalid port " + segments[0], Arrays.asList(new DiameterAvp[] { avp }));					
 			}
 			
 			if(min<1 || min>65535)
-				throw new ParseException("Invalid port " + segments[0], 0);
+				throw new InvalidAvpValueException("Invalid port " + segments[0], Arrays.asList(new DiameterAvp[] { avp }));
 			
 			try 
 			{
@@ -143,11 +145,11 @@ public class DiameterRulePortsImpl implements DiameterRulePorts
 			}
 			catch(NumberFormatException ex)
 			{
-				throw new ParseException("Invalid port " + segments[0], 0);					
+				throw new InvalidAvpValueException("Invalid port " + segments[0], Arrays.asList(new DiameterAvp[] { avp }));					
 			}
 			
 			if(max<1 || max>65535)
-				throw new ParseException("Invalid port " + segments[0], 0);
+				throw new InvalidAvpValueException("Invalid port " + segments[0], Arrays.asList(new DiameterAvp[] { avp }));
 		}
 		else
 		{
@@ -157,11 +159,11 @@ public class DiameterRulePortsImpl implements DiameterRulePorts
 			}
 			catch(NumberFormatException ex)
 			{
-				throw new ParseException("Invalid port " + remaining, 0);					
+				throw new InvalidAvpValueException("Invalid port " + remaining, Arrays.asList(new DiameterAvp[] { avp }));					
 			}
 			
 			if(min<1 || min>65535)
-				throw new ParseException("Invalid port " + remaining, 0);
+				throw new InvalidAvpValueException("Invalid port " + remaining, Arrays.asList(new DiameterAvp[] { avp }));
 			
 			max = min;
 		}

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -30,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
  * 	6.3.21	Status-Text AVP
 	The Status-Text AVP (AVP code 1118) is of type UTF8String. If contains a response status text to qualify the outcome of the message processing.
  */
-@DiameterAvpDefinition(code = 1118L, vendorId = -1L, name = "Status-Text")
+@DiameterAvpDefinition(code = TgppAvpCodes.STATUS_TEXT, vendorId = VendorIDs.TGPP_ID, name = "Status-Text")
 public interface StatusText extends DiameterUTF8String
 {
 }

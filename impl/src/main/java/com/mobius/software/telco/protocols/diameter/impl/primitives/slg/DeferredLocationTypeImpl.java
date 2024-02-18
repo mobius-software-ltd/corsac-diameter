@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredLocationType;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredLocat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2532L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements DeferredLocationType
 {
 	public DeferredLocationTypeImpl()
@@ -44,7 +41,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setUEAvailableBit(boolean isOn)
 	{
-		setBit(UE_AVAILABLE_BIT, isOn);
+		setBitUnchecked(UE_AVAILABLE_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setEnteringIntoAreaBit(boolean isOn)
 	{
-		setBit(ENTERING_INTO_AREA_BIT, isOn);
+		setBitUnchecked(ENTERING_INTO_AREA_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setLeavingFromAreaBit(boolean isOn)
 	{
-		setBit(LEAVING_FROM_AREA_BIT, isOn);
+		setBitUnchecked(LEAVING_FROM_AREA_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setBeingInsideAreaBit(boolean isOn)
 	{
-		setBit(BEING_INSIDE_AREA_BIT, isOn);
+		setBitUnchecked(BEING_INSIDE_AREA_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setPeriodicLDRBit(boolean isOn)
 	{
-		setBit(PERIOD_LDR_BIT, isOn);
+		setBitUnchecked(PERIOD_LDR_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setMotionEventBit(boolean isOn)
 	{
-		setBit(MOTION_EVENT_BIT, isOn);
+		setBitUnchecked(MOTION_EVENT_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setLDRActivatedBit(boolean isOn)
 	{
-		setBit(LDR_ACTIVATED_BIT, isOn);
+		setBitUnchecked(LDR_ACTIVATED_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class DeferredLocationTypeImpl extends DiameterBitmask32Impl implements D
 	@Override
 	public void setMaximumIntervalExpirationBit(boolean isOn)
 	{
-		setBit(MAXIMUM_INTERVAL_EXPIRATION_BIT, isOn);
+		setBitUnchecked(MAXIMUM_INTERVAL_EXPIRATION_BIT, isOn);
 	}
 
 	@Override

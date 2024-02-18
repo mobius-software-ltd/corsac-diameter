@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	be in chronological order, i.e. the value in the SIP request is listed first. If only a value for the SIP response is available,
 	the Transit-IOI-List for the SIP request shall be included with the value "unknown". 
  */
-@DiameterAvpDefinition(code = 2701L, vendorId = KnownVendorIDs.TGPP_ID, name = "Transit-IOI-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRANSIT_IOI_LIST, vendorId = VendorIDs.TGPP_ID, name = "Transit-IOI-List")
 public interface TransitIOIList extends DiameterUTF8String
 {
 }

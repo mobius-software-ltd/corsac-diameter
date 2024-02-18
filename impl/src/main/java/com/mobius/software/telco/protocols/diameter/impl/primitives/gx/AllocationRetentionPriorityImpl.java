@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AllocationRetentionPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PreEmptionCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PreEmptionCapabilityEnum;
@@ -34,24 +37,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.PriorityLevel;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1034L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AllocationRetentionPriorityImpl extends DiameterGroupedAvpImpl implements AllocationRetentionPriority
 {
 	private PriorityLevel priorityLevel;
 	private PreEmptionCapability preEmptionCapability;
 	private PreEmptionVulnerability preEmptionVulnerability;
 
-	protected AllocationRetentionPriorityImpl()
+	public AllocationRetentionPriorityImpl()
 	{
 		
 	}
 	
-	public AllocationRetentionPriorityImpl(Long priorityLevel)
+	public AllocationRetentionPriorityImpl(Long priorityLevel) throws MissingAvpException
 	{
-		if(priorityLevel==null)
-			throw new IllegalArgumentException("Priority-Level is required");
-		
-		this.priorityLevel = new PriorityLevelImpl(priorityLevel, null, null);				
+		setPriorityLevel(priorityLevel);
 	}
 	
 	public Long getPriorityLevel()
@@ -62,10 +61,10 @@ public class AllocationRetentionPriorityImpl extends DiameterGroupedAvpImpl impl
 		return priorityLevel.getUnsigned();
 	}
 	
-	public void setPriorityLevel(Long value)
+	public void setPriorityLevel(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Priority-Level is required");
+			throw new MissingAvpException("Priority-Level is required", Arrays.asList(new DiameterAvp[] { new PriorityLevelImpl() }));
 		
 		this.priorityLevel = new PriorityLevelImpl(value, null, null);				
 	}
@@ -103,10 +102,10 @@ public class AllocationRetentionPriorityImpl extends DiameterGroupedAvpImpl impl
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(priorityLevel==null)
-			return "Priority-Level is required";
+			return new MissingAvpException("Priority-Level is required", Arrays.asList(new DiameterAvp[] { new PriorityLevelImpl() }));
 		
 		return null;
 	}

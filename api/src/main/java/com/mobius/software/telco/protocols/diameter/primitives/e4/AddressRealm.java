@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	FQDN. 
 
  */
-@DiameterAvpDefinition(code = 301L, vendorId = KnownVendorIDs.ETSI_ID, name = "Address-Realm")
+@DiameterAvpDefinition(code = EtsiAvpCodes.ADDRESS_REALM, vendorId = VendorIDs.ETSI_ID, name = "Address-Realm")
 public interface AddressRealm extends DiameterOctetString
 {
 }

@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ApplicationDetectionInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TDFApplicationIdentifier;
@@ -36,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1098L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ApplicationDetectionInformationImpl extends DiameterGroupedAvpImpl implements ApplicationDetectionInformation
 {
 	private TDFApplicationIdentifier tdfApplicationIdentifier;
@@ -48,12 +49,9 @@ public class ApplicationDetectionInformationImpl extends DiameterGroupedAvpImpl 
 		
 	}
 	
-	public ApplicationDetectionInformationImpl(ByteBuf tdfApplicationIdentifier)
+	public ApplicationDetectionInformationImpl(ByteBuf tdfApplicationIdentifier) throws MissingAvpException
 	{
-		if(tdfApplicationIdentifier==null)
-			throw new IllegalArgumentException("TDF-Application-Identifier is required");
-		
-		this.tdfApplicationIdentifier = new TDFApplicationIdentifierImpl(tdfApplicationIdentifier, null, null);				
+		setTDFApplicationIdentifier(tdfApplicationIdentifier);
 	}
 	
 	public ByteBuf getTDFApplicationIdentifier()
@@ -64,11 +62,11 @@ public class ApplicationDetectionInformationImpl extends DiameterGroupedAvpImpl 
 		return tdfApplicationIdentifier.getValue();
 	}
 	
-	public void setTDFApplicationIdentifier(ByteBuf value)
+	public void setTDFApplicationIdentifier(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("TDF-Application-Identifier is required");
-		
+			throw new MissingAvpException("TDF-Application-Identifier is required", Arrays.asList(new DiameterAvp[] { new TDFApplicationIdentifierImpl() }));
+			
 		this.tdfApplicationIdentifier = new TDFApplicationIdentifierImpl(value, null, null);				
 	}
 	
@@ -99,10 +97,10 @@ public class ApplicationDetectionInformationImpl extends DiameterGroupedAvpImpl 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tdfApplicationIdentifier==null)
-			return "TDF-Application-Identifier is required";
+			return new MissingAvpException("TDF-Application-Identifier is required", Arrays.asList(new DiameterAvp[] { new TDFApplicationIdentifierImpl() }));
 		
 		return null;
 	}		  

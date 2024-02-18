@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFID;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFReferenceID;
@@ -35,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.ServiceReport
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3142L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MonitoringEventConfigStatusImpl extends DiameterGroupedAvpImpl implements MonitoringEventConfigStatus
 {
 	private List<ServiceReport> serviceReport;
@@ -47,12 +48,9 @@ public class MonitoringEventConfigStatusImpl extends DiameterGroupedAvpImpl impl
 	{
 	}
 	
-	public MonitoringEventConfigStatusImpl(List<ServiceReport> serviceReport)
+	public MonitoringEventConfigStatusImpl(List<ServiceReport> serviceReport) throws MissingAvpException
 	{
-		if(serviceReport==null)
-			throw new IllegalArgumentException("Service-Report is required");
-		
-		this.serviceReport = serviceReport;						
+		setServiceReport(serviceReport);
 	}
 	
 	public List<ServiceReport> getServiceReport()
@@ -60,11 +58,11 @@ public class MonitoringEventConfigStatusImpl extends DiameterGroupedAvpImpl impl
 		return this.serviceReport;
 	}
 	
-	public void setServiceReport(List<ServiceReport> value)
+	public void setServiceReport(List<ServiceReport> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Service-Report is required");
-		
+			throw new MissingAvpException("Service-Report is required", Arrays.asList(new DiameterAvp[] { new ServiceReportImpl() }));
+			
 		this.serviceReport = value;
 	}
 	
@@ -117,10 +115,10 @@ public class MonitoringEventConfigStatusImpl extends DiameterGroupedAvpImpl impl
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceReport==null)
-			return "Service-Report is required";
+			return new MissingAvpException("Service-Report is required", Arrays.asList(new DiameterAvp[] { new ServiceReportImpl() }));
 		
 		return null;
 	}	

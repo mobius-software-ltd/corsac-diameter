@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -38,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 258, request = false)
 public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthAnswerImpl implements ReAuthAnswer
 {
 	private TerminationCause terminationCause;
@@ -49,7 +49,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	{
 	}
 	
-	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}

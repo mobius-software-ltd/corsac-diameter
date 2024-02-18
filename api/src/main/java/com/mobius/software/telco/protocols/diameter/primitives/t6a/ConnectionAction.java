@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	CONNECTION_UPDATE (2)
 	This value shall be used if the T6a/b Connection-Management-Request applies to updating the properties of a T6a/b connection.
  */
-@DiameterAvpDefinition(code = 4314L, vendorId = KnownVendorIDs.TGPP_ID, name = "Connection-Action")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONNECTION_ACTION, vendorId = VendorIDs.TGPP_ID, name = "Connection-Action")
 public interface ConnectionAction extends DiameterEnumerated<ConnectionActionEnum>
 {
 }

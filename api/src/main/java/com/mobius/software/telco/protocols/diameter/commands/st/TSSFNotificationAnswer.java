@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.st;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -49,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777349, commandCode = 8388731, request = false, proxyable = true, name="TSSF-Notification-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.ST, commandCode = CommandCodes.TSSF_NOTIFCATION, request = false, proxyable = true, name="TSSF-Notification-Answer")
 public interface TSSFNotificationAnswer extends StAnswer
 {				
 }

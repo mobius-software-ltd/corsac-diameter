@@ -18,10 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.ServiceResult;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.ServiceResultCode;
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.ServiceResult
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3146L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServiceResultImpl extends DiameterGroupedAvpImpl implements ServiceResult
 {
 	private VendorId vendorId;

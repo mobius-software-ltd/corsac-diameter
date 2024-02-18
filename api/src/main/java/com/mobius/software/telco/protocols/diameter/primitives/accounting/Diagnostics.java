@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Diagnostics AVP (AVP code 2039) is of type Integer32 and provides a more detailed cause value from PCN node.
 	It complements the Change-Condition AVP for Offline Charging. 
  */
-@DiameterAvpDefinition(code = 2039L, vendorId = KnownVendorIDs.TGPP_ID, name = "Diagnostics")
+@DiameterAvpDefinition(code = TgppAvpCodes.DIAGNOSTICS, vendorId = VendorIDs.TGPP_ID, name = "Diagnostics")
 public interface Diagnostics extends DiameterInteger32
 {
 }

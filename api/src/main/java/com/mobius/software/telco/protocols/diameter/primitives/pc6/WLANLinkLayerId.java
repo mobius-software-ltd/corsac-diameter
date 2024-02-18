@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 [ MAC-Address ]
 		*AVP
  */
-@DiameterAvpDefinition(code = 3821L, vendorId = KnownVendorIDs.TGPP_ID, name = "WLAN-Link-Layer-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.WLAN_LINK_LAYER_ID, vendorId = VendorIDs.TGPP_ID, name = "WLAN-Link-Layer-Id")
 public interface WLANLinkLayerId extends DiameterGroupedAvp
 {
 	String getMACAddress();

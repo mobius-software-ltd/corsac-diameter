@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	contains the Ipv4 Type-of-Service or the Ipv6 Traffic-Class field and the second octet contains the ToS/Traffic Class
 	mask field. One example is that of a TFT packet filter as defined in 3GPP TS 24.008 [13]. 
  */
-@DiameterAvpDefinition(code = 1014L, vendorId = KnownVendorIDs.TGPP_ID, name = "ToS-Traffic-Class")
+@DiameterAvpDefinition(code = TgppAvpCodes.TOS_TRAFFIC_CLASS, vendorId = VendorIDs.TGPP_ID, name = "ToS-Traffic-Class")
 public interface ToSTrafficClass extends DiameterOctetString
 {
 }

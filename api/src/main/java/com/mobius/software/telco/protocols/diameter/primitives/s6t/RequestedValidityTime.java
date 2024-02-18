@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.55	Requested-Validity-Time
 	The Requested-Validity-Time AVP is of type Time (see IETF RFC 6733 [23]), and contains the point of time after which the SCEF is willing to consider a granted NIDD authorization as being implicitly revoked.
  */
-@DiameterAvpDefinition(code = 3159L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Requested-Validity-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.REQUESTED_VALIDITY_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Requested-Validity-Time")
 public interface RequestedValidityTime extends DiameterTime
 {
 }

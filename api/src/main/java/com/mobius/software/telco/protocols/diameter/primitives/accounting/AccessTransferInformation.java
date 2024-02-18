@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
 
 import io.netty.buffer.ByteBuf;
@@ -50,7 +51,7 @@ import io.netty.buffer.ByteBuf;
 				[ Related-IMS-Charging-Identifier-Node ]
 				[ Change-Time ]
  */
-@DiameterAvpDefinition(code = 2709L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Transfer-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_TRANSFER_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Access-Transfer-Information")
 public interface AccessTransferInformation extends DiameterAvp
 {
 	AccessTransferTypeEnum getAccessTransferType();

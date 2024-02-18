@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfoType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfoTypeEnum;
@@ -32,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 458L, vendorId = -1)
 public class UserEquipmentInfoImpl implements UserEquipmentInfo 
 {
 	private UserEquipmentInfoType userEquipmentInfoType;
@@ -44,17 +47,11 @@ public class UserEquipmentInfoImpl implements UserEquipmentInfo
 		
 	}
 	
-	public UserEquipmentInfoImpl(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue)
+	public UserEquipmentInfoImpl(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue) throws MissingAvpException
 	{
-		if(userEquipmentInfoType==null)
-			throw new IllegalArgumentException("User-Equipment-Info-Type is required");
+		setUserEquipmentInfoType(userEquipmentInfoType);
 		
-		if(userEquipmentInfoValue==null)
-			throw new IllegalArgumentException("User-Equipment-Info-Value is required");
-		
-		this.userEquipmentInfoType = new UserEquipmentInfoTypeImpl(userEquipmentInfoType, null, null);
-		
-		this.userEquipmentInfoValue = new UserEquipmentInfoValueImpl(userEquipmentInfoValue, null, null);
+		setUserEquipmentInfoValue(userEquipmentInfoValue);
 	}
 	
 	public UserEquipmentInfoTypeEnum getUserEquipmentInfoType()
@@ -65,10 +62,10 @@ public class UserEquipmentInfoImpl implements UserEquipmentInfo
 		return userEquipmentInfoType.getEnumerated(UserEquipmentInfoTypeEnum.class);
 	}
 	
-	public void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum value)
+	public void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("User-Equipment-Info-Type is required");
+			throw new MissingAvpException("User-Equipment-Info-Type requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new UserEquipmentInfoTypeImpl() }));
 		
 		this.userEquipmentInfoType = new UserEquipmentInfoTypeImpl(value, null, null);
 		
@@ -82,22 +79,22 @@ public class UserEquipmentInfoImpl implements UserEquipmentInfo
 		return userEquipmentInfoValue.getValue();
 	}
 	
-	public void setUserEquipmentInfoValue(ByteBuf value)
+	public void setUserEquipmentInfoValue(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("User-Equipment-Info-Value is required");
-		
+			throw new MissingAvpException("User-Equipment-Info-Value requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new UserEquipmentInfoValueImpl() }));
+			
 		this.userEquipmentInfoValue = new UserEquipmentInfoValueImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userEquipmentInfoType==null)
-			return "User-Equipment-Info-Type is required";
+			return new MissingAvpException("User-Equipment-Info-Type requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new UserEquipmentInfoTypeImpl() }));
 		
 		if(userEquipmentInfoValue==null)
-			return "User-Equipment-Info-Value is required";
+			return new MissingAvpException("User-Equipment-Info-Value requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new UserEquipmentInfoValueImpl() }));
 		
 		return null;
 	}

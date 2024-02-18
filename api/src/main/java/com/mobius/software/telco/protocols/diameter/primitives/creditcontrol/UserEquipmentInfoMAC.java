@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    address; the MAC address is formatted as described in Section 4.1.7.8
    of [RFC5777].
  */
-@DiameterAvpDefinition(code = 655L, vendorId = -1L, must = false, name = "User-Equipment-Info-MAC")
+@DiameterAvpDefinition(code = AvpCodes.USER_EQUIPMENT_INFO_MAC, vendorId = -1L, must = false, name = "User-Equipment-Info-MAC")
 public interface UserEquipmentInfoMAC extends DiameterOctetString
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		within the QoS-Information AVP as defined in subclause 5.4 of 3GPP TS 29.213 [8]. This is the default value
 		when the AVP has not yet been provided. 
  */
-@DiameterAvpDefinition(code = 2844L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Default-Bearer-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.DEFAULT_BEARER_INDICATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Default-Bearer-Indication")
 public interface DefaultBearerIndication extends DiameterEnumerated<DefaultBearerIndicationEnum>
 {
 }

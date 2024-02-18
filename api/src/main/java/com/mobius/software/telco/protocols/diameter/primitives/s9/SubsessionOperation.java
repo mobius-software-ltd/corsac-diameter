@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s9;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	MODIFICATION (2)
 	This value is used to indicate that an existing subsession is being modified.
  */
-@DiameterAvpDefinition(code = 2203L, vendorId = KnownVendorIDs.TGPP_ID, name = "Subsession-Operation")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUBSESSION_OPERATION, vendorId = VendorIDs.TGPP_ID, name = "Subsession-Operation")
 public interface SubsessionOperation extends DiameterEnumerated<SubsessionOperationEnum>
 {
 }

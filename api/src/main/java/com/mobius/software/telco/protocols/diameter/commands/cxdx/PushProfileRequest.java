@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
@@ -55,7 +57,7 @@ import io.netty.buffer.ByteBuf;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 305, request = true, proxyable = true, name="Push-Profile-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.PUSH_PROFILE, request = true, proxyable = true, name="Push-Profile-Request")
 public interface PushProfileRequest extends CxDxRequest
 {
 	ByteBuf getUserData();

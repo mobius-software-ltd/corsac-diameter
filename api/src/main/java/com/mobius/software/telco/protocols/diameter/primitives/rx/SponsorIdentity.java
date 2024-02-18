@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.28	Sponsor-Identity AVP
 	The Sponsor-Identity AVP (AVP code 531) is of type UTF8String and is used for sponsored data connectivity purposes as an identifier of the sponsor.
  */
-@DiameterAvpDefinition(code = 531L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Sponsor-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.SPONSOR_IDENTITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "Sponsor-Identity")
 public interface SponsorIdentity extends DiameterUTF8String
 {
 }

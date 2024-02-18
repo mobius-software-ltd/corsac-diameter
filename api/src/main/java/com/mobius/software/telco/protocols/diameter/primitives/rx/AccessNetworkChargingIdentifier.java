@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,12 +44,12 @@ import io.netty.buffer.ByteBuf;
 					  { Access-Network-Charging-Identifier-Value}
 					 *[ Flows ]
  */
-@DiameterAvpDefinition(code = 502L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Network-Charging-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_NETWORK_CHARGING_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Access-Network-Charging-Identifier")
 public interface AccessNetworkChargingIdentifier extends DiameterAvp
 {
 	ByteBuf getAccessNetworkChargingIdentifierValue();
 	
-	void setAccessNetworkChargingIdentifierValue(ByteBuf value);
+	void setAccessNetworkChargingIdentifierValue(ByteBuf value) throws MissingAvpException;
 	
 	List<Flows> getFlows();
 	

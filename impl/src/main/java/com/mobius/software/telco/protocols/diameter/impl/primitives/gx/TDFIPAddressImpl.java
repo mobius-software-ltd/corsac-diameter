@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TDFIPAddress;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.TDFIPAddress;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1091L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TDFIPAddressImpl extends DiameterAddressImpl implements TDFIPAddress
 {
 	protected TDFIPAddressImpl()

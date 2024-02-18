@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.PreEmptionControlInfo;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.PreEmptionCont
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 553L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PreEmptionControlInfoImpl extends DiameterBitmask32Impl implements PreEmptionControlInfo
 {
 	public PreEmptionControlInfoImpl()
@@ -44,7 +41,7 @@ public class PreEmptionControlInfoImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setMostRecentAddedFlowBit(boolean isOn)
 	{
-		setBit(MOST_RECENT_ADDED_FLOW_BIT, isOn);
+		setBitUnchecked(MOST_RECENT_ADDED_FLOW_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class PreEmptionControlInfoImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setLeastRecentAddedFlowBit(boolean isOn)
 	{
-		setBit(LEAST_RECENT_ADDED_FLOW_BIT, isOn);
+		setBitUnchecked(LEAST_RECENT_ADDED_FLOW_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class PreEmptionControlInfoImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setHighestBandwidthFlowBit(boolean isOn)
 	{
-		setBit(HIGHEST_BANDWIDTH_FLOW_BIT, isOn);
+		setBitUnchecked(HIGHEST_BANDWIDTH_FLOW_BIT, isOn);
 	}
 
 	@Override

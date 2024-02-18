@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Content-Size AVP (AVP code 1206) is of type Unsigned32 and indicates the size in bytes of the specified content
 	type. 
  */
-@DiameterAvpDefinition(code = 1206L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Size")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONTENT_SIZE, vendorId = VendorIDs.TGPP_ID, name = "Content-Size")
 public interface ContentSize extends DiameterUnsigned32
 {
 }

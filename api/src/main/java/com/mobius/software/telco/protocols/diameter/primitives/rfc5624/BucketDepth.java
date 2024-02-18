@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
     The Bucket-Depth AVP (AVP Code 497) is of type Float32.
  */
-@DiameterAvpDefinition(code = 497L, vendorId = -1L, name = "Bucket-Depth")
+@DiameterAvpDefinition(code = AvpCodes.BUCKET_DEPTH, vendorId = -1L, name = "Bucket-Depth")
 public interface BucketDepth extends DiameterFloat32
 {
 }

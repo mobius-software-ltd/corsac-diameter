@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcUnitTypeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChargeReasonCode;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChargeReasonCodeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateElement;
@@ -36,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2058L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RateElementImpl implements RateElement
 {
 	private CcUnitType ccUnitType;
@@ -49,12 +51,9 @@ public class RateElementImpl implements RateElement
 	{
 	}
 	
-	public RateElementImpl(CcUnitTypeEnum ccUnitType)
+	public RateElementImpl(CcUnitTypeEnum ccUnitType) throws MissingAvpException
 	{
-		if(ccUnitType==null)
-			throw new IllegalArgumentException("CC-Unit-Type is required");
-		
-		this.ccUnitType = new CcUnitTypeImpl(ccUnitType, null, null);						
+		setCcUnitType(ccUnitType);
 	}
 	
 	public CcUnitTypeEnum getCcUnitType()
@@ -65,10 +64,10 @@ public class RateElementImpl implements RateElement
 		return ccUnitType.getEnumerated(CcUnitTypeEnum.class);
 	}
 	
-	public void setCcUnitType(CcUnitTypeEnum value)
+	public void setCcUnitType(CcUnitTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Unit-Type is required");
+			throw new MissingAvpException("CC-Unit-Type is required is required", Arrays.asList(new DiameterAvp[] { new CcUnitTypeImpl() }));
 		
 		this.ccUnitType = new CcUnitTypeImpl(value, null, null);						
 	}
@@ -126,10 +125,10 @@ public class RateElementImpl implements RateElement
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ccUnitType==null)
-			return "CC-Unit-Type is required";
+			return new MissingAvpException("CC-Unit-Type is required is required", Arrays.asList(new DiameterAvp[] { new CcUnitTypeImpl() }));
 		
 		return null;
 	}

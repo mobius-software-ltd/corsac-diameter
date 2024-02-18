@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,12 +46,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	When the "Extended Reference IDs" feature is supported by the HSS and SCEF, the SCEF-Reference-ID-Ext AVP shall be used insted of SCEF-Reference-ID; in such case, the required AVP "SCEF-Reference-ID" shall be included in the grouped AVP by the sender, but its content shall be discarded by the receiver.
  */
-@DiameterAvpDefinition(code = 3142L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Config-Status")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_EVENT_CONFIG_STATUS, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Event-Config-Status")
 public interface MonitoringEventConfigStatus extends DiameterGroupedAvp
 {
 	List<ServiceReport> getServiceReport();
 	
-	void setServiceReport(List<ServiceReport> value);
+	void setServiceReport(List<ServiceReport> value) throws MissingAvpException;
 	
 	Long getSCEFReferenceID();
 	

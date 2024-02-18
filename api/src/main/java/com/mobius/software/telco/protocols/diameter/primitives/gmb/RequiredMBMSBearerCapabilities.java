@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.3	Required-MBMS-Bearer-Capabilities AVP
 	The Required-MBMS-Bearer-Capabilities AVP (AVP code 901) is of type UTF8String, and contains the minimum bearer capabilities the UE needs to support. The information contained in this AVP is UTF-8 encoded MBMS bearer capabilities as defined in 3GPP TS 24.008 [54].
  */
-@DiameterAvpDefinition(code = 901L, vendorId = KnownVendorIDs.TGPP_ID, name = "Required-MBMS-Bearer-Capabilities")
+@DiameterAvpDefinition(code = TgppAvpCodes.REQUIRED_MBMS_BEARER_CAPABILITIES, vendorId = VendorIDs.TGPP_ID, name = "Required-MBMS-Bearer-Capabilities")
 public interface RequiredMBMSBearerCapabilities extends DiameterUTF8String
 {
 }

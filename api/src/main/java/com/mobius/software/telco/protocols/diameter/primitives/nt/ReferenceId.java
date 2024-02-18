@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Reference-Id AVP (AVP code 4202) is of type OctetString. It is used by the PCRF to correlate an SCS/AS request with the transfer policy retrieved from the SPR. It is assigned by the PCRF and shall be globally unique per PLMN.
 	NOTE:	To guarantee the uniqueness of the Reference Id, the Reference Id can follow the definition of Session Id in IETF RFC 6733 [15].
  */
-@DiameterAvpDefinition(code = 4202L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reference-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.REFERENCE_ID, vendorId = VendorIDs.TGPP_ID, name = "Reference-Id")
 public interface ReferenceId extends DiameterOctetString
 {
 }

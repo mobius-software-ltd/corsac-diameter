@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc4a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ResetRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UserIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -38,7 +39,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777336, commandCode = 322, request = true)
 public class ResetRequestImpl extends Pc4aRequestImpl implements ResetRequest
 {
 	private List<UserId> userId;
@@ -50,7 +50,7 @@ public class ResetRequestImpl extends Pc4aRequestImpl implements ResetRequest
 		super();
 	}
 	
-	public ResetRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID)
+	public ResetRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
 	}

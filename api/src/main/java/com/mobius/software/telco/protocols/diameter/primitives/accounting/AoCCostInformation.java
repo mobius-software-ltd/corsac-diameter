@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			* [ Incremental-Cost ]
 			  [ Currency-Code ]
  */
-@DiameterAvpDefinition(code = 2053L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Cost-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.AOC_COST_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "AoC-Cost-Information")
 public interface AoCCostInformation extends DiameterAvp
 {
 	AccumulatedCost getAccumulatedCost();

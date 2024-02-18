@@ -23,6 +23,8 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
@@ -69,7 +71,7 @@ import io.netty.buffer.ByteBuf;
                         * [ Route-Record ]
                         * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 274, request = true, proxyable = true, name="Abort-Session-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.ABORT_SESSION, request = true, proxyable = true, name="Abort-Session-Request")
 public interface AbortSessionRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();

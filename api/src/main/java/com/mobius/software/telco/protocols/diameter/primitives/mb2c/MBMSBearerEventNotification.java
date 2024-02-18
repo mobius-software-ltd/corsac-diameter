@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -44,20 +46,20 @@ import io.netty.buffer.ByteBuf;
                                     *[ Userplane-Protocol‑Result ]
                                     *[ AVP ]
  */
-@DiameterAvpDefinition(code = 3503L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Event‑Notification")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_EVENT_NOTIFICATION, vendorId = VendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Event‑Notification")
 public interface MBMSBearerEventNotification extends DiameterGroupedAvp
 {
 	ByteBuf getTMGI();
 	
-	void setTMGI(ByteBuf value);	
+	void setTMGI(ByteBuf value) throws MissingAvpException;	
 	
 	ByteBuf getMBMSFlowIdentifier();
 	
-	void setMBMSFlowIdentifier(ByteBuf value);
+	void setMBMSFlowIdentifier(ByteBuf value) throws MissingAvpException;
 	
 	MBMSBearerEvent getMBMSBearerEvent();
 	
-	void setMBMSBearerEvent(MBMSBearerEvent value);
+	void setMBMSBearerEvent(MBMSBearerEvent value) throws MissingAvpException;
 	
 	MBMSBearerEventDiagnosticInfoEnum getMBMSBearerEventDiagnosticInfo();
 	

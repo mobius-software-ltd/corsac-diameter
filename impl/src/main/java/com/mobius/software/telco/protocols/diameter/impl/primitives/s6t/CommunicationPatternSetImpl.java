@@ -21,9 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.BatteryIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.CommunicationDurationTime;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.CommunicationPatternSet;
@@ -42,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.TrafficProfil
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3114L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CommunicationPatternSetImpl extends DiameterGroupedAvpImpl implements CommunicationPatternSet
 {
 	private PeriodicCommunicationIndicator periodicCommunicationIndicator;

@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserAuthorizationTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -56,7 +59,7 @@ import io.netty.buffer.ByteBuf;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 300, request = true, proxyable = true, name="User-Authorization-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.USER_AUTHORIZATION, request = true, proxyable = true, name="User-Authorization-Request")
 public interface UserAuthorizationRequest extends CxDxRequest
 {
 	OCSupportedFeatures getOCSupportedFeatures();
@@ -65,11 +68,11 @@ public interface UserAuthorizationRequest extends CxDxRequest
 	 		
 	String getPublicIdentity();
 	
-	void setPublicIdentity(String value);
+	void setPublicIdentity(String value) throws MissingAvpException;
 	
 	ByteBuf getVisitedNetworkId();
 	
-	void setVisitedNetworkId(ByteBuf value);
+	void setVisitedNetworkId(ByteBuf value) throws MissingAvpException;
 	
 	UserAuthorizationTypeEnum getUserAuthorizationType();
 	

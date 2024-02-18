@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  	Non_3GPP_APNS_DISABLE (1)
  	Disable all APNs for a subscriber
  */
-@DiameterAvpDefinition(code = 1502L, vendorId = KnownVendorIDs.TGPP_ID, name = "Non-3GPP-IP-Access-APN")
+@DiameterAvpDefinition(code = TgppAvpCodes.NON_3GPP_IP_ACCESS_APN, vendorId = VendorIDs.TGPP_ID, name = "Non-3GPP-IP-Access-APN")
 public interface Non3GPPIPAccessAPN extends DiameterEnumerated<Non3GPPIPAccessAPNEnum>
 {
 }

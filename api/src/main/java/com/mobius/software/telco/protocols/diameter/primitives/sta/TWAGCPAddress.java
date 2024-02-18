@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.2.3.29	TWAG-CP-Address
 	The TWAG-CP-Address AVP is of type Address and shall contain the TWAG control-plane IPv4 and/or IPv6 address that the TWAG supports, to be used for WLCP by the UE if MCM is selected.
  */
-@DiameterAvpDefinition(code = 1531L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAG-CP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.TWAG_CP_ADDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "TWAG-CP-Address")
 public interface TWAGCPAddress extends DiameterAddress
 {
 }

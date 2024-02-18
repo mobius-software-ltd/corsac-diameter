@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.app.swx;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
@@ -69,43 +70,43 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public TerminalInformation getTerminalInformation();
 	
 	public SIPAuthDataItem getSIPAuthDataItem();
 	
-	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm);
+	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm) throws MissingAvpException;
 	
 	public Non3GPPUserData getNon3GPPUserData();
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData);
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException;
 	
-	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL);
+	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL) throws MissingAvpException;
 	
 	public MIP6AgentInfo getMIP6AgentInfo();
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm);
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException;
 	
-	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection);
+	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection) throws MissingAvpException;
 	
-	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority);
+	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority) throws MissingAvpException;
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel);
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException;
 	
-	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo);
+	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo) throws MissingAvpException;
 	
 	public WLANOffloadability getWLANOffloadability();
 	
 	public TraceInfo getTraceInfo();
 	
-	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity);
+	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity) throws MissingAvpException;
 	
-	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType);
+	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType) throws MissingAvpException;
 	
 	public AreaScope getAreaScope();
 	
@@ -125,11 +126,11 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AccessNetworkInfo getAccessNetworkInfo();
 	
-	public LocalTimeZone getLocalTimeZone(String timeZone,DaylightSavingTimeEnum daylightSavingTime);
+	public LocalTimeZone getLocalTimeZone(String timeZone,DaylightSavingTimeEnum daylightSavingTime) throws MissingAvpException;
 	
-	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode);
+	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode) throws MissingAvpException;
 	
-	public ActiveAPN getActiveAPN(Long contextIdentifier);
+	public ActiveAPN getActiveAPN(Long contextIdentifier) throws MissingAvpException;
 
 	public EmergencyServices getEmergencyServices();
 	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The TDF-Destination-Realm AVP (AVP code 1090) is of type DiameterIdentity and contains the Destination-Realm of
 	the TDF.
  */
-@DiameterAvpDefinition(code = 1090L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TDF-Destination-Realm")
+@DiameterAvpDefinition(code = TgppAvpCodes.TDF_DESTINATION_REALM, vendorId = VendorIDs.TGPP_ID, must = false, name = "TDF-Destination-Realm")
 public interface TDFDestinationRealm extends DiameterIdentity
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The External-ID AVP (AVP Code 1005) is of type UTF8String and contains the external ID used to communicate over Mcn where applicable. 
 	The format is the same as the M2M-Ext-ID in clause Addressing.
  */
-@DiameterAvpDefinition(code = 1005L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "External-ID")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.EXTERNAL_ID, vendorId = VendorIDs.ONEM2M_ID, name = "External-ID")
 public interface ExternalID extends DiameterUTF8String
 {
 }

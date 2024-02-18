@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc4a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeSubscriberInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
@@ -45,7 +46,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777336, commandCode = 8388664, request = false)
 public class ProSeSubscriberInformationAnswerImpl extends Pc4aAnswerImpl implements ProSeSubscriberInformationAnswer
 {
 	private ProSeSubscriptionData proSeSubscriptionData;
@@ -67,7 +67,7 @@ public class ProSeSubscriberInformationAnswerImpl extends Pc4aAnswerImpl impleme
 		super();
 	}
 	
-	public ProSeSubscriberInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public ProSeSubscriberInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 	}

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.UPRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.UPRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3705L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UPRFlagsImpl extends DiameterBitmask32Impl implements UPRFlags
 {
 	public UPRFlagsImpl()
@@ -44,7 +41,7 @@ public class UPRFlagsImpl extends DiameterBitmask32Impl implements UPRFlags
 	@Override
 	public void setUpdateBit(boolean isOn)
 	{
-		setBit(UPDATE_BIT, isOn);
+		setBitUnchecked(UPDATE_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class UPRFlagsImpl extends DiameterBitmask32Impl implements UPRFlags
 	@Override
 	public void setRemovalBit(boolean isOn)
 	{
-		setBit(REMOVAL_BIT, isOn);
+		setBitUnchecked(REMOVAL_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class UPRFlagsImpl extends DiameterBitmask32Impl implements UPRFlags
 	@Override
 	public void setResetIDUpdateBit(boolean isOn)
 	{
-		setBit(RESET_ID_UPDATE_BIT, isOn);
+		setBitUnchecked(RESET_ID_UPDATE_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class UPRFlagsImpl extends DiameterBitmask32Impl implements UPRFlags
 	@Override
 	public void setResetIDRemovalBit(boolean isOn)
 	{
-		setBit(RESET_ID_REMOVAL_BIT, isOn);
+		setBitUnchecked(RESET_ID_REMOVAL_BIT, isOn);
 	}
 
 	@Override

@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -90,7 +91,7 @@ import io.netty.buffer.ByteBuf;
 		  [ IP-CAN-Type ]
 		 *[ AVP ] 
  */
-@DiameterAvpDefinition(code = 1001L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Rule-Install")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_RULE_INSTALL, vendorId = VendorIDs.TGPP_ID, name = "Charging-Rule-Install")
 public interface ChargingRuleInstall extends DiameterGroupedAvp
 {
 	List<ChargingRuleDefinition> getChargingRuleDefinition();

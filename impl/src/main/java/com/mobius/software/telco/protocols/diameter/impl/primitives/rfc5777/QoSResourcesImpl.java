@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.FilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSResources;
 
@@ -31,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSResour
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 508L, vendorId = -1L)
 public class QoSResourcesImpl extends DiameterGroupedAvpImpl implements QoSResources
 {
 	private List<FilterRule> filterRule;
@@ -41,12 +43,9 @@ public class QoSResourcesImpl extends DiameterGroupedAvpImpl implements QoSResou
 		
 	}
 	
-	public QoSResourcesImpl(List<FilterRule> filterRule)
+	public QoSResourcesImpl(List<FilterRule> filterRule) throws MissingAvpException
 	{
-		if(filterRule == null || filterRule.size()==0)
-			throw new IllegalArgumentException("Filter-Rule is required");
-		
-		this.filterRule = filterRule;
+		setFilterRule(filterRule);
 	}
 	
 	public List<FilterRule> getFilterRule()
@@ -54,19 +53,19 @@ public class QoSResourcesImpl extends DiameterGroupedAvpImpl implements QoSResou
 		return filterRule;
 	}
 	
-	public void setFilterRule(List<FilterRule> value)
+	public void setFilterRule(List<FilterRule> value) throws MissingAvpException
 	{
 		if(filterRule == null || filterRule.size()==0)
-			throw new IllegalArgumentException("Filter-Rule is required");
-		
+			throw new MissingAvpException("Filter-Rule is required is required", Arrays.asList(new DiameterAvp[] { new FilterRuleImpl() }));
+			
 		this.filterRule = value;
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(filterRule == null || filterRule.size()==0)
-			return "Filter-Rule	 is required";
+			return new MissingAvpException("Filter-Rule is required is required", Arrays.asList(new DiameterAvp[] { new FilterRuleImpl() }));
 		
 		return null;
 	}

@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.MultimediaAuthRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPMethodImpl;
@@ -45,7 +48,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServer
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 6, commandCode = 286, request = true)
 public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements MultimediaAuthRequest
 {
 	private AuthSessionState authSessionState;
@@ -65,7 +67,7 @@ public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protoco
 		super();
 	}
 	
-	public MultimediaAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState,String sipAOR, String sipMethod)
+	public MultimediaAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState,String sipAOR, String sipMethod) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -86,10 +88,10 @@ public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protoco
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
@@ -104,10 +106,10 @@ public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protoco
 	}
 	
 	@Override
-	public void setSIPAOR(String value)
+	public void setSIPAOR(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-AOR is required");
+			throw new MissingAvpException("SIP-AOR is required", Arrays.asList(new DiameterAvp[] { new SIPAORImpl() }));
 		
 		this.sipAOR = new SIPAORImpl(value, null, null);
 	}
@@ -122,10 +124,10 @@ public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protoco
 	}
 	
 	@Override
-	public void setSIPMethod(String value)
+	public void setSIPMethod(String value) throws MissingAvpException
 	{
 		if(sipMethod == null)
-			throw new IllegalArgumentException("SIP-Method is required");
+			throw new MissingAvpException("SIP-Method is required", Arrays.asList(new DiameterAvp[] { new SIPMethodImpl() }));
 		
 		this.sipMethod = new SIPMethodImpl(value, null, null);
 	}
@@ -179,16 +181,16 @@ public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protoco
 	} 
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		if(sipAOR == null)
-			return "SIP-AOR is required";
+			return new MissingAvpException("SIP-AOR is required", Arrays.asList(new DiameterAvp[] { new SIPAORImpl() }));
 		
 		if(sipMethod == null)
-			return "SIP-Method is required";
+			return new MissingAvpException("SIP-Method is required", Arrays.asList(new DiameterAvp[] { new SIPMethodImpl() }));
 		
 		return super.validate();
 	}

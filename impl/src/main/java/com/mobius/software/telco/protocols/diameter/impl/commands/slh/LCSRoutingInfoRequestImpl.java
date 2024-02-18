@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.slh;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.GMLCNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -37,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777291, commandCode = 8388622, request = true)
 public class LCSRoutingInfoRequestImpl extends SlhRequestImpl implements LCSRoutingInfoRequest
 {
 	private MSISDN msisdn;
@@ -49,7 +49,7 @@ public class LCSRoutingInfoRequestImpl extends SlhRequestImpl implements LCSRout
 		super();
 	}
 	
-	public LCSRoutingInfoRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
+	public LCSRoutingInfoRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
 	}

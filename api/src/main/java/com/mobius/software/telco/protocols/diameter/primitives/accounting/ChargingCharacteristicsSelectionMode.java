@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	4 Roaming-Default
 	5 Visiting-Default
  */
-@DiameterAvpDefinition(code = 2066L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Characteristics-Selection-Mode")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_CHARACTERISTICS_SELECTION_MODE, vendorId = VendorIDs.TGPP_ID, name = "Charging-Characteristics-Selection-Mode")
 public interface ChargingCharacteristicsSelectionMode extends DiameterEnumerated<ChargingCharacteristicsSelectionModeEnum>
 {
 }

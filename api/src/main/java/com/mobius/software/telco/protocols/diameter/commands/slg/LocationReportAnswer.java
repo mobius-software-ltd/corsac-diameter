@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.slg;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LRAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.ReportingPLMNList;
@@ -56,7 +58,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777255, commandCode = 8388621, request = false, proxyable = true, name="Location-Report-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SLG, commandCode = CommandCodes.LOCATION_REPORT, request = false, proxyable = true, name="Location-Report-Answer")
 public interface LocationReportAnswer extends SlgAnswer
 {
 	InetAddress getGMLCAddress();

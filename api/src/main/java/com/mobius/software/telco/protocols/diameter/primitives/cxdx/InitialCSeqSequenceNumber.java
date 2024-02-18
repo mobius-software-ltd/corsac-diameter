@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Initial-CSeq-Sequence-Number AVP is of type Unsigned32, and it contains the sequence number of the CSeq header field 
 	contained in the initial successful REGISTER request, as defined in IETF RFC 3261 [11].
  */
-@DiameterAvpDefinition(code = 654L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Initial-CSeq-Sequence-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.INITIAL_CSEQ_SEQUENCE_NUMBER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Initial-CSeq-Sequence-Number")
 public interface InitialCSeqSequenceNumber extends DiameterUnsigned32
 {
 }

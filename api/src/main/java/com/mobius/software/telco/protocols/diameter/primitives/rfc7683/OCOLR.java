@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -46,16 +48,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                  [ OC-Validity-Duration ]
                * [ AVP ]
  */
-@DiameterAvpDefinition(code = 623L, vendorId = -1L, must = false, name = "OC-OLR")
+@DiameterAvpDefinition(code = AvpCodes.OC_OLR, vendorId = -1L, must = false, name = "OC-OLR")
 public interface OCOLR extends DiameterGroupedAvp
 {
 	Long getOCSequenceNumber();
 	
-	void setOCSequenceNumber(Long value);
+	void setOCSequenceNumber(Long value) throws MissingAvpException;
 	
 	OCReportTypeEnum getOCReportType();
 	
-	void setOCReportType(OCReportTypeEnum value);	
+	void setOCReportType(OCReportTypeEnum value) throws MissingAvpException;	
 	
 	Long getOCReductionPercentage();
 	

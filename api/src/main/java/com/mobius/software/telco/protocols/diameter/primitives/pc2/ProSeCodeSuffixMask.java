@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -41,14 +43,14 @@ import io.netty.buffer.ByteBuf;
                  1*{ Suffix-Mask }
                   *[AVP]
  */
-@DiameterAvpDefinition(code = 3608L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ProSe-Code-Suffix-Mask")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_CODE_SUFFIX_MAX, vendorId = VendorIDs.TGPP_ID, must = false, name = "ProSe-Code-Suffix-Mask")
 public interface ProSeCodeSuffixMask extends DiameterGroupedAvp
 {
 	ByteBuf getSuffixCode();
 	
-	void setSuffixCode(ByteBuf value);
+	void setSuffixCode(ByteBuf value) throws MissingAvpException;
 	
 	List<ByteBuf> getSuffixMask();
 	
-	void setSuffixMask(List<ByteBuf> value);
+	void setSuffixMask(List<ByteBuf> value) throws MissingAvpException;
 }

@@ -18,10 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpFilterRuleImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
@@ -33,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpFlag;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpOption;
 import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PacketFilterContent;
 
 /**
@@ -41,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.PacketFilterCo
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1059L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PacketFilterContentImpl extends DiameterIpFilterRuleImpl implements PacketFilterContent
 {
 	protected PacketFilterContentImpl()
@@ -57,12 +54,12 @@ public class PacketFilterContentImpl extends DiameterIpFilterRuleImpl implements
 	public PacketFilterContentImpl(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts,
 			DiameterRuleAddress to, List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes, Integer minLength, Integer maxLength) throws ParseException
+			List<DiameterRuleIcmpType> icmpTypes, Integer minLength, Integer maxLength) throws InvalidAvpValueException
 	{
 		super(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, minLength, maxLength);
 	}
 
-	public PacketFilterContentImpl(String rule, Integer minLength, Integer maxLength) throws ParseException
+	public PacketFilterContentImpl(String rule, Integer minLength, Integer maxLength) throws InvalidAvpValueException
 	{
 		super(rule, minLength, maxLength);
 	}

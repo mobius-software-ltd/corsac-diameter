@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCause;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum;
 
@@ -29,10 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 500L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AbortCauseImpl extends DiameterEnumeratedImpl<AbortCauseEnum> implements AbortCause
 {
-	protected AbortCauseImpl()
+	public AbortCauseImpl()
 	{
 		super();
 	}

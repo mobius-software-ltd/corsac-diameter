@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Tariff-XML AVP (AVP code 2306) is of type UTF8String and holds the XML body describing the tariff/add-on
 	charge information exchanged during the SIP transaction, as described in the TS 29.658 [222]. 
  */
-@DiameterAvpDefinition(code = 2306L, vendorId = KnownVendorIDs.TGPP_ID, name = "Tariff-XML")
+@DiameterAvpDefinition(code = TgppAvpCodes.TARIFF_XML, vendorId = VendorIDs.TGPP_ID, name = "Tariff-XML")
 public interface TariffXML extends DiameterUTF8String
 {
 }

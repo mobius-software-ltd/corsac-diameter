@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Note: The default APN for Trusted WLAN access to EPC over S2a can differ from the default APN for 3GPP and other non-3GPP accesses.
  */
-@DiameterAvpDefinition(code = 1512L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAN-Default-APN-Context-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.TWAN_DEFAULT_APN_CONTEXT_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "TWAN-Default-APN-Context-Id")
 public interface TWANDefaultAPNContextId extends DiameterUnsigned32
 {
 }

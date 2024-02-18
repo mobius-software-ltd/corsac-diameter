@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.4	Access-Network-Charging-Identifier-Value AVP
 	The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type OctetString, and contains a charging identifier (e.g. GCID).
  */
-@DiameterAvpDefinition(code = 503L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Network-Charging-Identifier-Value")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_NETWORK_CHARGING_IDENTIFIER_VALUE, vendorId = VendorIDs.TGPP_ID, name = "Access-Network-Charging-Identifier-Value")
 public interface AccessNetworkChargingIdentifierValue extends DiameterOctetString
 {
 }

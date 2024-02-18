@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterRule;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterR
    	destined for the home agent and/or in the AMA if destined for the
    	foreign agent.
  */
-@DiameterAvpDefinition(code = 342L, vendorId = -1L, name = "MIP-Filter-Rule")
+@DiameterAvpDefinition(code = AvpCodes.MIP_FILTER_RULE, vendorId = -1L, name = "MIP-Filter-Rule")
 public interface MIPFilterRule extends DiameterIpFilterRule
 {
 }

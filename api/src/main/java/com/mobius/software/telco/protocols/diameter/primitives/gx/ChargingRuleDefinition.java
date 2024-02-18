@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFSignallingProtocolEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowStatusEnum;
@@ -120,12 +122,12 @@ import io.netty.buffer.ByteBuf;
 						  [ Callee-Information ]
 						 *[ AVP ] 
 */
-@DiameterAvpDefinition(code = 1003L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Rule-Definition")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_RULE_DEFINITION, vendorId = VendorIDs.TGPP_ID, name = "Charging-Rule-Definition")
 public interface ChargingRuleDefinition extends DiameterGroupedAvp
 {
 	ByteBuf getChargingRuleName();
 	
-	void setChargingRuleName(ByteBuf value);
+	void setChargingRuleName(ByteBuf value) throws MissingAvpException;
 	
 	Long getServiceIdentifier();
 	

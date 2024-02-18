@@ -20,8 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TDFDestinationHost;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TDFDestinationRealm;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TDFIPAddress;
@@ -32,7 +30,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.TDFInformation
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1087L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TDFInformationImpl implements TDFInformation
 {
 	private TDFDestinationRealm tdfDestinationRealm;

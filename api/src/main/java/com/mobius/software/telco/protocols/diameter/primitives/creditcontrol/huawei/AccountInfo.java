@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 
 import io.netty.buffer.ByteBuf;
@@ -56,7 +57,7 @@ import io.netty.buffer.ByteBuf;
                 [Account-Date] 
                 [LifeCycle-State]
 */
-@DiameterAvpDefinition(code = 20356L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Account-Info")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACCOUNT_INFO, vendorId = VendorIDs.HUAWEI_ID, name = "Account-Info")
 public interface AccountInfo extends DiameterAvp 
 {
 	ByteBuf getAccountID();

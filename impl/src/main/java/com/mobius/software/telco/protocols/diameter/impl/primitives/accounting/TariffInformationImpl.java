@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.TariffTimeChangeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CurrentTariff;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NextTariff;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TariffInformation;
@@ -34,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Tar
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2060L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TariffInformationImpl implements TariffInformation
 {
 	private CurrentTariff currentTariff;
@@ -45,12 +46,9 @@ public class TariffInformationImpl implements TariffInformation
 	{
 	}
 	
-	public TariffInformationImpl(CurrentTariff currentTariff)
+	public TariffInformationImpl(CurrentTariff currentTariff) throws MissingAvpException
 	{
-		if(currentTariff==null)
-			throw new IllegalArgumentException("Current-Tariff is required");
-		
-		this.currentTariff = currentTariff;
+		setCurrentTariff(currentTariff);
 	}
 	
 	public CurrentTariff getCurrentTariff()
@@ -58,10 +56,10 @@ public class TariffInformationImpl implements TariffInformation
 		return currentTariff;
 	}
 	
-	public void setCurrentTariff(CurrentTariff value)
+	public void setCurrentTariff(CurrentTariff value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Current-Tariff is required");
+			throw new MissingAvpException("Current-Tariff is required is required", Arrays.asList(new DiameterAvp[] { new CurrentTariffImpl() }));
 		
 		this.currentTariff = value;
 	}
@@ -93,10 +91,10 @@ public class TariffInformationImpl implements TariffInformation
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(currentTariff==null)
-			return "Current-Tariff is required";
+			return new MissingAvpException("Current-Tariff is required is required", Arrays.asList(new DiameterAvp[] { new CurrentTariffImpl() }));
 		
 		return null;
 	}

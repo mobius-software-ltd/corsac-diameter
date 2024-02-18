@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sta;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
@@ -65,12 +68,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.TraceInfo;
 				…
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777272, commandCode = 265, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.STA, commandCode = CommandCodes.AAA, request = false, proxyable = true, name="AA-Answer")
 public interface AAAnswer extends StaAnswer
 {
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	Long getSessionTimeout();
 	

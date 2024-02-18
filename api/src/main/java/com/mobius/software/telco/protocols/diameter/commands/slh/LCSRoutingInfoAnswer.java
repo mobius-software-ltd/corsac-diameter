@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.commands.slh;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.AdditionalServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.RIAFlags;
@@ -61,7 +63,7 @@ import io.netty.buffer.ByteBuf;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777291, commandCode = 8388622, request = false, proxyable = true, name="LCS-Routing-Info-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SLH, commandCode = CommandCodes.LCS_ROUTING_INFO, request = false, proxyable = true, name="LCS-Routing-Info-Answer")
 public interface LCSRoutingInfoAnswer extends SlhAnswer
 {
 	String getMSISDN();

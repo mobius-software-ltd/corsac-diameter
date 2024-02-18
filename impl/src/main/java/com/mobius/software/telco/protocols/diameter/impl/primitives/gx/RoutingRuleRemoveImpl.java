@@ -21,9 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RoutingRuleIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RoutingRuleRemove;
 
@@ -34,7 +32,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1075L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RoutingRuleRemoveImpl extends DiameterGroupedAvpImpl implements RoutingRuleRemove
 {
 	private List<RoutingRuleIdentifier> routingRuleIdentifier;

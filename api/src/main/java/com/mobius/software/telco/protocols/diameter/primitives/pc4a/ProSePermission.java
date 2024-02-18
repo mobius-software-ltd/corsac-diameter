@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -62,7 +63,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	Bits not defined in this table shall be cleared by the HSS and discarded by the receiving ProSe Function.
  */
-@DiameterAvpDefinition(code = 3702L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Permission")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_PERMISSION, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Permission")
 public interface ProSePermission extends DiameterBitmask32
 {
 	public static final int PROSE_DIRECT_DISCOVERY_BIT = 0;	

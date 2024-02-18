@@ -18,18 +18,20 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSFlowIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSServiceAreaImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSStartStopIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSCellListImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSFlowIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSServiceArea;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSStartStopIndication;
@@ -53,7 +55,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3504L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBMSBearerRequestImpl extends DiameterGroupedAvpImpl implements MBMSBearerRequest
 {
 	private MBMSStartStopIndication mbmsStartStopIndication;
@@ -75,12 +76,9 @@ public class MBMSBearerRequestImpl extends DiameterGroupedAvpImpl implements MBM
 		
 	}
 	
-	public MBMSBearerRequestImpl(MBMSStartStopIndicationEnum mbmsStartStopIndication)
+	public MBMSBearerRequestImpl(MBMSStartStopIndicationEnum mbmsStartStopIndication) throws MissingAvpException
 	{
-		if(mbmsStartStopIndication==null)
-			throw new IllegalArgumentException("MBMS-StartStop-Indication is required");
-		
-		this.mbmsStartStopIndication = new MBMSStartStopIndicationImpl(mbmsStartStopIndication,null,null);    	
+		setMBMSStartStopIndication(mbmsStartStopIndication);
 	}
 	
 	public MBMSStartStopIndicationEnum getMBMSStartStopIndication()
@@ -91,11 +89,11 @@ public class MBMSBearerRequestImpl extends DiameterGroupedAvpImpl implements MBM
 		return mbmsStartStopIndication.getEnumerated(MBMSStartStopIndicationEnum.class);
 	}
 	
-	public void setMBMSStartStopIndication(MBMSStartStopIndicationEnum value)
+	public void setMBMSStartStopIndication(MBMSStartStopIndicationEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MBMS-StartStop-Indication is required");
-		
+			throw new MissingAvpException("MBMS-StartStop-Indication is required", Arrays.asList(new DiameterAvp[] { new MBMSStartStopIndicationImpl() }));
+			
 		this.mbmsStartStopIndication = new MBMSStartStopIndicationImpl(value, null, null);	
 	}
 	
@@ -268,10 +266,10 @@ public class MBMSBearerRequestImpl extends DiameterGroupedAvpImpl implements MBM
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mbmsStartStopIndication==null)
-			return "MBMS-StartStop-Indication is required";
+			return new MissingAvpException("MBMS-StartStop-Indication is required", Arrays.asList(new DiameterAvp[] { new MBMSStartStopIndicationImpl() }));
 		
 		return null;
 	}	

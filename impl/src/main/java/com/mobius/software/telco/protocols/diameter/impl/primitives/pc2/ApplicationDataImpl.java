@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ApplicationData;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.ApplicationDa
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3605L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ApplicationDataImpl extends DiameterUTF8StringImpl implements ApplicationData
 {
 	protected ApplicationDataImpl()

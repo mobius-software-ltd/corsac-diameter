@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MIC;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ProSeAppCode;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ProSeAppCodeInfo;
@@ -34,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3835L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeAppCodeInfoImpl extends DiameterGroupedAvpImpl implements ProSeAppCodeInfo
 {
 	private ProSeAppCode proSeAppCode;
@@ -45,22 +47,13 @@ public class ProSeAppCodeInfoImpl extends DiameterGroupedAvpImpl implements ProS
 	{
 	}
 	
-	public ProSeAppCodeInfoImpl(ByteBuf proSeAppCode,ByteBuf mic,Long utcBasedCounter)
+	public ProSeAppCodeInfoImpl(ByteBuf proSeAppCode,ByteBuf mic,Long utcBasedCounter) throws MissingAvpException
 	{
-		if(proSeAppCode==null)
-			throw new IllegalArgumentException("ProSe-App-Code is required");
+		setProSeAppCode(proSeAppCode);
 		
-		if(mic==null)
-			throw new IllegalArgumentException("MIC is required");
+		setMIC(mic);
 		
-		if(utcBasedCounter==null)
-			throw new IllegalArgumentException("UTC-based-Counter is required");
-		
-		this.proSeAppCode = new ProSeAppCodeImpl(proSeAppCode, null, null);						
-		
-		this.mic = new MICImpl(mic, null, null);
-		
-		this.utcBasedCounter = new UTCBasedCounterImpl(utcBasedCounter, null, null);
+		setUTCBasedCounter(utcBasedCounter);
 	}
 	
 	public ByteBuf getProSeAppCode()
@@ -71,10 +64,10 @@ public class ProSeAppCodeInfoImpl extends DiameterGroupedAvpImpl implements ProS
 		return proSeAppCode.getValue();
 	}
 	
-	public void setProSeAppCode(ByteBuf value)
+	public void setProSeAppCode(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ProSe-App-Code is required");
+			throw new MissingAvpException("ProSe-App-Code is required is required", Arrays.asList(new DiameterAvp[] { new ProSeAppCodeImpl() }));
 		
 		this.proSeAppCode = new ProSeAppCodeImpl(value, null, null);								
 	}
@@ -87,10 +80,10 @@ public class ProSeAppCodeInfoImpl extends DiameterGroupedAvpImpl implements ProS
 		return mic.getValue();
 	}
 	
-	public void setMIC(ByteBuf value)
+	public void setMIC(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIC is required");
+			throw new MissingAvpException("MIC is required is required", Arrays.asList(new DiameterAvp[] { new MICImpl() }));
 		
 		this.mic = new MICImpl(value, null, null);
 	}
@@ -103,25 +96,25 @@ public class ProSeAppCodeInfoImpl extends DiameterGroupedAvpImpl implements ProS
 		return utcBasedCounter.getUnsigned();
 	}
 	
-	public void setUTCBasedCounter(Long value)
+	public void setUTCBasedCounter(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("UTC-based-Counter is required");
+			throw new MissingAvpException("UTC-based-Counter is required is required", Arrays.asList(new DiameterAvp[] { new UTCBasedCounterImpl() }));
 		
 		this.utcBasedCounter = new UTCBasedCounterImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(proSeAppCode==null)
-			return "ProSe-App-Code is required";
+			return new MissingAvpException("ProSe-App-Code is required is required", Arrays.asList(new DiameterAvp[] { new ProSeAppCodeImpl() }));
 		
 		if(mic==null)
-			return "MIC is required";
+			return new MissingAvpException("MIC is required is required", Arrays.asList(new DiameterAvp[] { new MICImpl() }));
 		
 		if(utcBasedCounter==null)
-			return "UTC-based-Counter is required";
+			return new MissingAvpException("UTC-based-Counter is required is required", Arrays.asList(new DiameterAvp[] { new UTCBasedCounterImpl() }));
 		
 		return null;
 	}

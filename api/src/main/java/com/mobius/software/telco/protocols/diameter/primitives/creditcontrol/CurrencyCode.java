@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    of AVPs containing monetary units were given.  It is specified by
    using the numeric values defined in the ISO 4217 standard [ISO4217].
  */
-@DiameterAvpDefinition(code = 425L, vendorId = -1L, name = "Currency-Code")
+@DiameterAvpDefinition(code = AvpCodes.CURRENCY_CODE, vendorId = -1L, name = "Currency-Code")
 public interface CurrencyCode extends DiameterUnsigned32
 {
 }

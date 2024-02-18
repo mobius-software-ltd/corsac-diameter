@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          This attribute consists of a single URI that defines a
          protection space component.
  */
-@DiameterAvpDefinition(code = 119L, vendorId = -1, name = "Digest-Domain")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_DOMAIN, vendorId = -1, name = "Digest-Domain")
 public interface DigestDomain extends DiameterUTF8String
 {
 }

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 
@@ -45,12 +47,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 		 [ Unit-Cost ]
 		 [ Unit-Quota-Threshold ]
  */
-@DiameterAvpDefinition(code = 2058L, vendorId = KnownVendorIDs.TGPP_ID, name = "Rate-Element")
+@DiameterAvpDefinition(code = TgppAvpCodes.RATE_ELEMENT, vendorId = VendorIDs.TGPP_ID, name = "Rate-Element")
 public interface RateElement extends DiameterAvp
 {
 	CcUnitTypeEnum getCcUnitType();
 	
-	void setCcUnitType(CcUnitTypeEnum value);
+	void setCcUnitType(CcUnitTypeEnum value) throws MissingAvpException;
 	
 	ChargeReasonCodeEnum getChargeReasonCode();
 	

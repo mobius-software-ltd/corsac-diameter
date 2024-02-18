@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Voucher brand ID, which can identify the voucher carrier.
  */
-@DiameterAvpDefinition(code = 22121L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Card-Brand-ID")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CARD_BRANCH_ID, vendorId = VendorIDs.HUAWEI_ID, name = "Card-Brand-ID")
 public interface CardBrandID extends DiameterOctetString
 {
 }

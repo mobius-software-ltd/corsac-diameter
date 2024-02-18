@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The GMLC-Address AVP is of type Address and shall contain the IPv4 or IPv6 address of H-GMLC or the V-GMLC
 	associated with the serving node. 
  */
-@DiameterAvpDefinition(code = 2407L, vendorId = KnownVendorIDs.TGPP_ID, name = "PPR-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.PPR_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "PPR-Address")
 public interface PPRAddress extends DiameterAddress
 {
 }

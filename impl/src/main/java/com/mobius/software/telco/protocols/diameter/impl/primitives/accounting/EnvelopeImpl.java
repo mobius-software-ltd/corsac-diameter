@@ -18,15 +18,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcInputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcOutputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcServiceSpecificUnitsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcTotalOctetsImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.Envelope;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EnvelopeEndTime;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EnvelopeStartTime;
@@ -40,7 +42,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcT
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1266L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EnvelopeImpl implements Envelope
 {
 	private EnvelopeStartTime envelopeStartTime;
@@ -54,12 +55,9 @@ public class EnvelopeImpl implements Envelope
 	{
 	}
 	
-	public EnvelopeImpl(Date envelopeStartTime)
+	public EnvelopeImpl(Date envelopeStartTime) throws MissingAvpException
 	{
-		if(envelopeStartTime==null)
-			throw new IllegalArgumentException("Envelope-Start-Time is required");
-		
-		this.envelopeStartTime = new EnvelopeStartTimeImpl(envelopeStartTime, null, null);				
+		setEnvelopeStartTime(envelopeStartTime);
 	}
 	
 	public Date getEnvelopeStartTime()
@@ -70,11 +68,11 @@ public class EnvelopeImpl implements Envelope
 		return envelopeStartTime.getDateTime();
 	}
 	
-	public void setEnvelopeStartTime(Date value)
+	public void setEnvelopeStartTime(Date value) throws MissingAvpException	
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Envelope-Start-Time is required");
-		
+			throw new MissingAvpException("Envelope-Start-Time is required", Arrays.asList(new DiameterAvp[] { new EnvelopeStartTimeImpl() }));
+			
 		this.envelopeStartTime = new EnvelopeStartTimeImpl(value, null, null);				
 	}
 	
@@ -159,10 +157,10 @@ public class EnvelopeImpl implements Envelope
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(envelopeStartTime==null)
-			return "Envelope-Start-Time is required";
+			return new MissingAvpException("Envelope-Start-Time is required", Arrays.asList(new DiameterAvp[] { new EnvelopeStartTimeImpl() }));
 		
 		return null;
 	}

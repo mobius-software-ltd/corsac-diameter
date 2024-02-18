@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterInteger32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Port;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Port;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 530L, vendorId = -1L)
 public class PortImpl extends DiameterInteger32Impl implements Port
 {
 	protected PortImpl() 

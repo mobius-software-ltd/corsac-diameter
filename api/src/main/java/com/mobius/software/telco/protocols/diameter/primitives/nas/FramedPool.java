@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    [RFC2869], the encoding of the Data field SHOULD also conform to the
    rules for the UTF8String Data Format.
  */
-@DiameterAvpDefinition(code = 88L, vendorId = -1L, name = "Framed-Pool")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_POOL, vendorId = -1L, name = "Framed-Pool")
 public interface FramedPool extends DiameterOctetString
 {
 }

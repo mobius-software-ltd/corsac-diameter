@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    minute).  The Cost-Unit setting can be minutes, hours, days,
    kilobytes, megabytes, etc.
  */
-@DiameterAvpDefinition(code = 424L, vendorId = -1L, name = "Cost-Unit")
+@DiameterAvpDefinition(code = AvpCodes.COST_UNIT, vendorId = -1L, name = "Cost-Unit")
 public interface CostUnit extends DiameterUTF8String
 {
 }

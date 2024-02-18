@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ServiceIdentifier;
 
@@ -27,10 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Ser
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 439L, vendorId = -1L)
 public class ServiceIdentifierImpl extends DiameterUnsigned32Impl implements ServiceIdentifier
 {
-	protected ServiceIdentifierImpl() 
+	public ServiceIdentifierImpl() 
 	{
 		super();
 	}

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Editor’s Note: AVP for result of NIDD submission is ffs.
  */
-@DiameterAvpDefinition(code = 3928L, vendorId = KnownVendorIDs.TGPP_ID, name = "NIDD-Submission")
+@DiameterAvpDefinition(code = TgppAvpCodes.NIDD_SUBMISSION, vendorId = VendorIDs.TGPP_ID, name = "NIDD-Submission")
 public interface NIDDSubmission extends DiameterAvp
 {
 	Date getSubmissionTime();

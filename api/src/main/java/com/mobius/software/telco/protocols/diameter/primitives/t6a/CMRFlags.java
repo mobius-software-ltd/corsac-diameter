@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE 1: Bits not defined in this table shall be cleared by the sending entity and discarded by the receiving entity.	
  */
-@DiameterAvpDefinition(code = 4317L, vendorId = KnownVendorIDs.TGPP_ID, name = "CMR-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.CMR_FLAGS, vendorId = VendorIDs.TGPP_ID, name = "CMR-Flags")
 public interface CMRFlags extends DiameterBitmask32
 {
 	public static final int UE_REACHABLE_INDICATOR_BIT = 0;	

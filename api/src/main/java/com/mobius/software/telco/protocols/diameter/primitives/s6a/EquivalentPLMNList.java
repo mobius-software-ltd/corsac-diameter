@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -41,10 +43,10 @@ import io.netty.buffer.ByteBuf;
 		1*	{ Visited-PLMN-Id }
 		*	[AVP]
  */
-@DiameterAvpDefinition(code = 1637L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Equivalent-PLMN-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.EQUIVALIENT_PLMN_LIST, vendorId = VendorIDs.TGPP_ID, must = false, name = "Equivalent-PLMN-List")
 public interface EquivalentPLMNList extends DiameterGroupedAvp
 {
 	List<ByteBuf> getVisitedPLMNId();
 	
-	void setVisitedPLMNId(List<ByteBuf> value);	
+	void setVisitedPLMNId(List<ByteBuf> value) throws MissingAvpException;	
 }

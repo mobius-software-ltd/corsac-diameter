@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.150 PoC-User-Role-IDs AVP
 	The PoC-User-Role-IDs AVP (AVP code 1253) is of type UTF8String and identifies the PoC user role. 
  */
-@DiameterAvpDefinition(code = 1253L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-User-Role-IDs")
+@DiameterAvpDefinition(code = TgppAvpCodes.POC_USER_ROLE_IDS, vendorId = VendorIDs.TGPP_ID, name = "PoC-User-Role-IDs")
 public interface PoCUserRoleIDs extends DiameterUTF8String
 {
 }

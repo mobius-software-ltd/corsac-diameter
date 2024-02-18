@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Rate-Control-Time-Unit ]
 		[ Rate-Control-Max-Rate ]
  */
-@DiameterAvpDefinition(code = 3935L, vendorId = KnownVendorIDs.TGPP_ID, name = "APN-Rate-Control-Uplink")
+@DiameterAvpDefinition(code = TgppAvpCodes.APN_RATE_CONTROL_UPLINK, vendorId = VendorIDs.TGPP_ID, name = "APN-Rate-Control-Uplink")
 public interface APNRateControlUplink extends DiameterAvp
 {
 	AdditionalExceptionReportsEnum getAdditionalExceptionReports();

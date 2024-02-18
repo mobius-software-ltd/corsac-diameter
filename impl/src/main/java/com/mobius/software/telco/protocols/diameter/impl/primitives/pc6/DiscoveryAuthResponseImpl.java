@@ -18,13 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.CodeReceivingSecurityMaterial;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.CodeSendingSecurityMaterial;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.DUIK;
@@ -44,7 +46,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3855L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DiscoveryAuthResponseImpl extends DiameterGroupedAvpImpl implements DiscoveryAuthResponse
 {
 	private DiscoveryType discoveryType;
@@ -61,12 +62,9 @@ public class DiscoveryAuthResponseImpl extends DiameterGroupedAvpImpl implements
 	{
 	}
 	
-	public DiscoveryAuthResponseImpl(DiscoveryTypeEnum discoveryType)
+	public DiscoveryAuthResponseImpl(DiscoveryTypeEnum discoveryType) throws MissingAvpException
 	{
-		if(discoveryType==null)
-			throw new IllegalArgumentException("Discovery-Type is required");
-		
-		this.discoveryType = new DiscoveryTypeImpl(discoveryType, null, null);						
+		setDiscoveryType(discoveryType);
 	}
 	
 	public DiscoveryTypeEnum getDiscoveryType()
@@ -77,11 +75,11 @@ public class DiscoveryAuthResponseImpl extends DiameterGroupedAvpImpl implements
 		return discoveryType.getEnumerated(DiscoveryTypeEnum.class);
 	}
 	
-	public void setDiscoveryType(DiscoveryTypeEnum value)
+	public void setDiscoveryType(DiscoveryTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Discovery-Type is required");
-		
+			throw new MissingAvpException("Discovery-Type is required", Arrays.asList(new DiameterAvp[] { new DiscoveryTypeImpl() }));
+			
 		this.discoveryType = new DiscoveryTypeImpl(value, null, null);						
 	}
 	
@@ -196,10 +194,10 @@ public class DiscoveryAuthResponseImpl extends DiameterGroupedAvpImpl implements
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(discoveryType==null)
-			return "Discovery-Type is required";
+			return new MissingAvpException("Discovery-Type is required", Arrays.asList(new DiameterAvp[] { new DiscoveryTypeImpl() }));
 		
 		return null;
 	}

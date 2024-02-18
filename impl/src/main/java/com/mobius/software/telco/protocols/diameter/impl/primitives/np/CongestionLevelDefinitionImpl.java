@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelRange;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelSetId;
@@ -31,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLeve
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4002L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CongestionLevelDefinitionImpl extends DiameterGroupedAvpImpl implements CongestionLevelDefinition
 {
 	private CongestionLevelSetId congestionLevelSetId;
@@ -43,7 +45,7 @@ public class CongestionLevelDefinitionImpl extends DiameterGroupedAvpImpl implem
 		
 	}
 	
-	public CongestionLevelDefinitionImpl(Long congestionLevelSetId,CongestionLevelRange congestionLevelRange)
+	public CongestionLevelDefinitionImpl(Long congestionLevelSetId,CongestionLevelRange congestionLevelRange) throws MissingAvpException
 	{
 		setCongestionLevelSetId(congestionLevelSetId);
 		
@@ -58,11 +60,11 @@ public class CongestionLevelDefinitionImpl extends DiameterGroupedAvpImpl implem
 		return this.congestionLevelSetId.getUnsigned();
 	}
 	
-	public void setCongestionLevelSetId(Long value)
+	public void setCongestionLevelSetId(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Congestion-Level-Set-Id is required");
-		
+			throw new MissingAvpException("Congestion-Level-Set-Id is required", Arrays.asList(new DiameterAvp[] { new CongestionLevelSetIdImpl() }));
+			
 		this.congestionLevelSetId = new CongestionLevelSetIdImpl(value, null, null);		
 	}
 	
@@ -71,22 +73,22 @@ public class CongestionLevelDefinitionImpl extends DiameterGroupedAvpImpl implem
 		return this.congestionLevelRange;
 	}
 	
-	public void setCongestionLevelRange(CongestionLevelRange value)
+	public void setCongestionLevelRange(CongestionLevelRange value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Congestion-Level-Range is required");
-		
+			throw new MissingAvpException("Congestion-Level-Set-Range is required", Arrays.asList(new DiameterAvp[] { new CongestionLevelRangeImpl() }));
+			
 		this.congestionLevelRange = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(congestionLevelSetId == null)
-			return "Congestion-Level-Set-Id is required";
+			return new MissingAvpException("Congestion-Level-Set-Id is required", Arrays.asList(new DiameterAvp[] { new CongestionLevelSetIdImpl() }));
 		
 		if(congestionLevelRange == null)
-			return "Congestion-Level-Range is required";
+			return new MissingAvpException("Congestion-Level-Set-Range is required", Arrays.asList(new DiameterAvp[] { new CongestionLevelRangeImpl() }));
 		
 		return null;
 	}

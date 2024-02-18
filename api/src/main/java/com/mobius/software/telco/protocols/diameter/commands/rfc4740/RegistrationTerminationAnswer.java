@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4740;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
@@ -110,12 +113,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
                * [ Route-Record ]
                * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 6, commandCode = 287, request = false, proxyable = true, name="Registration-Termination-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.REGISTRATION_TERMINATION, request = false, proxyable = true, name="Registration-Termination-Answer")
 public interface RegistrationTerminationAnswer extends AuthenticationAnswer
 {
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);	
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
 	
 	Long getAuthorizationLifetime();
 	

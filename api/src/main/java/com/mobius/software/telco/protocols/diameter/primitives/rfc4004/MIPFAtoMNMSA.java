@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -46,18 +48,18 @@ import io.netty.buffer.ByteBuf;
                               { MIP-Session-Key }
                             * [ AVP ]
  */
-@DiameterAvpDefinition(code = 326L, vendorId = -1L, name = "MIP-FA-to-MN-MSA")
+@DiameterAvpDefinition(code = AvpCodes.MIP_FA_TO_MN_MSA, vendorId = -1L, name = "MIP-FA-to-MN-MSA")
 public interface MIPFAtoMNMSA extends DiameterGroupedAvp
 {
 	Long getMIPFAtoMNSPI();
 	
-	void setMIPFAtoMNSPI(Long value);	
+	void setMIPFAtoMNSPI(Long value) throws MissingAvpException;	
 	
 	MIPAlgorithmTypeEnum getMIPAlgorithmType();
 	
-	void setMIPAlgorithmType(MIPAlgorithmTypeEnum value);	
+	void setMIPAlgorithmType(MIPAlgorithmTypeEnum value) throws MissingAvpException;	
 	
 	ByteBuf getMIPSessionKey();
 	
-	void setMIPSessionKey(ByteBuf value);
+	void setMIPSessionKey(ByteBuf value) throws MissingAvpException;
 }

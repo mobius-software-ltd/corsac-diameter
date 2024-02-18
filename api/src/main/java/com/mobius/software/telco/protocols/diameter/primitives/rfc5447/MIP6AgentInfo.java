@@ -21,7 +21,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5447;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentHost;
 
@@ -75,12 +77,12 @@ import io.netty.buffer.ByteBuf;
    and locally allocated HA information from the visited network.  See
    Section 4.2.5 for further discussion on possible scenarios.
  */
-@DiameterAvpDefinition(code = 486L, vendorId = -1L, name = "MIP6-Agent-Info")
+@DiameterAvpDefinition(code = AvpCodes.MIP6_AGENT_INFO, vendorId = -1L, name = "MIP6-Agent-Info")
 public interface MIP6AgentInfo extends DiameterGroupedAvp
 {
 	List<InetAddress> getMIPHomeAgentAddress();
 	
-	void setMIPHomeAgentAddress(List<InetAddress> value);	
+	void setMIPHomeAgentAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;	
 	
 	MIPHomeAgentHost getMIPHomeAgentHost();
 	

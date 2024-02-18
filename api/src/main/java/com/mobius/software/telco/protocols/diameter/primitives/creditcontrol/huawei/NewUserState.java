@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Indicates the user state of a subscriber before a recharge.
  */
-@DiameterAvpDefinition(code = 20748L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "New-User-State")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.NEW_USER_STATE, vendorId = VendorIDs.HUAWEI_ID, name = "New-User-State")
 public interface NewUserState extends DiameterUTF8String
 {
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PLAFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.PLAFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2546L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PLAFlagsImpl extends DiameterBitmask32Impl implements PLAFlags
 {
 	public PLAFlagsImpl()
@@ -44,7 +41,7 @@ public class PLAFlagsImpl extends DiameterBitmask32Impl implements PLAFlags
 	@Override
 	public void setDeferredMTLRResponseIndicatorBit(boolean isOn)
 	{
-		setBit(DEFERRED_MTLR_RESPONSE_INDICATOR_BIT, isOn);
+		setBitUnchecked(DEFERRED_MTLR_RESPONSE_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class PLAFlagsImpl extends DiameterBitmask32Impl implements PLAFlags
 	@Override
 	public void setMOLRShortCircuitIndicatorBit(boolean isOn)
 	{
-		setBit(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
+		setBitUnchecked(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class PLAFlagsImpl extends DiameterBitmask32Impl implements PLAFlags
 	@Override
 	public void setOptimizedLCSProcPerformedBit(boolean isOn)
 	{
-		setBit(OPTIMIZED_LCS_PROC_PERFOMED_BIT, isOn);
+		setBitUnchecked(OPTIMIZED_LCS_PROC_PERFOMED_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class PLAFlagsImpl extends DiameterBitmask32Impl implements PLAFlags
 	@Override
 	public void setUETransientlyNotReachableIndicatorBit(boolean isOn)
 	{
-		setBit(UE_TRANSIENTLY_NOT_REACHABLE_INDICATOR_BIT, isOn);
+		setBitUnchecked(UE_TRANSIENTLY_NOT_REACHABLE_INDICATOR_BIT, isOn);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    	contains textual information that can be rendered to the user, about
    	the reason for a deregistration.
  */
-@DiameterAvpDefinition(code = 385L, vendorId = -1, name = "SIP-Reason-Info")
+@DiameterAvpDefinition(code = AvpCodes.SIP_REASON_INFO, vendorId = -1, name = "SIP-Reason-Info")
 public interface SIPReasonInfo extends DiameterUTF8String
 {
 }

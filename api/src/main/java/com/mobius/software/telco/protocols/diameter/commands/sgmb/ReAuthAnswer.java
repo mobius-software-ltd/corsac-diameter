@@ -22,6 +22,8 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSStartStopIndicationEnum;
@@ -67,7 +69,7 @@ import io.netty.buffer.ByteBuf;
 		-	the MBMS-StartStop-Indication AVP set to the value "heartbeat";
 		-	the Restart-Counter AVP set to the local restart counter of the sender. 
  */
-@DiameterCommandDefinition(applicationId = 16777292, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SGMB, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	MBMSStartStopIndicationEnum getMBMSStartStopIndication();

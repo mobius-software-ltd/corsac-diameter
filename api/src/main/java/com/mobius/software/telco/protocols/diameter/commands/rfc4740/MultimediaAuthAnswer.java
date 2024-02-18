@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4740;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthDataItem;
 
@@ -145,12 +148,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthDa
                * [ Route-Record ]
                * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 6, commandCode = 286, request = false, proxyable = true, name="Multimedia-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.MULTIMEDIA_AUTH, request = false, proxyable = true, name="Multimedia-Auth-Answer")
 public interface MultimediaAuthAnswer extends AuthenticationAnswer
 {
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);	
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
 	
 	String getSIPAOR();
 	

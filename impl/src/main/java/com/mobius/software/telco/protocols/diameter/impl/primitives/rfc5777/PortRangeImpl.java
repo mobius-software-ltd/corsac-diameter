@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.PortEnd;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.PortRange;
@@ -30,10 +29,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.PortStart
 *
 */
 
-@DiameterAvpImplementation(code = 531L, vendorId = -1L)
-public class PortRangeImpl extends DiameterGroupedAvpImpl implements PortRange
+public class PortRangeImpl extends DiameterGroupedAvpImpl implements PortRange	
 {
-private PortStart portStart;
+	private PortStart portStart;
 	
 	private PortEnd portEnd;
 	

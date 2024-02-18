@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServingNodeType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServingNodeTypeEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Servin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2047L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServingNodeTypeImpl extends DiameterEnumeratedImpl<ServingNodeTypeEnum> implements ServingNodeType
 {
 	protected ServingNodeTypeImpl()

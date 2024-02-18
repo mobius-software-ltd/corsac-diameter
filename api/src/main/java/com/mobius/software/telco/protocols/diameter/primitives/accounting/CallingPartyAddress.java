@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	For VCS charging, it holds the address (SIP URI or Tel URI) which identifies the party initiating a voice call. It is
 	converted from the circuit-switched Calling Party Number as per TS 29.163 [234] for the P-Asserted-Identity header. 
  */
-@DiameterAvpDefinition(code = 831L, vendorId = KnownVendorIDs.TGPP_ID, name = "Calling-Party-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.CALLING_PARTY_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Calling-Party-Address")
 public interface CallingPartyAddress extends DiameterUTF8String
 {
 }

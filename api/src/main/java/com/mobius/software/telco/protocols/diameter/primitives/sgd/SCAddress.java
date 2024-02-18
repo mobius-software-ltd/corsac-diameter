@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SC-Address AVP is of type OctetString and it shall contain the E.164 number of the SMS-SC or MTC-IWF, in international 
 	number format as described in ITU-T Recommendation E.164 [13] and encoded as a TBCD-string. See 3GPP TS 29.002 [9] for encoding of TBCD-strings. This AVP shall not include leading indicators for the nature of address and the numbering plan; it shall contain only the TBCD-encoded digits of the address.
  */
-@DiameterAvpDefinition(code = 3300L, vendorId = KnownVendorIDs.TGPP_ID, name = "SC-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.SC_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "SC-Address")
 public interface SCAddress extends DiameterE164Address
 {
 }

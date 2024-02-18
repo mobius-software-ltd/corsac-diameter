@@ -1,6 +1,9 @@
 package com.mobius.software.telco.protocols.diameter.commands.sh;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -21,6 +24,7 @@ import java.util.List;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SessionPriorityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.CallReferenceInfo;
@@ -80,7 +84,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777217, commandCode = 306, request = true, proxyable = true, name="User-Data-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SH, commandCode = CommandCodes.USER_DATA, request = true, proxyable = true, name="User-Data-Request")
 public interface UserDataRequest extends ShRequest
 {
 	String getServerName();
@@ -93,7 +97,7 @@ public interface UserDataRequest extends ShRequest
 	
 	public List<DataReferenceEnum> getDataReference();
 	 
-	void setDataReference(List<DataReferenceEnum> value);
+	void setDataReference(List<DataReferenceEnum> value) throws MissingAvpException;
 	
 	public List<IdentitySetEnum> getIdentitySet();
 	 

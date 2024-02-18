@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -39,7 +40,7 @@ import io.netty.buffer.ByteBuf;
 			[ Bearer-Service ]
 			[ Teleservice ]
  */
-@DiameterAvpDefinition(code = 3411L, vendorId = KnownVendorIDs.TGPP_ID, name = "Basic-Service-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.BASIC_SERVICE_CODE, vendorId = VendorIDs.TGPP_ID, name = "Basic-Service-Code")
 public interface BasicServiceCode extends DiameterAvp
 {
 	ByteBuf getBearerService();

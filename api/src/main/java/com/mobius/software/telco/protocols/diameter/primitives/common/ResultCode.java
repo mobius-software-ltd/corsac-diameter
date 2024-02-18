@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -56,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    An unrecognized class (one whose first digit is not defined in this
    section) MUST be handled as a permanent failure.
  */
-@DiameterAvpDefinition(code = 268L, vendorId = -1L, name = "Result-Code")
+@DiameterAvpDefinition(code = AvpCodes.RESULT_CODE, vendorId = -1L, name = "Result-Code")
 public interface ResultCode extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6b;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the recever of the command.
  */
-@DiameterAvpDefinition(code = 1522L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RAR-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.RAR_FLAGS, vendorId = VendorIDs.TGPP_ID, must = false, name = "RAR-Flags")
 public interface RARFlags extends DiameterBitmask32
 {
 	public static final int TRUST_RELATIONSHIP_UPDATE_INDICATION_BIT = 0;	

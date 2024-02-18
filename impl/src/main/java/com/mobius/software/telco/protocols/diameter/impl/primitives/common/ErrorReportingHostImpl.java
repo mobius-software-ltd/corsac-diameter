@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorReportingHost;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorRepor
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 294L, vendorId = -1L)
 public class ErrorReportingHostImpl extends DiameterIdentityImpl implements ErrorReportingHost
 {
-	protected ErrorReportingHostImpl() 
+	public ErrorReportingHostImpl() 
 	{
 		super();
 	}

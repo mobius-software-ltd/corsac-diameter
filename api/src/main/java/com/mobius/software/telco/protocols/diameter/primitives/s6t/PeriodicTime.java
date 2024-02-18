@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.29	Periodic-time
 	Periodic-time AVP is of type Unsigned32 and shall provide the time in seconds of the interval for periodic communication.
  */
-@DiameterAvpDefinition(code = 3117L, vendorId = KnownVendorIDs.TGPP_ID, name = "Periodic-time")
+@DiameterAvpDefinition(code = TgppAvpCodes.PERIODIC_TIME, vendorId = VendorIDs.TGPP_ID, name = "Periodic-time")
 public interface PeriodicTime extends DiameterUnsigned32
 {
 }

@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.TMOD2;
 
 /**
@@ -27,14 +27,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.TMOD2;
 *
 */
 
-@DiameterAvpImplementation(code = 501, vendorId = -1L)
 public class TMOD2Impl extends TMOD1Impl implements TMOD2
 {
 	protected TMOD2Impl() 
 	{
 	}
 	
-	public TMOD2Impl(Float tokenRate,Float bucketDepth,Float peakTrafficRate,Long minimumPolicedUnit,Long maximumPacketSize)
+	public TMOD2Impl(Float tokenRate,Float bucketDepth,Float peakTrafficRate,Long minimumPolicedUnit,Long maximumPacketSize) throws MissingAvpException
 	{
 		super(tokenRate,bucketDepth,peakTrafficRate,minimumPolicedUnit,maximumPacketSize);
 	}

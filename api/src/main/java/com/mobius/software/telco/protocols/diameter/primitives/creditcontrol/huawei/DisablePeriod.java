@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Indicates disable stop date.
  */
-@DiameterAvpDefinition(code = 20735L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Disable-Period")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.DISABLE_PERIOD, vendorId = VendorIDs.HUAWEI_ID, name = "Disable-Period")
 public interface DisablePeriod extends DiameterOctetString
 {
 }

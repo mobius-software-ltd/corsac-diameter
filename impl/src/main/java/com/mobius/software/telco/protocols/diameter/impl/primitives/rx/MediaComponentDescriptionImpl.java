@@ -19,17 +19,20 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ReservationPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.MaxPLRDLImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.MaxPLRULImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PreEmptionCapabilityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PreEmptionVulnerabilityImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPriorityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.MaxPLRDL;
@@ -81,7 +84,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 517L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implements MediaComponentDescription
 {
 	private MediaComponentNumber mediaComponentNumber;
@@ -161,12 +163,9 @@ public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implem
 		
 	}
 	
-	public MediaComponentDescriptionImpl(Long mediaComponentNumber)
+	public MediaComponentDescriptionImpl(Long mediaComponentNumber) throws MissingAvpException
 	{
-		if(mediaComponentNumber==null)
-			throw new IllegalArgumentException("Media-Component-Number is required");
-		
-		this.mediaComponentNumber = new MediaComponentNumberImpl(mediaComponentNumber, null, null);
+		setMediaComponentNumber(mediaComponentNumber);
 	}
 	
 	public Long getMediaComponentNumber()
@@ -177,10 +176,10 @@ public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implem
 		return mediaComponentNumber.getUnsigned();
 	}
 	
-	public void setMediaComponentNumber(Long value)
+	public void setMediaComponentNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Media-Component-Number is required");
+			throw new MissingAvpException("Media-Component-Number is required", Arrays.asList(new DiameterAvp[] { new MediaComponentNumberImpl() }));
 		
 		this.mediaComponentNumber = new MediaComponentNumberImpl(value, null, null);
 	}
@@ -623,10 +622,16 @@ public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implem
 		return result;
 	}
 	
-	public void setCodecData(List<ByteBuf> value)
+	public void setCodecData(List<ByteBuf> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Codec-Data may hold 0 to 2 items");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(ByteBuf curr:value)
+				failedAvps.add(new CodecDataImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 Codec-Data are allowed", failedAvps);
+		}
 		
 		if(value == null || value.size()==0)
 			this.codecData = null;
@@ -751,13 +756,17 @@ public class MediaComponentDescriptionImpl extends DiameterGroupedAvpImpl implem
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(codecData!=null && codecData.size()>2)
-			throw new IllegalArgumentException("Codec-Data may hold 0 to 2 items");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(codecData);
+			return new AvpOccursTooManyTimesException("Up to 2 Codec-Data are allowed", failedAvps);
+		}
 		
 		if(mediaComponentNumber==null)
-			return "Media-Component-Number is required";
+			return new MissingAvpException("Media-Component-Number is required", Arrays.asList(new DiameterAvp[] { new MediaComponentNumberImpl() }));
 		
 		return null;
 	}

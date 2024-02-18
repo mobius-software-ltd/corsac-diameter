@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -44,7 +45,7 @@ import io.netty.buffer.ByteBuf;
                                  [ MBMS-GW-SSM-IPv6-Address ]
                                  [ Common-Tunnel-Endpoint-Identifier ]
  */
-@DiameterAvpDefinition(code = 3518L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Local-M1-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCAL_M1_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Local-M1-Information")
 public interface LocalM1Information extends DiameterAvp
 {
 	InetAddress getMBMSENBIPMulticastAddress();

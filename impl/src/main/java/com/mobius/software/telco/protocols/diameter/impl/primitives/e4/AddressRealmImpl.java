@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterOctetStringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AddressRealm;
 
 import io.netty.buffer.ByteBuf;
@@ -30,7 +28,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 301L, vendorId = KnownVendorIDs.ETSI_ID)
 public class AddressRealmImpl extends DiameterOctetStringImpl implements AddressRealm
 {
 	protected AddressRealmImpl()

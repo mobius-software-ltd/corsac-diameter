@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Value is set to all 1.
 	3GPP-Session Stop Indicator value: Bit String type.  
  */
-@DiameterAvpDefinition(code = 11L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-Session-Stop-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_SELECTION_STOP_INDICATOR, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-Session-Stop-Indicator")
 public interface TGPPSessionStopIndicator extends DiameterOctetString
 {
 }

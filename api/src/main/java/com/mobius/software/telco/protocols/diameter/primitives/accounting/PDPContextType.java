@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	This AVP shall only be present in the CCR[Initial]. 
  */
-@DiameterAvpDefinition(code = 1247L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDP-Context-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDP_CONTEXT_TYPE, vendorId = VendorIDs.TGPP_ID, name = "PDP-Context-Type")
 public interface PDPContextType extends DiameterEnumerated<PDPContextTypeEnum>
 {
 }

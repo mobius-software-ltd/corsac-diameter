@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    tunnel initiator SHOULD use locally configured metrics to decide
    which set of AVPs to use.
  */
-@DiameterAvpDefinition(code = 83L, vendorId = -1L, name = "Tunnel-Preference")
+@DiameterAvpDefinition(code = AvpCodes.TUNNEL_PREFERENCE, vendorId = -1L, name = "Tunnel-Preference")
 public interface TunnelPreference extends DiameterUnsigned32
 {
 }

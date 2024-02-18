@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.BeginningSuffix;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.EndingSuffix;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ProSeAppCodeSuffixRange;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3867L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeAppCodeSuffixRangeImpl extends DiameterGroupedAvpImpl implements ProSeAppCodeSuffixRange
 {
 	private BeginningSuffix beginningSuffix;
@@ -43,12 +45,9 @@ public class ProSeAppCodeSuffixRangeImpl extends DiameterGroupedAvpImpl implemen
 	{
 	}
 	
-	public ProSeAppCodeSuffixRangeImpl(ByteBuf beginningSuffix)
+	public ProSeAppCodeSuffixRangeImpl(ByteBuf beginningSuffix) throws MissingAvpException
 	{
-		if(beginningSuffix==null)
-			throw new IllegalArgumentException("Beginning-Suffix is required");
-		
-		this.beginningSuffix = new BeginningSuffixImpl(beginningSuffix, null, null);
+		setBeginningSuffix(beginningSuffix);
 	}
 	
 	public ByteBuf getBeginningSuffix()
@@ -59,10 +58,10 @@ public class ProSeAppCodeSuffixRangeImpl extends DiameterGroupedAvpImpl implemen
 		return beginningSuffix.getValue();
 	}
 	
-	public void setBeginningSuffix(ByteBuf value)
+	public void setBeginningSuffix(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Beginning-Suffix is required");
+			throw new MissingAvpException("Beginning-Suffix is required is required", Arrays.asList(new DiameterAvp[] { new BeginningSuffixImpl() }));
 		
 		this.beginningSuffix = new BeginningSuffixImpl(value, null, null);
 	}
@@ -84,10 +83,10 @@ public class ProSeAppCodeSuffixRangeImpl extends DiameterGroupedAvpImpl implemen
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(beginningSuffix==null)
-			return "Beginning-Suffix is required";
+			return new MissingAvpException("Beginning-Suffix is required is required", Arrays.asList(new DiameterAvp[] { new BeginningSuffixImpl() }));
 		
 		return null;
 	}

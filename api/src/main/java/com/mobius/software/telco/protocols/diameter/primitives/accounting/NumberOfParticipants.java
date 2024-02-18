@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	IM. When included in interim / update charging messages, it indicates the number of parties who are currently attached
 	in the session at the time the interim / update messages are sent. 
  */
-@DiameterAvpDefinition(code = 885L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Participants")
+@DiameterAvpDefinition(code = TgppAvpCodes.NUMBER_OF_PARTICIPANTS, vendorId = VendorIDs.TGPP_ID, name = "Number-Of-Participants")
 public interface NumberOfParticipants extends DiameterUnsigned32
 {
 }

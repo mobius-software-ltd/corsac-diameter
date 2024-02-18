@@ -19,13 +19,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.FlowNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MediaComponentNumberImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.Flows;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaComponentNumber;
@@ -35,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaComponent
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 510L, vendorId = KnownVendorIDs.TGPP_ID)
 public class FlowsImpl implements Flows
 {
 	private MediaComponentNumber mediaComponentNumber;
@@ -47,12 +48,9 @@ public class FlowsImpl implements Flows
 		
 	}
 	
-	public FlowsImpl(Long mediaComponentNumber)
+	public FlowsImpl(Long mediaComponentNumber) throws MissingAvpException
 	{
-		if(mediaComponentNumber==null)
-			throw new IllegalArgumentException("Media-Component-Number is required");
-		
-		this.mediaComponentNumber = new MediaComponentNumberImpl(mediaComponentNumber, null, null);	
+		setMediaComponentNumber(mediaComponentNumber);
 	}
 	
 	public Long getMediaComponentNumber()
@@ -63,11 +61,11 @@ public class FlowsImpl implements Flows
 		return mediaComponentNumber.getUnsigned();
 	}
 	
-	public void setMediaComponentNumber(Long value)
+	public void setMediaComponentNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Media-Component-Number is required");
-		
+			throw new MissingAvpException("Media-Component-Number is required", Arrays.asList(new DiameterAvp[] { new MediaComponentNumberImpl() }));
+			
 		this.mediaComponentNumber = new MediaComponentNumberImpl(value, null, null);	
 	}
 	
@@ -96,10 +94,10 @@ public class FlowsImpl implements Flows
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mediaComponentNumber==null)
-			return "Media-Component-Number is required";
+			return new MissingAvpException("Media-Component-Number is required", Arrays.asList(new DiameterAvp[] { new MediaComponentNumberImpl() }));
 		
 		return null;
 	}	

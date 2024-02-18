@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.nt;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcInputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcOutputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcTotalOctetsImpl;
@@ -57,7 +60,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777348, commandCode = 8388723, request = true)
 public class BackgroundDataTransferRequestImpl extends NtRequestImpl implements BackgroundDataTransferRequest
 {
 	private TransferRequestType transferRequestType;
@@ -87,7 +89,7 @@ public class BackgroundDataTransferRequestImpl extends NtRequestImpl implements 
 		super();
 	}
 	
-	public BackgroundDataTransferRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, TransferRequestTypeEnum transferRequestType)
+	public BackgroundDataTransferRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, TransferRequestTypeEnum transferRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -104,10 +106,10 @@ public class BackgroundDataTransferRequestImpl extends NtRequestImpl implements 
 	}
 
 	@Override
-	public void setTransferRequestType(TransferRequestTypeEnum value) 
+	public void setTransferRequestType(TransferRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Transfer-Request-Type is required");
+			throw new MissingAvpException("Transfer-Request-Type is required", Arrays.asList(new DiameterAvp[] { new TransferRequestTypeImpl() }));
 		
 		this.transferRequestType = new TransferRequestTypeImpl(value, null, null);
 	}
@@ -279,10 +281,10 @@ public class BackgroundDataTransferRequestImpl extends NtRequestImpl implements 
 	}
     
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(transferRequestType == null)
-			return "Transfer-Request-Type is required";
+			return new MissingAvpException("Transfer-Request-Type is required", Arrays.asList(new DiameterAvp[] { new TransferRequestTypeImpl() }));
 		
 		return super.validate();
 	}

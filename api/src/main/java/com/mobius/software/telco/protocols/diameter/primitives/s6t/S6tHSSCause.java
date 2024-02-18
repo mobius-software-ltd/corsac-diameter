@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	Bits not defined in this table shall be cleared by the sending node and discarded by the receiving node.
  */
-@DiameterAvpDefinition(code = 3154L, vendorId = KnownVendorIDs.TGPP_ID, name = "S6t-HSS-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.S6T_HSS_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "S6t-HSS-Cause")
 public interface S6tHSSCause extends DiameterUnsigned32
 {
 }

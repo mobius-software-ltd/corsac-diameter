@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Application-Specific-Data AVP (AVP code 3458) is of type OctetString and contains a data block provided by the
 	application in the UE. The content of each block is application-specific. 
  */
-@DiameterAvpDefinition(code = 3458L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Specific-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.APPLICATION_SPECIFIC_DATA, vendorId = VendorIDs.TGPP_ID, name = "Application-Specific-Data")
 public interface ApplicationSpecificData extends DiameterOctetString
 {
 }

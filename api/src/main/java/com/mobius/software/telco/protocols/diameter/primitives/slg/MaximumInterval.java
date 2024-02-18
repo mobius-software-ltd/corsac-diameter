@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.66	Maximum-Interval
 	The Maximum-Interval AVP is of type Unsigned32 and it contains the maximum time interval between consecutive event reports, in seconds. The minimum value shall be 1 second and the maximum value 86400 seconds. The Maximum-Interval AVP is only applicable to a deferred EPC-MT-LR. 
  */
-@DiameterAvpDefinition(code = 2561L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Maximum-Interval")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAXIMUM_INTERVAL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Maximum-Interval")
 public interface MaximumInterval extends DiameterUnsigned32
 {
 }

@@ -23,6 +23,8 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.app.sy.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sy.SpendingLimitRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sy.SpendingStatusNotificationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SLRequestTypeEnum;
@@ -46,12 +48,12 @@ public class SessionFactoryImpl implements SessionFactory
 		this.applicationId = applicationId;
 	}
 	
-	public SpendingLimitRequest createSpendingLimitRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, SLRequestTypeEnum slRequestType)
+	public SpendingLimitRequest createSpendingLimitRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, SLRequestTypeEnum slRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new SpendingLimitRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, slRequestType);
 	}			
 	
-	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm)
+	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new SpendingStatusNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId);
 	}

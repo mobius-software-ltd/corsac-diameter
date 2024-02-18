@@ -1,5 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.exceptions;
 
+import java.util.List;
+
+import com.mobius.software.telco.protocols.diameter.ResultCodes;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,32 +30,12 @@ package com.mobius.software.telco.protocols.diameter.exceptions;
 *
 */
 
-public class AvpNotSupportedException extends Exception 
+public class AvpNotSupportedException extends DiameterException 
 {
 	private static final long serialVersionUID = 1L;
 
-	public AvpNotSupportedException() 
+	public AvpNotSupportedException(String message,List<DiameterAvp> failedAVPs) 
 	{
-		super();
-	}
-
-	public AvpNotSupportedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) 
-	{
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
-
-	public AvpNotSupportedException(String message, Throwable cause) 
-	{
-		super(message, cause);
-	}
-
-	public AvpNotSupportedException(String message) 
-	{
-		super(message);
-	}
-
-	public AvpNotSupportedException(Throwable cause) 
-	{
-		super(cause);
+		super(message,  null, ResultCodes.DIAMETER_AVP_UNSUPPORTED,failedAVPs);
 	}
 }

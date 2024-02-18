@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Time-First-Transmission AVP (AVP code 3467) is of type Time and holds the time in UTC format for the first IP
 	packet transmitted. 
  */
-@DiameterAvpDefinition(code = 3467L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-First-Transmission")
+@DiameterAvpDefinition(code = TgppAvpCodes.TIME_FIRST_TRANSMISSION, vendorId = VendorIDs.TGPP_ID, name = "Time-First-Transmission")
 public interface TimeFirstTransmission extends DiameterTime
 {
 }

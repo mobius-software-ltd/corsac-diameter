@@ -19,8 +19,11 @@ package com.mobius.software.telco.protocols.diameter.app.slh;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public interface SessionFactory
 {
-	public LCSRoutingInfoRequest createLCSRoutingInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);				
+	public LCSRoutingInfoRequest createLCSRoutingInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException;				
 }

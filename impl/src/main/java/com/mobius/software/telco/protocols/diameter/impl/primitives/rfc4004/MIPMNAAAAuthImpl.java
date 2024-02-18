@@ -18,8 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAuthInputDataLength;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAuthenticatorLength;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAuthenticatorOffset;
@@ -31,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNAAAS
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 322L, vendorId = -1L)
 public class MIPMNAAAAuthImpl extends DiameterGroupedAvpImpl implements MIPMNAAAAuth
 {
 	private MIPMNAAASPI mipMNAAASPI;
@@ -47,27 +51,15 @@ public class MIPMNAAAAuthImpl extends DiameterGroupedAvpImpl implements MIPMNAAA
 		
 	}
 	
-	public MIPMNAAAAuthImpl(Long mipMNAAASPI,Long mipAuthInputDataLength,Long mipAuthenticatorLength,Long mipAuthenticatorOffset)
+	public MIPMNAAAAuthImpl(Long mipMNAAASPI,Long mipAuthInputDataLength,Long mipAuthenticatorLength,Long mipAuthenticatorOffset) throws MissingAvpException
 	{
-		if(mipMNAAASPI==null)
-			throw new IllegalArgumentException("MIP-MN-AAA-SPI is required");
+		setMIPMNAAASPI(mipMNAAASPI);
 		
-		if(mipAuthInputDataLength==null)
-			throw new IllegalArgumentException("MIP-Auth-Input-Data-Length");
+		setMIPAuthInputDataLength(mipAuthInputDataLength);
 		
-		if(mipAuthenticatorLength==null)
-			throw new IllegalArgumentException("MIP-Authenticator-Length");
+		setMIPAuthenticatorLength(mipAuthenticatorLength);
 		
-		if(mipAuthenticatorOffset==null)
-			throw new IllegalArgumentException("MIP-Authenticator-Offset");
-		
-		this.mipMNAAASPI = new MIPMNAAASPIImpl(mipMNAAASPI, null, null);		
-
-		this.mipAuthInputDataLength = new MIPAuthInputDataLengthImpl(mipAuthInputDataLength, null, null);
-		
-		this.mipAuthenticatorLength = new MIPAuthenticatorLengthImpl(mipAuthenticatorLength, null, null);
-		
-		this.mipAuthenticatorOffset = new MIPAuthenticatorOffsetImpl(mipAuthenticatorOffset, null, null);
+		setMIPAuthenticatorOffset(mipAuthenticatorOffset);
 	}
 	
 	public Long getMIPMNAAASPI()
@@ -78,10 +70,10 @@ public class MIPMNAAAAuthImpl extends DiameterGroupedAvpImpl implements MIPMNAAA
 		return mipMNAAASPI.getUnsigned();
 	}
 	
-	public void setMIPMNAAASPI(Long value)
+	public void setMIPMNAAASPI(Long value) throws MissingAvpException
 	{
-		if(mipMNAAASPI==null)
-			throw new IllegalArgumentException("MIP-MN-AAA-SPI is required");
+		if(value==null)
+			throw new MissingAvpException("MIP-MN-AAA-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPMNAAASPIImpl() }));
 		
 		this.mipMNAAASPI = new MIPMNAAASPIImpl(value, null, null);		
 	}
@@ -94,11 +86,11 @@ public class MIPMNAAAAuthImpl extends DiameterGroupedAvpImpl implements MIPMNAAA
 		return mipAuthInputDataLength.getUnsigned();
 	}
 	
-	public void setMIPAuthInputDataLength(Long value)
+	public void setMIPAuthInputDataLength(Long value) throws MissingAvpException
 	{
-		if(mipAuthInputDataLength==null)
-			throw new IllegalArgumentException("MIP-Auth-Input-Data-Length");
-		
+		if(value==null)
+			throw new MissingAvpException("MIP-Auth-Input-Data-Length is required", Arrays.asList(new DiameterAvp[] { new MIPAuthInputDataLengthImpl() }));
+			
 		this.mipAuthInputDataLength = new MIPAuthInputDataLengthImpl(value, null, null);		
 	}
 	
@@ -110,11 +102,11 @@ public class MIPMNAAAAuthImpl extends DiameterGroupedAvpImpl implements MIPMNAAA
 		return mipAuthenticatorLength.getUnsigned();
 	}
 	
-	public void setMIPAuthenticatorLength(Long value)
+	public void setMIPAuthenticatorLength(Long value) throws MissingAvpException
 	{
-		if(mipAuthenticatorLength==null)
-			throw new IllegalArgumentException("MIP-Authenticator-Length");
-		
+		if(value==null)
+			throw new MissingAvpException("MIP-Authenticator-Length is required", Arrays.asList(new DiameterAvp[] { new MIPAuthenticatorLengthImpl() }));
+			
 		this.mipAuthenticatorLength = new MIPAuthenticatorLengthImpl(value, null, null);		
 	}
 	
@@ -126,11 +118,29 @@ public class MIPMNAAAAuthImpl extends DiameterGroupedAvpImpl implements MIPMNAAA
 		return mipAuthenticatorOffset.getUnsigned();
 	}
 	
-	public void setMIPAuthenticatorOffset(Long value)
+	public void setMIPAuthenticatorOffset(Long value) throws MissingAvpException
 	{
-		if(mipAuthenticatorOffset==null)
-			throw new IllegalArgumentException("MIP-Authenticator-Offset");
-		
+		if(value==null)
+			throw new MissingAvpException("MIP-Authenticator-Offset is required", Arrays.asList(new DiameterAvp[] { new MIPAuthenticatorOffsetImpl() }));
+			
 		this.mipAuthenticatorOffset = new MIPAuthenticatorOffsetImpl(value, null, null);
+	}
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(mipMNAAASPI==null)
+			return new MissingAvpException("MIP-MN-AAA-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPMNAAASPIImpl() }));
+		
+		if(mipAuthInputDataLength==null)
+			return new MissingAvpException("MIP-Auth-Input-Data-Length is required", Arrays.asList(new DiameterAvp[] { new MIPAuthInputDataLengthImpl() }));
+		
+		if(mipAuthenticatorLength==null)
+			return new MissingAvpException("MIP-Authenticator-Length is required", Arrays.asList(new DiameterAvp[] { new MIPAuthenticatorLengthImpl() }));
+		
+		if(mipAuthenticatorOffset==null)
+			return new MissingAvpException("MIP-Authenticator-Offset is required", Arrays.asList(new DiameterAvp[] { new MIPAuthenticatorOffsetImpl() }));
+		
+		return null;
 	}
 }

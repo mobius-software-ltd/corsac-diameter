@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,12 +43,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
                               0*2[ BMSC-Address ]
                                  [ BMSC-Port ]
  */
-@DiameterAvpDefinition(code = 3519L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Local-MB2-U-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCAL_MB2U_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Local-MB2-U-Information")
 public interface LocalMB2UInformation extends DiameterAvp
 {
 	List<InetAddress> getBMSCAddress();
 	
-	void setMBMSENBIPMulticastAddress(List<InetAddress> value);	
+	void setMBMSENBIPMulticastAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;	
 	
 	Long getBMSCPort();
 	

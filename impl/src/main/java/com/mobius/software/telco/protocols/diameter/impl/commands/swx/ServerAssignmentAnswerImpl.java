@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swx.ServerAssignmentAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.TGPPAAAServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -41,7 +44,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.TGPPAAAServer
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777265, commandCode = 301, request = false)
 public class ServerAssignmentAnswerImpl extends SwxAnswerImpl implements ServerAssignmentAnswer
 {
 	private Non3GPPUserData non3GPPUserData;
@@ -60,7 +62,7 @@ public class ServerAssignmentAnswerImpl extends SwxAnswerImpl implements ServerA
 		setExperimentalResultAllowed(false);
 	}
 	
-	public ServerAssignmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState, String userName)
+	public ServerAssignmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState, String userName) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);
@@ -69,19 +71,12 @@ public class ServerAssignmentAnswerImpl extends SwxAnswerImpl implements ServerA
 	}
 	
 	@Override
-	public void setUsername(String value)
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Username is required");
-		
-		try
-		{
-			super.setUsername(value);
-		}
-		catch(AvpNotSupportedException ex)
-		{
+			throw new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 			
-		}
+		super.setUsername(value);		
 	}
 	
 	@Override
@@ -151,17 +146,10 @@ public class ServerAssignmentAnswerImpl extends SwxAnswerImpl implements ServerA
 	}
     
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getUsername() == null)
-				return "Username is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		if(username == null)
+			return new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		return super.validate();
 	}

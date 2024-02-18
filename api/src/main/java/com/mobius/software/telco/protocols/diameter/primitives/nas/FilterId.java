@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    required, it is RECOMMENDED that the NAS-Filter-Rule AVP
    (Section 4.4.6) be used instead.
  */
-@DiameterAvpDefinition(code = 11L, vendorId = -1L, name = "Filter-Id")
+@DiameterAvpDefinition(code = AvpCodes.FILTER_ID, vendorId = -1L, name = "Filter-Id")
 public interface FilterId extends DiameterUTF8String
 {
 }

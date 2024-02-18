@@ -22,7 +22,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.EUI64Address;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.EUI64AddressMask;
@@ -47,7 +46,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 515L, vendorId = -1L)
 public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 {
 	private List<IPAddress> ipAddress;

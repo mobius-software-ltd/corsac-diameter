@@ -1,14 +1,19 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6m;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SCSIdentityImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SIRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ServiceIDImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -45,7 +50,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777310, commandCode = 8388641, request = true)
 public class SubscriberInformationRequestImpl extends S6mRequestImpl implements SubscriberInformationRequest
 {
 	private UserIdentifier userIdentifier;
@@ -65,7 +69,7 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 		super();
 	}
 	
-	public SubscriberInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,SIRFlags sirFlags)
+	public SubscriberInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,SIRFlags sirFlags) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -84,10 +88,10 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 	}
 	
 	@Override
-	public void setUserIdentifier(UserIdentifier value)
+	public void setUserIdentifier(UserIdentifier value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identifier is required");
+			throw new MissingAvpException("User-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		this.userIdentifier = value;
 	}	
@@ -147,11 +151,11 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 	}
 	
 	@Override
-	public void setSIRFlags(SIRFlags value)
+	public void setSIRFlags(SIRFlags value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIR-Flags is required");
-		
+			throw new MissingAvpException("SIR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new SIRFlagsImpl() }));
+			
 		this.sirFlags = value;
 	}	
 	
@@ -168,13 +172,13 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userIdentifier == null)
-			return "User-Identifier is required";
+			return new MissingAvpException("User-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		if(sirFlags == null)
-			return "SIR-Flags is required";
+			return new MissingAvpException("SIR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new SIRFlagsImpl() }));
 		
 		return super.validate();
 	}		

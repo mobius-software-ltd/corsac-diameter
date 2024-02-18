@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AUTN;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EUTRANVector;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ItemNumber;
@@ -36,7 +39,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1414L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EUTRANVectorImpl extends DiameterGroupedAvpImpl implements EUTRANVector
 {
 	private ItemNumber itemNumber;
@@ -53,27 +55,15 @@ public class EUTRANVectorImpl extends DiameterGroupedAvpImpl implements EUTRANVe
 	{
 	}
 	
-	public EUTRANVectorImpl(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf kasme)
+	public EUTRANVectorImpl(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf kasme) throws MissingAvpException
 	{
-		if(rand==null)
-			throw new IllegalArgumentException("RAND is required");
+		setRAND(rand);
 		
-		if(xres==null)
-			throw new IllegalArgumentException("XRES is required");
+		setXRES(xres);
 		
-		if(autn==null)
-			throw new IllegalArgumentException("AUTN is required");
+		setAUTN(autn);
 		
-		if(kasme==null)
-			throw new IllegalArgumentException("KASME is required");
-		
-		this.rand = new RANDImpl(rand, null, null);				
-		
-		this.xres = new XRESImpl(xres, null, null);
-		
-		this.autn = new AUTNImpl(autn, null, null);
-		
-		this.kasme = new KASMEImpl(kasme, null, null);
+		setKASME(kasme);
 	}
 	
 	public Long getItemNumber()
@@ -100,11 +90,11 @@ public class EUTRANVectorImpl extends DiameterGroupedAvpImpl implements EUTRANVe
 		return rand.getValue();
 	}
 	
-	public void setRAND(ByteBuf value)
+	public void setRAND(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("RAND is required");
-		
+			throw new MissingAvpException("RAND is required", Arrays.asList(new DiameterAvp[] { new RANDImpl() }));
+			
 		this.rand = new RANDImpl(value, null, null);	
 	}
 	
@@ -116,11 +106,11 @@ public class EUTRANVectorImpl extends DiameterGroupedAvpImpl implements EUTRANVe
 		return xres.getValue();
 	}
 	
-	public void setXRES(ByteBuf value)
+	public void setXRES(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("XRES is required");
-		
+			throw new MissingAvpException("XRES is required", Arrays.asList(new DiameterAvp[] { new XRESImpl() }));
+			
 		this.xres = new XRESImpl(value, null, null);
 	}
 	
@@ -132,11 +122,11 @@ public class EUTRANVectorImpl extends DiameterGroupedAvpImpl implements EUTRANVe
 		return autn.getValue();
 	}
 	
-	public void setAUTN(ByteBuf value)
+	public void setAUTN(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("AUTN is required");
-		
+			throw new MissingAvpException("AUTN is required", Arrays.asList(new DiameterAvp[] { new AUTNImpl() }));
+			
 		this.autn = new AUTNImpl(value, null, null);
 	}
 	
@@ -148,28 +138,28 @@ public class EUTRANVectorImpl extends DiameterGroupedAvpImpl implements EUTRANVe
 		return kasme.getValue();
 	}
 	
-	public void setKASME(ByteBuf value)
+	public void setKASME(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("KASME is required");
-		
+			throw new MissingAvpException("KASME is required", Arrays.asList(new DiameterAvp[] { new KASMEImpl() }));
+			
 		this.kasme = new KASMEImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(rand==null)
-			return "RAND is required";
+			return new MissingAvpException("RAND is required", Arrays.asList(new DiameterAvp[] { new RANDImpl() }));
 		
 		if(xres==null)
-			return "XRES is required";
+			return new MissingAvpException("XRES is required", Arrays.asList(new DiameterAvp[] { new XRESImpl() }));
 		
 		if(autn==null)
-			return "AUTN is required";
+			return new MissingAvpException("AUTN is required", Arrays.asList(new DiameterAvp[] { new AUTNImpl() }));
 		
 		if(kasme==null)
-			return "KASME is required";
+			return new MissingAvpException("KASME is required", Arrays.asList(new DiameterAvp[] { new KASMEImpl() }));
 		
 		return null;
 	}

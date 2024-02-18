@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionTimeoutImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
@@ -31,7 +30,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIRep
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ContextIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CoreNetworkRestrictionsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UEUsageTypeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SessionTimeout;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPChargingCharacteristics;
@@ -61,7 +59,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.TraceInfo;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1500L, vendorId = KnownVendorIDs.TGPP_ID)
 public class Non3GPPUserDataImpl extends DiameterGroupedAvpImpl implements Non3GPPUserData
 {
 	private SubscriptionId subscriptionID;

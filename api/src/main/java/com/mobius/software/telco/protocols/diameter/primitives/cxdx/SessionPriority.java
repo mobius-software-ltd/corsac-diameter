@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The value of the AVP when sent to the HSS is mapped from the value received by the CSCF as described in 3GPP TS 24.229 table A.162. The mapping is operator specific.
 	This AVP may be placed as close to the Diameter header as possible in order to potentially allow optimized processing at the receiver.
  */
-@DiameterAvpDefinition(code = 650L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Session-Priority")
+@DiameterAvpDefinition(code = TgppAvpCodes.SESSION_PRIORITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "Session-Priority")
 public interface SessionPriority extends DiameterEnumerated<SessionPriorityEnum>
 {
 }

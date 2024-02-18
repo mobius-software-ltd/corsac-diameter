@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Associated-URI AVP (AVP code 856) is of type UTF8String and holds a non-barred public user identity (SIP URI
 	or Tel URI) associated to the the public user identity under registration. This identity is obtained from the P-AssociatedURI header of a 200 OK SIP response to a REGISTER request. This AVP may appear several times when the PAssociated-URI header contains more than one public user identity. 
  */
-@DiameterAvpDefinition(code = 856L, vendorId = KnownVendorIDs.TGPP_ID, name = "Associated-URI")
+@DiameterAvpDefinition(code = TgppAvpCodes.ASSOCIATED_URI, vendorId = VendorIDs.TGPP_ID, name = "Associated-URI")
 public interface AssociatedURI extends DiameterUTF8String
 {
 }

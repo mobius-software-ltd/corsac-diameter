@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			*[Server-Name]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 603L, vendorId = KnownVendorIDs.TGPP_ID, name = "Server-Capabilities")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVER_CAPABILITIES, vendorId = VendorIDs.TGPP_ID, name = "Server-Capabilities")
 public interface ServerCapabilities extends DiameterGroupedAvp
 {
 	List<Long> getMandatoryCapability();

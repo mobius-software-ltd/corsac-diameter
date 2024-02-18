@@ -19,9 +19,11 @@ package com.mobius.software.telco.protocols.diameter.app.sgmb;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 
 public interface SessionFactory
 {
-	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ReAuthRequestTypeEnum reAuthRequestType);
+	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
 }

@@ -19,12 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ExternalClient;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.LCSPrivacyException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NotificationToUEUser;
@@ -42,7 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1475L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LCSPrivacyExceptionImpl extends DiameterGroupedAvpImpl implements LCSPrivacyException
 {
 	private SSCode ssCode;
@@ -62,17 +63,11 @@ public class LCSPrivacyExceptionImpl extends DiameterGroupedAvpImpl implements L
 		
 	}
 	
-	public LCSPrivacyExceptionImpl(ByteBuf ssCode,ByteBuf ssStatus)
+	public LCSPrivacyExceptionImpl(ByteBuf ssCode,ByteBuf ssStatus) throws MissingAvpException
 	{
-		if(ssCode==null)
-			throw new IllegalArgumentException("SS-Code is required");
+		setSSCode(ssCode);
 		
-		if(ssStatus==null)
-			throw new IllegalArgumentException("SS-Status is required");
-		
-		this.ssCode = new SSCodeImpl(ssCode, null, null);				
-		
-		this.ssStatus = new SSStatusImpl(ssStatus, null, null);
+		setSSStatus(ssStatus);
 	}
 	
 	public ByteBuf getSSCode()
@@ -83,11 +78,11 @@ public class LCSPrivacyExceptionImpl extends DiameterGroupedAvpImpl implements L
 		return ssCode.getValue();
 	}
 	
-	public void setSSCode(ByteBuf value)
+	public void setSSCode(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SS-Code is required");
-		
+			throw new MissingAvpException("SS-Code is required", Arrays.asList(new DiameterAvp[] { new SSCodeImpl() }));
+			
 		this.ssCode = new SSCodeImpl(value, null, null);	
 	}
 	
@@ -99,11 +94,11 @@ public class LCSPrivacyExceptionImpl extends DiameterGroupedAvpImpl implements L
 		return ssStatus.getValue();
 	}
 	
-	public void setSSStatus(ByteBuf value)
+	public void setSSStatus(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SS-Status is required");
-		
+			throw new MissingAvpException("SS-Status is required", Arrays.asList(new DiameterAvp[] { new SSStatusImpl() }));
+			
 		this.ssStatus = new SSStatusImpl(value, null, null);
 	}
 	
@@ -168,13 +163,13 @@ public class LCSPrivacyExceptionImpl extends DiameterGroupedAvpImpl implements L
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ssCode==null)
-			return "SS-Code is required";
+			return new MissingAvpException("SS-Code is required", Arrays.asList(new DiameterAvp[] { new SSCodeImpl() }));
 		
 		if(ssStatus==null)
-			return "SS-Status is required";
+			return new MissingAvpException("SS-Status is required", Arrays.asList(new DiameterAvp[] { new SSStatusImpl() }));
 		
 		return null;
 	}

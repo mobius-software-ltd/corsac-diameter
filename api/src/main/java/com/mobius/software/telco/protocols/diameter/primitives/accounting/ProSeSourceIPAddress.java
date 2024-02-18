@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ProSe-Source-IP-Address AVP (AVP code 3452) is of type Address and holds the IP address UE used as source
 	address for performing ProSe direct communication. It is referred to as "source IP address" in TS 23.303 [235]. 
  */
-@DiameterAvpDefinition(code = 3452L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Source-IP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_SOURCE_IP_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Source-IP-Address")
 public interface ProSeSourceIPAddress extends DiameterAddress
 {
 }

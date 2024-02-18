@@ -20,8 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MMTelInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SupplementaryService;
 
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Supple
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1203L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MMTelInformationImpl implements MMTelInformation
 {
 	private List<SupplementaryService> supplementaryService;

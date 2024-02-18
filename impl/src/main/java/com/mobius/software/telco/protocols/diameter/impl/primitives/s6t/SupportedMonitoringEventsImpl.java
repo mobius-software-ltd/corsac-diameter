@@ -20,9 +20,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask64Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedMonitoringEvents;
 
 /**
@@ -30,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedMoni
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3144L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl implements SupportedMonitoringEvents
 {
 	public SupportedMonitoringEventsImpl()
@@ -38,14 +36,14 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 		super();
 	}
 
-	public SupportedMonitoringEventsImpl(List<Integer> bitsToSet)
+	protected SupportedMonitoringEventsImpl(List<Integer> bitsToSet) throws InvalidAvpValueException
 	{
 		super(bitsToSet);
 	}
 	
 	public void setUEAndUICCBit(boolean isOn)
 	{
-		setBit(UE_AND_UICC_BIT, isOn);
+		setBitUnchecked(UE_AND_UICC_BIT, isOn);
 	}
 	
 	public boolean isUEAndUICCBitSet()
@@ -55,7 +53,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setUEReachabilityBit(boolean isOn)
 	{
-		setBit(UE_REACHABILITY_BIT, isOn);
+		setBitUnchecked(UE_REACHABILITY_BIT, isOn);
 	}
 	
 	public boolean isUEReachabilityBitSet()
@@ -65,7 +63,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setLocationOfUEBit(boolean isOn)
 	{
-		setBit(LOCATION_OF_UE_BIT, isOn);
+		setBitUnchecked(LOCATION_OF_UE_BIT, isOn);
 	}
 	
 	public boolean isLocationOfUEBitSet()
@@ -75,7 +73,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setLossOfConnectivityBit(boolean isOn)
 	{
-		setBit(LOSS_OF_CONNECTIVITY_BIT, isOn);
+		setBitUnchecked(LOSS_OF_CONNECTIVITY_BIT, isOn);
 	}
 	
 	public boolean isLossOfConnectivityBitSet()
@@ -85,7 +83,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setCommunicationFailureBit(boolean isOn)
 	{
-		setBit(COMMUNICATION_FAILURE_BIT, isOn);
+		setBitUnchecked(COMMUNICATION_FAILURE_BIT, isOn);
 	}
 	
 	public boolean isCommunicationFailureBitSet()
@@ -95,7 +93,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setRoamingStatusBit(boolean isOn)
 	{
-		setBit(ROAMING_STATUS_BIT, isOn);
+		setBitUnchecked(ROAMING_STATUS_BIT, isOn);
 	}
 	
 	public boolean isRoamingStatusBitSet()
@@ -105,7 +103,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setAvailabilityAfterDDNFailureBit(boolean isOn)
 	{
-		setBit(AVAILABILITY_AFTER_DDN_FAILURE_BIT, isOn);
+		setBitUnchecked(AVAILABILITY_AFTER_DDN_FAILURE_BIT, isOn);
 	}
 	
 	public boolean isAvailabilityAfterDDNFailureBitSet()
@@ -115,7 +113,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setIdleStatusIndicationBit(boolean isOn)
 	{
-		setBit(IDLE_STATUS_INDICATION_BIT, isOn);
+		setBitUnchecked(IDLE_STATUS_INDICATION_BIT, isOn);
 	}
 	
 	public boolean isIdleStatusIndicationBitSet()
@@ -125,7 +123,7 @@ public class SupportedMonitoringEventsImpl extends DiameterBitmask64Impl impleme
 	
 	public void setPDNConnectivityStatusBit(boolean isOn)
 	{
-		setBit(PDN_CONNECTIVITY_STATUS_BIT, isOn);
+		setBitUnchecked(PDN_CONNECTIVITY_STATUS_BIT, isOn);
 	}
 	
 	public boolean isPDNConnectivityStatusBitSet()

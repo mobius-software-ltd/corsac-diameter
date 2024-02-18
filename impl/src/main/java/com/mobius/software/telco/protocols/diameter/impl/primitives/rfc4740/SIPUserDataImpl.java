@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserData;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDataContents;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDataType;
@@ -32,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 389L, vendorId = -1L)
 public class SIPUserDataImpl extends DiameterGroupedAvpImpl implements SIPUserData
 {
 	private SIPUserDataType sipUserDataType;
@@ -44,17 +47,11 @@ public class SIPUserDataImpl extends DiameterGroupedAvpImpl implements SIPUserDa
 		
 	}
 	
-	public SIPUserDataImpl(String sipUserDataType,ByteBuf sipUserDataContents) 
+	public SIPUserDataImpl(String sipUserDataType,ByteBuf sipUserDataContents) throws MissingAvpException 
 	{
-		if(sipUserDataType == null)
-			throw new IllegalArgumentException("SIP-User-Data-Type is required");
+		setSIPUserDataType(sipUserDataType);
 		
-		if(sipUserDataContents == null)
-			throw new IllegalArgumentException("SIP-User-Data-Contents is required");
-		
-		this.sipUserDataType = new SIPUserDataTypeImpl(sipUserDataType, null, null);
-		
-		this.sipUserDataContents = new SIPUserDataContentsImpl(sipUserDataContents, null, null);
+		setSIPUserDataContents(sipUserDataContents);
 	}
 	
 	public String getSIPUserDataType()
@@ -65,11 +62,11 @@ public class SIPUserDataImpl extends DiameterGroupedAvpImpl implements SIPUserDa
 		return sipUserDataType.getString();
 	}
 	
-	public void setSIPUserDataType(String value)
+	public void setSIPUserDataType(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-User-Data-Type is required");
-		
+			throw new MissingAvpException("SIP-User-Data-Type is required is required", Arrays.asList(new DiameterAvp[] { new SIPUserDataTypeImpl() }));
+			
 		this.sipUserDataType = new SIPUserDataTypeImpl(value, null, null);		
 	}
 	
@@ -81,22 +78,22 @@ public class SIPUserDataImpl extends DiameterGroupedAvpImpl implements SIPUserDa
 		return sipUserDataContents.getValue();
 	}
 	
-	public void setSIPUserDataContents(ByteBuf value)
+	public void setSIPUserDataContents(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-User-Data-Contents is required");
-		
+			throw new MissingAvpException("SIP-User-Data-Contents is required is required", Arrays.asList(new DiameterAvp[] { new SIPUserDataContentsImpl() }));
+			
 		this.sipUserDataContents = new SIPUserDataContentsImpl(value, null, null);		
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(sipUserDataType == null)
-			return "SIP-User-Data-Type is required";
+			return new MissingAvpException("SIP-User-Data-Type is required is required", Arrays.asList(new DiameterAvp[] { new SIPUserDataTypeImpl() }));
 		
 		if(sipUserDataContents == null)
-			return "SIP-User-Data-Contents is required";
+			return new MissingAvpException("SIP-User-Data-Contents is required is required", Arrays.asList(new DiameterAvp[] { new SIPUserDataContentsImpl() }));
 		
 		return null;
 	}				

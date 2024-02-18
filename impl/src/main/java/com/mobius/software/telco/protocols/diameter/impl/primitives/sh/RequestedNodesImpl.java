@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.RequestedNodes;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.RequestedNodes
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 713L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RequestedNodesImpl extends DiameterBitmask32Impl implements RequestedNodes
 {
 	public RequestedNodesImpl() 
@@ -44,7 +41,7 @@ public class RequestedNodesImpl extends DiameterBitmask32Impl implements Request
 	@Override
 	public void setMMEBit(boolean isOn)
 	{
-		setBit(MME_BIT, isOn);
+		setBitUnchecked(MME_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class RequestedNodesImpl extends DiameterBitmask32Impl implements Request
 	@Override
 	public void setSGSNBit(boolean isOn)
 	{
-		setBit(SGSN_BIT, isOn);
+		setBitUnchecked(SGSN_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class RequestedNodesImpl extends DiameterBitmask32Impl implements Request
 	@Override
 	public void set3GPPAAASERVERTWANBit(boolean isOn)
 	{
-		setBit(TGPP_AAASERVER_TWAN_BIT, isOn);
+		setBitUnchecked(TGPP_AAASERVER_TWAN_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class RequestedNodesImpl extends DiameterBitmask32Impl implements Request
 	@Override
 	public void setAMFBit(boolean isOn)
 	{
-		setBit(AMF_BIT, isOn);
+		setBitUnchecked(AMF_BIT, isOn);
 	}
 
 	@Override

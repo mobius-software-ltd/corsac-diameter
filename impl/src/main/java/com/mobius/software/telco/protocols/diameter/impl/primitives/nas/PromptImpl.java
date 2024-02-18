@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.Prompt;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.PromptEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.PromptEnum;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 76L, vendorId = -1L)
 public class PromptImpl extends DiameterEnumeratedImpl<PromptEnum> implements Prompt
 {
 	protected PromptImpl() 

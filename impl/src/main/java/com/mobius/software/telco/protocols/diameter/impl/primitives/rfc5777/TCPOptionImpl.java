@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Negated;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.NegatedEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TCPOption;
@@ -36,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 540L, vendorId = -1L)
 public class TCPOptionImpl extends DiameterGroupedAvpImpl implements TCPOption
 {
 	private TCPOptionType tcpOptionType;
@@ -49,12 +52,9 @@ public class TCPOptionImpl extends DiameterGroupedAvpImpl implements TCPOption
 	{
 	}
 	
-	public TCPOptionImpl(TCPOptionTypeEnum tcpOptionType)
+	public TCPOptionImpl(TCPOptionTypeEnum tcpOptionType) throws MissingAvpException
 	{
-		if(tcpOptionType==null)
-			throw new IllegalArgumentException("TCP-Option-Type is required");
-		
-		this.tcpOptionType = new TCPOptionTypeImpl(tcpOptionType, null, null);				
+		setTCPOptionType(tcpOptionType);
 	}
 	
 	public TCPOptionTypeEnum getTCPOptionType()
@@ -65,10 +65,10 @@ public class TCPOptionImpl extends DiameterGroupedAvpImpl implements TCPOption
 		return this.tcpOptionType.getEnumerated(TCPOptionTypeEnum.class);
 	}
 	
-	public void setTCPOptionType(TCPOptionTypeEnum value)
+	public void setTCPOptionType(TCPOptionTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("TCP-Option-Type is required");
+			throw new MissingAvpException("TCP-Option-Type is required is required", Arrays.asList(new DiameterAvp[] { new TCPOptionTypeImpl() }));
 		
 		this.tcpOptionType = new TCPOptionTypeImpl(value, null, null);	
 	}
@@ -106,10 +106,10 @@ public class TCPOptionImpl extends DiameterGroupedAvpImpl implements TCPOption
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tcpOptionType==null)
-			return "TCP-Option-Type is required";
+			return new MissingAvpException("TCP-Option-Type is required is required", Arrays.asList(new DiameterAvp[] { new TCPOptionTypeImpl() }));
 		
 		return null;
 	}		

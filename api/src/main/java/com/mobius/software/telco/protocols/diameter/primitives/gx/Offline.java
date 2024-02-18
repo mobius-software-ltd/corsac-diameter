@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value shall be used to indicate that the offline charging interface for the associated PCC rule shall be
 		enabled. 
  */
-@DiameterAvpDefinition(code = 1008L, vendorId = KnownVendorIDs.TGPP_ID, name = "Offline")
+@DiameterAvpDefinition(code = TgppAvpCodes.OFFLINE, vendorId = VendorIDs.TGPP_ID, name = "Offline")
 public interface Offline extends DiameterEnumerated<OfflineEnum>
 {
 }

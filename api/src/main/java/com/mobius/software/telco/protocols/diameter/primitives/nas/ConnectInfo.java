@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    retransmissions.  The exact format of this attribute is
    implementation specific.
  */
-@DiameterAvpDefinition(code = 77L, vendorId = -1L, name = "Connect-Info")
+@DiameterAvpDefinition(code = AvpCodes.CONNECT_INFO, vendorId = -1L, name = "Connect-Info")
 public interface ConnectInfo extends DiameterUTF8String
 {
 }

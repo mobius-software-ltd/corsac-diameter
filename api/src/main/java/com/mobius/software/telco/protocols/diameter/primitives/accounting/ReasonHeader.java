@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	SIP BYE and CANCEL. It may contain multiple entries if there are multiple Reason headers within a SIP BYE or
 	CANCEL. 
  */
-@DiameterAvpDefinition(code = 3401L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reason-Header")
+@DiameterAvpDefinition(code = TgppAvpCodes.REASON_HEADER, vendorId = VendorIDs.TGPP_ID, name = "Reason-Header")
 public interface ReasonHeader extends DiameterUTF8String
 {
 }

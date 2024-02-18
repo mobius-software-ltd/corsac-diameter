@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PDNConnectionChargingID;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.PDNCon
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2050L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PDNConnectionChargingIDImpl extends DiameterUnsigned32Impl implements PDNConnectionChargingID
 {
 	protected PDNConnectionChargingIDImpl()

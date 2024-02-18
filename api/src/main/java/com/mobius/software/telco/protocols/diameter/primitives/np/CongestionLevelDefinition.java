@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,14 +38,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			{ Congestion-Level-Range }
  		   *[ AVP ]
  */
-@DiameterAvpDefinition(code = 4002L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Congestion-Level-Definition")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONGESTION_LEVEL_DEFINITION, vendorId = VendorIDs.TGPP_ID,must = false, name = "Congestion-Level-Definition")
 public interface CongestionLevelDefinition extends DiameterGroupedAvp
 {
 	Long getCongestionLevelSetId();
 	
-	void setCongestionLevelSetId(Long value);
+	void setCongestionLevelSetId(Long value) throws MissingAvpException;
 	
 	CongestionLevelRange getCongestionLevelRange();
 	
-	void setCongestionLevelRange(CongestionLevelRange value);
+	void setCongestionLevelRange(CongestionLevelRange value) throws MissingAvpException;
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 Local GW Not Inserted
 	1 Local GW Inserted 
  */
-@DiameterAvpDefinition(code = 2604L, vendorId = KnownVendorIDs.TGPP_ID, name = "Local-GW-Inserted-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCAL_GW_INSERTED_INDICATION, vendorId = VendorIDs.TGPP_ID, name = "Local-GW-Inserted-Indication")
 public interface LocalGWInsertedIndication extends DiameterEnumerated<LocalGWInsertedIndicationEnum>
 {
 }

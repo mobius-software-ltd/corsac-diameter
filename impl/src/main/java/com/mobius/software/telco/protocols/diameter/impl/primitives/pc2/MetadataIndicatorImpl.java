@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MetadataIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MetadataIndicatorEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.MetadataIndic
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3612L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MetadataIndicatorImpl extends DiameterEnumeratedImpl<MetadataIndicatorEnum> implements MetadataIndicator
 {
 	protected MetadataIndicatorImpl()

@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sy;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SLRequestTypeEnum;
@@ -60,7 +63,7 @@ import io.netty.buffer.ByteBuf;
 
 	NOTE:	Multiple instances of the Subscription-Id AVP in the SLR command correspond to multiple types of identifier for the same subscriber, for example IMSI and MSISDN.
  */
-@DiameterCommandDefinition(applicationId = 16777302, commandCode = 8388635, request = true, proxyable = true, name="SL-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SY, commandCode = CommandCodes.SPENDING_LIMIT, request = true, proxyable = true, name="SL-Request")
 public interface SpendingLimitRequest extends SyRequest
 {	
 	public List<SupportedFeatures> getSupportedFeatures();
@@ -69,7 +72,7 @@ public interface SpendingLimitRequest extends SyRequest
 	
 	public SLRequestTypeEnum getSLRequestType();
 	
-	void setSLRequestType(SLRequestTypeEnum value);				
+	void setSLRequestType(SLRequestTypeEnum value) throws MissingAvpException;				
 	
 	public List<SubscriptionId> getSubscriptionId();
 	

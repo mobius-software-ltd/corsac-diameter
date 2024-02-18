@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -47,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
                  [ Redirect-Max-Cache-Time ]
                * [ Proxy-Info ]
  */
-@DiameterCommandDefinition(applicationId = 16777223, commandCode = 274, request = false, proxyable = true, name="Abort-Session-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GMB, commandCode = CommandCodes.ABORT_SESSION, request = false, proxyable = true, name="Abort-Session-Answer")
 public interface AbortSessionAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer
 {	
 }

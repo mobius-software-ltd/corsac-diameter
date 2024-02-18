@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.app.s6t;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CSGAccessModeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -91,19 +92,19 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
-	public UpdatedNetworkConfiguration getUpdatedNetworkConfiguration(String scefID);
+	public UpdatedNetworkConfiguration getUpdatedNetworkConfiguration(String scefID) throws MissingAvpException;
 	
-	public GroupReport getGroupReport(Long scefReferenceID);
+	public GroupReport getGroupReport(Long scefReferenceID) throws MissingAvpException;
 	
-	public GroupReportItem getGroupReportItem(UserIdentifier userIdentifier);
+	public GroupReportItem getGroupReportItem(UserIdentifier userIdentifier) throws MissingAvpException;
 	
-	public MonitoringEventReportStatus getMonitoringEventReportStatus(Long scefReferenceID,String scefID);
+	public MonitoringEventReportStatus getMonitoringEventReportStatus(Long scefReferenceID,String scefID) throws MissingAvpException;
 	
 	public UserIdentifier getUserIdentifier();
 	
@@ -117,9 +118,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public NIDDAuthorizationResponse getNIDDAuthorizationResponse();
 	
-	public APNValidityTime getAPNValidityTime(Date grantedValidityTime);
+	public APNValidityTime getAPNValidityTime(Date grantedValidityTime) throws MissingAvpException;
 	
-	public SuggestedNetworkConfiguration getSuggestedNetworkConfiguration(Long scefReferenceID,String scefID);
+	public SuggestedNetworkConfiguration getSuggestedNetworkConfiguration(Long scefReferenceID,String scefID) throws MissingAvpException;
 	
 	public EnhancedCoverageRestriction getEnhancedCoverageRestriction();
 	
@@ -127,13 +128,13 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AllowedPLMNList getAllowedPLMNList();
 	
-	public AESECommunicationPatternConfigStatus getAESECommunicationPatternConfigStatus(Long scefReferenceID);
+	public AESECommunicationPatternConfigStatus getAESECommunicationPatternConfigStatus(Long scefReferenceID) throws MissingAvpException;
 	
 	public AESEErrorReport getAESEErrorReport();
 	
-	public MonitoringEventConfigStatus getMonitoringEventConfigStatus(List<ServiceReport> serviceReport);
+	public MonitoringEventConfigStatus getMonitoringEventConfigStatus(List<ServiceReport> serviceReport) throws MissingAvpException;
 	
-	public MonitoringEventConfiguration getMonitoringEventConfiguration(String scefID,MonitoringTypeEnum monitoringType);
+	public MonitoringEventConfiguration getMonitoringEventConfiguration(String scefID,MonitoringTypeEnum monitoringType) throws MissingAvpException;
 	
 	public UEReachabilityConfiguration getUEReachabilityConfiguration();
 	
@@ -147,7 +148,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public IncludeIdentifiers getIncludeIdentifiers();
 	
-	public MonitoringEventReport getMonitoringEventReport(Long scefReferenceID);
+	public MonitoringEventReport getMonitoringEventReport(Long scefReferenceID) throws MissingAvpException;
 	
 	public IMEIChange getIMEIChange();
 	
@@ -159,7 +160,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public SGSNLocationInformation getSGSNLocationInformation();
 	
-	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode);	
+	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode) throws MissingAvpException;	
 	
 	public ServiceReport getServiceReport();
 	
@@ -167,9 +168,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public IdleStatusIndication getIdleStatusIndication();
 	
-	public EDRXCycleLength getEDRXCycleLength(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue);
+	public EDRXCycleLength getEDRXCycleLength(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue) throws MissingAvpException;
 	
-	public PDNConnectivityStatusReport getPDNConnectivityStatusReport(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection);
+	public PDNConnectivityStatusReport getPDNConnectivityStatusReport(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection) throws MissingAvpException;
 	
 	public SupportedServices getSupportedServices();
 	
@@ -177,7 +178,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public MTCProviderInfo getMTCProviderInfo();
 	
-	public AESECommunicationPattern getAESECommunicationPattern(String scefID);
+	public AESECommunicationPattern getAESECommunicationPattern(String scefID) throws MissingAvpException;
 	
 	public CommunicationPatternSet getCommunicationPatternSet();
 	
@@ -195,7 +196,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AdditionalServingNode getAdditionalServingNode();
 	
-	public IMSIGroupId getIMSIGroupId(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId);
+	public IMSIGroupId getIMSIGroupId(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId) throws MissingAvpException;
 	
 	public RIRFlags getRIRFlags();
 	

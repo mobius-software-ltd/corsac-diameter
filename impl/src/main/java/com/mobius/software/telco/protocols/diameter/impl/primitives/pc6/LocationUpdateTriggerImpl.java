@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ChangeOfAreaType;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdateEventType;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdateEventTypeEnum;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.PeriodicLocat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3823L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LocationUpdateTriggerImpl extends DiameterGroupedAvpImpl implements LocationUpdateTrigger
 {
 	private LocationUpdateEventType locationUpdateEventType;
@@ -44,12 +46,9 @@ public class LocationUpdateTriggerImpl extends DiameterGroupedAvpImpl implements
 	{
 	}
 	
-	public LocationUpdateTriggerImpl(LocationUpdateEventTypeEnum locationUpdateEventType)
+	public LocationUpdateTriggerImpl(LocationUpdateEventTypeEnum locationUpdateEventType) throws MissingAvpException
 	{
-		if(locationUpdateEventType==null)
-			throw new IllegalArgumentException("Location-Update-Event-Type is required");
-		
-		this.locationUpdateEventType = new LocationUpdateEventTypeImpl(locationUpdateEventType, null, null);						
+		setLocationUpdateEventType(locationUpdateEventType);
 	}
 	
 	public LocationUpdateEventTypeEnum getLocationUpdateEventType()
@@ -60,10 +59,10 @@ public class LocationUpdateTriggerImpl extends DiameterGroupedAvpImpl implements
 		return locationUpdateEventType.getEnumerated(LocationUpdateEventTypeEnum.class);
 	}
 	
-	public void setLocationUpdateEventType(LocationUpdateEventTypeEnum value)
+	public void setLocationUpdateEventType(LocationUpdateEventTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Location-Update-Event-Type is required");
+			throw new MissingAvpException("Location-Update-Event-Type is required", Arrays.asList(new DiameterAvp[] { new LocationUpdateEventTypeImpl() }));
 		
 		this.locationUpdateEventType = new LocationUpdateEventTypeImpl(value, null, null);						
 	}
@@ -89,10 +88,10 @@ public class LocationUpdateTriggerImpl extends DiameterGroupedAvpImpl implements
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(locationUpdateEventType==null)
-			return "Location-Update-Event-Type is required";
+			return new MissingAvpException("Location-Update-Event-Type is required", Arrays.asList(new DiameterAvp[] { new LocationUpdateEventTypeImpl() }));
 		
 		return null;
 	}

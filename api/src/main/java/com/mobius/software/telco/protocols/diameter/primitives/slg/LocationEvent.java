@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	DELAYED_LOCATION_REPORTING is applicable to the delivery of a location estimate for an EPC-MT-LR or PS-MT-LR initiated earlier by the network for a UE which was transiently not reachable.
  */
-@DiameterAvpDefinition(code = 2518L, vendorId = KnownVendorIDs.TGPP_ID, name = "Location-Event")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCATION_EVENT, vendorId = VendorIDs.TGPP_ID, name = "Location-Event")
 public interface LocationEvent extends DiameterEnumerated<LocationEventEnum>
 {
 }

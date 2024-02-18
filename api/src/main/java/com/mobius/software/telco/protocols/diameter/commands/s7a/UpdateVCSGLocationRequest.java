@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s7a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
 
 /**
@@ -50,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777308, commandCode = 8388638, request = true, proxyable = true, name="Update-VCSG-Location-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S7A, commandCode = CommandCodes.UPDATE_VCSG_LOCATION, request = true, proxyable = true, name="Update-VCSG-Location-Request")
 public interface UpdateVCSGLocationRequest extends S7aRequest
 {
 	String getMSISDN();
@@ -63,5 +66,5 @@ public interface UpdateVCSGLocationRequest extends S7aRequest
 	
 	UVRFlags getUVRFlags();
 	
-	void setUVRFlags(UVRFlags value);		
+	void setUVRFlags(UVRFlags value) throws MissingAvpException;		
 }

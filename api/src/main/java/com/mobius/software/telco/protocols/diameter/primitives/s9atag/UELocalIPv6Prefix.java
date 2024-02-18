@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s9atag;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	A.8.3.1.1	UE-Local-IPv6-Prefix AVP
 	The UE-Local-IPv6-Prefix AVP (AVP code 2205) is of type OctetString, and it indicates the UE local IPv6 prefix allocated to the user. The encoding of the value within this AVP shall be as defined for Framed-IPv6-Prefix AVP in IETF RFC 3162 [15], clause 2.3. The "Reserved", "Prefix-Length" and "Prefix" fields shall be included in this order.
  */
-@DiameterAvpDefinition(code = 2205L, vendorId = KnownVendorIDs.TGPP_ID, name = "UE-Local-IPv6-Prefix")
+@DiameterAvpDefinition(code = TgppAvpCodes.UE_LOCAL_IPV6_PREFIX, vendorId = VendorIDs.TGPP_ID, name = "UE-Local-IPv6-Prefix")
 public interface UELocalIPv6Prefix extends DiameterOctetString
 {
 }

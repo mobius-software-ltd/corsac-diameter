@@ -18,8 +18,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserAuthorizationTypeEnum;
 
@@ -85,16 +88,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserAu
                * [ Route-Record ]
                * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 6, commandCode = 283, request = true, proxyable = true, name="User-Authorization-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.USER_AUTHORIZATION, request = true, proxyable = true, name="User-Authorization-Request")
 public interface UserAuthorizationRequest extends AuthenticationRequest
 {
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 	
 	String getSIPAOR();
 	
-	void setSIPAOR(String value);
+	void setSIPAOR(String value) throws MissingAvpException;
 	
 	String getSIPVisitedNetworkId();
 	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.8	BSSGP-Cause
 	The BSSGP-Cause AVP is of type Unsigned32. It shall contain the non-transparent copy of the cause value of the BSSGP "Cause" as specified in clause 11.3.8 in 3GPP TS 48.018 [14].
  */
-@DiameterAvpDefinition(code = 4309L, vendorId = KnownVendorIDs.TGPP_ID, name = "BSSGP-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.BSS_GP_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "BSSGP-Cause")
 public interface BSSGPCause extends DiameterUnsigned32
 {
 }

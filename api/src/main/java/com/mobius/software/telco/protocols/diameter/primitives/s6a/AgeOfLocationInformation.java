@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Age-Of-Location-Information AVP is of type Unsigned32 and shall contain the the elapsed time in minutes since the 
 	last network contact of the user equipment. For details, see 3GPP TS 29.002 [24].
  */
-@DiameterAvpDefinition(code = 1611L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Age-Of-Location-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.AGE_OF_LOCATION_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Age-Of-Location-Information")
 public interface AgeOfLocationInformation extends DiameterUnsigned32
 {
 }

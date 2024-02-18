@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AssociatedIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.IdentityWithEmergencyRegistration;
@@ -52,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.IdentityWith
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 304, request = false, proxyable = true, name="Registration-Termination-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.REGISTRATION_TERMINATION, request = false, proxyable = true, name="Registration-Termination-Answer")
 public interface RegistrationTerminationAnswer extends CxDxAnswer
 {
 	AssociatedIdentities getAssociatedIdentities();

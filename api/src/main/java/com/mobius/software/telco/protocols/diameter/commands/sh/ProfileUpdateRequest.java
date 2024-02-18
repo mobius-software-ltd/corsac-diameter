@@ -1,6 +1,9 @@
 package com.mobius.software.telco.protocols.diameter.commands.sh;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -21,6 +24,7 @@ import java.util.List;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.DataReferenceEnum;
 
@@ -60,16 +64,16 @@ import io.netty.buffer.ByteBuf;
 
 	NOTE:	More than one Data-Reference AVP may be present in the message only if both the AS and the HSS support the Update-Eff-Enhance feature. How the AS knows whether the HSS supports the Update-Eff-Enhance feature is implementation issue, e.g. the AS can get the information from a previous PUA message.
  */
-@DiameterCommandDefinition(applicationId = 16777217, commandCode = 307, request = true, proxyable = true, name="Profile-Update-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SH, commandCode = CommandCodes.PROFILE_UPDATE, request = true, proxyable = true, name="Profile-Update-Request")
 public interface ProfileUpdateRequest extends ShRequest
 {
 	public List<DataReferenceEnum> getDataReference();
 	 
-	void setDataReference(List<DataReferenceEnum> value);
+	void setDataReference(List<DataReferenceEnum> value) throws MissingAvpException;
 	
 	public ByteBuf getUserData();
 	
-	void setUserData(ByteBuf value);
+	void setUserData(ByteBuf value) throws MissingAvpException;
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	 

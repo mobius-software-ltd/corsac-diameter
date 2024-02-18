@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when set, indicates that the PCEF shall not include the corresponding service data flow in the volume and/or time
 	measurement on IP-CAN session level; when not set, indicates that exclusion action is disabled.
  */
-@DiameterAvpDefinition(code = 2828L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_FLAGS, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Flags")
 public interface MonitoringFlags extends DiameterBitmask32
 {
 	public static final int ENABLE_EXCLUDING_DATA_FLOWS_BIT = 0;	

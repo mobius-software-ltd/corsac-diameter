@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 
@@ -71,7 +72,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
    client in blocks of n octets, and one block straddled the tariff
    change).
  */
-@DiameterAvpDefinition(code = 451L, vendorId = -1L, name = "Tariff-Time-Change")
+@DiameterAvpDefinition(code = AvpCodes.TARIFF_TIME_CHANGE, vendorId = -1L, name = "Tariff-Time-Change")
 public interface TariffTimeChange extends DiameterTime
 {
 }

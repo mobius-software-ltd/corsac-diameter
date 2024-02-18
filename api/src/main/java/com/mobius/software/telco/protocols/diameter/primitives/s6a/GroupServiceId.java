@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Values greater than 1000 are reserved for home operator specific use. IMSI-Group-IDs with a Group-Service-Id in this range shall not be sent outside the HPLMN unless roaming agreements allow so.
 */
-@DiameterAvpDefinition(code = 1676L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Group-Service-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.GROUP_SERVICE_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "Group-Service-Id")
 public interface GroupServiceId extends DiameterUnsigned32
 {
 }

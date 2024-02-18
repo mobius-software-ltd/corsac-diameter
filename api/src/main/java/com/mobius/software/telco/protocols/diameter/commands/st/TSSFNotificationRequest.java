@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.st;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleReport;
 
@@ -49,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleReport;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777349, commandCode = 8388731, request = true, proxyable = true, name="TSSF-Notification-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.ST, commandCode = CommandCodes.TSSF_NOTIFCATION, request = true, proxyable = true, name="TSSF-Notification-Request")
 public interface TSSFNotificationRequest extends StRequest
 {
 	List<ADCRuleReport> getADCRuleReport();

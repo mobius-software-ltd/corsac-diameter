@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The To-SIP-Header AVP is of type OctetString and it contains the information in the To header as defined in IETF RFC 
 	3261 [11].
  */
-@DiameterAvpDefinition(code = 645L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "To-SIP-Header")
+@DiameterAvpDefinition(code = TgppAvpCodes.TO_SIP_HEADER, vendorId = VendorIDs.TGPP_ID, must = false, name = "To-SIP-Header")
 public interface ToSIPHeader extends DiameterOctetString
 {
 }

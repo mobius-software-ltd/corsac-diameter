@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Title represents an E.164 number. The Address Type discriminator in RFC 6733 [401] is set to value 8, E.164, and the
 	address information is UTF8 encoded.
  */
-@DiameterAvpDefinition(code = 2008L, vendorId = KnownVendorIDs.TGPP_ID, name = "Originator-SCCP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.ORIGINATOR_RECEIVED_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Originator-SCCP-Address")
 public interface OriginatorSCCPAddress extends DiameterAddress
 {
 }

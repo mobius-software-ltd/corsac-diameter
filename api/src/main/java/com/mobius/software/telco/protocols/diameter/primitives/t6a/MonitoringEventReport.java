@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.LossOfConnectivityReasonEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringTypeEnum;
@@ -65,12 +67,12 @@ import io.netty.buffer.ByteBuf;
 	The AVPs applicable for each Monitoring-Type reported by the MME/SGSN are specified under clause 5.2.2.
 	When the "Extended Reference IDs" feature is supported by the SCEF and MME/SGSN, the SCEF-Reference-ID-Ext AVP shall be used insted of SCEF-Reference-ID; in such case, the required AVP "SCEF-Reference-ID" shall be included in the grouped AVP by the sender, but its content shall be discarded by the receiver.
  */
-@DiameterAvpDefinition(code = 3123L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_EVENT_REPORT, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Event-Report")
 public interface MonitoringEventReport extends DiameterGroupedAvp
 {
 	Long getSCEFReferenceID();
 	
-	void setSCEFReferenceID(Long value);
+	void setSCEFReferenceID(Long value) throws MissingAvpException;
 	
 	Long getSCEFReferenceIDExt();
 	

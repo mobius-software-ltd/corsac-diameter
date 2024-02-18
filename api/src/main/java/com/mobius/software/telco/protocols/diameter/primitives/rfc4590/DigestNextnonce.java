@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    	Text
          It is recommended that this text be base64 or hexadecimal data.
  */
-@DiameterAvpDefinition(code = 107L, vendorId = -1, name = "Digest-Nextnonce")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_NEXT_NONCE, vendorId = -1, name = "Digest-Nextnonce")
 public interface DigestNextnonce extends DiameterUTF8String
 {
 }

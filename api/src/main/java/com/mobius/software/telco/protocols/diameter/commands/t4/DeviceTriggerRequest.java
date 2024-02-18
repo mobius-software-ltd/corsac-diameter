@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.t4;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AdditionalServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.ServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -64,20 +67,20 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777311, commandCode = 8388643, request = true, proxyable = true, name="Device-Trigger-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T4, commandCode = CommandCodes.DEVICE_TRIGGER, request = true, proxyable = true, name="Device-Trigger-Request")
 public interface DeviceTriggerRequest extends T4Request
 {
 	UserIdentifier getUserIdentifier();
 	 
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	
 	ByteBuf getSMRPSMEA();
 	
-	void setSMRPSMEA(ByteBuf value);
+	void setSMRPSMEA(ByteBuf value) throws MissingAvpException;
 	 		
 	ByteBuf getPayload();
 	
-	void setPayload(ByteBuf value);
+	void setPayload(ByteBuf value) throws MissingAvpException;
 	
 	ServingNode getServingNode();
 	 

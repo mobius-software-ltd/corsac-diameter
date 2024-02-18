@@ -18,11 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AllocationRetentionPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.QoSClassIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AllocationRetentionPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdentifierEnum;
@@ -33,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSSubscribed
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1431L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EPSSubscribedQoSProfileImpl extends DiameterGroupedAvpImpl implements EPSSubscribedQoSProfile
 {
 	private QoSClassIdentifier qoSClassIdentifier;
@@ -45,17 +48,11 @@ public class EPSSubscribedQoSProfileImpl extends DiameterGroupedAvpImpl implemen
 		
 	}
 	
-	public EPSSubscribedQoSProfileImpl(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority)
+	public EPSSubscribedQoSProfileImpl(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority) throws MissingAvpException
 	{
-		if(qoSClassIdentifier==null)
-			throw new IllegalArgumentException("QoS-Class-Identifier is required");
+		setQoSClassIdentifier(qoSClassIdentifier);
 		
-		if(allocationRetentionPriority==null)
-			throw new IllegalArgumentException("Allocation-Retention-Priority is required");
-		
-		this.qoSClassIdentifier = new QoSClassIdentifierImpl(qoSClassIdentifier, null, null);
-		
-		this.allocationRetentionPriority = allocationRetentionPriority;				
+		setAllocationRetentionPriority(allocationRetentionPriority);
 	}
 	
 	public QoSClassIdentifierEnum getQoSClassIdentifier()
@@ -66,11 +63,11 @@ public class EPSSubscribedQoSProfileImpl extends DiameterGroupedAvpImpl implemen
 		return qoSClassIdentifier.getEnumerated(QoSClassIdentifierEnum.class);
 	}
 	
-	public void setQoSClassIdentifier(QoSClassIdentifierEnum value)
+	public void setQoSClassIdentifier(QoSClassIdentifierEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("QoS-Class-Identifier is required");
-		
+			throw new MissingAvpException("QoS-Class-Identifier is required", Arrays.asList(new DiameterAvp[] { new QoSClassIdentifierImpl() }));
+			
 		this.qoSClassIdentifier = new QoSClassIdentifierImpl(value, null, null);
 		
 	}
@@ -80,22 +77,22 @@ public class EPSSubscribedQoSProfileImpl extends DiameterGroupedAvpImpl implemen
 		return allocationRetentionPriority;
 	}
 	
-	public void setAllocationRetentionPriority(AllocationRetentionPriority value)
+	public void setAllocationRetentionPriority(AllocationRetentionPriority value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Allocation-Retention-Priority is required");
-		
+			throw new MissingAvpException("Allocation-Retention-Priority is required", Arrays.asList(new DiameterAvp[] { new AllocationRetentionPriorityImpl() }));
+			
 		this.allocationRetentionPriority = value;				
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(qoSClassIdentifier==null)
-			return "QoS-Class-Identifier is required";
+			return new MissingAvpException("QoS-Class-Identifier is required", Arrays.asList(new DiameterAvp[] { new QoSClassIdentifierImpl() }));
 		
 		if(allocationRetentionPriority==null)
-			return "Allocation-Retention-Priority is required";
+			return new MissingAvpException("Allocation-Retention-Priority is required", Arrays.asList(new DiameterAvp[] { new AllocationRetentionPriorityImpl() }));
 		
 		return null;
 	}

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    The codification of the range of allowed usage of this field is
    outside the scope of this specification.
  */
-@DiameterAvpDefinition(code = 36L, vendorId = -1L, name = "Login-LAT-Group")
+@DiameterAvpDefinition(code = AvpCodes.LOGIN_LAT_GROUP, vendorId = -1L, name = "Login-LAT-Group")
 public interface LoginLATGroup extends DiameterOctetString
 {
 }

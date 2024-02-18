@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Type-Number AVP (AVP code 1204) is of type Enumerated and identifies the well-known media types. The values
 	are taken from OMNA WSP Content Type Numbers [210]. 
  */
-@DiameterAvpDefinition(code = 1204L, vendorId = KnownVendorIDs.TGPP_ID, name = "Type-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.TYPE_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "Type-Number")
 public interface TypeNumber extends DiameterEnumerated<TypeNumberEnum>
 {
 }

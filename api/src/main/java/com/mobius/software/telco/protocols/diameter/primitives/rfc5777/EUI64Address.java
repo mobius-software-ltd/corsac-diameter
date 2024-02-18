@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	8-octet encoding of the address as it would appear in the frame
    	header.
  */
-@DiameterAvpDefinition(code = 527L, vendorId = -1L, name = "EUI64-Address")
+@DiameterAvpDefinition(code = AvpCodes.EUI64_ADDRESS, vendorId = -1L, name = "EUI64-Address")
 public interface EUI64Address extends DiameterOctetString
 {
 }

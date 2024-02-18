@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelHeaderFilter;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelHeaderLength;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelInformation;
@@ -33,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelInformat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1038L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TunnelInformationImpl extends DiameterGroupedAvpImpl implements TunnelInformation
 {
 	private TunnelHeaderLength tunnelHeaderLength;
@@ -65,19 +66,30 @@ public class TunnelInformationImpl extends DiameterGroupedAvpImpl implements Tun
 		return tunnelHeaderFilter;
 	}
 	
-	public void setTunnelHeaderFilter(List<TunnelHeaderFilter> value)
+	public void setTunnelHeaderFilter(List<TunnelHeaderFilter> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 Tunnel-Header-Filter allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(TunnelHeaderFilter curr:value)
+				failedAvps.add(curr);
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 Tunnel-Header-Filter allowed", failedAvps);
+		}
 		
 		this.tunnelHeaderFilter = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tunnelHeaderFilter!=null && tunnelHeaderFilter.size()>2)
-			return "Up to 2 Tunnel-Header-Filter allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(tunnelHeaderFilter);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 Tunnel-Header-Filter allowed", failedAvps);
+		}
 		
 		return null;
 	}		  		  	  

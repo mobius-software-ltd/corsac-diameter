@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	the SIP-Number-Auth-Items AVP indicates the actual number of items
    	that the Diameter server included.
  */
-@DiameterAvpDefinition(code = 382L, vendorId = -1, name = "SIP-Number-Auth-Items")
+@DiameterAvpDefinition(code = AvpCodes.SIP_NUMBER_AUTH_ITEMS, vendorId = -1, name = "SIP-Number-Auth-Items")
 public interface SIPNumberAuthItems extends DiameterUnsigned32
 {
 }

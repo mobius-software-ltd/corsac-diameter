@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                    *[ AVP ]
  */
 
-@DiameterAvpDefinition(code = 437L, vendorId = -1, name = "Requested-Service-Unit")
+@DiameterAvpDefinition(code = AvpCodes.REQUESTED_SERVICE_UNIT, vendorId = -1, name = "Requested-Service-Unit")
 public interface RequestedServiceUnit extends DiameterGroupedAvp 
 {
 	Date getCCTime();

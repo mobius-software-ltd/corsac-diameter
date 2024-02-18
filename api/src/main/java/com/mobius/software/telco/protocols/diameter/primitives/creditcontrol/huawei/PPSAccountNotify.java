@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -53,7 +54,7 @@ import io.netty.buffer.ByteBuf;
                  [PPS-Max-Credit]
                  [Validity-Date-2] 
 */
-@DiameterAvpDefinition(code = 21177L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "PPS-Account-Notify")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.PPS_ACCOUNT_NOTIFY, vendorId = VendorIDs.HUAWEI_ID, name = "PPS-Account-Notify")
 public interface PPSAccountNotify extends DiameterAvp 
 {
 	Integer getPPSNotifyMode();

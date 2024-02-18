@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUri;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUri;
    	is able to authorize real-time credit control usage.  The Diameter
    	Credit-Control Application [RFC4006] may be used for this purpose.
  */
-@DiameterAvpDefinition(code = 370L, vendorId = -1, name = "SIP-Credit-Control-Server-URI")
+@DiameterAvpDefinition(code = AvpCodes.SIP_CREDIT_CONTROL_SERVER_URI, vendorId = -1, name = "SIP-Credit-Control-Server-URI")
 public interface SIPCreditControlServerURI extends DiameterUri
 {
 }

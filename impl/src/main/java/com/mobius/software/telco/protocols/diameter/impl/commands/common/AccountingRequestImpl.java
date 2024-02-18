@@ -1,14 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AccountingRealtimeRequiredImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AccountingRecordNumberImpl;
@@ -20,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctM
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequired;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
@@ -61,7 +64,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 0, commandCode = 271, request = true)
 public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBase implements AccountingRequest
 {
 	protected AccountingRecordType accountingRecordType;
@@ -98,7 +100,7 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 		setDestinationHostAllowed(false);
 	}
 		
-	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber)
+	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
 		setDestinationHostAllowed(false);
@@ -143,10 +145,10 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	}
 
 	@Override
-	public void setAccountingRecordType(AccountingRecordTypeEnum value) 
+	public void setAccountingRecordType(AccountingRecordTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Accounting-Record-Type is required");
+			throw new MissingAvpException("Accounting-Record-Type is required", Arrays.asList(new DiameterAvp[] { new AccountingRecordTypeImpl(value, null, null) }));
 		
 		this.accountingRecordType = new AccountingRecordTypeImpl(value, null, null);		
 	}
@@ -161,10 +163,10 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	}
 
 	@Override
-	public void setAccountingRecordNumber(Long value) 
+	public void setAccountingRecordNumber(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Accounting-Record-Number is required");	
+			throw new MissingAvpException("Accounting-Record-Number is required", Arrays.asList(new DiameterAvp[] { new AccountingRecordNumberImpl(value, null, null) }));
 		
 		this.accountingRecordNumber = new AccountingRecordNumberImpl(value, null, null);
 	}
@@ -179,7 +181,7 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	}
 
 	@Override
-	public void setAcctApplicationId(Long value) 
+	public void setAcctApplicationId(Long value) throws MissingAvpException 
 	{
 		if(value==null)
 			this.acctApplicationId = null;
@@ -191,26 +193,25 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	public VendorSpecificApplicationId getVendorSpecificApplicationId() throws AvpNotSupportedException
 	{
 		if(!vendorSpecificApplicationIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		else
-			return vendorSpecificApplicationId;
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new VendorSpecificApplicationIdImpl() }));
+		
+		return vendorSpecificApplicationId;
 	}
 
 	@Override
 	public void setVendorSpecificApplicationId(VendorSpecificApplicationId value) throws AvpNotSupportedException
 	{
-		if(!vendorSpecificApplicationIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		else
-			this.vendorSpecificApplicationId = value;
+		if(!vendorSpecificApplicationIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value }));
+		
+		this.vendorSpecificApplicationId = value;
 	}
 
 	@Override
 	public Long getAccountingSubSessionId() throws AvpNotSupportedException
 	{
 		if(!accountingSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AccountingSubSessionIdImpl() }));
 			
 		if(this.accountingSubSessionId==null)
 			return null;
@@ -221,9 +222,9 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	@Override
 	public void setAccountingSubSessionId(Long value) throws AvpNotSupportedException
 	{
-		if(!accountingSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
+		if(!accountingSubSessionIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AccountingSubSessionIdImpl(value, null, null) }));
+			
 		if(value == null)
 			this.accountingSubSessionId = null;
 		else
@@ -234,7 +235,7 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	public ByteBuf getAcctSessionId() throws AvpNotSupportedException 
 	{
 		if(!acctSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctSessionIdImpl() }));
 		
 		if(this.acctSessionId==null)
 			return null;
@@ -245,8 +246,8 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	@Override
 	public void setAcctSessionId(ByteBuf value) throws AvpNotSupportedException 
 	{
-		if(!acctSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!acctSessionIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctSessionIdImpl(value, null, null) }));
 		
 		if(value == null)
 			this.acctSessionId = null;
@@ -258,7 +259,7 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	public String getAcctMultiSessionId() throws AvpNotSupportedException
 	{
 		if(!acctMultiSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl() }));
 		
 		if(this.acctMultiSessionId == null)
 			return null;
@@ -269,9 +270,9 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	@Override
 	public void setAcctMultiSessionId(String value) throws AvpNotSupportedException
 	{
-		if(!acctMultiSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
-		
+		if(!acctMultiSessionIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl(value, null, null) }));
+			
 		if(value == null)
 			this.acctMultiSessionId = null;
 		else
@@ -300,7 +301,7 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	public AccountingRealtimeRequiredEnum getAccountingRealtimeRequired() throws AvpNotSupportedException 
 	{
 		if(!accountingRealtimeRequiredAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AccountingRealtimeRequiredImpl() }));
 		
 		if(this.accountingRealtimeRequired == null)
 			return null;
@@ -311,8 +312,8 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	@Override
 	public void setAccountingRealtimeRequired(AccountingRealtimeRequiredEnum value) throws AvpNotSupportedException 
 	{
-		if(!accountingRealtimeRequiredAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!accountingRealtimeRequiredAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AccountingRealtimeRequiredImpl(value, null, null) }));
 		
 		if(value==null)
 			this.accountingRealtimeRequired = null;
@@ -367,13 +368,28 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(accountingRecordType==null)
-			return "Accounting-Record-Type is required";
+			return new MissingAvpException("Accounting-Record-Type is required", Arrays.asList(new DiameterAvp[] { new AccountingRecordTypeImpl() }));
 		
 		if(accountingRecordNumber==null)
-			return "Accounting-Record-Number is required";
+			return new MissingAvpException("Accounting-Record-Number is required", Arrays.asList(new DiameterAvp[] { new AccountingRecordNumberImpl() }));
+		
+		if(!vendorSpecificApplicationIdAllowed && vendorSpecificApplicationId !=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { vendorSpecificApplicationId }));
+		
+		if(!accountingSubSessionIdAllowed && accountingSubSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { accountingSubSessionId }));
+			
+		if(!acctSessionIdAllowed && acctSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { acctSessionId }));
+		
+		if(!acctMultiSessionIdAllowed && acctMultiSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { acctMultiSessionId }));
+		
+		if(!accountingRealtimeRequiredAllowed && accountingRealtimeRequired!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { accountingRealtimeRequired }));
 		
 		return super.validate();
 	}

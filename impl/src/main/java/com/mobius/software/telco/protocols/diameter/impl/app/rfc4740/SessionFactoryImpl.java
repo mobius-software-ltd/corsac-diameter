@@ -27,6 +27,8 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4740.PushProfile
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.RegistrationTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ServerAssignmentRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.UserAuthorizationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740.LocationInfoRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740.MultimediaAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740.PushProfileRequestImpl;
@@ -57,32 +59,32 @@ public class SessionFactoryImpl implements SessionFactory
 		this.applicationId = applicationId;
 	}
 	
-	public LocationInfoRequest createLocationInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,String sipAOR)
+	public LocationInfoRequest createLocationInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,String sipAOR) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new LocationInfoRequestImpl(originHost, originRealm, destinationHost, destinationRealm, null, destinationRealm, applicationId, authSessionState, sipAOR);
 	}	
 	
-	public MultimediaAuthRequest createMultimediaAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,String sipAOR, String sipMethod)
+	public MultimediaAuthRequest createMultimediaAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,String sipAOR, String sipMethod) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new MultimediaAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipAOR, sipMethod);
 	}
 	
-	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationRealm, AuthSessionStateEnum authSessionState)
+	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationRealm, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new PushProfileRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState);
 	}			
 	
-	public RegistrationTerminationRequest createRegistrationTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,SIPDeregistrationReason sipDeregistrationReason)
+	public RegistrationTerminationRequest createRegistrationTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,SIPDeregistrationReason sipDeregistrationReason) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new RegistrationTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipDeregistrationReason);
 	}
 	
-	public ServerAssignmentRequest createServerAssignmentRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable)
+	public ServerAssignmentRequest createServerAssignmentRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ServerAssignmentRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipServerAssignmentType, sipUserDataAlreadyAvailable);
 	}
 	
-	public UserAuthorizationRequest createUserAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,String sipAOR)
+	public UserAuthorizationRequest createUserAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,String sipAOR) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new UserAuthorizationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipAOR);
 	}

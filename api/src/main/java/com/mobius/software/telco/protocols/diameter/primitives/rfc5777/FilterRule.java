@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -73,7 +74,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
    QoS-Profile-Id AVP is set to zero (0), then the AVPs included in the
    QoS-Parameters AVP are the AVPs defined in [RFC5624].
  */
-@DiameterAvpDefinition(code = 509L, vendorId = -1L, name = "Filter-Rule")
+@DiameterAvpDefinition(code = AvpCodes.FILTER_RULE, vendorId = -1L, name = "Filter-Rule")
 public interface FilterRule extends DiameterGroupedAvp
 {
 	Long getFilterRulePrecedence();

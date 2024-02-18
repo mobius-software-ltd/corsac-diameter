@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    	AVP contains a SIP or SIPS URI (as defined in RFC 3261 [RFC3261])
    	that identifies a SIP server.
  */
-@DiameterAvpDefinition(code = 371L, vendorId = -1, name = "SIP-Server-URI")
+@DiameterAvpDefinition(code = AvpCodes.SIP_SERVER_URI, vendorId = -1, name = "SIP-Server-URI")
 public interface SIPServerURI extends DiameterUTF8String
 {
 }

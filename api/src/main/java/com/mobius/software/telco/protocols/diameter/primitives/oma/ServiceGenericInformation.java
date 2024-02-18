@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Application-Session-ID ]
 		[ Delivery-Status ] 
  */
-@DiameterAvpDefinition(code = 1256L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Generic-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_GENERIC_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Service-Generic-Information")
 public interface ServiceGenericInformation extends DiameterAvp
 {
 	String getApplicationServerID();

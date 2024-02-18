@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Originator AVP (AVP Code 1008) is of type UTF8String and identifies the originator (i.e., from party) of the M2M request. 
 	This can be any M2M Node with format as per clause 6.2.3.
  */
-@DiameterAvpDefinition(code = 1008L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Originator")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.ORIGINATOR, vendorId = VendorIDs.ONEM2M_ID, name = "Originator")
 public interface OneM2MOriginator extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	BBF (0)
 	This value shall be used to indicate a BBF transport access network.
  */
-@DiameterAvpDefinition(code = 1519L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Transport-Access-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRANSPORT_ACCESS_TYPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Transport-Access-Type")
 public interface TransportAccessType extends DiameterEnumerated<TransportAccessTypeEnum>
 {
 }

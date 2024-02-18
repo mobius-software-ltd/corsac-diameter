@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
        2   | OFFSET - The time windows are expressed as an
            | offset from UTC (see Timezone-Offset AVP).
  */
-@DiameterAvpDefinition(code = 570L, vendorId = -1L, name = "Timezone-Flag")
+@DiameterAvpDefinition(code = AvpCodes.TIMEZONE_FLAG, vendorId = -1L, name = "Timezone-Flag")
 public interface TimezoneFlag extends DiameterEnumerated<TimezoneFlagEnum>
 {
 }

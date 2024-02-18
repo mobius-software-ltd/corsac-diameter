@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	If the Service-Result-Code contains an Experimental-Result-Code value defined by 3GPP, then the Vendor-Id shall be set to the value 10415. If the Service-Result-Code contains a Result-Code value defined in the Diameter base protocol by IETF (see IETF RFC 6733 [23]), then the Vendor-Id shall be absent or set to the value 0.
  */
-@DiameterAvpDefinition(code = 3146L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Result")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_RESULT, vendorId = VendorIDs.TGPP_ID, name = "Service-Result")
 public interface ServiceResult extends DiameterGroupedAvp
 {
 	Long getVendorId();

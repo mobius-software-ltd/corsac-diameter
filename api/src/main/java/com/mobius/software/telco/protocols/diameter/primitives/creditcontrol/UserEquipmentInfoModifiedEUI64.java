@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    service-specific documentation.  The User-Equipment-Info-
    ModifiedEUI64 AVP contains such identifiers.
  */
-@DiameterAvpDefinition(code = 657L, vendorId = -1L, must = false, name = "User-Equipment-Info-ModifiedEUI64")
+@DiameterAvpDefinition(code = AvpCodes.USER_EQUIPMENT_INFO_MODIFIED_EUI164, vendorId = -1L, must = false, name = "User-Equipment-Info-ModifiedEUI64")
 public interface UserEquipmentInfoModifiedEUI64 extends DiameterOctetString
 {
 }

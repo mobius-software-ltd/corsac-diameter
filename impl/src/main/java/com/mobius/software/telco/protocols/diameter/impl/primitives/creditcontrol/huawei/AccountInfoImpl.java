@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AccountDate;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AccountID;
@@ -35,7 +33,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20356L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class AccountInfoImpl implements AccountInfo 
 {
 	protected AccountID accountID;

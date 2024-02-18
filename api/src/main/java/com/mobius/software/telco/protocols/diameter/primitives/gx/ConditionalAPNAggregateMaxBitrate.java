@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		*[ RAT-Type ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 2818L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Conditional-APN-Aggregate-Max-Bitrate")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONDITIONAL_APN_AGGREGATE_MAX_BITRATE, vendorId = VendorIDs.TGPP_ID, must=false, name = "Conditional-APN-Aggregate-Max-Bitrate")
 public interface ConditionalAPNAggregateMaxBitrate extends DiameterGroupedAvp
 {
 	Long getAPNAggregateMaxBitrateUL();

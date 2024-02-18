@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -45,7 +47,7 @@ public abstract class VendorSpecificRequestmpl extends DiameterRequestWithSessio
 		setDestinationHostAllowed(false);
 	}
 		
-	public VendorSpecificRequestmpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID)
+	public VendorSpecificRequestmpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm,null,destinationRealm, isRetransmit, sessonID);
 		setDestinationHostAllowed(false);

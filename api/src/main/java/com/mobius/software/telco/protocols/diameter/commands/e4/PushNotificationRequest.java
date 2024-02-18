@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.e4;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AccessNetworkType;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.GloballyUniqueAddress;
@@ -64,7 +66,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777231, commandCode = 309, request = true, proxyable = true, name="Push-Notification-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.E4, commandCode = CommandCodes.PUSH_NOTIFICATION, request = true, proxyable = true, name="Push-Notification-Request")
 public interface PushNotificationRequest extends E4Request
 {
 	GloballyUniqueAddress getGloballyUniqueAddress();

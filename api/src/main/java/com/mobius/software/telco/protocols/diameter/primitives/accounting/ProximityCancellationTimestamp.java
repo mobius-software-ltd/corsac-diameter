@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Proximity-Cancellation-Timestamp AVP (AVP code 3456) is of type Time, and it holds the timestamp when
 	proximity request cancellation is requested. 
  */
-@DiameterAvpDefinition(code = 3456L, vendorId = KnownVendorIDs.TGPP_ID, name = "Proximity-Cancellation-Timestamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROXIMITY_CANCELLATION_TIMESTAMP, vendorId = VendorIDs.TGPP_ID, name = "Proximity-Cancellation-Timestamp")
 public interface ProximityCancellationTimestamp extends DiameterTime
 {
 }

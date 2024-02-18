@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	SPONSORED_DATA_CONNECTIVITY_ DISALLOWED (4)
 		This value is used in the ASR when the PCRF needs to initiates the AF session termination due to the operator policy (e.g. disallowing the UE accessing the sponsored data connectivity in the roaming case).
  */
-@DiameterAvpDefinition(code = 500L, vendorId = KnownVendorIDs.TGPP_ID, name = "Abort-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.ABORT_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "Abort-Cause")
 public interface AbortCause extends DiameterEnumerated<AbortCauseEnum>
 {
 }

@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RUCIActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ReportingRestrictionImpl;
@@ -44,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.ReportingRestr
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777342, commandCode = 8388722, request = true)
 public class ModifyUeContextRequestImpl extends NpRequestImpl implements ModifyUeContextRequest
 {
 	private SubscriptionId subscriptionId;
@@ -64,7 +64,7 @@ public class ModifyUeContextRequestImpl extends NpRequestImpl implements ModifyU
 		super();
 	}
 	
-	public ModifyUeContextRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
+	public ModifyUeContextRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
 	}

@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5779;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5779.PMIP6DHCPServerAddress;
 
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5779.PMIP6DHCP
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 504L, vendorId = -1L)
 public class PMIP6DHCPServerAddressImpl extends DiameterAddressImpl implements PMIP6DHCPServerAddress
 {
 	protected PMIP6DHCPServerAddressImpl()

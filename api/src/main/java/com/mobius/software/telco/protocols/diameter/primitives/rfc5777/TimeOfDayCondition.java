@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -57,7 +58,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
        Timezone-Flag = LOCAL;
    }
  */
-@DiameterAvpDefinition(code = 560L, vendorId = -1L, name = "Time-Of-Day-Condition")
+@DiameterAvpDefinition(code = AvpCodes.TIME_OF_DAY_CONDITION, vendorId = -1L, name = "Time-Of-Day-Condition")
 public interface TimeOfDayCondition extends DiameterGroupedAvp
 {
 	Long getTimeOfDayStart();

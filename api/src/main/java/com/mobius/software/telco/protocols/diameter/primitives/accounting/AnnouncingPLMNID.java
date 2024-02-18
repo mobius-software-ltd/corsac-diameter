@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Announcing-PLMN-ID AVP (AVP code 4408) is of type UTF8String and contains PLMN identity of the serving
 	PLMN which signalled the carrier frequency, when this serving PLMN is not the HPLMN nor the VPLMN, if available. 
  */
-@DiameterAvpDefinition(code = 4408L, vendorId = KnownVendorIDs.TGPP_ID, name = "Announcing-PLMN-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.ANNOUNCING_PLMN_ID, vendorId = VendorIDs.TGPP_ID, name = "Announcing-PLMN-ID")
 public interface AnnouncingPLMNID extends DiameterUTF8String
 {
 }

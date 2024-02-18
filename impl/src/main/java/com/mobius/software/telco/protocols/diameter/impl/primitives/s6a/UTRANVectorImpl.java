@@ -18,12 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ConfidentialityKeyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.IntegrityKeyImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ConfidentialityKey;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.IntegrityKey;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AUTN;
@@ -39,7 +42,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1415L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UTRANVectorImpl extends DiameterGroupedAvpImpl implements UTRANVector
 {
 	private ItemNumber itemNumber;
@@ -58,32 +60,17 @@ public class UTRANVectorImpl extends DiameterGroupedAvpImpl implements UTRANVect
 	{
 	}
 	
-	public UTRANVectorImpl(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf confidentialityKey,ByteBuf integrityKey)
+	public UTRANVectorImpl(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf confidentialityKey,ByteBuf integrityKey) throws MissingAvpException
 	{
-		if(rand==null)
-			throw new IllegalArgumentException("RAND is required");
+		setRAND(rand);
 		
-		if(xres==null)
-			throw new IllegalArgumentException("XRES is required");
+		setXRES(xres);
 		
-		if(autn==null)
-			throw new IllegalArgumentException("AUTN is required");
+		setAUTN(autn);
 		
-		if(confidentialityKey==null)
-			throw new IllegalArgumentException("Confidentiality-Key is required");
+		setConfidentialityKey(confidentialityKey);
 		
-		if(integrityKey==null)
-			throw new IllegalArgumentException("Integrity-Key is required");
-		
-		this.rand = new RANDImpl(rand, null, null);				
-		
-		this.xres = new XRESImpl(xres, null, null);
-		
-		this.autn = new AUTNImpl(autn, null, null);
-		
-		this.confidentialityKey = new ConfidentialityKeyImpl(confidentialityKey, null, null);
-		
-		this.integrityKey = new IntegrityKeyImpl(integrityKey, null, null);
+		setIntegrityKey(integrityKey);		
 	}
 	
 	public Long getItemNumber()
@@ -110,10 +97,10 @@ public class UTRANVectorImpl extends DiameterGroupedAvpImpl implements UTRANVect
 		return rand.getValue();
 	}
 	
-	public void setRAND(ByteBuf value)
+	public void setRAND(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("RAND is required");
+			throw new MissingAvpException("RAND is required is required", Arrays.asList(new DiameterAvp[] { new RANDImpl() }));
 		
 		this.rand = new RANDImpl(value, null, null);	
 	}
@@ -126,11 +113,11 @@ public class UTRANVectorImpl extends DiameterGroupedAvpImpl implements UTRANVect
 		return xres.getValue();
 	}
 	
-	public void setXRES(ByteBuf value)
+	public void setXRES(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("XRES is required");
-		
+			throw new MissingAvpException("XRES is required is required", Arrays.asList(new DiameterAvp[] { new XRESImpl() }));
+			
 		this.xres = new XRESImpl(value, null, null);
 	}
 	
@@ -142,10 +129,10 @@ public class UTRANVectorImpl extends DiameterGroupedAvpImpl implements UTRANVect
 		return autn.getValue();
 	}
 	
-	public void setAUTN(ByteBuf value)
+	public void setAUTN(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("AUTN is required");
+			throw new MissingAvpException("AUTN is required is required", Arrays.asList(new DiameterAvp[] { new AUTNImpl() }));
 		
 		this.autn = new AUTNImpl(value, null, null);
 	}
@@ -158,11 +145,11 @@ public class UTRANVectorImpl extends DiameterGroupedAvpImpl implements UTRANVect
 		return confidentialityKey.getValue();
 	}
 	
-	public void setConfidentialityKey(ByteBuf value)
+	public void setConfidentialityKey(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Confidentiality-Key is required");
-		
+			throw new MissingAvpException("Confidentiality-Key is required is required", Arrays.asList(new DiameterAvp[] { new ConfidentialityKeyImpl() }));
+			
 		this.confidentialityKey = new ConfidentialityKeyImpl(value, null, null);
 	}
 	
@@ -174,31 +161,31 @@ public class UTRANVectorImpl extends DiameterGroupedAvpImpl implements UTRANVect
 		return integrityKey.getValue();
 	}
 	
-	public void setIntegrityKey(ByteBuf value)
+	public void setIntegrityKey(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Integrity-Key is required");
+			throw new MissingAvpException("Integrity-Key is required is required", Arrays.asList(new DiameterAvp[] { new IntegrityKeyImpl() }));
 		
 		this.integrityKey = new IntegrityKeyImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(rand==null)
-			return "RAND is required";
+			return new MissingAvpException("RAND is required is required", Arrays.asList(new DiameterAvp[] { new RANDImpl() }));
 		
 		if(xres==null)
-			return "XRES is required";
+			return new MissingAvpException("XRES is required is required", Arrays.asList(new DiameterAvp[] { new XRESImpl() }));
 		
 		if(autn==null)
-			return "AUTN is required";
+			return new MissingAvpException("AUTN is required is required", Arrays.asList(new DiameterAvp[] { new AUTNImpl() }));
 		
 		if(confidentialityKey==null)
-			return "Confidentiality-Key is required";
+			return new MissingAvpException("Confidentiality-Key is required is required", Arrays.asList(new DiameterAvp[] { new ConfidentialityKeyImpl() }));
 		
 		if(integrityKey==null)
-			return "Integrity-Key is required";
+			return new MissingAvpException("Integrity-Key is required is required", Arrays.asList(new DiameterAvp[] { new IntegrityKeyImpl() }));
 		
 		return null;
 	}

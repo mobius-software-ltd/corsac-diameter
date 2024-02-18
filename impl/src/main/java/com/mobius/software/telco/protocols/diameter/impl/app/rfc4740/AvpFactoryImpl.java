@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc4740;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.rfc4740.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPAccountingInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPAuthDataItemImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPAuthenticateImpl;
@@ -47,7 +48,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SIPServerCapabilitiesImpl();
 	}
 	
-	public SIPAuthDataItem getSIPAuthDataItem(SIPAuthenticationSchemeEnum sipAuthenticationScheme)
+	public SIPAuthDataItem getSIPAuthDataItem(SIPAuthenticationSchemeEnum sipAuthenticationScheme) throws MissingAvpException
 	{
 		return new SIPAuthDataItemImpl(sipAuthenticationScheme);
 	}
@@ -57,12 +58,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SIPAccountingInformationImpl();
 	}
 	
-	public SIPUserData getSIPUserData(String sipUserDataType,ByteBuf sipUserDataContents)
+	public SIPUserData getSIPUserData(String sipUserDataType,ByteBuf sipUserDataContents) throws MissingAvpException
 	{
 		return new SIPUserDataImpl(sipUserDataType, sipUserDataContents);
 	}
 	
-	public SIPDeregistrationReason getSIPDeregistrationReason(SIPReasonCodeEnum sipReasonCode)
+	public SIPDeregistrationReason getSIPDeregistrationReason(SIPReasonCodeEnum sipReasonCode) throws MissingAvpException
 	{
 		return new SIPDeregistrationReasonImpl(sipReasonCode);
 	}
@@ -72,12 +73,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SIPAuthenticationInfoImpl();
 	}
 	
-	public SIPAuthorization getSIPAuthorization(String digestUsername,String digestRealm,String digestNonce,String digestURI,String digestResponse)
+	public SIPAuthorization getSIPAuthorization(String digestUsername,String digestRealm,String digestNonce,String digestURI,String digestResponse) throws MissingAvpException
 	{
 		return new SIPAuthorizationImpl(digestUsername, digestRealm, digestNonce, digestURI, digestResponse);
 	}
 	
-	public SIPAuthenticate getSIPAuthenticate(String digestRealm)
+	public SIPAuthenticate getSIPAuthenticate(String digestRealm) throws MissingAvpException
 	{
 		return new SIPAuthenticateImpl(digestRealm);
 	}

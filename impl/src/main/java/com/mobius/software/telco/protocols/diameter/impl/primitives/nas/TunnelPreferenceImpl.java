@@ -1,6 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelPrefere
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 83L, vendorId = -1L)
 public class TunnelPreferenceImpl extends DiameterUnsigned32Impl implements TunnelPreference
 {
 	protected TunnelPreferenceImpl() 

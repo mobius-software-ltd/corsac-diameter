@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.15	MBMS-Session-Repetition-Number AVP
 	The MBMS-Session-Repetition-Number AVP (AVP code 912) is of type OctetString with a length of one octet. It contains the session identity repetition number of the MBMS transmission session on the Gmb interface. The value 0 indicates the first transmission of a session. The values 1 to 255 represents the retransmission sequence number of a session. When the optional MBMS-Session-Identity AVP is included in the MBMS Session Start RAR (Start) command by the BM-SC, the BM-SC shall also provide the corresponding MBMS-Session-Repetition-Number AVP, and vice versa.
  */
-@DiameterAvpDefinition(code = 912L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Session-Repetition-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_SESSION_REPETITION_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Session-Repetition-Number")
 public interface MBMSSessionRepetitionNumber extends DiameterOctetString
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE: The AVP is only introduced for reuse within charging management. 
  */
-@DiameterAvpDefinition(code = 2855L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Presence-Reporting-Area-Node")
+@DiameterAvpDefinition(code = TgppAvpCodes.PRESENCE_REPORTING_AREA_NODE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Presence-Reporting-Area-Node")
 public interface PresenceReportingAreaNode extends DiameterBitmask32
 {
 	public static final int OCS_BIT = 0;	

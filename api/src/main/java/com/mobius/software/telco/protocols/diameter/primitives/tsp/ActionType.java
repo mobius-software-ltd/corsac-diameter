@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -55,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	MSISDN-less MO-SMS Delivery (5)
 	This value indicates the delivery of an MSISDN-less MO-SMS and is used in the Device-Notification AVP of the Device-Notification-Request command.
  */
-@DiameterAvpDefinition(code = 3005L, vendorId = KnownVendorIDs.TGPP_ID, name = "Action-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACTION_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Action-Type")
 public interface ActionType extends DiameterEnumerated<ActionTypeEnum>
 {
 }

@@ -18,11 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CCMoneyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CostInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.FinalUnitIndicationImpl;
@@ -67,7 +68,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Ser
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdExtension;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.TariffChangeUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
@@ -79,92 +79,92 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public UserEquipmentInfoExtension getUserEquipmentInfoExtension(ByteBuf imeiSV,ByteBuf mac,ByteBuf eui64,ByteBuf modifiedEUI64,ByteBuf imei)
+	public UserEquipmentInfoExtension getUserEquipmentInfoExtension(ByteBuf imeiSV,ByteBuf mac,ByteBuf eui64,ByteBuf modifiedEUI64,ByteBuf imei) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		return new UserEquipmentInfoExtensionImpl(imeiSV, mac, eui64, modifiedEUI64, imei);
 	}
 	
-	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue)
+	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue) throws MissingAvpException
 	{
 		return new UserEquipmentInfoImpl(userEquipmentInfoType, userEquipmentInfoValue);
 	}
 	
-	public ServiceParameterInfo getServiceParameterInfo(Long serviceParameterType,ByteBuf serviceParameterValue)
+	public ServiceParameterInfo getServiceParameterInfo(Long serviceParameterType,ByteBuf serviceParameterValue) throws MissingAvpException
 	{
 		return new ServiceParameterInfoImpl(serviceParameterType, serviceParameterValue);
 	}
 	
-	public MultipleServicesCreditControl getMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, TariffChangeUsageEnum tariffChangeUsage, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication,QoSFinalUnitIndication qosFinalUnitIndication)
+	public MultipleServicesCreditControl getMultipleServicesCreditControl()
 	{
-		return new MultipleServicesCreditControlImpl(grantedServiceUnit, requestedServiceUnit, usedServiceUnit, tariffChangeUsage, serviceIdentifier, ratingGroup, gsuPoolReference, validityTime, resultCode, finalUnitIndication, qosFinalUnitIndication);
+		return new MultipleServicesCreditControlImpl();
 	}
 	
-	public UsedServiceUnit getUsedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage)
+	public UsedServiceUnit getUsedServiceUnit()
 	{
-		return new UsedServiceUnitImpl(ccTime, ccMoney, ccTotalOctets, ccInputOctets, ccOutputOctets, ccServiceSpecificUnits, tariffChangeUsage);
+		return new UsedServiceUnitImpl();
 	}
 	
-	public RequestedServiceUnit getRequestedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits)
+	public RequestedServiceUnit getRequestedServiceUnit()
 	{
-		return new RequestedServiceUnitImpl(ccTime, ccMoney, ccTotalOctets, ccInputOctets, ccOutputOctets, ccServiceSpecificUnits);
+		return new RequestedServiceUnitImpl();
 	}
 	
-	public GrantedServiceUnit getGrantedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage)
+	public GrantedServiceUnit getGrantedServiceUnit()
 	{
-		return new GrantedServiceUnitImpl(ccTime, ccMoney, ccTotalOctets, ccInputOctets, ccOutputOctets, ccServiceSpecificUnits, tariffChangeUsage);
+		return new GrantedServiceUnitImpl();
 	}
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException
 	{
 		return new SubscriptionIdImpl(subscriptionIdType, subscriptionIdData);
 	}
 	
-	public SubscriptionIdExtension getSubscriptionIdExtension(String e164,String imsi,String sipURI,String nai,String uePrivate)
+	public SubscriptionIdExtension getSubscriptionIdExtension(String e164,String imsi,String sipURI,String nai,String uePrivate) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		return new SubscriptionIdExtensionImpl(e164, imsi, sipURI, nai, uePrivate);
 	}
 	
-	public FinalUnitIndication getFinalUnitIndication(FinalUnitActionEnum finalUnitAction, List<RestrictionFilterRule> restrictionFilterRule, List<String> filterId, RedirectServer redirectServer)
+	public FinalUnitIndication getFinalUnitIndication(FinalUnitActionEnum finalUnitAction) throws MissingAvpException
 	{
-		return new FinalUnitIndicationImpl(finalUnitAction, restrictionFilterRule, filterId, redirectServer);
+		return new FinalUnitIndicationImpl(finalUnitAction);
 	}
 	
-	public QoSFinalUnitIndication getQoSFinalUnitIndication(FinalUnitActionEnum finalUnitAction, List<RestrictionFilterRule> restrictionFilterRule, List<String> filterId, RedirectServer redirectServer)
+	public QoSFinalUnitIndication getQoSFinalUnitIndication(FinalUnitActionEnum finalUnitAction) throws MissingAvpException
 	{
-		return new QoSFinalUnitIndicationImpl(finalUnitAction, restrictionFilterRule, filterId, redirectServer);
+		return new QoSFinalUnitIndicationImpl(finalUnitAction);
 	}
 	
-	public CostInformation getCostInformation(UnitValue unitValue,Long currencyCode,String costUnit)
+	public CostInformation getCostInformation(UnitValue unitValue,Long currencyCode) throws MissingAvpException
 	{
-		return new CostInformationImpl(unitValue, currencyCode, costUnit);
+		return new CostInformationImpl(unitValue, currencyCode);
 	}
 	
-	public GSUPoolReference getGSUPoolReference(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue)
+	public GSUPoolReference getGSUPoolReference(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue) throws MissingAvpException
 	{
 		return new GSUPoolReferenceImpl(gsuPoolIdentifier, ccUnitType, unitValue);
 	}
 	
-	public CCMoney getCCMoney(UnitValue unitValue,Long currencyCode)
+	public CCMoney getCCMoney(UnitValue unitValue) throws MissingAvpException
 	{
-		return new CCMoneyImpl(unitValue, currencyCode);
+		return new CCMoneyImpl(unitValue);
 	}
 	
-	public UnitValue getUnitValue(Long valueDigits,Long exponent)
+	public UnitValue getUnitValue(Long valueDigits) throws MissingAvpException
 	{
-		return new UnitValueImpl(valueDigits, exponent);
+		return new UnitValueImpl(valueDigits);
 	}
 	
-	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws ParseException
+	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws InvalidAvpValueException
 	{
 		return new RestrictionFilterRuleImpl(rule, null, null);
 	}
 	
-	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException
+	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
 	{
 		return new RestrictionFilterRuleImpl(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, null, null);
 	}
 	
-	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress)
+	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress) throws MissingAvpException
 	{
 		return new RedirectServerImpl(redirectAddressType, redirectServerAddress);
 	}

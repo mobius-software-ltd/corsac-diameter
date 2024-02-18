@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    present in both requests and responses.  The supported values are
    listed in [RADIUSAttrVals].
  */
-@DiameterAvpDefinition(code = 7L, vendorId = -1L, name = "Framed-Protocol")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_PROTOCOL, vendorId = -1L, name = "Framed-Protocol")
 public interface FramedProtocol extends DiameterEnumerated<FramedProtocolEnum>
 {
 }

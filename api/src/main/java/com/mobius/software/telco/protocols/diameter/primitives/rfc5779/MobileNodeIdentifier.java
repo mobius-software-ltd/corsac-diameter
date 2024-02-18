@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5779;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    already has a valid mobile node identifier, then the MAG MUST
    silently discard the received MN-Identifier.
  */
-@DiameterAvpDefinition(code = 506L, vendorId = -1L, name = "Mobile-Node-Identifier")
+@DiameterAvpDefinition(code = AvpCodes.MOBILE_NODE_IDENTIFIER, vendorId = -1L, name = "Mobile-Node-Identifier")
 public interface MobileNodeIdentifier extends DiameterUTF8String
 {
 }

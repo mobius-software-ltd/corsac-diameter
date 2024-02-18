@@ -18,12 +18,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6AgentInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.VisitedNetworkIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
@@ -36,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1472L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SpecificAPNInfoImpl extends DiameterGroupedAvpImpl implements SpecificAPNInfo
 {
 	private ServiceSelection serviceSelection;
@@ -49,17 +52,11 @@ public class SpecificAPNInfoImpl extends DiameterGroupedAvpImpl implements Speci
 	{
 	}
 	
-	public SpecificAPNInfoImpl(String serviceSelection,MIP6AgentInfo mip6AgentInfo)
+	public SpecificAPNInfoImpl(String serviceSelection,MIP6AgentInfo mip6AgentInfo) throws MissingAvpException
 	{
-		if(serviceSelection==null)
-			throw new IllegalArgumentException("Service-Selection is required");
+		setServiceSelection(serviceSelection);
 		
-		if(mip6AgentInfo==null)
-			throw new IllegalArgumentException("MIP6-Agent-Info is required");
-		
-		this.serviceSelection = new ServiceSelectionImpl(serviceSelection, null, null);
-		
-		this.mip6AgentInfo = mip6AgentInfo;
+		setMIP6AgentInfo(mip6AgentInfo);
 	}
 	
 	public String getServiceSelection()
@@ -70,11 +67,11 @@ public class SpecificAPNInfoImpl extends DiameterGroupedAvpImpl implements Speci
 		return serviceSelection.getString();
 	}
 	
-	public void setServiceSelection(String value)
+	public void setServiceSelection(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Selection is required");
-		
+			throw new MissingAvpException("Service-Selection is required is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
+			
 		this.serviceSelection = new ServiceSelectionImpl(value, null, null);			
 	}
 	
@@ -83,11 +80,11 @@ public class SpecificAPNInfoImpl extends DiameterGroupedAvpImpl implements Speci
 		return mip6AgentInfo;
 	}
 	
-	public void setMIP6AgentInfo(MIP6AgentInfo value)
+	public void setMIP6AgentInfo(MIP6AgentInfo value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP6-Agent-Info is required");
-		
+			throw new MissingAvpException("MIP6-Agent-Info is required is required", Arrays.asList(new DiameterAvp[] { new MIP6AgentInfoImpl() }));
+			
 		this.mip6AgentInfo = value;			
 	}
 	
@@ -108,13 +105,13 @@ public class SpecificAPNInfoImpl extends DiameterGroupedAvpImpl implements Speci
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceSelection==null)
-			return "Service-Selection is required";
+			return new MissingAvpException("Service-Selection is required is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
 		
 		if(mip6AgentInfo==null)
-			return "MIP6-Agent-Info is required is required";
+			return new MissingAvpException("MIP6-Agent-Info is required is required", Arrays.asList(new DiameterAvp[] { new MIP6AgentInfoImpl() }));
 		
 		return null;
 	}

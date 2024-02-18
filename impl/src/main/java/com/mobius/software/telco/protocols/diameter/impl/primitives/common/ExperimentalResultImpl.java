@@ -1,7 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResultCode;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
@@ -30,28 +34,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 297L, vendorId = -1L)
 public class ExperimentalResultImpl implements ExperimentalResult
 {
 	private VendorId vendorId;
 	
 	private ExperimentalResultCode experimentalResultCode;
 	
-	protected ExperimentalResultImpl() 
+	public ExperimentalResultImpl() 
 	{
 	}
 	
-	public ExperimentalResultImpl(Long vendorId,Long experimentalResultCode)
+	public ExperimentalResultImpl(Long vendorId,Long experimentalResultCode) throws MissingAvpException
 	{
-		if(vendorId==null)
-			throw new IllegalArgumentException("Vendor-Id is required");
-
-		if(experimentalResultCode==null)
-			throw new IllegalArgumentException("Experimental-Result-Code is required");
-
-		this.vendorId=new VendorIdImpl(vendorId, null, null);	
+		setVendorId(vendorId);
 		
-		this.experimentalResultCode=new ExperimentalResultCodeImpl(experimentalResultCode, null, null);			
+		setExperimentalResultCode(experimentalResultCode);
 	}
 
 	@Override
@@ -64,11 +61,11 @@ public class ExperimentalResultImpl implements ExperimentalResult
 	}
 
 	@Override
-	public void setVendorId(Long value) 
+	public void setVendorId(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Vendor-Id is required");
-
+			throw new MissingAvpException("Vendor-Id is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
+			
 		this.vendorId = new VendorIdImpl(value, null, null);
 	}
 
@@ -82,11 +79,11 @@ public class ExperimentalResultImpl implements ExperimentalResult
 	}
 
 	@Override
-	public void setExperimentalResultCode(Long value) 
+	public void setExperimentalResultCode(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Experimental-Result-Code is required");
-
+			throw new MissingAvpException("Experimental-Result-Code is required", Arrays.asList(new DiameterAvp[] { new ExperimentalResultCodeImpl() }));
+			
 		this.experimentalResultCode = new ExperimentalResultCodeImpl(value, null, null);
 	}
 
@@ -133,13 +130,13 @@ public class ExperimentalResultImpl implements ExperimentalResult
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(vendorId==null)
-			return "Vendor-Id is required";
+			return new MissingAvpException("Vendor-Id is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
 
 		if(experimentalResultCode==null)
-			return "Experimental-Result-Code is required";
+			return new MissingAvpException("Experimental-Result-Code is required", Arrays.asList(new DiameterAvp[] { new ExperimentalResultCodeImpl() }));
 
 		return null;
 	}

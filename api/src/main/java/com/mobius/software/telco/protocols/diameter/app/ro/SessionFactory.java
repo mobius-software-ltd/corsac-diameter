@@ -19,9 +19,11 @@ package com.mobius.software.telco.protocols.diameter.app.ro;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 
 public interface SessionFactory
 {
-	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber);	
+	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException;	
 }

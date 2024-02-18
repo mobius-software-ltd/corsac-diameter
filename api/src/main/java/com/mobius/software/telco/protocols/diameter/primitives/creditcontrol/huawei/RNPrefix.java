@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates RN-prefix of the received number. 
 	If the received number is a number portability subscriber, MMSC must fill in RN-Prefix through this field.
  */
-@DiameterAvpDefinition(code = 30808L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "RN-Prefix")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.RN_PREFIX, vendorId = VendorIDs.HUAWEI_ID, name = "RN-Prefix")
 public interface RNPrefix extends DiameterUTF8String
 {
 }

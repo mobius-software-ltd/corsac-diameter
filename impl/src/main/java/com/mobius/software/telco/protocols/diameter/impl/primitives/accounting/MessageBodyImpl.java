@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ContentDisposition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ContentLength;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ContentType;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Origin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 889L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MessageBodyImpl implements MessageBody
 {
 	private ContentType contentType;
@@ -45,17 +47,11 @@ public class MessageBodyImpl implements MessageBody
 	{
 	}
 	
-	public MessageBodyImpl(String contentType,Long contentLength)
+	public MessageBodyImpl(String contentType,Long contentLength) throws MissingAvpException
 	{
-		if(contentType==null)
-			throw new IllegalArgumentException("Content-Type is required");
+		setContentType(contentType);
 		
-		if(contentLength==null)
-			throw new IllegalArgumentException("Content-Length is required");
-		
-		this.contentType = new ContentTypeImpl(contentType, null, null);				
-		
-		this.contentLength = new ContentLengthImpl(contentLength, null, null);
+		setContentLength(contentLength);
 	}
 	
 	public String getContentType()
@@ -66,10 +62,10 @@ public class MessageBodyImpl implements MessageBody
 		return contentType.getString();
 	}
 	
-	public void setContentType(String value)
+	public void setContentType(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Content-Type is required");
+			throw new MissingAvpException("Content-Type is required", Arrays.asList(new DiameterAvp[] { new ContentTypeImpl() }));
 		
 		this.contentType = new ContentTypeImpl(value, null, null);		
 	}
@@ -82,10 +78,10 @@ public class MessageBodyImpl implements MessageBody
 		return contentLength.getUnsigned();
 	}
 	
-	public void setContentLength(Long value)
+	public void setContentLength(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Content-Length is required");
+			throw new MissingAvpException("Content-Length is required", Arrays.asList(new DiameterAvp[] { new ContentLengthImpl() }));
 		
 		this.contentLength = new ContentLengthImpl(value, null, null);
 	}
@@ -123,13 +119,13 @@ public class MessageBodyImpl implements MessageBody
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(contentType==null)
-			return "Content-Type is required";
+			return new MissingAvpException("Content-Type is required", Arrays.asList(new DiameterAvp[] { new ContentTypeImpl() }));
 		
 		if(contentLength==null)
-			return "Content-Length is required";
+			return new MissingAvpException("Content-Length is required", Arrays.asList(new DiameterAvp[] { new ContentLengthImpl() }));
 		
 		return null;
 	}

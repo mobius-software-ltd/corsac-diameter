@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.CallIDSIPHeader;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.Contact;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.InitialCSeqSequenceNumber;
@@ -37,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 649L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RestorationInfoImpl extends DiameterGroupedAvpImpl implements RestorationInfo
 {
 	private Path path;
@@ -57,17 +59,11 @@ public class RestorationInfoImpl extends DiameterGroupedAvpImpl implements Resto
 		
 	}
 	
-	public RestorationInfoImpl(ByteBuf path,ByteBuf contact)
+	public RestorationInfoImpl(ByteBuf path,ByteBuf contact) throws MissingAvpException
 	{
-		if(path==null)
-			throw new IllegalArgumentException("Path is required");
+		setPath(path);
 		
-		if(contact==null)
-			throw new IllegalArgumentException("Contact is required");
-		
-		this.path = new PathImpl(path, null, null);
-		
-		this.contact = new ContactImpl(contact, null, null);
+		setContact(contact);
 	}
 	
 	public ByteBuf getPath()
@@ -78,10 +74,10 @@ public class RestorationInfoImpl extends DiameterGroupedAvpImpl implements Resto
 		return path.getValue();
 	}
 	
-	public void setPath(ByteBuf value)
+	public void setPath(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Path is required");
+			throw new MissingAvpException("Path is required is required", Arrays.asList(new DiameterAvp[] { new PathImpl() }));
 		
 		this.path = new PathImpl(value, null, null);
 	}
@@ -94,10 +90,10 @@ public class RestorationInfoImpl extends DiameterGroupedAvpImpl implements Resto
 		return contact.getValue();
 	}
 	
-	public void setContact(ByteBuf value)
+	public void setContact(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Contact is required");
+			throw new MissingAvpException("Contact is required is required", Arrays.asList(new DiameterAvp[] { new ContactImpl() }));
 		
 		this.contact = new ContactImpl(value, null, null);
 	}
@@ -155,13 +151,13 @@ public class RestorationInfoImpl extends DiameterGroupedAvpImpl implements Resto
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(path==null)
-			return "Path is required";
+			return new MissingAvpException("Path is required is required", Arrays.asList(new DiameterAvp[] { new PathImpl() }));
 		
 		if(contact==null)
-			return "Contact is required";
+			return new MissingAvpException("Contact is required is required", Arrays.asList(new DiameterAvp[] { new ContactImpl() }));
 		
 		return null;
 	}

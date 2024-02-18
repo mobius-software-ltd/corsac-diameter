@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Current-Number-Members AVP (AVP Code 1003) is of type Unsigned32 and represents the current number of members in a group as determined 
 	by the responses to a request transmitted to a group. This is the same as the attribute "currentNrOfMembers" for the group as described in Table 7.4.14.1-137.
  */
-@DiameterAvpDefinition(code = 1003L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Current-Number-Members")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.CURRENT_NUMBER_MEMBERS, vendorId = VendorIDs.ONEM2M_ID, name = "Current-Number-Members")
 public interface CurrentNumberMembers extends DiameterUnsigned32
 {
 }

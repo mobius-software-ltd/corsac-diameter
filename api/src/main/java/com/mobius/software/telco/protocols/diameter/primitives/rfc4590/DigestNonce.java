@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          In Access-Challenge packets, the attribute contains the nonce
          selected by the RADIUS server.
  */
-@DiameterAvpDefinition(code = 105L, vendorId = -1, name = "Digest-Nonce")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_NONCE, vendorId = -1, name = "Digest-Nonce")
 public interface DigestNonce extends DiameterUTF8String
 {
 }

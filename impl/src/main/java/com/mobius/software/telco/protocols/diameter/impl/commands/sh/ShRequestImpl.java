@@ -1,15 +1,20 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sh;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sh.ShRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedIMPUImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UserIdentityImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -63,20 +68,15 @@ public abstract class ShRequestImpl extends VendorSpecificRequestmpl implements 
 		setDestinationHostAllowed(true);
 	}
 		
-	public ShRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity)
+	public ShRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
 		setDestinationHostAllowed(true);
-		try 
-		{
-			setDestinationHost(destinationHost);
-		}
-		catch(AvpNotSupportedException ex) 
-		{
-			
-		}
+		
+		setDestinationHost(destinationHost);
 		
 		setAuthSessionState(authSessionState);
+		
 		setUserIdentity(userIdentity);
 	}
 
@@ -108,10 +108,10 @@ public abstract class ShRequestImpl extends VendorSpecificRequestmpl implements 
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			throw new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
@@ -135,10 +135,10 @@ public abstract class ShRequestImpl extends VendorSpecificRequestmpl implements 
 	}
 
 	@Override
-	public void setUserIdentity(UserIdentity value) 
+	public void setUserIdentity(UserIdentity value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identity is required");
+			throw new MissingAvpException("User-Identity is required is required", Arrays.asList(new DiameterAvp[] { new UserIdentityImpl() }));
 		
 		this.userIdentity = value;
 	}
@@ -176,13 +176,13 @@ public abstract class ShRequestImpl extends VendorSpecificRequestmpl implements 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		if(userIdentity == null)
-			return "User-Identity is required";
+			return new MissingAvpException("User-Identity is required is required", Arrays.asList(new DiameterAvp[] { new UserIdentityImpl() }));
 		
 		return super.validate();
 	}

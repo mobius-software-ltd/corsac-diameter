@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.11	MBMS-Session-Identity  AVP
 	The MBMS-Session-Identity AVP (AVP code 908) is of type OctetString. Its length is one octet.  It is allocated by the BM-SC. Together with TMGI it identifies a transmission of a specific MBMS session.  The initial transmission and subsequent retransmissions of the MBMS session will use the same values of these parameters. This AVP is optional within the Gmb interface.
  */
-@DiameterAvpDefinition(code = 908L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Session-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_SERVICE_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Session-Identity")
 public interface MBMSSessionIdentity extends DiameterOctetString
 {
 }

@@ -18,10 +18,11 @@ package com.mobius.software.telco.protocols.diameter.commands.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -41,7 +42,7 @@ public abstract interface NtAnswer extends VendorSpecificAnswer
 	
 	public AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
@@ -49,7 +50,7 @@ public abstract interface NtAnswer extends VendorSpecificAnswer
 	
 	public List<String> getRedirectHost();
 	
-	void setRedirectHost(List<String> value) throws ParseException;
+	void setRedirectHost(List<String> value) throws InvalidAvpValueException;
 
 	public RedirectHostUsageEnum getRedirectHostUsage();
 	

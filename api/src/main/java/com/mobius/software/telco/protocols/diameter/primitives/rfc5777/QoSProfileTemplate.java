@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -44,14 +46,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                             { QoS-Profile-Id }
                           * [ AVP ]
  */
-@DiameterAvpDefinition(code = 574L, vendorId = -1L, name = "QoS-Profile-Template")
+@DiameterAvpDefinition(code = AvpCodes.QOS_PROFILE_TEMPLATE, vendorId = -1L, name = "QoS-Profile-Template")
 public interface QoSProfileTemplate extends DiameterGroupedAvp
 {
 	Long getVendorId();
 	
-	void setVendorId(Long value);	
+	void setVendorId(Long value) throws MissingAvpException;	
 	
 	Long getQoSProfileId();
 	
-	void setQoSProfileId(Long value);	
+	void setQoSProfileId(Long value) throws MissingAvpException;	
 }

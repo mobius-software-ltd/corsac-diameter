@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates a uniform sequence number.
 	For the manual recharge initiated by the business system, it indicates the sequence number of the external system. For the card recharge initiated by a subscriber through self-service, the value is null.
  */
-@DiameterAvpDefinition(code = 20786L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Uniform-Serial-No")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.UNIFORM_SERIAL_NO, vendorId = VendorIDs.HUAWEI_ID, name = "Uniform-Serial-No")
 public interface UniformSerialNo extends DiameterUTF8String
 {
 }

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.swd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -25,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = 16777250, commandCode = 274, request = false, proxyable = true, name="Abort-Session-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.STA, commandCode = CommandCodes.ABORT_SESSION, request = false, proxyable = true, name="Abort-Session-Answer")
 public interface AbortSessionAnswer extends com.mobius.software.telco.protocols.diameter.commands.sta.AbortSessionAnswer
 {	
 }

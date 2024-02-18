@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			 [ Requested-Validity-Time ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 3150L, vendorId = KnownVendorIDs.TGPP_ID, name = "NIDD-Authorization-Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.NIDD_AUTHORIZATION_REQUEST, vendorId = VendorIDs.TGPP_ID, name = "NIDD-Authorization-Request")
 public interface NIDDAuthorizationRequest extends DiameterGroupedAvp
 {
 	String getServiceSelection();

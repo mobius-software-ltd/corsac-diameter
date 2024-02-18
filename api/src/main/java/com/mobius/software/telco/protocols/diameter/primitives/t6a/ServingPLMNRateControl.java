@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	A Downlink-Rate-Limit set to 0 shall be interpreted that the Serving PLMN Rate Control for downlink messages is deactivated in the MME. If the Serving PLMN Rate Control is activated, the value of Downlink-Rate-Limit shall not be less than 10, see 3GPP TS 23.401 [25].
 	An Uplink-Rate-Limit set ot 0 shall be interpreted that the Serving PLMN Rate Control for uplink messages is deactivated in the MME. If Serving PLMN Rate Control is activated, the value of Uplink-Rate-Limit shall not be less than 10, see 3GPP TS 23.401 [25].
  */
-@DiameterAvpDefinition(code = 4310L, vendorId = KnownVendorIDs.TGPP_ID, name = "Serving-PLMN-Rate-Control")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVING_PLMN_RATE_CONTROL, vendorId = VendorIDs.TGPP_ID, name = "Serving-PLMN-Rate-Control")
 public interface ServingPLMNRateControl extends DiameterGroupedAvp
 {
 	Long getUplinkRateLimit();

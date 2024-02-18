@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -43,12 +45,12 @@ import io.netty.buffer.ByteBuf;
                                 *[ TMGI ]
                                 *[ AVP ]
  */
-@DiameterAvpDefinition(code = 3509L, vendorId = KnownVendorIDs.TGPP_ID, name = "TMGI‑Allocation‑Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.TMGI_ALLOCATION_REQUEST, vendorId = VendorIDs.TGPP_ID, name = "TMGI‑Allocation‑Request")
 public interface TMGIAllocationRequest extends DiameterGroupedAvp
 {
 	Long getTMGINumber();
 	
-	void setTMGINumber(Long value);
+	void setTMGINumber(Long value) throws MissingAvpException;
 	
 	List<ByteBuf> getTMGI();
 	

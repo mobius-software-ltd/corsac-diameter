@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AIRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.RequestedEUTRANAuthenticationInfo;
@@ -57,7 +60,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 318, request = true, proxyable = true, name="Authentication-Information-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.AUTHENTICATION, request = true, proxyable = true, name="Authentication-Information-Request")
 public interface AuthenticationInformationRequest extends S6aRequest
 {
 	OCSupportedFeatures getOCSupportedFeatures();
@@ -74,7 +77,7 @@ public interface AuthenticationInformationRequest extends S6aRequest
 	
 	ByteBuf getVisitedPLMNId();
 	
-	void setVisitedPLMNId(ByteBuf value);	
+	void setVisitedPLMNId(ByteBuf value) throws MissingAvpException;	
 	
 	AIRFlags getAIRFlags();
 	

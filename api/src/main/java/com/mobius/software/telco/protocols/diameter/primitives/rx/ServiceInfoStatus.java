@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	PRELIMINARY SERVICE INFORMATION (1)
 		This value is used to indicate that the service information that the AF has provided to the PCRF is preliminary and needs to be further negotiated between the two ends (e.g. for IMS when the service information is sent based on the SDP offer).
  */
-@DiameterAvpDefinition(code = 527L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Info-Status")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_INFO_STATUS, vendorId = VendorIDs.TGPP_ID, name = "Service-Info-Status")
 public interface ServiceInfoStatus extends DiameterEnumerated<ServiceInfoStatusEnum>
 {
 }

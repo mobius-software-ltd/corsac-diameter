@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.OtherPartyId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.OtherPartyIdData;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.OtherPartyIdNature;
@@ -34,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.eri
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1075L, vendorId = KnownVendorIDs.ERICSSON_ID)
 public class OtherPartyIdImpl extends DiameterGroupedAvpImpl implements OtherPartyId
 {
 	private OtherPartyIdType otherPartyIdType;
@@ -48,7 +50,7 @@ public class OtherPartyIdImpl extends DiameterGroupedAvpImpl implements OtherPar
 		
 	}
 	
-	public OtherPartyIdImpl(OtherPartyIdTypeEnum otherPartyIdType,String otherPartyIdData)
+	public OtherPartyIdImpl(OtherPartyIdTypeEnum otherPartyIdType,String otherPartyIdData) throws MissingAvpException
 	{
 		setOtherPartyIdType(otherPartyIdType);
 		
@@ -65,10 +67,10 @@ public class OtherPartyIdImpl extends DiameterGroupedAvpImpl implements OtherPar
 	}
 	
 	@Override
-	public void setOtherPartyIdType(OtherPartyIdTypeEnum value)
+	public void setOtherPartyIdType(OtherPartyIdTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Other-Party-Id-Type is required");
+			throw new MissingAvpException("Other-Party-Id-Type is required", Arrays.asList(new DiameterAvp[] { new OtherPartyIdTypeImpl() }));
 		
 		this.otherPartyIdType = new OtherPartyIdTypeImpl(value, null, null);			
 	}
@@ -83,10 +85,10 @@ public class OtherPartyIdImpl extends DiameterGroupedAvpImpl implements OtherPar
 	}
 	
 	@Override
-	public void setOtherPartyIdData(String value)
+	public void setOtherPartyIdData(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Other-Party-Id-Data is required");
+			throw new MissingAvpException("Other-Party-Id-Data is required", Arrays.asList(new DiameterAvp[] { new OtherPartyIdDataImpl() }));
 		
 		this.otherPartyIdData = new OtherPartyIdDataImpl(value, null, null);			
 	}
@@ -110,13 +112,13 @@ public class OtherPartyIdImpl extends DiameterGroupedAvpImpl implements OtherPar
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(otherPartyIdType==null)
-			return "Other-Party-Id-Type is required";
+			return new MissingAvpException("Other-Party-Id-Type is required", Arrays.asList(new DiameterAvp[] { new OtherPartyIdTypeImpl() }));
 		
 		if(otherPartyIdData==null)
-			return "Other-Party-Id-Data is required";
+			return new MissingAvpException("Other-Party-Id-Data is required", Arrays.asList(new DiameterAvp[] { new OtherPartyIdDataImpl() }));
 		
 		return null;
 	}

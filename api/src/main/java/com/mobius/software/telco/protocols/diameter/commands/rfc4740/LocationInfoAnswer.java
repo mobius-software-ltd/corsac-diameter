@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4740;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServerCapabilities;
 
@@ -115,12 +118,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServer
                * [ Route-Record ]
                * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 6, commandCode = 285, request = false, proxyable = true, name="Location-Info-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.LOCATION_INFO, request = false, proxyable = true, name="Location-Info-Answer")
 public interface LocationInfoAnswer extends AuthenticationAnswer
 {
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);	
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
 	
 	String getSIPServerURI();
 	

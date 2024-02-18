@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -34,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
 	resolved (1)
  */
-@DiameterAvpDefinition(code = 1119L, vendorId = -1L, name = "Routeing-Address-Resolution")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTEING_ADDRESS_RESOLUTION, vendorId = VendorIDs.TGPP_ID, name = "Routeing-Address-Resolution")
 public interface RouteingAddressResolution extends DiameterEnumerated<RouteingAddressResolutionEnum>
 {
 }

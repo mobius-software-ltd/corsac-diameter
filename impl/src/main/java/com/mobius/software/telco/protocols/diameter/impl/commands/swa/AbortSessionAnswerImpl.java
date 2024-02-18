@@ -1,7 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swa;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.swa.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -27,14 +28,13 @@ import com.mobius.software.telco.protocols.diameter.commands.swa.AbortSessionAns
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777250, commandCode = 274, request = false)
 public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.sta.AbortSessionAnswerImpl implements AbortSessionAnswer
 {
 	protected AbortSessionAnswerImpl() 
 	{
 	}
 	
-	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}

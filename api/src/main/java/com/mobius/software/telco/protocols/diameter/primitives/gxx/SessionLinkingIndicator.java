@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gxx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	SESSION_LINKING_DEFERRED (1)
 	This value shall be used to indicate that the PCRF shall not attempt linking the new Gateway Control Session with an existing Gx session immediately.
  */
-@DiameterAvpDefinition(code = 1064L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Session-Linking-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.SESSION_LINKING_INDICATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Session-Linking-Indicator")
 public interface SessionLinkingIndicator extends DiameterEnumerated<SessionLinkingIndicatorEnum>
 {
 }

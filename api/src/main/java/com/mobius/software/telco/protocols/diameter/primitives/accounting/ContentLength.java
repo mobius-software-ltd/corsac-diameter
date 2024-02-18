@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Content-Length AVP (AVP code 827) is of type Unsigned32 and holds the size of the message-body, as described
 	in RFC 3261 [405].
  */
-@DiameterAvpDefinition(code = 827L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Length")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONTENT_LENGTH, vendorId = VendorIDs.TGPP_ID, name = "Content-Length")
 public interface ContentLength extends DiameterUnsigned32
 {
 }

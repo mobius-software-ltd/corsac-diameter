@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.AppIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.OSAppID;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.OSID;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3840L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AppIdentifierImpl extends DiameterGroupedAvpImpl implements AppIdentifier
 {
 	private OSID osID;
@@ -43,17 +45,11 @@ public class AppIdentifierImpl extends DiameterGroupedAvpImpl implements AppIden
 	{
 	}
 	
-	public AppIdentifierImpl(ByteBuf osID,String osAppID)
+	public AppIdentifierImpl(ByteBuf osID,String osAppID) throws MissingAvpException
 	{
-		if(osID==null)
-			throw new IllegalArgumentException("OS-ID is required");
+		setOSID(osID);
 		
-		if(osAppID==null)
-			throw new IllegalArgumentException("OS-App-ID is required");
-		
-		this.osID = new OSIDImpl(osID, null, null);				
-		
-		this.osAppID = new OSAppIDImpl(osAppID, null, null);
+		setOSAppID(osAppID);
 	}
 	
 	public ByteBuf getOSID()
@@ -64,11 +60,11 @@ public class AppIdentifierImpl extends DiameterGroupedAvpImpl implements AppIden
 		return osID.getValue();
 	}
 	
-	public void setOSID(ByteBuf value)
+	public void setOSID(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("OS-ID is required");
-		
+			throw new MissingAvpException("OS-ID is required", Arrays.asList(new DiameterAvp[] { new OSIDImpl() }));
+			
 		this.osID = new OSIDImpl(value, null, null);						
 	}
 	
@@ -80,22 +76,22 @@ public class AppIdentifierImpl extends DiameterGroupedAvpImpl implements AppIden
 		return osAppID.getString();
 	}
 	
-	public void setOSAppID(String value)
+	public void setOSAppID(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("OS-App-ID is required");
+			throw new MissingAvpException("OS-App-ID is required", Arrays.asList(new DiameterAvp[] { new OSAppIDImpl() }));
 		
 		this.osAppID = new OSAppIDImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(osID==null)
-			return "OS-ID is required";
+			return new MissingAvpException("OS-ID is required", Arrays.asList(new DiameterAvp[] { new OSIDImpl() }));
 		
 		if(osAppID==null)
-			return "OS-App-ID is required";
+			return new MissingAvpException("OS-App-ID is required", Arrays.asList(new DiameterAvp[] { new OSAppIDImpl() }));
 		
 		return null;
 	}

@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.slg;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AccuracyFulfilmentIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredMTLRData;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.DelayedLocationReportingData;
@@ -92,12 +95,12 @@ import io.netty.buffer.ByteBuf;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777255, commandCode = 8388621, request = true, proxyable = true, name="Location-Report-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SLG, commandCode = CommandCodes.LOCATION_REPORT, request = true, proxyable = true, name="Location-Report-Request")
 public interface LocationReportRequest extends SlgRequest
 {
 	LocationEventEnum getLocationEvent();
 	 
-	void setLocationEvent(LocationEventEnum value);
+	void setLocationEvent(LocationEventEnum value) throws MissingAvpException;
 	 		
 	LCSEPSClientName getLCSEPSClientName();
 	

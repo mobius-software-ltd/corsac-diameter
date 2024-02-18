@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.nt;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,14 +40,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
                    { Transfer-End-Time }
                   *[ AVP ]
  */
-@DiameterAvpDefinition(code = 4204L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Window")
+@DiameterAvpDefinition(code = TgppAvpCodes.NT_TIME_WINDOW, vendorId = VendorIDs.TGPP_ID, name = "Time-Window")
 public interface TimeWindow extends DiameterGroupedAvp
 {
 	Date getTransferStartTime();
 	
-	void setTransferStartTime(Date value);
+	void setTransferStartTime(Date value) throws MissingAvpException;
 	
 	Date getTransferEndTime();
 	
-	void setTransferEndTime(Date value);
+	void setTransferEndTime(Date value) throws MissingAvpException;
 }

@@ -1,6 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rx;
 
 import com.mobius.software.telco.protocols.diameter.commands.rx.RxAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -45,7 +47,7 @@ public abstract class RxAnswerImpl extends AuthenticationAnswerImpl implements R
 		super();
 	}
 	
-	public RxAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public RxAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 	}

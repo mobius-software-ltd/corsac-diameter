@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6m;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -57,7 +59,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifie
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777310, commandCode = 8388641, request = false, proxyable = true, name="Subscriber-Information-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6M, commandCode = CommandCodes.SUBSCRIBER_INFORMATION, request = false, proxyable = true, name="Subscriber-Information-Answer")
 public interface SubscriberInformationAnswer extends S6mAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

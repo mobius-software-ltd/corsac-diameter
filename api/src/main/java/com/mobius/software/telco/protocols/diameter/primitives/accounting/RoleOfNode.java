@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  	2 FORWARDING_ROLE
  	The node is applying a originating role, serving the forwarding party. 
  */
-@DiameterAvpDefinition(code = 829L, vendorId = KnownVendorIDs.TGPP_ID, name = "Role-Of-Node")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROLE_OF_NODE, vendorId = VendorIDs.TGPP_ID, name = "Role-Of-Node")
 public interface RoleOfNode extends DiameterEnumerated<RoleOfNodeEnum>
 {
 }

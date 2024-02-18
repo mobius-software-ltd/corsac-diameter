@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -56,28 +58,28 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                           * [ Digest-Auth-Param ]
                           * [ AVP ]             
  */
-@DiameterAvpDefinition(code = 380L, vendorId = -1L, name = "SIP-Authorization")
+@DiameterAvpDefinition(code = AvpCodes.SIP_AUTHORIZATION, vendorId = -1L, name = "SIP-Authorization")
 public interface SIPAuthorization extends DiameterGroupedAvp
 {
 	String getDigestUsername();
 	
-	void setDigestUsername(String value);	
+	void setDigestUsername(String value) throws MissingAvpException;	
 	
 	String getDigestRealm();
 	
-	void setDigestRealm(String value);	
+	void setDigestRealm(String value) throws MissingAvpException;	
 	
 	String getDigestNonce();
 	
-	void setDigestNonce(String value);	
+	void setDigestNonce(String value) throws MissingAvpException;	
 	
 	String getDigestURI();
 	
-	void setDigestURI(String value);	
+	void setDigestURI(String value) throws MissingAvpException;	
 	
 	String getDigestResponse();
 	
-	void setDigestResponse(String value);	
+	void setDigestResponse(String value) throws MissingAvpException;	
 	
 	String getDigestAlgorithm();
 	

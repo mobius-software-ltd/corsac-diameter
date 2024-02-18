@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,12 +48,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Number-Of-Participants ]
 		[ PoC-Change-Condition ]
  */
-@DiameterAvpDefinition(code = 1255L, vendorId = KnownVendorIDs.TGPP_ID, name = "Talk-Burst-Exchange")
+@DiameterAvpDefinition(code = TgppAvpCodes.TALK_BURST_EXCHANGE, vendorId = VendorIDs.TGPP_ID, name = "Talk-Burst-Exchange")
 public interface TalkBurstExchange extends DiameterAvp
 {
 	Date getPoCChangeTime();
 	
-	void setPoCChangeTime(Date value);
+	void setPoCChangeTime(Date value) throws MissingAvpException;
 	
 	Long getNumberOfTalkBursts();
 	

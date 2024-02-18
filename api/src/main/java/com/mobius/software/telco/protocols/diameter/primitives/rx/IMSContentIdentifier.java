@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.60	IMS-Content-Identifier AVP
 	The IMS-Content-Identifier AVP (AVP code 563) is of type OctetString, and it contains information that identifies the particular IMS communication service or communication dialogue that the AF service session belongs to. This information may be used by the PCRF, for example, to differentiate Charging for different communication dialogs in the IMS session.
  */
-@DiameterAvpDefinition(code = 563L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Content-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMS_CONTENT_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "IMS-Content-Identifier")
 public interface IMSContentIdentifier extends DiameterOctetString
 {
 }

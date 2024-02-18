@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gxx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfoEnum;
@@ -55,12 +57,12 @@ import io.netty.buffer.ByteBuf;
 							 [ Content-Version ]
 							*[ AVP ]
 */
-@DiameterAvpDefinition(code = 1053L, vendorId = KnownVendorIDs.TGPP_ID, name = "QoS-Rule-Definition")
+@DiameterAvpDefinition(code = TgppAvpCodes.QOS_RULE_DEFINITION, vendorId = VendorIDs.TGPP_ID, name = "QoS-Rule-Definition")
 public interface QoSRuleDefinition extends DiameterGroupedAvp
 {
 	ByteBuf getQoSRuleName();
 	
-	void setQoSRuleName(ByteBuf value);
+	void setQoSRuleName(ByteBuf value) throws MissingAvpException;
 	
 	List<FlowInformation> getFlowInformation();
 	

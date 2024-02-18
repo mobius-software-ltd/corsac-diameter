@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
    MUST contain a value that is less than that of the IP-Address-End
    AVP.
  */
-@DiameterAvpDefinition(code = 519L, vendorId = -1L, name = "IP-Address-Range")
+@DiameterAvpDefinition(code = AvpCodes.IP_ADDRESS_RANGE, vendorId = -1L, name = "IP-Address-Range")
 public interface IPAddressRange extends DiameterGroupedAvp
 {
 	InetAddress getIPAddressStart();

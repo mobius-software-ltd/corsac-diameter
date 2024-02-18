@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -61,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
    	server) MUST compute the Digest "rspauth" parameter value at the
    	Diameter client (SIP server).                        
  */
-@DiameterAvpDefinition(code = 381L, vendorId = -1L, name = "SIP-Authentication-Info")
+@DiameterAvpDefinition(code = AvpCodes.SIP_AUTHENTICATION_INFO, vendorId = -1L, name = "SIP-Authentication-Info")
 public interface SIPAuthenticationInfo extends DiameterGroupedAvp
 {
 	String getDigestNextnonce();

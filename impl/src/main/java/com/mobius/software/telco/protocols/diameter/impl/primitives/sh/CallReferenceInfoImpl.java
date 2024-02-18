@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.ASNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.CallReferenceInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.CallReferenceNumber;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 720L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CallReferenceInfoImpl extends DiameterGroupedAvpImpl implements CallReferenceInfo
 {
 	private CallReferenceNumber callReferenceNumber;
@@ -45,17 +47,11 @@ public class CallReferenceInfoImpl extends DiameterGroupedAvpImpl implements Cal
 		super();
 	}
 	
-	public CallReferenceInfoImpl(ByteBuf callReferenceNumber, ByteBuf asNumber)
+	public CallReferenceInfoImpl(ByteBuf callReferenceNumber, ByteBuf asNumber) throws MissingAvpException
 	{
-		if(callReferenceNumber == null)
-			throw new IllegalArgumentException("Call-Reference-Number is required");
+		setCallReferenceNumber(asNumber);
 		
-		if(asNumber == null)
-			throw new IllegalArgumentException("AS-Number is required");
-		
-		this.callReferenceNumber = new CallReferenceNumberImpl(callReferenceNumber, null, null);
-		
-		this.asNumber = new ASNumberImpl(asNumber, null, null);
+		setASNumber(asNumber);
 	}
 	
 	public ByteBuf getCallReferenceNumber()
@@ -66,10 +62,10 @@ public class CallReferenceInfoImpl extends DiameterGroupedAvpImpl implements Cal
 		return callReferenceNumber.getValue();
 	}
 	
-	public void setCallReferenceNumber(ByteBuf value)
+	public void setCallReferenceNumber(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Call-Reference-Number is required");
+			throw new MissingAvpException("Call-Reference-Number is required", Arrays.asList(new DiameterAvp[] { new CallReferenceNumberImpl() }));
 		
 		this.callReferenceNumber = new CallReferenceNumberImpl(value, null, null);		
 	}
@@ -82,22 +78,22 @@ public class CallReferenceInfoImpl extends DiameterGroupedAvpImpl implements Cal
 		return asNumber.getValue();
 	}
 	
-	public void setASNumber(ByteBuf value)
+	public void setASNumber(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("AS-Number is required");
+			throw new MissingAvpException("AS-Number is required", Arrays.asList(new DiameterAvp[] { new ASNumberImpl() }));
 		
 		this.asNumber = new ASNumberImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(callReferenceNumber == null)
-			return "Call-Reference-Number is required";
+			return new MissingAvpException("Call-Reference-Number is required", Arrays.asList(new DiameterAvp[] { new CallReferenceNumberImpl() }));
 		
 		if(asNumber == null)
-			return "AS-Number is required";
+			return new MissingAvpException("AS-Number is required", Arrays.asList(new DiameterAvp[] { new ASNumberImpl() }));
 		
 		return null;
 	}

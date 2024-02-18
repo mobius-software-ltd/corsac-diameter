@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterRule;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterR
    user.  One or more of these AVPs MAY be present in an authorization
    response.
  */
-@DiameterAvpDefinition(code = 400L, vendorId = -1L, name = "NAS-Filter-Rule")
+@DiameterAvpDefinition(code = AvpCodes.NAS_FILTER_RULE, vendorId = -1L, name = "NAS-Filter-Rule")
 public interface NASFilterRule extends DiameterIpFilterRule
 {
 }

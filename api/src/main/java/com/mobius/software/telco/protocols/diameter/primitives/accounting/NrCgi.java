@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Nr-Cgi AVP (AVP code 1325) is of type UTF8String and includes NR Global Cell Identity, with the format as
 	specified in clause 19.6A of TS 23.003 [224]. 
  */
-@DiameterAvpDefinition(code = 1325L, vendorId = KnownVendorIDs.TGPP_ID, name = "Nr-Cgi")
+@DiameterAvpDefinition(code = TgppAvpCodes.NR_CGI, vendorId = VendorIDs.TGPP_ID, name = "Nr-Cgi")
 public interface NrCgi extends DiameterUTF8String
 {
 }

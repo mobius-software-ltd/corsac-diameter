@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 
 /**
@@ -47,10 +50,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
                 *[ Route-Record ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777302, commandCode = 275, request = true, proxyable = true, name="SL-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SY, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="SL-Request")
 public interface SessionTerminationRequest extends SyRequest
 {	
 	public TerminationCauseEnum getTerminationCause();
 	
-	void setTerminationCause(TerminationCauseEnum value);
+	void setTerminationCause(TerminationCauseEnum value) throws MissingAvpException;
 }

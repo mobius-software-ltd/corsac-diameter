@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.s6t.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.UserCSGInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777.DayOfWeekMaskImpl;
@@ -153,7 +154,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
@@ -163,27 +164,27 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
 	
-	public UpdatedNetworkConfiguration getUpdatedNetworkConfiguration(String scefID)
+	public UpdatedNetworkConfiguration getUpdatedNetworkConfiguration(String scefID) throws MissingAvpException
 	{
 		return new UpdatedNetworkConfigurationImpl(scefID);
 	}
 	
-	public GroupReport getGroupReport(Long scefReferenceID)
+	public GroupReport getGroupReport(Long scefReferenceID) throws MissingAvpException
 	{
 		return new GroupReportImpl(scefReferenceID);
 	}
 	
-	public GroupReportItem getGroupReportItem(UserIdentifier userIdentifier)
+	public GroupReportItem getGroupReportItem(UserIdentifier userIdentifier) throws MissingAvpException
 	{
 		return new GroupReportItemImpl(userIdentifier);
 	}
 	
-	public MonitoringEventReportStatus getMonitoringEventReportStatus(Long scefReferenceID,String scefID)
+	public MonitoringEventReportStatus getMonitoringEventReportStatus(Long scefReferenceID,String scefID) throws MissingAvpException
 	{
 		return new MonitoringEventReportStatusImpl(scefReferenceID, scefID);
 	}
@@ -218,12 +219,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new NIDDAuthorizationResponseImpl();
 	}
 	
-	public APNValidityTime getAPNValidityTime(Date grantedValidityTime)
+	public APNValidityTime getAPNValidityTime(Date grantedValidityTime) throws MissingAvpException
 	{
 		return new APNValidityTimeImpl(grantedValidityTime);
 	}
 	
-	public SuggestedNetworkConfiguration getSuggestedNetworkConfiguration(Long scefReferenceID,String scefID)
+	public SuggestedNetworkConfiguration getSuggestedNetworkConfiguration(Long scefReferenceID,String scefID) throws MissingAvpException
 	{
 		return new SuggestedNetworkConfigurationImpl(scefReferenceID, scefID);
 	}
@@ -243,7 +244,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new AllowedPLMNListImpl();
 	}
 	
-	public AESECommunicationPatternConfigStatus getAESECommunicationPatternConfigStatus(Long scefReferenceID)
+	public AESECommunicationPatternConfigStatus getAESECommunicationPatternConfigStatus(Long scefReferenceID) throws MissingAvpException
 	{
 		return new AESECommunicationPatternConfigStatusImpl(scefReferenceID);
 	}
@@ -253,12 +254,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new AESEErrorReportImpl();
 	}
 	
-	public MonitoringEventConfigStatus getMonitoringEventConfigStatus(List<ServiceReport> serviceReport)
+	public MonitoringEventConfigStatus getMonitoringEventConfigStatus(List<ServiceReport> serviceReport) throws MissingAvpException
 	{
 		return new MonitoringEventConfigStatusImpl(serviceReport);
 	}
 	
-	public MonitoringEventConfiguration getMonitoringEventConfiguration(String scefID,MonitoringTypeEnum monitoringType)
+	public MonitoringEventConfiguration getMonitoringEventConfiguration(String scefID,MonitoringTypeEnum monitoringType) throws MissingAvpException
 	{
 		return new MonitoringEventConfigurationImpl(scefID, monitoringType);
 	}
@@ -293,7 +294,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new IncludeIdentifiersImpl();
 	}
 	
-	public MonitoringEventReport getMonitoringEventReport(Long scefReferenceID)
+	public MonitoringEventReport getMonitoringEventReport(Long scefReferenceID) throws MissingAvpException
 	{
 		return new MonitoringEventReportImpl(scefReferenceID);
 	}
@@ -323,7 +324,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SGSNLocationInformationImpl();
 	}
 	
-	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode)
+	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode) throws MissingAvpException
 	{
 		return new UserCSGInformationImpl(csgId, csgAccessMode);
 	}	
@@ -343,12 +344,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new IdleStatusIndicationImpl();
 	}
 	
-	public EDRXCycleLength getEDRXCycleLength(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue)
+	public EDRXCycleLength getEDRXCycleLength(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue) throws MissingAvpException
 	{
 		return new EDRXCycleLengthImpl(ratType, eDRXCycleLengthValue);
 	}
 	
-	public PDNConnectivityStatusReport getPDNConnectivityStatusReport(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection)
+	public PDNConnectivityStatusReport getPDNConnectivityStatusReport(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection) throws MissingAvpException
 	{
 		return new PDNConnectivityStatusReportImpl(contextIdentifier, pdnConnectivityStatusType, serviceSelection);
 	}
@@ -368,7 +369,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new MTCProviderInfoImpl();
 	}
 	
-	public AESECommunicationPattern getAESECommunicationPattern(String scefID)
+	public AESECommunicationPattern getAESECommunicationPattern(String scefID) throws MissingAvpException
 	{
 		return new AESECommunicationPatternImpl(scefID);
 	}
@@ -413,7 +414,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new AdditionalServingNodeImpl();
 	}
 	
-	public IMSIGroupId getIMSIGroupId(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId)
+	public IMSIGroupId getIMSIGroupId(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId) throws MissingAvpException
 	{
 		return new IMSIGroupIdImpl(groupServiceId, groupPLMNId, localGroupId);
 	}

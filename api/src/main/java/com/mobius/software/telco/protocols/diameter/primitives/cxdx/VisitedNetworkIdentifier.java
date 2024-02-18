@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Coding of octets is H-PLMN operator specific. The I-CSCF maps a received P-Visited-Network-ID onto an Octet String value that is consistently configured in I-CSCF and HSS to uniquely identify 
 	the visited network.
  */
-@DiameterAvpDefinition(code = 600L, vendorId = KnownVendorIDs.TGPP_ID, name = "Visited-Network-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.VISITED_NETWORK_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Visited-Network-Identifier")
 public interface VisitedNetworkIdentifier extends DiameterOctetString
 {
 }

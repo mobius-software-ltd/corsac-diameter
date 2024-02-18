@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterE164AddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSFNon3GPPNumber;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSFNon3GPPNu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3339L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMSFNon3GPPNumberImpl extends DiameterE164AddressImpl implements SMSFNon3GPPNumber
 {
 	protected SMSFNon3GPPNumberImpl()

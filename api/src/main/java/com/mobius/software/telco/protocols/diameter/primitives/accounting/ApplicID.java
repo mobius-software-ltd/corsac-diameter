@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Applic-ID AVP (AVP code 1218) is of type UTF8String and holds the identification of the destination application
 	that the underlying MMS abstract message was addressed to. 
  */
-@DiameterAvpDefinition(code = 1218L, vendorId = KnownVendorIDs.TGPP_ID, name = "Applic-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.APPLIC_ID, vendorId = VendorIDs.TGPP_ID, name = "Applic-ID")
 public interface ApplicID extends DiameterUTF8String
 {
 }

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,12 +47,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	If not included, the default value of Occurrence-Info shall be considered as "ONE_TIME_EVENT" (0). Interval-Time and Maximum-Interval AVPs are only applicable when the Occurrence-Info is set to "MULTIPLE_TIME_EVENT" (1). If not included, the default value of Interval-Time shall be considered as one and the default values of Maximum-Interval, Sampling-Interval and Reporting-Duration shall each be considered as the maximum value.
  */
-@DiameterAvpDefinition(code = 2533L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Area-Event-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.AREA_EVENT_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Area-Event-Info")
 public interface AreaEventInfo extends DiameterGroupedAvp
 {
 	AreaDefinition getAreaDefinition();
 	
-	void setAreaDefinition(AreaDefinition value);
+	void setAreaDefinition(AreaDefinition value) throws MissingAvpException;
 	
 	OccurrenceInfoEnum getOccurrenceInfo();
 	

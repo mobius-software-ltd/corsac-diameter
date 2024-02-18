@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.V2XPermission;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.V2XPermission
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1689L, vendorId = KnownVendorIDs.TGPP_ID)
 public class V2XPermissionImpl extends DiameterBitmask32Impl implements V2XPermission
 {
 	public V2XPermissionImpl()
@@ -44,7 +41,7 @@ public class V2XPermissionImpl extends DiameterBitmask32Impl implements V2XPermi
 	@Override
 	public void setAllowV2XCommunicationOverPC5AsVehicleUEBit(boolean isOn)
 	{
-		setBit(ALLOW_V2X_COMMUNICATION_OVER_PC5_AS_VEHICLE_UE_BIT, isOn);
+		setBitUnchecked(ALLOW_V2X_COMMUNICATION_OVER_PC5_AS_VEHICLE_UE_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class V2XPermissionImpl extends DiameterBitmask32Impl implements V2XPermi
 	@Override
 	public void setAllowV2XCommunicationOverPC5AsPedestrianUEBit(boolean isOn)
 	{
-		setBit(ALLOW_V2X_COMMUNICATION_OVER_PC5_AS_PEDESTRIAN_UE_BIT, isOn);
+		setBitUnchecked(ALLOW_V2X_COMMUNICATION_OVER_PC5_AS_PEDESTRIAN_UE_BIT, isOn);
 	}
 
 	@Override

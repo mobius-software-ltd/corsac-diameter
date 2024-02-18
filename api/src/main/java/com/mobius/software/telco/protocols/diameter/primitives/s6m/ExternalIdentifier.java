@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	external identifier for an individual UE or a group of UEs, as indicated by Type-Of-External-Identifier AVP. See 3GPP TS 23.003 [11] 
 	for the definition and formatting of the External Group Identifier. 
  */
-@DiameterAvpDefinition(code = 3111L, vendorId = KnownVendorIDs.TGPP_ID, name = "External-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXTERNAL_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "External-Identifier")
 public interface ExternalIdentifier extends DiameterUTF8String
 {
 }

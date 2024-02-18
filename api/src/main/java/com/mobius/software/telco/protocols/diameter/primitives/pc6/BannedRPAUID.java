@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.73	Banned-RPAUID 
 	The Banned-RPAUID AVP is of type UTF8String. This AVP contains an identifier for restricted ProSe direct discovery that uniquely identifies an application user banned by a restricted ProSe direct discovery request.
  */
-@DiameterAvpDefinition(code = 3858L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Banned-RPAUID")
+@DiameterAvpDefinition(code = TgppAvpCodes.BANNED_RPAUID, vendorId = VendorIDs.TGPP_ID, must = false, name = "Banned-RPAUID")
 public interface BannedRPAUID extends DiameterUTF8String
 {
 }

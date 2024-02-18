@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc6734;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc6734.Key;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc6734.KeyLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc6734.KeyName;
@@ -36,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 581L, vendorId = -1L)
 public class KeyImpl extends DiameterGroupedAvpImpl implements Key
 {
 	public KeyType keyType;
@@ -54,17 +57,11 @@ public class KeyImpl extends DiameterGroupedAvpImpl implements Key
 		super();
 	}
 	
-	public KeyImpl(KeyTypeEnum keyType, ByteBuf keyingMaterial)
+	public KeyImpl(KeyTypeEnum keyType, ByteBuf keyingMaterial) throws MissingAvpException
 	{
-		if(keyType == null)
-			throw new IllegalArgumentException("Key-Type is required");
+		setKeyType(keyType);
 		
-		if(keyingMaterial == null)
-			throw new IllegalArgumentException("Keying-Material is required");
-		
-		this.keyType = new KeyTypeImpl(keyType, null, null);
-		
-		this.keyingMaterial = new KeyingMaterialImpl(keyingMaterial, null, null);
+		setKeyingMaterial(keyingMaterial);
 	}
 	
 	@Override
@@ -77,11 +74,11 @@ public class KeyImpl extends DiameterGroupedAvpImpl implements Key
 	}
 	
 	@Override
-	public void setKeyType(KeyTypeEnum value)
+	public void setKeyType(KeyTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Key-Type is required");
-		
+			throw new MissingAvpException("Key-Type is required", Arrays.asList(new DiameterAvp[] { new KeyTypeImpl() }));
+			
 		this.keyType = new KeyTypeImpl(value, null, null);		
 	}
 	
@@ -95,11 +92,11 @@ public class KeyImpl extends DiameterGroupedAvpImpl implements Key
 	}
 	
 	@Override
-	public void setKeyingMaterial(ByteBuf value)
+	public void setKeyingMaterial(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Keying-Material is required");
-		
+			throw new MissingAvpException("Keying-Material is required", Arrays.asList(new DiameterAvp[] { new KeyingMaterialImpl() }));
+			
 		this.keyingMaterial = new KeyingMaterialImpl(value, null, null);		
 	}
 	
@@ -158,13 +155,13 @@ public class KeyImpl extends DiameterGroupedAvpImpl implements Key
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(keyType == null)
-			return "Key-Type is required";
+			return new MissingAvpException("Key-Type is required", Arrays.asList(new DiameterAvp[] { new KeyTypeImpl() }));
 		
 		if(keyingMaterial == null)
-			return "Keying-Material is required";
+			return new MissingAvpException("Keying-Material is required", Arrays.asList(new DiameterAvp[] { new KeyingMaterialImpl() }));
 		
 		return null;
 	}

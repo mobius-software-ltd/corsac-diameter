@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	MATCH_REPORT request. It corresponds to the Announcing UE VPLMN Identifier when roaming and Announcing
 	UE HPLMN Identifier when non-roaming. It is referred to as "Monitored PLMN ID” in TS 23.303 [235]. 
  */
-@DiameterAvpDefinition(code = 3430L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitored-PLMN-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_PLMN_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Monitored-PLMN-Identifier")
 public interface MonitoredPLMNIdentifier extends DiameterUTF8String
 {
 }

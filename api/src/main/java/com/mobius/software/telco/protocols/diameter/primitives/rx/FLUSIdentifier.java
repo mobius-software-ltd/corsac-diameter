@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The FLUS-Identifier AVP (AVP code 566) is of type OctetString, and it indicates that a media component is used for FLUS media.
 	It is derived from the media level attribute "a=label:" (see IETF RFC 4574 [68]) obtained from the SDP body. It contains the string after "a=label:" starting with "flus" and may be followed by more characters as described in 3GPP TS 26.238 [69].
  */
-@DiameterAvpDefinition(code = 566L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "FLUS-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.FLUS_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "FLUS-Identifier")
 public interface FLUSIdentifier extends DiameterOctetString
 {
 }

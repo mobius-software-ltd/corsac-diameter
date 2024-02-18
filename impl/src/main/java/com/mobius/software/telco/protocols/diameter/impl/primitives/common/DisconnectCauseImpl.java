@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
@@ -28,10 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 273L, vendorId = -1L)
 public class DisconnectCauseImpl extends DiameterEnumeratedImpl<DisconnectCauseEnum> implements DisconnectCause
 {
-	protected DisconnectCauseImpl() 
+	public DisconnectCauseImpl() 
 	{
 		super();
 	}

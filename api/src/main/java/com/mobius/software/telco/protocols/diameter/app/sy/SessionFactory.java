@@ -20,11 +20,13 @@ package com.mobius.software.telco.protocols.diameter.app.sy;
 
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SLRequestTypeEnum;
 
 public interface SessionFactory
 {
-	public SpendingLimitRequest createSpendingLimitRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, SLRequestTypeEnum slRequestType);			
+	public SpendingLimitRequest createSpendingLimitRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, SLRequestTypeEnum slRequestType) throws MissingAvpException, AvpNotSupportedException;			
 	
-	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm);	
+	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
 }

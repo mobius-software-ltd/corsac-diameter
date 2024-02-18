@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -59,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          The text consists of the whole parameter, including its name
          and the equal sign ('=') and quotes.
  */
-@DiameterAvpDefinition(code = 117L, vendorId = -1, name = "Digest-Auth-Param")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_AUTN_PARAM, vendorId = -1, name = "Digest-Auth-Param")
 public interface DigestAuthParam extends DiameterUTF8String
 {
 }

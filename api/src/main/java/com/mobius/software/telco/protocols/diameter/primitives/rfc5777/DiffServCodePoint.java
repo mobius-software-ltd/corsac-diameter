@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    Differentiated Services Field Codepoints registry as defined in
    [RFC2474].
  */
-@DiameterAvpDefinition(code = 535L, vendorId = -1L, name = "Diffserv-Code-Point")
+@DiameterAvpDefinition(code = AvpCodes.DIFF_SERV_CODE_POINT, vendorId = -1L, name = "Diffserv-Code-Point")
 public interface DiffServCodePoint extends DiameterEnumerated<DiffServCodePointEnum>
 {
 }

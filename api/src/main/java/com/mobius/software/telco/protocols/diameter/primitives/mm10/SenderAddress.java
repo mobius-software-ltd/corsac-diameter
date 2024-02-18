@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -30,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
  * 6.3.7	Sender-Address AVP
 	The Sender-Address AVP (AVP code 1104) is of type UTF8String. This AVP contains the identification of a multimedia message sender to be provided to the multimedia message recipient.
  */
-@DiameterAvpDefinition(code = 1104L, vendorId = -1L, name = "Sender-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.SENDER_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Sender-Address")
 public interface SenderAddress extends DiameterUTF8String
 {
 }

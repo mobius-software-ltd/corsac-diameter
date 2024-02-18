@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv4Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	20.5a.2	MBMS-GW-SSM-IP-Address AVP
 	The MBMS-GW-SSM-IP-Address AVP (AVP code 924) is of type OctetString and contains the Sgi-mb (transport) plane IPv4 destination multicast address used by BM-SC for IP multicast encapsulation of application IP multicast datagrams.
  */
-@DiameterAvpDefinition(code = 924L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBMS-BMSC-SSM-IP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_GW_SSM_IP_ADDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "MBMS-BMSC-SSM-IP-Address")
 public interface MBMSGWSSMIPAddress extends DiameterIpv4Address
 {
 }

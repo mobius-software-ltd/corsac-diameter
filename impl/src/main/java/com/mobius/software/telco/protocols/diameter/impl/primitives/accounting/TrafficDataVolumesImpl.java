@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPRATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AccessAva
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PresenceReportingAreaStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.AccountingInputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.AccountingOutputOctetsImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPCIoTEPSOptimisationIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPCIoTEPSOptimisationIndicatorEnum;
@@ -61,7 +59,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2046L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TrafficDataVolumesImpl implements TrafficDataVolumes
 {
     private QoSInformation qosInformation;

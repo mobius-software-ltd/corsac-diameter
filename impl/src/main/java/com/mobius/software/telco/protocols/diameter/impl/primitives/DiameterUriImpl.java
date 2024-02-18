@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
+import java.util.Arrays;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTransport;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUri;
@@ -50,7 +53,7 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 		super(minLength,maxLength);		
 	}
 		
-	public DiameterUriImpl(String uri,Integer minLength,Integer maxLength) throws ParseException 
+	public DiameterUriImpl(String uri,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
 		super(uri,minLength,maxLength);	
 		parseUri();
@@ -97,7 +100,7 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 	}
 
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		super.decode(buffer, length);
 		if(getString()!=null)
@@ -106,9 +109,9 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 			{
 				parseUri();
 			}
-			catch(ParseException ex)
+			catch(InvalidAvpValueException ex)
 			{
-				return ex.getMessage();
+				return ex;
 			}
 		}
 		
@@ -148,7 +151,7 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 		return true;
 	}
 	
-	private void parseUri() throws ParseException
+	private void parseUri() throws InvalidAvpValueException
 	{
 		String remaining=getUri();
 		Integer errorOffset=0;
@@ -165,7 +168,7 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 			errorOffset+=6;
 		}
 		else
-			throw new ParseException("Invalid scheme", errorOffset);
+			throw new InvalidAvpValueException("Invalid scheme" + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 		
 		if(remaining.indexOf(";")>0)
 		{
@@ -179,24 +182,24 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 				{
 					String[] subSegments=segments[i].split("=");
 					if(subSegments.length!=2)
-						throw new ParseException("Invalid uri parameter " + segments[i], errorOffset);
+						throw new InvalidAvpValueException("Invalid uri parameter " + segments[i] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 					
 					switch (subSegments[0].toLowerCase()) 
 					{
 						case "transport":
 							transport=DiameterTransport.fromString(subSegments[1]);
 							if(transport==null)
-								throw new ParseException("Invalid transport " + subSegments[1], errorOffset);
+								throw new InvalidAvpValueException("Invalid transport " + subSegments[1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 							
 							break;
 						case "protocol":							
 							protocol=DiameterProtocol.fromString(subSegments[1]);
 							if(protocol==null)
-								throw new ParseException("Invalid protocol " + subSegments[1], errorOffset);
+								throw new InvalidAvpValueException("Invalid protocol " + subSegments[1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 							
 							break;	
 						default:
-							throw new ParseException("Invalid uri parameter " + segments[i], errorOffset);							
+							throw new InvalidAvpValueException("Invalid uri parameter " + segments[i] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));							
 					}
 				}
 				
@@ -211,7 +214,7 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 		{
 			String[] segments = remaining.split(":");
 			if(segments.length!=2)
-				throw new ParseException("Invalid host/port " + remaining, errorOffset);
+				throw new InvalidAvpValueException("Invalid host/port " + remaining + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));
 			
 			host=segments[0];
 			if(segments[1].length()>0)
@@ -222,11 +225,11 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 				}
 				catch(NumberFormatException ex)
 				{
-					throw new ParseException("Invalid host/port " + remaining, errorOffset);					
+					throw new InvalidAvpValueException("Invalid host/port " + remaining + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));					
 				}
 				
 				if(port<=0 || port>65535)
-					throw new ParseException("Invalid host/port " + remaining, errorOffset);				
+					throw new InvalidAvpValueException("Invalid host/port " + remaining + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { this }));				
 			}
 		}
 		else

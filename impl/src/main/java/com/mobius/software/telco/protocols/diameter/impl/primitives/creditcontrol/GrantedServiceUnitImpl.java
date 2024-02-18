@@ -18,28 +18,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
-
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.TariffChangeUsageEnum;
 
 /**
 *
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 431L, vendorId = -1)
 public class GrantedServiceUnitImpl extends UsedServiceUnitImpl implements GrantedServiceUnit
 {	
-	protected GrantedServiceUnitImpl()
+	public GrantedServiceUnitImpl()
 	{
 		super();
-	}
-	
-	public GrantedServiceUnitImpl(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage)
-	{
-		super(ccTime, ccMoney, ccTotalOctets, ccInputOctets, ccOutputOctets, ccServiceSpecificUnits, tariffChangeUsage);
 	}
 }

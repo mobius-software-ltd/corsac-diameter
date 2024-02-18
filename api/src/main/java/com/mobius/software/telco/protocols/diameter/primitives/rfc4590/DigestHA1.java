@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -62,7 +63,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          This attribute contains the hexadecimal representation of H(A1)
          as described in [RFC2617], sections 3.1.3, 3.2.1, and 3.2.2.2.
  */
-@DiameterAvpDefinition(code = 121L, vendorId = -1, name = "Digest-HA1")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_HA1, vendorId = -1, name = "Digest-HA1")
 public interface DigestHA1 extends DiameterUTF8String
 {
 }

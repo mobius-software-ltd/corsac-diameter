@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the main account balance of a subscriber before recharge, which is returned by the EVC recharge interface.
  */
-@DiameterAvpDefinition(code = 20914L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Amount-Before-Recharge")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.AMOUNT_BEFORE_RECHARGE, vendorId = VendorIDs.HUAWEI_ID, name = "Amount-Before-Recharge")
 public interface AmountBeforeRecharge extends DiameterUnsigned32
 {
 }

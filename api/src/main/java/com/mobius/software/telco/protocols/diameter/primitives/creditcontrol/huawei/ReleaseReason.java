@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -53,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 4: The account balance is used up.
 	    - 5: After the A->B session is released in the MT process, a session in the direction of A->B->VM is initiated.
  */
-@DiameterAvpDefinition(code = 20780L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Release-Reason")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.RELEASE_REASON, vendorId = VendorIDs.HUAWEI_ID, name = "Release-Reason")
 public interface ReleaseReason extends DiameterInteger32
 {
 }

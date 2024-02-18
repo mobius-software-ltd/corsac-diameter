@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	1 CC
 	2 BCC 
 */
-@DiameterAvpDefinition(code = 1208L, vendorId = KnownVendorIDs.TGPP_ID, name = "Addressee-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADDRESSEE_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Addressee-Type")
 public interface AddresseeType extends DiameterEnumerated<AddresseeTypeEnum>
 {
 }

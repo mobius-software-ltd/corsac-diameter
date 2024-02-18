@@ -18,12 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ExperimentalResultCodeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ResultCodeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResultCode;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ResultCode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventReportStatus;
@@ -36,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFReference
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3171L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MonitoringEventReportStatusImpl extends DiameterGroupedAvpImpl implements MonitoringEventReportStatus
 {
 	private SCEFReferenceID scefReferenceID;
@@ -49,17 +51,11 @@ public class MonitoringEventReportStatusImpl extends DiameterGroupedAvpImpl impl
 	{
 	}
 	
-	public MonitoringEventReportStatusImpl(Long scefReferenceID,String scefID)
+	public MonitoringEventReportStatusImpl(Long scefReferenceID,String scefID) throws MissingAvpException
 	{
-		if(scefReferenceID==null)
-			throw new IllegalArgumentException("SCEF-Reference-ID is required");
+		setSCEFReferenceID(scefReferenceID);
 		
-		if(scefID==null)
-			throw new IllegalArgumentException("SCEF-ID is required");
-		
-		this.scefReferenceID = new SCEFReferenceIDImpl(scefReferenceID, null, null);	
-		
-		this.scefID = new SCEFIDImpl(scefID, null, null);	
+		setSCEFID(scefID);
 	}
 	
 	public Long getSCEFReferenceID()
@@ -70,10 +66,10 @@ public class MonitoringEventReportStatusImpl extends DiameterGroupedAvpImpl impl
 		return scefReferenceID.getUnsigned();
 	}
 	
-	public void setSCEFReferenceID(Long value)
+	public void setSCEFReferenceID(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SCEF-Reference-ID is required");
+			throw new MissingAvpException("SCEF-Reference-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFReferenceIDImpl() }));
 		
 		this.scefReferenceID = new SCEFReferenceIDImpl(value, null, null);						
 	}
@@ -102,10 +98,10 @@ public class MonitoringEventReportStatusImpl extends DiameterGroupedAvpImpl impl
 		return scefID.getIdentity();
 	}
 	
-	public void setSCEFID(String value)
+	public void setSCEFID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SCEF-ID is required");
+			throw new MissingAvpException("SCEF-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
 		
 		this.scefID = new SCEFIDImpl(value, null, null);
 	}	
@@ -143,13 +139,13 @@ public class MonitoringEventReportStatusImpl extends DiameterGroupedAvpImpl impl
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(scefReferenceID==null)
-			return "SCEF-Reference-ID is required";
+			return new MissingAvpException("SCEF-Reference-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFReferenceIDImpl() }));
 		
 		if(scefID==null)
-			return "SCEF-ID is required";
+			return new MissingAvpException("SCEF-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
 		
 		return null;
 	}

@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ServerAssignmentRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPServerAssignmentTypeImpl;
@@ -48,7 +51,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 6, commandCode = 284, request = true)
 public class ServerAssignmentRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements ServerAssignmentRequest
 {
 	private AuthSessionState authSessionState;
@@ -68,7 +70,7 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 		super();
 	}
 	
-	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable)
+	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -89,11 +91,11 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
-		
+			throw new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
+			
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
@@ -107,11 +109,11 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 	}
 
 	@Override
-	public void setSIPServerAssignmentType(SIPServerAssignmentTypeEnum value) 
+	public void setSIPServerAssignmentType(SIPServerAssignmentTypeEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-Server-Assignment-Type is required");
-		
+			throw new MissingAvpException("SIP-Server-Assignment-Type is required is required", Arrays.asList(new DiameterAvp[] { new SIPServerAssignmentTypeImpl() }));
+			
 		this.sipServerAssignmentType = new SIPServerAssignmentTypeImpl(value, null, null);
 	}
 	
@@ -125,11 +127,11 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 	}
 	
 	@Override
-	public void setSIPUserDataAlreadyAvailable(SIPUserDataAlreadyAvailableEnum value)
+	public void setSIPUserDataAlreadyAvailable(SIPUserDataAlreadyAvailableEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-User-Data-Already-Available is required");
-		
+			throw new MissingAvpException("SIP-User-Data-Already-Available is required is required", Arrays.asList(new DiameterAvp[] { new SIPUserDataAlreadyAvailableImpl() }));
+			
 		this.sipUserDataAlreadyAvailable = new SIPUserDataAlreadyAvailableImpl(value, null, null);
 	}
 	
@@ -204,16 +206,16 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		if(sipServerAssignmentType == null)
-			return "SIP-Server-Assignment-Type is required";
+			return new MissingAvpException("SIP-Server-Assignment-Type is required is required", Arrays.asList(new DiameterAvp[] { new SIPServerAssignmentTypeImpl() }));
 		
 		if(sipUserDataAlreadyAvailable == null)
-			return "SIP-User-Data-Already-Available is required";
+			return new MissingAvpException("SIP-User-Data-Already-Available is required is required", Arrays.asList(new DiameterAvp[] { new SIPUserDataAlreadyAvailableImpl() }));
 		
 		return super.validate();
 	}

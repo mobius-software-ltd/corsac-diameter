@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -56,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	highAccuracyEllipsoidPointWithAltitudeAndScalableUncertaintyEllipsoid (10) 
  */
-@DiameterAvpDefinition(code = 2510L, vendorId = KnownVendorIDs.TGPP_ID, name = "Supported-GAD-Shapes")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUPPORTED_GAD_SHAPES, vendorId = VendorIDs.TGPP_ID, name = "Supported-GAD-Shapes")
 public interface SupportedGADShapes extends DiameterUnsigned32
 {
 }

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
@@ -28,10 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 416L, vendorId = -1L)
 public class CcRequestTypeImpl extends DiameterEnumeratedImpl<CcRequestTypeEnum> implements CcRequestType
 {
-	protected CcRequestTypeImpl() 
+	public CcRequestTypeImpl() 
 	{
 		super();
 	}

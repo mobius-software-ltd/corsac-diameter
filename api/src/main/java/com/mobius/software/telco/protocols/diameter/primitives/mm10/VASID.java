@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -30,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
  * 	6.3.4	VAS-ID AVP
 	The VAS-ID AVP (AVP Code 1102) is of type UTF8String. This AVP contains the identification of a Value Added Service.
  */
-@DiameterAvpDefinition(code = 1102L, vendorId = -1L, name = "VAS-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.VAS_ID, vendorId = VendorIDs.TGPP_ID, name = "VAS-ID")
 public interface VASID extends DiameterUTF8String
 {
 }

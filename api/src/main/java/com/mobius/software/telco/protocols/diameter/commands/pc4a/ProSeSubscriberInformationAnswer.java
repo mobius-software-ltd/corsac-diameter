@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
@@ -62,12 +65,12 @@ import io.netty.buffer.ByteBuf;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388664, request = false, proxyable = true, name="ProSe-Subscriber-Information-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC4A, commandCode = CommandCodes.PROSE_SUBSCRIBER_INFORMATION, request = false, proxyable = true, name="ProSe-Subscriber-Information-Answer")
 public interface ProSeSubscriberInformationAnswer extends Pc4aAnswer
 {
 	public AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 
 	ProSeSubscriptionData getProSeSubscriptionData();
 	 

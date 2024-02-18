@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s6b;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6b.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
@@ -32,14 +33,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777250, commandCode = 274, request = false)
 public class AbortSessionAnswerImpl extends S6bAnswerImpl implements AbortSessionAnswer
 {
 	protected AbortSessionAnswerImpl() 
 	{
 	}
 	
-	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public AbortSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}

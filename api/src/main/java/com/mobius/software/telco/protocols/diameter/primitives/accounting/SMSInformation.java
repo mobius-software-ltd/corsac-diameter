@@ -22,9 +22,10 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -64,7 +65,7 @@ import io.netty.buffer.ByteBuf;
 			[ Application-Port-Identifier ]
 			[ External-Identifier ] 
  */
-@DiameterAvpDefinition(code = 2000L, vendorId = KnownVendorIDs.TGPP_ID, name = "SMS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.SMS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "SMS-Information")
 public interface SMSInformation extends DiameterAvp
 {
 	SMSNodeEnum getSMSNode();

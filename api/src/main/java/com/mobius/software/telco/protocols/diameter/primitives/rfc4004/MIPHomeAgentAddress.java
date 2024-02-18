@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
    	The MIP-Home-Agent-Address AVP (AVP Code 334) is of type Address and
    	contains the mobile node's home agent IP address.
  */
-@DiameterAvpDefinition(code = 334L, vendorId = -1L, name = "MIP-Home-Agent-Address")
+@DiameterAvpDefinition(code = AvpCodes.MIP_HOME_AGENT_ADDRESS, vendorId = -1L, name = "MIP-Home-Agent-Address")
 public interface MIPHomeAgentAddress extends DiameterAddress
 {
 }

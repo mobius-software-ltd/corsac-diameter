@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
    message with no Accounting-Sub-Session-Id AVP present will signal the
    termination of all sub-sessions for a given Session-Id.
  */
-@DiameterAvpDefinition(code = 287L, vendorId = -1L, name = "Accounting-Sub-Session-Id")
+@DiameterAvpDefinition(code = AvpCodes.ACCOUNTING_SUB_SESSION_ID, vendorId = -1L, name = "Accounting-Sub-Session-Id")
 public interface AccountingSubSessionId extends DiameterUnsigned64
 {
 }

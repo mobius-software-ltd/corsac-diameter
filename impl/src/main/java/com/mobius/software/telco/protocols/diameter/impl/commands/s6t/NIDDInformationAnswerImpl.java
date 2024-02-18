@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s6t;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.NIDDInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -39,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthoriza
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777345, commandCode = 8388726, request = false)
 public class NIDDInformationAnswerImpl extends S6tAnswerImpl implements NIDDInformationAnswer
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -60,7 +60,7 @@ public class NIDDInformationAnswerImpl extends S6tAnswerImpl implements NIDDInfo
 		setExperimentalResultAllowed(false);
 	}
 	
-	public NIDDInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public NIDDInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

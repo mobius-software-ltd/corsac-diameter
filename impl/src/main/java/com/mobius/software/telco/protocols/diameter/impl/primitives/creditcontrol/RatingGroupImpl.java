@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RatingGroup;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Rat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 432L, vendorId = -1L)
 public class RatingGroupImpl extends DiameterUnsigned32Impl implements RatingGroup
 {
-	protected RatingGroupImpl() 
+	public RatingGroupImpl() 
 	{
 		super();
 	}

@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -77,7 +78,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                 * [ SIP-Server-URI ]
                                 * [ AVP ]             
  */
-@DiameterAvpDefinition(code = 372L, vendorId = -1L, name = "SIP-Server-Capabilities")
+@DiameterAvpDefinition(code = AvpCodes.SIP_SERVER_CAPABILITIES, vendorId = -1L, name = "SIP-Server-Capabilities")
 public interface SIPServerCapabilities extends DiameterGroupedAvp
 {
 	List<Long> getSIPMandatoryCapability();

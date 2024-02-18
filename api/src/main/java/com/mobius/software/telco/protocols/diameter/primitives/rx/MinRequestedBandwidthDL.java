@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When provided in an AA-Request, it indicates the minimum requested bandwidth.
 	When the Extended-Min-Requested-BW-NR feature is supported and the value to be transmitted exceeds 2^32-1, the Extended-Min-Requested-Bandwidth-DL AVP shall be used, see clause 4.4.10 and clause 5.3.58.
  */
-@DiameterAvpDefinition(code = 534L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Min-Requested-Bandwidth-DL")
+@DiameterAvpDefinition(code = TgppAvpCodes.MIN_REQUESTED_BANDWIDTH_DL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Min-Requested-Bandwidth-DL")
 public interface MinRequestedBandwidthDL extends DiameterUnsigned32
 {
 }

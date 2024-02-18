@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.app.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
@@ -44,20 +45,20 @@ import io.netty.buffer.ByteBuf;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public Flows getFlows(Long mediaComponentNumber);
+	public Flows getFlows(Long mediaComponentNumber) throws MissingAvpException;
 	
-	public AccessNetworkChargingIdentifier getAccessNetworkChargingIdentifier(ByteBuf accessNetworkChargingIdentifierValue);
+	public AccessNetworkChargingIdentifier getAccessNetworkChargingIdentifier(ByteBuf accessNetworkChargingIdentifierValue) throws MissingAvpException;
 	
-	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber);
+	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber) throws MissingAvpException;
 	
-	public MediaSubComponent getMediaSubComponent(Long flowNumber);
+	public MediaSubComponent getMediaSubComponent(Long flowNumber) throws MissingAvpException;
 	
-	public FlowDescription getFlowDescription(String rule) throws ParseException;
+	public FlowDescription getFlowDescription(String rule) throws InvalidAvpValueException;
 	
 	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 	
 	public FlowGrouping getFlowGrouping();
 }

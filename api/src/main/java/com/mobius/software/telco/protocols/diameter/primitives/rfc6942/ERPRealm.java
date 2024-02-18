@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc6942;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 
    	This AVP has the 'M' and 'V' bits cleared.
 */
-@DiameterAvpDefinition(code = 619L, vendorId = -1L, must = false, name = "ERP-Realm")
+@DiameterAvpDefinition(code = AvpCodes.ERP_REALM, vendorId = -1L, must = false, name = "ERP-Realm")
 public interface ERPRealm extends DiameterIdentity
 {
 }

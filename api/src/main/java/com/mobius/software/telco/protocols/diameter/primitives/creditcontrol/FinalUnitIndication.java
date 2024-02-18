@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /**
@@ -102,12 +104,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
                                    [ Redirect-Server ]
  *
  */
-@DiameterAvpDefinition(code = 430L, vendorId = -1, name = "Final-Unit-Indication")
+@DiameterAvpDefinition(code = AvpCodes.FINAL_UNIT_INDICATION, vendorId = -1, name = "Final-Unit-Indication")
 public interface FinalUnitIndication extends DiameterAvp 
 {
 	FinalUnitActionEnum getFinalUnitAction();
 	
-	void setFinalUnitAction(FinalUnitActionEnum finalUnitAction);
+	void setFinalUnitAction(FinalUnitActionEnum finalUnitAction) throws MissingAvpException;
 	
 	List<RestrictionFilterRule> getRestrictionFilterRule();
 	

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 
@@ -43,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
                     [ Failed-AVP ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 0, commandCode = 282, request = false, proxyable = false, name="Disconnect-Peer-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.COMMON, commandCode = CommandCodes.DISCONNECT_PEER, request = false, proxyable = false, name="Disconnect-Peer-Answer")
 public interface DisconnectPeerAnswer extends DiameterAnswer
 {	
 }

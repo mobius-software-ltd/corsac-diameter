@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	The use of value DISABLE_SPONSORING (0) to "not enable" sponsored data connectivity is used at initial provisioning of session information to provide sponsor information but not enable it at that point in time and to "disable" sponsored data connectivity is used at modification of session information when disabling sponsored data connectivity previously enabled.
  */
-@DiameterAvpDefinition(code = 542L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Sponsoring-Action")
+@DiameterAvpDefinition(code = TgppAvpCodes.SPONSORING_ACTION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Sponsoring-Action")
 public interface SponsoringAction extends DiameterEnumerated<SponsoringActionEnum>
 {
 }

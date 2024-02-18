@@ -22,9 +22,11 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TraceData;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.ANTrustedEnum;
@@ -78,7 +80,7 @@ import io.netty.buffer.ByteBuf;
 
 	NOTE 2:	The IP-CAN-Type, AN-GW-Address, AN-Trusted, 3GPP-SGSN-Address, 3GPP-SGSN-Ipv6-Address, 3GPP-SGSN-MCC-MNC, Framed-IP-Address, UE-Local-IP-Address, HeNB-Local-IP-Address and UDP-Source-Port, Presence-Reporting-Area-Information AVPs are not applicable to the Gx interface.
  */
-@DiameterAvpDefinition(code = 1033L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Event-Report-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.EVENT_REPORT_INDICATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Event-Report-Indication")
 public interface EventReportIndication extends DiameterGroupedAvp
 {
 	ANTrustedEnum getANTrusted();
@@ -99,7 +101,7 @@ public interface EventReportIndication extends DiameterGroupedAvp
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	ByteBuf get3GPPSGSNAddress();
 	

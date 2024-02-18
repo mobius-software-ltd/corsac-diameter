@@ -1,17 +1,21 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectMaxCacheTimeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsage;
@@ -59,23 +63,17 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 		super();
 	}
 	
-	public AuthenticationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public AuthenticationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		authApplicationIdAllowed=false;
 	}
 	
-	public AuthenticationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public AuthenticationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
-		try
-		{
-			setAuthApplicationId(authApplicationId);
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			//should not happen
-		}
+		
+		setAuthApplicationId(authApplicationId);		
 	}
 
 	@Override
@@ -94,7 +92,7 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public void setRedirectHost(List<String> value) throws ParseException 
+	public void setRedirectHost(List<String> value) throws InvalidAvpValueException 
 	{
 		if(value == null || value.size()==0)
 			this.redirectHost = null;
@@ -152,22 +150,25 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public void setAuthApplicationId(Long value) throws AvpNotSupportedException 
+	public void setAuthApplicationId(Long value) throws AvpNotSupportedException, MissingAvpException 
 	{
-		if(!authApplicationIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!authApplicationIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl( value, null, null) }));
 		
 		if(authApplicationId==null)
-			throw new IllegalArgumentException("Auth-Application-Id is required");
+			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
+		if(!authApplicationIdAllowed && authApplicationId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { authApplicationId }));
+		
 		if(authApplicationIdAllowed && authApplicationId==null)
-			return "Auth-Application-Id is required";
+			return new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		return super.validate();
 	}

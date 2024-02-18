@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	rules provided by the PCRF it uniquely identifies a PCC rule within one IP CAN session. For PCC rules pre-defined at
 	the PCEF it uniquely identifies a PCC rule within the PCEF. 
  */
-@DiameterAvpDefinition(code = 1005L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Rule-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_RULE_NAME, vendorId = VendorIDs.TGPP_ID, name = "Charging-Rule-Name")
 public interface ChargingRuleName extends DiameterOctetString
 {
 }

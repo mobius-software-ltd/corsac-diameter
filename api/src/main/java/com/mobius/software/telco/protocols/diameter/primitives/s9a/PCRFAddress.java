@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s9a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The PCRF-Address AVP (AVP code 2207) is of type DiameterIdentity and is used by the (V)-PCRF to indicate its own address in the TER command so that the BPCF can address the (V)-PCRF during the S9a session establishment procedure.
 	NOTE:	The value in the Origin-Host AVP of the TER command can be replaced by the proxy agent between the (V)-PCRF and the BPCF. 
  */
-@DiameterAvpDefinition(code = 2207L, vendorId = KnownVendorIDs.TGPP_ID, name = "PCRF-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.PCRF_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "PCRF-Address")
 public interface PCRFAddress extends DiameterIdentity
 {
 }

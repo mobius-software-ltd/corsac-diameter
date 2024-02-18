@@ -19,11 +19,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
  */
 
 import java.net.Inet4Address;
+import java.util.Arrays;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.PortNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.V4TransportAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPAddress;
@@ -33,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPAddre
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 454L, vendorId = KnownVendorIDs.TGPP_ID)
 public class V4TransportAddressImpl implements V4TransportAddress
 {
 	private FramedIPAddress framedIPAddress;
@@ -45,17 +46,11 @@ public class V4TransportAddressImpl implements V4TransportAddress
 		
 	}
 	
-	public V4TransportAddressImpl(Inet4Address framedIPAddress,Long portNumber)
+	public V4TransportAddressImpl(Inet4Address framedIPAddress,Long portNumber) throws MissingAvpException
 	{
-		if(framedIPAddress==null)
-			throw new IllegalArgumentException("Framed-IP-Address is required");
+		setFramedIPAddress(framedIPAddress);
 		
-		if(portNumber==null)
-			throw new IllegalArgumentException("Port-Number is required");
-		
-		this.framedIPAddress = new FramedIPAddressImpl(framedIPAddress);	
-		
-		this.portNumber = new PortNumberImpl(portNumber, null, null);
+		setPortNumber(portNumber);
 	}
 	
 	public Inet4Address getFramedIPAddress()
@@ -66,10 +61,10 @@ public class V4TransportAddressImpl implements V4TransportAddress
 		return framedIPAddress.getAddress();
 	}
 	
-	public void setFramedIPAddress(Inet4Address value)
+	public void setFramedIPAddress(Inet4Address value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Framed-IP-Address is required");
+			throw new MissingAvpException("Framed-IP-Address requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new FramedIPAddressImpl() }));
 		
 		this.framedIPAddress = new FramedIPAddressImpl(value);
 	}
@@ -82,22 +77,22 @@ public class V4TransportAddressImpl implements V4TransportAddress
 		return portNumber.getUnsigned();
 	}
 	
-	public void setPortNumber(Long value)
+	public void setPortNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Port-Number is required");
+			throw new MissingAvpException("Port-Number requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new PortNumberImpl() }));
 		
 		this.portNumber = new PortNumberImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(framedIPAddress==null)
-			return "Framed-IP-Address is required";
+			return new MissingAvpException("Framed-IP-Address requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new FramedIPAddressImpl() }));
 		
 		if(portNumber==null)
-			return "Port-Number is required";
+			return new MissingAvpException("Port-Number requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new PortNumberImpl() }));
 		
 		return null;
 	}

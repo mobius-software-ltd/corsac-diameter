@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.33	Idle-Status-Timestamp
 	The Idle-Status-Timestamp AVP is of type Time and shall contain a timestamp (the time at which the UE transitioned into idle mode).	
  */
-@DiameterAvpDefinition(code = 4323L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Idle-Status-Timestamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.IDLE_STATUS_TIMESTAMP, vendorId = VendorIDs.TGPP_ID,must = false, name = "Idle-Status-Timestamp")
 public interface IdleStatusTimestamp extends DiameterTime
 {
 }

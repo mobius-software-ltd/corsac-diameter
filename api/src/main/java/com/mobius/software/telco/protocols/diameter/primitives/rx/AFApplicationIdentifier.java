@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	For example the AF-Application-Identifier may be used as additional information together with the Media-Type AVP when the QoS class for the bearer authorization at the Gx interface is selected. The AF-Application-Identifier may be used also to complete the QoS authorization with application specific default settings in the PCRF if the AF does not provide full service information.
 	The AF-Application-Identifier AVP may also be used to trigger the PCRF to indicate to the PCEF/TDF to perform the application detection based on the operator’s policy.
  */
-@DiameterAvpDefinition(code = 504L, vendorId = KnownVendorIDs.TGPP_ID, name = "AF-Application-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.AF_APPLICATION_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "AF-Application-Identifier")
 public interface AFApplicationIdentifier extends DiameterOctetString
 {
 }

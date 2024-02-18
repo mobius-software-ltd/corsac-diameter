@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -62,7 +63,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ Node-Id ]
  		  * [ AVP ]
  */
-@DiameterAvpDefinition(code = 1011L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "M2M-Information")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.M2M_INFORMATION, vendorId = VendorIDs.ONEM2M_ID, name = "M2M-Information")
 public interface M2MInformation extends DiameterGroupedAvp
 {
 	String getApplicationEntityID();

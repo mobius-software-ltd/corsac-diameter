@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MWDStatus;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.MWDStatus;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3312L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MWDStatusImpl extends DiameterBitmask32Impl implements MWDStatus
 {
 	public MWDStatusImpl()
@@ -44,7 +41,7 @@ public class MWDStatusImpl extends DiameterBitmask32Impl implements MWDStatus
 	@Override
 	public void setMNRFBit(boolean isOn)
 	{
-		setBit(MNRF_BIT, isOn);
+		setBitUnchecked(MNRF_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class MWDStatusImpl extends DiameterBitmask32Impl implements MWDStatus
 	@Override
 	public void setMCEFFlowBit(boolean isOn)
 	{
-		setBit(MCEF_BIT, isOn);
+		setBitUnchecked(MCEF_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class MWDStatusImpl extends DiameterBitmask32Impl implements MWDStatus
 	@Override
 	public void setMNRGBit(boolean isOn)
 	{
-		setBit(MNRG_BIT, isOn);
+		setBitUnchecked(MNRG_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class MWDStatusImpl extends DiameterBitmask32Impl implements MWDStatus
 	@Override
 	public void setMNRG5GBit(boolean isOn)
 	{
-		setBit(MNRG5G_BIT, isOn);
+		setBitUnchecked(MNRG5G_BIT, isOn);
 	}
 
 	@Override

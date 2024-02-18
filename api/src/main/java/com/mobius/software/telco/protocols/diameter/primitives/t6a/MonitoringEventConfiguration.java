@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.LocationInformationConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.UEReachabilityConfiguration;
@@ -57,7 +59,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.UEReachabilit
 
 	When the "Extended Reference IDs" feature is supported by the SCEF and MME/SGSN, the SCEF-Reference-ID-Ext and SCEF-Reference-ID-for-Deletion-Ext AVPs shall be used insted of SCEF-Reference-ID and SCEF-Reference-ID-for-Deletion respectively.
  */
-@DiameterAvpDefinition(code = 3122L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Configuration")
+@DiameterAvpDefinition(code = TgppAvpCodes.S6T_MONITORING_EVENT_CONFIGURATION, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Event-Configuration")
 public interface MonitoringEventConfiguration extends DiameterGroupedAvp
 {
 	Long getSCEFReferenceID();
@@ -70,11 +72,11 @@ public interface MonitoringEventConfiguration extends DiameterGroupedAvp
 	
 	String getSCEFID();
 	
-	void setSCEFID(String value);	
+	void setSCEFID(String value) throws MissingAvpException;	
 	
 	MonitoringTypeEnum getMonitoringType();
 	
-	void setMonitoringType(MonitoringTypeEnum value);
+	void setMonitoringType(MonitoringTypeEnum value) throws MissingAvpException;
 	
 	List<Long> getSCEFReferenceIDForDeletion();
 	

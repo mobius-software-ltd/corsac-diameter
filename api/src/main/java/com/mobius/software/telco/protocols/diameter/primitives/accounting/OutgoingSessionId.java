@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	AS acting as B2BUA. For a SIP session the Outgoing-Session-Id AVP contains the SIP Call ID of the outgoing leg, as
 	defined in RFC 3261 [405]. 
  */
-@DiameterAvpDefinition(code = 2320L, vendorId = KnownVendorIDs.TGPP_ID, name = "Outgoing-Session-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.OUTGOING_SESSION_ID, vendorId = VendorIDs.TGPP_ID, name = "Outgoing-Session-Id")
 public interface OutgoingSessionId extends DiameterUTF8String
 {
 }

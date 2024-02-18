@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -128,7 +129,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		In the AAR, this value indicates that the AF requests the PCRF to provide a notification when the QoS of the default bearer has failed to update.
 		Applicable to functionality introduced with the MPSforDTS feature as described in clause 5.4.1.
  */
-@DiameterAvpDefinition(code = 513L, vendorId = KnownVendorIDs.TGPP_ID, name = "Specific-Action")
+@DiameterAvpDefinition(code = TgppAvpCodes.SPECIFIC_ACTION, vendorId = VendorIDs.TGPP_ID, name = "Specific-Action")
 public interface SpecificAction extends DiameterEnumerated<SpecificActionEnum>
 {
 }

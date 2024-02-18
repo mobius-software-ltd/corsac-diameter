@@ -18,14 +18,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSFlowIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSFlowIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.TMGI;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEvent;
@@ -41,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3503L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl implements MBMSBearerEventNotification
 {
 	private TMGI tmgi;
@@ -55,7 +56,7 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
     	super();
     }
     
-    public MBMSBearerEventNotificationImpl(ByteBuf tmgi,ByteBuf mbmsFlowIdentifier,MBMSBearerEvent mbmsBearerEvent)
+    public MBMSBearerEventNotificationImpl(ByteBuf tmgi,ByteBuf mbmsFlowIdentifier,MBMSBearerEvent mbmsBearerEvent) throws MissingAvpException
     {
     	setTMGI(tmgi);
     	
@@ -72,11 +73,11 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
 		return tmgi.getValue();
 	}
 	
-	public void setTMGI(ByteBuf value)
+	public void setTMGI(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("TMGI is required");
-		
+			throw new MissingAvpException("TMGI is required", Arrays.asList(new DiameterAvp[] { new TMGIImpl() }));
+			
 		this.tmgi = new TMGIImpl(value, null, null);	
 	}
 	
@@ -88,10 +89,10 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
 		return mbmsFlowIdentifier.getValue();
 	}
 	
-	public void setMBMSFlowIdentifier(ByteBuf value)
+	public void setMBMSFlowIdentifier(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MBMS-Flow-Identifier is required");
+			throw new MissingAvpException("MBMS-Flow-Identifier is required", Arrays.asList(new DiameterAvp[] { new MBMSFlowIdentifierImpl() }));
 		
 		this.mbmsFlowIdentifier = new MBMSFlowIdentifierImpl(value, null, null);	
 	}
@@ -101,11 +102,11 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
 		return mbmsBearerEvent;
 	}
 	
-	public void setMBMSBearerEvent(MBMSBearerEvent value)
+	public void setMBMSBearerEvent(MBMSBearerEvent value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MBMS‑Bearer‑Event is required");
-		
+			throw new MissingAvpException("MBMS‑Bearer‑Event is required", Arrays.asList(new DiameterAvp[] { new MBMSBearerEventImpl() }));
+			
 		this.mbmsBearerEvent = value;	
 	}
 	
@@ -136,16 +137,16 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tmgi==null)
-			return "TMGI is required";
+			return new MissingAvpException("TMGI is required", Arrays.asList(new DiameterAvp[] { new TMGIImpl() }));
 		
 		if(mbmsFlowIdentifier==null)
-			return "MBMS-Flow-Identifier is required";
+			return new MissingAvpException("MBMS-Flow-Identifier is required", Arrays.asList(new DiameterAvp[] { new MBMSFlowIdentifierImpl() }));
 		
 		if(mbmsBearerEvent==null)
-			return "MBMS‑Bearer‑Event is required";
+			return new MissingAvpException("MBMS‑Bearer‑Event is required", Arrays.asList(new DiameterAvp[] { new MBMSBearerEventImpl() }));
 		
 		return null;
 	}	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The specified recharge account type determines that the recharge amount is added to the prepaid account or postpaid account. 
 	For the hybrid subscriber, if no recharge account type is specified, the recharge amount is added to the prepaid account by default.
  */
-@DiameterAvpDefinition(code = 20324L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Account-Type")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACCOUNT_TYPE, vendorId = VendorIDs.HUAWEI_ID, name = "Account-Type")
 public interface AccountType extends DiameterUnsigned32
 {
 }

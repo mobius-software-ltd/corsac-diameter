@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressIPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressSIPURI;
@@ -32,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Red
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 665L, vendorId = -1)
 public class RedirectServerExtensionImpl extends DiameterGroupedAvpImpl implements RedirectServerExtension
 {
 	private RedirectAddressIPAddress ipAddress;

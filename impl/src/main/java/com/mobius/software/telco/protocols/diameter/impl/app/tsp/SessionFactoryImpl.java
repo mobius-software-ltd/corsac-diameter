@@ -23,6 +23,8 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.app.tsp.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.tsp.DeviceActionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.tsp.DeviceNotificationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -46,12 +48,12 @@ public class SessionFactoryImpl implements SessionFactory
 		this.applicationId = applicationId;
 	}
 	
-	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationRealm)
+	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new DeviceNotificationRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}			
 	
-	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationRealm)
+	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new DeviceActionRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}

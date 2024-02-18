@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AccountBalanceChange;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AccountChangeInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AccountDate;
@@ -37,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20349L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class AccountChangeInfoImpl implements AccountChangeInfo 
 {
 	private AccountID accountID;
@@ -59,7 +61,7 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 		
 	}
 	
-	public AccountChangeInfoImpl(ByteBuf accountID, Long accountType, Long currentAccountBalance, Long accountBalanceChange, ByteBuf accountDate, Long accountDateChange, Long measureType)
+	public AccountChangeInfoImpl(ByteBuf accountID, Long accountType, Long currentAccountBalance, Long accountBalanceChange, ByteBuf accountDate, Long accountDateChange, Long measureType) throws MissingAvpException
 	{
 		setAccountID(accountID);
 		
@@ -86,11 +88,11 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 	}
 	
 	@Override
-	public void setAccountID(ByteBuf value)
+	public void setAccountID(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Account-Id is required");
-		
+			throw new MissingAvpException("Account-Id is required", Arrays.asList(new DiameterAvp[] { new AccountIDImpl() }));
+			
 		this.accountID = new AccountIDImpl(value);
 	}
 	
@@ -104,11 +106,11 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 	}
 	
 	@Override
-	public void setAccountType(Long value)
+	public void setAccountType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Account-Type is required");
-		
+			throw new MissingAvpException("Account-Type is required", Arrays.asList(new DiameterAvp[] { new AccountTypeImpl() }));
+			
 		this.accountType = new AccountTypeImpl(value, null, null);
 	}
 	
@@ -122,11 +124,11 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 	}
 	
 	@Override
-	public void setCurrentAccountBalance(Long value)
+	public void setCurrentAccountBalance(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Current-Account-Balance is required");
-		
+			throw new MissingAvpException("Current-Account-Balance is required", Arrays.asList(new DiameterAvp[] { new CurrentAccountBalanceImpl() }));
+			
 		this.currentAccountBalance = new CurrentAccountBalanceImpl(value, null, null);
 	}
 	
@@ -140,11 +142,11 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 	}
 	
 	@Override
-	public void setAccountBalanceChange(Long value)
+	public void setAccountBalanceChange(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Account-Balance-Change is required");
-		
+			throw new MissingAvpException("Account-Balance-Change is required", Arrays.asList(new DiameterAvp[] { new AccountBalanceChangeImpl() }));
+			
 		this.accountBalanceChange = new AccountBalanceChangeImpl(value, null, null);
 	}
 	
@@ -158,11 +160,11 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 	}
 	
 	@Override
-	public void setAccountDate(ByteBuf value)
+	public void setAccountDate(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Account-Date is required");
-		
+			throw new MissingAvpException("Account-Date is required", Arrays.asList(new DiameterAvp[] { new AccountDateImpl() }));
+			
 		this.accountDate = new AccountDateImpl(value);
 	}
 	
@@ -176,11 +178,11 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 	}
 	
 	@Override
-	public void setAccountDateChange(Long value)
+	public void setAccountDateChange(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Account-Date-Change is required");
-		
+			throw new MissingAvpException("Account-Date-Change is required", Arrays.asList(new DiameterAvp[] { new AccountDateChangeImpl() }));
+			
 		this.accountDateChange = new AccountDateChangeImpl(value, null, null);
 	}
 	
@@ -194,37 +196,37 @@ public class AccountChangeInfoImpl implements AccountChangeInfo
 	}
 	
 	@Override
-	public void setMeasureType(Long value)
+	public void setMeasureType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Measure-Type is required");
-		
+			throw new MissingAvpException("Measure-Type is required", Arrays.asList(new DiameterAvp[] { new MeasureTypeImpl() }));
+			
 		this.measureType = new MeasureTypeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(accountID==null)
-			return "Account-Id is required";
+			return new MissingAvpException("Account-Id is required", Arrays.asList(new DiameterAvp[] { new AccountIDImpl() }));
 		
 		if(accountType==null)
-			return "Account-Type is required";
+			return new MissingAvpException("Account-Type is required", Arrays.asList(new DiameterAvp[] { new AccountTypeImpl() }));
 		
 		if(currentAccountBalance==null)
-			return "Current-Account-Balance is required";
+			return new MissingAvpException("Current-Account-Balance is required", Arrays.asList(new DiameterAvp[] { new CurrentAccountBalanceImpl() }));
 		
 		if(accountBalanceChange==null)
-			return "Account-Balance-Change is required";
+			return new MissingAvpException("Account-Balance-Change is required", Arrays.asList(new DiameterAvp[] { new AccountBalanceChangeImpl() }));
 		
 		if(accountDate==null)
-			return "Account-Date is required";
+			return new MissingAvpException("Account-Date is required", Arrays.asList(new DiameterAvp[] { new AccountDateImpl() }));
 		
 		if(accountDateChange==null)
-			return "Account-Date-Change is required";
+			return new MissingAvpException("Account-Date-Change is required", Arrays.asList(new DiameterAvp[] { new AccountDateChangeImpl() }));
 		
 		if(measureType==null)
-			return "Measure-Type is required";
+			return new MissingAvpException("Measure-Type is required", Arrays.asList(new DiameterAvp[] { new MeasureTypeImpl() }));
 		
 		return null;
 	}

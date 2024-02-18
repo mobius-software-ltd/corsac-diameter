@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	For GGSN, only the values "0", "1" and "2" are applicable.
 	For P-GW, this sub-attribute represents PDN Type and therefore only the values "0", "2" and "3" are applicable. 
  */
-@DiameterAvpDefinition(code = 3L, vendorId = KnownVendorIDs.TGPP_ID, name = "3GPP-PDP-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_PDP_TYPE, vendorId = VendorIDs.TGPP_ID, name = "3GPP-PDP-Type")
 public interface TGPPPDPType extends DiameterEnumerated<TGPPPDPTypeEnum>
 {
 }

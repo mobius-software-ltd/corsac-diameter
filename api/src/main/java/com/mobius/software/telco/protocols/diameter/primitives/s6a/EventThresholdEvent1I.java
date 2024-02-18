@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.173	Event-Threshold-Event-1I
 	The Event-Threshold-Event-1I AVP is of type Integer32. See 3GPP TS 32.422 [23] for allowed values
  */
-@DiameterAvpDefinition(code = 1662L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Event-Threshold-Event-1I")
+@DiameterAvpDefinition(code = TgppAvpCodes.EVENT_THRESHOLD_EVENT_1I, vendorId = VendorIDs.TGPP_ID, must = false, name = "Event-Threshold-Event-1I")
 public interface EventThresholdEvent1I extends DiameterInteger32
 {
 }

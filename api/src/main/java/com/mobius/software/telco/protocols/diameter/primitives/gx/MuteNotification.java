@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Mute-Notification AVP shall be used for solicited application reporting only.
 	Absence of this AVP means that application start/stop notifications shall be sent for the detected application. 
  */
-@DiameterAvpDefinition(code = 2809L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Mute-Notification")
+@DiameterAvpDefinition(code = TgppAvpCodes.MUTE_NOTIFICATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Mute-Notification")
 public interface MuteNotification extends DiameterEnumerated<MuteNotificationEnum>
 {
 }

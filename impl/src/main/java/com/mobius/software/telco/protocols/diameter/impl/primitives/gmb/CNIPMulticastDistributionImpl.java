@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.CNIPMulticastDistribution;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.CNIPMulticastDistributionEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gmb.CNIPMulticast
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 921L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CNIPMulticastDistributionImpl extends DiameterEnumeratedImpl<CNIPMulticastDistributionEnum> implements CNIPMulticastDistribution 
 {
 	protected CNIPMulticastDistributionImpl()

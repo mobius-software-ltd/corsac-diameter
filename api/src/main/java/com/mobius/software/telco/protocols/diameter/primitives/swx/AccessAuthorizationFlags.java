@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	UE is allowed to access the EPC when connected via Trusted WLAN access only if the Non-3GPP-IP-Access-APN AVP does not disable all APNs and the EPC-Access-Authorization bit is set.
  */
-@DiameterAvpDefinition(code = 1511L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Access-Authorization-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_AUTHORIZATION_FLAGS, vendorId = VendorIDs.TGPP_ID, must = false, name = "Access-Authorization-Flags")
 public interface AccessAuthorizationFlags extends DiameterBitmask32
 {
 	public static final int EPC_ACCCESS_AUTHORIZATION_BIT = 0;	

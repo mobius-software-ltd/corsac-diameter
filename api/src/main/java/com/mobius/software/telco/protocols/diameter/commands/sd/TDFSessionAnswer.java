@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sd;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -63,7 +65,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleReport;
 				*[ Load ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777303, commandCode = 8388637, request = false, proxyable = true, name="TS-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SD, commandCode = CommandCodes.TDF_SESSION, request = false, proxyable = true, name="TS-Answer")
 public interface TDFSessionAnswer extends VendorSpecificAnswer
 {
 	DRMPEnum getDRMP();

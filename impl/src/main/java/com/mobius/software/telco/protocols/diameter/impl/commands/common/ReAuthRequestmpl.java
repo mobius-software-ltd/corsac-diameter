@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -38,7 +41,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 0, commandCode = 258, request = true)
 public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implements ReAuthRequest
 {
 	protected ReAuthRequestType reAuthRequestType;
@@ -47,7 +49,7 @@ public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implemen
 	{
 	}
 		
-	public ReAuthRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType)
+	public ReAuthRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID, authApplicationID);
 		
@@ -92,20 +94,20 @@ public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implemen
 	}
 
 	@Override
-	public void setReAuthRequestType(ReAuthRequestTypeEnum value) 
+	public void setReAuthRequestType(ReAuthRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Re-Auth-Request-Type is required");
+			throw new MissingAvpException("Re-Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ReAuthRequestTypeImpl() } ));
 		
 		this.reAuthRequestType = new ReAuthRequestTypeImpl(value, null, null);
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(reAuthRequestType==null)
-			return "Re-Auth-Request-Type is required";
-		
+			return new MissingAvpException("Re-Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ReAuthRequestTypeImpl() } ));
+			
 		return super.validate();
 	}
 	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.80	Expiration-Date
 	The Expiration-Date AVP is of type Time (see IETF RFC 6733 [61]) and contains the point in time when subscription to the CSG-Id expires.
  */
-@DiameterAvpDefinition(code = 1439L, vendorId = KnownVendorIDs.TGPP_ID, name = "Expiration-Date")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXPIRATION_DATE, vendorId = VendorIDs.TGPP_ID, name = "Expiration-Date")
 public interface ExpirationDate extends DiameterTime
 {
 }

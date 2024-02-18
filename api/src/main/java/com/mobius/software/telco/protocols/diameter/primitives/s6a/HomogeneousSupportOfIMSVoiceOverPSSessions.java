@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	In order to ensure the T-ADS by HPLMN, MME or SGSN is expected to either set "Homogenous Support of IMS Voice over PS Sessions" AVP to "NOT_SUPPORTED (0)", or not to set this AVP for inbound roaming subscribers if there is no IMS Voice over PS roaming relationship with the HPLMN.
  */
-@DiameterAvpDefinition(code = 1493L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Homogeneous-Support-of-IMS-Voice-Over-PS-Sessions")
+@DiameterAvpDefinition(code = TgppAvpCodes.HOMOGENEOUS_SUPPORT_OF_IMS_VOICE_OVER_PS_SESSIONS, vendorId = VendorIDs.TGPP_ID, must = false, name = "Homogeneous-Support-of-IMS-Voice-Over-PS-Sessions")
 public interface HomogeneousSupportOfIMSVoiceOverPSSessions extends DiameterEnumerated<HomogeneousSupportOfIMSVoiceOverPSSessionsEnum>
 {
 }

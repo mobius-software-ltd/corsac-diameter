@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.mb2c;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEventNotification;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIExpiry;
@@ -55,7 +58,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
                  [ Restart-Counter ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777335, commandCode = 8388663, request = true, proxyable = true, name="GCS-Notification-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MB2C, commandCode = CommandCodes.GCS_NOTIFICATION, request = true, proxyable = true, name="GCS-Notification-Request")
 public interface GCSNotificationRequest extends AuthenticationRequest
 {	
 	DRMPEnum getDRMP();
@@ -64,7 +67,7 @@ public interface GCSNotificationRequest extends AuthenticationRequest
 	
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);	
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
 	
 	public TMGIExpiry getTMGIExpiry();
 	

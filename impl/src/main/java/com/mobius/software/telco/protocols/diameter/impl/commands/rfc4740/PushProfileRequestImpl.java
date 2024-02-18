@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.PushProfileRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
@@ -42,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 6, commandCode = 288, request = true)
 public class PushProfileRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestImpl implements PushProfileRequest
 {
 	private AuthSessionState authSessionState;
@@ -60,7 +62,7 @@ public class PushProfileRequestImpl extends com.mobius.software.telco.protocols.
 		super();
 	}
 	
-	public PushProfileRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState)
+	public PushProfileRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -77,10 +79,10 @@ public class PushProfileRequestImpl extends com.mobius.software.telco.protocols.
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			throw new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
@@ -146,10 +148,10 @@ public class PushProfileRequestImpl extends com.mobius.software.telco.protocols.
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		return super.validate();
 	}

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.MessageIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MessageID;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.BearerProtocolType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.BearerType;
@@ -37,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 865L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PSInformationImpl extends com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PSInformationImpl implements PSInformation 
 {
 	private SPId spId;

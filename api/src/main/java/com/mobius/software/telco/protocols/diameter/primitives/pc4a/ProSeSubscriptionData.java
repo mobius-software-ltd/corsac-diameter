@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,12 +45,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The Authorized-Discovery-Range Information Element should only be present if the Visited-PLMN-Id is the PLMN-Id of the HPLMN; otherwise it should be absent.
  */
-@DiameterAvpDefinition(code = 3701L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Subscription-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_SUBSCRIPTION_DATA, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Subscription-Data")
 public interface ProSeSubscriptionData extends DiameterGroupedAvp
 {
 	ProSePermission getProSePermission();
 	
-	void setProSePermission(ProSePermission value);
+	void setProSePermission(ProSePermission value) throws MissingAvpException;
 	
 	List<ProSeAllowedPLMN> getProSeAllowedPLMN();
 	

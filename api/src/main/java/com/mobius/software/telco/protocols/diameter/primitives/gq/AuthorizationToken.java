@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	6.5.7	Authorization-Token AVP
 	The Authorization-Token AVP (AVP code 506) is of type OctetString, and contains the Authorization Token defined in the RFC 3520 [9].
  */
-@DiameterAvpDefinition(code = 506L, vendorId = KnownVendorIDs.TGPP_ID, name = "Authorization-Token")
+@DiameterAvpDefinition(code = TgppAvpCodes.AUTHORIZATION_TOKEN, vendorId = VendorIDs.TGPP_ID, name = "Authorization-Token")
 public interface AuthorizationToken extends DiameterOctetString
 {
 }

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
 
@@ -44,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProt
                        * [ Route-Record ]
                        * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();

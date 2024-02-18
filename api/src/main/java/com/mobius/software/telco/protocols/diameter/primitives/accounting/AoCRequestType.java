@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 AoC_COST_ONLY
 	3 AoC_TARIFF_ONLY 
  */
-@DiameterAvpDefinition(code = 2055L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Request-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.AOC_REQUEST_TYPE, vendorId = VendorIDs.TGPP_ID, name = "AoC-Request-Type")
 public interface AoCRequestType extends DiameterEnumerated<AoCRequestTypeEnum>
 {
 }

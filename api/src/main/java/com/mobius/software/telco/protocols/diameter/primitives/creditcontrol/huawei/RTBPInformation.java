@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -69,7 +70,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE
 	RTBP: Real Time Billing Protocol
 */
-@DiameterAvpDefinition(code = 20600L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "RTBP-Information")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.RTBP_INFORMATION, vendorId = VendorIDs.HUAWEI_ID, name = "RTBP-Information")
 public interface RTBPInformation extends DiameterAvp 
 {
 	String getSPId();

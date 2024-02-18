@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -26,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 463L, vendorId = -1L, name = "EAP-Reissued-Payload")
+@DiameterAvpDefinition(code = AvpCodes.EAP_REISSUED_PAYLOAD, vendorId = -1L, name = "EAP-Reissued-Payload")
 public interface EAPReissuedPayload extends DiameterOctetString
 {
 }

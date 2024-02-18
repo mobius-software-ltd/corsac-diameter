@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportTypeEnum;
@@ -28,10 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportT
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 626L, vendorId = -1L)
 public class OCReportTypeImpl extends DiameterEnumeratedImpl<OCReportTypeEnum> implements OCReportType
 {
-	protected OCReportTypeImpl() 
+	public OCReportTypeImpl() 
 	{
 		super();
 	}

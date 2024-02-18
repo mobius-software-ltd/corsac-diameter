@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The PoC-Change-Time AVP (AVP code 1262) is of type Time and is a time stamp that defines the moment when a
 	container is closed or the CDR is closed.
  */
-@DiameterAvpDefinition(code = 1262L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Change-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.POC_CHANGE_TIME, vendorId = VendorIDs.TGPP_ID, name = "PoC-Change-Time")
 public interface PoCChangeTime extends DiameterTime
 {
 }

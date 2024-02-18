@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SMDischargeTime;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SMDisc
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2012L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMDischargeTimeImpl extends DiameterTimeImpl implements SMDischargeTime
 {
 	protected SMDischargeTimeImpl()

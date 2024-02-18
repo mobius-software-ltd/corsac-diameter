@@ -19,12 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AreaScope;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CollectionPeriodRRMLTE;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CollectionPeriodRRMLTEEnum;
@@ -63,7 +65,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1622L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MDTConfigurationImpl extends DiameterGroupedAvpImpl implements MDTConfiguration
 {
 	private JobType jobType;
@@ -92,12 +93,9 @@ public class MDTConfigurationImpl extends DiameterGroupedAvpImpl implements MDTC
 		
 	}
 	
-	public MDTConfigurationImpl(JobTypeEnum jobType)
+	public MDTConfigurationImpl(JobTypeEnum jobType) throws MissingAvpException
 	{
-		if(jobType==null)
-			throw new IllegalArgumentException("Job-Type is required");
-		
-		this.jobType = new JobTypeImpl(jobType, null, null);		
+		setJobType(jobType);
 	}
 	
 	public JobTypeEnum getJobType()
@@ -108,11 +106,11 @@ public class MDTConfigurationImpl extends DiameterGroupedAvpImpl implements MDTC
 		return jobType.getEnumerated(JobTypeEnum.class);
 	}
 	
-	public void setJobType(JobTypeEnum value)
+	public void setJobType(JobTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Job-Type is required");
-		
+			throw new MissingAvpException("Job-Type is required", Arrays.asList(new DiameterAvp[] { new JobTypeImpl() }));
+			
 		this.jobType = new JobTypeImpl(value, null, null);		
 	}
 	
@@ -405,10 +403,10 @@ public class MDTConfigurationImpl extends DiameterGroupedAvpImpl implements MDTC
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(jobType==null)
-			return "Job-Type is required";
+			return new MissingAvpException("Job-Type is required", Arrays.asList(new DiameterAvp[] { new JobTypeImpl() }));
 		
 		return null;
 	}	

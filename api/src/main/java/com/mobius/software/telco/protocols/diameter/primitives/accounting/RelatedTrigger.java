@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Related-Trigger  :: = < AVP Header: 3926 >
  		* [ Trigger-Type ]
  */
-@DiameterAvpDefinition(code = 3926L, vendorId = KnownVendorIDs.TGPP_ID, name = "Related-Trigger")
+@DiameterAvpDefinition(code = TgppAvpCodes.RELATED_TRIGGER, vendorId = VendorIDs.TGPP_ID, name = "Related-Trigger")
 public interface RelatedTrigger extends DiameterAvp
 {
 	List<TriggerTypeEnum> getTriggerType();

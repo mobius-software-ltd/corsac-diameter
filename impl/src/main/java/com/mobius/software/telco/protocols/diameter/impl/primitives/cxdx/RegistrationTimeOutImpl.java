@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.RegistrationTimeOut;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.Registration
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 661L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RegistrationTimeOutImpl extends DiameterTimeImpl implements RegistrationTimeOut
 {
 	protected RegistrationTimeOutImpl()

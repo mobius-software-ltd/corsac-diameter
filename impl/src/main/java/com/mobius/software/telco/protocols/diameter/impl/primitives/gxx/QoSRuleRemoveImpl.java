@@ -21,10 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gxx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RequiredAccessInfoImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleBaseName;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleName;
 import com.mobius.software.telco.protocols.diameter.primitives.gxx.QoSRuleRemove;
@@ -38,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1052L, vendorId = KnownVendorIDs.TGPP_ID)
 public class QoSRuleRemoveImpl extends DiameterGroupedAvpImpl implements QoSRuleRemove
 {
 	private List<QoSRuleName> chargingRuleName;

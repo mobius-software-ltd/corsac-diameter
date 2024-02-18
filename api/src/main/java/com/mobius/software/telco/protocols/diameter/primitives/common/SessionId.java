@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -82,7 +83,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    Session-Id MAY be used for both the authentication, authorization,
    and accounting commands of a given application.
  */
-@DiameterAvpDefinition(code = 263L, vendorId = -1L, name = "Session-Id")
+@DiameterAvpDefinition(code = AvpCodes.SESSION_ID, vendorId = -1L, name = "Session-Id")
 public interface SessionId extends DiameterUTF8String
 {
 }

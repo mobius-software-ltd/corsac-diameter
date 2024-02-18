@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	-	NEW_MESSAGE_NOT_STORED (1)
 	This cause should be sent if the replace failed due to the fact that the new message could not be stored in the SMS-SC e.g. no resource available.
  */
-@DiameterAvpDefinition(code = 3203L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MTC-Error-Diagnostic")
+@DiameterAvpDefinition(code = TgppAvpCodes.MTC_ERROR_DIAGNOSTIC, vendorId = VendorIDs.TGPP_ID, must = false, name = "MTC-Error-Diagnostic")
 public interface MTCErrorDiagnostic extends DiameterEnumerated<MTCErrorDiagnosticEnum>
 {
 }

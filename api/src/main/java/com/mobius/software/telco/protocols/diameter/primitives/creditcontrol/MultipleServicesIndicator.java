@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    The client supports independent credit-control of multiple services
    within a (sub-)session.
  */
-@DiameterAvpDefinition(code = 455L, vendorId = -1L, name = "Multiple-Services-Indicator")
+@DiameterAvpDefinition(code = AvpCodes.MULTIPLE_SERVICES_INDICATOR, vendorId = -1L, name = "Multiple-Services-Indicator")
 public interface MultipleServicesIndicator extends DiameterEnumerated<MultipleServicesIndicatorEnum>
 {
 }

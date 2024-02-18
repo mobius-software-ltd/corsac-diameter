@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Bank Channel Distribution Code
  */
-@DiameterAvpDefinition(code = 20793L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Bank-Channel-Distribution-Code")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.BANK_CHANNEL_DISTRIBUTION_CODE, vendorId = VendorIDs.HUAWEI_ID, name = "Bank-Channel-Distribution-Code")
 public interface BankChannelDistributionCode extends DiameterOctetString
 {
 }

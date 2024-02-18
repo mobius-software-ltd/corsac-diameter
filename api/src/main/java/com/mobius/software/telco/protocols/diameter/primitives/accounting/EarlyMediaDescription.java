@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	-	Media offered with zero bandwith.
 	In contrast, media with directionality marked as "a=recvonly", "a=sendonly", "a=sendrecv" shall be considered in state  "active" and thus, it may be exchanged in one or both directions.
  */
-@DiameterAvpDefinition(code = 1272L, vendorId = KnownVendorIDs.TGPP_ID, name = "Early-Media-Description")
+@DiameterAvpDefinition(code = TgppAvpCodes.EARLY_MEDIA_DESCRIPTION, vendorId = VendorIDs.TGPP_ID, name = "Early-Media-Description")
 public interface EarlyMediaDescription extends DiameterAvp
 {
 	SDPTimeStamps getSDPTimeStamps();

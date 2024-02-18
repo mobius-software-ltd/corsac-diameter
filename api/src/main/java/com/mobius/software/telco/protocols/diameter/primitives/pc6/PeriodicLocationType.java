@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,14 +40,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 { Total-Number-Of-Reports }
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 3829L, vendorId = KnownVendorIDs.TGPP_ID, name = "Periodic-Location-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.PERIODIC_LOCATION_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Periodic-Location-Type")
 public interface PeriodicLocationType extends DiameterGroupedAvp
 {
 	Long getLocationReportIntervalTime();
 	
-	void setLocationReportIntervalTime(Long value);
+	void setLocationReportIntervalTime(Long value) throws MissingAvpException;
 	
 	Long getTotalNumberOfReports();
 	
-	void setTotalNumberOfReports(Long value);
+	void setTotalNumberOfReports(Long value) throws MissingAvpException;
 }

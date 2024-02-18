@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 import io.netty.buffer.ByteBuf;
 
@@ -52,10 +55,10 @@ import io.netty.buffer.ByteBuf;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777217, commandCode = 309, request = true, proxyable = true, name="Push-Notification-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SH, commandCode = CommandCodes.PUSH_NOTIFICATION, request = true, proxyable = true, name="Push-Notification-Request")
 public interface PushNotificationRequest extends ShRequest
 {
 	public ByteBuf getUserData();
 	
-	void setUserData(ByteBuf value);
+	void setUserData(ByteBuf value) throws MissingAvpException;
 }

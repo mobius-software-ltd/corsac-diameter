@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ETHOption;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ETHProtoType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.UserPriorityRange;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.VLANIDRan
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 548L, vendorId = -1L)
 public class ETHOptionImpl extends DiameterGroupedAvpImpl implements ETHOption 
 {
 	ETHProtoType ethProtoType;
@@ -46,12 +48,9 @@ public class ETHOptionImpl extends DiameterGroupedAvpImpl implements ETHOption
 	{
 	}
 	
-	public ETHOptionImpl(ETHProtoType ethProtoType)
+	public ETHOptionImpl(ETHProtoType ethProtoType) throws MissingAvpException
 	{
-		if(ethProtoType==null)
-			throw new IllegalArgumentException("ETH-Proto-Type is required");
-		
-		this.ethProtoType = ethProtoType;		
+		setETHProtoType(ethProtoType);	
 	}
 	
 	public ETHProtoType getETHProtoType()
@@ -59,8 +58,11 @@ public class ETHOptionImpl extends DiameterGroupedAvpImpl implements ETHOption
 		return this.ethProtoType;
 	}
 	
-	public void setETHProtoType(ETHProtoType value)
+	public void setETHProtoType(ETHProtoType value) throws MissingAvpException
 	{
+		if(value==null)
+			throw new MissingAvpException("ETH-Proto-Type is required", Arrays.asList(new DiameterAvp[] { new ETHProtoTypeImpl() }));
+			
 		this.ethProtoType = value;
 	}
 	
@@ -85,10 +87,10 @@ public class ETHOptionImpl extends DiameterGroupedAvpImpl implements ETHOption
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ethProtoType==null)
-			return "ETH-Proto-Type is required";
+			return new MissingAvpException("ETH-Proto-Type is required", Arrays.asList(new DiameterAvp[] { new ETHProtoTypeImpl() }));
 		
 		return null;
 	}

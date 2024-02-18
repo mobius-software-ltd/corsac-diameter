@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6b;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6b.OriginationTimeStamp;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6b.OriginationTi
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1536L, vendorId = KnownVendorIDs.TGPP_ID)
 public class OriginationTimeStampImpl extends DiameterUnsigned64Impl implements OriginationTimeStamp
 {
 	protected OriginationTimeStampImpl() 

@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.slg;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaEventInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredLocationType;
@@ -87,12 +90,12 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777255, commandCode = 8388620, request = true, proxyable = true, name="Provide-Location-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SLG, commandCode = CommandCodes.PROVIDE_LOCATION, request = true, proxyable = true, name="Provide-Location-Request")
 public interface ProvideLocationRequest extends SlgRequest
 {
 	SLgLocationTypeEnum getSLgLocationType();
 	
-	void setSLgLocationType(SLgLocationTypeEnum value);
+	void setSLgLocationType(SLgLocationTypeEnum value) throws MissingAvpException;
 	
 	String getMSISDN();
 	
@@ -104,11 +107,11 @@ public interface ProvideLocationRequest extends SlgRequest
 	 		
 	LCSEPSClientName getLCSEPSClientName();
 	
-	void setLCSEPSClientName(LCSEPSClientName value);
+	void setLCSEPSClientName(LCSEPSClientName value) throws MissingAvpException;
 	
 	LCSClientTypeEnum getLCSClientType();
 	
-	void setLCSClientType(LCSClientTypeEnum value);	
+	void setLCSClientType(LCSClientTypeEnum value) throws MissingAvpException;	
 	
 	LCSRequestorName getLCSRequestorName();
 	

@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.MIPCareofAddress;
 
@@ -29,10 +28,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.MIPCareof
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 487L, vendorId = -1L)
 public class MIPCareofAddressImpl extends DiameterAddressImpl implements MIPCareofAddress
 {
-	protected MIPCareofAddressImpl() 
+	public MIPCareofAddressImpl() 
 	{
 		super();
 	}

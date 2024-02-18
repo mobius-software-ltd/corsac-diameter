@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.rx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaComponentDescription;
 
@@ -58,7 +60,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777236, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends RxAnswer
 {
 	public List<MediaComponentDescription> getMediaComponentDescription();

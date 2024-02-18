@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -64,12 +66,12 @@ import io.netty.buffer.ByteBuf;
 	The Non-IP-Data-Delivery-Mechanism shall only be present when PDP-Type takes the value Non-IP (HEX 02).
 	The SCEF-ID shall only be present when Non-IP-Data-Delivery-Mechanism takes the value SCEF-BASED-DATA-DELIVERY (1).
  */
-@DiameterAvpDefinition(code = 1469L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDP-Context")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDP_CONTEXT, vendorId = VendorIDs.TGPP_ID, name = "PDP-Context")
 public interface PDPContext extends DiameterGroupedAvp
 {
 	Long getContextIdentifier();
 	
-	void setContextIdentifier(Long value);	
+	void setContextIdentifier(Long value) throws MissingAvpException;	
 	
 	ByteBuf getPDPType();
 	
@@ -81,7 +83,7 @@ public interface PDPContext extends DiameterGroupedAvp
 	
 	ByteBuf getQoSSubscribed();
 	
-	void setQoSSubscribed(ByteBuf value);
+	void setQoSSubscribed(ByteBuf value) throws MissingAvpException;
 	
 	VPLMNDynamicAddressAllowedEnum getVPLMNDynamicAddressAllowed();
 	
@@ -89,7 +91,7 @@ public interface PDPContext extends DiameterGroupedAvp
 	
 	String getServiceSelection();
 	
-	void setServiceSelection(String value);
+	void setServiceSelection(String value) throws MissingAvpException;
 	
 	String getTGPPChargingCharacteristics();
 	

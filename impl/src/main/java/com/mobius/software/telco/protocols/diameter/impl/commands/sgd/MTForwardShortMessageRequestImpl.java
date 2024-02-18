@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sgd;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.MMENumberForMTSMSImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.MaximumRetransmissionTimeImpl;
@@ -55,7 +58,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777313, commandCode = 8388646, request = true)
 public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements MTForwardShortMessageRequest
 {
 	private SMSMICorrelationID smSMICorrelationID;
@@ -83,7 +85,7 @@ public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 		super();
 	}
 	
-	public MTForwardShortMessageRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String scAddress,ByteBuf smRPUI)
+	public MTForwardShortMessageRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -114,11 +116,11 @@ public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 	}
 	
 	@Override
-	public void setSCAddress(String value)
+	public void setSCAddress(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SC-Address is required");
-		
+			throw new MissingAvpException("SC-Address is required", Arrays.asList(new DiameterAvp[] { new SCAddressImpl() }));
+			
 		this.scAddress = new SCAddressImpl(value);
 	}
 	
@@ -132,10 +134,10 @@ public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 	}
 	
 	@Override
-	public void setSMRPUI(ByteBuf value)
+	public void setSMRPUI(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SM-RP-UI is required");
+			throw new MissingAvpException("SM-RP-UI is required", Arrays.asList(new DiameterAvp[] { new SMRPUIImpl() }));
 		
 		this.smRPUI = new SMRPUIImpl(value, null, null);
 	}
@@ -261,13 +263,13 @@ public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(scAddress == null)
-			return "SC-Address is required";
+			return new MissingAvpException("SC-Address is required", Arrays.asList(new DiameterAvp[] { new SCAddressImpl() }));
 		
 		if(smRPUI == null)
-			return "SM-RP-UI is required";
+			return new MissingAvpException("SM-RP-UI is required", Arrays.asList(new DiameterAvp[] { new SMRPUIImpl() }));
 		
 		return super.validate();
 	}	

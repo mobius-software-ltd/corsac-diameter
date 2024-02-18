@@ -18,8 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -78,7 +79,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
                    [ServiceLevel] 
                    [Message-Id] 
 */
-@DiameterAvpDefinition(code = 865L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.PS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "PS-Information")
 public interface PSInformation extends com.mobius.software.telco.protocols.diameter.primitives.accounting.PSInformation 
 {
 	String getSPId();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.21	RS-Bandwidth AVP
 	The RS-Bandwidth AVP (AVP code 522) is of type Unsigned32, and it indicates the maximum required bandwidth in bits per second for RTCP sender reports within the session component, as specified in RFC 3556 [11]. The bandwidth contains all the overhead coming from the IP-layer and the layers above, i.e. IP, UDP and RTCP.
  */
-@DiameterAvpDefinition(code = 522L, vendorId = KnownVendorIDs.TGPP_ID, name = "RS-Bandwidth")
+@DiameterAvpDefinition(code = TgppAvpCodes.RS_BANDWIDTH, vendorId = VendorIDs.TGPP_ID, name = "RS-Bandwidth")
 public interface RSBandwidth extends DiameterUnsigned32
 {
 }

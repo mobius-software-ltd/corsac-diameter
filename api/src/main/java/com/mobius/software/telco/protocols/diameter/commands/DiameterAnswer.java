@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
@@ -37,7 +38,7 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	public Long getResultCode();
 	
-	void setResultCode(Long value);
+	void setResultCode(Long value) throws MissingAvpException;
 	
 	public String getErrorMessage();
 	

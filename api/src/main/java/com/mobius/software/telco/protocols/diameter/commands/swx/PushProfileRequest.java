@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.Non3GPPUserData;
 import com.mobius.software.telco.protocols.diameter.primitives.swx.PPRFlags;
@@ -49,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.PPRFlags;
 			…
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777265, commandCode = 305, request = true, proxyable = true, name="Push-Profile-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWX, commandCode = CommandCodes.PUSH_PROFILE, request = true, proxyable = true, name="Push-Profile-Request")
 public interface PushProfileRequest extends SwxRequest
 {
 	Non3GPPUserData getNon3GPPUserData();

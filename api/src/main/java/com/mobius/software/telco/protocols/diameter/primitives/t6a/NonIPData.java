@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.19	Non-IP-Data
 	The Non-IP-Data AVP is of type OctetString and it contains the Non-IP data conveyed between the MME or SGSN and the SCEF.
  */
-@DiameterAvpDefinition(code = 4315L, vendorId = KnownVendorIDs.TGPP_ID, name = "Non-IP-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.NON_IP_DATA, vendorId = VendorIDs.TGPP_ID, name = "Non-IP-Data")
 public interface NonIPData extends DiameterOctetString
 {
 }

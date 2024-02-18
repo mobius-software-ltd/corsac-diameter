@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	by the IMS application, if applicable. It contains the total number of SMS when concatenated short message for SMS
 	Offline Charging. 
  */
-@DiameterAvpDefinition(code = 2019L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Of-Messages-Sent")
+@DiameterAvpDefinition(code = TgppAvpCodes.NUMBER_OF_MESSAGES_SENT, vendorId = VendorIDs.TGPP_ID, name = "Number-Of-Messages-Sent")
 public interface NumberOfMessagesSent extends DiameterUnsigned32
 {
 }

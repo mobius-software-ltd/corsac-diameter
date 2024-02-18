@@ -23,8 +23,12 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagExtensionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
@@ -176,7 +180,7 @@ import io.netty.buffer.ByteBuf;
 				
 	NOTE:	Multiple instances of the Subscription-Id AVP in the CCR command correspond to multiple types of identifier for the same subscriber, for example IMSI and MSISDN.
  */
-@DiameterCommandDefinition(applicationId = 16777238, commandCode = 272, request = true, proxyable = true, name="Credit-Control-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GX, commandCode = CommandCodes.CREDIT_CONTROL, request = true, proxyable = true, name="Credit-Control-Request")
 public interface CreditControlRequest extends AuthenticationRequest
 {
 	DRMPEnum getDRMP();
@@ -185,11 +189,11 @@ public interface CreditControlRequest extends AuthenticationRequest
 	
 	CcRequestTypeEnum getCcRequestType();
 	
-	void setCcRequestType(CcRequestTypeEnum value);
+	void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException;
 	
 	Long getCcRequestNumber();
 	
-	void setCcRequestNumber(Long value);
+	void setCcRequestNumber(Long value) throws MissingAvpException;
 	
 	CreditManagementStatus getCreditManagementStatus();
 	
@@ -305,7 +309,7 @@ public interface CreditControlRequest extends AuthenticationRequest
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	public ANGWStatusEnum getANGWStatus();
 	

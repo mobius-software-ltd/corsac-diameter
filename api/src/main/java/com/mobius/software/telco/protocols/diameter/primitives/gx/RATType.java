@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -143,7 +144,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	EHRPD (2003)
  		This value shall be used to indicate that the RAT is eHRPD. For further details refer to 3GPP2 X.S0057 [24].
  */
-@DiameterAvpDefinition(code = 1032L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RAT-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.RAT_TYPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "RAT-Type")
 public interface RATType extends DiameterEnumerated<RATTypeEnum>
 {
 }

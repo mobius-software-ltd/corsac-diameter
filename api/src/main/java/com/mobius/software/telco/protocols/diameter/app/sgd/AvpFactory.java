@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CSGAccessModeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.TFRFlags;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public SMSMICorrelationID getSMSMICorrelationID();
 	
@@ -50,7 +51,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public SGSNLocationInformation getSGSNLocationInformation();
 	
-	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode);	
+	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode) throws MissingAvpException;	
 	
 	public UserIdentifier getUserIdentifier();
 	
@@ -68,7 +69,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public SMSFNon3GPPSMDeliveryOutcome getSMSFNon3GPPSMDeliveryOutcome();
 	
-	public SMDeliveryFailureCause getSMDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum smEnumeratedDeliveryFailureCause);
+	public SMDeliveryFailureCause getSMDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum smEnumeratedDeliveryFailureCause) throws MissingAvpException;
 	
 	public OFRFlags getOFRFlags();
 	

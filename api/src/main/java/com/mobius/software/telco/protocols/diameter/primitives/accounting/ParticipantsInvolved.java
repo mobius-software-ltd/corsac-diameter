@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Participants-Involved AVP (AVP code 887) is of type UTF8String and holds the list of address (Public User ID:
 	SIP URI, Tel URI, MSISDN) of the parties who are involved into the PoC session.
  */
-@DiameterAvpDefinition(code = 887L, vendorId = KnownVendorIDs.TGPP_ID, name = "Participants-Involved")
+@DiameterAvpDefinition(code = TgppAvpCodes.PARTICIPANTS_INVOLVED, vendorId = VendorIDs.TGPP_ID, name = "Participants-Involved")
 public interface ParticipantsInvolved extends DiameterUTF8String
 {
 }

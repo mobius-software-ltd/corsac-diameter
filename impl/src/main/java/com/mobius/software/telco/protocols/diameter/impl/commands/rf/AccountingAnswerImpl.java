@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rf;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 
@@ -33,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 3, commandCode = 271, request = false)
 public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AccountingAnswerImpl implements AccountingAnswer
 {
 	protected AccountingAnswerImpl() 
@@ -47,7 +47,7 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 		setAccountingRealtimeRequiredAllowed(false);
 	}
 	
-	public AccountingAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber)
+	public AccountingAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, accountingRecordType, accountingRecordNumber);
 		setExperimentalResultAllowed(true);

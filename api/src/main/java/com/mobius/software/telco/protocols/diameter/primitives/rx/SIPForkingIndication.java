@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	SEVERAL_DIALOGUES (1)
 		This value is used to indicate that the Diameter session relates to several SIP dialogues.
  */
-@DiameterAvpDefinition(code = 523L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Forking-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_FORKING_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "SIP-Forking-Indication")
 public interface SIPForkingIndication extends DiameterEnumerated<SIPForkingIndicationEnum>
 {
 }

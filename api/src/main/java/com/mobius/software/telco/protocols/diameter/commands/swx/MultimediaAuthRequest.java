@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -61,7 +64,7 @@ import io.netty.buffer.ByteBuf;
 			…
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777265, commandCode = 303, request = true, proxyable = true, name="Multimedia-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWX, commandCode = CommandCodes.MULTIMEDIA_AUTH, request = true, proxyable = true, name="Multimedia-Auth-Request")
 public interface MultimediaAuthRequest extends SwxRequest
 {
 	RATTypeEnum getRATType();
@@ -86,11 +89,11 @@ public interface MultimediaAuthRequest extends SwxRequest
 			    
 	SIPAuthDataItem getSIPAuthDataItem();
 	
-	void setSIPAuthDataItem(SIPAuthDataItem value);  
+	void setSIPAuthDataItem(SIPAuthDataItem value) throws MissingAvpException;  
 	
 	Long getSIPNumberAuthItems();
 	
-	void setSIPNumberAuthItems(Long value);	
+	void setSIPNumberAuthItems(Long value) throws MissingAvpException;	
 	
 	Long getAAAFailureIndication();
 	

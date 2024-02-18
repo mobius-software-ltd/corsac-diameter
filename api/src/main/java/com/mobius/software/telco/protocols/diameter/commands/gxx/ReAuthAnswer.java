@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gxx;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
@@ -69,7 +71,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777266, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GXX, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	DRMPEnum getDRMP();

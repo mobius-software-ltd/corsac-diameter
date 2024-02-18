@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoMNMSA;
@@ -34,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 326L, vendorId = -1L)
 public class MIPFAtoMNMSAImpl extends DiameterGroupedAvpImpl implements MIPFAtoMNMSA
 {
 	private MIPFAtoMNSPI mipFAtoMNSPI;
@@ -48,22 +51,13 @@ public class MIPFAtoMNMSAImpl extends DiameterGroupedAvpImpl implements MIPFAtoM
 		
 	}
 	
-	public MIPFAtoMNMSAImpl(Long mipFAtoMNSPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey)
+	public MIPFAtoMNMSAImpl(Long mipFAtoMNSPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey) throws MissingAvpException
 	{
-		if(mipFAtoMNSPI==null)
-			throw new IllegalArgumentException("MIP-FA-to-MN-SPI is required");
+		setMIPFAtoMNSPI(mipFAtoMNSPI);
 		
-		if(mipAlgorithmType==null)
-			throw new IllegalArgumentException("MIP-Algorithm-Type is required");
+		setMIPAlgorithmType(mipAlgorithmType);
 		
-		if(mipSessionKey==null)
-			throw new IllegalArgumentException("MIP-Session-Key is required");
-		
-		this.mipFAtoMNSPI = new MIPFAtoMNSPIImpl(mipFAtoMNSPI, null, null);		
-		
-		this.mipAlgorithmType = new MIPAlgorithmTypeImpl(mipAlgorithmType, null, null);
-		
-		this.mipSessionKey = new MIPSessionKeyImpl(mipSessionKey, null, null);
+		setMIPSessionKey(mipSessionKey);
 	}
 	
 	public Long getMIPFAtoMNSPI()
@@ -74,10 +68,10 @@ public class MIPFAtoMNMSAImpl extends DiameterGroupedAvpImpl implements MIPFAtoM
 		return mipFAtoMNSPI.getUnsigned();
 	}
 	
-	public void setMIPFAtoMNSPI(Long value)
+	public void setMIPFAtoMNSPI(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-FA-to-MN-SPI is required");
+			throw new MissingAvpException("MIP-FA-to-MN-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPFAtoMNSPIImpl() }));
 		
 		this.mipFAtoMNSPI = new MIPFAtoMNSPIImpl(value, null, null);		
 	}
@@ -90,10 +84,10 @@ public class MIPFAtoMNMSAImpl extends DiameterGroupedAvpImpl implements MIPFAtoM
 		return mipAlgorithmType.getEnumerated(MIPAlgorithmTypeEnum.class);
 	}
 	
-	public void setMIPAlgorithmType(MIPAlgorithmTypeEnum value)
+	public void setMIPAlgorithmType(MIPAlgorithmTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Algorithm-Type is required");
+			throw new MissingAvpException("MIP-Algorithm-Type is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		this.mipAlgorithmType = new MIPAlgorithmTypeImpl(value, null, null);
 	}
@@ -108,25 +102,25 @@ public class MIPFAtoMNMSAImpl extends DiameterGroupedAvpImpl implements MIPFAtoM
 	}
 
 	@Override
-	public void setMIPSessionKey(ByteBuf value) 
+	public void setMIPSessionKey(ByteBuf value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Session-Key is required");
+			throw new MissingAvpException("MIP-Session-Key is required", Arrays.asList(new DiameterAvp[] { new MIPSessionKeyImpl() }));
 		
 		this.mipSessionKey = new MIPSessionKeyImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mipFAtoMNSPI==null)
-			return "MIP-FA-to-MN-SPI is required";
+			return new MissingAvpException("MIP-FA-to-MN-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPFAtoMNSPIImpl() }));
 		
 		if(mipAlgorithmType==null)
-			return "MIP-Algorithm-Type is required";
+			return new MissingAvpException("MIP-Algorithm-Type is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		if(mipSessionKey==null)
-			return "MIP-Session-Key is required";
+			return new MissingAvpException("MIP-Session-Key is required", Arrays.asList(new DiameterAvp[] { new MIPSessionKeyImpl() }));
 		
 		return null;
 	}

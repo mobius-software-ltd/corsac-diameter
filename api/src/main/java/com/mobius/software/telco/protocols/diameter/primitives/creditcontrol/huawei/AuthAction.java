@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -59,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
     	- 1:Need prompt
 			Indicates to display a message. The message contents can be the same as the information identified by the first digit or any other contents.
  */
-@DiameterAvpDefinition(code = 30803L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Auth-Action")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.AUTH_ACTION, vendorId = VendorIDs.HUAWEI_ID, name = "Auth-Action")
 public interface AuthAction extends DiameterUTF8String
 {
 }

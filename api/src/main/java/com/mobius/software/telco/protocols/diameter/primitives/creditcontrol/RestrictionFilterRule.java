@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterRule;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterR
    these filters.  Zero, one, or more such AVPs MAY be present in a
    Credit-Control-Answer message or in an AA-Answer message.
  */
-@DiameterAvpDefinition(code = 438L, vendorId = -1L, name = "Restriction-Filter-Rule")
+@DiameterAvpDefinition(code = AvpCodes.RESTRICTION_FILTER_RULE, vendorId = -1L, name = "Restriction-Filter-Rule")
 public interface RestrictionFilterRule extends DiameterIpFilterRule
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This can be used, for instance, when the client is requesting several pre-calculated authentication vectors. In the answer 
 	message, the SIP-Number-Auth-Items AVP indicates the actual number of SIP-Auth-Data-Item AVPs provided by the Diameter server.
  */
-@DiameterAvpDefinition(code = 607L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Number-Auth-Items")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_NUMBER_AUTH_ITEMS, vendorId = VendorIDs.TGPP_ID, name = "SIP-Number-Auth-Items")
 public interface SIPNumberAuthItems extends DiameterUnsigned32
 {
 }

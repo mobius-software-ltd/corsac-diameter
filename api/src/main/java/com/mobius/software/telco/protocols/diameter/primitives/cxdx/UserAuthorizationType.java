@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	REGISTRATION_AND_CAPABILITIES (2)
     	• 	This value is used when the I-CSCF explicitly requests S-CSCF capability information from the HSS. The I-CSCF shall use this value when the user's current S-CSCF, which is stored in the HSS, cannot be contacted and a new S-CSCF needs to be selected
  */
-@DiameterAvpDefinition(code = 623L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Authorization-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_AUTHORIZATION_TYPE, vendorId = VendorIDs.TGPP_ID, name = "User-Authorization-Type")
 public interface UserAuthorizationType extends DiameterEnumerated<UserAuthorizationTypeEnum>
 {
 }

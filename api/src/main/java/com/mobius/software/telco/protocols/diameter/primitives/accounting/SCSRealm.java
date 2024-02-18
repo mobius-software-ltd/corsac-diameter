@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.178C SCS-Realm AVP
 	The SCS-Realm AVP (AVP code 3942) is of type DiameterIdentity and holds the Diameter Realm Identity of SCS/AS. 
  */
-@DiameterAvpDefinition(code = 3942L, vendorId = KnownVendorIDs.TGPP_ID, name = "SCS-Realm")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCS_REALM, vendorId = VendorIDs.TGPP_ID, name = "SCS-Realm")
 public interface SCSRealm extends DiameterIdentity
 {
 }

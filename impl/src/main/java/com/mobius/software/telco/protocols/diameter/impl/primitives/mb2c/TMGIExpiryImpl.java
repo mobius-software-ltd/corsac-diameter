@@ -19,13 +19,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.TMGI;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIExpiry;
 
@@ -36,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3515L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TMGIExpiryImpl extends DiameterGroupedAvpImpl implements TMGIExpiry
 {
 	private List<TMGI> tmgi;
@@ -46,14 +47,9 @@ public class TMGIExpiryImpl extends DiameterGroupedAvpImpl implements TMGIExpiry
 		
 	}
 	
-	public TMGIExpiryImpl(List<ByteBuf> tmgi)
+	public TMGIExpiryImpl(List<ByteBuf> tmgi) throws MissingAvpException
 	{
-		if(tmgi==null || tmgi.size()==0)
-			throw new IllegalArgumentException("TMGI is required");
-		
-		this.tmgi = new ArrayList<TMGI>();
-		for(ByteBuf curr:tmgi)
-			this.tmgi.add(new TMGIImpl(curr, null, null));	
+		setTMGI(tmgi);
 	}
 	
 	public List<ByteBuf> getTMGI()
@@ -68,10 +64,10 @@ public class TMGIExpiryImpl extends DiameterGroupedAvpImpl implements TMGIExpiry
 		return result;
 	}
 	
-	public void setTMGI(List<ByteBuf> value)
+	public void setTMGI(List<ByteBuf> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("TMGI is required");
+			throw new MissingAvpException("TMGI is required is required", Arrays.asList(new DiameterAvp[] { new TMGIImpl() }));
 		
 		this.tmgi = new ArrayList<TMGI>();
 		for(ByteBuf curr:value)
@@ -79,10 +75,10 @@ public class TMGIExpiryImpl extends DiameterGroupedAvpImpl implements TMGIExpiry
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tmgi==null || tmgi.size()==0)
-			return "TMGI is required";
+			return new MissingAvpException("TMGI is required is required", Arrays.asList(new DiameterAvp[] { new TMGIImpl() }));
 		
 		return null;
 	}

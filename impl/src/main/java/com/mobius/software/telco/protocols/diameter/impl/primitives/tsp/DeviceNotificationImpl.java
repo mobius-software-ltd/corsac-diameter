@@ -18,15 +18,18 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ExternalIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SCSIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.MTCErrorDiagnosticImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ExternalID;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.SCSIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMRPUI;
@@ -50,7 +53,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3002L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DeviceNotificationImpl extends DiameterGroupedAvpImpl implements DeviceNotification
 {
 	private ExternalID externalID;
@@ -78,17 +80,11 @@ public class DeviceNotificationImpl extends DiameterGroupedAvpImpl implements De
 		super();
 	}
 	
-	public DeviceNotificationImpl(Long  referenceNumber, ActionTypeEnum actionType)
+	public DeviceNotificationImpl(Long  referenceNumber, ActionTypeEnum actionType) throws MissingAvpException
 	{
-		if(referenceNumber == null)
-			throw new IllegalArgumentException("Reference-Number is required");
+		setReferenceNumber(referenceNumber);
 		
-		if(actionType == null)
-			throw new IllegalArgumentException("Action-Type is required");
-		
-		this.referenceNumber = new ReferenceNumberImpl(referenceNumber, null, null);
-		
-		this.actionType = new ActionTypeImpl(actionType, null, null);
+		setActionType(actionType);
 	}
 	
 	public String getExternalID()
@@ -147,11 +143,11 @@ public class DeviceNotificationImpl extends DiameterGroupedAvpImpl implements De
 		return referenceNumber.getUnsigned();
 	}
 	
-	public void setReferenceNumber(Long value)
+	public void setReferenceNumber(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Reference-Number is required");
-		
+			throw new MissingAvpException("Reference-Number is required", Arrays.asList(new DiameterAvp[] { new ReferenceNumberImpl() }));
+			
 		this.referenceNumber = new ReferenceNumberImpl(value, null, null);		
 	}
 	
@@ -163,11 +159,11 @@ public class DeviceNotificationImpl extends DiameterGroupedAvpImpl implements De
 		return actionType.getEnumerated(ActionTypeEnum.class);
 	}
 	
-	public void setActionType(ActionTypeEnum value)
+	public void setActionType(ActionTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Action-Type is required");
-		
+			throw new MissingAvpException("Action-Type is required", Arrays.asList(new DiameterAvp[] { new ActionTypeImpl() }));
+			
 		this.actionType = new ActionTypeImpl(value, null, null);
 	}
 	
@@ -252,13 +248,13 @@ public class DeviceNotificationImpl extends DiameterGroupedAvpImpl implements De
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(referenceNumber == null)
-			return "Reference-Number is required";
+			return new MissingAvpException("Reference-Number is required", Arrays.asList(new DiameterAvp[] { new ReferenceNumberImpl() }));
 		
 		if(actionType == null)
-			return "Action-Type is required";
+			return new MissingAvpException("Action-Type is required", Arrays.asList(new DiameterAvp[] { new ActionTypeImpl() }));
 		
 		return null;
 	}

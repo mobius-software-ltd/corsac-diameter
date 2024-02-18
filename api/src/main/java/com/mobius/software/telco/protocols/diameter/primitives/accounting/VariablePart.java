@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,16 +40,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		{ Variable-Part-Type }
 		{ Variable-Part-Value }
  */
-@DiameterAvpDefinition(code = 3907L, vendorId = KnownVendorIDs.TGPP_ID, name = "Variable-Part")
+@DiameterAvpDefinition(code = TgppAvpCodes.VARIABLE_PART, vendorId = VendorIDs.TGPP_ID, name = "Variable-Part")
 public interface VariablePart extends DiameterAvp
 {
 	Long getVariablePartOrder();
 	
-	void setVariablePartOrder(Long value);
+	void setVariablePartOrder(Long value) throws MissingAvpException;
 	
 	Long getVariablePartType();
 	
-	void setVariablePartType(Long value);
+	void setVariablePartType(Long value) throws MissingAvpException;
 	
 	String getVariablePartValue();
 	

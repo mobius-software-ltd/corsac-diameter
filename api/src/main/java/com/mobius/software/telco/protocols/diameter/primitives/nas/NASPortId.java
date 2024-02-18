@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAsciiString;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAsciiStri
    differentiates among its ports.  NAS-Port-Id is intended for use by
    NASes that cannot conveniently number their ports.
  */
-@DiameterAvpDefinition(code = 87L, vendorId = -1L, name = "NAS-Port-Id")
+@DiameterAvpDefinition(code = AvpCodes.NAS_PORT_ID, vendorId = -1L, name = "NAS-Port-Id")
 public interface NASPortId extends DiameterAsciiString
 {
 }

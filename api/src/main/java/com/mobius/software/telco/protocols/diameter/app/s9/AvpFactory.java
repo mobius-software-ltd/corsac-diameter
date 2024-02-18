@@ -19,10 +19,10 @@ package com.mobius.software.telco.protocols.diameter.app.s9;
  */
 
 import java.net.InetAddress;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
@@ -45,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Red
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RestrictionFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.TariffChangeUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
@@ -109,21 +108,21 @@ import io.netty.buffer.ByteBuf;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue);
+	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue) throws MissingAvpException;
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData);
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException;
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
 	public Load getLoad();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public QoSInformation getQoSInformation();
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel);
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException;
 	
 	public ConditionalAPNAggregateMaxBitrate getConditionalAPNAggregateMaxBitrate();
 	
@@ -133,7 +132,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public QoSRuleReport getQoSRuleReport();
 	
-	public QoSRuleDefinition getQoSRuleDefinition(ByteBuf qosRuleName);
+	public QoSRuleDefinition getQoSRuleDefinition(ByteBuf qosRuleName) throws MissingAvpException;
 	
 	public ChargingRuleRemove getChargingRuleRemove();
 	
@@ -141,7 +140,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ChargingRuleReport getChargingRuleReport();
 	
-	public ChargingRuleDefinition getChargingRuleDefinition(ByteBuf chargingRuleName);
+	public ChargingRuleDefinition getChargingRuleDefinition(ByteBuf chargingRuleName) throws MissingAvpException;
 	
 	public MonitoringFlags getMonitoringFlags();
 	
@@ -151,11 +150,11 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public RoutingRuleReport getRoutingRuleReport();
 	
-	public RoutingRuleDefinition getRoutingRuleDefinition(ByteBuf routingRuleIdentifier);
+	public RoutingRuleDefinition getRoutingRuleDefinition(ByteBuf routingRuleIdentifier) throws MissingAvpException;
 	
-	public RoutingFilter getRoutingFilter(FlowDescription flowDescription,FlowDirectionEnum flowDirection);
+	public RoutingFilter getRoutingFilter(FlowDescription flowDescription,FlowDirectionEnum flowDirection) throws MissingAvpException;
 	
-	public FinalUnitIndication getFinalUnitIndication(FinalUnitActionEnum finalUnitAction, List<RestrictionFilterRule> restrictionFilterRule, List<String> filterId, RedirectServer redirectServer);
+	public FinalUnitIndication getFinalUnitIndication(FinalUnitActionEnum finalUnitAction) throws MissingAvpException;
 	
 	public FlowInformation getFlowInformation();
 	
@@ -163,54 +162,54 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public TFTPacketFilterInformation getTFTPacketFilterInformation();
 	
-	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode);	
+	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode) throws MissingAvpException;	
 	
 	public CreditManagementStatus getCreditManagementStatus();
 	
-	public ApplicationDetectionInformation getApplicationDetectionInformation(ByteBuf tdfApplicationIdentifier);
+	public ApplicationDetectionInformation getApplicationDetectionInformation(ByteBuf tdfApplicationIdentifier) throws MissingAvpException;
 	
 	public DefaultEPSBearerQoS getDefaultEPSBearerQoS();
 	
 	public UsageMonitoringInformation getUsageMonitoringInformation();
 	
-	public GrantedServiceUnit getGrantedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage);
+	public GrantedServiceUnit getGrantedServiceUnit();
 	
-	public UsedServiceUnit getUsedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage);
+	public UsedServiceUnit getUsedServiceUnit();
 	
-	public CCMoney getCCMoney(UnitValue unitValue,Long currencyCode);
+	public CCMoney getCCMoney(UnitValue unitValue) throws MissingAvpException;
 	
-	public UnitValue getUnitValue(Long valueDigits,Long exponent);
+	public UnitValue getUnitValue(Long valueDigits) throws MissingAvpException;
 	
-	public AccessNetworkChargingIdentifierGx getAccessNetworkChargingIdentifierGx(ByteBuf accessNetworkChargingIdentifierValue);
+	public AccessNetworkChargingIdentifierGx getAccessNetworkChargingIdentifierGx(ByteBuf accessNetworkChargingIdentifierValue) throws MissingAvpException;
 	
-	public PacketFilterContent getPacketFilterContent(String rule) throws ParseException;
+	public PacketFilterContent getPacketFilterContent(String rule) throws InvalidAvpValueException;
 	
 	public PacketFilterContent getPacketFilterContent(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts,
 			DiameterRuleAddress to, List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 	
-	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws ParseException;
+	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws InvalidAvpValueException;
 	
-	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 	
-	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress);
+	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress) throws MissingAvpException;
 	
-	public TFTFilter getTFTFilter(String rule) throws ParseException;
+	public TFTFilter getTFTFilter(String rule) throws InvalidAvpValueException;
 	
 	public TFTFilter getTFTFilter(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 	
-	public FlowDescription getFlowDescription(String rule) throws ParseException;
+	public FlowDescription getFlowDescription(String rule) throws InvalidAvpValueException;
 	
 	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 	
-	public Flows getFlows(Long mediaComponentNumber);
+	public Flows getFlows(Long mediaComponentNumber) throws MissingAvpException;
 	
 	public RedirectInformation getRedirectInformation();
 	
@@ -218,9 +217,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public EventReportIndication getEventReportIndication();
 	
-	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity);
+	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity) throws MissingAvpException;
 	
-	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType);
+	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType) throws MissingAvpException;
 	
 	public AreaScope getAreaScope();
 	
@@ -234,20 +233,20 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public PresenceReportingAreaNode getPresenceReportingAreaNode();
 	
-	public SubsessionEnforcementInfo getSubsessionEnforcementInfo(Long subsessionId);
+	public SubsessionEnforcementInfo getSubsessionEnforcementInfo(Long subsessionId) throws MissingAvpException;
 	
 	public ChargingInformation getChargingInformation();
 	
-	public SubsessionDecisionInfo getSubsessionDecisionInfo(Long subsessionId);
+	public SubsessionDecisionInfo getSubsessionDecisionInfo(Long subsessionId) throws MissingAvpException;
 	
-	public CoAInformation getCoAInformation(TunnelInformation tunnelInformation,InetAddress coAIPAddress);
+	public CoAInformation getCoAInformation(TunnelInformation tunnelInformation,InetAddress coAIPAddress) throws MissingAvpException;
 	
 	public TunnelInformation getTunnelInformation();
 	
-	public TunnelHeaderFilter getTunnelHeaderFilter(String rule) throws ParseException;
+	public TunnelHeaderFilter getTunnelHeaderFilter(String rule) throws InvalidAvpValueException;
 	
 	public TunnelHeaderFilter getTunnelHeaderFilter(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts,
 			DiameterRuleAddress to, List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException;		
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;		
 }

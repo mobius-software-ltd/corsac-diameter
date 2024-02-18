@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
     	- 2: In the user level preferential cell.
     	- 3: In the user level HomeZone and system level SpecialZone.
  */
-@DiameterAvpDefinition(code = 20361L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Fav-Cell-Id-Flag")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.FAV_CELL_ID_FLAG, vendorId = VendorIDs.HUAWEI_ID, name = "Fav-Cell-Id-Flag")
 public interface FavCellIdFlag extends DiameterEnumerated<FavCellIdFlagEnum>
 {
 }

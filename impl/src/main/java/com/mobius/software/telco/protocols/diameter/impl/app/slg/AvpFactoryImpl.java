@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.slg;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.slg.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.AreaDefinitionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.AreaEventInfoImpl;
@@ -77,7 +79,7 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList); 
 	}
@@ -97,12 +99,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LCSQoSImpl();
 	}
 	
-	public LCSPrivacyCheckNonSession getLCSPrivacyCheckNonSession(LCSPrivacyCheckEnum lcsPrivacyCheck)
+	public LCSPrivacyCheckNonSession getLCSPrivacyCheckNonSession(LCSPrivacyCheckEnum lcsPrivacyCheck) throws MissingAvpException
 	{
 		return new LCSPrivacyCheckNonSessionImpl(lcsPrivacyCheck);
 	}
 	
-	public LCSPrivacyCheckSession getLCSPrivacyCheckSession(LCSPrivacyCheckEnum lcsPrivacyCheck)
+	public LCSPrivacyCheckSession getLCSPrivacyCheckSession(LCSPrivacyCheckEnum lcsPrivacyCheck) throws MissingAvpException
 	{
 		return new LCSPrivacyCheckSessionImpl(lcsPrivacyCheck);
 	}
@@ -112,42 +114,42 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new DeferredLocationTypeImpl();
 	}
 	
-	public DeferredMTLRData getDeferredMTLRData(DeferredLocationType deferredLocationType)
+	public DeferredMTLRData getDeferredMTLRData(DeferredLocationType deferredLocationType) throws MissingAvpException
 	{
 		return new DeferredMTLRDataImpl(deferredLocationType);
 	}
 	
-	public AreaEventInfo getAreaEventInfo(AreaDefinition areaDefinition)
+	public AreaEventInfo getAreaEventInfo(AreaDefinition areaDefinition) throws MissingAvpException
 	{
 		return new AreaEventInfoImpl(areaDefinition);
 	}
 	
-	public AreaDefinition getAreaDefinition(List<Area> area)
+	public AreaDefinition getAreaDefinition(List<Area> area) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		return new AreaDefinitionImpl(area);
 	}
 	
-	public Area getArea(Long areaType, ByteBuf areaIdentification)
+	public Area getArea(Long areaType, ByteBuf areaIdentification) throws MissingAvpException
 	{
 		return new AreaImpl(areaType, areaIdentification); 
 	}
 	
-	public PeriodicLDRInfo getPeriodicLDRInfo(Long reportingAmount,Long reportingInterval)
+	public PeriodicLDRInfo getPeriodicLDRInfo(Long reportingAmount,Long reportingInterval) throws MissingAvpException
 	{
 		return new PeriodicLDRInfoImpl(reportingAmount, reportingInterval);
 	}
 	
-	public ReportingPLMNList getReportingPLMNList(List<PLMNIDList> plmnIDList)
+	public ReportingPLMNList getReportingPLMNList(List<PLMNIDList> plmnIDList) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		return new ReportingPLMNListImpl(plmnIDList);
 	}
 	
-	public PLMNIDList getPLMNIDList(ByteBuf visitedPLMNId)
+	public PLMNIDList getPLMNIDList(ByteBuf visitedPLMNId) throws MissingAvpException
 	{
 		return new PLMNIDListImpl(visitedPLMNId);
 	}
 	
-	public MotionEventInfo getMotionEventInfo(Long linearDistance)
+	public MotionEventInfo getMotionEventInfo(Long linearDistance) throws MissingAvpException
 	{
 		return new MotionEventInfoImpl(linearDistance);
 	}

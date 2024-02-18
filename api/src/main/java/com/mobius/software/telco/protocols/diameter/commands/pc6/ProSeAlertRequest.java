@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.AssistanceInfo;
 
 /**
@@ -50,16 +53,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.AssistanceInf
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777340, commandCode = 8388674, request = true, proxyable = true, name="ProSe-Alert-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC6, commandCode = CommandCodes.PROSE_ALERT, request = true, proxyable = true, name="ProSe-Alert-Request")
 public interface ProSeAlertRequest extends Pc6Request
 {
 	String getAppLayerUserId();
 	
-	void setAppLayerUserId(String value);
+	void setAppLayerUserId(String value) throws MissingAvpException;
 	
 	String getTargetedEPUID();
 	
-	void setTargetedEPUID(String value);
+	void setTargetedEPUID(String value) throws MissingAvpException;
 	
 	AssistanceInfo getAssistanceInfo();
 	

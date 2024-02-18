@@ -23,8 +23,12 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEnum;
@@ -95,12 +99,12 @@ import io.netty.buffer.ByteBuf;
    	AUTHORIZE_AUTHENTICATE.  This is the case when the MIP6-Auth-Mode is
    	set to the value MIP6_AUTH_MN_AAA.
  */
-@DiameterCommandDefinition(applicationId = 8, commandCode = 325, request = true, proxyable = true, name="MIP6-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MIP6A, commandCode = CommandCodes.MIP6, request = true, proxyable = true, name="MIP6-Request")
 public interface MIP6Request extends AuthenticationRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	String getNASIdentifier();
 	
@@ -144,15 +148,15 @@ public interface MIP6Request extends AuthenticationRequest
 
 	List<InetAddress> getMIPMobileNodeAddress();
 	
-	void setMIPMobileNodeAddress(List<InetAddress> value);	
+	void setMIPMobileNodeAddress(List<InetAddress> value) throws MissingAvpException, AvpOccursTooManyTimesException;	
 	
 	MIP6AgentInfo getMIP6AgentInfo();
 	
-	void setMIP6AgentInfo(MIP6AgentInfo value);	
+	void setMIP6AgentInfo(MIP6AgentInfo value) throws MissingAvpException;	
 	
 	InetAddress getMIPCareofAddress();
 	
-	void setMIPCareofAddress(InetAddress value);	
+	void setMIPCareofAddress(InetAddress value) throws MissingAvpException;	
 
 	ByteBuf getMIPAuthenticator();
 	

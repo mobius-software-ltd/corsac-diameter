@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -45,14 +47,14 @@ import io.netty.buffer.ByteBuf;
                                  { User-Equipment-Info-Value }
  */
 
-@DiameterAvpDefinition(code = 458L, vendorId = -1, must = false, name = "User-Equipment-Info")
+@DiameterAvpDefinition(code = AvpCodes.USER_EQUIPMENT_INFO, vendorId = -1, must = false, name = "User-Equipment-Info")
 public interface UserEquipmentInfo extends DiameterAvp 
 {
 	UserEquipmentInfoTypeEnum getUserEquipmentInfoType();
 	
-	void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum userEquipmentInfoType);
+	void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum userEquipmentInfoType) throws MissingAvpException;
 	
 	ByteBuf getUserEquipmentInfoValue();
 	
-	void setUserEquipmentInfoValue(ByteBuf userEquipmentInfoValue);
+	void setUserEquipmentInfoValue(ByteBuf userEquipmentInfoValue) throws MissingAvpException;
 }

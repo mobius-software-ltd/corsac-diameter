@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUriImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHost;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 292L, vendorId = -1L)
 public class RedirectHostImpl extends DiameterUriImpl implements RedirectHost
 {
 	protected RedirectHostImpl() 
@@ -42,7 +39,7 @@ public class RedirectHostImpl extends DiameterUriImpl implements RedirectHost
 		super(minLength,maxLength);		
 	}
 		
-	public RedirectHostImpl(String uri,Integer minLength,Integer maxLength) throws ParseException 
+	public RedirectHostImpl(String uri,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
 		super(uri,minLength,maxLength);	
 	}

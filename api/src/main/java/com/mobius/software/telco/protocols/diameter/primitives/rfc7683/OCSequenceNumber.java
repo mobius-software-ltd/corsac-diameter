@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 	   sequence numbers in each direction between two DOIC nodes are not
 	   related or correlated.
 */
-@DiameterAvpDefinition(code = 624L, vendorId = -1L, must = false, name = "OC-Sequence-Number")
+@DiameterAvpDefinition(code = AvpCodes.OC_SEQUENCE_NUMBER, vendorId = -1L, must = false, name = "OC-Sequence-Number")
 public interface OCSequenceNumber extends DiameterUnsigned64
 {
 }

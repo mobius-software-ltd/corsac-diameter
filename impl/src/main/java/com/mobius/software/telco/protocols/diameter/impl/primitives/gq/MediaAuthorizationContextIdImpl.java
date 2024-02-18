@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaAuthorizationContextId;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaAuthoriza
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 462L, vendorId = KnownVendorIDs.ETSI_ID)
 public class MediaAuthorizationContextIdImpl extends DiameterUTF8StringImpl implements MediaAuthorizationContextId
 {
 	protected MediaAuthorizationContextIdImpl()

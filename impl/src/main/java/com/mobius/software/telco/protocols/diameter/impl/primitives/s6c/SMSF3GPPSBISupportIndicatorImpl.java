@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSF3GPPSBISupportIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSF3GPPSBISupportIndicatorEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSF3GPPSBISu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3346L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMSF3GPPSBISupportIndicatorImpl extends DiameterEnumeratedImpl<SMSF3GPPSBISupportIndicatorEnum> implements SMSF3GPPSBISupportIndicator
 {
 	protected SMSF3GPPSBISupportIndicatorImpl()

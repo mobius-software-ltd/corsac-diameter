@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Port Number field: It is encoded in Octet String type, with bit 8 of Octet 4 represents the most significant bit of the port number and bit 1 of Octet 5 represents the least significant bit.
 */
-@DiameterAvpDefinition(code = 33L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-UE-Source-Port")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_UE_SOURCE_PORT, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-UE-Source-Port")
 public interface TGPPUESourcePort extends DiameterOctetString
 {
 }

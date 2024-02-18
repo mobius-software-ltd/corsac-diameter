@@ -1,4 +1,9 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.huawei;
+import java.util.Arrays;
+
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,9 +23,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceParameterInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceParameterType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceParameterValue;
@@ -30,14 +34,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20920L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class ServiceParameterInfoImpl implements ServiceParameterInfo
 {
 	private ServiceParameterType serviceParameterType;
 	
 	private ServiceParameterValue serviceParameterValue;
 	
-	public ServiceParameterInfoImpl(Long serviceParameterType, Long serviceParameterValue)
+	public ServiceParameterInfoImpl(Long serviceParameterType, Long serviceParameterValue) throws MissingAvpException
 	{
 		setServiceParameterType(serviceParameterType);
 		
@@ -54,10 +57,10 @@ public class ServiceParameterInfoImpl implements ServiceParameterInfo
 	}
 	
 	@Override
-	public void setServiceParameterType(Long value)
+	public void setServiceParameterType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Parameter-Type is required");
+			throw new MissingAvpException("Service-Parameter-Type is required is required", Arrays.asList(new DiameterAvp[] { new ServiceParameterTypeImpl() }));
 		
 		this.serviceParameterType = new ServiceParameterTypeImpl(value, null, null);
 	}
@@ -72,22 +75,22 @@ public class ServiceParameterInfoImpl implements ServiceParameterInfo
 	}
 	
 	@Override
-	public void setServiceParameterValue(Long value)
+	public void setServiceParameterValue(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Parameter-Value is required");
+			throw new MissingAvpException("Service-Parameter-Value is required is required", Arrays.asList(new DiameterAvp[] { new ServiceParameterValueImpl() }));
 		
 		this.serviceParameterValue = new ServiceParameterValueImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceParameterType==null)
-			return "Service-Parameter-Type is required";
+			return new MissingAvpException("Service-Parameter-Type is required is required", Arrays.asList(new DiameterAvp[] { new ServiceParameterTypeImpl() }));
 		
 		if(serviceParameterValue==null)
-			return "Service-Parameter-Value is required";
+			return new MissingAvpException("Service-Parameter-Value is required is required", Arrays.asList(new DiameterAvp[] { new ServiceParameterValueImpl() }));
 		
 		return null;
 	}

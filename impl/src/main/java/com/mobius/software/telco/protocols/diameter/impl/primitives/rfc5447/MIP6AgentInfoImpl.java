@@ -22,10 +22,12 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHomeAgentAddressImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentHost;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
@@ -38,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 486L, vendorId = -1L)
 public class MIP6AgentInfoImpl extends DiameterGroupedAvpImpl implements MIP6AgentInfo
 {
 	private List<MIPHomeAgentAddress> mipHomeAgentAddress;
@@ -64,10 +65,16 @@ public class MIP6AgentInfoImpl extends DiameterGroupedAvpImpl implements MIP6Age
 		return result;
 	}
 	
-	public void setMIPHomeAgentAddress(List<InetAddress> value)	
+	public void setMIPHomeAgentAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException	
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("MIP-Home-Agent-Address allows up to 2 addresses");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new MIPHomeAgentAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 MIP-Home-Agent-Address are allowed", failedAvps);
+		}
 		
 		if(value == null)
 			this.mipHomeAgentAddress = null;
@@ -106,10 +113,14 @@ public class MIP6AgentInfoImpl extends DiameterGroupedAvpImpl implements MIP6Age
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mipHomeAgentAddress!=null && mipHomeAgentAddress.size()>2)
-			return "MIP-Home-Agent-Address allows up to 2 addresses";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(mipHomeAgentAddress);
+			return new AvpOccursTooManyTimesException("Up to 2 MIP-Home-Agent-Address are allowed", failedAvps);
+		}
 		
 		return null;
 	}

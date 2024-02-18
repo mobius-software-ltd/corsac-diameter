@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -50,12 +52,12 @@ import io.netty.buffer.ByteBuf;
 		 [ IP-CAN-Session-Charging-Scope ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1022L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Network-Charging-Identifier-Gx")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_NETWORK_CHARGING_IDENTIFIER_GX, vendorId = VendorIDs.TGPP_ID, name = "Access-Network-Charging-Identifier-Gx")
 public interface AccessNetworkChargingIdentifierGx extends DiameterGroupedAvp
 {
 	ByteBuf getAccessNetworkChargingIdentifierValue();
 	
-	void setAccessNetworkChargingIdentifierValue(ByteBuf value);		
+	void setAccessNetworkChargingIdentifierValue(ByteBuf value) throws MissingAvpException;		
 	
 	List<String> getChargingRuleBaseName();
 	

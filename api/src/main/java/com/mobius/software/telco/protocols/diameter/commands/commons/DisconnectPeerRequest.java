@@ -18,8 +18,11 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 
 /**
@@ -43,10 +46,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
                     { Disconnect-Cause }
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 0, commandCode = 282, request = true, proxyable = false, name="Disconnect-Peer-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.COMMON, commandCode = CommandCodes.DISCONNECT_PEER, request = true, proxyable = false, name="Disconnect-Peer-Request")
 public interface DisconnectPeerRequest extends DiameterMessage
 {
 	public DisconnectCauseEnum getDisconnectCause();
 	
-	void setDisconnectCause(DisconnectCauseEnum value);		
+	void setDisconnectCause(DisconnectCauseEnum value) throws MissingAvpException;		
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    exponent value to be applied for the Value-Digits AVP within the
    Unit-Value AVP.
  */
-@DiameterAvpDefinition(code = 429L, vendorId = -1L, name = "Exponent")
+@DiameterAvpDefinition(code = AvpCodes.EXPONENT, vendorId = -1L, name = "Exponent")
 public interface Exponent extends DiameterUnsigned32
 {
 }

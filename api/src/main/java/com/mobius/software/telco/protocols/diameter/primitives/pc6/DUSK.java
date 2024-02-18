@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.77	DUSK 
 	The DUSK AVP is of type OctetString. It shall contain the Discovery User Scrambling Key used to scramble or unscramble the restricted ProSe direct discovery message containing the ProSe Restricted Code, ProSe Query Code or ProSe Response Code. The format of the DUSK is defined in 3GPP TS 33.303 [23].
  */
-@DiameterAvpDefinition(code = 3862L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "DUSK")
+@DiameterAvpDefinition(code = TgppAvpCodes.DUSK, vendorId = VendorIDs.TGPP_ID, must = false, name = "DUSK")
 public interface DUSK extends DiameterOctetString
 {
 }

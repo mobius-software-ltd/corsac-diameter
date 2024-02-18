@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -55,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	e) MSC-Number & MME-Name & MME-Realm
  */
-@DiameterAvpDefinition(code = 2406L, vendorId = KnownVendorIDs.TGPP_ID, name = "Additional-Serving-Node")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADDITIONAL_SERVING_NODE, vendorId = VendorIDs.TGPP_ID, name = "Additional-Serving-Node")
 public interface AdditionalServingNode extends DiameterGroupedAvp
 {
 	String getSGSNName();

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    The Subscription-Id-NAI AVP contains the identifier in the form of a
    Network Access Identifier, as defined in [RFC7542].
  */
-@DiameterAvpDefinition(code = 663L, vendorId = -1L, must = false, name = "Subscription-Id-NAI")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_NAI, vendorId = -1L, must = false, name = "Subscription-Id-NAI")
 public interface SubscriptionIdNAI extends DiameterUTF8String
 {
 }

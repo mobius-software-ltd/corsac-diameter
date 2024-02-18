@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.2	Network-Area-Info-List AVP
 	The Network-Area-Info-List AVP (AVP code 4201) is of type OctetString, it contains the network area information which is coded as specified in 3GPP TS 29.274 [6] in Presence Reporting Area Action IE, starting from octet 9.
  */
-@DiameterAvpDefinition(code = 4201L, vendorId = KnownVendorIDs.TGPP_ID, name = "Network-Area-Info-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.NETWORK_ARE_INFO_LIST, vendorId = VendorIDs.TGPP_ID, name = "Network-Area-Info-List")
 public interface NetworkAreaInfoList extends DiameterOctetString
 {
 }

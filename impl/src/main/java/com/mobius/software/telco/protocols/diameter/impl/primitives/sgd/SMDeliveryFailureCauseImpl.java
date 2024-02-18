@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMDeliveryFailureCause;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMDiagnosticInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMEnumeratedDeliveryFailureCause;
@@ -34,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3303L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMDeliveryFailureCauseImpl extends DiameterGroupedAvpImpl implements SMDeliveryFailureCause
 {
 	private SMEnumeratedDeliveryFailureCause smEnumeratedDeliveryFailureCause;
@@ -45,12 +47,9 @@ public class SMDeliveryFailureCauseImpl extends DiameterGroupedAvpImpl implement
 	{
 	}
 	
-	public SMDeliveryFailureCauseImpl(SMEnumeratedDeliveryFailureCauseEnum smEnumeratedDeliveryFailureCause)
+	public SMDeliveryFailureCauseImpl(SMEnumeratedDeliveryFailureCauseEnum smEnumeratedDeliveryFailureCause) throws MissingAvpException
 	{
-		if(smEnumeratedDeliveryFailureCause==null)
-			throw new IllegalArgumentException("SM-Enumerated-Delivery-Failure-Cause");
-		
-		this.smEnumeratedDeliveryFailureCause = new SMEnumeratedDeliveryFailureCauseImpl(smEnumeratedDeliveryFailureCause, null, null);				
+		setSMEnumeratedDeliveryFailureCause(smEnumeratedDeliveryFailureCause);
 	}
 	
 	public SMEnumeratedDeliveryFailureCauseEnum getSMEnumeratedDeliveryFailureCause()
@@ -61,11 +60,11 @@ public class SMDeliveryFailureCauseImpl extends DiameterGroupedAvpImpl implement
 		return smEnumeratedDeliveryFailureCause.getEnumerated(SMEnumeratedDeliveryFailureCauseEnum.class);
 	}
 	
-	public void setSMEnumeratedDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum value)
+	public void setSMEnumeratedDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SM-Enumerated-Delivery-Failure-Cause");
-		
+			throw new MissingAvpException("SM-Enumerated-Delivery-Failure-Cause is required is required", Arrays.asList(new DiameterAvp[] { new SMEnumeratedDeliveryFailureCauseImpl() }));
+			
 		this.smEnumeratedDeliveryFailureCause = new SMEnumeratedDeliveryFailureCauseImpl(value, null, null);				
 	}
 	
@@ -86,10 +85,10 @@ public class SMDeliveryFailureCauseImpl extends DiameterGroupedAvpImpl implement
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(smEnumeratedDeliveryFailureCause==null)
-			return "SM-Enumerated-Delivery-Failure-Cause";
+			return new MissingAvpException("SM-Enumerated-Delivery-Failure-Cause is required is required", Arrays.asList(new DiameterAvp[] { new SMEnumeratedDeliveryFailureCauseImpl() }));
 		
 		return null;
 	}

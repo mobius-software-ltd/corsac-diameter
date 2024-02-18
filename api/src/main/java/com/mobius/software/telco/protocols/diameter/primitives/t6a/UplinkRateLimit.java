@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.23	Uplink-Rate-Limit
 	The Uplink-Rate-Limit AVP is of type Unsigned32 and shall contain the maximum number of NAS Data PDUs per deci hour for this UE for uplink.
  */
-@DiameterAvpDefinition(code = 4311L, vendorId = KnownVendorIDs.TGPP_ID, name = "Uplink-Rate-Limit")
+@DiameterAvpDefinition(code = TgppAvpCodes.UPLINK_ARATE_LIMIT, vendorId = VendorIDs.TGPP_ID, name = "Uplink-Rate-Limit")
 public interface UplinkRateLimit extends DiameterUnsigned32
 {
 }

@@ -2,12 +2,15 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
@@ -65,7 +68,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 2, commandCode = 260, request = false)
 public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implements AAMobileNodeAnswer
 {
 	private AuthApplicationId authApplicationId;
@@ -106,7 +108,7 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 		setExperimentalResultAllowed(false);
 	}
 	
-	public AAMobileNodeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public AAMobileNodeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(false);
@@ -124,11 +126,11 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 	}
 
 	@Override
-	public void setAuthApplicationId(Long value) 
+	public void setAuthApplicationId(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Auth-Application-Id is required");	
-		
+			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
+			
 		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 	}
 	
@@ -367,10 +369,10 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authApplicationId==null)
-			return "Auth-Application-Id is required";
+			return new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		return super.validate();
 	}

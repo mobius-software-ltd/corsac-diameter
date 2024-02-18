@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6FeatureVector;
 
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6Featu
 *
 */
 
-@DiameterAvpImplementation(code = 124L, vendorId = -1)
 public class MIP6FeatureVectorImpl extends DiameterUnsigned64Impl implements MIP6FeatureVector
 {
 	protected MIP6FeatureVectorImpl() 

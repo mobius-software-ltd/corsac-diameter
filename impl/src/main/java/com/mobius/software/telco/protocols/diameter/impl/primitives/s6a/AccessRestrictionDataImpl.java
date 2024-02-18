@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AccessRestrictionData;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.AccessRestric
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1426L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements AccessRestrictionData
 {
 	public AccessRestrictionDataImpl()
@@ -44,7 +41,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setUTRANNotAllowedBit(boolean isOn)
 	{
-		setBit(UTRAN_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(UTRAN_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setGERANNotAllowedBit(boolean isOn)
 	{
-		setBit(GERAN_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(GERAN_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setGANNotAllowedBit(boolean isOn)
 	{
-		setBit(GAN_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(GAN_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setIHSPAEvolutionNotAllowedBit(boolean isOn)
 	{
-		setBit(IHSPA_EVOLUTION_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(IHSPA_EVOLUTION_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setWBEUTRANNotAllowedBit(boolean isOn)
 	{
-		setBit(WB_EUTRAN_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(WB_EUTRAN_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setHOToNonTGPPAccessNotAllowedBit(boolean isOn)
 	{
-		setBit(HO_TO_NON_TGPP_ACCESS_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(HO_TO_NON_TGPP_ACCESS_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setNBIOTNotAllowedBit(boolean isOn)
 	{
-		setBit(NB_IOT_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NB_IOT_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setEnhancedCoverageNotAllowedBit(boolean isOn)
 	{
-		setBit(ENHANCED_COVERAGE_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(ENHANCED_COVERAGE_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -140,7 +137,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setNRAsSecondaryRATInEUTRANNotAllowedBit(boolean isOn)
 	{
-		setBit(NR_AS_SECONDARY_RAT_IN_EUTRAN_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NR_AS_SECONDARY_RAT_IN_EUTRAN_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -152,7 +149,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setUnlicensedSpectrumAsSecondaryRATNotAllowedBit(boolean isOn)
 	{
-		setBit(UNLICENSED_SPECTRUM_AS_SECONDARY_RAT_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(UNLICENSED_SPECTRUM_AS_SECONDARY_RAT_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -164,7 +161,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setNRIn5GSNotAllowedBit(boolean isOn)
 	{
-		setBit(NR_IN_5GS_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NR_IN_5GS_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -176,7 +173,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setLTEMNotAllowedBit(boolean isOn)
 	{
-		setBit(LTEM_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(LTEM_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -188,7 +185,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setWBEUTRANExceptLTEMNotAllowedBit(boolean isOn)
 	{
-		setBit(WB_EUTRAN_EXCEPT_LTEM_NOT_ALLOWED_BIT, isOn);	
+		setBitUnchecked(WB_EUTRAN_EXCEPT_LTEM_NOT_ALLOWED_BIT, isOn);	
 	}
 
 	@Override
@@ -200,7 +197,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setWBEUTRANLEONotAllowedBit(boolean isOn)
 	{
-		setBit(WB_EUTRAN_LEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(WB_EUTRAN_LEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -212,7 +209,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setWBEUTRANMEONotAllowedBit(boolean isOn)
 	{
-		setBit(WB_EUTRAN_MEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(WB_EUTRAN_MEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -224,7 +221,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setWBEUTRANGEONotAllowedBit(boolean isOn)
 	{
-		setBit(WB_EUTRAN_GEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(WB_EUTRAN_GEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -236,7 +233,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setWBEUTRANOtherSATNotAllowedBit(boolean isOn)
 	{
-		setBit(WB_EUTRAN_OTHERSAT_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(WB_EUTRAN_OTHERSAT_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -248,7 +245,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setNBIOTLEONotAllowedBit(boolean isOn)
 	{
-		setBit(NB_IOT_LEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NB_IOT_LEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -260,7 +257,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setNBIOTMEONotAllowedBit(boolean isOn)
 	{
-		setBit(NB_IOT_MEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NB_IOT_MEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -272,7 +269,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setNBIOTGEONotAllowedBit(boolean isOn)
 	{
-		setBit(NB_IOT_GEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NB_IOT_GEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -284,7 +281,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setNBIOTOtherSATNotAllowedBit(boolean isOn)
 	{
-		setBit(NB_IOT_OTHERSAT_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NB_IOT_OTHERSAT_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -296,7 +293,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setLTEMLEONotAllowedBit(boolean isOn)
 	{
-		setBit(LTE_M_LEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(LTE_M_LEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -308,7 +305,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setLTEMMEONotAllowedBit(boolean isOn)
 	{
-		setBit(LTE_M_MEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(LTE_M_MEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -320,7 +317,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setLTEMGEONotAllowedBit(boolean isOn)
 	{
-		setBit(LTE_M_GEO_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(LTE_M_GEO_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -332,7 +329,7 @@ public class AccessRestrictionDataImpl extends DiameterBitmask32Impl implements 
 	@Override
 	public void setLTEMOtherSATNotAllowedBit(boolean isOn)
 	{
-		setBit(LTE_M_OTHERSAT_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(LTE_M_OTHERSAT_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override

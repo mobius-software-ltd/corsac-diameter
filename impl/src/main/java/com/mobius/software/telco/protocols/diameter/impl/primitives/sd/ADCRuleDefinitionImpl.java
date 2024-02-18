@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
@@ -38,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.TrafficSt
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ApplicationServiceProviderIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.FlowStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SponsorIdentityImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RatingGroup;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ServiceIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowInformation;
@@ -74,7 +77,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1094L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ADCRuleDefinitionImpl extends DiameterGroupedAvpImpl implements ADCRuleDefinition
 {
 	private ADCRuleName adcRuleName;
@@ -103,12 +105,9 @@ public class ADCRuleDefinitionImpl extends DiameterGroupedAvpImpl implements ADC
 		
 	}
 	
-	public ADCRuleDefinitionImpl(ByteBuf adcRuleName)
+	public ADCRuleDefinitionImpl(ByteBuf adcRuleName) throws MissingAvpException
 	{
-		if(adcRuleName==null)
-			throw new IllegalArgumentException("ADC-Rule-Name is required");
-		
-		this.adcRuleName = new ADCRuleNameImpl(adcRuleName, null, null);				
+		setADCRuleName(adcRuleName);
 	}
 	
 	public ByteBuf getADCRuleName()
@@ -119,11 +118,11 @@ public class ADCRuleDefinitionImpl extends DiameterGroupedAvpImpl implements ADC
 		return adcRuleName.getValue();
 	}
 	
-	public void setADCRuleName(ByteBuf value)
+	public void setADCRuleName(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ADC-Rule-Name is required");
-		
+			throw new MissingAvpException("ADC-Rule-Name is required", Arrays.asList(new DiameterAvp[] { new ADCRuleNameImpl() })); 
+			
 		this.adcRuleName = new ADCRuleNameImpl(value, null, null);				
 	}
 	
@@ -411,5 +410,14 @@ public class ADCRuleDefinitionImpl extends DiameterGroupedAvpImpl implements ADC
 			this.toSTrafficClass = null;
 		else
 			this.toSTrafficClass = new ToSTrafficClassImpl(value, null, null);			
+	}
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(adcRuleName==null)
+			return new MissingAvpException("ADC-Rule-Name is required", Arrays.asList(new DiameterAvp[] { new ADCRuleNameImpl() }));
+		
+		return null;
 	}		  
 }

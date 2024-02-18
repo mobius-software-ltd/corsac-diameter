@@ -1,13 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 
@@ -47,7 +52,7 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 		setDestinationHostAllowed(false);
 	}
 		
-	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId)
+	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,null,destinationRealm, isRetransmit, sessonID);
 		setDestinationHostAllowed(false);
@@ -93,19 +98,19 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	}
 
 	@Override
-	public void setAuthApplicationId(Long value) 
+	public void setAuthApplicationId(Long value) throws MissingAvpException 
 	{
 		if(authApplicationId==null)
-			throw new IllegalArgumentException("Auth-Application-Id is required");
+			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authApplicationId==null)
-			return "Auth-Application-Id is required";
+			return new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		return super.validate();
 	}

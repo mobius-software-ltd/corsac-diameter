@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
@@ -47,10 +50,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388665, request = false, proxyable = true, name="Update-ProSe-Subscriber-Data-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC4A, commandCode = CommandCodes.UPDATE_PROSE_SUBSCRIBER_DATA, request = false, proxyable = true, name="Update-ProSe-Subscriber-Data-Answer")
 public interface UpdateProSeSubscriberDataAnswer extends Pc4aAnswer
 {	
 	public AuthSessionStateEnum getAuthSessionState();
 
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 }

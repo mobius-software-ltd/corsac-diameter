@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Relay-IP-address AVP (AVP code 4411) is of type Address and holds the ProSe UE-to-Network Relay UE IP
 	address for performing ProSe Direct Communication via UE-to-Network.
  */
-@DiameterAvpDefinition(code = 4411L, vendorId = KnownVendorIDs.TGPP_ID, name = "Relay-IP-address")
+@DiameterAvpDefinition(code = TgppAvpCodes.RELAY_IP_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Relay-IP-address")
 public interface RelayIPAddress extends DiameterAddress
 {
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.Pc4aRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -46,18 +47,12 @@ public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implement
 		setDestinationHostAllowed(true);
 	}
 		
-	public Pc4aRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID)
+	public Pc4aRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
 		setDestinationHostAllowed(true);
-		try 
-		{
-			setDestinationHost(destinationHost);
-		}
-		catch(AvpNotSupportedException ex) 
-		{
-			
-		}
+		
+		setDestinationHost(destinationHost);		
 	}
 
 	@Override

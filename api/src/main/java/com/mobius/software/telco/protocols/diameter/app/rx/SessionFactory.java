@@ -19,8 +19,10 @@ package com.mobius.software.telco.protocols.diameter.app.rx;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.rx.AARequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public interface SessionFactory
 {
-	public AARequest createAARequest(String originHost,String originRealm,String destinationHost, String destinationRealm);			
+	public AARequest createAARequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException;			
 }

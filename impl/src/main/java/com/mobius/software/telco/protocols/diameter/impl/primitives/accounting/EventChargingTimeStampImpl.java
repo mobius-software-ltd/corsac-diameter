@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EventChargingTimeStamp;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.EventC
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1258L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EventChargingTimeStampImpl extends DiameterTimeImpl implements EventChargingTimeStamp
 {
 	protected EventChargingTimeStampImpl()

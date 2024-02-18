@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.27	Time-Window
 	The Time-Window AVP is of type Unsigned32 and it shall contain the maximum number of seconds of validity of the Proximity request.
  */
-@DiameterAvpDefinition(code = 3818L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Window")
+@DiameterAvpDefinition(code = TgppAvpCodes.TIME_WINDOW, vendorId = VendorIDs.TGPP_ID, name = "Time-Window")
 public interface TimeWindow extends DiameterUnsigned32
 {
 }

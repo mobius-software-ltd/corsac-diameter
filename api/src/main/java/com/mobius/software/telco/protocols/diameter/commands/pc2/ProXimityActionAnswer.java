@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.pc2;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MonitorTarget;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeCodeSuffixMask;
@@ -70,7 +72,7 @@ import io.netty.buffer.ByteBuf;
                 *[ Load ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777350, commandCode = 8388676, request = false, proxyable = true, name="PX-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC2, commandCode = CommandCodes.PROXIMITY_ACTION, request = false, proxyable = true, name="PX-Answer")
 public interface ProXimityActionAnswer extends Pc2Answer
 {
 	String getTargetedEPUID();

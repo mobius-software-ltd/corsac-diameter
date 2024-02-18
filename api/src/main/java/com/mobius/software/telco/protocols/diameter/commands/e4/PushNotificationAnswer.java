@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.e4;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -49,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 				*[ Proxy-Info ]
 				*[ Route-Record ]
 */
-@DiameterCommandDefinition(applicationId = 16777231, commandCode = 309, request = false, proxyable = true, name="Push-Notification-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.E4, commandCode = CommandCodes.PUSH_NOTIFICATION, request = false, proxyable = true, name="Push-Notification-Answer")
 public interface PushNotificationAnswer extends E4Answer
 {	
 	public List<String> getRouteRecords(); 

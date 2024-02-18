@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.9	Filter-Id
 	The Filter-Id AVP is of type OctectString. This AVP shall contain the identifier of a Discovery Filter.
  */
-@DiameterAvpDefinition(code = 3805L, vendorId = KnownVendorIDs.TGPP_ID, name = "Filter-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.FILTER_ID, vendorId = VendorIDs.TGPP_ID, name = "Filter-Id")
 public interface FilterId extends DiameterOctetString
 {
 }

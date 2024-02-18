@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sgd;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -40,7 +41,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777313, commandCode = 8388645, request = false)
 public class MOForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MOForwardShortMessageAnswer
 {
 	private SMDeliveryFailureCause smDeliveryFailureCause;
@@ -55,7 +55,7 @@ public class MOForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MO
 		setExperimentalResultAllowed(true);
 	}
 	
-	public MOForwardShortMessageAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public MOForwardShortMessageAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(true);

@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaStatusEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -49,7 +50,7 @@ import io.netty.buffer.ByteBuf;
 		    [ User-CSG-Information ]  
 			[ 3GPP-RAT-Type ]
  */
-@DiameterAvpDefinition(code = 3925L, vendorId = KnownVendorIDs.TGPP_ID, name = "Related-Change-Condition-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.RELATED_CHANGE_CONDITION_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Related-Change-Condition-Information")
 public interface RelatedChangeConditionInformation extends DiameterAvp
 {
 	InetAddress getSGSNAddress();

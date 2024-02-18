@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE: In the xDSL/ATM case, the Logical Access ID may explicitly contain the identity of the VP and VC
 	carrying the traffic. 
  */
-@DiameterAvpDefinition(code = 302L, vendorId = KnownVendorIDs.ETSI_ID, name = "Logical-Access-ID")
+@DiameterAvpDefinition(code = EtsiAvpCodes.LOGICAL_ACCESS_ID, vendorId = VendorIDs.ETSI_ID, name = "Logical-Access-ID")
 public interface LogicalAccessID extends DiameterOctetString
 {
 }

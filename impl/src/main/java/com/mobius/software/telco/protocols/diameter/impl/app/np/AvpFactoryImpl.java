@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.np;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.np.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.AggregatedCongestionInfoImpl;
@@ -53,7 +54,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
@@ -63,12 +64,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
 	
-	public CongestionLevelDefinition getCongestionLevelDefinition(Long congestionLevelSetId,CongestionLevelRange congestionLevelRange)
+	public CongestionLevelDefinition getCongestionLevelDefinition(Long congestionLevelSetId,CongestionLevelRange congestionLevelRange) throws MissingAvpException
 	{
 		return new CongestionLevelDefinitionImpl(congestionLevelSetId, congestionLevelRange);
 	}
@@ -83,12 +84,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ConditionalRestrictionImpl();
 	}
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException
 	{
 		return new SubscriptionIdImpl(subscriptionIdType, subscriptionIdData);
 	}
 	
-	public AggregatedRUCIReport getAggregatedRUCIReport(List<AggregatedCongestionInfo> aggregatedCongestionInfo)
+	public AggregatedRUCIReport getAggregatedRUCIReport(List<AggregatedCongestionInfo> aggregatedCongestionInfo) throws MissingAvpException
 	{
 		return new AggregatedRUCIReportImpl(aggregatedCongestionInfo);
 	}

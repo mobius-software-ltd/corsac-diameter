@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ClientIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ExternalClient;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.GMLCRestriction;
@@ -34,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.NotificationT
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1479L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ExternalClientImpl extends DiameterGroupedAvpImpl implements ExternalClient
 {
 	private ClientIdentity clientIdentity;
@@ -48,12 +50,9 @@ public class ExternalClientImpl extends DiameterGroupedAvpImpl implements Extern
 		
 	}
 	
-	public ExternalClientImpl(String clientIdentity) 
+	public ExternalClientImpl(String clientIdentity) throws MissingAvpException 
 	{
-		if(clientIdentity==null)
-			throw new IllegalArgumentException("Client-Identity is required");
-		
-		this.clientIdentity = new ClientIdentityImpl(clientIdentity);
+		setClientIdentity(clientIdentity);
 	}
 	
 	public String getClientIdentity()
@@ -64,11 +63,11 @@ public class ExternalClientImpl extends DiameterGroupedAvpImpl implements Extern
 		return clientIdentity.getAddress();
 	}
 	
-	public void setClientIdentity(String value)
+	public void setClientIdentity(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Client-Identity is required");
-		
+			throw new MissingAvpException("Client-Identity is required", Arrays.asList(new DiameterAvp[] { new ClientIdentityImpl() }));
+			
 		this.clientIdentity = new ClientIdentityImpl(value);
 	}
 	
@@ -105,10 +104,10 @@ public class ExternalClientImpl extends DiameterGroupedAvpImpl implements Extern
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(clientIdentity==null)
-			return "Client-Identity is required";
+			return new MissingAvpException("Client-Identity is required", Arrays.asList(new DiameterAvp[] { new ClientIdentityImpl() }));
 		
 		return null;
 	}

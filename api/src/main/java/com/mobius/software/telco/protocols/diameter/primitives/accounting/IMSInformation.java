@@ -22,9 +22,11 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerCapabilities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SessionPriorityEnum;
 
@@ -96,7 +98,7 @@ import io.netty.buffer.ByteBuf;
 				[TAD-Identifier] 
 				[FE-Identifier-List]
  */
-@DiameterAvpDefinition(code = 876L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "IMS-Information")
 public interface IMSInformation extends DiameterAvp
 {
 	EventType getEventType();
@@ -109,7 +111,7 @@ public interface IMSInformation extends DiameterAvp
 	
 	NodeFunctionalityEnum getNodeFunctionality();
 	
-	void setNodeFunctionality(NodeFunctionalityEnum value);
+	void setNodeFunctionality(NodeFunctionalityEnum value) throws MissingAvpException;
 	
 	String getUserSessionId();
 	

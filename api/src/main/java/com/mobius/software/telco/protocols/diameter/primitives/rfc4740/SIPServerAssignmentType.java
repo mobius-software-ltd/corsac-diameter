@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -81,7 +82,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
       	Diameter server and has received a volume of data higher than it
       	can accept.
  */
-@DiameterAvpDefinition(code = 375L, vendorId = -1, name = "SIP-Server-Assignment-Type")
+@DiameterAvpDefinition(code = AvpCodes.SIP_SERVER_ASSIGNMENT_TYPE, vendorId = -1, name = "SIP-Server-Assignment-Type")
 public interface SIPServerAssignmentType extends DiameterEnumerated<SIPServerAssignmentTypeEnum>
 {
 }

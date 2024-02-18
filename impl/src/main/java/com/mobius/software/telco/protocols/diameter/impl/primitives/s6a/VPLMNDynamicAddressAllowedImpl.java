@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNDynamicAddressAllowed;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNDynamicAddressAllowedEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNDynamicA
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1432L, vendorId = KnownVendorIDs.TGPP_ID)
 public class VPLMNDynamicAddressAllowedImpl extends DiameterEnumeratedImpl<VPLMNDynamicAddressAllowedEnum> implements VPLMNDynamicAddressAllowed
 {
 	protected VPLMNDynamicAddressAllowedImpl()

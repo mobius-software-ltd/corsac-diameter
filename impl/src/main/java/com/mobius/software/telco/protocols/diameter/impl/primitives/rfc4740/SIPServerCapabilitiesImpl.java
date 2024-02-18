@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPMandatoryCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPOptionalCapability;
@@ -33,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServer
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 372L, vendorId = -1L)
 public class SIPServerCapabilitiesImpl extends DiameterGroupedAvpImpl implements SIPServerCapabilities
 {
 	private List<SIPMandatoryCapability> sipMandatoryCapability;

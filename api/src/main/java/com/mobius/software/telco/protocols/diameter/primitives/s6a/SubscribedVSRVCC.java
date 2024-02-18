@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Absence of this AVP in ULA shall be interpreted as the user is not subscribed to the vSRVCC.
  */
-@DiameterAvpDefinition(code = 1636L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Subscribed-VSRVCC")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUBSCRIBED_VSRVCC, vendorId = VendorIDs.TGPP_ID, must = false, name = "Subscribed-VSRVCC")
 public interface SubscribedVSRVCC extends DiameterEnumerated<SubscribedVSRVCCEnum>
 {
 }

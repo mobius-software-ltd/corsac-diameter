@@ -1,12 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DisconnectPeerRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DisconnectCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -37,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 0, commandCode = 282, request = true)
 public class DisconnectPeerRequestmpl extends DiameterMessageBase implements DisconnectPeerRequest
 {
 	private DisconnectCause disconnectCause;
@@ -51,7 +52,7 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 		setOriginStateIdAllowedAllowed(false);
 	}
 		
-	public DisconnectPeerRequestmpl(String originHost,String originRealm,Boolean isRetransmit, DisconnectCauseEnum disconnectCause)
+	public DisconnectPeerRequestmpl(String originHost,String originRealm,Boolean isRetransmit, DisconnectCauseEnum disconnectCause) throws MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit);
 		setSessionIdAllowed(false);
@@ -72,20 +73,20 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 	}
 
 	@Override
-	public void setDisconnectCause(DisconnectCauseEnum value) 
+	public void setDisconnectCause(DisconnectCauseEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Disconnect-Cause is required");
+			throw new MissingAvpException("Disconnect-Cause is required", Arrays.asList(new DiameterAvp[] { new DisconnectCauseImpl() } ));
 	
 		this.disconnectCause = new DisconnectCauseImpl(value, null, null);	
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(disconnectCause==null)
-			return "Disconnect-Cause is required";
-	
+			return new MissingAvpException("Disconnect-Cause is required", Arrays.asList(new DiameterAvp[] { new DisconnectCauseImpl() } ));
+			
 		return super.validate();
 	}
 	

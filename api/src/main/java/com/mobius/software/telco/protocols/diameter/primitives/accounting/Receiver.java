@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Receiver AVP (AVP Code 1014) is of type UTF8String and identifies the receiver (i.e., to party) of the M2M request. 
 	This can be any M2M Node with format as per clause 6.2.3.
  */
-@DiameterAvpDefinition(code = 1014L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Receiver")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.RECEIVER, vendorId = VendorIDs.ONEM2M_ID, name = "Receiver")
 public interface Receiver extends DiameterUTF8String
 {
 }

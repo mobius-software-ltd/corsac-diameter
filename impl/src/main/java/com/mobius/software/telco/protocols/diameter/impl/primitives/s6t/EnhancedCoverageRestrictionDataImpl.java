@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EnhancedCoverageRestriction;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EnhancedCoverageRestrictionData;
@@ -34,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3156L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EnhancedCoverageRestrictionDataImpl extends DiameterGroupedAvpImpl implements EnhancedCoverageRestrictionData
 {
 	private EnhancedCoverageRestriction enhancedCoverageRestriction;
@@ -46,12 +48,9 @@ public class EnhancedCoverageRestrictionDataImpl extends DiameterGroupedAvpImpl 
 		
 	}
 	
-	public EnhancedCoverageRestrictionDataImpl(EnhancedCoverageRestriction enhancedCoverageRestriction)
+	public EnhancedCoverageRestrictionDataImpl(EnhancedCoverageRestriction enhancedCoverageRestriction) throws MissingAvpException
 	{
-		if(enhancedCoverageRestriction==null)
-			throw new IllegalArgumentException("Enhanced-Coverage-Restriction is required");
-		
-		this.enhancedCoverageRestriction = enhancedCoverageRestriction;
+		setEnhancedCoverageRestriction(enhancedCoverageRestriction);
 	}
 	
 	public EnhancedCoverageRestriction getEnhancedCoverageRestriction()
@@ -59,11 +58,11 @@ public class EnhancedCoverageRestrictionDataImpl extends DiameterGroupedAvpImpl 
 		return enhancedCoverageRestriction;
 	}
 	
-	public void setEnhancedCoverageRestriction(EnhancedCoverageRestriction value)
+	public void setEnhancedCoverageRestriction(EnhancedCoverageRestriction value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Enhanced-Coverage-Restriction is required");
-	
+			throw new MissingAvpException("Enhanced-Coverage-Restriction is required", Arrays.asList(new DiameterAvp[] { new EnhancedCoverageRestrictionImpl() }));
+			
 		this.enhancedCoverageRestriction = value;		
 	}
 	
@@ -84,10 +83,10 @@ public class EnhancedCoverageRestrictionDataImpl extends DiameterGroupedAvpImpl 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(enhancedCoverageRestriction==null)
-			return "Enhanced-Coverage-Restriction is required";
+			return new MissingAvpException("Enhanced-Coverage-Restriction is required", Arrays.asList(new DiameterAvp[] { new EnhancedCoverageRestrictionImpl() }));
 		
 		return null;
 	}

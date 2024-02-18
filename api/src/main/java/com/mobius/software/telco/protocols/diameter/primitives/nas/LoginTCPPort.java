@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    in authorization responses.  The value MUST NOT be greater than
    65,535.
  */
-@DiameterAvpDefinition(code = 16L, vendorId = -1L, name = "Login-TCP-Port")
+@DiameterAvpDefinition(code = AvpCodes.LOGIN_TCP_PORT, vendorId = -1L, name = "Login-TCP-Port")
 public interface LoginTCPPort extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Response-Body-Size AVP (AVP Code 1018) is of type Unsigned32 and represents the number of bytes 
 	of the body transported in the Response.
 */
-@DiameterAvpDefinition(code = 1018L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Response-Body-Size")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.RESPONSE_BODY_SIZE, vendorId = VendorIDs.ONEM2M_ID, name = "Response-Body-Size")
 public interface ResponseBodySize extends DiameterUnsigned32
 {
 }

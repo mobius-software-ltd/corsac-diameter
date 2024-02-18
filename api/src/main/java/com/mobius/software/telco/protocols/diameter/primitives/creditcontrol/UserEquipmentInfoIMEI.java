@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    International Mobile Equipment Identifier in the IMEI format
    according to 3GPP TS 23.003 [TGPPIMEI].
  */
-@DiameterAvpDefinition(code = 658L, vendorId = -1L, must = false, name = "User-Equipment-Info-IMEI")
+@DiameterAvpDefinition(code = AvpCodes.USER_EQUIPMENT_INFO_IMEI, vendorId = -1L, must = false, name = "User-Equipment-Info-IMEI")
 public interface UserEquipmentInfoIMEI extends DiameterOctetString
 {
 }

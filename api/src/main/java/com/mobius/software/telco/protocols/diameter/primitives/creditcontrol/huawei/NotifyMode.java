@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
     	- 3: The SMSC sends a charging notification to the OCG only if an SM is successfully delivered. 
     	- 4: The SMSC does not send a charging notification to the OCG no matter whether an SM is successfully delivered.  
  */
-@DiameterAvpDefinition(code = 20431L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Notify-Mode")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.NOTIFY_MODE, vendorId = VendorIDs.HUAWEI_ID, name = "Notify-Mode")
 public interface NotifyMode extends DiameterUnsigned32
 {
 }

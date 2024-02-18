@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 	   The value of 0 means that the reporting node is in a stable state and
 	   has no need for the reacting node to apply any traffic abatement.
 */
-@DiameterAvpDefinition(code = 627L, vendorId = -1L, must = false, name = "OC-Reduction-Percentage")
+@DiameterAvpDefinition(code = AvpCodes.OC_REDUCTION_PERCENTAGE, vendorId = -1L, must = false, name = "OC-Reduction-Percentage")
 public interface OCReductionPercentage extends DiameterUnsigned32
 {
 }

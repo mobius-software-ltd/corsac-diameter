@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	If present, Periodic-Time contains the mimum periodic location reporting time.
  */
-@DiameterAvpDefinition(code = 3135L, vendorId = KnownVendorIDs.TGPP_ID, name = "Location-Information-Configuration")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCATION_INFORMATION_CONFIGURATION, vendorId = VendorIDs.TGPP_ID, name = "Location-Information-Configuration")
 public interface LocationInformationConfiguration extends DiameterGroupedAvp
 {
 	MONTELocationTypeEnum getMONTELocationType();

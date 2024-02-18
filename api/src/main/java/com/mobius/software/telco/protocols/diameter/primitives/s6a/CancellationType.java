@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	INITIAL_ATTACH_PROCEDURE (4)
 	This value is used when the Cancel Location is sent to the MME or SGSN due to a received Update Location message during initial attach procedure from an SGSN or MME respectively.
  */
-@DiameterAvpDefinition(code = 1420L, vendorId = KnownVendorIDs.TGPP_ID, name = "Cancellation-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.CANCELLATION_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Cancellation-Type")
 public interface CancellationType extends DiameterEnumerated<CancellationTypeEnum>
 {
 }

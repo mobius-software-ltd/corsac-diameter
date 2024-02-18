@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gqtag;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingInformation;
@@ -52,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPri
 			 *[ Proxy-Info ]
 			 *[ AVP ] 
  */
-@DiameterCommandDefinition(applicationId = 16777222, commandCode = 265, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GQ, commandCode = CommandCodes.AAA, request = false, proxyable = true, name="AA-Answer")
 public interface AAAnswer extends AuthenticationAnswer
 {
 	BindingInformation getBindingInformation();

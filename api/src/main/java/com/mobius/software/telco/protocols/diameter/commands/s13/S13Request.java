@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands.s13;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
@@ -36,5 +37,5 @@ public abstract interface S13Request extends VendorSpecificRequest
 	
 	public AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 }

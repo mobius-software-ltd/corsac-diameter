@@ -18,14 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.BSSIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LogicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5580.LocationDataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5580.LocationInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5580.OperatorNameImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BSSID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5580.LocationData;
@@ -41,7 +39,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1526L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AccessNetworkInfoImpl extends DiameterGroupedAvpImpl implements AccessNetworkInfo
 {
 	private SSID ssid;

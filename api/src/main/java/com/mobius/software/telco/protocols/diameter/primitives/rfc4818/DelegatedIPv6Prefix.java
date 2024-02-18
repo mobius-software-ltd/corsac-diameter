@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4818;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -74,7 +75,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	as a hint by the NAS to the server that it would prefer these
    	prefix(es), but the server is not required to honor the hint.
  */
-@DiameterAvpDefinition(code = 123L, vendorId = -1, name = "Delegated-IPv6-Prefix")
+@DiameterAvpDefinition(code = AvpCodes.DELEGATE_IPV6_PREFIX, vendorId = -1, name = "Delegated-IPv6-Prefix")
 public interface DelegatedIPv6Prefix extends DiameterOctetString
 {
 }

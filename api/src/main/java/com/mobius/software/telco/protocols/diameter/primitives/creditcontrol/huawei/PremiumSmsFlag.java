@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -54,7 +55,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	-
  */
-@DiameterAvpDefinition(code = 30127L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Premium-Sms-Flag")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.PREMIUM_SMS_FLAG, vendorId = VendorIDs.HUAWEI_ID, name = "Premium-Sms-Flag")
 public interface PremiumSmsFlag extends DiameterEnumerated<PremiumSmsFlagEnum>
 {
 }

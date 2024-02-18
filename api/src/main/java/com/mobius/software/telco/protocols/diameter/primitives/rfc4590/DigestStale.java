@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          The attribute has either the value 'true' or 'false' (both
          values without surrounding quotes).
  */
-@DiameterAvpDefinition(code = 120L, vendorId = -1, name = "Digest-Stale")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_STATE, vendorId = -1, name = "Digest-Stale")
 public interface DigestStale extends DiameterUTF8String
 {
 }

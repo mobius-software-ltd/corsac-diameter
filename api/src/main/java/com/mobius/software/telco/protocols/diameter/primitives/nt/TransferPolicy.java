@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,12 +41,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
                    [ Max-Requested-Bandwidth-UL ]
                   *[ AVP ]
  */
-@DiameterAvpDefinition(code = 4207L, vendorId = KnownVendorIDs.TGPP_ID, name = "Transfer-Policy")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRANSFER_POLICY, vendorId = VendorIDs.TGPP_ID, name = "Transfer-Policy")
 public interface TransferPolicy extends DiameterGroupedAvp
 {
 	Long getTransferPolicyId();
 	
-	void setTransferPolicyId(Long value);
+	void setTransferPolicyId(Long value) throws MissingAvpException;
 	
 	TimeWindow getTimeWindow();
 	

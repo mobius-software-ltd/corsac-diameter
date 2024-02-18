@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSubSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GSUPoolIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
@@ -42,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Ser
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 258, request = true)
 public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestmpl implements ReAuthRequest
 {
 	protected CcSubSessionId ccSubSessionId;
@@ -60,7 +62,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 		super();
 	}
 		
-	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType)
+	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, reAuthRequestType);
 	}
@@ -73,7 +75,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	public Long getCCSubSessionId() throws AvpNotSupportedException
 	{
 		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl() } ));
 		
 		if(ccSubSessionId==null)
 			return null;
@@ -84,7 +86,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	public void setCCSubSessionId(Long value) throws AvpNotSupportedException
 	{
 		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl(value, null, null) } ));
 		
 		if(value==null)
 			this.ccSubSessionId = null;
@@ -138,6 +140,15 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 			this.ratingGroup = null;
 		else
 			this.ratingGroup = new RatingGroupImpl(value, null, null);
+	}
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(!ccSubSessionIdAllowed && ccSubSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { ccSubSessionId } ));
+		
+		return super.validate();
 	}
 	
 	@DiameterOrder

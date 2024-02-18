@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	If both MBSFN-Area-ID and Carrier-Frequency values are present, a specific MBSFN area is indicated. If Carrier-Frequency value is present, but MBSFN-Area-ID is absent, all MBSFN areas on that carrier frequency are indicated. If both MBSFN-Area-ID and Carrier-Frequency are absent, any MBSFN area is indicated.
  */
-@DiameterAvpDefinition(code = 1694L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBSFN-Area")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBSFN_AREA, vendorId = VendorIDs.TGPP_ID, must = false, name = "MBSFN-Area")
 public interface MBSFNArea extends DiameterGroupedAvp
 {
 	Long getMBSFNAreaID();

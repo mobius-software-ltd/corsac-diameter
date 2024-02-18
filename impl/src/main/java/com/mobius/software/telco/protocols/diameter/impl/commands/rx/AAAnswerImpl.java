@@ -4,10 +4,13 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rx.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNMCCMNCImpl;
@@ -74,7 +77,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777236, commandCode = 271, request = false)
 public class AAAnswerImpl extends RxAnswerImpl implements AAAnswer
 {
 	private AuthSessionState authSessionState;
@@ -124,7 +126,7 @@ public class AAAnswerImpl extends RxAnswerImpl implements AAAnswer
 		super();
 	}
 	
-	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType)
+	public AAAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);		
 	}
@@ -197,10 +199,16 @@ public class AAAnswerImpl extends RxAnswerImpl implements AAAnswer
 	}
 	
 	@Override
-	public void setANGWAddress(List<InetAddress> value)
+	public void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 AN-GW-Address allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new ANGWAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		if(value==null)
 			this.anGWAddress = null;
@@ -449,10 +457,15 @@ public class AAAnswerImpl extends RxAnswerImpl implements AAAnswer
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(anGWAddress!=null && anGWAddress.size()>2)
-			return "Up to 2 AN-GW-Address allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(anGWAddress);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		return super.validate();
 	}

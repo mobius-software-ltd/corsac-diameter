@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.HorizontalAccuracy;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSQoSClass;
@@ -35,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.VerticalReque
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2504L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LCSQoSImpl implements LCSQoS
 {
 	private LCSQoSClass lcsQoSClass;

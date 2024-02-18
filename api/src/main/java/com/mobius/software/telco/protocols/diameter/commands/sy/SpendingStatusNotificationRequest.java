@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sy;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
@@ -50,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
                 *[ Route-Record ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777302, commandCode = 8388636, request = true, proxyable = true, name="SL-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SY, commandCode = CommandCodes.SPENDING_STATUS, request = true, proxyable = true, name="SL-Request")
 public interface SpendingStatusNotificationRequest extends SyRequest
 {	
 	public List<PolicyCounterStatusReport> getPolicyCounterStatusReport();

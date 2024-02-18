@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TraceData;
 
 import io.netty.buffer.ByteBuf;
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 
 	Either the Trace-Data or the Trace-Reference AVP shall be included. When trace activation is needed, Trace-Data AVP shall be included, while the trace deactivation request shall be signalled by including the Trace-Reference directly under the Trace-Info. The Trace-Reference AVP is of type OctetString. The Diameter AVP is defined in 3GPP TS 29.272 [29].
  */
-@DiameterAvpDefinition(code = 1505L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Trace-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRACE_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Trace-Info")
 public interface TraceInfo extends DiameterGroupedAvp
 {
 	TraceData getTraceData();

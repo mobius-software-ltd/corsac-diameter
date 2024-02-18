@@ -21,10 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ContentVersionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleBaseName;
@@ -44,7 +42,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1018L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ChargingRuleReportImpl extends DiameterGroupedAvpImpl implements ChargingRuleReport
 {
 	private List<ChargingRuleName> chargingRuleName;

@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.InsertSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SubscriptionDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDRFlags;
@@ -40,7 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777251, commandCode = 319, request = true)
 public class InsertSubscriberDataRequestImpl extends S6aRequestImpl implements InsertSubscriberDataRequest
 {
 	private SubscriptionData subscriptionData;
@@ -54,7 +57,7 @@ public class InsertSubscriberDataRequestImpl extends S6aRequestImpl implements I
 		super();
 	}
 	
-	public InsertSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,SubscriptionData subscriptionData)
+	public InsertSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,SubscriptionData subscriptionData) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -68,11 +71,11 @@ public class InsertSubscriberDataRequestImpl extends S6aRequestImpl implements I
 	}
 	
 	@Override
-	public void setSubscriptionData(SubscriptionData value)
+	public void setSubscriptionData(SubscriptionData value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Subscription-Data is required");
-		
+			throw new MissingAvpException("Subscription-Data is required", Arrays.asList(new DiameterAvp[] { new SubscriptionDataImpl() }));
+			
 		this.subscriptionData = value;
 	}
 	
@@ -115,10 +118,10 @@ public class InsertSubscriberDataRequestImpl extends S6aRequestImpl implements I
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(subscriptionData == null)
-			return "Subscription-Data is required";
+			return new MissingAvpException("Subscription-Data is required", Arrays.asList(new DiameterAvp[] { new SubscriptionDataImpl() }));
 		
 		return super.validate();
 	}	

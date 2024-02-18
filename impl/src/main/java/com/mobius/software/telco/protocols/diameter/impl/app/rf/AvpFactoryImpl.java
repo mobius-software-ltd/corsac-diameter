@@ -20,9 +20,9 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rf;
 
 import java.net.InetAddress;
 import java.util.Date;
-import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.rf.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.AccessNetworkInfoChangeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.AccessTransferInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.AccumulatedCostImpl;
@@ -194,17 +194,17 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public ServiceInformation getServiceInformation(List<SubscriptionId> subscriptionId)
+	public ServiceInformation getServiceInformation()
 	{
-		return new ServiceInformationImpl(subscriptionId);
+		return new ServiceInformationImpl();
 	}
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException
 	{
 		return new SubscriptionIdImpl(subscriptionIdType, subscriptionIdData);
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
@@ -221,7 +221,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new PSInformationImpl();
 	}
 			
-	public IMSInformation getIMSInformation(NodeFunctionalityEnum nodeFunctionality)
+	public IMSInformation getIMSInformation(NodeFunctionalityEnum nodeFunctionality) throws MissingAvpException
 	{
 		return new IMSInformationImpl(nodeFunctionality);
 	}
@@ -293,12 +293,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		
 	//PSInformation - standard
 		
-	public TWANUserLocationInfo getTWANUserLocationInfo(String ssid)
+	public TWANUserLocationInfo getTWANUserLocationInfo(String ssid) throws MissingAvpException
 	{
 		return new TWANUserLocationInfoImpl(ssid);
 	}
 		
-	public UWANUserLocationInfo getUWANUserLocationInfo(InetAddress ueLocalIPAddress)
+	public UWANUserLocationInfo getUWANUserLocationInfo(InetAddress ueLocalIPAddress) throws MissingAvpException
 	{
 		return new UWANUserLocationInfoImpl(ueLocalIPAddress);
 	}
@@ -355,7 +355,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ServiceSpecificInfoImpl();
 	}
 			
-	public MessageBody getMessageBody(String contentType,Long contentLength)
+	public MessageBody getMessageBody(String contentType,Long contentLength) throws MissingAvpException
 	{
 		return new MessageBodyImpl(contentType, contentLength);
 	}
@@ -375,7 +375,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new RealTimeTariffInformationImpl();
 	}
 			
-	public TariffInformation getTariffInformation(CurrentTariff currentTariff)
+	public TariffInformation getTariffInformation(CurrentTariff currentTariff) throws MissingAvpException
 	{
 		return new TariffInformationImpl(currentTariff);
 	}
@@ -390,17 +390,17 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new NextTariffImpl();
 	}
 			
-	public ScaleFactor getScaleFactor(Long valueDigits)
+	public ScaleFactor getScaleFactor(Long valueDigits) throws MissingAvpException
 	{
 		return new ScaleFactorImpl(valueDigits);
 	}
 			
-	public RateElement getRateElement(CcUnitTypeEnum ccUnitType)
+	public RateElement getRateElement(CcUnitTypeEnum ccUnitType) throws MissingAvpException
 	{
 		return new RateElementImpl(ccUnitType);
 	}
 			
-	public UnitCost getUnitCost(Long valueDigits)
+	public UnitCost getUnitCost(Long valueDigits) throws MissingAvpException
 	{
 		return new UnitCostImpl(valueDigits);
 	}
@@ -476,7 +476,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 			
 	//PoCInformation - standard
 			
-	public TalkBurstExchange getTalkBurstExchange(Date pocChangeTime)
+	public TalkBurstExchange getTalkBurstExchange(Date pocChangeTime) throws MissingAvpException
 	{
 		return new TalkBurstExchangeImpl(pocChangeTime);
 	}
@@ -567,12 +567,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new AoCServiceImpl();
 	}
 			
-	public IncrementalCost getIncrementalCost(Long valueDigits)
+	public IncrementalCost getIncrementalCost(Long valueDigits) throws MissingAvpException
 	{
 		return new IncrementalCostImpl(valueDigits);
 	}
 			
-	public AccumulatedCost getAccumulatedCost(Long valueDigits)
+	public AccumulatedCost getAccumulatedCost(Long valueDigits) throws MissingAvpException
 	{
 		return new AccumulatedCostImpl(valueDigits);
 	}

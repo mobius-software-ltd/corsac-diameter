@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Serving-Node-Identity AVP (AVP code 3929) is of type DiameterIdentity and holds the identity of the Serving
 	Node (e.g. MME from the SCEF) that was used during a report. 
  */
-@DiameterAvpDefinition(code = 3929L, vendorId = KnownVendorIDs.TGPP_ID, name = "Serving-Node-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVING_NODE_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "Serving-Node-Identity")
 public interface ServingNodeIdentity extends DiameterUTF8String
 {
 }

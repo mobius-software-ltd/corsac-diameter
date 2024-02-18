@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeDirectAllowed;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeDirectA
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3704L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements ProSeDirectAllowed
 {
 	public ProSeDirectAllowedImpl()
@@ -44,7 +41,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setAnnounceBit(boolean isOn)
 	{
-		setBit(ANNOUNCE_BIT, isOn);
+		setBitUnchecked(ANNOUNCE_BIT, isOn);
 	}
  
 	@Override
@@ -56,7 +53,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setMonitorBit(boolean isOn)
 	{
-		setBit(MONITOR_BIT, isOn);
+		setBitUnchecked(MONITOR_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setCommunicationBit(boolean isOn)
 	{
-		setBit(COMMUNICATION_BIT, isOn);
+		setBitUnchecked(COMMUNICATION_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setOneToOneCommunicationBit(boolean isOn)
 	{
-		setBit(COMMUNICATION_BIT, isOn);
+		setBitUnchecked(COMMUNICATION_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setDiscovererBit(boolean isOn)
 	{
-		setBit(DISCOVERER_BIT, isOn);
+		setBitUnchecked(DISCOVERER_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setDiscovereeBit(boolean isOn)
 	{
-		setBit(DISCOVEREE_BIT, isOn);
+		setBitUnchecked(DISCOVEREE_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setRestrictedAnnounceBit(boolean isOn)
 	{
-		setBit(RESTRICTED_ANNOUNCE_BIT, isOn);
+		setBitUnchecked(RESTRICTED_ANNOUNCE_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setRestrictedMonitoringBit(boolean isOn)
 	{
-		setBit(RESTRICTED_MONITORING_BIT, isOn);
+		setBitUnchecked(RESTRICTED_MONITORING_BIT, isOn);
 	}
 
 	@Override
@@ -140,7 +137,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setApplicationControlledExtensionBit(boolean isOn)
 	{
-		setBit(APPLICATION_CONTROLLED_EXTENSION_BIT, isOn);
+		setBitUnchecked(APPLICATION_CONTROLLED_EXTENSION_BIT, isOn);
 	}
 
 	@Override
@@ -152,7 +149,7 @@ public class ProSeDirectAllowedImpl extends DiameterBitmask32Impl implements Pro
 	@Override
 	public void setOnDemandAnnouncingBit(boolean isOn)
 	{
-		setBit(ON_DEMAND_ANNOUNCING_BIT, isOn);
+		setBitUnchecked(ON_DEMAND_ANNOUNCING_BIT, isOn);
 	}
 
 	@Override

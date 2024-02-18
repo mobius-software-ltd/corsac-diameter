@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.59	1xRTT-RCID
 	The 1xRTT-RCID AVP is of type OctetString. It indicates the 1xRTT Reference Cell Id that consists of a Cell Identification Discriminator and a Cell Identification and shall be formatted according to octets 3 through the end of the Cell Identifier element defined in clause 4.2.17 in 3GPP2 A.S0014-D [22]. The allowable cell discriminator values are "0000 0010", and "0000 0111".
  */
-@DiameterAvpDefinition(code = 2554L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "1xRTT-RCID")
+@DiameterAvpDefinition(code = TgppAvpCodes.ONEXRTT_RCID, vendorId = VendorIDs.TGPP_ID, must = false, name = "1xRTT-RCID")
 public interface OneXRTTRCID extends DiameterOctetString
 {
 }

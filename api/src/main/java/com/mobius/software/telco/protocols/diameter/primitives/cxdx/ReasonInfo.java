@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Reason-Info AVP is of type UTF8String, and contains textual information to inform the user about the reason for a 
 	de-registration.
  */
-@DiameterAvpDefinition(code = 617L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reason-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.REASON_INFO, vendorId = VendorIDs.TGPP_ID, name = "Reason-Info")
 public interface ReasonInfo extends DiameterUTF8String
 {
 }

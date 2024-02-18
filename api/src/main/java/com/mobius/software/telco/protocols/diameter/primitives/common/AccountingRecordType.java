@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -64,7 +65,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
       session and contains cumulative accounting information relevant to
       the existing session.
  */
-@DiameterAvpDefinition(code = 480L, vendorId = -1L, name = "Accounting-Record-Type")
+@DiameterAvpDefinition(code = AvpCodes.ACCOUNTING_RECORD_TYPE, vendorId = -1L, name = "Accounting-Record-Type")
 public interface AccountingRecordType extends DiameterEnumerated<AccountingRecordTypeEnum>
 {
 }

@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc2;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.AllowedSuffixesNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ApplicationDataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.OriginAppLayerUserIdImpl;
@@ -52,7 +53,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777350, commandCode = 8388676, request = true)
 public class ProXimityActionRequestImpl extends Pc2RequestImpl implements ProXimityActionRequest
 {
 	private OriginAppLayerUserId originAppLayerUserId;
@@ -76,7 +76,7 @@ public class ProXimityActionRequestImpl extends Pc2RequestImpl implements ProXim
 		super();
 	}
 	
-	public ProXimityActionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
+	public ProXimityActionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, authSessionState, proSeRequestType);
 	}

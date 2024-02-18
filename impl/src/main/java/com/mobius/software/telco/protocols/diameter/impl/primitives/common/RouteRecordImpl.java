@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 282L, vendorId = -1L)
 public class RouteRecordImpl extends DiameterIdentityImpl implements RouteRecord
 {
-	protected RouteRecordImpl() 
+	public RouteRecordImpl() 
 	{
 		super();
 	}

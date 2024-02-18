@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResultCode;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Experiment
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 298L, vendorId = -1L)
 public class ExperimentalResultCodeImpl extends DiameterUnsigned32Impl implements ExperimentalResultCode
 {
 	protected ExperimentalResultCodeImpl() 

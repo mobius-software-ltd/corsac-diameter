@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5580;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 
       >= 5
  */
-@DiameterAvpDefinition(code = 128L, vendorId = -1L, name = "Location-Data")
+@DiameterAvpDefinition(code = AvpCodes.LOCATION_DATA, vendorId = -1L, name = "Location-Data")
 public interface LocationData extends DiameterOctetString
 {
 }

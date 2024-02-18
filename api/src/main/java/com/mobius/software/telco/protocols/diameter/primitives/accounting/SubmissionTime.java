@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Submission-Time AVP (AVP code 1202) is of type Time and indicates the time at which the message was
 	submitted. 
  */
-@DiameterAvpDefinition(code = 1202L, vendorId = KnownVendorIDs.TGPP_ID, name = "Submission-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUBMISSION_TIME, vendorId = VendorIDs.TGPP_ID, name = "Submission-Time")
 public interface SubmissionTime extends DiameterTime
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	The AVP contains the user profile data required for a SIP server to
    	give service to the user.
  */
-@DiameterAvpDefinition(code = 391L, vendorId = -1, name = "SIP-User-Data-Contents")
+@DiameterAvpDefinition(code = AvpCodes.SIP_USER_DATA_CONTENTS, vendorId = -1, name = "SIP-User-Data-Contents")
 public interface SIPUserDataContents extends DiameterOctetString
 {
 }

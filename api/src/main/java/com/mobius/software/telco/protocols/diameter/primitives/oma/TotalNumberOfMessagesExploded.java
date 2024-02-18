@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	6.2.62 Total Number of Messages Exploded
 	This data element indicates the total number of messages distributed to recipients.
  */
-@DiameterAvpDefinition(code = 2113L, vendorId = KnownVendorIDs.TGPP_ID, name = "Total-Number-Of-Messages-Exploded")
+@DiameterAvpDefinition(code = TgppAvpCodes.TOTAL_NUMBER_OF_MESSAGES_EXPLODED, vendorId = VendorIDs.TGPP_ID, name = "Total-Number-Of-Messages-Exploded")
 public interface TotalNumberOfMessagesExploded extends DiameterUnsigned32
 {
 }

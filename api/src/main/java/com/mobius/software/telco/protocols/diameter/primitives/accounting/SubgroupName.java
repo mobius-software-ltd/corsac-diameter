@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	It shall be included when the IN initiates a fanning operation and one of the members of the group is a. 
 	This is the same as the attribute "groupName" for the subgroup as described in Table 7.4.14.1-137.
  */
-@DiameterAvpDefinition(code = 1021L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Subgroup-Name")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.SUBGROUP_NAME, vendorId = VendorIDs.ONEM2M_ID, name = "Subgroup-Name")
 public interface SubgroupName extends DiameterUTF8String
 {
 }

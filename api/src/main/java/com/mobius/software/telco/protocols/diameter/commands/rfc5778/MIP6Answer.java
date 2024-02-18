@@ -21,8 +21,12 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc5778;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
@@ -82,12 +86,12 @@ import io.netty.buffer.ByteBuf;
                    * [ Failed-AVP ]
                    * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 8, commandCode = 325, request = false, proxyable = true, name="MIP6-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MIP6A, commandCode = CommandCodes.MIP6, request = false, proxyable = true, name="MIP6-Answer")
 public interface MIP6Answer extends AuthenticationAnswer
 {
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	Long getAuthorizationLifetime();
 	
@@ -111,7 +115,7 @@ public interface MIP6Answer extends AuthenticationAnswer
 	
 	List<InetAddress> getMIPMobileNodeAddress();
 	
-	void setMIPMobileNodeAddress(List<InetAddress> value);	
+	void setMIPMobileNodeAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;	
 	
 	MIPMNHAMSA getMIPMNHAMSA();
 	

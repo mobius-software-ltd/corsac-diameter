@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Indicates the end date of the validity period of a subscriber, in days. The subscriber expires at 23:59:59 on this day.
  */
-@DiameterAvpDefinition(code = 20733L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Active-Period")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACTIVE_PERIOD, vendorId = VendorIDs.HUAWEI_ID, name = "Active-Period")
 public interface ActivePeriod extends DiameterOctetString
 {
 }

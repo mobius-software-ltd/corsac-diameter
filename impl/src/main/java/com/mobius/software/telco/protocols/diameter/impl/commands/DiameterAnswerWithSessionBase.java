@@ -1,7 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -34,44 +40,27 @@ public abstract class DiameterAnswerWithSessionBase extends DiameterAnswerBase
 		super();
 	}
 	
-	public DiameterAnswerWithSessionBase(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public DiameterAnswerWithSessionBase(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode);
 		
-		if(sessionID==null)
-			throw new IllegalArgumentException("Session-ID is required");
-		
-		try
-		{
-			setSessionId(sessionID);
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		setSessionId(sessionID);		
 	}
 
 	@Override
-	public void setSessionId(String value) throws AvpNotSupportedException
+	public void setSessionId(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Session-ID is required");
+			throw new MissingAvpException("Session-ID is required", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() }));
 		
 		super.setSessionId(value);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getSessionId()==null)
-				return "Session-ID is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			return ex.getMessage();
-		}
+		if(sessionId==null)
+			return new MissingAvpException("Session-ID is required", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() }));
 		
 		return super.validate();
 	}

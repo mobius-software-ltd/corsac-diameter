@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcInputOctets;
@@ -35,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Req
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 437L, vendorId = -1)
 public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements RequestedServiceUnit
 {
 	private CcTime ccTime;
@@ -50,29 +48,8 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 	
 	private CcServiceSpecificUnits ccServiceSpecificUnits;
 	
-	protected RequestedServiceUnitImpl()
-	{
-		
-	}
-	
-	public RequestedServiceUnitImpl(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits)
-	{
-		if(ccTime!=null)
-			this.ccTime = new CcTimeImpl(ccTime, null, null);
-		
-		this.ccMoney = ccMoney;
-		
-		if(ccTotalOctets!=null)
-			this.ccTotalOctets = new CcTotalOctetsImpl(ccTotalOctets, null, null);
-		
-		if(ccInputOctets!=null)
-			this.ccInputOctets = new CcInputOctetsImpl(ccInputOctets, null, null);
-		
-		if(ccOutputOctets!=null)
-			this.ccOutputOctets = new CcOutputOctetsImpl(ccOutputOctets, null, null);
-	
-		if(ccServiceSpecificUnits!=null)
-			this.ccServiceSpecificUnits = new CcServiceSpecificUnitsImpl(ccServiceSpecificUnits, null, null);
+	public RequestedServiceUnitImpl()
+	{		
 	}
 	
 	public Date getCCTime()

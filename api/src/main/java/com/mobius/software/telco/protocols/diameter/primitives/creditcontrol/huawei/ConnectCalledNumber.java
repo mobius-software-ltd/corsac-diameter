@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates the called number for connection.
 	For example, when the IP prefix is preset, the connected called number is IP prefix and called number dialed by a user.
  */
-@DiameterAvpDefinition(code = 20373L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Connect-Called-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CONNECT_CALLED_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "Connect-Called-Number")
 public interface ConnectCalledNumber extends DiameterUTF8String
 {
 }

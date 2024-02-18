@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.ServiceAuthorizationInfo;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.ServiceAuthori
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 548L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServiceAuthorizationInfoImpl extends DiameterBitmask32Impl implements ServiceAuthorizationInfo
 {
 	public ServiceAuthorizationInfoImpl()
@@ -44,7 +41,7 @@ public class ServiceAuthorizationInfoImpl extends DiameterBitmask32Impl implemen
 	@Override
 	public void setTheTransferPolicyIsKnownBit(boolean isOn)
 	{
-		setBit(THE_TRANSFER_POLICY_IS_KNOWN_BIT, isOn);
+		setBitUnchecked(THE_TRANSFER_POLICY_IS_KNOWN_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class ServiceAuthorizationInfoImpl extends DiameterBitmask32Impl implemen
 	@Override
 	public void setTheTransferPolicyHasExpiredBit(boolean isOn)
 	{
-		setBit(THE_TRANSFER_POLICY_HAS_EXPIRED_BIT, isOn);
+		setBitUnchecked(THE_TRANSFER_POLICY_HAS_EXPIRED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class ServiceAuthorizationInfoImpl extends DiameterBitmask32Impl implemen
 	@Override
 	public void setTheTimeWindowOfTheTransferPolicyHasOccurredBit(boolean isOn)
 	{
-		setBit(THE_TIME_WINDOW_OF_THE_TRANSFER_POLICY_HAS_OCCURED_BIT, isOn);
+		setBitUnchecked(THE_TIME_WINDOW_OF_THE_TRANSFER_POLICY_HAS_OCCURED_BIT, isOn);
 	}
 
 	@Override

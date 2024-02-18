@@ -23,8 +23,9 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPP2BSIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPMSTimeZoneImpl;
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.RAIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.TraceReferenceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPP2BSID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
@@ -71,7 +72,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1033L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EventReportIndicationImpl extends DiameterGroupedAvpImpl implements EventReportIndication
 {
 	private ANTrusted anTrusted;
@@ -179,10 +179,16 @@ public class EventReportIndicationImpl extends DiameterGroupedAvpImpl implements
 		return result;
 	}
 	
-	public void setANGWAddress(List<InetAddress> value)
+	public void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 AN-GW-Address allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new ANGWAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		if(value==null)
 			this.anGWAddress = null;
@@ -439,11 +445,16 @@ public class EventReportIndicationImpl extends DiameterGroupedAvpImpl implements
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(anGWAddress!=null && anGWAddress.size()>2)
-			return "Up to 2 AN-GW-Address allowed";
-		
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(anGWAddress);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
+
 		return null;
 	}		  		  
 }

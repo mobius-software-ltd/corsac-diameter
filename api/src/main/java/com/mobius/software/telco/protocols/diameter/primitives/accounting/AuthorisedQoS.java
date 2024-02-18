@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Authorised-QoS AVP (AVP code 849) is of type UTF8String and holds the Authorised QoS as defined in
 	TS 23.207 [200] / TS 29.207 [203] and applied via the Go reference point. This AVP is not used.
  */
-@DiameterAvpDefinition(code = 849L, vendorId = KnownVendorIDs.TGPP_ID, name = "Authorised-QoS")
+@DiameterAvpDefinition(code = TgppAvpCodes.AUTHORIZED_QOS, vendorId = VendorIDs.TGPP_ID, name = "Authorised-QoS")
 public interface AuthorisedQoS extends DiameterUTF8String
 {
 }

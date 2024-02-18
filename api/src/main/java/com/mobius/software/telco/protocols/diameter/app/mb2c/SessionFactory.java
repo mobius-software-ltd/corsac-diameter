@@ -20,10 +20,12 @@ package com.mobius.software.telco.protocols.diameter.app.mb2c;
 
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public interface SessionFactory
 {
-	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationRealm);	
+	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
 	
-	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationRealm);
+	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;
 }

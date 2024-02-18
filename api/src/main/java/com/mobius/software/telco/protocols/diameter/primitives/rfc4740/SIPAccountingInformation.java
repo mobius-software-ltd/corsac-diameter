@@ -18,10 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -45,14 +46,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                    * [ SIP-Credit-Control-Server-URI ]
                                    * [ AVP]                             
  */
-@DiameterAvpDefinition(code = 368L, vendorId = -1L, name = "SIP-Accounting-Information")
+@DiameterAvpDefinition(code = AvpCodes.SIP_ACCOUNTING_INFORMATION, vendorId = -1L, name = "SIP-Accounting-Information")
 public interface SIPAccountingInformation extends DiameterGroupedAvp
 {
 	List<String> getSIPAccountingServerURI();
 	
-	void setSIPAccountingServerURI(List<String> value) throws ParseException;
+	void setSIPAccountingServerURI(List<String> value) throws InvalidAvpValueException;
 	
 	List<String> getSIPCreditControlServerURI();
 	
-	void setSIPCreditControlServerURI(List<String> value) throws ParseException;			
+	void setSIPCreditControlServerURI(List<String> value) throws InvalidAvpValueException;			
 }

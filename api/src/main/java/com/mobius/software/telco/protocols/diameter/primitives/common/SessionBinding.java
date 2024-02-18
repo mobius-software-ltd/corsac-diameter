@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 
@@ -58,7 +59,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32
       value, the Destination-Host AVP, if known, MUST be present in all
       accounting messages for this session.   
 */
-@DiameterAvpDefinition(code = 270L, vendorId = -1L, name = "Session-Binding")
+@DiameterAvpDefinition(code = AvpCodes.SESSION_BINDING, vendorId = -1L, name = "Session-Binding")
 public interface SessionBinding extends DiameterBitmask32
 {
 	public static final Integer RE_AUTH_BIT = 0;

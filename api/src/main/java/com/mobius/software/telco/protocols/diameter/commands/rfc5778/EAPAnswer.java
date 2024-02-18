@@ -21,8 +21,12 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc5778;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSResources;
@@ -76,12 +80,12 @@ import io.netty.buffer.ByteBuf;
    	Success EAP payload.  The other DEA messages required by the used
    	EAP-method do not include any Mobile IPv6 bootstrapping AVPs.
  */
-@DiameterCommandDefinition(applicationId = 7, commandCode = 268, request = false, proxyable = true, name="Diameter-EAP-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MIP6I, commandCode = CommandCodes.EAP, request = false, proxyable = true, name="Diameter-EAP-Answer")
 public interface EAPAnswer extends AuthenticationAnswer
 {
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	ByteBuf getEAPPayload();
 	
@@ -105,7 +109,7 @@ public interface EAPAnswer extends AuthenticationAnswer
 	
 	List<InetAddress> getMIPMobileNodeAddress();
 	
-	void setMIPMobileNodeAddress(List<InetAddress> value);	
+	void setMIPMobileNodeAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;	
 	
 	Long getMIP6FeatureVector();
 	

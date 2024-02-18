@@ -18,10 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfileId;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfileTemplate;
@@ -32,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfil
 *
 */
 
-@DiameterAvpImplementation(code = 574L, vendorId = -1L)
 public class QoSProfileTemplateImpl extends DiameterGroupedAvpImpl implements QoSProfileTemplate
 {
 	private VendorId vendorId;
@@ -43,17 +46,11 @@ public class QoSProfileTemplateImpl extends DiameterGroupedAvpImpl implements Qo
 	{
 	}
 	
-	public QoSProfileTemplateImpl(Long vendorId,Long qoSProfileId)
+	public QoSProfileTemplateImpl(Long vendorId,Long qoSProfileId) throws MissingAvpException
 	{
-		if(vendorId==null)
-			throw new IllegalArgumentException("Vendor-Id is required");
+		setVendorId(vendorId);
 		
-		if(qoSProfileId==null)
-			throw new IllegalArgumentException("QoS-Profile-Id is required");
-		
-		this.vendorId = new VendorIdImpl(vendorId, null, null);				
-		
-		this.qoSProfileId = new QoSProfileIdImpl(qoSProfileId, null, null);
+		setQoSProfileId(qoSProfileId);
 	}
 	
 	public Long getVendorId()
@@ -64,10 +61,10 @@ public class QoSProfileTemplateImpl extends DiameterGroupedAvpImpl implements Qo
 		return this.vendorId.getUnsigned();
 	}
 	
-	public void setVendorId(Long value)
+	public void setVendorId(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Vendor-Id is required");
+			throw new MissingAvpException("Vendor-Id is required is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
 		
 		this.vendorId = new VendorIdImpl(value, null, null);						
 	}
@@ -80,22 +77,22 @@ public class QoSProfileTemplateImpl extends DiameterGroupedAvpImpl implements Qo
 		return this.qoSProfileId.getUnsigned();
 	}
 	
-	public void setQoSProfileId(Long value)
+	public void setQoSProfileId(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("QoS-Profile-Id is required");
+			throw new MissingAvpException("QoS-Profile-Id is required is required", Arrays.asList(new DiameterAvp[] { new QoSProfileIdImpl() }));
 		
 		this.qoSProfileId = new QoSProfileIdImpl(value, null, null);						
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(vendorId==null)
-			return "Vendor-Id is required";
+			return new MissingAvpException("Vendor-Id is required is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
 		
 		if(qoSProfileId==null)
-			return "QoS-Profile-Id is required";
+			return new MissingAvpException("QoS-Profile-Id is required is required", Arrays.asList(new DiameterAvp[] { new QoSProfileIdImpl() }));
 		
 		return null;
 	}

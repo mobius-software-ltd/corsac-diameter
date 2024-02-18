@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The TWAG-UP-Address AVP is of type UTF8String and shall contain a 6-octet MAC address that identifies the TWAG user-plane MAC address to be used for encapsulating user plane packets between the UE and the TWAN, when SCM is used.
 	It shall be encoded in upper-case ASCII characters with the octet values separated by dash characters. It shall contain a string of 17 octets. Example: "00-10-A4-23-19-C0".
  */
-@DiameterAvpDefinition(code = 1532L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAG-UP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.TWAG_UP_ADDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "TWAG-UP-Address")
 public interface TWAGUPAddress extends DiameterUTF8String
 {
 }

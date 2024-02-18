@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6t;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventReportStatus;
 
@@ -49,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEve
 				*[ Route-Record ]
 				*[ AVP]
  */
-@DiameterCommandDefinition(applicationId = 16777345, commandCode = 8388719, request = false, proxyable = true, name="Reporting-Information-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6T, commandCode = CommandCodes.REPORTING_INFORMATION, request = false, proxyable = true, name="Reporting-Information-Answer")
 public interface ReportingInformationAnswer extends S6tAnswer
 {
 	List<MonitoringEventReportStatus> getMonitoringEventReportStatus();

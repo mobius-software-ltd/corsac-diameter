@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.t6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -65,7 +67,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Route-Record ]
 				*[AVP]
  */
-@DiameterCommandDefinition(applicationId = 16777346, commandCode = 8388732, request = false, proxyable = true, name="Connection-Management-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T6A, commandCode = CommandCodes.CONNECTION_MANAGEMENT, request = false, proxyable = true, name="Connection-Management-Answer")
 public interface ConnectionManagementAnswer extends T6aAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

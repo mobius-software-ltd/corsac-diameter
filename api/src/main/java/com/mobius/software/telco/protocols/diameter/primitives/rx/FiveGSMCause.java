@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 5.3.71	5GSM-Cause AVP
 	The 5GSM-Cause AVP (AVP code 574) is of type Unsigned32 and indicates the 5GSM cause code information. The AVP shall be coded as per the 5GSM Cause in clause 9.11.4.2 of 3GPP TS 24.501 [70].
  */
-@DiameterAvpDefinition(code = 574L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "5GSM-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.FIVE_GSM_CAUSE, vendorId = VendorIDs.TGPP_ID, must = false, name = "5GSM-Cause")
 public interface FiveGSMCause extends DiameterUnsigned32
 {
 }

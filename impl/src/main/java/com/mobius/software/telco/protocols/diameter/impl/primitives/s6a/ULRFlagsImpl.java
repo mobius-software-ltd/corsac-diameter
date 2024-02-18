@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ULRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.ULRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1405L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 {
 	public ULRFlagsImpl()
@@ -44,7 +41,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setSingleRegistrationIndicationBit(boolean isOn)
 	{
-		setBit(SINGLE_REGISTRATION_INDICATION_BIT, isOn);
+		setBitUnchecked(SINGLE_REGISTRATION_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setS6AS6DIndicationBit(boolean isOn)
 	{
-		setBit(S6A_S6D_INDICATOR_BIT, isOn);
+		setBitUnchecked(S6A_S6D_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setSkipSubscriberDataBit(boolean isOn)
 	{
-		setBit(SKIP_SUBSCRIBER_DATA_BIT, isOn);
+		setBitUnchecked(SKIP_SUBSCRIBER_DATA_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setGPRSSubscriptionDataIndicationBit(boolean isOn)
 	{
-		setBit(GPRS_SUBSCRIPTION_DATA_INDICATOR_BIT, isOn);
+		setBitUnchecked(GPRS_SUBSCRIPTION_DATA_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setNodeTypeIndicationBit(boolean isOn)
 	{
-		setBit(NODE_TYPE_INDICATION_BIT, isOn);
+		setBitUnchecked(NODE_TYPE_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setInitialAttachIndicationBit(boolean isOn)
 	{
-		setBit(INITIAL_ATTACH_INDICATION_BIT, isOn);
+		setBitUnchecked(INITIAL_ATTACH_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setPSLCSNotSupportedByUEBit(boolean isOn)
 	{
-		setBit(PS_LCS_NOT_SUPPORTED_BY_UE_BIT, isOn);
+		setBitUnchecked(PS_LCS_NOT_SUPPORTED_BY_UE_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setSMSOnlyIndicationBit(boolean isOn)
 	{
-		setBit(SMS_ONLY_INDICATION_BIT, isOn);
+		setBitUnchecked(SMS_ONLY_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -140,7 +137,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setDualRegistration5GIndicationBit(boolean isOn)
 	{
-		setBit(DUAL_REGISTRATION_5G_INDICATION_BIT, isOn);
+		setBitUnchecked(DUAL_REGISTRATION_5G_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -152,7 +149,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setInterPLMNInterMMEHandoverBit(boolean isOn)
 	{
-		setBit(INTER_PLMN_INTER_MME_HANDOVER_BIT, isOn);
+		setBitUnchecked(INTER_PLMN_INTER_MME_HANDOVER_BIT, isOn);
 	}
 
 	@Override
@@ -164,7 +161,7 @@ public class ULRFlagsImpl extends DiameterBitmask32Impl implements ULRFlags
 	@Override
 	public void setIntraPLMNInterMMEHandoverBit(boolean isOn)
 	{
-		setBit(INTRA_PLMN_INTER_MME_HANDOVER_BIT, isOn);
+		setBitUnchecked(INTRA_PLMN_INTER_MME_HANDOVER_BIT, isOn);
 	}
 
 	@Override

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Neighbour-Node-Address AVP (AVP code 2705) is of type Address and holds the control plane IP address of the
 	neighbouring network contact point that handles the service request in case of interconnection and roaming. 
  */
-@DiameterAvpDefinition(code = 2705L, vendorId = KnownVendorIDs.TGPP_ID, name = "Neighbour-Node-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.NEIGHTBOUR_NODE_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Neighbour-Node-Address")
 public interface NeighbourNodeAddress extends DiameterAddress
 {
 }

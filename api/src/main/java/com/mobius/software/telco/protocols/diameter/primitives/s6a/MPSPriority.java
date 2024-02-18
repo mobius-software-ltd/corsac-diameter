@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	The HSS derives the information for MPS-CS-Priority from the eMLPP Subscription Data as defined in the 3GPP TS 29.002 [24] or 1x RTT priority service which is out of the scope of 3GPP.
  */
-@DiameterAvpDefinition(code = 1616L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MPS-Priority")
+@DiameterAvpDefinition(code = TgppAvpCodes.MPS_PRIORITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "MPS-Priority")
 public interface MPSPriority extends DiameterBitmask32
 {
 	public static final int MPS_CS_PRIORITY_BIT = 0;

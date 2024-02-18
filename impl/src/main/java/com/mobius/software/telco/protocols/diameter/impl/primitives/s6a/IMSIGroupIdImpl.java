@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.GroupPLMNId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.GroupServiceId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IMSIGroupId;
@@ -34,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1675L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IMSIGroupIdImpl extends DiameterGroupedAvpImpl implements IMSIGroupId
 {
 	private GroupServiceId groupServiceId;
@@ -48,22 +50,13 @@ public class IMSIGroupIdImpl extends DiameterGroupedAvpImpl implements IMSIGroup
 		
 	}
 	
-	public IMSIGroupIdImpl(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId)
+	public IMSIGroupIdImpl(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId) throws MissingAvpException
 	{
-		if(groupServiceId==null)
-			throw new IllegalArgumentException("Group-Service-Id is required");
+		setGroupServiceId(groupServiceId);
 		
-		if(groupPLMNId==null)
-			throw new IllegalArgumentException("Group-PLMN-Id is required");
+		setGroupPLMNId(groupPLMNId);
 		
-		if(localGroupId==null)
-			throw new IllegalArgumentException("Local-Group-Id is required");
-		
-		this.groupServiceId = new GroupServiceIdImpl(groupServiceId, null, null);				
-		
-		this.groupPLMNId = new GroupPLMNIdImpl(groupPLMNId, null, null);
-		
-		this.localGroupId = new LocalGroupIdImpl(localGroupId, null, null);	
+		setLocalGroupId(localGroupId);
 	}
 	
 	public Long getGroupServiceId()
@@ -74,11 +67,11 @@ public class IMSIGroupIdImpl extends DiameterGroupedAvpImpl implements IMSIGroup
 		return groupServiceId.getUnsigned();
 	}
 	
-	public void setGroupServiceId(Long value)
+	public void setGroupServiceId(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Group-Service-Id is required");
-		
+			throw new MissingAvpException("Group-Service-Id is required", Arrays.asList(new DiameterAvp[] { new GroupServiceIdImpl() }));
+			
 		this.groupServiceId = new GroupServiceIdImpl(value, null, null);	
 	}
 	
@@ -90,11 +83,11 @@ public class IMSIGroupIdImpl extends DiameterGroupedAvpImpl implements IMSIGroup
 		return groupPLMNId.getValue();
 	}
 	
-	public void setGroupPLMNId(ByteBuf value)
+	public void setGroupPLMNId(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Group-PLMN-Id is required");
-		
+			throw new MissingAvpException("Group-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new GroupPLMNIdImpl() }));
+			
 		this.groupPLMNId = new GroupPLMNIdImpl(value, null, null);	
 	}
 	
@@ -106,25 +99,25 @@ public class IMSIGroupIdImpl extends DiameterGroupedAvpImpl implements IMSIGroup
 		return localGroupId.getValue();
 	}
 	
-	public void setLocalGroupId(ByteBuf value)
+	public void setLocalGroupId(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Local-Group-Id is required");
+			throw new MissingAvpException("Local-Group-Id is required", Arrays.asList(new DiameterAvp[] { new LocalGroupIdImpl() }));
 		
 		this.localGroupId = new LocalGroupIdImpl(value, null, null);	
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(groupServiceId==null)
-			return "Group-Service-Id is required";
+			return new MissingAvpException("Group-Service-Id is required", Arrays.asList(new DiameterAvp[] { new GroupServiceIdImpl() }));
 		
 		if(groupPLMNId==null)
-			return "Group-PLMN-Id is required";
+			return new MissingAvpException("Group-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new GroupPLMNIdImpl() }));
 		
 		if(localGroupId==null)
-			return "Local-Group-Id is required";
+			return new MissingAvpException("Local-Group-Id is required", Arrays.asList(new DiameterAvp[] { new LocalGroupIdImpl() }));
 		
 		return null;
 	}

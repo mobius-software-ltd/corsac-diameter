@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -91,7 +92,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The restriction "HO-To-Non-3GPP-Access Not Allowed" shall take a higher precedence than the APN-level parameter "WLAN-Offloadability" (see clause 7.3.181).
  */
-@DiameterAvpDefinition(code = 1426L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Restriction-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_RESTRICTION_DATA, vendorId = VendorIDs.TGPP_ID, name = "Access-Restriction-Data")
 public interface AccessRestrictionData extends DiameterBitmask32
 {
 	public static final int UTRAN_NOT_ALLOWED_BIT = 0;

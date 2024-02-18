@@ -22,13 +22,14 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSFlowIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSSessionDurationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSFlowIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSSessionDuration;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.TMGI;
@@ -47,7 +48,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3505L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBMSBearerResponseImpl extends DiameterGroupedAvpImpl implements MBMSBearerResponse
 {
 	private TMGI tmgi;
@@ -135,10 +135,16 @@ public class MBMSBearerResponseImpl extends DiameterGroupedAvpImpl implements MB
 		return result;
 	}
 	
-	public void setBMSCAddress(List<InetAddress> value)
+	public void setBMSCAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Only 2 BMSC‑Address are allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new BMSCAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 BMSC‑Address are allowed", failedAvps);
+		}
 		else if(value==null || value.size()==0)
 			this.bmscAddress = null;
 		else
@@ -216,11 +222,15 @@ public class MBMSBearerResponseImpl extends DiameterGroupedAvpImpl implements MB
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(bmscAddress!=null || bmscAddress.size()>2)
-			return "Only 2 BMSC‑Address are allowed";
-		
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(bmscAddress);
+			return new AvpOccursTooManyTimesException("Up to 2 BMSC‑Address are allowed", failedAvps);
+		}
+
 		return null;
 	}
 }

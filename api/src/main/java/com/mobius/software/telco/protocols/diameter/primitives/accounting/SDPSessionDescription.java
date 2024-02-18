@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SDP-Session-Description AVP (AVP code 842) is of type UTF8String and holds the content of the SDP line (i=,
 	c=, b=, k=, a=, etc.) in the session description, as described in RFC 4566 [406]. 
  */
-@DiameterAvpDefinition(code = 842L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Session-Description")
+@DiameterAvpDefinition(code = TgppAvpCodes.SDP_SESSION_DESCRIPTION, vendorId = VendorIDs.TGPP_ID, name = "SDP-Session-Description")
 public interface SDPSessionDescription extends DiameterUTF8String
 {
 }

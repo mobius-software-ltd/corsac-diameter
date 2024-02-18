@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -54,7 +55,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 	      this flag is set by a DOIC reporting node, it means that the loss
 	      algorithm will be used for requested overload abatement.
  */
-@DiameterAvpDefinition(code = 622L, vendorId = -1L, must = false, name = "OC-Feature-Vector")
+@DiameterAvpDefinition(code = AvpCodes.OC_FEATURE_VECTOR, vendorId = -1L, must = false, name = "OC-Feature-Vector")
 public interface OCFeatureVector extends DiameterUnsigned64
 {
 }

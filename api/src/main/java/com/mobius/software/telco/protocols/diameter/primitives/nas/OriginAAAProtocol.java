@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
          1       RADIUS
  */
-@DiameterAvpDefinition(code = 408L, vendorId = -1L, name = "Origin-AAA-Protocol")
+@DiameterAvpDefinition(code = AvpCodes.ORIGIN_AAA_PROTOCOL, vendorId = -1L, name = "Origin-AAA-Protocol")
 public interface OriginAAAProtocol extends DiameterEnumerated<OriginAAAProtocolEnum>
 {
 }

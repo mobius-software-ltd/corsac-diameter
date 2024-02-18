@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.TDAFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.TDAFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4321L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TDAFlagsImpl extends DiameterBitmask32Impl implements TDAFlags
 {
 	public TDAFlagsImpl()
@@ -44,7 +41,7 @@ public class TDAFlagsImpl extends DiameterBitmask32Impl implements TDAFlags
 	@Override
 	public void setAcknowledgedDeliveryBit(boolean isOn)
 	{
-		setBit(ACKNOWLEDGED_DELIVERY_BIT, isOn);
+		setBitUnchecked(ACKNOWLEDGED_DELIVERY_BIT, isOn);
 	}
 
 	@Override

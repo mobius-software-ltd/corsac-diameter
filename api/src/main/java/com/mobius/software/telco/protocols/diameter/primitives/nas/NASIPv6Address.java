@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Address;
 
@@ -26,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Addre
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 95L, vendorId = -1L, name = "NAS-IPv6-Address")
+@DiameterAvpDefinition(code = AvpCodes.NAS_IPV6_ADDRESS, vendorId = -1L, name = "NAS-IPv6-Address")
 public interface NASIPv6Address extends DiameterIpv6Address
 {	
 }

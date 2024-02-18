@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.sy;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,16 +43,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
                                        *[ Pending-Policy-Counter-Information ]
                                        *[ AVP ]
  */
-@DiameterAvpDefinition(code = 2903L, vendorId = KnownVendorIDs.TGPP_ID, name = "Policy-Counter-Status-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.POLICY_COUNTER_STATUS_REPORT, vendorId = VendorIDs.TGPP_ID, name = "Policy-Counter-Status-Report")
 public interface PolicyCounterStatusReport extends DiameterGroupedAvp
 {
 	String getPolicyCounterIdentifier();
 	
-	void setPolicyCounterIdentifier(String value);
+	void setPolicyCounterIdentifier(String value) throws MissingAvpException;
 	
 	String getPolicyCounterStatus();
 	
-	void setPolicyCounterStatus(String value);
+	void setPolicyCounterStatus(String value) throws MissingAvpException;
 	
 	List<PendingPolicyCounterInformation> getPendingPolicyCounterInformation();
 	

@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitActionEnum;
 
 /**
@@ -48,12 +50,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Fin
 	       		 [Media-Component-Status]
 	      		*[AVP]
  */
-@DiameterAvpDefinition(code = 510L, vendorId = KnownVendorIDs.TGPP_ID, name = "Flows")
+@DiameterAvpDefinition(code = TgppAvpCodes.FLOWS, vendorId = VendorIDs.TGPP_ID, name = "Flows")
 public interface Flows extends DiameterGroupedAvp
 {
 	Long getMediaComponentNumber();
 	
-	void setMediaComponentNumber(Long value);
+	void setMediaComponentNumber(Long value) throws MissingAvpException;
 	
 	List<Long> getFlowNumber();
 	

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	      *[Called-Asserted-Identity]
 	      *[AVP]
  */
-@DiameterAvpDefinition(code = 565L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Callee-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.CALLEE_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Callee-Information")
 public interface CalleeInformation extends DiameterGroupedAvp
 {
 	String getCalledPartyAddress();

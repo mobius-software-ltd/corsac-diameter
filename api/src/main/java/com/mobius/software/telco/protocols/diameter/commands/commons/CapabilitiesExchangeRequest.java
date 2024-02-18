@@ -21,8 +21,11 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
 /**
@@ -60,20 +63,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
                    [ Firmware-Revision ]
                  * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 0, commandCode = 257, request = true, proxyable = false, name="Capabilities-Exchange-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.COMMON, commandCode = CommandCodes.CAPABILITIES_EXCHANGE, request = true, proxyable = false, name="Capabilities-Exchange-Request")
 public interface CapabilitiesExchangeRequest extends DiameterMessage
 {
 	public List<InetAddress> getHostIpAddresses();
 	
-	void setHostIpAddress(List<InetAddress> value);
+	void setHostIpAddress(List<InetAddress> value) throws MissingAvpException;
 	
 	public Long getVendorId();
 	
-	void setVendorId(Long value);
+	void setVendorId(Long value) throws MissingAvpException;
 	
 	public String getProductName();
 	
-	void setProductName(String value);
+	void setProductName(String value) throws MissingAvpException;
 	
 	public List<Long> getSupportedVendorIds();
 	

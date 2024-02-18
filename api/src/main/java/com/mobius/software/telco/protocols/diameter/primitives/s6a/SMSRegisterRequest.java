@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The criteria for setting these values are defined in 3GPP TS 23.272 [44] and 3GPP TS 23.060 [12].
 	When the MME/SGSN includes the SMS-Register-Request AVP in ULR in order to modify its registration status for SMS, the MME/SGSN shall not set the "Skip Subscriber Data" flag within the ULR-Flags AVP.
  */
-@DiameterAvpDefinition(code = 1648L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SMS-Register-Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.SMS_REGISTER_REQUEST, vendorId = VendorIDs.TGPP_ID, must = false, name = "SMS-Register-Request")
 public interface SMSRegisterRequest extends DiameterEnumerated<SMSRegisterRequestEnum>
 {
 }

@@ -21,8 +21,12 @@ package com.mobius.software.telco.protocols.diameter.commands.s9;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
@@ -70,7 +74,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s9.SubsessionDeci
 				*[ Route-Record ]
 				*[ AVP]
  */
-@DiameterCommandDefinition(applicationId = 16777267, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S9, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends AuthenticationRequest
 {
 	DRMPEnum getDRMP();
@@ -79,7 +83,7 @@ public interface ReAuthRequest extends AuthenticationRequest
 	
 	ReAuthRequestTypeEnum getReAuthRequestType();
 	
-	void setReAuthRequestType(ReAuthRequestTypeEnum value);
+	void setReAuthRequestType(ReAuthRequestTypeEnum value) throws MissingAvpException;
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	
@@ -107,7 +111,7 @@ public interface ReAuthRequest extends AuthenticationRequest
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	SessionReleaseCauseEnum getSessionReleaseCause();
 	

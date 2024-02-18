@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 import io.netty.buffer.ByteBuf;
 
@@ -50,14 +53,14 @@ import io.netty.buffer.ByteBuf;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777340, commandCode = 8388673, request = true, proxyable = true, name="ProSe-Location-Update-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC6, commandCode = CommandCodes.PROSE_LOCATION_UPDATE, request = true, proxyable = true, name="ProSe-Location-Update-Request")
 public interface ProSeLocationUpdateRequest extends Pc6Request
 {
 	String getTargetedEPUID();
 	
-	void setTargetedEPUID(String value);
+	void setTargetedEPUID(String value) throws MissingAvpException;
 	
 	ByteBuf getLocationEstimate();
 	
-	void setLocationEstimate(ByteBuf value);
+	void setLocationEstimate(ByteBuf value) throws MissingAvpException;
 }

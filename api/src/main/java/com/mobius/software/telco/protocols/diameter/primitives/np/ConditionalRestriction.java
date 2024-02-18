@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 UE location info not included in RUCI
 	This bit, when set, indicates that the location information of the UE shall not be included in RUCI for reporting.
  */
-@DiameterAvpDefinition(code = 4007L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Conditional-Restriction")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONDITIONAL_RESTRICTION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Conditional-Restriction")
 public interface ConditionalRestriction extends DiameterBitmask32
 {
 	public static final int UE_LOCATION_INFO_NOT_INCLUDED_IN_RUCI_BIT = 0;	

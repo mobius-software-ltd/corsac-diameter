@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.224A	Teleservice AVP
 	The Teleservice AVP (AVP code 3413) is of type OctetString and holds the used teleservice for the voice call service. 
  */
-@DiameterAvpDefinition(code = 3413L, vendorId = KnownVendorIDs.TGPP_ID, name = "Teleservice")
+@DiameterAvpDefinition(code = TgppAvpCodes.TELESERVICE, vendorId = VendorIDs.TGPP_ID, name = "Teleservice")
 public interface Teleservice extends DiameterOctetString
 {
 }

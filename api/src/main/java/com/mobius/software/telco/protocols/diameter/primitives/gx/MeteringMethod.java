@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Metering-Method AVP is omitted and has not been supplied previously, the metering method pre-configured at the
 	PCEF is applicable as default metering method. 
  */
-@DiameterAvpDefinition(code = 1007L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Metering-Method")
+@DiameterAvpDefinition(code = TgppAvpCodes.METERING_METHOD, vendorId = VendorIDs.TGPP_ID, must = false, name = "Metering-Method")
 public interface MeteringMethod extends DiameterEnumerated<MeteringMethodEnum>
 {
 }

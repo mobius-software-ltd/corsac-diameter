@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Originating-IOI ]
 		[ Terminating-IOI ]
  */
-@DiameterAvpDefinition(code = 838L, vendorId = KnownVendorIDs.TGPP_ID, name = "Inter-Operator-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.INTER_OPERATOR_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Inter-Operator-Identifier")
 public interface InterOperatorIdentifier extends DiameterAvp
 {
 	String getOriginatingIOI();

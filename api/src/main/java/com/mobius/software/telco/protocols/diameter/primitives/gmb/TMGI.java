@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.2	TMGI AVP
 	The TMGI AVP (AVP code 900) is of type OctetString, and contains the Temporary Mobile Group Identity allocated to a particular MBMS bearer service. It is allocated by the BM-SC. The encoding of TMGI is specified in 3GPP TS 24.008 [54]. When allocating the TMGI, BM-SC shall always include the MCC and MNC in the TMGI.
  */
-@DiameterAvpDefinition(code = 900L, vendorId = KnownVendorIDs.TGPP_ID, name = "TMGI")
+@DiameterAvpDefinition(code = TgppAvpCodes.TMGI, vendorId = VendorIDs.TGPP_ID, name = "TMGI")
 public interface TMGI extends DiameterOctetString
 {
 }

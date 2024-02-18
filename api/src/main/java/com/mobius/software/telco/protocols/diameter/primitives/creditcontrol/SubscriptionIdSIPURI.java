@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    The Subscription-Id-SIP-URI AVP contains the identifier in the form
    of a SIP URI, as defined in [RFC3261].
  */
-@DiameterAvpDefinition(code = 662L, vendorId = -1L, must = false, name = "Subscription-Id-SIP-URI")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_SIP_URI, vendorId = -1L, must = false, name = "Subscription-Id-SIP-URI")
 public interface SubscriptionIdSIPURI extends DiameterUTF8String
 {
 }

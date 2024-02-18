@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MACAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.WLANLinkLayerId;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.WLANLinkLayer
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3821L, vendorId = KnownVendorIDs.TGPP_ID)
 public class WLANLinkLayerIdImpl extends DiameterGroupedAvpImpl implements WLANLinkLayerId
 {
 	private MACAddress macAddress;

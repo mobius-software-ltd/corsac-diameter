@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.6	Pending-Policy-Counter-Change-Time AVP
 	The Pending-Policy-Counter-Change-Time AVP (AVP code 2906) is of type Time. This value indicates the NTP time at which the pending policy counter status becomes the current status of a policy counter.
  */
-@DiameterAvpDefinition(code = 2906L, vendorId = KnownVendorIDs.TGPP_ID, name = "Pending-Policy-Counter-Change-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.PENDING_POLICY_COUNTER_CHANGE_TIME, vendorId = VendorIDs.TGPP_ID, name = "Pending-Policy-Counter-Change-Time")
 public interface PendingPolicyCounterChangeTime extends DiameterTime
 {
 }

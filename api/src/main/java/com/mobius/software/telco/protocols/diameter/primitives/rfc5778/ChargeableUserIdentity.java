@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	and contains a unique temporary handle of the user.  The Chargeable-
    	User-Identity is defined in [RFC4372].
  */
-@DiameterAvpDefinition(code = 89L, vendorId = -1L, name = "Chargeable-User-Identity")
+@DiameterAvpDefinition(code = AvpCodes.CHARGEABLE_USER_IDENTITY, vendorId = -1L, name = "Chargeable-User-Identity")
 public interface ChargeableUserIdentity extends DiameterOctetString
 {
 }

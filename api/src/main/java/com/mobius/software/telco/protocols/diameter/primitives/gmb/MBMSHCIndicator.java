@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	17.7.25	MBMS-HC-Indicator AVP
 	MBMS-HC-Indicator AVP (AVP code 922) is of type Enumerated. It represents an indication if header compression is used by BM-SC when sending for MBMS user plane data. The enumeration values are defined in 3GPP TS 25.413 [92].
  */
-@DiameterAvpDefinition(code = 922L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-HC-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_HC_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "MBMS-HC-Indicator")
 public interface MBMSHCIndicator extends DiameterEnumerated<MBMSHCIndicatorEnum>
 {
 }

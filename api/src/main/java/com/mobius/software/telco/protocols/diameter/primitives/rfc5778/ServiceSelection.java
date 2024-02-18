@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    	reply messages, it SHOULD contain the same service name.  If the
    	services differ, the HA MAY treat that as authorization failure.	   
  */
-@DiameterAvpDefinition(code = 493L, vendorId = -1, name = "Service-Selection")
+@DiameterAvpDefinition(code = AvpCodes.SERVICE_SELECTION, vendorId = -1, name = "Service-Selection")
 public interface ServiceSelection extends DiameterUTF8String
 {
 }

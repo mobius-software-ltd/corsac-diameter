@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
          2   Timestamps
          3   Nonces
  */
-@DiameterAvpDefinition(code = 345L, vendorId = -1L, name = "MIP-Replay-Mode")
+@DiameterAvpDefinition(code = AvpCodes.MIP_REPAY_MODE, vendorId = -1L, name = "MIP-Replay-Mode")
 public interface MIPReplayMode extends DiameterEnumerated<MIPReplayModeEnum>
 {
 }

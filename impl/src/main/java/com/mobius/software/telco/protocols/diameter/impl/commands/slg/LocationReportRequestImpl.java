@@ -2,12 +2,15 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.slg;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LocationEstimateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CellGlobalIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IMEIImpl;
@@ -90,7 +93,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777255, commandCode = 8388621, request = true)
 public class LocationReportRequestImpl extends SlgRequestImpl implements LocationReportRequest
 {
 	private LocationEvent locationEvent;
@@ -156,7 +158,7 @@ public class LocationReportRequestImpl extends SlgRequestImpl implements Locatio
 		super();
 	}
 	
-	public LocationReportRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,LocationEventEnum locationEvent)
+	public LocationReportRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,LocationEventEnum locationEvent) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -173,13 +175,13 @@ public class LocationReportRequestImpl extends SlgRequestImpl implements Locatio
 	}
 	 
 	@Override
-	public void setLocationEvent(LocationEventEnum value)
+	public void setLocationEvent(LocationEventEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Location-Event is required");
+			throw new MissingAvpException("Location-Event is required", Arrays.asList(new DiameterAvp[] { new LocationEventImpl() }));
 			
 		this.locationEvent = new LocationEventImpl(value, null, null);
-	}			
+	}
 	 		
 	@Override
 	public LCSEPSClientName getLCSEPSClientName()
@@ -632,10 +634,10 @@ public class LocationReportRequestImpl extends SlgRequestImpl implements Locatio
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(locationEvent == null)
-			return "Location-Event is required";
+			return new MissingAvpException("Location-Event is required", Arrays.asList(new DiameterAvp[] { new LocationEventImpl() }));
 		
 		return super.validate();
 	}	

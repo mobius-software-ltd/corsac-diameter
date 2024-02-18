@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUriImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTransport;
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAccoun
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 369L, vendorId = -1)
 public class SIPAccountingServerURIImpl extends DiameterUriImpl implements SIPAccountingServerURI
 {
 	protected SIPAccountingServerURIImpl()
@@ -49,7 +46,7 @@ public class SIPAccountingServerURIImpl extends DiameterUriImpl implements SIPAc
 		super(host, port, isSecure, transport, protocol, minLength, maxLength);
 	}
 
-	public SIPAccountingServerURIImpl(String uri, Integer minLength, Integer maxLength) throws ParseException
+	public SIPAccountingServerURIImpl(String uri, Integer minLength, Integer maxLength) throws InvalidAvpValueException
 	{
 		super(uri, minLength, maxLength);
 	}

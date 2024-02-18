@@ -18,12 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetPDUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetRPAUIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.BannedUserTarget;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.TargetPDUID;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.TargetRPAUID;
@@ -35,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3611L, vendorId = KnownVendorIDs.TGPP_ID)
 public class BannedUserTargetImpl extends DiameterGroupedAvpImpl implements BannedUserTarget
 {
 	private TargetRPAUID targetRPAUID;
@@ -45,17 +47,11 @@ public class BannedUserTargetImpl extends DiameterGroupedAvpImpl implements Bann
 	{
 	}
 	
-	public BannedUserTargetImpl(String targetRPAUID,ByteBuf targetPDUID)
+	public BannedUserTargetImpl(String targetRPAUID,ByteBuf targetPDUID) throws MissingAvpException
 	{
-		if(targetRPAUID==null)
-			throw new IllegalArgumentException("Target-RPAUID is required");
+		setTargetRPAUID(targetRPAUID);
 		
-		if(targetPDUID==null)
-			throw new IllegalArgumentException("Target-PDUID is required");
-		
-		this.targetRPAUID = new TargetRPAUIDImpl(targetRPAUID, null, null);				
-		
-		this.targetPDUID = new TargetPDUIDImpl(targetPDUID, null, null);
+		setTargetPDUID(targetPDUID);
 	}
 	
 	public String getTargetRPAUID()
@@ -66,11 +62,11 @@ public class BannedUserTargetImpl extends DiameterGroupedAvpImpl implements Bann
 		return targetRPAUID.getString();
 	}
 	
-	public void setTargetRPAUID(String value)
+	public void setTargetRPAUID(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Target-RPAUID is required");
-		
+			throw new MissingAvpException("Target-RPAUID is required", Arrays.asList(new DiameterAvp[] { new TargetRPAUIDImpl() }));
+			
 		this.targetRPAUID = new TargetRPAUIDImpl(value, null, null);						
 	}
 	
@@ -82,22 +78,22 @@ public class BannedUserTargetImpl extends DiameterGroupedAvpImpl implements Bann
 		return targetPDUID.getValue();
 	}
 	
-	public void TargetPDUID(ByteBuf value)
+	public void setTargetPDUID(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Target-PDUID is required");
+			throw new MissingAvpException("Target-PDUID is required", Arrays.asList(new DiameterAvp[] { new TargetPDUIDImpl() }));
 		
 		this.targetPDUID = new TargetPDUIDImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(targetRPAUID==null)
-			return "Target-RPAUID is required";
+			return new MissingAvpException("Target-RPAUID is required", Arrays.asList(new DiameterAvp[] { new TargetRPAUIDImpl() }));
 		
 		if(targetPDUID==null)
-			return "Target-PDUID is required";
+			return new MissingAvpException("Target-PDUID is required", Arrays.asList(new DiameterAvp[] { new TargetPDUIDImpl() }));
 		
 		return null;
 	}

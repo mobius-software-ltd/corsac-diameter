@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FiveGMMCause;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FiveGSMCause;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FiveGSRANNASReleaseCause;
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPCause;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 572L, vendorId = KnownVendorIDs.TGPP_ID)
 public class FiveGSRANNASReleaseCauseImpl extends DiameterGroupedAvpImpl implements FiveGSRANNASReleaseCause
 {
 	private FiveGMMCause fiveGMMCause;

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -42,14 +44,14 @@ import io.netty.buffer.ByteBuf;
                         { Proxy-State }
                       * [ AVP ]
  */
-@DiameterAvpDefinition(code = 284L, vendorId = -1L, name = "Proxy-Info")
+@DiameterAvpDefinition(code = AvpCodes.PROXY_INFO, vendorId = -1L, name = "Proxy-Info")
 public interface ProxyInfo extends DiameterGroupedAvp 
 {
 	String getProxyHost();
 	
-	void setProxyHost(String proxyHost);
+	void setProxyHost(String proxyHost) throws MissingAvpException;
 	
 	ByteBuf getProxyState();
 	
-	void setProxyState(ByteBuf proxyState);	
+	void setProxyState(ByteBuf proxyState) throws MissingAvpException;	
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ProSe-Request-Timestamp AVP (AVP code 3450) is of type Time, and it holds the timestamp when ProSe Request
 	is received from UE. 
  */
-@DiameterAvpDefinition(code = 3450L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Request-Timestamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_REQUEST_TIMESTAMP, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Request-Timestamp")
 public interface ProSeRequestTimestamp extends DiameterTime
 {
 }

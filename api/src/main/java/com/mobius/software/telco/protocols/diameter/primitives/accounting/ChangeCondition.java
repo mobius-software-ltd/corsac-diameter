@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -93,7 +94,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	NOTE: Values 25-30 are applied for ProSe charging only. 
  */
-@DiameterAvpDefinition(code = 2037L, vendorId = KnownVendorIDs.TGPP_ID, name = "Change-Condition")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHANGE_CONDITION, vendorId = VendorIDs.TGPP_ID, name = "Change-Condition")
 public interface ChangeCondition extends DiameterUnsigned32
 {
 }

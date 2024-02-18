@@ -18,13 +18,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.ToSTrafficClassImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ToSTrafficClass;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFSignallingProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFSignallingProtocolEnum;
@@ -47,7 +51,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 519L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MediaSubComponentImpl extends DiameterGroupedAvpImpl implements MediaSubComponent
 {
 	private FlowNumber flowNumber;
@@ -75,12 +78,9 @@ public class MediaSubComponentImpl extends DiameterGroupedAvpImpl implements Med
 		
 	}
 	
-	public MediaSubComponentImpl(Long flowNumber)
+	public MediaSubComponentImpl(Long flowNumber) throws MissingAvpException
 	{
-		if(flowNumber==null)
-			throw new IllegalArgumentException("Flow-Number is required");
-		
-		this.flowNumber = new FlowNumberImpl(flowNumber, null, null);
+		setFlowNumber(flowNumber);
 	}
 	
 	public Long getFlowNumber()
@@ -91,10 +91,10 @@ public class MediaSubComponentImpl extends DiameterGroupedAvpImpl implements Med
 		return flowNumber.getUnsigned();
 	}
 	
-	public void setFlowNumber(Long value)
+	public void setFlowNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Flow-Number is required");
+			throw new MissingAvpException("Flow-Number is required", Arrays.asList(new DiameterAvp[] { new FlowNumberImpl() }));
 		
 		this.flowNumber = new FlowNumberImpl(value, null, null);
 	}
@@ -104,10 +104,14 @@ public class MediaSubComponentImpl extends DiameterGroupedAvpImpl implements Med
 		return flowDescription;
 	}
 	
-	public void setFlowDescription(List<FlowDescription> value)
+	public void setFlowDescription(List<FlowDescription> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Flow-Description may hold 0 to 2 items");
+		{ 
+			List<DiameterAvp> failedAvps = new ArrayList<DiameterAvp>();
+			failedAvps.addAll(value);
+			throw new AvpOccursTooManyTimesException("Up to 2 Flow-Description are allowed", failedAvps);
+		}
 		
 		this.flowDescription = value;
 	}
@@ -241,13 +245,17 @@ public class MediaSubComponentImpl extends DiameterGroupedAvpImpl implements Med
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(flowDescription!=null && flowDescription.size()>2)
-			return "Flow-Description may hold 0 to 2 items";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(flowDescription);
+			return new AvpOccursTooManyTimesException("Up to 2 Flow-Description are allowed", failedAvps);
+		}
 		
 		if(flowNumber==null)
-			return "Flow-Number is required";
+			return new MissingAvpException("Flow-Number is required", Arrays.asList(new DiameterAvp[] { new FlowNumberImpl() }));
 		
 		return null;
 	}	

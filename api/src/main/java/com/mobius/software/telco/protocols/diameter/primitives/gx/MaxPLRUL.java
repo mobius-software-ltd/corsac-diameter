@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	packets sent in unit of tenth of percent for an uplink voice service data flow. This AVP is only applicable for PCC rule
 	with QCI=1. The value of this AVP shall be within range 0 to 1000. 
  */
-@DiameterAvpDefinition(code = 2853L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Max-PLR-UL")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAX_PLR_UL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Max-PLR-UL")
 public interface MaxPLRUL extends DiameterUnsigned32
 {
 }

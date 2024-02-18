@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AllowedPLMNList;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.EnhancedCoverageRestriction;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.RestrictedPLMNList;
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.RestrictedPLM
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3155L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EnhancedCoverageRestrictionImpl extends DiameterGroupedAvpImpl implements EnhancedCoverageRestriction
 {
 	private RestrictedPLMNList restrictedPLMNList;

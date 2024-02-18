@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeCancellationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetedEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -38,7 +41,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.TargetedEPUID
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388675, request = true)
 public class ProSeCancellationRequestImpl extends Pc6RequestImpl implements ProSeCancellationRequest
 {
 	private RequestingEPUID requestingEPUID;
@@ -50,7 +52,7 @@ public class ProSeCancellationRequestImpl extends Pc6RequestImpl implements ProS
 		super();
 	}
 	
-	public ProSeCancellationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String requestingEPUID,String targetedEPUID)
+	public ProSeCancellationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String requestingEPUID,String targetedEPUID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -69,11 +71,11 @@ public class ProSeCancellationRequestImpl extends Pc6RequestImpl implements ProS
 	}
 	
 	@Override	
-	public void setRequestingEPUID(String value)
+	public void setRequestingEPUID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Requesting-EPUID is required");
-		
+			throw new MissingAvpException("Requesting-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new RequestingEPUIDImpl() }));
+			
 		this.requestingEPUID = new RequestingEPUIDImpl(value, null, null);
 	}
 	
@@ -87,22 +89,22 @@ public class ProSeCancellationRequestImpl extends Pc6RequestImpl implements ProS
 	}
 	
 	@Override	
-	public void setTargetedEPUID(String value)
+	public void setTargetedEPUID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Targeted-EPUID is required");
+			throw new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		this.targetedEPUID = new TargetedEPUIDImpl(value, null, null);
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(requestingEPUID == null)
-			return "Requesting-EPUID is required";
+			return new MissingAvpException("Requesting-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new RequestingEPUIDImpl() }));
 		
 		if(targetedEPUID == null)
-			return "Targeted-EPUID is required";
+			return new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		return super.validate();
 	}	

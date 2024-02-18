@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.CurrentLocationRetrievedEnum;
 
@@ -46,7 +47,7 @@ import io.netty.buffer.ByteBuf;
 			 [ User-CSG-Information ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1601L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SGSN-Location-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.SGSN_LOCATION_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "SGSN-Location-Information")
 public interface SGSNLocationInformation extends DiameterGroupedAvp
 {
 	ByteBuf getCellGlobalIdentity();

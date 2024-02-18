@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -28,26 +29,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 */
 
 /*
- * 4.1.7.1.  Negated AVP
+ * 4.1.7.18.  Use-Assigned-Address AVP
 
-   The Negated AVP (AVP Code 517) is of type Enumerated containing the
-   values of True or False.  Exactly zero or one of these AVPs may
-   appear in the From-Spec or To-Spec AVP.
-   
-   When set to True, the meaning of the match is inverted and the
-   classifier will match addresses other than those specified by the
-   From-Spec or To-Spec AVP.  When set to False, or when the Negated AVP
-   is not present, the classifier will match the addresses specified by
-   the From-Spec or To-Spec AVP.
-
-   Note that the negation does not impact the port comparisons.
+   In some scenarios, the AAA does not know the IP address assigned to
+   the managed terminal at the time that the classifier is sent to the
+   Classifying Entity.  The Use-Assigned-Address AVP (AVP Code 534) is
+   of type Enumerated containing the values of True or False.  When
+   present and set to True, it represents the IP address assigned to the
+   managed terminal.
 
      Value | Name
      ------+--------
        0   | False
        1   | True
  */
-@DiameterAvpDefinition(code = 517L, vendorId = -1L, name = "Use-Assigned-Address")
+@DiameterAvpDefinition(code = AvpCodes.USE_ASSIGNED_ADDRESS, vendorId = -1L, name = "Use-Assigned-Address")
 public interface UseAssignedAddress extends DiameterEnumerated<UseAssignedAddressEnum>
 {
 }

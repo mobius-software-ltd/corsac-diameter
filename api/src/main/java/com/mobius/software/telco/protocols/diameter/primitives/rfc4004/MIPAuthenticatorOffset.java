@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	authenticator to be validated by the targeted AAA server (i.e.,
    	AAAH). 	   
  */
-@DiameterAvpDefinition(code = 340L, vendorId = -1, name = "MIP-Authenticator-Offset")
+@DiameterAvpDefinition(code = AvpCodes.MIP_AUTHENTICATOR_OFFSET, vendorId = -1, name = "MIP-Authenticator-Offset")
 public interface MIPAuthenticatorOffset extends DiameterUnsigned32
 {
 }

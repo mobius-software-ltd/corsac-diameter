@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LRRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.LRRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2530L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LRRFlagsImpl extends DiameterBitmask32Impl implements LRRFlags
 {
 	public LRRFlagsImpl()
@@ -44,7 +41,7 @@ public class LRRFlagsImpl extends DiameterBitmask32Impl implements LRRFlags
 	@Override
 	public void setLGDSLGIndicatorBit(boolean isOn)
 	{
-		setBit(LGD_SLG_INDICATOR_BIT, isOn);
+		setBitUnchecked(LGD_SLG_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class LRRFlagsImpl extends DiameterBitmask32Impl implements LRRFlags
 	@Override
 	public void setMOLRShortCircuitIndicatorBit(boolean isOn)
 	{
-		setBit(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
+		setBitUnchecked(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class LRRFlagsImpl extends DiameterBitmask32Impl implements LRRFlags
 	@Override
 	public void setMOLRShortCircuitRequestedBit(boolean isOn)
 	{
-		setBit(MOLR_SHORT_CIRCUIT_REQUESTED_BIT, isOn);
+		setBitUnchecked(MOLR_SHORT_CIRCUIT_REQUESTED_BIT, isOn);
 	}
 
 	@Override

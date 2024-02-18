@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE 2:	For backwards compatibility, it is expected that the codec algorithms in the PCRF described in 3GPP TS 29.213 [9] allow the introduction of new SDP lines without rejecting the request when Codec-Data AVP is provided as part of the Media-Component-Description AVP. The QoS derivation in that case will not take the new SDP line(s) into account.
  */
-@DiameterAvpDefinition(code = 524L, vendorId = KnownVendorIDs.TGPP_ID, name = "Codec-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.CODEC_DATA, vendorId = VendorIDs.TGPP_ID, name = "Codec-Data")
 public interface CodecData extends DiameterOctetString
 {
 }

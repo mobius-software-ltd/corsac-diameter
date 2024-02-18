@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RUCIActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ReportingRestrictionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s9a.PCRFAddressImpl;
@@ -45,7 +46,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s9a.PCRFAddress;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777342, commandCode = 8388720, request = false)
 public class NonAggregatedRUCIReportAnswerImpl extends NpAnswerImpl implements NonAggregatedRUCIReportAnswer
 {
 	private ReportingRestriction reportingRestriction;
@@ -67,7 +67,7 @@ public class NonAggregatedRUCIReportAnswerImpl extends NpAnswerImpl implements N
 		super();
 	}
 	
-	public NonAggregatedRUCIReportAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public NonAggregatedRUCIReportAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 	}

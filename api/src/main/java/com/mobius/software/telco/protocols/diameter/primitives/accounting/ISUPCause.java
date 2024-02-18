@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,7 +41,7 @@ import io.netty.buffer.ByteBuf;
 		[ ISUP-Cause-Value ]
 		[ ISUP-Cause-Diagnostics ]
  */
-@DiameterAvpDefinition(code = 3416L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.ISUP_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "ISUP-Cause")
 public interface ISUPCause extends DiameterAvp
 {
 	Long getISUPCauseLocation();

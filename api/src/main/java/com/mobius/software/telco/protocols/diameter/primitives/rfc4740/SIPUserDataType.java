@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    	"type2.dsa.example.com", and so on.  This convention will avoid a
    	clash in the allocation of types of SIP-User-Data AVP (Section 9.12).
  */
-@DiameterAvpDefinition(code = 390L, vendorId = -1, name = "SIP-User-Data-Type")
+@DiameterAvpDefinition(code = AvpCodes.SIP_USER_DATA_TYPE, vendorId = -1, name = "SIP-User-Data-Type")
 public interface SIPUserDataType extends DiameterUTF8String
 {
 }

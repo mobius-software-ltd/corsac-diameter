@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.FirmwareRevision;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.FirmwareRe
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 267L, vendorId = -1)
 public class FirmwareRevisionImpl extends DiameterUnsigned32Impl implements FirmwareRevision
 {
 	protected FirmwareRevisionImpl() 

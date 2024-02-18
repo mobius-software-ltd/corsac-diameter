@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingInputList;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingOutputList;
@@ -30,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingOutputL
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 450L, vendorId = KnownVendorIDs.TGPP_ID)
 public class BindingInformationImpl implements BindingInformation
 {
 	private BindingInputList bindingInputList;
@@ -42,12 +44,9 @@ public class BindingInformationImpl implements BindingInformation
 		
 	}
 	
-	public BindingInformationImpl(BindingInputList bindingInputList)
+	public BindingInformationImpl(BindingInputList bindingInputList) throws MissingAvpException
 	{
-		if(bindingInputList == null)
-			throw new IllegalArgumentException("Binding-Input-List is required");
-		
-		this.bindingInputList = bindingInputList;
+		setBindingInputList(bindingInputList);
 	}
 	
 	public BindingInputList getBindingInputList()
@@ -55,11 +54,11 @@ public class BindingInformationImpl implements BindingInformation
 		return this.bindingInputList;
 	}
 	
-	public void setBindingInputList(BindingInputList value)
+	public void setBindingInputList(BindingInputList value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Binding-Input-List is required");
-		
+			throw new MissingAvpException("Binding-Input-List is required", Arrays.asList(new DiameterAvp[] { new BindingInputListImpl() }));
+			
 		this.bindingInputList = value;
 	}
 	
@@ -74,10 +73,10 @@ public class BindingInformationImpl implements BindingInformation
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(bindingInputList==null)
-			return "Binding-Input-List is required";
+			return new MissingAvpException("Binding-Input-List is required", Arrays.asList(new DiameterAvp[] { new BindingInputListImpl() }));
 		
 		return null;
 	}

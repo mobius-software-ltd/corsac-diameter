@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUri;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUri;
    	DiameterURI.  This AVP contains the address of a Diameter server that
    	is able to receive SIP-session-related accounting information.
  */
-@DiameterAvpDefinition(code = 369L, vendorId = -1, name = "SIP-Accounting-Server-URI")
+@DiameterAvpDefinition(code = AvpCodes.SIP_ACCOUNTING_SERVER_URI, vendorId = -1, name = "SIP-Accounting-Server-URI")
 public interface SIPAccountingServerURI extends DiameterUri
 {
 }

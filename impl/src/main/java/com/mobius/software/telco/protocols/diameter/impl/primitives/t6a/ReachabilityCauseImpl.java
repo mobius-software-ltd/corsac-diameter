@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ReachabilityCause;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ReachabilityCauseEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.ReachabilityC
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4325L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ReachabilityCauseImpl extends DiameterEnumeratedImpl<ReachabilityCauseEnum> implements ReachabilityCause
 {
 	protected ReachabilityCauseImpl()

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	B.2.1	3GPP-OC-Rating-Group AVP
 	The OC-Rating-Group AVP (AVP code 1321), is of type Unsigned32. It contains the charging key (defined in TS 23.203 [218]) that the overload control is applied to, i.e. which Rating Groups should be restricted.
  */
-@DiameterAvpDefinition(code = 1321L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-OC-Rating-Group")
+@DiameterAvpDefinition(code = TgppAvpCodes.OC_RATING_GROUP, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-OC-Rating-Group")
 public interface TGPPOCRatingGroup extends DiameterUnsigned32
 {
 }

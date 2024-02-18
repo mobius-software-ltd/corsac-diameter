@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	was last known to be in the location. The User-Location-Info-Time AVP is sent from the PCEF to the PCRF. The PCRF
 	forwards it to the AF. 
  */
-@DiameterAvpDefinition(code = 2812L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "User-Location-Info-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_LOCATION_INFO_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "User-Location-Info-Time")
 public interface UserLocationInfoTime extends DiameterTime
 {
 }

@@ -21,7 +21,10 @@ package com.mobius.software.telco.protocols.diameter.commands.gq;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.Flows;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AccessNetworkChargingIdentifier;
@@ -58,12 +61,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.SpecificAction
 				*[ AVP ]
 
  */
-@DiameterCommandDefinition(applicationId = 16777222, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GQ, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	List<SpecificActionEnum> getSpecificAction();
 	
-	void setSpecificAction(List<SpecificActionEnum> value);
+	void setSpecificAction(List<SpecificActionEnum> value) throws MissingAvpException;
 	
 	List<AccessNetworkChargingIdentifier> getAccessNetworkChargingIdentifier();	
 	

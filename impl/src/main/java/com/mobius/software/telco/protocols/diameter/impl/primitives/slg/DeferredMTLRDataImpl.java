@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredLocationType;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.DeferredMTLRData;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.TerminationCause;
@@ -32,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2547L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DeferredMTLRDataImpl extends DiameterGroupedAvpImpl implements DeferredMTLRData
 {
 	private DeferredLocationType deferredLocationType;
@@ -45,7 +47,7 @@ public class DeferredMTLRDataImpl extends DiameterGroupedAvpImpl implements Defe
 	{
 	}
 	
-	public DeferredMTLRDataImpl(DeferredLocationType deferredLocationType)
+	public DeferredMTLRDataImpl(DeferredLocationType deferredLocationType) throws MissingAvpException
 	{
 		setDeferredLocationType(deferredLocationType);
 	}
@@ -55,11 +57,11 @@ public class DeferredMTLRDataImpl extends DiameterGroupedAvpImpl implements Defe
 		return deferredLocationType;
 	}
 	
-	public void setDeferredLocationType(DeferredLocationType value)
+	public void setDeferredLocationType(DeferredLocationType value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Deferred-Location-Type is required");
-		
+			throw new MissingAvpException("Deferred-Location-Type is required", Arrays.asList(new DiameterAvp[] { new DeferredLocationTypeImpl() }));
+			
 		this.deferredLocationType = value;
 	}
 	
@@ -90,10 +92,10 @@ public class DeferredMTLRDataImpl extends DiameterGroupedAvpImpl implements Defe
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(deferredLocationType==null)
-			return "Deferred-Location-Type is required";
+			return new MissingAvpException("Deferred-Location-Type is required", Arrays.asList(new DiameterAvp[] { new DeferredLocationTypeImpl() }));
 		
 		return null;
 	}

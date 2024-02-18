@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SSCode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SSStatus;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1485L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MOLRImpl extends DiameterGroupedAvpImpl implements MOLR
 {
 	private SSCode ssCode;
@@ -45,17 +47,11 @@ public class MOLRImpl extends DiameterGroupedAvpImpl implements MOLR
 		
 	}
 	
-	public MOLRImpl(ByteBuf ssCode,ByteBuf ssStatus)
+	public MOLRImpl(ByteBuf ssCode,ByteBuf ssStatus) throws MissingAvpException
 	{
-		if(ssCode==null)
-			throw new IllegalArgumentException("SS-Code is required");
+		setSSCode(ssCode);
 		
-		if(ssStatus==null)
-			throw new IllegalArgumentException("SS-Status is required");
-		
-		this.ssCode = new SSCodeImpl(ssCode, null, null);				
-		
-		this.ssStatus = new SSStatusImpl(ssStatus, null, null);
+		setSSStatus(ssStatus);
 	}
 	
 	public ByteBuf getSSCode()
@@ -66,11 +62,11 @@ public class MOLRImpl extends DiameterGroupedAvpImpl implements MOLR
 		return ssCode.getValue();
 	}
 	
-	public void setSSCode(ByteBuf value)
+	public void setSSCode(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SS-Code is required");
-		
+			throw new MissingAvpException("SS-Code is required", Arrays.asList(new DiameterAvp[] { new SSCodeImpl() }));
+			
 		this.ssCode = new SSCodeImpl(value, null, null);	
 	}
 	
@@ -82,22 +78,22 @@ public class MOLRImpl extends DiameterGroupedAvpImpl implements MOLR
 		return ssStatus.getValue();
 	}
 	
-	public void setSSStatus(ByteBuf value)
+	public void setSSStatus(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SS-Status is required");
-		
+			throw new MissingAvpException("SS-Status is required", Arrays.asList(new DiameterAvp[] { new SSStatusImpl() }));
+			
 		this.ssStatus = new SSStatusImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ssCode==null)
-			return "SS-Code is required";
+			return new MissingAvpException("SS-Code is required", Arrays.asList(new DiameterAvp[] { new SSCodeImpl() }));
 		
 		if(ssStatus==null)
-			return "SS-Status is required";
+			return new MissingAvpException("SS-Status is required", Arrays.asList(new DiameterAvp[] { new SSStatusImpl() }));
 		
 		return null;
 	}

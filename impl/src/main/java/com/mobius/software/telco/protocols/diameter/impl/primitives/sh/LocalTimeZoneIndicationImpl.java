@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.LocalTimeZoneIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.LocalTimeZoneIndicationEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.LocalTimeZoneI
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 718L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LocalTimeZoneIndicationImpl extends DiameterEnumeratedImpl<LocalTimeZoneIndicationEnum> implements LocalTimeZoneIndication
 {
 	protected LocalTimeZoneIndicationImpl() 

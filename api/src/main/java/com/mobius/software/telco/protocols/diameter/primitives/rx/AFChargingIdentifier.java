@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.6	AF-Charging-Identifier AVP
 	The AF-Charging-Identifier AVP (AVP code 505) is of type OctetString, contains the AF Charging Identifier that is sent by the AF. This information may be used for charging correlation with bearer layer.
  */
-@DiameterAvpDefinition(code = 505L, vendorId = KnownVendorIDs.TGPP_ID, name = "AF-Charging-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.AF_CHARGING_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "AF-Charging-Identifier")
 public interface AFChargingIdentifier extends DiameterOctetString
 {
 }

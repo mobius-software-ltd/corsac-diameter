@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgd;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.RequestedRetransmissionTime;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.RequestedRetr
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3331L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RequestedRetransmissionTimeImpl extends DiameterTimeImpl implements RequestedRetransmissionTime
 {
 	protected RequestedRetransmissionTimeImpl()

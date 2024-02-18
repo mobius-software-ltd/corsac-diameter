@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Content-Disposition AVP (AVP code 828) is of type UTF8String and indicates how the message body or a
 	message body part is to be interpreted (e.g. session, render), as described in RFC 3261 [405]. 
  */
-@DiameterAvpDefinition(code = 828L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Disposition")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONTENT_DISPOSITION, vendorId = VendorIDs.TGPP_ID, name = "Content-Disposition")
 public interface ContentDisposition extends DiameterUTF8String
 {
 }

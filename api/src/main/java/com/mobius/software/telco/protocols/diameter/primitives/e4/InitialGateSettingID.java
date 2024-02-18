@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	set of initial gate setting information. This AVP and the Initial-Gate-Setting-Description AVP shall not be used in the
 	same command 
  */
-@DiameterAvpDefinition(code = 314L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Initial-Gate-Setting-ID")
+@DiameterAvpDefinition(code = EtsiAvpCodes.INITIAL_GATE_SETTING_ID, vendorId = VendorIDs.ETSI_ID, must = false, name = "Initial-Gate-Setting-ID")
 public interface InitialGateSettingID extends DiameterUTF8String
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	within its own network.  Each value has to represent a single
    	capability within the administrative network.
  */
-@DiameterAvpDefinition(code = 374L, vendorId = -1, name = "SIP-Optional-Capability")
+@DiameterAvpDefinition(code = AvpCodes.SIP_OPTIONAL_CAPABILITY, vendorId = -1, name = "SIP-Optional-Capability")
 public interface SIPOptionalCapability extends DiameterUnsigned32
 {
 }

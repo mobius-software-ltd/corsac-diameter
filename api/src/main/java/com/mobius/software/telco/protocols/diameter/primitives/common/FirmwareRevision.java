@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    computers running Diameter software modules, for instance), the
    revision of the Diameter software module may be reported instead.
  */
-@DiameterAvpDefinition(code = 267L, vendorId = -1L, must = false, name = "Firmware-Revision")
+@DiameterAvpDefinition(code = AvpCodes.FIRMWARE_REVISION, vendorId = -1L, must = false, name = "Firmware-Revision")
 public interface FirmwareRevision extends DiameterUnsigned32
 {
 		

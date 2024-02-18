@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Cellular-Network-Information AVP (AVP code 3924) is of type OctetString and indicates one instance of the SIP
 	header "Cellular-Network-Info".
  */
-@DiameterAvpDefinition(code = 3924L, vendorId = KnownVendorIDs.TGPP_ID, name = "Cellular-Network-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.CELLULAR_NETWORK_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Cellular-Network-Information")
 public interface CellularNetworkInformation extends DiameterOctetString
 {
 }

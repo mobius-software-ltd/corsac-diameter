@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			 [User-State]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1497L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MME-User-State")
+@DiameterAvpDefinition(code = TgppAvpCodes.MME_USER_STATE, vendorId = VendorIDs.TGPP_ID, must = false, name = "MME-User-State")
 public interface MMEUserState extends DiameterGroupedAvp
 {
 	UserStateEnum getUserState();

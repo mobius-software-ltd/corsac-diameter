@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.206	Additional-Context-Identifier
 	The Additional-Context-Identifier AVP is of type Unsigned32 and indicates the identity of another default APN to be used when the subscription profile of the user contains APNs with more than one PDN type among  IP-based PDN types, non-IP PDN types and Ethernet PDN types.
  */
-@DiameterAvpDefinition(code = 1683L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Additional-Context-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADDITIONAL_CONTEXT_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Additional-Context-Identifier")
 public interface AdditionalContextIdentifier extends DiameterUnsigned32
 {
 }

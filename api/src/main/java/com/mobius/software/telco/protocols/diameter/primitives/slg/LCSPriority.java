@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.5	LCS-Priority
 	The LCS-Priority AVP is of type Unsigned32. It indicates the priority of the location request. The value 0 shall indicate the highest priority, and the value 1 shall indicate normal priority. All other values shall be treated as 1 (normal priority). For details, refer to 3GPP TS 22.071 [15]. 
  */
-@DiameterAvpDefinition(code = 2503L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Priority")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_PRIORITY, vendorId = VendorIDs.TGPP_ID, name = "LCS-Priority")
 public interface LCSPriority extends DiameterUnsigned32
 {
 }

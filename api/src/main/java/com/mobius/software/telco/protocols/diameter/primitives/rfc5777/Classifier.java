@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -52,12 +54,12 @@ import io.netty.buffer.ByteBuf;
                 * [ ETH-Option ]
                 * [ AVP ]
  */
-@DiameterAvpDefinition(code = 511L, vendorId = -1L, name = "Classifier")
+@DiameterAvpDefinition(code = AvpCodes.CLASSIFIER, vendorId = -1L, name = "Classifier")
 public interface Classifier extends DiameterGroupedAvp
 {
 	ByteBuf getClassifierID();
 	
-	void setClassifierID(ByteBuf value);	
+	void setClassifierID(ByteBuf value) throws MissingAvpException;	
 	
 	ProtocolEnum getProtocol();
 	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			 [ External-Identifier ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 3177L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Group-User-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.GROUP_USER_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Group-User-Identifier")
 public interface GroupUserIdentifier extends DiameterGroupedAvp
 {
 	String getUserName();

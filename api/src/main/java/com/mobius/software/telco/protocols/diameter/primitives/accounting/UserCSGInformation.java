@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,16 +40,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 	{ CSG-Access-Mode } 
 			[ CSG-Membership-Indication ]
  */
-@DiameterAvpDefinition(code = 2319L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-CSG-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_CSG_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "User-CSG-Information")
 public interface UserCSGInformation extends DiameterAvp
 {
 	Long getCSGId();
 	
-	void setCSGId(Long value);
+	void setCSGId(Long value) throws MissingAvpException;
 	
 	CSGAccessModeEnum getCSGAccessMode();
 	
-	void setCSGAccessMode(CSGAccessModeEnum value);
+	void setCSGAccessMode(CSGAccessModeEnum value) throws MissingAvpException;
 	
 	CSGMembershipIndicationEnum getCSGMembershipIndication();
 	

@@ -21,8 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ApplicationProvidedCalledPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ApplicationServer;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ApplicationServerInformation;
@@ -34,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Status
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 850L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ApplicationServerInformationImpl implements ApplicationServerInformation
 {
 	private ApplicationServer applicationServer;

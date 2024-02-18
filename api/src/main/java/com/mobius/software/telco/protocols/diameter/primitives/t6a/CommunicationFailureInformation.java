@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			 [ SM-Cause ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 4300L, vendorId = KnownVendorIDs.TGPP_ID, name = "Communication-Failure-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.COMMUNICATION_FAILURE_IFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Communication-Failure-Information")
 public interface CommunicationFailureInformation extends DiameterGroupedAvp
 {
 	CauseTypeEnum getCauseType();

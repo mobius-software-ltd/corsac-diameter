@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	in seconds from midnight.  If this AVP is absent from the Time-Of-
    	Day-Condition AVP, the time window ends one second before midnight.
  */
-@DiameterAvpDefinition(code = 562L, vendorId = -1L, name = "Time-Of-Day-End")
+@DiameterAvpDefinition(code = AvpCodes.TIME_OF_DAY_END, vendorId = -1L, name = "Time-Of-Day-End")
 public interface TimeOfDayEnd extends DiameterUnsigned32
 {
 }

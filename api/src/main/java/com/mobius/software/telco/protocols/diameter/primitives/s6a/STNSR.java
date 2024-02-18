@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	encoded as a TBCD-string. See 3GPP TS 29.002 [24] for encoding of TBCD-strings. This AVP shall not include leading indicators 
 	for the nature of address and the numbering plan; it shall contain only the TBCD-encoded digits of the address.
  */
-@DiameterAvpDefinition(code = 1433L, vendorId = KnownVendorIDs.TGPP_ID, name = "STN-SR")
+@DiameterAvpDefinition(code = TgppAvpCodes.STN_SR, vendorId = VendorIDs.TGPP_ID, name = "STN-SR")
 public interface STNSR extends DiameterE164Address
 {
 }

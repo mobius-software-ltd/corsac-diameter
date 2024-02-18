@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Domain-Name AVP (AVP code 1200) is of type UTF8String and represents a fully qualified domain name
 	(FQDN). 
  */
-@DiameterAvpDefinition(code = 1200L, vendorId = KnownVendorIDs.TGPP_ID, name = "Domain-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.DOMAIN_NAME, vendorId = VendorIDs.TGPP_ID, name = "Domain-Name")
 public interface DomainName extends DiameterUTF8String
 {
 }

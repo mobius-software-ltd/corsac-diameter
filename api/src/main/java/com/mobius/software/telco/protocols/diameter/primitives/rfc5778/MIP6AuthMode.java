@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    	the Auth-Request-Type AVP MUST be set to the value of
    	AUTHORIZE_AUTHENTICATE.
  */
-@DiameterAvpDefinition(code = 494L, vendorId = -1L, name = "MIP6-Auth-Mode")
+@DiameterAvpDefinition(code = AvpCodes.MIP6_AUTH_MODE, vendorId = -1L, name = "MIP6-Auth-Mode")
 public interface MIP6AuthMode extends DiameterEnumerated<MIP6AuthModeEnum>
 {
 }

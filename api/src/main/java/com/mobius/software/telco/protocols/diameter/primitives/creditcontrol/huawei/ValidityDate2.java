@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Validity period of a prepaid user.
  */
-@DiameterAvpDefinition(code = 21181L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Validity-Date2")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.VALIDITY_DATE_2, vendorId = VendorIDs.HUAWEI_ID, name = "Validity-Date2")
 public interface ValidityDate2 extends DiameterOctetString
 {
 }

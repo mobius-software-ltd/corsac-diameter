@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	-	ODB_VPLMN_APN (4)
 	This value shall be used when Experimental-Error is DIAMETER_ERROR_ROAMING_NOT_ALLOWED and the Operator Determined Barring indicates "Roamer Access to VPLMN-AP Barred" (see clause 7.3.30).
  */
-@DiameterAvpDefinition(code = 1614L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Error-Diagnostic")
+@DiameterAvpDefinition(code = TgppAvpCodes.ERROR_DIAGNOSTIC, vendorId = VendorIDs.TGPP_ID, must = false, name = "Error-Diagnostic")
 public interface ErrorDiagnostic extends DiameterEnumerated<ErrorDiagnosticEnum>
 {
 }

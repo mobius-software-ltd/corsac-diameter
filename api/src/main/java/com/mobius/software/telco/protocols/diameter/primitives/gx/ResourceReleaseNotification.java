@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value shall be used to indicate that the outcome of the release of resources for the related PCC rules shall be
 		notified.
  */
-@DiameterAvpDefinition(code = 2841L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Resource-Release-Notification")
+@DiameterAvpDefinition(code = TgppAvpCodes.RESOURCE_RELEASE_NOTIFICATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Resource-Release-Notification")
 public interface ResourceReleaseNotification extends DiameterEnumerated<ResourceReleaseNotificationEnum>
 {
 }

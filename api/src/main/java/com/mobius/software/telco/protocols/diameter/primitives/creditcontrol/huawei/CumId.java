@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Consumption accumulator ID of a subscriber.
  */
-@DiameterAvpDefinition(code = 20854L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Cum-Id")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CUM_ID, vendorId = VendorIDs.HUAWEI_ID, name = "Cum-Id")
 public interface CumId extends DiameterOctetString
 {
 }

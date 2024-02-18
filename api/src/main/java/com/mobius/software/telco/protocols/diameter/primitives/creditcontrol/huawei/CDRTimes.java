@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	It indicates the last session timeout interval. If the value is null, the default time is regarded as the session timeout interval.
  */
-@DiameterAvpDefinition(code = 20627L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "CDR-Times")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CDR_TIMES, vendorId = VendorIDs.HUAWEI_ID, name = "CDR-Times")
 public interface CDRTimes extends DiameterInteger32
 {
 }

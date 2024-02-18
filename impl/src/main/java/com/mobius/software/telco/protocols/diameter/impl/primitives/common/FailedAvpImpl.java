@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.FailedAvp;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.FailedAvp;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 279L, vendorId = -1L)
 public class FailedAvpImpl extends DiameterGroupedAvpImpl implements FailedAvp
 {
 	public FailedAvpImpl() 

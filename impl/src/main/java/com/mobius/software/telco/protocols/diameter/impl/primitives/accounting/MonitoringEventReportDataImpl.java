@@ -21,13 +21,11 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.MonitoringTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.ReachabilityInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.SCEFIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.SCEFReferenceIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChargedParty;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MonitoringEventReportData;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MonitoringEventReportNumber;
@@ -48,7 +46,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.NumberOfUEPer
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3920L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MonitoringEventReportDataImpl implements MonitoringEventReportData
 {
 	private EventTimestamp eventTimestamp;

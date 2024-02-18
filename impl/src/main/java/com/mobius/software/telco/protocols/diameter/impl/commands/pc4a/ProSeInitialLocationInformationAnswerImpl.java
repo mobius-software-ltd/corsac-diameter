@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc4a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeInitialLocationInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -38,7 +39,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777336, commandCode = 8388713, request = false)
 public class ProSeInitialLocationInformationAnswerImpl extends Pc4aAnswerImpl implements ProSeInitialLocationInformationAnswer
 {
 	private ProSeInitialLocationInformation proSeInitialLocationInformation;
@@ -50,7 +50,7 @@ public class ProSeInitialLocationInformationAnswerImpl extends Pc4aAnswerImpl im
 		super();
 	}
 	
-	public ProSeInitialLocationInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public ProSeInitialLocationInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);				
 	}

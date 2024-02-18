@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdNAI;
 
@@ -27,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Sub
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 663L, vendorId = -1L)
 public class SubscriptionIdNAIImpl extends DiameterUTF8StringImpl implements SubscriptionIdNAI
 {
 	protected SubscriptionIdNAIImpl() 

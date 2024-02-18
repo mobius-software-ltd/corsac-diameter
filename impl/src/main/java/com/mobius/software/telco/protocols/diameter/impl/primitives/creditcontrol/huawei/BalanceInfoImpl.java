@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CurrencyCodeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CurrencyCode;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.BalanceCategory;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.BalanceDate;
@@ -42,7 +44,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20856L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class BalanceInfoImpl implements BalanceInfo 
 {
 	private PaymentType paymentType;
@@ -72,7 +73,7 @@ public class BalanceInfoImpl implements BalanceInfo
 
 	}
 	
-	public BalanceInfoImpl(Integer balanceCategory, Long balanceID, Long balanceType, Long currentBalance, Date balanceDate, Long measureType)
+	public BalanceInfoImpl(Integer balanceCategory, Long balanceID, Long balanceType, Long currentBalance, Date balanceDate, Long measureType) throws MissingAvpException
 	{
 		setBalanceCategory(balanceCategory);
 		
@@ -115,10 +116,10 @@ public class BalanceInfoImpl implements BalanceInfo
 	}
 	
 	@Override
-	public void setBalanceCategory(Integer value)
+	public void setBalanceCategory(Integer value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Balance-Category is required");
+			throw new MissingAvpException("Balance-Category is required", Arrays.asList(new DiameterAvp[] { new BalanceCategoryImpl() }));
 		
 		this.balanceCategory = new BalanceCategoryImpl(value, null, null);
 	}
@@ -133,10 +134,10 @@ public class BalanceInfoImpl implements BalanceInfo
 	}
 	
 	@Override
-	public void setBalanceID(Long value)
+	public void setBalanceID(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Balance-Id is required");
+			throw new MissingAvpException("Balance-Id is required", Arrays.asList(new DiameterAvp[] { new BalanceIDImpl() }));
 		
 		this.balanceID = new BalanceIDImpl(value, null, null);
 	}		
@@ -151,10 +152,10 @@ public class BalanceInfoImpl implements BalanceInfo
 	}
 	
 	@Override
-	public void setBalanceType(Long value)
+	public void setBalanceType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Balance-Type is required");
+			throw new MissingAvpException("Balance-Type is required", Arrays.asList(new DiameterAvp[] { new BalanceTypeImpl() }));
 		
 		this.balanceType = new BalanceTypeImpl(value, null, null);
 	}	
@@ -169,13 +170,13 @@ public class BalanceInfoImpl implements BalanceInfo
 	}
 	
 	@Override
-	public void setCurrentBalance(Long value)
+	public void setCurrentBalance(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Current-Balance is required");
+			throw new MissingAvpException("Current-Balance is required", Arrays.asList(new DiameterAvp[] { new CurrentBalanceImpl() }));			
 		
 		this.currentBalance = new CurrentBalanceImpl(value, null, null);
-	}		
+	}
 	
 	@Override
 	public Date getBalanceDate()
@@ -187,11 +188,11 @@ public class BalanceInfoImpl implements BalanceInfo
 	}
 	
 	@Override
-	public void setBalanceDate(Date value)
+	public void setBalanceDate(Date value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Balance-Date is required");
-		
+			throw new MissingAvpException("Balance-Date is required", Arrays.asList(new DiameterAvp[] { new BalanceDateImpl() }));
+			
 		this.balanceDate = new BalanceDateImpl(value, null, null);
 	}		
 	
@@ -205,10 +206,10 @@ public class BalanceInfoImpl implements BalanceInfo
 	}
 	
 	@Override
-	public void setMeasureType(Long value)
+	public void setMeasureType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Measure-Type is required");
+			throw new MissingAvpException("Measure-Type is required", Arrays.asList(new DiameterAvp[] { new MeasureTypeImpl() }));
 		
 		this.measureType = new MeasureTypeImpl(value, null, null);
 	}	
@@ -286,25 +287,25 @@ public class BalanceInfoImpl implements BalanceInfo
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(balanceCategory==null)
-			return "Balance-Category is required";
+			return new MissingAvpException("Balance-Category is required", Arrays.asList(new DiameterAvp[] { new BalanceCategoryImpl() }));
 		
 		if(balanceID==null)
-			return "Balance-Id is required";
+			return new MissingAvpException("Balance-Id is required", Arrays.asList(new DiameterAvp[] { new BalanceIDImpl() }));
 		
 		if(balanceType==null)
-			return "Balance-Type is required";
+			return new MissingAvpException("Balance-Type is required", Arrays.asList(new DiameterAvp[] { new BalanceTypeImpl() }));
 		
 		if(currentBalance==null)
-			return "Current-Balance is required";
+			return new MissingAvpException("Current-Balance is required", Arrays.asList(new DiameterAvp[] { new CurrentBalanceImpl() }));
 		
 		if(balanceDate==null)
-			return "Balance-Date is required";
+			return new MissingAvpException("Balance-Date is required", Arrays.asList(new DiameterAvp[] { new BalanceDateImpl() }));
 		
 		if(measureType==null)
-			return "Measure-Type is required";
+			return new MissingAvpException("Measure-Type is required", Arrays.asList(new DiameterAvp[] { new MeasureTypeImpl() }));
 		
 		return null;
 	}

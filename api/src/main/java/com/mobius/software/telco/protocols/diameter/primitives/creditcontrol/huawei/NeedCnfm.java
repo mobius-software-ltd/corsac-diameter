@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -56,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	If the value of this AVP is 0 in a CCR message, the value returned in the corresponding CCA message is also 0. If the value of this AVP is 1 in a CCR message, the value returned in the corresponding CCA message is also 1. If the value of this AVP is -1 in a CCR message, the value returned in the corresponding CCA message depends on the configuration in the OCS system.
  */
-@DiameterAvpDefinition(code = 20606L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Need-Cnfm")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.NEED_CNFM, vendorId = VendorIDs.HUAWEI_ID, name = "Need-Cnfm")
 public interface NeedCnfm extends DiameterUnsigned32
 {
 }

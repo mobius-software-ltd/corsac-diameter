@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
@@ -44,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 302, request = false)
 public class LocationInfoAnswerImpl extends CxDxAnswerImpl implements LocationInfoAnswer
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -69,7 +69,7 @@ public class LocationInfoAnswerImpl extends CxDxAnswerImpl implements LocationIn
 		setExperimentalResultAllowed(false);
 	}
 	
-	public LocationInfoAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public LocationInfoAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

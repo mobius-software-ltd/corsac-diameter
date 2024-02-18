@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sta.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestType;
@@ -36,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777250, commandCode = 258, request = true)
 public class ReAuthRequestImpl extends StaRequestImpl implements ReAuthRequest
 {
 	private ReAuthRequestType reAuthRequestType;
@@ -46,7 +48,7 @@ public class ReAuthRequestImpl extends StaRequestImpl implements ReAuthRequest
 		super();
 	}
 		
-	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType)
+	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
 		
@@ -63,19 +65,19 @@ public class ReAuthRequestImpl extends StaRequestImpl implements ReAuthRequest
 	}
 	
 	@Override
-	public void setReAuthRequestType(ReAuthRequestTypeEnum value)
+	public void setReAuthRequestType(ReAuthRequestTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Re-Auth-Request-Type is required");	
+			throw new MissingAvpException("Re-Auth-Request-Type is required is required", Arrays.asList(new DiameterAvp[] { new ReAuthRequestTypeImpl() }));	
 		
 		this.reAuthRequestType = new ReAuthRequestTypeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(reAuthRequestType==null)
-			return "Re-Auth-Request-Type is required";
+			return new MissingAvpException("Re-Auth-Request-Type is required is required", Arrays.asList(new DiameterAvp[] { new ReAuthRequestTypeImpl() }));
 		
 		return super.validate();
 	}

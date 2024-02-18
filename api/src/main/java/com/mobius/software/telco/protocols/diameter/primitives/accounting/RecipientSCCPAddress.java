@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	and possibly a Point Code (ISPC). The AddressType discriminator in RFC 6733 [401] is set to value 8, E.164, and the
 	address information is UTF8 encoded. 
  */
-@DiameterAvpDefinition(code = 2010L, vendorId = KnownVendorIDs.TGPP_ID, name = "Recipient-SCCP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.RECIPIENT_SCCP_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Recipient-SCCP-Address")
 public interface RecipientSCCPAddress extends DiameterAddress
 {
 }

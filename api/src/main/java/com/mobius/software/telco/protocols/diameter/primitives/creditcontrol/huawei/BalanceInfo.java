@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -59,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
            [Related-Object-ID] 
            [Unpaid-Fee]
 */
-@DiameterAvpDefinition(code = 20856L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Balance-Info")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.BALANCE_INFO, vendorId = VendorIDs.HUAWEI_ID, name = "Balance-Info")
 public interface BalanceInfo extends DiameterAvp 
 {
 	Integer getPaymentType();
@@ -68,27 +70,27 @@ public interface BalanceInfo extends DiameterAvp
 	
 	Integer getBalanceCategory();
 	
-	void setBalanceCategory(Integer value);		
+	void setBalanceCategory(Integer value) throws MissingAvpException;		
 	
 	Long getBalanceID();
 	
-	void setBalanceID(Long value);		
+	void setBalanceID(Long value) throws MissingAvpException;		
 	
 	Long getBalanceType();
 	
-	void setBalanceType(Long value);		
+	void setBalanceType(Long value) throws MissingAvpException;		
 	
 	Long getCurrentBalance();
 	
-	void setCurrentBalance(Long value);		
+	void setCurrentBalance(Long value) throws MissingAvpException;		
 	
 	Date getBalanceDate();
 	
-	void setBalanceDate(Date value);		
+	void setBalanceDate(Date value) throws MissingAvpException;		
 	
 	Long getMeasureType();
 	
-	void setMeasureType(Long value);		
+	void setMeasureType(Long value) throws MissingAvpException;		
 	
 	Long getCurrencyCode();
 	

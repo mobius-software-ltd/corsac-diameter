@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,12 +44,12 @@ import io.netty.buffer.ByteBuf;
 
 	Beginning Sufifx and Ending Suffix shall have the same length.
  */
-@DiameterAvpDefinition(code = 3847L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ProSe-Restricted-Code-Suffix-Range")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_RESTRICTED_CODE_SUFFIX_RANGE, vendorId = VendorIDs.TGPP_ID, must = false, name = "ProSe-Restricted-Code-Suffix-Range")
 public interface ProSeRestrictedCodeSuffixRange extends DiameterGroupedAvp
 {
 	ByteBuf getBeginningSuffix();
 	
-	void setBeginningSuffix(ByteBuf value);
+	void setBeginningSuffix(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getEndingSuffix();
 	

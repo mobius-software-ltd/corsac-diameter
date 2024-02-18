@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Application-Entity-ID AVP (AVP Code 1001) is of type UTF8String and represents the identity of the M2M Application Entity when it is applicable. 
 	The format of the AE-ID is specified in clause 6.2.3.
  */
-@DiameterAvpDefinition(code = 1001L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Application-Entity-ID")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.APPLICATION_ENTITY_ID, vendorId = VendorIDs.ONEM2M_ID, name = "Application-Entity-ID")
 public interface ApplicationEntityID extends DiameterUTF8String
 {
 }

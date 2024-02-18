@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -43,12 +45,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
    AVP is set to True, the TCP-Flag-Type AVP specifies which flags MUST
    be cleared.
  */
-@DiameterAvpDefinition(code = 543L, vendorId = -1L, name = "TCP-Flags")
+@DiameterAvpDefinition(code = AvpCodes.TCP_FLAGS, vendorId = -1L, name = "TCP-Flags")
 public interface TCPFlags extends DiameterGroupedAvp
 {
 	Long getTCPFlagType();
 	
-	void setTCPFlagType(Long value);	
+	void setTCPFlagType(Long value) throws MissingAvpException;	
 	
 	NegatedEnum getNegated();
 	

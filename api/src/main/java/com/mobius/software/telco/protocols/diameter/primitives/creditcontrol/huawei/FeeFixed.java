@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the charge rate of each short message contained in the monthly SMS package with a limited number of short messages. When the number of short messages exceeds the limited number, the subsequent short messages must be charged by piece. It is used for monthly charging.
  */
-@DiameterAvpDefinition(code = 20413L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Fee-Fixed")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.FEE_FIXED, vendorId = VendorIDs.HUAWEI_ID, name = "Fee-Fixed")
 public interface FeeFixed extends DiameterUnsigned32
 {
 }

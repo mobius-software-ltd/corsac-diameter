@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    that specific IPv6 prefixes are desired, but the server is not
    required to honor the hint in the corresponding response.
  */
-@DiameterAvpDefinition(code = 97L, vendorId = -1L, name = "Framed-IPv6-Prefix")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_IPV6_PREFIX, vendorId = -1L, name = "Framed-IPv6-Prefix")
 public interface FramedIPv6Prefix extends DiameterOctetString
 {
 }

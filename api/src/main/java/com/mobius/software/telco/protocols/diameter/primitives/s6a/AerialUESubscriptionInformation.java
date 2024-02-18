@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	This AVP corresponds to the "Aerial UE subscription information" information element as defined in 3GPP TS 36.413[19] and TS 36.423 [65].
  */
-@DiameterAvpDefinition(code = 1699L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Aerial-UE-Subscription-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.AERIAL_UE_SUBSCRIPTION_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Aerial-UE-Subscription-Information")
 public interface AerialUESubscriptionInformation extends DiameterEnumerated<AerialUESubscriptionInformationEnum>
 {
 }

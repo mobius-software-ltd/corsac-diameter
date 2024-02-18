@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 
 /**
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
                                [ CC-Service-Specific-Units ]
                               *[ AVP ]
  */
-@DiameterAvpDefinition(code = 446L, vendorId = -1, name = "Used-Service-Unit")
+@DiameterAvpDefinition(code = AvpCodes.USED_SERVICE_UNIT, vendorId = -1, name = "Used-Service-Unit")
 public interface UsedServiceUnit extends RequestedServiceUnit 
 {
 	TariffChangeUsageEnum getTariffChangeUsage();

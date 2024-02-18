@@ -18,11 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.OriginRealmImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginRealm;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPOriginatingForeignAAA;
@@ -32,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPOrigin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 347L, vendorId = -1L)
 public class MIPOriginatingForeignAAAImpl extends DiameterGroupedAvpImpl implements MIPOriginatingForeignAAA
 {
 	private OriginHost originHost;
@@ -44,17 +47,11 @@ public class MIPOriginatingForeignAAAImpl extends DiameterGroupedAvpImpl impleme
 		
 	}
 	
-	public MIPOriginatingForeignAAAImpl(String originHost,String originRealm)
+	public MIPOriginatingForeignAAAImpl(String originHost,String originRealm) throws MissingAvpException
 	{
-		if(originHost==null)
-			throw new IllegalArgumentException("Origin-Host is required");
+		setOriginHost(originHost);
 		
-		if(originRealm==null)
-			throw new IllegalArgumentException("Origin-Realm is required");
-		
-		this.originHost = new OriginHostImpl(originHost, null, null);		
-		
-		this.originRealm = new OriginRealmImpl(originHost, null, null);
+		setOriginRealm(originRealm);
 	}
 	
 	public String getOriginHost()
@@ -65,10 +62,10 @@ public class MIPOriginatingForeignAAAImpl extends DiameterGroupedAvpImpl impleme
 		return originHost.getIdentity();
 	}
 	
-	public void setOriginHost(String value)
+	public void setOriginHost(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Origin-Host is required");
+			throw new MissingAvpException("Origin-Host is required", Arrays.asList(new DiameterAvp[] { new OriginHostImpl() }));
 		
 		this.originHost = new OriginHostImpl(value, null, null);		
 	}
@@ -81,22 +78,22 @@ public class MIPOriginatingForeignAAAImpl extends DiameterGroupedAvpImpl impleme
 		return originRealm.getIdentity();
 	}
 	
-	public void setOriginRealm(String value)
+	public void setOriginRealm(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Origin-Realm is required");
+			throw new MissingAvpException("Origin-Realm is required", Arrays.asList(new DiameterAvp[] { new OriginRealmImpl() }));
 		
 		this.originRealm = new OriginRealmImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(originHost==null)
-			return "Origin-Host is required";
+			return new MissingAvpException("Origin-Host is required", Arrays.asList(new DiameterAvp[] { new OriginHostImpl() }));
 		
 		if(originRealm==null)
-			return "Origin-Realm is required";
+			return new MissingAvpException("Origin-Realm is required", Arrays.asList(new DiameterAvp[] { new OriginRealmImpl() }));
 		
 		return null;
 	}

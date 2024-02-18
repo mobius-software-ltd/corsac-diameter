@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	the location number of the served user. It contains an E.164 number as transported in ISUP and is encoded as a TBCDstring. See TS 29.002 [232] for encoding of TBCD-strings. This AVP does not include leading indicators for the nature
 	of address and the numbering plan; it contains only the TBCD-encoded digits of the address. 
  */
-@DiameterAvpDefinition(code = 3414L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Location-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.ISUP_LOCATION_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "ISUP-Location-Number")
 public interface ISUPLocationNumber extends DiameterE164Address
 {
 }

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 import io.netty.buffer.ByteBuf;
@@ -57,7 +59,7 @@ import io.netty.buffer.ByteBuf;
                 *[ Banned-User-Target ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777350, commandCode = 8388676, request = true, proxyable = true, name="PX-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC2, commandCode = CommandCodes.PROXIMITY_ACTION, request = true, proxyable = true, name="PX-Request")
 public interface ProXimityActionRequest extends Pc2Request
 {
 	String getOriginAppLayerUserId();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	This AVP is used by the SER to report permission control strings for groups and individuals in the VPN feature.
  */
-@DiameterAvpDefinition(code = 20941L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "VPN-Call-Auth-Flag")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.VPN_CALL_AUTN_FLAG, vendorId = VendorIDs.HUAWEI_ID, name = "VPN-Call-Auth-Flag")
 public interface VPNCallAuthFlag extends DiameterOctetString
 {
 }

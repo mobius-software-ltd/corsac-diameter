@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.11	Application-Port-Identifier AVP
 	The Application-Port-Identifier AVP (AVP code 3010) is of type Unsigned32 and is used to uniquely identify the triggering application addressed in the device, see clause 9.2.3.24.4 in TS 23.040 [15] for further details.
  */
-@DiameterAvpDefinition(code = 3010L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Port-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.APPLICATION_PORT_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Application-Port-Identifier")
 public interface ApplicationPortIdentifier extends DiameterUnsigned32
 {
 }

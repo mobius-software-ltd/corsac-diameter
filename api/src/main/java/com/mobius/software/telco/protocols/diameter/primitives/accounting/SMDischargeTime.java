@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SMS Node shall ensure the correct encoding of this, as the other AVPs using the type Time, since the SMS
 	messages use different formats. 
  */
-@DiameterAvpDefinition(code = 2012L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Discharge-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_DISCHARGE_TIME, vendorId = VendorIDs.TGPP_ID, name = "SM-Discharge-Time")
 public interface SMDischargeTime extends DiameterTime
 {
 }

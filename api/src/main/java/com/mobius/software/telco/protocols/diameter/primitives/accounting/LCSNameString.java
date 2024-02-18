@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.90 LCS-Name-String AVP
 	The LCS-Name-String AVP (AVP code 1238) is of type UTF8String and contains the LCS Client name. 
  */
-@DiameterAvpDefinition(code = 1238L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Name-String")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_NAME_STRING, vendorId = VendorIDs.TGPP_ID, name = "LCS-Name-String")
 public interface LCSNameString extends DiameterUTF8String
 {
 }

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,16 +43,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The message bodies shall not include the bodies' of Content-Type = "application-sdp" as these are captured in other AVPs.
  */
-@DiameterAvpDefinition(code = 889L, vendorId = KnownVendorIDs.TGPP_ID, name = "Message-Body")
+@DiameterAvpDefinition(code = TgppAvpCodes.MESSAGE_BODY, vendorId = VendorIDs.TGPP_ID, name = "Message-Body")
 public interface MessageBody extends DiameterAvp
 {
 	String getContentType();
 	
-	void setContentType(String value);
+	void setContentType(String value) throws MissingAvpException;
 	
 	Long getContentLength();
 	
-	void setContentLength(Long value);
+	void setContentLength(Long value) throws MissingAvpException;
 	
 	String getContentDisposition();
 	

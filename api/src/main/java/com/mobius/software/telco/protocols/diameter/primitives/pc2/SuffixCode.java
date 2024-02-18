@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.11	Suffix-Code AVP
 	The Suffix-Code AVP (AVP code 3609) is of type OctetString. It contains a suffix code which shall be used as either the allocated ProSe Application Code Suffix or ProSe Restricted Code Suffix, or a matching target for the suffix part of a ProSe Application Code or ProSe Restricted Code.
  */
-@DiameterAvpDefinition(code = 3609L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Suffix-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUFFIX_CODE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Suffix-Code")
 public interface SuffixCode extends DiameterOctetString
 {
 }

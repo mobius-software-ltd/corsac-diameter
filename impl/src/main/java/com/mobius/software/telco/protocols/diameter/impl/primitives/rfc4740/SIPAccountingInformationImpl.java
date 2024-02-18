@@ -18,11 +18,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAccountingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAccountingServerURI;
@@ -33,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPCredit
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 368L, vendorId = -1L)
 public class SIPAccountingInformationImpl extends DiameterGroupedAvpImpl implements SIPAccountingInformation
 {
 	private List<SIPAccountingServerURI> sipAccountingServerURI;
@@ -57,7 +55,7 @@ public class SIPAccountingInformationImpl extends DiameterGroupedAvpImpl impleme
 		return result;
 	}
 	
-	public void setSIPAccountingServerURI(List<String> value) throws ParseException
+	public void setSIPAccountingServerURI(List<String> value) throws InvalidAvpValueException
 	{
 		if(value == null)
 			this.sipAccountingServerURI = null;
@@ -81,7 +79,7 @@ public class SIPAccountingInformationImpl extends DiameterGroupedAvpImpl impleme
 		return result;
 	}
 	
-	public void setSIPCreditControlServerURI(List<String> value) throws ParseException
+	public void setSIPCreditControlServerURI(List<String> value) throws InvalidAvpValueException
 	{
 		if(value == null)
 			this.sipCreditControlServerURI = null;

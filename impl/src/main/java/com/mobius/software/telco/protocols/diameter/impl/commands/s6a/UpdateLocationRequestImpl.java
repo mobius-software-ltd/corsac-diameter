@@ -2,12 +2,15 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.UpdateLocationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CoupledNodeDiameterIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.HomogeneousSupportOfIMSVoiceOverPSSessionsImpl;
@@ -16,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumb
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGsMMEIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SMSRegisterRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UESRVCCCapabilityImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ULRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -68,7 +72,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777251, commandCode = 316, request = true)
 public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateLocationRequest
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -110,7 +113,7 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 		super();
 	}
 	
-	public UpdateLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,RATTypeEnum ratType,ULRFlags ulrFlags,ByteBuf visitedPLMNId)
+	public UpdateLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,RATTypeEnum ratType,ULRFlags ulrFlags,ByteBuf visitedPLMNId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -155,10 +158,10 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 	}
 	
 	@Override
-	public void setRATType(RATTypeEnum value)
+	public void setRATType(RATTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("RAT-Type is required");
+			throw new MissingAvpException("RAT-Type is required is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
 		
 		this.ratType = new RATTypeImpl(value, null, null);
 	}
@@ -170,11 +173,11 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 	}
 	
 	@Override
-	public void setULRFlags(ULRFlags value)
+	public void setULRFlags(ULRFlags value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("ULR-Flags is required");
-		
+			throw new MissingAvpException("ULR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new ULRFlagsImpl() }));
+			
 		this.ulrFlags = value;
 	}
 	
@@ -206,10 +209,10 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 	}
 	 
 	@Override
-	public void setVisitedPLMNId(ByteBuf value)
+	public void setVisitedPLMNId(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Visited-PLMN-Id is required");
+			throw new MissingAvpException("Visited-PLMN-Id is required is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		this.visitedPLMNId = new VisitedPLMNIdImpl(value, null, null);
 	}
@@ -389,16 +392,16 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ratType == null)
-			return "RAT-Type is required";
+			return new MissingAvpException("RAT-Type is required is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
 		
 		if(ulrFlags == null)
-			return "ULR-Flags is required";
+			return new MissingAvpException("ULR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new ULRFlagsImpl() }));
 		
 		if(visitedPLMNId == null)
-			return "Visited-PLMN-Id is required";
+			return new MissingAvpException("Visited-PLMN-Id is required is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		return super.validate();
 	}	

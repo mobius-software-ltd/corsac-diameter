@@ -1,14 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.MultimediaAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPAuthDataItemImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPNumberAuthItemsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -43,7 +47,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 303, request = true)
 public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implements MultimediaAuthRequest
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -61,7 +64,7 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 		super();
 	}
 	
-	public MultimediaAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,String username, String publicIdentity,Long sipNumberAuthItems,SIPAuthDataItem sIPAuthDataItem, String serverName)
+	public MultimediaAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,String username, String publicIdentity,Long sipNumberAuthItems,SIPAuthDataItem sIPAuthDataItem, String serverName) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
 		
@@ -73,19 +76,12 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 	}
 	
 	@Override
-	public void setUsername(String value)
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Username is required");
+			throw new MissingAvpException("Username is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
-		try
-		{
-			super.setUsername(value);
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		super.setUsername(value);
 	}
 	
 	public OCSupportedFeatures getOCSupportedFeatures()
@@ -106,10 +102,10 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 		return publicIdentity.getString();
 	}
 	 
-	public void setPublicIdentity(String value)
+	public void setPublicIdentity(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Public-Identity is required");
+			throw new MissingAvpException("Public-Identity is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
 		
 		this.publicIdentity = new PublicIdentityImpl(value, null, null);
 	}
@@ -124,10 +120,10 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 	}
 	
 	@Override
-	public void setSIPNumberAuthItems(Long value)
+	public void setSIPNumberAuthItems(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-Number-Auth-Items is required");
+			throw new MissingAvpException("SIP-Number-Auth-Items is required", Arrays.asList(new DiameterAvp[] { new SIPNumberAuthItemsImpl() }));
 		
 		this.sipNumberAuthItems = new SIPNumberAuthItemsImpl(value, null, null);
 	}
@@ -139,10 +135,10 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 	}
 	
 	@Override
-	public void setSIPAuthDataItem(SIPAuthDataItem value)
+	public void setSIPAuthDataItem(SIPAuthDataItem value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-Auth-Data-Item is required");
+			throw new MissingAvpException("SIP-Auth-Data-Item is required", Arrays.asList(new DiameterAvp[] { new SIPAuthDataItemImpl() }));
 		
 		this.sipAuthDataItem = value;
 	} 
@@ -157,38 +153,31 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 	}
 	
 	@Override
-	public void setServerName(String value)
+	public void setServerName(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Server-Name is required");
+			throw new MissingAvpException("Server-Name is required", Arrays.asList(new DiameterAvp[] { new ServerNameImpl() }));
 		
 		this.serverName = new ServerNameImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getUsername() == null)
-				return "Username is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		if(username == null)
+			return new MissingAvpException("Username is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		if(publicIdentity == null)
-			return "Public-Identity is required";
+			return new MissingAvpException("Public-Identity is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
 		
 		if(sipNumberAuthItems == null)
-			return "SIP-Number-Auth-Items is required";
+			return new MissingAvpException("SIP-Number-Auth-Items is required", Arrays.asList(new DiameterAvp[] { new SIPNumberAuthItemsImpl() }));
 		
 		if(sipAuthDataItem == null)
-			return "SIP-Auth-Data-Item is required";
+			return new MissingAvpException("SIP-Auth-Data-Item is required", Arrays.asList(new DiameterAvp[] { new SIPAuthDataItemImpl() }));
 		
 		if(serverName == null)
-			return "Server-Name is required";
+			return new MissingAvpException("Server-Name is required", Arrays.asList(new DiameterAvp[] { new ServerNameImpl() }));
 		
 		return super.validate();
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ProSe-Function-IP-Address AVP (AVP code 3444) is of type Address and holds the IP-address of the ProSe
 	Function. 
  */
-@DiameterAvpDefinition(code = 3444L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Function-IP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_FUNCTION_IP_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Function-IP-Address")
 public interface ProSeFunctionIPAddress extends DiameterAddress
 {
 }

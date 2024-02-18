@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 NON_BINDING
 	1 BINDING 
  */
-@DiameterAvpDefinition(code = 2312L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Service-Obligatory-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.AOC_SERVICE_OBLIGATORY_TYPE, vendorId = VendorIDs.TGPP_ID, name = "AoC-Service-Obligatory-Type")
 public interface AoCServiceObligatoryType extends DiameterEnumerated<AoCServiceObligatoryTypeEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Offering ID when the Related-Object-Type value is 1 or global plan ID when the Related-Object-Type value is 2.
  */
-@DiameterAvpDefinition(code = 60009L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Related-Object-ID")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.RELATED_OBJECT_ID, vendorId = VendorIDs.HUAWEI_ID, name = "Related-Object-ID")
 public interface RelatedObjectID extends DiameterInteger64
 {
 }

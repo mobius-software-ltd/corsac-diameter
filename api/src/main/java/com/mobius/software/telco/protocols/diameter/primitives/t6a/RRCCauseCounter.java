@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 [ RRC-Counter-Timestamp ]
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 4318L, vendorId = KnownVendorIDs.TGPP_ID, name = "RRC-Cause-Counter")
+@DiameterAvpDefinition(code = TgppAvpCodes.RRC_CAUSE_COUNTER, vendorId = VendorIDs.TGPP_ID, name = "RRC-Cause-Counter")
 public interface RRCCauseCounter extends DiameterGroupedAvp
 {
 	Long getCounterValue();

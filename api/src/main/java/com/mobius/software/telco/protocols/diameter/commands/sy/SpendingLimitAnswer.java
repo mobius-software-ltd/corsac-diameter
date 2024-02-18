@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sy;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -59,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterS
                 *[ Load ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777302, commandCode = 8388635, request = false, proxyable = true, name="AA-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SY, commandCode = CommandCodes.SPENDING_LIMIT, request = false, proxyable = true, name="AA-Answer")
 public interface SpendingLimitAnswer extends SyAnswer
 {
 	public List<SupportedFeatures> getSupportedFeatures();

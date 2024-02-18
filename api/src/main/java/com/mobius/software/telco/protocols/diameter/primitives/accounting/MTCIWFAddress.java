@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The MTC-IWF-Address AVP (AVP code 3406) is of type Address and holds the address of MTC-IWF for Machine
 	Type Communcication, defined in TS 29.337 [231].
  */
-@DiameterAvpDefinition(code = 3406L, vendorId = KnownVendorIDs.TGPP_ID, name = "MTC-IWF-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.MTC_IWF_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "MTC-IWF-Address")
 public interface MTCIWFAddress extends DiameterAddress
 {
 }

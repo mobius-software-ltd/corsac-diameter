@@ -1,4 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.sy;
+
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterIdentifier;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,17 +22,11 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
-import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterIdentifier;
-
 /**
 *
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2901L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PolicyCounterIdentifierImpl extends DiameterUTF8StringImpl implements PolicyCounterIdentifier
 {
 	protected PolicyCounterIdentifierImpl()

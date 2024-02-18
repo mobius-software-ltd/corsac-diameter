@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 
 /**
@@ -71,7 +72,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
                [ Use-Assigned-Address ]
              * [ AVP ]
  */
-@DiameterAvpDefinition(code = 516L, vendorId = -1L, name = "To-Spec")
+@DiameterAvpDefinition(code = AvpCodes.TO_SPEC, vendorId = -1L, name = "To-Spec")
 public interface ToSpec extends FromSpec
 {	
 }

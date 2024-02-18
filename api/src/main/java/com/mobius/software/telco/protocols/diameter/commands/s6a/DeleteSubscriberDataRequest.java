@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXRelatedRAT;
 
@@ -60,16 +63,16 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 320, request = true, proxyable = true, name="Delete-Subscriber-Data-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.DELETE_SUBSCRIBER_DATA, request = true, proxyable = true, name="Delete-Subscriber-Data-Request")
 public interface DeleteSubscriberDataRequest extends S6aRequest
 {
 	DSRFlags getDSRFlags();
 	
-	void setDSRFlags(DSRFlags value);
+	void setDSRFlags(DSRFlags value) throws MissingAvpException;
 	
 	String getSCEFID();
 	 
-	void setSCEFID(String value);
+	void setSCEFID(String value) throws MissingAvpException;
 	 		
 	List<Long> getContextIdentifier();
 	

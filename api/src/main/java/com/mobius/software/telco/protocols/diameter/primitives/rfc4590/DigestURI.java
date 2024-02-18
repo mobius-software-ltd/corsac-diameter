@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          request URI from the HTTP-style request it wants to
          authenticate.
  */
-@DiameterAvpDefinition(code = 109L, vendorId = -1, name = "Digest-URI")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_URI, vendorId = -1, name = "Digest-URI")
 public interface DigestURI extends DiameterUTF8String
 {
 }

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 			 { SS-Status }
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1485L, vendorId = KnownVendorIDs.TGPP_ID, name = "MO-LR")
+@DiameterAvpDefinition(code = TgppAvpCodes.MO_LR, vendorId = VendorIDs.TGPP_ID, name = "MO-LR")
 public interface MOLR extends DiameterGroupedAvp
 {
 	ByteBuf getSSCode();
 	
-	void setSSCode(ByteBuf value);	
+	void setSSCode(ByteBuf value) throws MissingAvpException;	
 	
 	ByteBuf getSSStatus();
 	
-	void setSSStatus(ByteBuf value);
+	void setSSStatus(ByteBuf value) throws MissingAvpException;
 }

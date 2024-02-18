@@ -22,11 +22,9 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPRATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PresenceReportingAreaStatusImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChangeCondition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RelatedChangeConditionInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SGSNAddress;
@@ -45,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3925L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RelatedChangeConditionInformationImpl implements RelatedChangeConditionInformation
 {
 	private SGSNAddress sgsnAddress; 

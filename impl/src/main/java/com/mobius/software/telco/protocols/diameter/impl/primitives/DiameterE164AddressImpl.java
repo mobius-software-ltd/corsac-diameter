@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
 
 import io.netty.buffer.ByteBuf;
@@ -50,7 +51,7 @@ public class DiameterE164AddressImpl extends DiameterOctetStringImpl implements 
 	}
 
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		super.decode(buffer, length);
 		ByteBuf value = getValue();

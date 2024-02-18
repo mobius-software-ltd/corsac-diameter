@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPVisitedNetworkId;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPVisite
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 386L, vendorId = -1)
 public class SIPVisitedNetworkIdImpl extends DiameterUTF8StringImpl implements SIPVisitedNetworkId
 {
 	protected SIPVisitedNetworkIdImpl()

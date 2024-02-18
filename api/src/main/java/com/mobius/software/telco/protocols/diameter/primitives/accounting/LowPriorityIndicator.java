@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 NO
 	1 YES
  */
-@DiameterAvpDefinition(code = 2602L, vendorId = KnownVendorIDs.TGPP_ID, name = "Low-Priority-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOW_PRIORITY_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "Low-Priority-Indicator")
 public interface LowPriorityIndicator extends DiameterEnumerated<LowPriorityIndicatorEnum>
 {
 }

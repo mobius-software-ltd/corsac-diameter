@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeLastUsage;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeLa
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2044L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TimeLastUsageImpl extends DiameterTimeImpl implements TimeLastUsage
 {
 	protected TimeLastUsageImpl()

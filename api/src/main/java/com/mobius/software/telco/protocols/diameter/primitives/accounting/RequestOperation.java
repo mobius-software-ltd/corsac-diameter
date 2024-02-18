@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE: See clause 6.4.1 “Request message parameter data types”
  */
-@DiameterAvpDefinition(code = 1017L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Request-Operation")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.REQUEST_OPERATION, vendorId = VendorIDs.ONEM2M_ID, name = "Request-Operation")
 public interface RequestOperation extends DiameterEnumerated<RequestOperationEnum>
 {
 }

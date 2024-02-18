@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	IPv4_OR_IPv6 (3)
 	This value shall be used to indicate that the PDN can be accessed either in IPv4 mode, or in IPv6 mode, but not from UEs supporting dualstack IPv4v6. It should be noted that this value will never be used as a requested PDN Type from the UE, since UEs will only use one of their supported PDN Types, i.e., IPv4 only, IPv6 only or IPv4v6 (dualstack). This value is only used as part of the APN subscription context, as an authorization mechanism between HSS and MME.
  */
-@DiameterAvpDefinition(code = 1456L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDN-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDN_TYPE, vendorId = VendorIDs.TGPP_ID, name = "PDN-Type")
 public interface PDNType extends DiameterEnumerated<PDNTypeEnum>
 {
 }

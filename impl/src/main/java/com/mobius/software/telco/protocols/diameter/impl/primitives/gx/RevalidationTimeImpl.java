@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RevalidationTime;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RevalidationTi
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1042L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RevalidationTimeImpl extends DiameterTimeImpl implements RevalidationTime
 {
 	protected RevalidationTimeImpl()

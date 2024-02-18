@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	-	If resource sharing applies between media components across AF sessions for the same user, the same value of the Sharing-Key-UL AVP shall be used;
 	-	If resource sharing does not apply between media components across AF sessions for the same user, a different value of the Sharing-Key-UL AVP shall be used for each media component.
  */
-@DiameterAvpDefinition(code = 540L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Sharing-Key-UL")
+@DiameterAvpDefinition(code = TgppAvpCodes.SHARING_KEY_UL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Sharing-Key-UL")
 public interface SharingKeyUL extends DiameterUnsigned32
 {
 }

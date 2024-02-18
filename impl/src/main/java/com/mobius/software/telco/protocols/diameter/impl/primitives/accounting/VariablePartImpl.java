@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VariablePart;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VariablePartOrder;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VariablePartType;
@@ -31,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Variab
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3907L, vendorId = KnownVendorIDs.TGPP_ID)
 public class VariablePartImpl implements VariablePart
 {
 	private VariablePartOrder variablePartOrder;
@@ -42,17 +44,11 @@ public class VariablePartImpl implements VariablePart
 	{
 	}
 	
-	public VariablePartImpl(Long variablePartOrder,Long variablePartType)
+	public VariablePartImpl(Long variablePartOrder,Long variablePartType) throws MissingAvpException
 	{
-		if(variablePartOrder==null)
-			throw new IllegalArgumentException("Variable-Part-Order is required");
+		setVariablePartOrder(variablePartOrder);
 		
-		if(variablePartType==null)
-			throw new IllegalArgumentException("Variable-Part-Type is required");
-		
-		this.variablePartOrder = new VariablePartOrderImpl(variablePartOrder, null, null);				
-		
-		this.variablePartType = new VariablePartTypeImpl(variablePartType, null, null);
+		setVariablePartType(variablePartType);
 	}
 			
 	public Long getVariablePartOrder()
@@ -63,11 +59,11 @@ public class VariablePartImpl implements VariablePart
 		return variablePartOrder.getUnsigned();
 	}
 	
-	public void setVariablePartOrder(Long value)
+	public void setVariablePartOrder(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Variable-Part-Order is required");
-		
+			throw new MissingAvpException("Variable-Part-Order requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new VariablePartOrderImpl() }));
+			
 		this.variablePartOrder = new VariablePartOrderImpl(value, null, null);				
 	}
 	
@@ -79,10 +75,10 @@ public class VariablePartImpl implements VariablePart
 		return variablePartType.getUnsigned();
 	}
 	
-	public void setVariablePartType(Long value)
+	public void setVariablePartType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Variable-Part-Type is required");
+			throw new MissingAvpException("Variable-Part-Type requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new VariablePartTypeImpl() }));
 		
 		this.variablePartType = new VariablePartTypeImpl(value, null, null);
 	}
@@ -104,13 +100,13 @@ public class VariablePartImpl implements VariablePart
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(variablePartOrder==null)
-			return "Variable-Part-Order is required";
+			return new MissingAvpException("Variable-Part-Order requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new VariablePartOrderImpl() }));
 		
 		if(variablePartType==null)
-			return "Variable-Part-Type is required";
+			return new MissingAvpException("Variable-Part-Type requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new VariablePartTypeImpl() }));
 		
 		return null;
 	}

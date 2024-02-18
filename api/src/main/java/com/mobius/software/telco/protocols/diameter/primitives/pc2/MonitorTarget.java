@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -46,16 +48,16 @@ import io.netty.buffer.ByteBuf;
 
 If the Metadata-Indicator value is "0 (NO_METADATA)", the Metadata-Indicator AVP may be omitted.
  */
-@DiameterAvpDefinition(code = 3607L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Monitor-Target")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITOR_TARGET, vendorId = VendorIDs.TGPP_ID, must = false, name = "Monitor-Target")
 public interface MonitorTarget extends DiameterGroupedAvp
 {
 	String getTargetRPAUID();
 	
-	void setTargetRPAUID(String value);
+	void setTargetRPAUID(String value) throws MissingAvpException;
 	
 	ByteBuf getPDUID();
 	
-	void setPDUID(ByteBuf value);
+	void setPDUID(ByteBuf value) throws MissingAvpException;
 	
 	MetadataIndicatorEnum getMetadataIndicator();
 	

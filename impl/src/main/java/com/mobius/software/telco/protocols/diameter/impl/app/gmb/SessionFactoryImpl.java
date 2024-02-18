@@ -22,6 +22,8 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.app.gmb.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.gmb.AARequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gmb.AARequestImpl;
 
 public class SessionFactoryImpl implements SessionFactory
@@ -43,7 +45,7 @@ public class SessionFactoryImpl implements SessionFactory
 		this.applicationId = applicationId;
 	}
 	
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm)
+	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AARequestImpl(originHost, originRealm, destinationRealm, null, idGenerator.generateID().toString(), applicationId);
 	}

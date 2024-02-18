@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -70,7 +71,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 23: Msg+
 
  */
-@DiameterAvpDefinition(code = 20608L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Service-Type")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.SERVICE_TYPE_INT, vendorId = VendorIDs.HUAWEI_ID, name = "Service-Type")
 public interface ServiceTypeInt extends DiameterInteger32
 {
 }

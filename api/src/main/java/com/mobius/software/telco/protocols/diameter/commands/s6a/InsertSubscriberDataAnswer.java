@@ -21,7 +21,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSUserState;
@@ -68,7 +71,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedServ
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 319, request = false, proxyable = true, name="Insert-Subscriber-Data-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.INSERT_SUBSCRIBER_DATA, request = false, proxyable = true, name="Insert-Subscriber-Data-Answer")
 public interface InsertSubscriberDataAnswer extends S6aAnswer
 {
 	IMSVoiceOverPSSessionsSupportedEnum getIMSVoiceOverPSSessionsSupported();
@@ -81,7 +84,7 @@ public interface InsertSubscriberDataAnswer extends S6aAnswer
 	 		
 	RATTypeEnum getRATType();
 	 
-	void setRATType(RATTypeEnum value);
+	void setRATType(RATTypeEnum value) throws MissingAvpException;
 	
 	IDAFlags getIDAFlags();
 	

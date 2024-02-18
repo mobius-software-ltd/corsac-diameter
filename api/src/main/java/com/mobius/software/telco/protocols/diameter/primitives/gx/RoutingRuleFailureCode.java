@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value shall be used to indicate that the NBIFOM routing rule cannot be installed or modified due to the
 		unspecified error.
  */
-@DiameterAvpDefinition(code = 2834L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Routing-Rule-Failure-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTING_RULE_FAILURE_CODE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Routing-Rule-Failure-Code")
 public interface RoutingRuleFailureCode extends DiameterEnumerated<RoutingRuleFailureCodeEnum>
 {
 }

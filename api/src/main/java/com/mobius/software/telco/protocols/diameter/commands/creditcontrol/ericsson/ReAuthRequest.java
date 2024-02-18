@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.creditcontrol.eric
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -28,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 
 /*
  */
-@DiameterCommandDefinition(applicationId = 4, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	Long getGSUPoolIdentifier();

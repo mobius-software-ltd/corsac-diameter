@@ -19,15 +19,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ChargedPartyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.DLBufferingSuggestedPacketCountImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChargedParty;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DLBufferingSuggestedPacketCount;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AssociationType;
@@ -57,7 +59,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.UEReachabilit
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3122L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MonitoringEventConfigurationImpl extends DiameterGroupedAvpImpl implements MonitoringEventConfiguration
 {
 	private SCEFReferenceID scefReferenceID;
@@ -84,17 +85,11 @@ public class MonitoringEventConfigurationImpl extends DiameterGroupedAvpImpl imp
 	{
 	}
 	
-	public MonitoringEventConfigurationImpl(String scefID,MonitoringTypeEnum monitoringType)
+	public MonitoringEventConfigurationImpl(String scefID,MonitoringTypeEnum monitoringType) throws MissingAvpException
 	{
-		if(scefID==null)
-			throw new IllegalArgumentException("SCEF-ID is required");
+		setSCEFID(scefID);
 		
-		if(monitoringType==null)
-			throw new IllegalArgumentException("Monitoring-Type is required");
-				
-		this.scefID = new SCEFIDImpl(scefID, null, null);						
-		
-		this.monitoringType = new MonitoringTypeImpl(monitoringType, null, null);
+		setMonitoringType(monitoringType);
 	}
 	
 	public Long getSCEFReferenceID()
@@ -137,10 +132,10 @@ public class MonitoringEventConfigurationImpl extends DiameterGroupedAvpImpl imp
 		return scefID.getIdentity();
 	}
 	
-	public void setSCEFID(String value)
+	public void setSCEFID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SCEF-ID is required");
+			throw new MissingAvpException("SCEF-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
 		
 		this.scefID = new SCEFIDImpl(value, null, null);
 	}	
@@ -153,10 +148,10 @@ public class MonitoringEventConfigurationImpl extends DiameterGroupedAvpImpl imp
 		return monitoringType.getEnumerated(MonitoringTypeEnum.class);
 	}
 	
-	public void setMonitoringType(MonitoringTypeEnum value)
+	public void setMonitoringType(MonitoringTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Monitoring-Type is required");
+			throw new MissingAvpException("Monitoring-Type is required", Arrays.asList(new DiameterAvp[] { new MonitoringTypeImpl() }));
 		
 		this.monitoringType = new MonitoringTypeImpl(value, null, null);
 	}	
@@ -382,13 +377,13 @@ public class MonitoringEventConfigurationImpl extends DiameterGroupedAvpImpl imp
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(scefID==null)
-			return "SCEF-ID is required";
+			return new MissingAvpException("SCEF-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
 		
 		if(monitoringType==null)
-			return "Monitoring-Type is required";
+			return new MissingAvpException("Monitoring-Type is required", Arrays.asList(new DiameterAvp[] { new MonitoringTypeImpl() }));
 		
 		return null;
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SMS-Result AVP (AVP code 3409) is of type Unsigned32 and includes the result of an attempt for a Short Message
 	transaction (submission or delivery). 
  */
-@DiameterAvpDefinition(code = 3409L, vendorId = KnownVendorIDs.TGPP_ID, name = "SMS-Result")
+@DiameterAvpDefinition(code = TgppAvpCodes.SMS_RESULT, vendorId = VendorIDs.TGPP_ID, name = "SMS-Result")
 public interface SMSResult extends DiameterUnsigned32
 {
 }

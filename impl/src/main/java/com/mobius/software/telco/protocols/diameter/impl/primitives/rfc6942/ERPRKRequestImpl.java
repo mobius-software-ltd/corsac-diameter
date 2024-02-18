@@ -1,8 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc6942;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc6942.ERPRKRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc6942.ERPRealm;
 
@@ -30,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc6942.ERPRealm;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 618L, vendorId = -1L)
 public class ERPRKRequestImpl extends DiameterGroupedAvpImpl implements ERPRKRequest
 {
 	private ERPRealm erpRealm;
@@ -40,12 +43,9 @@ public class ERPRKRequestImpl extends DiameterGroupedAvpImpl implements ERPRKReq
 		super();
 	}
 	
-	public ERPRKRequestImpl(String erpRealm)
+	public ERPRKRequestImpl(String erpRealm) throws MissingAvpException
 	{
-		if(erpRealm == null)
-			throw new IllegalArgumentException("ERP-Realm is required");
-		
-		this.erpRealm = new ERPRealmImpl(erpRealm, null, null);
+		setERPRealm(erpRealm);
 	}
 	
 	public String getERPRealm()
@@ -56,19 +56,19 @@ public class ERPRKRequestImpl extends DiameterGroupedAvpImpl implements ERPRKReq
 		return this.erpRealm.getIdentity();
 	}
 	
-	public void setERPRealm(String value)
+	public void setERPRealm(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ERP-Realm is required");
-		
+			throw new MissingAvpException("ERP-Realm is required", Arrays.asList(new DiameterAvp[] { new ERPRealmImpl() }));
+			
 		this.erpRealm = new ERPRealmImpl(value, null, null);	
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(erpRealm == null)
-			return "ERP-Realm is required";
+			return new MissingAvpException("ERP-Realm is required", Arrays.asList(new DiameterAvp[] { new ERPRealmImpl() }));
 		
 		return null;
 	}

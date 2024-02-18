@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates the recharge request time
 	The definition and value of this parameter are the same as those of the same parameter in the CCR{Initial} message
  */
-@DiameterAvpDefinition(code = 20712L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Trade-Time")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.TRADE_TIME, vendorId = VendorIDs.HUAWEI_ID, name = "Trade-Time")
 public interface TradeTime extends DiameterOctetString
 {
 }

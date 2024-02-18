@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			Flow-Grouping ::= < AVP Header: 508 >
 	        	*[Flows]
  */
-@DiameterAvpDefinition(code = 508L, vendorId = KnownVendorIDs.TGPP_ID, name = "Flow-Grouping")
+@DiameterAvpDefinition(code = TgppAvpCodes.FLOW_GROUPING, vendorId = VendorIDs.TGPP_ID, name = "Flow-Grouping")
 public interface FlowGrouping extends DiameterAvp
 {
 	List<Flows> getFlows();

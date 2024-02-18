@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64
    of the Value-Digits AVP MUST be set to 5, and the scaling MUST be
    indicated with the Exponent AVP set to -2.
  */
-@DiameterAvpDefinition(code = 447L, vendorId = -1L, name = "Value-Digits")
+@DiameterAvpDefinition(code = AvpCodes.VALUE_DIGITS, vendorId = -1L, name = "Value-Digits")
 public interface ValueDigits extends DiameterInteger64
 {
 }

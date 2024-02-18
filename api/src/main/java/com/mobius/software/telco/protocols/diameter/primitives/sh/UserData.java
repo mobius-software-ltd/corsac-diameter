@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	and PNR/PNA operations and the data to be modified in the PUR/PUA operation. The exact content and format of this
 	AVP is described in 3GPP TS 29.328 [1] Annex C as Sh-Data. 
  */
-@DiameterAvpDefinition(code = 702L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.SH_USER_DATA, vendorId = VendorIDs.TGPP_ID, name = "User-Data")
 public interface UserData extends DiameterOctetString
 {
 }

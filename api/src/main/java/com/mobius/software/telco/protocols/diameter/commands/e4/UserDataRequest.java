@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.GloballyUniqueAddress;
 
@@ -54,7 +56,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777231, commandCode = 306, request = true, proxyable = true, name="User-Data-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.E4, commandCode = CommandCodes.USER_DATA, request = true, proxyable = true, name="User-Data-Request")
 public interface UserDataRequest extends E4Request
 {
 	GloballyUniqueAddress getGloballyUniqueAddress();

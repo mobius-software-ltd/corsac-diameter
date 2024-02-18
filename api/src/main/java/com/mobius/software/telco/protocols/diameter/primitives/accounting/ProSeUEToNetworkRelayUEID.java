@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ProSe-UE-to-Network-Relay-UE-ID AVP (AVP code4409) is of type OctetString and holds a link layer identifier
 	that uniquely represents the ProSe UE-to-Network relay UE in the context of ProSe Direct Communication via UE-toNetwork Relay. 
  */
-@DiameterAvpDefinition(code = 4409L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-UE-to-Network-Relay-UE-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_UE_TO_NETWORK_RELAY_UE_ID, vendorId = VendorIDs.TGPP_ID, name = "ProSe-UE-to-Network-Relay-UE-ID")
 public interface ProSeUEToNetworkRelayUEID extends DiameterOctetString
 {
 }

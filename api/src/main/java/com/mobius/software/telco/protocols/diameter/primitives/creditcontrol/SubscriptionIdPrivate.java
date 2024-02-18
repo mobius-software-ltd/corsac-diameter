@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    The Subscription-Id-Private AVP contains a credit-control server
    private identifier.
  */
-@DiameterAvpDefinition(code = 664L, vendorId = -1L, must = false, name = "Subscription-Id-Private")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_PRIVATE, vendorId = -1L, must = false, name = "Subscription-Id-Private")
 public interface SubscriptionIdPrivate extends DiameterUTF8String
 {
 }

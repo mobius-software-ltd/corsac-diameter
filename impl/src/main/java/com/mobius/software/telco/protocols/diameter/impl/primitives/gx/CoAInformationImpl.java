@@ -19,11 +19,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  */
 
 import java.net.InetAddress;
+import java.util.Arrays;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CoAIPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CoAInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelInformation;
@@ -33,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelInformat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1039L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CoAInformationImpl extends DiameterGroupedAvpImpl implements CoAInformation
 {
 	private TunnelInformation tunnelInformation;
@@ -44,17 +45,11 @@ public class CoAInformationImpl extends DiameterGroupedAvpImpl implements CoAInf
 		
 	}
 	
-	public CoAInformationImpl(TunnelInformation tunnelInformation,InetAddress coAIPAddress)
+	public CoAInformationImpl(TunnelInformation tunnelInformation,InetAddress coAIPAddress) throws MissingAvpException
 	{
-		if(tunnelInformation==null)
-			throw new IllegalArgumentException("Tunnel-Information is required");
+		setTunnelInformation(tunnelInformation);
 		
-		if(coAIPAddress==null)
-			throw new IllegalArgumentException("CoA-IP-Address is required");
-		
-		this.tunnelInformation = tunnelInformation;				
-		
-		this.coAIPAddress = new CoAIPAddressImpl(coAIPAddress, null, null);
+		setCoAIPAddress(coAIPAddress);
 	}
 	
 	public TunnelInformation getTunnelInformation()
@@ -62,11 +57,11 @@ public class CoAInformationImpl extends DiameterGroupedAvpImpl implements CoAInf
 		return tunnelInformation;
 	}
 	
-	public void setTunnelInformation(TunnelInformation value)
+	public void setTunnelInformation(TunnelInformation value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Tunnel-Information is required");
-		
+			throw new MissingAvpException("Tunnel-Information is required", Arrays.asList(new DiameterAvp[] { new TunnelInformationImpl() }));
+			
 		this.tunnelInformation = value;			
 	}
 	
@@ -78,22 +73,22 @@ public class CoAInformationImpl extends DiameterGroupedAvpImpl implements CoAInf
 		return coAIPAddress.getAddress();
 	}
 	
-	public void setCoAIPAddress(InetAddress value)
+	public void setCoAIPAddress(InetAddress value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CoA-IP-Address is required");
-		
+			throw new MissingAvpException("CoA-IP-Address is required", Arrays.asList(new DiameterAvp[] { new CoAIPAddressImpl() }));
+			
 		this.coAIPAddress = new CoAIPAddressImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tunnelInformation==null)
-			return "Tunnel-Information is required";
+			return new MissingAvpException("Tunnel-Information is required", Arrays.asList(new DiameterAvp[] { new TunnelInformationImpl() }));
 		
 		if(coAIPAddress==null)
-			return "CoA-IP-Address is required";
+			return new MissingAvpException("CoA-IP-Address is required", Arrays.asList(new DiameterAvp[] { new CoAIPAddressImpl() }));
 		
 		return null;
 	}		  		  

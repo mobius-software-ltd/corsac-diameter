@@ -21,9 +21,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 
 import io.netty.buffer.ByteBuf;
@@ -86,24 +89,24 @@ import io.netty.buffer.ByteBuf;
 	The RDS-Indicator may be present when Non-IP-PDN-Type-Indicator is set to TRUE (1), and Non-IP-Data-Delivery-Mechanism is set to SCEF-BASED-DATA-DELIVERY (1).
 	Absence of PDN-Connection-Continuity AVP indicates that the handling is left to local VPLMN policy.
  */
-@DiameterAvpDefinition(code = 1430L, vendorId = KnownVendorIDs.TGPP_ID, name = "APN-Configuration")
+@DiameterAvpDefinition(code = TgppAvpCodes.APN_CONFIGURATION, vendorId = VendorIDs.TGPP_ID, name = "APN-Configuration")
 public interface APNConfiguration extends DiameterGroupedAvp
 {
 	Long getContextIdentifier();
 	
-	void setContextIdentifier(Long value);	
+	void setContextIdentifier(Long value) throws MissingAvpException;	
 	
 	List<InetAddress> getServedPartyIPAddress();
 	
-	void setServedPartyIPAddress(List<InetAddress> value);
+	void setServedPartyIPAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	PDNTypeEnum getPDNType();
 	
-	void setPDNType(PDNTypeEnum value);
+	void setPDNType(PDNTypeEnum value) throws MissingAvpException;
 	
 	String getServiceSelection();
 	
-	void setServiceSelection(String value);
+	void setServiceSelection(String value) throws MissingAvpException;
 	
 	EPSSubscribedQoSProfile getEPSSubscribedQoSProfile();
 	

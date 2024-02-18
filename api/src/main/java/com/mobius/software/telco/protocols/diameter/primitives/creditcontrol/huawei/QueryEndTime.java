@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Indicates the end time for querying a recharge log.
  */
-@DiameterAvpDefinition(code = 20742L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Query-End-Time")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.QUERY_END_TIME, vendorId = VendorIDs.HUAWEI_ID, name = "Query-End-Time")
 public interface QueryEndTime extends DiameterTime
 {
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.HSSCause;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.HSSCause;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3109L, vendorId = KnownVendorIDs.TGPP_ID)
 public class HSSCauseImpl extends DiameterBitmask32Impl implements HSSCause
 {
 	public HSSCauseImpl()
@@ -44,7 +41,7 @@ public class HSSCauseImpl extends DiameterBitmask32Impl implements HSSCause
 	@Override
 	public void setAbsentSubscriberBit(boolean isOn)
 	{
-		setBit(ABSENT_SUBSCRIBER_BIT, isOn);
+		setBitUnchecked(ABSENT_SUBSCRIBER_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class HSSCauseImpl extends DiameterBitmask32Impl implements HSSCause
 	@Override
 	public void setTeleserviceNotProvisionedBit(boolean isOn)
 	{
-		setBit(TELESERVICE_NOT_PROVISIONED_BIT, isOn);
+		setBitUnchecked(TELESERVICE_NOT_PROVISIONED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class HSSCauseImpl extends DiameterBitmask32Impl implements HSSCause
 	@Override
 	public void setCallBarredBit(boolean isOn)
 	{
-		setBit(CALL_BARRED_BIT, isOn);
+		setBitUnchecked(CALL_BARRED_BIT, isOn);
 	}
 
 	@Override

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.er
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EricssonAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The identifier is in the form of a Network Access Identifier.
 	The only supported value is END_USER_E164 in the SCAPv2 service context.
  */
-@DiameterAvpDefinition(code = 1078L, vendorId = KnownVendorIDs.ERICSSON_ID, name = "Other-Party-Id-Type")
+@DiameterAvpDefinition(code = EricssonAvpCodes.OTHER_PARTY_ID_TYPE, vendorId = VendorIDs.ERICSSON_ID, name = "Other-Party-Id-Type")
 public interface OtherPartyIdType extends DiameterEnumerated<OtherPartyIdTypeEnum>
 {
 }

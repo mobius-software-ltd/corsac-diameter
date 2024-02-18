@@ -18,13 +18,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUriImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTransport;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PrimaryEventChargingFunctionName;
 
 /**
@@ -32,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PrimaryEvent
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 619L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PrimaryEventChargingFunctionNameImpl extends DiameterUriImpl implements PrimaryEventChargingFunctionName
 {
 	protected PrimaryEventChargingFunctionNameImpl()
@@ -50,7 +46,7 @@ public class PrimaryEventChargingFunctionNameImpl extends DiameterUriImpl implem
 		super(host, port, isSecure, transport, protocol, minLength, maxLength);
 	}
 
-	public PrimaryEventChargingFunctionNameImpl(String uri, Integer minLength, Integer maxLength) throws ParseException
+	public PrimaryEventChargingFunctionNameImpl(String uri, Integer minLength, Integer maxLength) throws InvalidAvpValueException
 	{
 		super(uri, minLength, maxLength);
 	}

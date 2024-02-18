@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmTypeEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgori
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 345L, vendorId = -1L)
 public class MIPAlgorithmTypeImpl extends DiameterEnumeratedImpl<MIPAlgorithmTypeEnum> implements MIPAlgorithmType
 {
 	protected MIPAlgorithmTypeImpl() 

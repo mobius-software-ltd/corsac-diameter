@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaNode;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReport
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2855L, vendorId = KnownVendorIDs.TGPP_ID) 
 public class PresenceReportingAreaNodeImpl extends DiameterBitmask32Impl implements PresenceReportingAreaNode
 {
 	public PresenceReportingAreaNodeImpl()
@@ -44,7 +41,7 @@ public class PresenceReportingAreaNodeImpl extends DiameterBitmask32Impl impleme
 	@Override
 	public void setOCSBit(boolean isOn)
 	{
-		setBit(OCS_BIT, isOn);
+		setBitUnchecked(OCS_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class PresenceReportingAreaNodeImpl extends DiameterBitmask32Impl impleme
 	@Override
 	public void setPCRFBit(boolean isOn)
 	{
-		setBit(PCRF_BIT, isOn);
+		setBitUnchecked(PCRF_BIT, isOn);
 	}
 
 	@Override

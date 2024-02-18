@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -48,7 +49,7 @@ import io.netty.buffer.ByteBuf;
 	
 	NOTE 2: The SM-Protocol-ID AVP only relates to the recipient when charging MT SMS messages as specified in TS 23.040 [216].
  */
-@DiameterAvpDefinition(code = 2026L, vendorId = KnownVendorIDs.TGPP_ID, name = "Recipient-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.RECIPIENT_INFO, vendorId = VendorIDs.TGPP_ID, name = "Recipient-Info")
 public interface RecipientInfo extends DiameterAvp
 {
 	DestinationInterface getDestinationInterface();

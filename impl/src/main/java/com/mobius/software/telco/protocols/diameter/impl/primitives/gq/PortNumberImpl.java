@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.PortNumber;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.PortNumber;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 455L, vendorId = KnownVendorIDs.ETSI_ID)
 public class PortNumberImpl extends DiameterUnsigned32Impl implements PortNumber
 {
 	protected PortNumberImpl()

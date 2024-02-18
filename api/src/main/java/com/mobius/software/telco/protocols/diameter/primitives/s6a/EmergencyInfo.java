@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 
 /**
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6Agent
 			 [ MIP6-Agent-Info ]
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1687L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Emergency-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.EMERGENCY_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Emergency-Info")
 public interface EmergencyInfo extends DiameterGroupedAvp
 {
 	MIP6AgentInfo getMIP6AgentInfo();

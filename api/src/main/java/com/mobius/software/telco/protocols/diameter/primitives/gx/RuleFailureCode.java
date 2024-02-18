@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -142,7 +143,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	SAME_TIME_ERROR (29)
  		This value is used to inform the PCRF that the the PCC rule cannot be enforced because the Rule-ActivationTime and Rule-Deactivation-Time are specified with the same time.
  */
-@DiameterAvpDefinition(code = 1031L, vendorId = KnownVendorIDs.TGPP_ID, name = "Rule-Failure-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.RULE_FAILURE_CODE, vendorId = VendorIDs.TGPP_ID, name = "Rule-Failure-Code")
 public interface RuleFailureCode extends DiameterEnumerated<RuleFailureCodeEnum>
 {
 }

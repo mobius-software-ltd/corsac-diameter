@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.swx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AMBR;
@@ -72,7 +73,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.EmergencyInfo
 	For the conditions specified in clause 8.1.2.3.2, the Non-3GPP-User-Data AVP shall be empty, i.e. not include any AVP.
 	If the Non-3GPP-User-Data AVP is not empty, the Non-3GPP-IP-Acess AVP, the Non-3GPP-IP-Access-APN AVP, the Context-Identifier AVP and at least one item of the APN-Configuration AVP shall always be included, except when the Non-3GPP-User-Data AVP is used for downloading trace activation or deactivation information on the SWx interface, for an already registered user, or when the Non-3GPP-User-Data is used for downloading the Emergency-Info. In those specific cases, the Trace-Info AVP, or respectively the Emergency-Info AVP, shall be included and the presence of any further AVPs is optional.
  */
-@DiameterAvpDefinition(code = 1500L, vendorId = KnownVendorIDs.TGPP_ID, name = "Non-3GPP-User-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.NON_3GPP_USER_DATA, vendorId = VendorIDs.TGPP_ID, name = "Non-3GPP-User-Data")
 public interface Non3GPPUserData extends DiameterGroupedAvp
 {
 	SubscriptionId getSubscriptionId();

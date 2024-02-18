@@ -23,6 +23,8 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPPDPTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.AccountingAuthMethodEnum;
@@ -152,7 +154,7 @@ import io.netty.buffer.ByteBuf;
                       	[ 3GPP-UE-Source-Port ]
                      *	[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 257, request = true, proxyable = true, name="Accounting-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.ACCOUNTING, request = true, proxyable = true, name="Accounting-Request")
 public interface AccountingRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest
 {	
 	Long getAcctDelayTime();

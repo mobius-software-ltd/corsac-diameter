@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Physical-Access-ID AVP (AVP code 313 13019) is of type UTF8String and identifies the physical access to which
 	the user equipment is connected. It includes a port identifier and the identity of the access node where the port resides. 
  */
-@DiameterAvpDefinition(code = 303L, vendorId = KnownVendorIDs.ETSI_ID, name = "Physical-Access-ID")
+@DiameterAvpDefinition(code = EtsiAvpCodes.PHYSICAL_ACCESS_ID, vendorId = VendorIDs.ETSI_ID, name = "Physical-Access-ID")
 public interface PhysicalAccessID extends DiameterUTF8String
 {
 }

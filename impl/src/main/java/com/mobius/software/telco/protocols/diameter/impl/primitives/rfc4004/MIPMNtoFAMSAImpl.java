@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNFASPI;
@@ -34,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 325L, vendorId = -1L)
 public class MIPMNtoFAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoFAMSA
 {
 	private MIPMNFASPI mipMNtoFASPI;
@@ -48,22 +51,13 @@ public class MIPMNtoFAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoF
 		
 	}
 	
-	public MIPMNtoFAMSAImpl(Long mipMNtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipNonce)
+	public MIPMNtoFAMSAImpl(Long mipMNtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipNonce) throws MissingAvpException
 	{
-		if(mipMNtoFASPI==null)
-			throw new IllegalArgumentException("MIP-MN-to-FA-SPI is required");
+		setMIPMNFASPI(mipMNtoFASPI);
 		
-		if(mipAlgorithmType==null)
-			throw new IllegalArgumentException("MIP-Algorithm-Type is required");
+		setMIPAlgorithmType(mipAlgorithmType);
 		
-		if(mipNonce==null)
-			throw new IllegalArgumentException("MIP-Nonce is required");
-		
-		this.mipMNtoFASPI = new MIPMNFASPIImpl(mipMNtoFASPI, null, null);		
-		
-		this.mipAlgorithmType = new MIPAlgorithmTypeImpl(mipAlgorithmType, null, null);
-		
-		this.mipNonce = new MIPNonceImpl(mipNonce, null, null);
+		setMIPNonce(mipNonce);
 	}
 	
 	public Long getMIPMNFASPI()
@@ -74,10 +68,10 @@ public class MIPMNtoFAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoF
 		return mipMNtoFASPI.getUnsigned();
 	}
 	
-	public void setMIPMNFASPI(Long value)
+	public void setMIPMNFASPI(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-MN-to-FA-SPI is required");
+			throw new MissingAvpException("MIP-MN-to-FA-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPMNFASPIImpl() }));
 		
 		this.mipMNtoFASPI = new MIPMNFASPIImpl(value, null, null);		
 	}
@@ -90,10 +84,10 @@ public class MIPMNtoFAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoF
 		return mipAlgorithmType.getEnumerated(MIPAlgorithmTypeEnum.class);
 	}
 	
-	public void setMIPAlgorithmType(MIPAlgorithmTypeEnum value)
+	public void setMIPAlgorithmType(MIPAlgorithmTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Algorithm-Type is required");
+			throw new MissingAvpException("MIP-Algorithm-Type is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		this.mipAlgorithmType = new MIPAlgorithmTypeImpl(value, null, null);
 	}
@@ -108,25 +102,25 @@ public class MIPMNtoFAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoF
 	}
 
 	@Override
-	public void setMIPNonce(ByteBuf value) 
+	public void setMIPNonce(ByteBuf value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Nonce is required");
+			throw new MissingAvpException("MIP-Nonce is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		this.mipNonce = new MIPNonceImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mipMNtoFASPI==null)
-			return "MIP-MN-to-FA-SPI is required";
+			return new MissingAvpException("MIP-MN-to-FA-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPMNFASPIImpl() }));
 		
 		if(mipAlgorithmType==null)
-			return "MIP-Algorithm-Type is required";
+			return new MissingAvpException("MIP-Algorithm-Type is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		if(mipNonce==null)
-			return "MIP-Nonce is required";
+			return new MissingAvpException("MIP-Nonce is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		return null;
 	}

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    the user before termination of the session or before a prompt is
    issued.  The default is none or system specific.
  */
-@DiameterAvpDefinition(code = 28L, vendorId = -1L, name = "Idle-Timeout")
+@DiameterAvpDefinition(code = AvpCodes.IDLE_TIMEOUT, vendorId = -1L, name = "Idle-Timeout")
 public interface IdleTimeout extends DiameterUnsigned32
 {
 }

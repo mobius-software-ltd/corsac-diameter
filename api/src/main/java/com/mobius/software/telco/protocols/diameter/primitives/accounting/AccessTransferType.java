@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 PS to PS Transfer
 	3 CS to CS Transfer
  */
-@DiameterAvpDefinition(code = 2710L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Transfer-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_TRANSFER_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Access-Transfer-Type")
 public interface AccessTransferType extends DiameterEnumerated<AccessTransferTypeEnum>
 {
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFRequestedData;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AFRequestedDat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 551L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AFRequestedDataImpl extends DiameterBitmask32Impl implements AFRequestedData
 {
 	public AFRequestedDataImpl()
@@ -44,7 +41,7 @@ public class AFRequestedDataImpl extends DiameterBitmask32Impl implements AFRequ
 	@Override
 	public void setEPCLevelIdentitiesRequiredBit(boolean isOn)
 	{
-		setBit(EPC_LEVEL_IDENTITIES_REQUIRED_BIT, isOn);
+		setBitUnchecked(EPC_LEVEL_IDENTITIES_REQUIRED_BIT, isOn);
 	}
 
 	@Override

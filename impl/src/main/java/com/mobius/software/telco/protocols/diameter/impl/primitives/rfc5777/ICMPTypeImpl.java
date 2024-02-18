@@ -19,11 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ICMPCode;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ICMPCodeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ICMPType;
@@ -37,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.NegatedEn
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 545L, vendorId = -1L)
 public class ICMPTypeImpl extends DiameterGroupedAvpImpl implements ICMPType
 {
 	private ICMPTypeNumber icmpTypeNumber;
@@ -50,12 +52,9 @@ public class ICMPTypeImpl extends DiameterGroupedAvpImpl implements ICMPType
 	{
 	}
 	
-	public ICMPTypeImpl(ICMPTypeNumberEnum icmpTypeNumber)
+	public ICMPTypeImpl(ICMPTypeNumberEnum icmpTypeNumber) throws MissingAvpException
 	{
-		if(icmpTypeNumber==null)
-			throw new IllegalArgumentException("ICMP-Type-Number is required");
-		
-		this.icmpTypeNumber = new ICMPTypeNumberImpl(icmpTypeNumber, null, null);				
+		setICMPTypeNumber(icmpTypeNumber);			
 	}
 	
 	public ICMPTypeNumberEnum getICMPTypeNumber()
@@ -66,10 +65,10 @@ public class ICMPTypeImpl extends DiameterGroupedAvpImpl implements ICMPType
 		return this.icmpTypeNumber.getEnumerated(ICMPTypeNumberEnum.class);
 	}
 	
-	public void setICMPTypeNumber(ICMPTypeNumberEnum value)
+	public void setICMPTypeNumber(ICMPTypeNumberEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("ICMP-Type-Number is required");
+			throw new MissingAvpException("ICMP-Type-Number is required", Arrays.asList(new DiameterAvp[] { new ICMPTypeNumberImpl() }));
 		
 		this.icmpTypeNumber = new ICMPTypeNumberImpl(value, null, null);	
 	}
@@ -115,10 +114,10 @@ public class ICMPTypeImpl extends DiameterGroupedAvpImpl implements ICMPType
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(icmpTypeNumber==null)
-			return "ICMP-Type-Number is required";
+			return new MissingAvpException("ICMP-Type-Number is required", Arrays.asList(new DiameterAvp[] { new ICMPTypeNumberImpl() }));
 		
 		return null;
 	}			

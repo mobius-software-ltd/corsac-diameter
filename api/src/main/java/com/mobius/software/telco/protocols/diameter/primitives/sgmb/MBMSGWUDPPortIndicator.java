@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	UDP-PORT-REQUIRED (1)
 	Value 1 indicates that the user plane data corresponding to the MBMS service shall be delivered on the UDP Port provided by the MBMS-GW.
  */
-@DiameterAvpDefinition(code = 928L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBMS-GW-UDP-Port-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_SGW_UDP_PORT_INDICATOR, vendorId = VendorIDs.TGPP_ID, must = false, name = "MBMS-GW-UDP-Port-Indicator")
 public interface MBMSGWUDPPortIndicator extends DiameterEnumerated<MBMSGWUDPPortIndicatorEnum>
 {
 }

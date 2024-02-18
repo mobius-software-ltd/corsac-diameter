@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 
@@ -45,15 +46,15 @@ public interface DiameterMessage extends DiameterGroupedAvp
 	
 	public String getOriginHost();
 	
-	void setOriginHost(String value);
+	void setOriginHost(String value) throws MissingAvpException;
 	
 	public String getOriginRealm();
 	
-	void setOriginRealm(String value);
+	void setOriginRealm(String value) throws MissingAvpException;
 	
 	public String getSessionId() throws AvpNotSupportedException;
 	
-	void setSessionId(String value) throws AvpNotSupportedException;
+	void setSessionId(String value) throws AvpNotSupportedException, MissingAvpException;
 	
 	public Long getOriginStateId() throws AvpNotSupportedException;
 	
@@ -61,7 +62,7 @@ public interface DiameterMessage extends DiameterGroupedAvp
 	
 	public String getUsername() throws AvpNotSupportedException;
 	
-	void setUsername(String value) throws AvpNotSupportedException;
+	void setUsername(String value) throws AvpNotSupportedException, MissingAvpException;
 	
 	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException;
 	

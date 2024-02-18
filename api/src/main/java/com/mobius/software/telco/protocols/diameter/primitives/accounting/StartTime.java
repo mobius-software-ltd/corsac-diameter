@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Start-Time AVP (AVP Code 2041) is of type Time and holds the time in UTC format which represents the start of
 	a user session at the S-GW/P-GW or the start of a voice call in the MSC. 
  */
-@DiameterAvpDefinition(code = 2041L, vendorId = KnownVendorIDs.TGPP_ID, name = "Start-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.START_TIME, vendorId = VendorIDs.TGPP_ID, name = "Start-Time")
 public interface StartTime extends DiameterTime
 {
 }

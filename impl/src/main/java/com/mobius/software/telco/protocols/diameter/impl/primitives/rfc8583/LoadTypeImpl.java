@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc8583;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.LoadType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.LoadTypeEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.LoadTypeE
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 651L, vendorId = -1L)
 public class LoadTypeImpl extends DiameterEnumeratedImpl<LoadTypeEnum> implements LoadType
 {
 	protected LoadTypeImpl() 

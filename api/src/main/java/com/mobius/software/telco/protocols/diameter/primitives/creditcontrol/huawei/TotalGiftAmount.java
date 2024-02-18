@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Total rewarded amount in the minimum currency unit. 
 	The definition of this parameter is the same as that of the same parameter in the CCA{Termination} message.
  */
-@DiameterAvpDefinition(code = 20703L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Total-Gift-Amount")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.TOTAL_GIFT_AMOUNT, vendorId = VendorIDs.HUAWEI_ID, name = "Total-Gift-Amount")
 public interface TotalGiftAmount extends DiameterInteger32
 {
 }

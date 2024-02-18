@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,12 +41,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 [ Notification-To-UE-User ]
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 1483L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Service-Type")
 public interface ServiceType extends DiameterGroupedAvp
 {
 	Long getServiceTypeIdentity();
 	
-	void setServiceTypeIdentity(Long value);	
+	void setServiceTypeIdentity(Long value) throws MissingAvpException;	
 	
 	GMLCRestrictionEnum getGMLCRestriction();
 	

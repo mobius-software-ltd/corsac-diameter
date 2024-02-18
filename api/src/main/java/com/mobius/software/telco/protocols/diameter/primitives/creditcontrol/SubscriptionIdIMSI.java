@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    The Subscription-Id-IMSI AVP contains the IMSI format, according to
    the ITU-T E.212 identification plan as defined in [E212] and [CE212].
  */
-@DiameterAvpDefinition(code = 661L, vendorId = -1L, must = false, name = "Subscription-Id-IMSI")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_IMSI, vendorId = -1L, must = false, name = "Subscription-Id-IMSI")
 public interface SubscriptionIdIMSI extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.3.11	SM-Delivery-Start-Time
 	The SM-Delivery-Start-Time is of type Time and in shall contain the timestamp (in UTC) at which the SM Delivery Supervision Timer was started.
  */
-@DiameterAvpDefinition(code = 3307L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Delivery-Start-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_DELIVERY_START_TIME, vendorId = VendorIDs.TGPP_ID, name = "SM-Delivery-Start-Time")
 public interface SMDeliveryStartTime extends DiameterTime
 {
 }

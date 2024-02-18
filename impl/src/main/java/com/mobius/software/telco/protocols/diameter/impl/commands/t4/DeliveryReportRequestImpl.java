@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t4;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPSMEAImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.AbsentSubscriberDiagnosticT4Impl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.SMDeliveryOutcomeT4Impl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ReferenceNumberImpl;
@@ -47,7 +51,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777311, commandCode = 8388644, request = true)
 public class DeliveryReportRequestImpl extends T4RequestImpl implements DeliveryReportRequest
 {
 	private UserIdentifier userIdentifier;
@@ -65,7 +68,7 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 		super();
 	}
 	
-	public DeliveryReportRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf smRPSMEA,SMDeliveryOutcomeT4Enum smDeliveryOutcomeT4)
+	public DeliveryReportRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf smRPSMEA,SMDeliveryOutcomeT4Enum smDeliveryOutcomeT4) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -83,11 +86,11 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 	}
 	
 	@Override
-	public void setUserIdentifier(UserIdentifier value)
+	public void setUserIdentifier(UserIdentifier value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identifier is required");
-		
+			throw new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
+			
 		this.userIdentifier = value;
 	}
 	
@@ -101,10 +104,10 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 	}
 	
 	@Override
-	public void setSMRPSMEA(ByteBuf value)
+	public void setSMRPSMEA(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SM-RP-SMEA is required");
+			throw new MissingAvpException("SM-RP-SMEA is required", Arrays.asList(new DiameterAvp[] { new SMRPSMEAImpl() }));
 		
 		this.smRPSMEA = new SMRPSMEAImpl(value, null, null);
 	}
@@ -119,11 +122,11 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 	}
 	 
 	@Override
-	public void setSMDeliveryOutcomeT4(SMDeliveryOutcomeT4Enum value)
+	public void setSMDeliveryOutcomeT4(SMDeliveryOutcomeT4Enum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SM-Delivery-Outcome-T4 is required");
-		
+			throw new MissingAvpException("SM-Delivery-Outcome-T4 is required", Arrays.asList(new DiameterAvp[] { new SMDeliveryOutcomeT4Impl() }));
+			
 		this.smDeliveryOutcomeT4 = new SMDeliveryOutcomeT4Impl(value, null, null);
 	}
 	
@@ -164,16 +167,16 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userIdentifier == null)
-			return "User-Identifier is required";
+			return new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		if(smRPSMEA == null)
-			return "SM-RP-SMEA is required";
+			return new MissingAvpException("SM-RP-SMEA is required", Arrays.asList(new DiameterAvp[] { new SMRPSMEAImpl() }));
 		
 		if(smDeliveryOutcomeT4 == null)
-			return "SM-Delivery-Outcome-T4 is required";
+			return new MissingAvpException("SM-Delivery-Outcome-T4 is required", Arrays.asList(new DiameterAvp[] { new SMDeliveryOutcomeT4Impl() }));
 		
 		return super.validate();
 	}		

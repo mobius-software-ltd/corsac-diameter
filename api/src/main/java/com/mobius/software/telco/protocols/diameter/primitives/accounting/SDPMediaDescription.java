@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	b=, k=, a=, etc.) related to a media description, as described in RFC 4566 [406]. The attributes are specifying the media
 	described in the SDP-Media-Name AVP. 
  */
-@DiameterAvpDefinition(code = 845L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Media-Description")
+@DiameterAvpDefinition(code = TgppAvpCodes.SDP_MEDIA_DESCRIPTION, vendorId = VendorIDs.TGPP_ID, name = "SDP-Media-Description")
 public interface SDPMediaDescription extends DiameterUTF8String
 {
 }

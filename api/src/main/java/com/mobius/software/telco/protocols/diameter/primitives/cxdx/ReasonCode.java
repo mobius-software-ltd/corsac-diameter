@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The detailed behaviour of the S-CSCF is defined in 3GPP TS 29.228 [1].
  */
-@DiameterAvpDefinition(code = 616L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reason-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.REASON_CODE, vendorId = VendorIDs.TGPP_ID, name = "Reason-Code")
 public interface ReasonCode extends DiameterEnumerated<ReasonCodeEnum>
 {
 }

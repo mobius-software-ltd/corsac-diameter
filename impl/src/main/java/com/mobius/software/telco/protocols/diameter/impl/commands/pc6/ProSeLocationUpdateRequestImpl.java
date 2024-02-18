@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeLocationUpdateRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LocationEstimateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetedEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -40,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388673, request = true)
 public class ProSeLocationUpdateRequestImpl extends Pc6RequestImpl implements ProSeLocationUpdateRequest
 {
 	private TargetedEPUID targetedEPUID;
@@ -52,7 +54,7 @@ public class ProSeLocationUpdateRequestImpl extends Pc6RequestImpl implements Pr
 		super();
 	}
 	
-	public ProSeLocationUpdateRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String targetedEPUID,ByteBuf locationEstimate)
+	public ProSeLocationUpdateRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String targetedEPUID,ByteBuf locationEstimate) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -71,10 +73,10 @@ public class ProSeLocationUpdateRequestImpl extends Pc6RequestImpl implements Pr
 	}
 	
 	@Override	
-	public void setTargetedEPUID(String value)
+	public void setTargetedEPUID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Targeted-EPUID is required");
+			throw new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		this.targetedEPUID = new TargetedEPUIDImpl(value, null, null);
 	}
@@ -89,22 +91,22 @@ public class ProSeLocationUpdateRequestImpl extends Pc6RequestImpl implements Pr
 	}
 	 
 	@Override	
-	public void setLocationEstimate(ByteBuf value)
+	public void setLocationEstimate(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Location-Estimate is required");
-		
+			throw new MissingAvpException("Location-Estimate is required is required", Arrays.asList(new DiameterAvp[] { new LocationEstimateImpl() }));
+			
 		this.locationEstimate = new LocationEstimateImpl(value, null, null);
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(targetedEPUID == null)
-			return "Targeted-EPUID is required";
+			return new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		if(locationEstimate == null)
-			return "Location-Estimate is required";
+			return new MissingAvpException("Location-Estimate is required is required", Arrays.asList(new DiameterAvp[] { new LocationEstimateImpl() }));
 		
 		return super.validate();
 	}	

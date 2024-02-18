@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	is a string that identifies the visited network of the UE including an indication that the P-CSCF is located in the
 	home network. 
  */
-@DiameterAvpDefinition(code = 2713L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Visited-Network-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMS_VISITED_NETWORK_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "IMS-Visited-Network-Identifier")
 public interface IMSVisitedNetworkIdentifier extends DiameterUTF8String
 {
 }

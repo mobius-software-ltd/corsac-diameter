@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2-N	QoS Profile as specified by the Quality-of-Service information element, from octet 3 onwards,  in 3GPP TS 24.008 [54].
 	
  */
-@DiameterAvpDefinition(code = 913L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Required-QoS")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_REQUIRED_QOS, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Required-QoS")
 public interface MBMSRequiredQoS extends DiameterOctetString
 {
 }

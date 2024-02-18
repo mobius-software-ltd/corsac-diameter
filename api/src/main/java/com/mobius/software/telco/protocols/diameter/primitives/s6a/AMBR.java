@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,16 +48,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			 [ Extended-Max-Requested-BW-DL ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1435L, vendorId = KnownVendorIDs.TGPP_ID, name = "AMBR")
+@DiameterAvpDefinition(code = TgppAvpCodes.AMBR, vendorId = VendorIDs.TGPP_ID, name = "AMBR")
 public interface AMBR extends DiameterGroupedAvp
 {
 	Long getMaxRequestedBandwidthUL();
 	
-	void setMaxRequestedBandwidthUL(Long value);	
+	void setMaxRequestedBandwidthUL(Long value) throws MissingAvpException;	
 	
 	Long getMaxRequestedBandwidthDL();
 	
-	void setMaxRequestedBandwidthDL(Long value);	
+	void setMaxRequestedBandwidthDL(Long value) throws MissingAvpException;	
 	
 	Long getExtendedMaxRequestedBWUL();
 	

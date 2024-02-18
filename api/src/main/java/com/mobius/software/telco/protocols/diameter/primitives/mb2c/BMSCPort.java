@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.3	BMSC‑Port AVP
 	The BMSC‑Port AVP (AVP code 3501) is of type Unsigned32 and indicates the port where the BM‑SC wants to receive user data via the MB2‑U interface.
  */
-@DiameterAvpDefinition(code = 3501L, vendorId = KnownVendorIDs.TGPP_ID, name = "BMSC‑Port")
+@DiameterAvpDefinition(code = TgppAvpCodes.BMSC_PORT, vendorId = VendorIDs.TGPP_ID, name = "BMSC‑Port")
 public interface BMSCPort extends DiameterUnsigned32
 {
 }

@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -59,7 +62,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777313, commandCode = 8388645, request = true, proxyable = true, name="MO-Forward-Short-Message-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SGD, commandCode = CommandCodes.MO_FORWARD_SHORT_MESSAGE, request = true, proxyable = true, name="MO-Forward-Short-Message-Request")
 public interface MOForwardShortMessageRequest extends SgdRequest
 {
 	String getSCAddress();
@@ -72,7 +75,7 @@ public interface MOForwardShortMessageRequest extends SgdRequest
 	
 	UserIdentifier getUserIdentifier();
 	 
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	
 	EPSLocationInformation getEPSLocationInformation();
 	 
@@ -80,7 +83,7 @@ public interface MOForwardShortMessageRequest extends SgdRequest
 	 		
 	ByteBuf getSMRPUI();
 	
-	void setSMRPUI(ByteBuf value);
+	void setSMRPUI(ByteBuf value) throws MissingAvpException;
 	
 	SMSMICorrelationID getSMSMICorrelationID();
 	

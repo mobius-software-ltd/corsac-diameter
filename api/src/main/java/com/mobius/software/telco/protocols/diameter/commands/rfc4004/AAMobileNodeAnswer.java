@@ -21,8 +21,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoHAMSA;
@@ -93,12 +96,12 @@ import io.netty.buffer.ByteBuf;
                                    * [ Proxy-Info ]
                                    * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 2, commandCode = 260, request = false, proxyable = true, name="AA-Mobile-Node-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.AA_MOBILE_NODE, request = false, proxyable = true, name="AA-Mobile-Node-Answer")
 public interface AAMobileNodeAnswer extends DiameterAnswer
 {
 	Long getAuthApplicationId();
 	
-	void setAuthApplicationId(Long value);
+	void setAuthApplicationId(Long value) throws MissingAvpException;
 	
 	String getAcctMultiSessionId();
 	

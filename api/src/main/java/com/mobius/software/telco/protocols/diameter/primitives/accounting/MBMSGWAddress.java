@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The MBMS-GW-Address AVP (AVP code 2307) is of type Address and holds the IP-address.
 	This AVP of the MBMS GW that generated the MBMS Charging ID when MBMS GW is stand-alone. 
  */
-@DiameterAvpDefinition(code = 2307L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-GW-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_GW_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "MBMS-GW-Address")
 public interface MBMSGWAddress extends DiameterAddress
 {
 }

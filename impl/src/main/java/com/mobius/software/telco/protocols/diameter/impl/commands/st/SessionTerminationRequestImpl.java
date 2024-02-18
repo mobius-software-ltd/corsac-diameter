@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
@@ -45,7 +48,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777349, commandCode = 275, request = true)
 public class SessionTerminationRequestImpl extends AuthenticationRequestWithHostBase implements SessionTerminationRequest
 {
 	private DRMP drmp;
@@ -61,7 +63,7 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestWithHost
 		super();
 	}
 	
-	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause)
+	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -122,13 +124,13 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestWithHost
 	}
 
 	@Override
-	public void setTerminationCause(TerminationCauseEnum value) 
+	public void setTerminationCause(TerminationCauseEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Termination-Cause is required");
+			throw new MissingAvpException("Termination-Cause is required is required", Arrays.asList(new DiameterAvp[] { new TerminationCauseImpl() }));
 		
 		this.terminationCause = new TerminationCauseImpl(value, null, null);
-	}	
+	}
 	
 	@Override
 	public OCSupportedFeatures getOCSupportedFeatures()
@@ -143,10 +145,10 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestWithHost
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(terminationCause==null)
-			return "Termination-Cause is required";
+			return new MissingAvpException("Termination-Cause is required is required", Arrays.asList(new DiameterAvp[] { new TerminationCauseImpl() }));
 		
 		return super.validate();
 	}	

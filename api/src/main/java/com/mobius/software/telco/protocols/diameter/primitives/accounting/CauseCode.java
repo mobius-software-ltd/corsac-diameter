@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -105,7 +106,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		The cause "Internal error" is used when the SIP transaction is terminated due to an IMS node internal
 		error (e.g. error in processing a request/response). 
 */
-@DiameterAvpDefinition(code = 861L, vendorId = KnownVendorIDs.TGPP_ID, name = "Cause-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.CAUSE_CODE, vendorId = VendorIDs.TGPP_ID, name = "Cause-Code")
 public interface CauseCode extends DiameterUnsigned32
 {
 }

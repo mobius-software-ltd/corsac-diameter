@@ -19,12 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TSCode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TeleserviceList;
 
@@ -35,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1486L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TeleserviceListImpl extends DiameterGroupedAvpImpl implements TeleserviceList
 {
 	private List<TSCode> tsCode;
@@ -45,20 +46,15 @@ public class TeleserviceListImpl extends DiameterGroupedAvpImpl implements Teles
 		
 	}
 	
-	public TeleserviceListImpl(List<ByteBuf> tsCode)
+	public TeleserviceListImpl(List<ByteBuf> tsCode) throws MissingAvpException
 	{
-		if(tsCode == null || tsCode.size()==0)
-			throw new IllegalArgumentException("TS-Code is required");
-		
-		this.tsCode = new ArrayList<TSCode>();
-		for(ByteBuf curr:tsCode)
-			this.tsCode.add(new TSCodeImpl(curr, null, null));
+		setTSCode(tsCode);
 	}
 	
 	public List<ByteBuf> getTSCode()
 	{
-		if(tsCode == null || tsCode.size()==0)
-			throw new IllegalArgumentException("TS-Code is required");
+		if(tsCode==null || tsCode.size()==0)
+			return null;
 		
 		List<ByteBuf> result = new ArrayList<ByteBuf>();
 		for(TSCode curr:tsCode)
@@ -67,10 +63,10 @@ public class TeleserviceListImpl extends DiameterGroupedAvpImpl implements Teles
 		return result;
 	}
 	
-	public void setTSCode(List<ByteBuf> value)
+	public void setTSCode(List<ByteBuf> value) throws MissingAvpException
 	{
 		if(value == null || value.size()==0)
-			this.tsCode = null;
+			throw new MissingAvpException("TS-Code is required is required", Arrays.asList(new DiameterAvp[] { new TSCodeImpl() }));
 		
 		this.tsCode = new ArrayList<TSCode>();
 		for(ByteBuf curr:value)
@@ -78,10 +74,10 @@ public class TeleserviceListImpl extends DiameterGroupedAvpImpl implements Teles
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tsCode==null || tsCode.size()==0)
-			return "TS-Code is required";
+			return new MissingAvpException("TS-Code is required is required", Arrays.asList(new DiameterAvp[] { new TSCodeImpl() }));
 		
 		return null;
 	}

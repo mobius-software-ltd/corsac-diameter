@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6c;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSGMSCAlertEvent;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.ServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -57,16 +60,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelat
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777312, commandCode = 8388648, request = true, proxyable = true, name="Alert-Service-Centre-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6C, commandCode = CommandCodes.ALERT_SERVICE_CENTRE, request = true, proxyable = true, name="Alert-Service-Centre-Request")
 public interface AlertServiceCentreRequest extends S6cRequest
 {
 	String getSCAddress();
 	
-	void setSCAddress(String value);
+	void setSCAddress(String value) throws MissingAvpException;
 	
 	UserIdentifier getUserIdentifier();
 	 
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	 		
 	SMSMICorrelationID getSMSMICorrelationID();
 	

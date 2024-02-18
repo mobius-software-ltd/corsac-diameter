@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The WebRTC-Web-Server-Function-Name AVP is of type UTF8String and contains the address of a WWSF allowed for the 
 	subscription. For the format of the string see IETF draft-holmberg-sipcore-auth-id-01 [25].
  */
-@DiameterAvpDefinition(code = 658L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "WebRTC-Web-Server-Function-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.WEBRTC_SERVER_FUNCTION_NAME, vendorId = VendorIDs.TGPP_ID, must = false, name = "WebRTC-Web-Server-Function-Name")
 public interface WebRTCWebServerFunctionName extends DiameterUTF8String
 {
 }

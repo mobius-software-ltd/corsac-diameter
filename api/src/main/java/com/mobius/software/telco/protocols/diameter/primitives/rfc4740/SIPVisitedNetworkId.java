@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    	the visited network (e.g., the visited network domain name), in order
    	to authorize roaming to that visited network.
  */
-@DiameterAvpDefinition(code = 386L, vendorId = -1, name = "SIP-Visited-Network-Id")
+@DiameterAvpDefinition(code = AvpCodes.SIP_VISITED_NETWORK_ID, vendorId = -1, name = "SIP-Visited-Network-Id")
 public interface SIPVisitedNetworkId extends DiameterUTF8String
 {
 }

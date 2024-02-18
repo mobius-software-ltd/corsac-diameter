@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv4Address;
 
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv4Addre
    that the NAS should select an address for the user (e.g., assigned
    from a pool of addresses kept by the NAS).
  */
-@DiameterAvpDefinition(code = 8L, vendorId = -1L, name = "Framed-IP-Address")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_IP_ADDRESS, vendorId = -1L, name = "Framed-IP-Address")
 public interface FramedIPAddress extends DiameterIpv4Address
 {
 }

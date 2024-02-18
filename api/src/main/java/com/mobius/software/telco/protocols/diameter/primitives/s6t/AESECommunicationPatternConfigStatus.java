@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,12 +44,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	When the "Extended Reference IDs" feature is supported by the HSS and SCEF, the SCEF-Reference-ID-Ext AVP shall be used insted of SCEF-Reference-ID; in such case, the required AVP "SCEF-Reference-ID" shall be included in the grouped AVP by the sender, but its content shall be discarded by the receiver.
  */
-@DiameterAvpDefinition(code = 3120L, vendorId = KnownVendorIDs.TGPP_ID, name = "AESE-Communication-Pattern-Config-Status")
+@DiameterAvpDefinition(code = TgppAvpCodes.AES_COMMUNICATION_CONFIG_STATUS, vendorId = VendorIDs.TGPP_ID, name = "AESE-Communication-Pattern-Config-Status")
 public interface AESECommunicationPatternConfigStatus extends DiameterGroupedAvp
 {
 	Long getSCEFReferenceID();
 	
-	void setSCEFReferenceID(Long value);
+	void setSCEFReferenceID(Long value) throws MissingAvpException;
 	
 	Long getSCEFReferenceIDExt();
 	

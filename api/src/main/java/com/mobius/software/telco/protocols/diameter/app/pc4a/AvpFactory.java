@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCSpecificReduction;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -36,19 +37,19 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public TGPPOCSpecificReduction getTGPPOCSpecificReduction();
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public ProSeInitialLocationInformation getProSeInitialLocationInformation();
 	
 	public ProSePermission getProSePermission();
 	
-	public ProSeSubscriptionData getProSeSubscriptionData(ProSePermission proSePermission);
+	public ProSeSubscriptionData getProSeSubscriptionData(ProSePermission proSePermission) throws MissingAvpException;
 	
 	public ProSeAllowedPLMN getProSeAllowedPLMN();
 	

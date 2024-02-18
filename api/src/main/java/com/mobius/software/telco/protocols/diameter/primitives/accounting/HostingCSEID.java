@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Hosting-CSE-ID AVP (AVP Code 1007) is of type UTF8String and represents the identity of the Hosting CSE 
 	for the request in case the receiver is not the host. The format of the CSE-ID is specified in clause 6.2.3.
  */
-@DiameterAvpDefinition(code = 1007L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Hosting-CSE-ID")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.HOSTING_CSEID, vendorId = VendorIDs.ONEM2M_ID, name = "Hosting-CSE-ID")
 public interface HostingCSEID extends DiameterUTF8String
 {
 }

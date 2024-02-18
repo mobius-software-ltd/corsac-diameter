@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    The currently supported values of the NAS-Port-Type AVP are listed in
    [RADIUSAttrVals].
  */
-@DiameterAvpDefinition(code = 61L, vendorId = -1L, name = "NAS-Port-Type")
+@DiameterAvpDefinition(code = AvpCodes.NAS_PORT_TYPE, vendorId = -1L, name = "NAS-Port-Type")
 public interface NASPortType extends DiameterEnumerated<NASPortTypeEnum>
 {
 }

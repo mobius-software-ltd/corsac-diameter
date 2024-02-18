@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	-Monitoring-Type is UE_REACHABILITY (1) and Reachability-Type is "Reachability for SMS" or
 	-Monitoring-Type is LOCATION_REPORTING (2) and MONTE-Location-Type is LAST_KNOWN_LOCATION (1).
  */
-@DiameterAvpDefinition(code = 3128L, vendorId = KnownVendorIDs.TGPP_ID, name = "Maximum-Number-of-Reports")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAXIMUM_NUMBER_OF_REPORTS, vendorId = VendorIDs.TGPP_ID, name = "Maximum-Number-of-Reports")
 public interface MaximumNumberOfReports extends DiameterUnsigned32
 {
 }

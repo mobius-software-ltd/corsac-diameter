@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 UNI-PDU-both-UP-CP
 	1 UNI-PDU-CP-Only
  */
-@DiameterAvpDefinition(code = 3932L, vendorId = KnownVendorIDs.TGPP_ID, name = "UNI-PDU-CP-Only-Flag")
+@DiameterAvpDefinition(code = TgppAvpCodes.UNI_PDU_CP_ONLY_FLAG, vendorId = VendorIDs.TGPP_ID, name = "UNI-PDU-CP-Only-Flag")
 public interface UNIPDUCPOnlyFlag extends DiameterEnumerated<UNIPDUCPOnlyFlagEnum>
 {
 }

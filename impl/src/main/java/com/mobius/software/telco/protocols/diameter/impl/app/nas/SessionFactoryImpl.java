@@ -23,6 +23,8 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.app.nas.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AARequest;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.nas.AARequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.nas.AccountingRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
@@ -46,12 +48,12 @@ public class SessionFactoryImpl implements SessionFactory
 		this.applicationId = applicationId;
 	}
 	
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm)
+	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AARequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId);
 	}		
 	
-	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber)
+	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AccountingRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), accountingRecordType, accountingRecordNumber, applicationId);
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	the user which identifies the cell the user equipment is registered, as specified in 3GPP TS 23.003 [3]. Octets are 
 	coded as described in 3GPP TS 29.002 [24].
  */
-@DiameterAvpDefinition(code = 1602L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "E-UTRAN-Cell-Global-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.EUTRAN_CELL_GLOBAL_IDENTITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "E-UTRAN-Cell-Global-Identity")
 public interface EUTRANCellGlobalIdentity extends DiameterOctetString
 {
 }

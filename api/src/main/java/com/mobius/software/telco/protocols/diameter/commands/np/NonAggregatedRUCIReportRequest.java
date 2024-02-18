@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -58,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLoca
                 *[ Supported-Features ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777342, commandCode = 8388720, request = true, proxyable = true, name="Non-Aggregated-RUCI-Report-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NP, commandCode = CommandCodes.NON_AGGREGATED_RUCI_REPORT, request = true, proxyable = true, name="Non-Aggregated-RUCI-Report-Request")
 public interface NonAggregatedRUCIReportRequest extends NpRequest
 {
 	SubscriptionId getSubscriptionId();

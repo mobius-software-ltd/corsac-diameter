@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.sy;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,14 +44,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	The valid values for the Pending-Policy-Counter-Information AVP are specific for each Policy-Counter-Identifier value.
  */
-@DiameterAvpDefinition(code = 2905L, vendorId = KnownVendorIDs.TGPP_ID, name = "Pending-Policy-Counter-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.PENDING_POLICY_COUNTER_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Pending-Policy-Counter-Information")
 public interface PendingPolicyCounterInformation extends DiameterGroupedAvp
 {
 	String getPolicyCounterStatus();
 	
-	void setPolicyCounterStatus(String value);
+	void setPolicyCounterStatus(String value) throws MissingAvpException;
 	
 	Date getPendingPolicyCounterChangeTime();
 	
-	void setPendingPolicyCounterChangeTime(Date value);
+	void setPendingPolicyCounterChangeTime(Date value) throws MissingAvpException;
 }

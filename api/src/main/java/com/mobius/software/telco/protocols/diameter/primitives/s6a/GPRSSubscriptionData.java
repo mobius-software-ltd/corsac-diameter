@@ -20,9 +20,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,14 +45,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	The max number of PDP-Context AVP aligns with the value of maxNumOfPDP-Contexts as defined in 3GPP TS 29.002 [24].
  */
-@DiameterAvpDefinition(code = 1467L, vendorId = KnownVendorIDs.TGPP_ID, name = "GPRS-Subscription-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.GPRS_SUBSCRIPTION_DATA, vendorId = VendorIDs.TGPP_ID, name = "GPRS-Subscription-Data")
 public interface GPRSSubscriptionData extends DiameterGroupedAvp
 {
 	CompleteDataListIncludedIndicatorEnum getCompleteDataListIncludedIndicator();
 	
-	void setCompleteDataListIncludedIndicator(CompleteDataListIncludedIndicatorEnum value);	
+	void setCompleteDataListIncludedIndicator(CompleteDataListIncludedIndicatorEnum value) throws MissingAvpException;	
 	
 	List<PDPContext> getPDPContext();
 	
-	void setPDPContext(List<PDPContext> value);
+	void setPDPContext(List<PDPContext> value) throws MissingAvpException, AvpOccursTooManyTimesException;
 }

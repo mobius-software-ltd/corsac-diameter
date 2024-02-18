@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -83,7 +84,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Bit 1
   	Periodical
  */
-@DiameterAvpDefinition(code = 1626L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Reporting-Trigger")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPORT_TRIGGER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Reporting-Trigger")
 public interface ReportingTrigger extends DiameterBitmask32
 {
 	public static final int PERIODICAL_BIT = 0;

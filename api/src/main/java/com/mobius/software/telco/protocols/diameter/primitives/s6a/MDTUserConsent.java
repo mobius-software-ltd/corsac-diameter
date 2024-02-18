@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The default value when this AVP is not present in ULA is CONSENT_NOT_GIVEN (0). Absence of this AVP in IDR shall be interpreted as the MDT-User-Consent has not been modified.
 	The presence of this subscription parameter in ULA or IDR shall be independent of the support of the Trace Function by the MME/SGSN (see clause 7.3.10).
  */
-@DiameterAvpDefinition(code = 1634L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MDT-User-Consent")
+@DiameterAvpDefinition(code = TgppAvpCodes.MDT_USER_CONTENT, vendorId = VendorIDs.TGPP_ID, must = false, name = "MDT-User-Consent")
 public interface MDTUserConsent extends DiameterEnumerated<MDTUserConsentEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	"Extended DL Data Buffering NOT REQUESTED" indicates that extended buffering of downlink packets at the SGW is not applicable to this user.
 */
-@DiameterAvpDefinition(code = 1674L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "DL-Buffering-Suggested-Packet-Count")
+@DiameterAvpDefinition(code = TgppAvpCodes.DL_BUFFERING_SUGGESTED_PACKET_COUNT, vendorId = VendorIDs.TGPP_ID, must = false, name = "DL-Buffering-Suggested-Packet-Count")
 public interface DLBufferingSuggestedPacketCount extends DiameterInteger32
 {
 }

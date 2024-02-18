@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -61,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    information related to the credit-control session should also be
    forwarded to an alternative server.
  */
-@DiameterAvpDefinition(code = 418L, vendorId = -1L, name = "CC-Session-Failover")
+@DiameterAvpDefinition(code = AvpCodes.CC_SESSION_FAILOVER, vendorId = -1L, name = "CC-Session-Failover")
 public interface CcSessionFailover extends DiameterEnumerated<CcSessionFailoverEnum>
 {
 }

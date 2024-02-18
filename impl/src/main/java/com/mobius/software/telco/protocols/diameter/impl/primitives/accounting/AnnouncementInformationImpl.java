@@ -18,11 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncementIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncementInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncementOrder;
@@ -41,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Variab
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3904L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AnnouncementInformationImpl implements AnnouncementInformation
 {
 	private AnnouncementIdentifier announcementIdentifier;
@@ -57,12 +58,9 @@ public class AnnouncementInformationImpl implements AnnouncementInformation
 	{
 	}
 	
-	public AnnouncementInformationImpl(Long announcementIdentifier)
+	public AnnouncementInformationImpl(Long announcementIdentifier) throws MissingAvpException
 	{
-		if(announcementIdentifier==null)
-			throw new IllegalArgumentException("Announcement-Identifier is required");
-		
-		this.announcementIdentifier = new AnnouncementIdentifierImpl(announcementIdentifier, null, null);				
+		setAnnouncementIdentifier(announcementIdentifier);
 	}
 	
 	public Long getAnnouncementIdentifier()
@@ -73,11 +71,11 @@ public class AnnouncementInformationImpl implements AnnouncementInformation
 		return announcementIdentifier.getUnsigned();
 	}
 	
-	public void setAnnouncementIdentifier(Long value)
+	public void setAnnouncementIdentifier(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Announcement-Identifier is required");
-		
+			throw new MissingAvpException("Announcement-Identifier is required", Arrays.asList(new DiameterAvp[] { new AnnouncementIdentifierImpl() }));
+			
 		this.announcementIdentifier = new AnnouncementIdentifierImpl(value, null, null);				
 	}
 	
@@ -188,10 +186,10 @@ public class AnnouncementInformationImpl implements AnnouncementInformation
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(announcementIdentifier==null)
-			return "Announcement-Identifier is required";
+			return new MissingAvpException("Announcement-Identifier is required", Arrays.asList(new DiameterAvp[] { new AnnouncementIdentifierImpl() }));
 		
 		return null;
 	}

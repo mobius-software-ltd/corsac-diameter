@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5b.3.4	ADC-Rule-Base-Name AVP
 	The ADC-Rule-Base-Name AVP (AVP code 1095) is of type UTF8String, and it indicates the name of a predefined group of ADC rules.
  */
-@DiameterAvpDefinition(code = 1095L, vendorId = KnownVendorIDs.TGPP_ID, name = "ADC-Rule-Base-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADC_RULE_BASE_NAME, vendorId = VendorIDs.TGPP_ID, name = "ADC-Rule-Base-Name")
 public interface ADCRuleBaseName extends DiameterUTF8String
 {
 }

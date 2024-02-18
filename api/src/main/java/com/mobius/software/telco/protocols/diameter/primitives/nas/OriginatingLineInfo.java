@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    values and their use.  For information on the currently assigned
    values, see [ANITypes].
  */
-@DiameterAvpDefinition(code = 94L, vendorId = -1L, name = "Originating-Line-Info")
+@DiameterAvpDefinition(code = AvpCodes.ORIGINATING_LINE_INFO, vendorId = -1L, name = "Originating-Line-Info")
 public interface OriginatingLineInfo extends DiameterOctetString
 {
 }

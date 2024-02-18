@@ -19,15 +19,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.DLBufferingSuggestedPacketCountImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SubscribedPeriodicRAUTAUTimerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ActiveTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DLBufferingSuggestedPacketCount;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscribedPeriodicRAUTAUTimer;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MTCProviderInfo;
@@ -44,7 +46,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.ActiveTime;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3170L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SuggestedNetworkConfigurationImpl extends DiameterGroupedAvpImpl implements SuggestedNetworkConfiguration
 {
 	private SCEFReferenceID scefReferenceID;
@@ -61,19 +62,12 @@ public class SuggestedNetworkConfigurationImpl extends DiameterGroupedAvpImpl im
 	{
 	}
 	
-	public SuggestedNetworkConfigurationImpl(Long scefReferenceID,String scefID)
+	public SuggestedNetworkConfigurationImpl(Long scefReferenceID,String scefID) throws MissingAvpException
 	{
-		if(scefReferenceID==null)
-			throw new IllegalArgumentException("SCEF-Reference-ID is required");
-				
-		if(scefID==null)
-			throw new IllegalArgumentException("SCEF-ID is required");
+		setSCEFReferenceID(scefReferenceID);
 		
-		this.scefReferenceID = new SCEFReferenceIDImpl(scefReferenceID, null, null);
-		
-		this.scefID = new SCEFIDImpl(scefID, null, null);									
+		setSCEFID(scefID);
 	}
-	
 	
 	public Long getSCEFReferenceID()
 	{
@@ -83,11 +77,11 @@ public class SuggestedNetworkConfigurationImpl extends DiameterGroupedAvpImpl im
 		return scefReferenceID.getUnsigned();
 	}
 	
-	public void setSCEFReferenceID(Long value)
+	public void setSCEFReferenceID(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SCEF-Reference-ID is required");
-		
+			throw new MissingAvpException("SCEF-Reference-ID is required is required", Arrays.asList(new DiameterAvp[] { new SCEFReferenceIDImpl() }));
+			
 		this.scefReferenceID = new SCEFReferenceIDImpl(value, null, null);						
 	}
 	
@@ -115,10 +109,10 @@ public class SuggestedNetworkConfigurationImpl extends DiameterGroupedAvpImpl im
 		return scefID.getIdentity();
 	}
 	
-	public void setSCEFID(String value)
+	public void setSCEFID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SCEF-ID is required");
+			throw new MissingAvpException("SCEF-ID is required is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
 		
 		this.scefID = new SCEFIDImpl(value, null, null);
 	}		
@@ -230,13 +224,13 @@ public class SuggestedNetworkConfigurationImpl extends DiameterGroupedAvpImpl im
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(scefReferenceID==null)
-			return "SCEF-Reference-ID is required";
+			return new MissingAvpException("SCEF-Reference-ID is required is required", Arrays.asList(new DiameterAvp[] { new SCEFReferenceIDImpl() }));
 		
 		if(scefID==null)
-			return "SCEF-ID is required";
+			return new MissingAvpException("SCEF-ID is required is required", Arrays.asList(new DiameterAvp[] { new SCEFIDImpl() }));
 		
 		return null;
 	}

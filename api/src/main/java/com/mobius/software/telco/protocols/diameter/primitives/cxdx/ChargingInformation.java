@@ -18,11 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,22 +42,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ Secondary-Charging-Collection-Function-Name ]
 		   *[ AVP]
  */
-@DiameterAvpDefinition(code = 618L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Charging-Information")
 public interface ChargingInformation extends DiameterGroupedAvp
 {
 	String getPrimaryEventChargingFunctionName();
 	
-	void setPrimaryEventChargingFunctionName(String value) throws ParseException;
+	void setPrimaryEventChargingFunctionName(String value) throws InvalidAvpValueException;
 	
 	String getSecondaryEventChargingFunctionName();
 	
-	void setSecondaryEventChargingFunctionName(String value) throws ParseException;
+	void setSecondaryEventChargingFunctionName(String value) throws InvalidAvpValueException;
 	
 	String getPrimaryChargingCollectionFunctionName();
 	
-	void setPrimaryChargingCollectionFunctionName(String value) throws ParseException;
+	void setPrimaryChargingCollectionFunctionName(String value) throws InvalidAvpValueException;
 	
 	String getSecondaryChargingCollectionFunctionName();
 	
-	void setSecondaryChargingCollectionFunctionName(String value) throws ParseException;
+	void setSecondaryChargingCollectionFunctionName(String value) throws InvalidAvpValueException;
 }

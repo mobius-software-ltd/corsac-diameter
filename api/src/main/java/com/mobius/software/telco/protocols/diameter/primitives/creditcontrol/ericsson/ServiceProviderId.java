@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.er
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EricssonAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	operator specific.
 	The AVP is in this service context defined as ‘static’ and ‘cached’.
  */
-@DiameterAvpDefinition(code = 1081L, vendorId = KnownVendorIDs.ERICSSON_ID, name = "Service-Provider-Id")
+@DiameterAvpDefinition(code = EricssonAvpCodes.SERVICE_PROVIDER_ID, vendorId = VendorIDs.ERICSSON_ID, name = "Service-Provider-Id")
 public interface ServiceProviderId extends DiameterUTF8String
 {
 }

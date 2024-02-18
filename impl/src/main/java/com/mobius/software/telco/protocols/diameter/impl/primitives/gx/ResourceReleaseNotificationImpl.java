@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ResourceReleaseNotification;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ResourceReleaseNotificationEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.ResourceReleas
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2841L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ResourceReleaseNotificationImpl extends DiameterEnumeratedImpl<ResourceReleaseNotificationEnum> implements ResourceReleaseNotification
 {
 	protected ResourceReleaseNotificationImpl()

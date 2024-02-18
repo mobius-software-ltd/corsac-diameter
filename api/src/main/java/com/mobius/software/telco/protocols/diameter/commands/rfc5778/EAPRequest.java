@@ -23,8 +23,12 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
@@ -83,12 +87,12 @@ import io.netty.buffer.ByteBuf;
    during the EAP authentication.  Thus, the Auth-Request-Type AVP MUST
    be set to the value AUTHORIZE_AUTHENTICATE.
  */
-@DiameterCommandDefinition(applicationId = 7, commandCode = 268, request = true, proxyable = true, name="Diameter-EAP-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MIP6I, commandCode = CommandCodes.EAP, request = true, proxyable = true, name="Diameter-EAP-Request")
 public interface EAPRequest extends AuthenticationRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	String getNASIdentifier();
 	
@@ -108,7 +112,7 @@ public interface EAPRequest extends AuthenticationRequest
 	
 	ByteBuf getEAPPayload();
 	
-	void setEAPPayload(ByteBuf value);	
+	void setEAPPayload(ByteBuf value) throws MissingAvpException;	
 	
 	Long getMIP6FeatureVector();
 	
@@ -120,7 +124,7 @@ public interface EAPRequest extends AuthenticationRequest
 	
 	List<InetAddress> getMIPMobileNodeAddress();
 	
-	void setMIPMobileNodeAddress(List<InetAddress> value);	
+	void setMIPMobileNodeAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;	
 	
 	ByteBuf getChargeableUserIdentity();
 	

@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LogicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PhysicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sy.PolicyCounterIdentifierImpl;
@@ -46,7 +49,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777302, commandCode = 8388635, request = true)
 public class SpendingLimitRequestImpl extends SyRequestImpl implements SpendingLimitRequest
 {
 	private List<SupportedFeatures> supportedFeatures;
@@ -66,7 +68,7 @@ public class SpendingLimitRequestImpl extends SyRequestImpl implements SpendingL
 		super();
 	}
 	
-	public SpendingLimitRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId, SLRequestTypeEnum slRequestType)
+	public SpendingLimitRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId, SLRequestTypeEnum slRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -95,10 +97,10 @@ public class SpendingLimitRequestImpl extends SyRequestImpl implements SpendingL
 	}
 	
 	@Override
-	public void setSLRequestType(SLRequestTypeEnum value)
+	public void setSLRequestType(SLRequestTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SL-Request-Type is required");
+			throw new MissingAvpException("SL-Request-Type is required is required", Arrays.asList(new DiameterAvp[] { new SLRequestTypeImpl() }));
 		
 		this.slRequestType = new SLRequestTypeImpl(value, null, null);
 	}
@@ -178,10 +180,10 @@ public class SpendingLimitRequestImpl extends SyRequestImpl implements SpendingL
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(slRequestType==null)
-			return "SL-Request-Type is required";
+			return new MissingAvpException("SL-Request-Type is required is required", Arrays.asList(new DiameterAvp[] { new SLRequestTypeImpl() }));
 		
 		return super.validate();
 	}	

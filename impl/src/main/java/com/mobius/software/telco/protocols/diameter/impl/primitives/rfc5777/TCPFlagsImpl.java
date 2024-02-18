@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Negated;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.NegatedEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TCPFlagType;
@@ -32,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TCPFlags;
 *
 */
 
-@DiameterAvpImplementation(code = 543L, vendorId = -1L)
 public class TCPFlagsImpl extends DiameterGroupedAvpImpl implements TCPFlags
 {
 	private TCPFlagType tcpFlagType;
@@ -43,12 +46,9 @@ public class TCPFlagsImpl extends DiameterGroupedAvpImpl implements TCPFlags
 	{
 	}
 	
-	public TCPFlagsImpl(Long tcpFlagType)
+	public TCPFlagsImpl(Long tcpFlagType) throws MissingAvpException
 	{
-		if(tcpFlagType==null)
-			throw new IllegalArgumentException("TCP-Flag-Type is required");
-		
-		this.tcpFlagType = new TCPFlagTypeImpl(tcpFlagType, null, null);				
+		setTCPFlagType(tcpFlagType);
 	}
 	
 	public Long getTCPFlagType()
@@ -59,10 +59,10 @@ public class TCPFlagsImpl extends DiameterGroupedAvpImpl implements TCPFlags
 		return this.tcpFlagType.getUnsigned();
 	}
 	
-	public void setTCPFlagType(Long value)
+	public void setTCPFlagType(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("TCP-Flag-Type is required");
+			throw new MissingAvpException("TCP-Flag-Type is required is required", Arrays.asList(new DiameterAvp[] { new TCPFlagTypeImpl() }));
 		
 		this.tcpFlagType = new TCPFlagTypeImpl(value, null, null);	
 	}
@@ -84,10 +84,10 @@ public class TCPFlagsImpl extends DiameterGroupedAvpImpl implements TCPFlags
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(tcpFlagType==null)
-			return "TCP-Flag-Type is required";
+			return new MissingAvpException("TCP-Flag-Type is required is required", Arrays.asList(new DiameterAvp[] { new TCPFlagTypeImpl() }));
 		
 		return null;
 	}	

@@ -4,12 +4,16 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778.MIP6Request;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
@@ -21,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASIdent
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMNAAASPIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMobileNodeAddressImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6AgentInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ChargeableUserIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIP6AuthModeImpl;
@@ -85,7 +90,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 8, commandCode = 325, request = true)
 public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestImpl implements MIP6Request
 {
 	private AuthRequestType authRequestType;
@@ -139,7 +143,7 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 		super();
 	}
 	
-	public MIP6RequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId,AuthRequestTypeEnum authRequestType,List<InetAddress> mipMobileNodeAddress,MIP6AgentInfo mip6AgentInfo,InetAddress mipCareofAddress)
+	public MIP6RequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId,AuthRequestTypeEnum authRequestType,List<InetAddress> mipMobileNodeAddress,MIP6AgentInfo mip6AgentInfo,InetAddress mipCareofAddress) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -162,11 +166,11 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 	}
 
 	@Override
-	public void setAuthRequestType(AuthRequestTypeEnum value) 
+	public void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Auth-Request-Type is required");
-		
+			throw new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));
+			
 		this.authRequestType = new AuthRequestTypeImpl(value, null, null);
 	}
 
@@ -364,10 +368,19 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 	}
 
 	@Override
-	public void setMIPMobileNodeAddress(List<InetAddress> value) 
+	public void setMIPMobileNodeAddress(List<InetAddress> value) throws MissingAvpException, AvpOccursTooManyTimesException 
 	{
-		if(value==null || value.size()<1 || value.size()>2)
-			throw new IllegalArgumentException("MIP-Mobile-Node-Address is required and Up to 2 allowed");
+		if(value==null || value.size()==0)
+			throw new MissingAvpException("MIP-Mobile-Node-Address is required and Up to 2 allowed", Arrays.asList(new DiameterAvp[] { new MIPMobileNodeAddressImpl() }));
+			
+		if(value.size()>2)
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new MIPMobileNodeAddressImpl(curr, null, null));
+				
+			throw new AvpOccursTooManyTimesException("MIP-Mobile-Node-Address is required and Up to 2 allowed", failedAvps);
+		}
 		
 		this.mipMobileNodeAddress = new ArrayList<MIPMobileNodeAddress>();
 		for(InetAddress curr:value)
@@ -381,11 +394,11 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 	}
 
 	@Override
-	public void setMIP6AgentInfo(MIP6AgentInfo value) 
+	public void setMIP6AgentInfo(MIP6AgentInfo value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP6-Agent-Info is required");
-		
+			throw new MissingAvpException("MIP6-Agent-Info is required", Arrays.asList(new DiameterAvp[] { new MIP6AgentInfoImpl() }));
+					
 		this.mip6AgentInfo = value;
 	}
 
@@ -399,11 +412,11 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 	}
 	
 	@Override
-	public void setMIPCareofAddress(InetAddress value)
+	public void setMIPCareofAddress(InetAddress value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Careof-Address is required");
-		
+			throw new MissingAvpException("MIP-Careof-Address is required", Arrays.asList(new DiameterAvp[] { new MIPCareofAddressImpl() }));
+			
 		this.mipCareofAddress = new MIPCareofAddressImpl(value, null, null);
 	}
 
@@ -558,19 +571,27 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authRequestType==null)
-			return "Auth-Request-Type is required";
+			return new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));
 		
 		if(mip6AgentInfo==null)
-			throw new IllegalArgumentException("MIP6-Agent-Info is required");
+			return new MissingAvpException("MIP6-Agent-Info is required", Arrays.asList(new DiameterAvp[] { new MIP6AgentInfoImpl() }));
 		
-		if(mipMobileNodeAddress==null || mipMobileNodeAddress.size()<1 || mipMobileNodeAddress.size()>2)
-			throw new IllegalArgumentException("MIP-Mobile-Node-Address is required and Up to 2 allowed");
+		if(mipMobileNodeAddress==null || mipMobileNodeAddress.size()==0)
+			return new MissingAvpException("MIP-Mobile-Node-Address is required and Up to 2 allowed", Arrays.asList(new DiameterAvp[] { new MIPMobileNodeAddressImpl() }));
+		
+		if(mipMobileNodeAddress!=null && mipMobileNodeAddress.size()>2)
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(mipMobileNodeAddress);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 MIP Mobile Node Address allowed", failedAvps);
+		}
 		
 		if(mipCareofAddress==null)
-			throw new IllegalArgumentException("MIP-Careof-Address is required");
+			return new MissingAvpException("MIP-Careof-Address is required", Arrays.asList(new DiameterAvp[] { new MIPCareofAddressImpl() }));
 		
 		return super.validate();
 	}

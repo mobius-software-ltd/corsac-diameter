@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
@@ -29,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 
 /*
  */
-@DiameterCommandDefinition(applicationId = 4, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	Long getCCSubSessionId() throws AvpNotSupportedException;

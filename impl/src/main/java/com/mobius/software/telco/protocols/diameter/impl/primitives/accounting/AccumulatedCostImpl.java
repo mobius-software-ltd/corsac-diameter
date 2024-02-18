@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ExponentImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValueDigitsImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccumulatedCost;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Exponent;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ValueDigits;
@@ -32,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2052L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AccumulatedCostImpl implements AccumulatedCost
 {
 	private ValueDigits valueDigits;
@@ -42,12 +44,9 @@ public class AccumulatedCostImpl implements AccumulatedCost
 	{
 	}
 	
-	public AccumulatedCostImpl(Long valueDigits)
+	public AccumulatedCostImpl(Long valueDigits) throws MissingAvpException
 	{
-		if(valueDigits==null)
-			throw new IllegalArgumentException("Value-Digits is required");
-		
-		this.valueDigits = new ValueDigitsImpl(valueDigits, null, null);				
+		setValueDigits(valueDigits);
 	}
 	
 	public Long getValueDigits()
@@ -58,11 +57,11 @@ public class AccumulatedCostImpl implements AccumulatedCost
 		return valueDigits.getLong();
 	}
 	
-	public void setValueDigits(Long value)
+	public void setValueDigits(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Value-Digits is required");
-		
+			throw new MissingAvpException("Value-Digits is required", Arrays.asList(new DiameterAvp[] { new ValueDigitsImpl() }));
+			
 		this.valueDigits = new ValueDigitsImpl(value, null, null);				
 	}
 	
@@ -83,10 +82,10 @@ public class AccumulatedCostImpl implements AccumulatedCost
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(valueDigits==null)
-			return "Value-Digits is required";
+			return new MissingAvpException("Value-Digits is required", Arrays.asList(new DiameterAvp[] { new ValueDigitsImpl() }));
 		
 		return null;
 	}

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,12 +40,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 { Binding-Input-List } ;
 		 [ Binding-Output-List ]
 */
-@DiameterAvpDefinition(code = 450L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Binding-Information")
+@DiameterAvpDefinition(code = EtsiAvpCodes.BINDING_INFORMATION, vendorId = VendorIDs.ETSI_ID, must = false, name = "Binding-Information")
 public interface BindingInformation extends DiameterAvp
 {
 	BindingInputList getBindingInputList();
 	
-	void setBindingInputList(BindingInputList value);	
+	void setBindingInputList(BindingInputList value) throws MissingAvpException;	
 	
 	BindingOutputList getBindingOutputList();
 	

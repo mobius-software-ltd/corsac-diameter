@@ -5,10 +5,13 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPP2BSIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPMSTimeZoneImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNAddressImpl;
@@ -73,7 +76,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777267, commandCode = 258, request = false)
 public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthAnswerImpl implements ReAuthAnswer
 {
 	private DRMP drmp;
@@ -120,7 +122,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	{
 	}
 	
-	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);		
 	}
@@ -403,10 +405,16 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 	
 	@Override
-	public void setANGWAddress(List<InetAddress> value)
+	public void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 AN-GW-Address allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new ANGWAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		if(value==null)
 			this.anGWAddress = null;
@@ -456,10 +464,15 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(anGWAddress!=null && anGWAddress.size()>2)
-			return "Up to 2 AN-GW-Address allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(anGWAddress);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		return super.validate();
 	}

@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSubSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GSUPoolIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
@@ -41,7 +44,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Ser
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 258, request = false)
 public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthAnswerImpl implements ReAuthAnswer
 {
 	private CcSubSessionId ccSubSessionId;
@@ -61,7 +63,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	{
 	}
 	
-	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public ReAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}
@@ -89,7 +91,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	public Long getCCSubSessionId() throws AvpNotSupportedException
 	{
 		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl() } ));
 		
 		if(ccSubSessionId==null)
 			return null;
@@ -99,8 +101,8 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	
 	public void setCCSubSessionId(Long value) throws AvpNotSupportedException
 	{
-		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!ccSubSessionIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl(value, null, null) } ));
 		
 		if(value==null)
 			this.ccSubSessionId = null;
@@ -111,7 +113,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	public Long getGSUPoolIdentifier() throws AvpNotSupportedException
 	{
 		if(!gsuPoolIdentifierAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new GSUPoolIdentifierImpl() } ));
 		
 		if(gsuPoolIdentifier==null)
 			return null;
@@ -121,8 +123,8 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	
 	public void setGSUPoolIdentifier(Long value) throws AvpNotSupportedException
 	{
-		if(!gsuPoolIdentifierAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!gsuPoolIdentifierAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new GSUPoolIdentifierImpl(value, null, null) } ));
 		
 		if(value==null)
 			this.gsuPoolIdentifier = null;
@@ -133,7 +135,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	public Long getServiceIdentifier() throws AvpNotSupportedException
 	{
 		if(!serviceIdentifierAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceIdentifierImpl() } ));
 		
 		if(serviceIdentifier==null)
 			return null;
@@ -143,8 +145,8 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	
 	public void setServiceIdentifier(Long value) throws AvpNotSupportedException
 	{
-		if(!serviceIdentifierAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!serviceIdentifierAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceIdentifierImpl(value, null, null) } ));
 		
 		if(value==null)
 			this.serviceIdentifier = null;
@@ -155,7 +157,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	public Long getRatingGroup() throws AvpNotSupportedException
 	{
 		if(!ratingGroupAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RatingGroupImpl() } ));
 		
 		if(ratingGroup==null)
 			return null;
@@ -165,13 +167,31 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 	
 	public void setRatingGroup(Long value) throws AvpNotSupportedException
 	{
-		if(!ratingGroupAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!ratingGroupAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RatingGroupImpl(value, null, null) }));
 		
 		if(value==null)
 			this.ratingGroup = null;
 		else
 			this.ratingGroup = new RatingGroupImpl(value, null, null);
+	}
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(!ccSubSessionIdAllowed && ccSubSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { ccSubSessionId } ));
+		
+		if(!gsuPoolIdentifierAllowed && gsuPoolIdentifier!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { gsuPoolIdentifier } ));
+		
+		if(!serviceIdentifierAllowed && serviceIdentifier!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { serviceIdentifier } ));
+		
+		if(!ratingGroupAllowed && ratingGroup!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { ratingGroup }));
+		
+		return super.validate();
 	}
 	
 	@DiameterOrder

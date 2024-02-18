@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	in seconds. This AVP may be included within the Multiple-Services-Credit-Control AVP when this AVP also contains
 	a Granted-Service-Units AVP containing a CC-Time AVP (i.e. when the granted quota is a time quota). 
  */
-@DiameterAvpDefinition(code = 881L, vendorId = KnownVendorIDs.TGPP_ID, name = "Quota-Consumption-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.QUOTA_CONSUMPTION_TIME, vendorId = VendorIDs.TGPP_ID, name = "Quota-Consumption-Time")
 public interface QuotaConsumptionTime extends DiameterUnsigned32
 {
 }

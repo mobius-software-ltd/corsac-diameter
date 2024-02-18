@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	In the ABNF definition of PoC-Information AVP, the Participants-Involved AVP is kept only for backward compatibility with Releases before the 3GPP Release 7.
  */
-@DiameterAvpDefinition(code = 879L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.POC_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "PoC-Information")
 public interface PoCInformation extends DiameterAvp
 {
 	PoCServerRoleEnum getPoCServerRole();

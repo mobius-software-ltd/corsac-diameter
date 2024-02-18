@@ -18,10 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CurrencyCodeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UnitValueImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CurrencyCode;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CCCredit;
@@ -31,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 473L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class CCCreditImpl implements CCCredit 
 {
 	private UnitValue unitValue;
@@ -43,7 +46,7 @@ public class CCCreditImpl implements CCCredit
 		
 	}
 	
-	public CCCreditImpl(UnitValue unitValue)
+	public CCCreditImpl(UnitValue unitValue) throws MissingAvpException
 	{
 		setUnitValue(unitValue);
 	}
@@ -55,11 +58,11 @@ public class CCCreditImpl implements CCCredit
 	}
 	
 	@Override
-	public void setUnitValue(UnitValue value)
+	public void setUnitValue(UnitValue value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Unit-Value is required");
-		
+			throw new MissingAvpException("Unit-Value is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() }));
+			
 		this.unitValue = value;
 	}
 	
@@ -82,10 +85,10 @@ public class CCCreditImpl implements CCCredit
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(unitValue==null)
-			return "Unit-Value is required";
+			return new MissingAvpException("Unit-Value is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() }));
 		
 		return null;
 	}	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The bearer identifier of an IP CAN bearer shall be unique within the corresponding IP CAN session. The bearer
 	identifier shall be selected by the PCEF.
  */
-@DiameterAvpDefinition(code = 1020L, vendorId = KnownVendorIDs.TGPP_ID, name = "Bearer-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.BEARER_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Bearer-Identifier")
 public interface BearerIdentifier extends DiameterOctetString
 {
 }

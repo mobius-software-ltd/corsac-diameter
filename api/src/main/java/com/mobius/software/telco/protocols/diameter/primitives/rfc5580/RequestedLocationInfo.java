@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5580;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -64,7 +65,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
       The content of the Integer field encodes the requested information
       attributes.  Each capability value represents a bit position.
  */
-@DiameterAvpDefinition(code = 132L, vendorId = -1L, name = "Requested-Location-Info")
+@DiameterAvpDefinition(code = AvpCodes.REQUESTED_LOCATION_INFO, vendorId = -1L, name = "Requested-Location-Info")
 public interface RequestedLocationInfo extends DiameterOctetString
 {
 }

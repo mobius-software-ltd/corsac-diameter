@@ -20,9 +20,12 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
@@ -72,20 +75,20 @@ import io.netty.buffer.ByteBuf;
                  * [ Proxy-Info ]
                  * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 0, commandCode = 271, request = false, proxyable = true, name="Accounting-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.COMMON, commandCode = CommandCodes.ACCOUNTING, request = false, proxyable = true, name="Accounting-Answer")
 public interface AccountingAnswer extends DiameterAnswer
 {
 	AccountingRecordTypeEnum getAccountingRecordType();
 	
-	void setAccountingRecordType(AccountingRecordTypeEnum value);
+	void setAccountingRecordType(AccountingRecordTypeEnum value) throws MissingAvpException;
 	
 	Long getAccountingRecordNumber();
 	
-	void setAccountingRecordNumber(Long value);
+	void setAccountingRecordNumber(Long value) throws MissingAvpException;
 	
 	public Long getAcctApplicationId();
 	
-	void setAcctApplicationId(Long value);
+	void setAcctApplicationId(Long value) throws MissingAvpException;
 	
 	public VendorSpecificApplicationId getVendorSpecificApplicationId() throws AvpNotSupportedException;
 	

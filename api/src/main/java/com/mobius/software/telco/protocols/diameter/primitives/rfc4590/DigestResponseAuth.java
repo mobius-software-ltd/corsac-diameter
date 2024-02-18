@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          Digest algorithms other than the one defined in [RFC2617] MAY
          define digest lengths other than 32.
  */
-@DiameterAvpDefinition(code = 106L, vendorId = -1, name = "Digest-Response-Auth")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_RESPONSE_AUTH, vendorId = -1, name = "Digest-Response-Auth")
 public interface DigestResponseAuth extends DiameterUTF8String
 {
 }

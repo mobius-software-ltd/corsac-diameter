@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaStatusEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReport
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2823L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PresenceReportingAreaStatusImpl extends DiameterEnumeratedImpl<PresenceReportingAreaStatusEnum> implements PresenceReportingAreaStatus
 {
 	protected PresenceReportingAreaStatusImpl()

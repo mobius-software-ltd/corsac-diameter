@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.28	Counter-Value
 	The Counter-Value AVP is of type type Unsigned32 and shall contain the number of occurrences of reception of RRC cause "MO Exception data".	
  */
-@DiameterAvpDefinition(code = 4319L, vendorId = KnownVendorIDs.TGPP_ID, name = "Counter-Value")
+@DiameterAvpDefinition(code = TgppAvpCodes.COUNTER_VALUE, vendorId = VendorIDs.TGPP_ID, name = "Counter-Value")
 public interface CounterValue extends DiameterUnsigned32
 {
 }

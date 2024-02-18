@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -202,7 +203,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  	This value is used to indicate that a change in the 3GPP_PS_DATA_OFF shall cause the Credit-Control client to
 	ask for a re-authorization of the associated quota. 
 */
-@DiameterAvpDefinition(code = 870L, vendorId = KnownVendorIDs.TGPP_ID, name = "Trigger-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRIGGER_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Trigger-Type")
 public interface TriggerType extends DiameterEnumerated<TriggerTypeEnum>
 {
 }

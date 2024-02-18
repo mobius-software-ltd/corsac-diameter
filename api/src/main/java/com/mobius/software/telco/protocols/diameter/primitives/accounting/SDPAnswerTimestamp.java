@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SDP-Answer-Timestamp AVP (AVP code 1275) is of type Time and holds the time in UTC format of the response
 	to the SDP offer. 
  */
-@DiameterAvpDefinition(code = 1275L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Answer-Timestamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.SDP_ANSWER_TIMESTAMP, vendorId = VendorIDs.TGPP_ID, name = "SDP-Answer-Timestamp")
 public interface SDPAnswerTimestamp extends DiameterTime
 {
 }

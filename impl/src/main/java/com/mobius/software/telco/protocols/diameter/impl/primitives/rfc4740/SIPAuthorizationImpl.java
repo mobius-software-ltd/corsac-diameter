@@ -19,10 +19,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestAlgorithmImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestAuthParamImpl;
@@ -37,6 +39,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.Dige
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestResponseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestURIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestUsernameImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestAlgorithm;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestAuthParam;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestCNonce;
@@ -57,7 +60,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthor
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 380L, vendorId = -1L)
 public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPAuthorization
 {
 	private DigestUsername digestUsername;
@@ -91,32 +93,17 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 		
 	}
 	
-	public SIPAuthorizationImpl(String digestUsername,String digestRealm,String digestNonce,String digestURI,String digestResponse)
+	public SIPAuthorizationImpl(String digestUsername,String digestRealm,String digestNonce,String digestURI,String digestResponse) throws MissingAvpException
 	{
-		if(digestUsername == null)
-			throw new IllegalArgumentException("Digest-Username is required");
+		setDigestUsername(digestUsername);
 		
-		if(digestRealm == null)
-			throw new IllegalArgumentException("Digest-Realm is required");
+		setDigestRealm(digestRealm);
 		
-		if(digestNonce == null)
-			throw new IllegalArgumentException("Digest-Nonce is required");
+		setDigestNonce(digestNonce);
 		
-		if(digestURI == null)
-			throw new IllegalArgumentException("Digest-URI is required");
+		setDigestURI(digestURI);
 		
-		if(digestResponse == null)
-			throw new IllegalArgumentException("Digest-Response is required");
-		
-		this.digestUsername = new DigestUsernameImpl(digestUsername, null, null);
-		
-		this.digestRealm = new DigestRealmImpl(digestRealm, null, null);
-		
-		this.digestNonce = new DigestNonceImpl(digestNonce, null, null);
-		
-		this.digestURI = new DigestURIImpl(digestURI, null, null);
-		
-		this.digestResponse = new DigestResponseImpl(digestResponse, null, null);
+		setDigestResponse(digestResponse);		
 	}
 	
 	public String getDigestUsername()
@@ -127,10 +114,10 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 		return digestUsername.getString();
 	}
 	
-	public void setDigestUsername(String value)
+	public void setDigestUsername(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Digest-Username is required");
+			throw new MissingAvpException("Digest-Username is required is required", Arrays.asList(new DiameterAvp[] { new DigestUsernameImpl() }));
 		
 		this.digestUsername = new DigestUsernameImpl(value, null, null);
 	}
@@ -143,11 +130,11 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 		return digestRealm.getString();
 	}
 	
-	public void setDigestRealm(String value)
+	public void setDigestRealm(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Digest-Realm is required");
-		
+			throw new MissingAvpException("Digest-Realm is required is required", Arrays.asList(new DiameterAvp[] { new DigestRealmImpl() }));
+			
 		this.digestRealm = new DigestRealmImpl(value, null, null);
 	}
 	
@@ -159,11 +146,11 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 		return digestNonce.getString();
 	}
 	
-	public void setDigestNonce(String value)
+	public void setDigestNonce(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Digest-Nonce is required");
-		
+			throw new MissingAvpException("Digest-Nonce is required is required", Arrays.asList(new DiameterAvp[] { new DigestNonceImpl() }));
+			
 		this.digestNonce = new DigestNonceImpl(value, null, null);
 	}
 	
@@ -175,11 +162,11 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 		return digestURI.getString();
 	}
 	
-	public void setDigestURI(String value)
+	public void setDigestURI(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Digest-URI is required");
-		
+			throw new MissingAvpException("Digest-URI is required is required", Arrays.asList(new DiameterAvp[] { new DigestURIImpl() }));
+			
 		this.digestURI = new DigestURIImpl(value, null, null);
 	}
 	
@@ -191,11 +178,11 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 		return digestResponse.getString();
 	}
 	
-	public void setDigestResponse(String value)
+	public void setDigestResponse(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Digest-Response is required");
-		
+			throw new MissingAvpException("Digest-Response is required is required", Arrays.asList(new DiameterAvp[] { new DigestResponseImpl() }));
+			
 		this.digestResponse = new DigestResponseImpl(value, null, null);
 	}
 	
@@ -336,22 +323,22 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(digestUsername == null)
-			return "Digest-Username is required";
+			return new MissingAvpException("Digest-Username is required is required", Arrays.asList(new DiameterAvp[] { new DigestUsernameImpl() }));
 		
 		if(digestRealm == null)
-			return "Digest-Realm is required";
+			return new MissingAvpException("Digest-Realm is required is required", Arrays.asList(new DiameterAvp[] { new DigestRealmImpl() }));
 		
 		if(digestNonce == null)
-			return "Digest-Nonce is required";
+			return new MissingAvpException("Digest-Nonce is required is required", Arrays.asList(new DiameterAvp[] { new DigestNonceImpl() }));
 		
 		if(digestURI == null)
-			return "Digest-URI is required";
+			return new MissingAvpException("Digest-URI is required is required", Arrays.asList(new DiameterAvp[] { new DigestURIImpl() }));
 		
 		if(digestResponse == null)
-			return "Digest-Response is required";
+			return new MissingAvpException("Digest-Response is required is required", Arrays.asList(new DiameterAvp[] { new DigestResponseImpl() }));
 		
 		return null;
 	}	

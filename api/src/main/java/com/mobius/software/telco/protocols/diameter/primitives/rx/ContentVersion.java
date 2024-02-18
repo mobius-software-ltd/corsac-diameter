@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	The method of assigning content versions within the Content-Version AVPs is implementation specific. Example implementations are a monotonically increasing number or a value based on a timestamp.
  */
-@DiameterAvpDefinition(code = 552L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Content-Version")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONTENT_VERSION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Content-Version")
 public interface ContentVersion extends DiameterUnsigned64
 {
 }

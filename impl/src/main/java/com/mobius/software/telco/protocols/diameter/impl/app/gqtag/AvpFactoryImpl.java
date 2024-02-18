@@ -19,10 +19,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gqtag;
  */
 
 import java.net.Inet4Address;
-import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.gqtag.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.GloballyUniqueAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.BindingInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.BindingInputListImpl;
@@ -60,17 +61,17 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public Flows getFlows(Long mediaComponentNumber)
+	public Flows getFlows(Long mediaComponentNumber) throws MissingAvpException
 	{
 		return new FlowsImpl(mediaComponentNumber);
 	}
 	
-	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber)
+	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber) throws MissingAvpException
 	{
 		return new MediaComponentDescriptionImpl(mediaComponentNumber);
 	}
 	
-	public MediaSubComponent getMediaSubComponent(Long flowNumber)
+	public MediaSubComponent getMediaSubComponent(Long flowNumber) throws MissingAvpException
 	{
 		return new MediaSubComponentImpl(flowNumber);
 	}
@@ -80,7 +81,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new FlowGroupingImpl();
 	}
 	
-	public BindingInformation getBindingInformation(BindingInputList bindingInputList)
+	public BindingInformation getBindingInformation(BindingInputList bindingInputList) throws MissingAvpException
 	{
 		return new BindingInformationImpl(bindingInputList);
 	}
@@ -95,17 +96,17 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new BindingOutputListImpl();
 	}
 	
-	public V6TransportAddress getV6TransportAddress(ByteBuf framedIPv6Prefix,Long portNumber)
+	public V6TransportAddress getV6TransportAddress(ByteBuf framedIPv6Prefix,Long portNumber) throws MissingAvpException
 	{
 		return new V6TransportAddressImpl(framedIPv6Prefix, portNumber);
 	}
 	
-	public V4TransportAddress getV4TransportAddress(Inet4Address framedIPAddress,Long portNumber)
+	public V4TransportAddress getV4TransportAddress(Inet4Address framedIPAddress,Long portNumber) throws MissingAvpException
 	{
 		return new V4TransportAddressImpl(framedIPAddress, portNumber);
 	}
 	
-	public FlowDescription getFlowDescription(String rule) throws ParseException
+	public FlowDescription getFlowDescription(String rule) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(rule, null, null);
 	}
@@ -113,7 +114,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, null, null);
 	}

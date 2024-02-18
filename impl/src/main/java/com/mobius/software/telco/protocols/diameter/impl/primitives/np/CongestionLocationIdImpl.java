@@ -18,10 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPUserLocationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLocationId;
 import com.mobius.software.telco.protocols.diameter.primitives.np.ENodeBId;
@@ -34,7 +32,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4006L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CongestionLocationIdImpl extends DiameterGroupedAvpImpl implements CongestionLocationId
 {
 	private TGPPUserLocationInfo tgppUserLocationInfo;

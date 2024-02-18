@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -77,7 +78,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 255: Call Forwarding Butt call
 	    - Others: Reserved
  */
-@DiameterAvpDefinition(code = 20821L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Diversion-Reason")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.DIVERSION_REASON, vendorId = VendorIDs.HUAWEI_ID, name = "Diversion-Reason")
 public interface DiversionReason extends DiameterEnumerated<DiversionReasonEnum>
 {
 }

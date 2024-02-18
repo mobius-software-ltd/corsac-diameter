@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ SCS-Realm ]
 		[ SCS-Address ]
  */
-@DiameterAvpDefinition(code = 3940L, vendorId = KnownVendorIDs.TGPP_ID, name = "SCS-AS-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCS_AS_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "SCS-AS-Address")
 public interface SCSASAddress extends DiameterAvp
 {
 	String getSCSRealm();

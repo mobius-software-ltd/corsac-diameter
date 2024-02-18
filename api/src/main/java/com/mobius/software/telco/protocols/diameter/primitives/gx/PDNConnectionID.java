@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The PDN-Connection-ID AVP (AVP code 1065) is of type OctetString, and it indicates the PDN connection to which
 	specific information refers. 
  */
-@DiameterAvpDefinition(code = 1065L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDN-Connection-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDN_CONNECTION_ID, vendorId = VendorIDs.TGPP_ID, name = "PDN-Connection-ID")
 public interface PDNConnectionID extends DiameterOctetString
 {
 }

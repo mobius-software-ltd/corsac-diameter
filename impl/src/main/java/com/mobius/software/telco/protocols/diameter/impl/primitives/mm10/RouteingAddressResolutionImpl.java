@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.RouteingAddressResolution;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.RouteingAddressResolutionEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.RouteingAddr
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1119L, vendorId = -1L)
 public class RouteingAddressResolutionImpl extends DiameterEnumeratedImpl<RouteingAddressResolutionEnum> implements RouteingAddressResolution
 {
 	protected RouteingAddressResolutionImpl()

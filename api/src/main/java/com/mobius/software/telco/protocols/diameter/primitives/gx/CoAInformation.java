@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,14 +43,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 { CoA-IP-Address }
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1039L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "CoA-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.COA_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "CoA-Information")
 public interface CoAInformation extends DiameterGroupedAvp
 {
 	TunnelInformation getTunnelInformation();
 	
-	void setTunnelInformation(TunnelInformation value);		
+	void setTunnelInformation(TunnelInformation value) throws MissingAvpException;		
 	
 	InetAddress getCoAIPAddress();
 	
-	void setCoAIPAddress(InetAddress value);		  
+	void setCoAIPAddress(InetAddress value) throws MissingAvpException;		  
 }

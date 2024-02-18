@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
                     * [ ETH-SAP ]
                     * [ AVP ]
  */
-@DiameterAvpDefinition(code = 549L, vendorId = -1L, name = "ETH-Proto-Type")
+@DiameterAvpDefinition(code = AvpCodes.ETH_PROTO_TYPE, vendorId = -1L, name = "ETH-Proto-Type")
 public interface ETHProtoType extends DiameterGroupedAvp
 {
 	List<ByteBuf> getETHEtherType();

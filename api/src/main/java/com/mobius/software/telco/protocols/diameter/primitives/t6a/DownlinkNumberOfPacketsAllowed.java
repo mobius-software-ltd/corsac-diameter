@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.39	Downlink-Number-Of-Packets-Allowed
 	The Downlink-Number-Of-Packets-Allowed AVP is of type Unsigned32. It shall contain information of octets k+9 to k+12 as specified in figure 8.38-10 of 3GPP TS 29.274 [33].	
  */
-@DiameterAvpDefinition(code = 4329L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Downlink-Number-Of-Packets-Allowed")
+@DiameterAvpDefinition(code = TgppAvpCodes.DOWNLINK_NUMBER_OF_PACKETS_ALLOWED, vendorId = VendorIDs.TGPP_ID,must = false, name = "Downlink-Number-Of-Packets-Allowed")
 public interface DownlinkNumberOfPacketsAllowed extends DiameterUnsigned32
 {
 }

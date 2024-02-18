@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	29.060 [24] the MCC shall be 3 digits and the MNC shall be either 2 or 3 digits. There shall be no padding characters
 	between the MCC and MNC.  
  */
-@DiameterAvpDefinition(code = 9L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-GGSNMCC-MNC")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_GGSN_MCC_MNC, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-GGSNMCC-MNC")
 public interface TGPPGGSNMCCMNC extends DiameterUTF8String
 {
 }

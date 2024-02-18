@@ -22,6 +22,8 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.NetLocAccessSupportEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -76,7 +78,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Load ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777236, commandCode = 275, request = false, proxyable = true, name="Session-Termination-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
 public interface SessionTerminationAnswer extends RxAnswer
 {
 	SponsoredConnectivityData getSponsoredConnectivityData();

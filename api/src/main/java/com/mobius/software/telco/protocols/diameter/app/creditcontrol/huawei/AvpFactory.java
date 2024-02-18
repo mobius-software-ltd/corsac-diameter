@@ -18,10 +18,11 @@ package com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
@@ -115,7 +116,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Req
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RestrictionFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.TariffChangeUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
@@ -157,39 +157,39 @@ import io.netty.buffer.ByteBuf;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue);
+	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue) throws MissingAvpException;
 	
 	public ServiceInformation getServiceInformation();
 	
-	public MultipleServicesCreditControl getMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, TariffChangeUsageEnum tariffChangeUsage, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication,QoSFinalUnitIndication qosFinalUnitIndication);
+	public MultipleServicesCreditControl getMultipleServicesCreditControl();
 	
-	public UsedServiceUnit getUsedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage);
+	public UsedServiceUnit getUsedServiceUnit();
 	
-	public GrantedServiceUnit getGrantedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage);
+	public GrantedServiceUnit getGrantedServiceUnit();
 	
-	public RequestedServiceUnit getRequestedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits);
+	public RequestedServiceUnit getRequestedServiceUnit();
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData);
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException;
 	
-	public FinalUnitIndication getFinalUnitIndication(FinalUnitActionEnum finalUnitAction, List<RestrictionFilterRule> restrictionFilterRule, List<String> filterId, RedirectServer redirectServer);
+	public FinalUnitIndication getFinalUnitIndication(FinalUnitActionEnum finalUnitAction) throws MissingAvpException;
 	
-	public QoSFinalUnitIndication getQoSFinalUnitIndication(FinalUnitActionEnum finalUnitAction, List<RestrictionFilterRule> restrictionFilterRule, List<String> filterId, RedirectServer redirectServer);
+	public QoSFinalUnitIndication getQoSFinalUnitIndication(FinalUnitActionEnum finalUnitAction) throws MissingAvpException;
 	
-	public CostInformation getCostInformation(UnitValue unitValue,Long currencyCode,String costUnit);
+	public CostInformation getCostInformation(UnitValue unitValue,Long currencyCode) throws MissingAvpException;
 	
-	public GSUPoolReference getGSUPoolReference(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue);
+	public GSUPoolReference getGSUPoolReference(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue) throws MissingAvpException;
 	
-	public CCMoney getCCMoney(UnitValue unitValue,Long currencyCode);
+	public CCMoney getCCMoney(UnitValue unitValue) throws MissingAvpException;
 	
-	public UnitValue getUnitValue(Long valueDigits,Long exponent);		
+	public UnitValue getUnitValue(Long valueDigits) throws MissingAvpException;		
 	
-	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws ParseException;
+	public RestrictionFilterRule getRestrictionFilterRule(String rule) throws InvalidAvpValueException;
 	
-	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws ParseException;
+	public RestrictionFilterRule getRestrictionFilterRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException;
 	
-	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress);
+	public RedirectServer getRedirectServer(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress) throws MissingAvpException;
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	//ServiceInformation - Huawei
 	
@@ -231,9 +231,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AuthInformation getAuthInformation();
 	
-	public BalanceInfo getBalanceInfo(Integer balanceCategory, Long balanceID, Long balanceType, Long currentBalance, Date balanceDate, Long measureType);
+	public BalanceInfo getBalanceInfo(Integer balanceCategory, Long balanceID, Long balanceType, Long currentBalance, Date balanceDate, Long measureType) throws MissingAvpException;
 	
-	public ServiceParameterInfo getServiceParameterInfo(Long serviceParameterType, Long serviceParameterValue);
+	public ServiceParameterInfo getServiceParameterInfo(Long serviceParameterType, Long serviceParameterValue) throws MissingAvpException;
 	
 	public CreditUseNotification getCreditUseNotification();
 	
@@ -251,19 +251,19 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AccountInfo getAccountInfo();
 	
-	public CCCredit getCCCredit(UnitValue unitValue);
+	public CCCredit getCCCredit(UnitValue unitValue) throws MissingAvpException;
 	
 	public RechargeInformation getRechargeInformation();
 	
 	public ChargeMoney getChargeMoney();
 	
-	public AccountChangeInfo getAccountChangeInfo(ByteBuf accountID, Long accountType, Long currentAccountBalance, Long accountBalanceChange, ByteBuf accountDate, Long accountDateChange, Long measureType);
+	public AccountChangeInfo getAccountChangeInfo(ByteBuf accountID, Long accountType, Long currentAccountBalance, Long accountBalanceChange, ByteBuf accountDate, Long accountDateChange, Long measureType) throws MissingAvpException;
 	
 	public CumInfo getCumInfo();
 	
-	public CumMoney getCumMoney(CumUnitValue cumUnitValue);
+	public CumMoney getCumMoney(CumUnitValue cumUnitValue) throws MissingAvpException;
 	
-	public CumUnitValue getCumUnitValue(Long cumValueDigits);
+	public CumUnitValue getCumUnitValue(Long cumValueDigits) throws MissingAvpException;
 	
 	//IMSInformation - standard
 	
@@ -285,7 +285,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ServiceSpecificInfo getServiceSpecificInfo();
 	
-	public MessageBody getMessageBody(String contentType,Long contentLength);
+	public MessageBody getMessageBody(String contentType,Long contentLength) throws MissingAvpException;
 	
 	public EarlyMediaDescription getEarlyMediaDescription();
 	
@@ -293,17 +293,17 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public RealTimeTariffInformation getRealTimeTariffInformation();
 	
-	public TariffInformation getTariffInformation(CurrentTariff currentTariff);
+	public TariffInformation getTariffInformation(CurrentTariff currentTariff) throws MissingAvpException;
 	
 	public CurrentTariff getCurrentTariff();
 	
 	public NextTariff getNextTariff();
 	
-	public ScaleFactor getScaleFactor(Long valueDigits);
+	public ScaleFactor getScaleFactor(Long valueDigits) throws MissingAvpException;
 	
-	public RateElement getRateElement(CcUnitTypeEnum ccUnitType);
+	public RateElement getRateElement(CcUnitTypeEnum ccUnitType) throws MissingAvpException;
 	
-	public UnitCost getUnitCost(Long valueDigits);
+	public UnitCost getUnitCost(Long valueDigits) throws MissingAvpException;
 	
 	public NNIInformation getNNIInformation();
 	
@@ -337,7 +337,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	//PoCInformation - standard
 	
-	public TalkBurstExchange getTalkBurstExchange(Date pocChangeTime);
+	public TalkBurstExchange getTalkBurstExchange(Date pocChangeTime) throws MissingAvpException;
 	
 	public ParticipantGroup getParticipantGroup();
 	
@@ -383,9 +383,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AoCService getAoCService();
 	
-	public IncrementalCost getIncrementalCost(Long valueDigits);
+	public IncrementalCost getIncrementalCost(Long valueDigits) throws MissingAvpException;
 	
-	public AccumulatedCost getAccumulatedCost(Long valueDigits);
+	public AccumulatedCost getAccumulatedCost(Long valueDigits) throws MissingAvpException;
 	
 	//ProSeInformation - standard
 	

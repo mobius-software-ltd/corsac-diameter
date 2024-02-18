@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	MNC digit 3	MCC digit 3			octet 2	
 	MNC digit 2	MNC digit 1			octet 3
 */
-@DiameterAvpDefinition(code = 1677L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Group-PLMN-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.GROUP_PLMN_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "Group-PLMN-Id")
 public interface GroupPLMNId extends DiameterOctetString
 {
 }

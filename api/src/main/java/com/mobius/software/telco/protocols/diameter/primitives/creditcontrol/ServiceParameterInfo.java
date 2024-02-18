@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -55,14 +57,14 @@ import io.netty.buffer.ByteBuf;
                                     { Service-Parameter-Value }
  */
 
-@DiameterAvpDefinition(code = 440L, vendorId = -1, must = false, name = "Service-Parameter-Info")
+@DiameterAvpDefinition(code = AvpCodes.SERVICE_PARAMETER_INFO, vendorId = -1, must = false, name = "Service-Parameter-Info")
 public interface ServiceParameterInfo extends DiameterAvp 
 {
 	Long getServiceParameterType();
 	
-	void setServiceParameterType(Long serviceParameterType);
+	void setServiceParameterType(Long serviceParameterType) throws MissingAvpException;
 	
 	ByteBuf getServiceParameterValue();
 	
-	void setServiceParameterValue(ByteBuf serviceParameterValue);
+	void setServiceParameterValue(ByteBuf serviceParameterValue) throws MissingAvpException;
 }

@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Classifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ClassifierID;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DiffServCodePoint;
@@ -49,7 +52,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 511L, vendorId = -1L)
 public class ClassifierImpl extends DiameterGroupedAvpImpl implements Classifier
 {
 	private ClassifierID classifierID;
@@ -80,12 +82,9 @@ public class ClassifierImpl extends DiameterGroupedAvpImpl implements Classifier
 	{
 	}
 	
-	public ClassifierImpl(ByteBuf classifierID)
+	public ClassifierImpl(ByteBuf classifierID) throws MissingAvpException
 	{
-		if(classifierID==null)
-			throw new IllegalArgumentException("Classifier-ID is required");
-		
-		this.classifierID = new ClassifierIDImpl(classifierID, null, null);				
+		setClassifierID(classifierID);
 	}
 	
 	public ByteBuf getClassifierID()
@@ -96,11 +95,11 @@ public class ClassifierImpl extends DiameterGroupedAvpImpl implements Classifier
 		return this.classifierID.getValue();
 	}
 	
-	public void setClassifierID(ByteBuf value)
+	public void setClassifierID(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Classifier-ID is required");
-		
+			throw new MissingAvpException("Classifier-ID is required", Arrays.asList(new DiameterAvp[] { new ClassifierIDImpl() }));
+			
 		this.classifierID = new ClassifierIDImpl(value, null, null);	
 	}
 	
@@ -239,10 +238,10 @@ public class ClassifierImpl extends DiameterGroupedAvpImpl implements Classifier
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(classifierID==null)
-			return "Classifier-ID is required";
+			return new MissingAvpException("Classifier-ID is required", Arrays.asList(new DiameterAvp[] { new ClassifierIDImpl() }));
 		
 		return null;
 	}

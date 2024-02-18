@@ -19,17 +19,19 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gxx;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PrecedenceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ContentVersionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RequiredAccessInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SharingKeyDLImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SharingKeyULImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.Precedence;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
@@ -48,7 +50,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1053L, vendorId = KnownVendorIDs.TGPP_ID)
 public class QoSRuleDefinitionImpl extends DiameterGroupedAvpImpl implements QoSRuleDefinition
 {
 	private QoSRuleName qosRuleName;
@@ -65,12 +66,9 @@ public class QoSRuleDefinitionImpl extends DiameterGroupedAvpImpl implements QoS
 		
 	}
 	
-	public QoSRuleDefinitionImpl(ByteBuf qosRuleName)
+	public QoSRuleDefinitionImpl(ByteBuf qosRuleName) throws MissingAvpException
 	{
-		if(qosRuleName==null)
-			throw new IllegalArgumentException("QoS-Rule-Name is required");
-		
-		this.qosRuleName = new QoSRuleNameImpl(qosRuleName, null, null);				
+		setQoSRuleName(qosRuleName);
 	}
 	
 	public ByteBuf getQoSRuleName()
@@ -81,10 +79,10 @@ public class QoSRuleDefinitionImpl extends DiameterGroupedAvpImpl implements QoS
 		return qosRuleName.getValue();
 	}
 	
-	public void setQoSRuleName(ByteBuf value)
+	public void setQoSRuleName(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("QoS-Rule-Name is required");
+			throw new MissingAvpException("QoS-Rule-Name is required is required", Arrays.asList(new DiameterAvp[] { new QoSRuleNameImpl() }));
 		
 		this.qosRuleName = new QoSRuleNameImpl(value, null, null);				
 	}
@@ -198,10 +196,10 @@ public class QoSRuleDefinitionImpl extends DiameterGroupedAvpImpl implements QoS
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(qosRuleName==null)
-			return "QoS-Rule-Name is required";
+			return new MissingAvpException("QoS-Rule-Name is required is required", Arrays.asList(new DiameterAvp[] { new QoSRuleNameImpl() }));
 		
 		return null;
 	}		  

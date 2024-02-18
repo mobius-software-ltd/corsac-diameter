@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
@@ -29,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 423L, vendorId = -1)
 public class CostInformationImpl extends CCMoneyImpl implements CostInformation
 {
 	private CostUnit costUnit;
@@ -39,15 +42,20 @@ public class CostInformationImpl extends CCMoneyImpl implements CostInformation
 		
 	}
 	
-	public CostInformationImpl(UnitValue unitValue,Long currencyCode,String costUnit)
+	public CostInformationImpl(UnitValue unitValue,Long currencyCode) throws MissingAvpException
 	{
-		super(unitValue, currencyCode);
+		super(unitValue);
 		
-		if(currencyCode==null)
-			throw new IllegalArgumentException("Currency-Code value is required");
-		
-		if(costUnit!=null)
-			this.costUnit = new CostUnitImpl(costUnit, null, null);
+		setCurrencyCode(currencyCode);			
+	}
+	
+	@Override
+	public void setCurrencyCode(Long value) throws MissingAvpException
+	{
+		if(value!=null)
+			throw new MissingAvpException("Currency-Code is required", Arrays.asList(new DiameterAvp[] { new CurrencyCodeImpl() }));
+			
+		super.setCurrencyCode(value);
 	}
 	
 	public String getCostUnit()
@@ -67,10 +75,10 @@ public class CostInformationImpl extends CCMoneyImpl implements CostInformation
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(getCurrencyCode()==null)
-			return "Currency-Code is required";
+			return new MissingAvpException("Currency-Code is required", Arrays.asList(new DiameterAvp[] { new CurrencyCodeImpl() }));
 		
 		return super.validate();
 	}

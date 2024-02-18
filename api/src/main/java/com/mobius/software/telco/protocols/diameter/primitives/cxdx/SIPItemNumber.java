@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.14	SIP-Item-Number AVP
 	The SIP-Item-Number AVP is of type Unsigned32.
  */
-@DiameterAvpDefinition(code = 613L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Item-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_ITEM_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "SIP-Item-Number")
 public interface SIPItemNumber extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Positioning-Data AVP (AVP code 1245) is of type UTF8String and indicates the usage of each positioning method
 	that was attempted to determine the location estimate either successfully or unsuccessfully. 
  */
-@DiameterAvpDefinition(code = 1245L, vendorId = KnownVendorIDs.TGPP_ID, name = "Positioning-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.POSITION_DATA, vendorId = VendorIDs.TGPP_ID, name = "Positioning-Data")
 public interface PositioningData extends DiameterUTF8String
 {
 }

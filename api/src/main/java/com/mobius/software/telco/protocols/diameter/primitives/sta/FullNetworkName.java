@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.2.3.14	Full-Network-Name
 	The Full-Network-Name AVP is of type OctetString; this AVP shall contain the Full Network Name and be encoded as the Full name value field of the AT_FULL_NAME_FOR_NETWORK attribute specified in clause 8.2.5.1 of 3GPP TS 24.302 [26].
  */
-@DiameterAvpDefinition(code = 1516L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Full-Network-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.FULL_NETWORK_NAME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Full-Network-Name")
 public interface FullNetworkName extends DiameterOctetString
 {
 }

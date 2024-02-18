@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Default value if AVP is not present is: PSEUDONYM_NOT_REQUESTED (0).
  */
-@DiameterAvpDefinition(code = 2519L, vendorId = KnownVendorIDs.TGPP_ID, name = "Pseudonym-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.PSEUDONIM_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "Pseudonym-Indicator")
 public interface PseudonymIndicator extends DiameterEnumerated<PseudonymIndicatorEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the charge rate of a single short message, that is, the charge rate when the SP charges subscribers by piece.
  */
-@DiameterAvpDefinition(code = 20412L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Fee-Single")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.FEE_SINGLE, vendorId = VendorIDs.HUAWEI_ID, name = "Fee-Single")
 public interface FeeSingle extends DiameterUnsigned32
 {
 }

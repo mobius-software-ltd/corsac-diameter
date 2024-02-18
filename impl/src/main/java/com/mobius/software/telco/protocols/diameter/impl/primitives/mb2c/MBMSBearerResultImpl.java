@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerResult;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerRe
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3506L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSBearerResult
 {	
 	public MBMSBearerResultImpl()
@@ -44,7 +41,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setSuccessBit(boolean isOn)
 	{
-		setBit(SUCCESS_BIT, isOn);
+		setBitUnchecked(SUCCESS_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setAuthorizationRejectBit(boolean isOn)
 	{
-		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+		setBitUnchecked(AUTHORIZATION_REJECTED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setResourcesExceededBit(boolean isOn)
 	{
-		setBit(RESOURCES_EXCEEDED_BIT, isOn);
+		setBitUnchecked(RESOURCES_EXCEEDED_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setUnknownTMGIBit(boolean isOn)
 	{
-		setBit(UNKNOWN_TMGI_BIT, isOn);
+		setBitUnchecked(UNKNOWN_TMGI_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setTMGINotInUseBit(boolean isOn)
 	{
-		setBit(TMGI_NOT_IN_USE_BIT, isOn);
+		setBitUnchecked(TMGI_NOT_IN_USE_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setOverlappingMBMSServiceAreaBit(boolean isOn)
 	{
-		setBit(OVERLAPPING_MBMS_SERVICE_AREA_BIT, isOn);
+		setBitUnchecked(OVERLAPPING_MBMS_SERVICE_AREA_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setUnknownFlowIdentifierBit(boolean isOn)
 	{
-		setBit(UNKNOWN_FLOW_IDENTIFIER_BIT, isOn);
+		setBitUnchecked(UNKNOWN_FLOW_IDENTIFIER_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setQoSAuthorizationRejectedBit(boolean isOn)
 	{
-		setBit(QOS_AUTHORIZATION_REJECTED_BIT, isOn);
+		setBitUnchecked(QOS_AUTHORIZATION_REJECTED_BIT, isOn);
 	}
 
 	@Override
@@ -140,7 +137,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setUnknownMBMSServiceAreaBit(boolean isOn)
 	{
-		setBit(UNKNOWN_MBMS_SERVICE_AREA_BIT, isOn);
+		setBitUnchecked(UNKNOWN_MBMS_SERVICE_AREA_BIT, isOn);
 	}
 
 	@Override
@@ -152,7 +149,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setMBMSServiceAreaAuthorizationRejectedBit(boolean isOn)
 	{
-		setBit(MBMS_SERVICE_AREA_AUTHORIZATION_REJECTED_BIT, isOn);
+		setBitUnchecked(MBMS_SERVICE_AREA_AUTHORIZATION_REJECTED_BIT, isOn);
 	}
 
 	@Override
@@ -164,7 +161,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setMBMSStartTimeBit(boolean isOn)
 	{
-		setBit(MBMS_START_TIME_BIT, isOn);
+		setBitUnchecked(MBMS_START_TIME_BIT, isOn);
 	}
 
 	@Override
@@ -176,7 +173,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setInvalidAVPCombinationBit(boolean isOn)
 	{
-		setBit(INVALID_AVP_COMBINATION_BIT, isOn);
+		setBitUnchecked(INVALID_AVP_COMBINATION_BIT, isOn);
 	}
 
 	@Override
@@ -188,7 +185,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setSystemErrorBit(boolean isOn)
 	{
-		setBit(SYSTEM_ERROR_BIT, isOn);
+		setBitUnchecked(SYSTEM_ERROR_BIT, isOn);
 	}
 
 	@Override
@@ -200,7 +197,7 @@ public class MBMSBearerResultImpl extends DiameterBitmask32Impl implements MBMSB
 	@Override
 	public void setActivationOngoingBit(boolean isOn)
 	{
-		setBit(ACTIVATION_ONGOING_BIT, isOn);
+		setBitUnchecked(ACTIVATION_ONGOING_BIT, isOn);
 	}
 
 	@Override

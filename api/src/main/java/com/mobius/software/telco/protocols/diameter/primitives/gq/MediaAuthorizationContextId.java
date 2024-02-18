@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	context requested by the AF associated to a media flow. The SPDF forwards this information transparently over the Rq
 	interface (ES 283 026 [14]).  
  */
-@DiameterAvpDefinition(code = 462L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Media-Authorization-Context-Id")
+@DiameterAvpDefinition(code = EtsiAvpCodes.MEDIA_AUTHORIZATION_CONTEXT_ID, vendorId = VendorIDs.ETSI_ID, must = false, name = "Media-Authorization-Context-Id")
 public interface MediaAuthorizationContextId extends DiameterUTF8String
 {
 }

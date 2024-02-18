@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          This attribute includes the value of the cnonce-value [RFC2617]
          without surrounding quotes, taken from the HTTP-style request.
  */
-@DiameterAvpDefinition(code = 113L, vendorId = -1, name = "Digest-CNonce")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_CNONCE, vendorId = -1, name = "Digest-CNonce")
 public interface DigestCNonce extends DiameterUTF8String
 {
 }

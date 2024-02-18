@@ -20,9 +20,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,14 +45,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	For a PS-MT-LR over the Lgd interface, the Additional-Area AVP shall not be included.
  */
-@DiameterAvpDefinition(code = 2534L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Area-Definition")
+@DiameterAvpDefinition(code = TgppAvpCodes.AREA_DEFINITION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Area-Definition")
 public interface AreaDefinition extends DiameterGroupedAvp
 {
 	List<Area> getArea();
 	
-	void setArea(List<Area> value);
+	void setArea(List<Area> value) throws MissingAvpException, AvpOccursTooManyTimesException;
 	
 	List<AdditionalArea> getAdditionalArea();
 	
-	void setAdditionalArea(List<AdditionalArea> value);
+	void setAdditionalArea(List<AdditionalArea> value) throws AvpOccursTooManyTimesException;
 }

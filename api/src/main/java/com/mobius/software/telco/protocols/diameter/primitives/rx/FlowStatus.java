@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE 2: The interpretation of values for IMS flows when SIP Forking is supported is described within the procedures in Annex A.3.1.
  */
-@DiameterAvpDefinition(code = 511L, vendorId = KnownVendorIDs.TGPP_ID, name = "Flow-Status")
+@DiameterAvpDefinition(code = TgppAvpCodes.FLOW_STATUS, vendorId = VendorIDs.TGPP_ID, name = "Flow-Status")
 public interface FlowStatus extends DiameterEnumerated<FlowStatusEnum>
 {
 }

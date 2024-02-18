@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.sd;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.MeteringMethodEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.MuteNotificationEnum;
@@ -74,12 +76,12 @@ import io.netty.buffer.ByteBuf;
 							 [ ToS-Traffic-Class ]
 							*[ AVP ]
 */
-@DiameterAvpDefinition(code = 1094L, vendorId = KnownVendorIDs.TGPP_ID, name = "ADC-Rule-Definition")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADC_RULE_DEFINITION, vendorId = VendorIDs.TGPP_ID, name = "ADC-Rule-Definition")
 public interface ADCRuleDefinition extends DiameterGroupedAvp
 {
 	ByteBuf getADCRuleName();
 	
-	void setADCRuleName(ByteBuf value);
+	void setADCRuleName(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getTDFApplicationIdentifier();
 	

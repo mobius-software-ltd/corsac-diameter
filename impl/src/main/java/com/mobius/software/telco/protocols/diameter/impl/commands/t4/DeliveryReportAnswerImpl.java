@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.t4;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
@@ -33,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777311, commandCode = 8388644, request = false)
 public class DeliveryReportAnswerImpl extends T4AnswerImpl implements DeliveryReportAnswer
 {
 	protected DeliveryReportAnswerImpl() 
@@ -42,7 +42,7 @@ public class DeliveryReportAnswerImpl extends T4AnswerImpl implements DeliveryRe
 		setExperimentalResultAllowed(false);
 	}
 	
-	public DeliveryReportAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public DeliveryReportAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	This AVP is only applicable to UE reachability for IP (25) 
  */
-@DiameterAvpDefinition(code = 712L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "One-Time-Notification")
+@DiameterAvpDefinition(code = TgppAvpCodes.ONE_TIME_NOTIFICATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "One-Time-Notification")
 public interface OneTimeNotification extends DiameterEnumerated<OneTimeNotificationEnum>
 {
 }

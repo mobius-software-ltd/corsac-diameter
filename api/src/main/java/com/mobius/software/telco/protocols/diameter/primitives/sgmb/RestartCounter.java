@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	20.5a.10	Restart-Counter AVP
 	The Restart-Conter AVP (AVP coce 932) is of type Unsigned32. This is a monotonically increasing value that is advanced whenever the MBMS entity restarts with loss of previous state, for example upon restart. The Restart-Counter AVP may be included in any Diameter message over the SGmb reference point, including CER/CEA.
  */
-@DiameterAvpDefinition(code = 932L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Restart-Counter")
+@DiameterAvpDefinition(code = TgppAvpCodes.RESTART_COUNTER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Restart-Counter")
 public interface RestartCounter extends DiameterUnsigned32
 {
 }

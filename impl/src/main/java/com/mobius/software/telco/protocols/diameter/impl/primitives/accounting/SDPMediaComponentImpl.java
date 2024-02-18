@@ -21,10 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingIdentifierValueImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.IPRealmDefaultIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.IPRealmDefaultIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LocalGWInsertedIndication;
@@ -49,7 +47,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 843L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SDPMediaComponentImpl implements SDPMediaComponent
 {
 	private SDPMediaName sdpMediaName;

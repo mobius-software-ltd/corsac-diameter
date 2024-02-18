@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 
 /**
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Mul
 	The Multiple-Services-Credit-Control AVPs, if present, shall contain the Rating-Group AVP to identify the category, optionally one of Quota-Consumption-Time AVP and Time-Quota-Mechanism AVP, and optionally the Envelope-Reporting AVP. 
 	Any values specified in the Offline-Charging AVP take precedence over the configured defaults. The values of the parameters specified at Multiple-Services-Credit-Control level take precedence over the values specified directly at Offline-Charging level. If neither Quota-Consumption-Time AVP nor Time-Quota-Mechanism AVP is included in the Multiple-Services-Credit-Control AVP, then the general reporting requirements dictated by the Quota-Consumption-Time AVP or Time-Quota-Mechanism AVP and Envelope-Reporting AVP directly within the Offline-Charging AVP shall apply.
  */
-@DiameterAvpDefinition(code = 1278L, vendorId = KnownVendorIDs.TGPP_ID, name = "Offline-Charging")
+@DiameterAvpDefinition(code = TgppAvpCodes.OFFLINE_CHARGING, vendorId = VendorIDs.TGPP_ID, name = "Offline-Charging")
 public interface OfflineCharging extends DiameterGroupedAvp
 {
 	Long getQuotaConsumptionTime();

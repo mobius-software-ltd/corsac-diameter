@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.swx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -56,7 +58,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.swx.Non3GPPUserDa
 
 	NOTE:	As the Diameter commands described in this specification have been defined based on the former specification of the Diameter base protocol, the Vendor-Specific-Application-Id AVP is still listed as a required AVP (an AVP indicated as {AVP}) in the command code format specifications defined in this specification to avoid backward compatibility issues, even if the use of this AVP has been deprecated in the new specification of the Diameter base protocol (IETF RFC 6733 [58]).
  */
-@DiameterCommandDefinition(applicationId = 16777265, commandCode = 301, request = false, proxyable = true, name="Server-Assignment-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWX, commandCode = CommandCodes.SERVER_ASSIGNMENT, request = false, proxyable = true, name="Server-Assignment-Answer")
 public interface ServerAssignmentAnswer extends SwxAnswer
 {
 	Non3GPPUserData getNon3GPPUserData();

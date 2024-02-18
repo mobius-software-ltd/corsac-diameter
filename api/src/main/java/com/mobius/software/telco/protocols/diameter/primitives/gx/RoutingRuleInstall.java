@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		*[ Routing-Rule-Definition ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1081L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Routing-Rule-Install")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTING_RULE_INSTALL, vendorId = VendorIDs.TGPP_ID, must=false, name = "Routing-Rule-Install")
 public interface RoutingRuleInstall extends DiameterGroupedAvp
 {
 	List<RoutingRuleDefinition> getRoutingRuleDefinition();

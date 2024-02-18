@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -43,14 +45,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                        { IP-Bit-Mask-Width }
                      * [ AVP ]
  */
-@DiameterAvpDefinition(code = 522L, vendorId = -1L, name = "IP-Address-Mask")
+@DiameterAvpDefinition(code = AvpCodes.IP_ADDRESS_MASK, vendorId = -1L, name = "IP-Address-Mask")
 public interface IPAddressMask extends DiameterGroupedAvp
 {
 	InetAddress getIPAddress();
 	
-	void setIPAddress(InetAddress value);	
+	void setIPAddress(InetAddress value) throws MissingAvpException;	
 	
 	Long getIPBitMaskWidth();
 	
-	void setIPBitMaskWidth(Long value);	
+	void setIPBitMaskWidth(Long value) throws MissingAvpException;	
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    addresses through a particular interface.  This AVP SHOULD be
    included in the ACR messages that pertain to the tunneled session.
  */
-@DiameterAvpDefinition(code = 81L, vendorId = -1L, name = "Tunnel-Private-Group-Id")
+@DiameterAvpDefinition(code = AvpCodes.TUNNEL_PRIVATE_GROUP_ID, vendorId = -1L, name = "Tunnel-Private-Group-Id")
 public interface TunnelPrivateGroupId extends DiameterOctetString
 {
 }

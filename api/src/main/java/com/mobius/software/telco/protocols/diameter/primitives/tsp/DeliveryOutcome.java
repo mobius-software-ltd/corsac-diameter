@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	The Absent-Subscriber-Diagnostic-T4 AVP specified in TS 29.337 [17], clause 6.3.2 is connected with the ABSENT_SUBSCRIBER value in the SM-Delivery-Outcome-T4 AVP. The Absent-Subscriber-Diagnostic-T4 AVP values will not be forwarded via the Tsp interface.
  */
-@DiameterAvpDefinition(code = 3009L, vendorId = KnownVendorIDs.TGPP_ID, name = "Delivery-Outcome")
+@DiameterAvpDefinition(code = TgppAvpCodes.DELIVERY_OUTCOME, vendorId = VendorIDs.TGPP_ID, name = "Delivery-Outcome")
 public interface DeliveryOutcome extends DiameterEnumerated<DeliveryOutcomeEnum>
 {
 }

@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaEventInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.IntervalTime;
@@ -37,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.SamplingInter
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2533L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AreaEventInfoImpl extends DiameterGroupedAvpImpl implements AreaEventInfo
 {
 	private AreaDefinition areaDefinition;
@@ -58,12 +60,9 @@ public class AreaEventInfoImpl extends DiameterGroupedAvpImpl implements AreaEve
 	{
 	}
 	
-	public AreaEventInfoImpl(AreaDefinition areaDefinition)
+	public AreaEventInfoImpl(AreaDefinition areaDefinition) throws MissingAvpException
 	{
-		if(areaDefinition==null)
-			throw new IllegalArgumentException("Area-Definition is required");
-		
-		this.areaDefinition = areaDefinition;
+		setAreaDefinition(areaDefinition);
 	}
 	
 	public AreaDefinition getAreaDefinition()
@@ -71,10 +70,10 @@ public class AreaEventInfoImpl extends DiameterGroupedAvpImpl implements AreaEve
 		return areaDefinition;
 	}
 	
-	public void setAreaDefinition(AreaDefinition value)
-	{
+	public void setAreaDefinition(AreaDefinition value) throws MissingAvpException
+	{		
 		if(value==null)
-			throw new IllegalArgumentException("Area-Definition is required");
+			throw new MissingAvpException("Area-Definition is required", Arrays.asList(new DiameterAvp[] { new AreaDefinitionImpl() }));
 		
 		this.areaDefinition = value;
 	}
@@ -176,10 +175,10 @@ public class AreaEventInfoImpl extends DiameterGroupedAvpImpl implements AreaEve
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(areaDefinition==null)
-			return "Area-Definition is required";
+			return new MissingAvpException("Area-Definition is required", Arrays.asList(new DiameterAvp[] { new AreaDefinitionImpl() }));
 		
 		return null;
 	}

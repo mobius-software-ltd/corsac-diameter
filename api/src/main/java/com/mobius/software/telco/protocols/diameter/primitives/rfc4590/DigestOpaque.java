@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          Access-Challenge packets, the RADIUS server MAY include this
          attribute.
  */
-@DiameterAvpDefinition(code = 116L, vendorId = -1, name = "Digest-Opaque")
+@DiameterAvpDefinition(code = AvpCodes.DIGEST_OPAQUE, vendorId = -1, name = "Digest-Opaque")
 public interface DigestOpaque extends DiameterUTF8String
 {
 }

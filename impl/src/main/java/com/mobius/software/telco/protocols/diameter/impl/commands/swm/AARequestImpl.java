@@ -2,12 +2,15 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.swm;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AARequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -41,7 +44,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777264, commandCode = 265, request = true)
 public class AARequestImpl extends SwmRequestImpl implements AARequest
 {
 	private AuthRequestType authRequestType;
@@ -57,7 +59,7 @@ public class AARequestImpl extends SwmRequestImpl implements AARequest
 		super();
 	}
 	
-	public AARequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType)
+	public AARequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -74,10 +76,10 @@ public class AARequestImpl extends SwmRequestImpl implements AARequest
 	}
 
 	@Override
-	public void setAuthRequestType(AuthRequestTypeEnum value) 
+	public void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Auth-Request-Type is required");	
+			throw new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));	
 		
 		this.authRequestType = new AuthRequestTypeImpl(value, null, null);
 	}
@@ -125,10 +127,10 @@ public class AARequestImpl extends SwmRequestImpl implements AARequest
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authRequestType==null)
-			return "Auth-Request-Type is required";
+			return new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));
 		
 		return super.validate();
 	}

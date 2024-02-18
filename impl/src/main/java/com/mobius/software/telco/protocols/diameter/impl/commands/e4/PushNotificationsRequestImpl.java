@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.e4;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LogicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PhysicalAccessIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.IPConnectivityStatusImpl;
@@ -50,7 +51,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777231, commandCode = 309, request = true)
 public class PushNotificationsRequestImpl extends E4RequestImpl implements PushNotificationRequest
 {
 	private GloballyUniqueAddress globallyUniqueAddress;
@@ -76,7 +76,7 @@ public class PushNotificationsRequestImpl extends E4RequestImpl implements PushN
 		super();
 	}
 	
-	public PushNotificationsRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState)
+	public PushNotificationsRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 	}

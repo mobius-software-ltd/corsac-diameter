@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The BSSID AVP (AVP code 2716) is of type UTF8String and contains the BSSID of the access point where UE is
 	located in a WLAN Access Network. The format used for BSSID is described in IEEE Std 802.11-2012 [409]. 
  */
-@DiameterAvpDefinition(code = 2716L, vendorId = KnownVendorIDs.TGPP_ID, name = "BSSID")
+@DiameterAvpDefinition(code = TgppAvpCodes.BSSID, vendorId = VendorIDs.TGPP_ID, name = "BSSID")
 public interface BSSID extends DiameterUTF8String
 {
 }

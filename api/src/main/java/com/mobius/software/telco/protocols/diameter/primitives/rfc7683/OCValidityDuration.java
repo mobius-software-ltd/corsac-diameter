@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 	   Duration is greater than the maximum value, then the default value
 	   applies.
 */
-@DiameterAvpDefinition(code = 625L, vendorId = -1L, must = false, name = "OC-Validity-Duration")
+@DiameterAvpDefinition(code = AvpCodes.OC_VALIDITY_DURATION, vendorId = -1L, must = false, name = "OC-Validity-Duration")
 public interface OCValidityDuration extends DiameterUnsigned32
 {
 }

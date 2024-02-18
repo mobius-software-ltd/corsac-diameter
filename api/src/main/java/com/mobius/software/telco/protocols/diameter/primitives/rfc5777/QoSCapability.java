@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -49,10 +51,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 
    The QoS-Profile-Template AVP is defined in Section 5.3.
  */
-@DiameterAvpDefinition(code = 578L, vendorId = -1L, name = "QoS-Capability")
+@DiameterAvpDefinition(code = AvpCodes.QOS_CAPABILITY, vendorId = -1L, name = "QoS-Capability")
 public interface QoSCapability extends DiameterGroupedAvp
 {
 	List<QoSProfileTemplate> getQoSProfileTemplate();
 	
-	void setQoSProfileTemplate(List<QoSProfileTemplate> value);
+	void setQoSProfileTemplate(List<QoSProfileTemplate> value) throws MissingAvpException;
 }

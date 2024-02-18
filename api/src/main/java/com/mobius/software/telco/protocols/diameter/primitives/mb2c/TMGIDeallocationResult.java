@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	3 System error
 	The requested TMGI deallocation failed due to internal system error in the BM-SC.
  */
-@DiameterAvpDefinition(code = 3514L, vendorId = KnownVendorIDs.TGPP_ID, name = "TMGI‑Deallocation‑Result")
+@DiameterAvpDefinition(code = TgppAvpCodes.TMGI_DEALLOCATION_RESULT, vendorId = VendorIDs.TGPP_ID, name = "TMGI‑Deallocation‑Result")
 public interface TMGIDeallocationResult extends DiameterBitmask32
 {
 	public static final int SUCCESS_BIT = 0;

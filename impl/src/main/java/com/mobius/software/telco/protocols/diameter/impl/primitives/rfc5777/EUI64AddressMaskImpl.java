@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.EUI64Address;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.EUI64AddressMask;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.EUI64AddressMaskPattern;
@@ -33,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 528L, vendorId = -1L)
 public class EUI64AddressMaskImpl extends DiameterGroupedAvpImpl implements EUI64AddressMask
 {
 	private EUI64Address eui64Address;
@@ -44,17 +47,11 @@ public class EUI64AddressMaskImpl extends DiameterGroupedAvpImpl implements EUI6
 	{
 	}
 	
-	public EUI64AddressMaskImpl(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern)
+	public EUI64AddressMaskImpl(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern) throws MissingAvpException
 	{
-		if(eui64Address==null)
-			throw new IllegalArgumentException("EUI64-Address is required");
+		setEUI64Address(eui64Address);
 		
-		if(eui64AddressMaskPattern==null)
-			throw new IllegalArgumentException("EUI64-Address-Mask-Pattern is required");
-		
-		this.eui64Address = new EUI64AddressImpl(eui64Address, null, null);
-		
-		this.eui64AddressMaskPattern = new EUI64AddressMaskPatternImpl(eui64AddressMaskPattern, null, null);
+		setEUI64AddressMaskPattern(eui64AddressMaskPattern);
 	}
 	
 	public ByteBuf getEUI64Address()
@@ -65,11 +62,11 @@ public class EUI64AddressMaskImpl extends DiameterGroupedAvpImpl implements EUI6
 		return this.eui64Address.getValue();
 	}
 	
-	public void setEUI64Address(ByteBuf value)
+	public void setEUI64Address(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("EUI64-Address is required");
-		
+			throw new MissingAvpException("EUI64-Address is required", Arrays.asList(new DiameterAvp[] { new EUI64AddressImpl() }));
+			
 		this.eui64Address = new EUI64AddressImpl(value, null, null);		
 	}
 	
@@ -81,22 +78,22 @@ public class EUI64AddressMaskImpl extends DiameterGroupedAvpImpl implements EUI6
 		return this.eui64AddressMaskPattern.getValue();
 	}
 	
-	public void setEUI64AddressMaskPattern(ByteBuf value)
+	public void setEUI64AddressMaskPattern(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("EUI64-Address-Mask-Pattern is required");
-		
+			throw new MissingAvpException("EUI64-Address-Mask-Pattern is required", Arrays.asList(new DiameterAvp[] { new EUI64AddressMaskPatternImpl() }));
+			
 		this.eui64AddressMaskPattern = new EUI64AddressMaskPatternImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(eui64Address==null)
-			return "EUI64-Address is required";
+			return new MissingAvpException("EUI64-Address is required", Arrays.asList(new DiameterAvp[] { new EUI64AddressImpl() }));
 		
 		if(eui64AddressMaskPattern==null)
-			return "EUI64-Address-Mask-Pattern is required";
+			return new MissingAvpException("EUI64-Address-Mask-Pattern is required", Arrays.asList(new DiameterAvp[] { new EUI64AddressMaskPatternImpl() }));
 		
 		return null;
 	}

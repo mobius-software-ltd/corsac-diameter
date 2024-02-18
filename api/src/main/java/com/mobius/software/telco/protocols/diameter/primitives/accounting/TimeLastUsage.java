@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Time-Last-Usage AVP (AVP code 2044) is of type Time and holds the time in UTC format for the last IP packet to
 	be transmitted and mapped to the current service data container. 
  */
-@DiameterAvpDefinition(code = 2044L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Last-Usage")
+@DiameterAvpDefinition(code = TgppAvpCodes.TIME_LAST_USAGE, vendorId = VendorIDs.TGPP_ID, name = "Time-Last-Usage")
 public interface TimeLastUsage extends DiameterTime
 {
 }

@@ -19,6 +19,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc6;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.pc6.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.OCOLRImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPPOCSpecificReductionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
@@ -96,7 +98,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
@@ -111,7 +113,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
@@ -151,37 +153,37 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ProSeDirectAllowedImpl();
 	}
 	
-	public UserIdentity getUserIdentity(String publicIdentity, String msisdn, String externalIdentifier)
+	public UserIdentity getUserIdentity(String publicIdentity, String msisdn, String externalIdentifier) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		return new UserIdentityImpl(publicIdentity, msisdn, externalIdentifier);
 	}
 	
-	public DiscoveryAuthResponse getDiscoveryAuthResponse(DiscoveryTypeEnum discoveryType)
+	public DiscoveryAuthResponse getDiscoveryAuthResponse(DiscoveryTypeEnum discoveryType) throws MissingAvpException
 	{
 		return new DiscoveryAuthResponseImpl(discoveryType);
 	}
 	
-	public DiscoveryAuthRequest getDiscoveryAuthRequest(DiscoveryTypeEnum discoveryType)
+	public DiscoveryAuthRequest getDiscoveryAuthRequest(DiscoveryTypeEnum discoveryType) throws MissingAvpException
 	{
 		return new DiscoveryAuthRequestImpl(discoveryType);
 	}
 	
-	public MatchReport getMatchReport(DiscoveryTypeEnum discoveryType)
+	public MatchReport getMatchReport(DiscoveryTypeEnum discoveryType) throws MissingAvpException
 	{
 		return new MatchReportImpl(discoveryType);
 	}
 	
-	public MatchReportInfo getMatchReportInfo(DiscoveryTypeEnum discoveryType)
+	public MatchReportInfo getMatchReportInfo(DiscoveryTypeEnum discoveryType) throws MissingAvpException
 	{
 		return new MatchReportInfoImpl(discoveryType);
 	}
 	
-	public MatchRequest getMatchRequest(DiscoveryTypeEnum discoveryType)
+	public MatchRequest getMatchRequest(DiscoveryTypeEnum discoveryType) throws MissingAvpException
 	{
 		return new MatchRequestImpl(discoveryType);
 	}
 	
-	public LocationUpdateTrigger getLocationUpdateTrigger(LocationUpdateEventTypeEnum locationUpdateEventType)
+	public LocationUpdateTrigger getLocationUpdateTrigger(LocationUpdateEventTypeEnum locationUpdateEventType) throws MissingAvpException
 	{
 		return new LocationUpdateTriggerImpl(locationUpdateEventType);
 	}
@@ -196,7 +198,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new CodeSendingSecurityMaterialImpl();
 	}
 	
-	public ProSeDiscoveryFilter getProSeDiscoveryFilter(ByteBuf filterId,String proSeAppId,Long proSeValidityTimer,ByteBuf proSeAppCode)
+	public ProSeDiscoveryFilter getProSeDiscoveryFilter(ByteBuf filterId,String proSeAppId,Long proSeValidityTimer,ByteBuf proSeAppCode) throws MissingAvpException
 	{
 		return new ProSeDiscoveryFilterImpl(filterId, proSeAppId, proSeValidityTimer, proSeAppCode);
 	}
@@ -206,32 +208,32 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ServiceResultImpl();
 	}
 	
-	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix)
+	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException
 	{
 		return new ProSeRestrictedCodeSuffixRangeImpl(beginningSuffix);
 	}
 	
-	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix)
+	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException
 	{
 		return new ProSeAppCodeSuffixRangeImpl(beginningSuffix);
 	}
 	
-	public AppIdentifier getAppIdentifier(ByteBuf osID,String osAppID)
+	public AppIdentifier getAppIdentifier(ByteBuf osID,String osAppID) throws MissingAvpException
 	{
 		return new AppIdentifierImpl(osID, osAppID);
 	}
 	
-	public ProSeAppCodeInfo getProSeAppCodeInfo(ByteBuf proSeAppCode,ByteBuf mic,Long utcBasedCounter)
+	public ProSeAppCodeInfo getProSeAppCodeInfo(ByteBuf proSeAppCode,ByteBuf mic,Long utcBasedCounter) throws MissingAvpException
 	{
 		return new ProSeAppCodeInfoImpl(proSeAppCode, mic, utcBasedCounter);
 	}
 	
-	public PeriodicLocationType getPeriodicLocationType(Long locationReportIntervalTime,Long totalNumberOfReports)
+	public PeriodicLocationType getPeriodicLocationType(Long locationReportIntervalTime,Long totalNumberOfReports) throws MissingAvpException
 	{
 		return new PeriodicLocationTypeImpl(locationReportIntervalTime, totalNumberOfReports);
 	}
 	
-	public ChangeOfAreaType getChangeOfAreaType(LocationUpdateEventTriggerEnum locationUpdateEventTrigger,ReportCardinalityEnum reportCardinality)
+	public ChangeOfAreaType getChangeOfAreaType(LocationUpdateEventTriggerEnum locationUpdateEventTrigger,ReportCardinalityEnum reportCardinality) throws MissingAvpException
 	{
 		return new ChangeOfAreaTypeImpl(locationUpdateEventTrigger, reportCardinality);
 	}

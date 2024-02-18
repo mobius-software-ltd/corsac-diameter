@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.11	Maximum-Detection-Time
 	The Maximum-Detection-Time AVP is of type Unsigned32. It shall contain the maximum number of seconds without any communication with the UE after which the SCEF is to be informed that the UE is considered to be unreachable. It is used to set the subscribed periodic RAU/TAU timer by the HSS.
  */
-@DiameterAvpDefinition(code = 3131L, vendorId = KnownVendorIDs.TGPP_ID, name = "Maximum-Detection-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAXIMUM_DETECTION_TIME, vendorId = VendorIDs.TGPP_ID, name = "Maximum-Detection-Time")
 public interface MaximumDetectionTime extends DiameterUnsigned32
 {
 }

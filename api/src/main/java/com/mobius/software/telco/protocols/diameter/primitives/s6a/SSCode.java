@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.85	SS-Code
 	The SS-Code AVP is of type OctetString. Octets are coded according to 3GPP TS 29.002 [24].
  */
-@DiameterAvpDefinition(code = 1476L, vendorId = KnownVendorIDs.TGPP_ID, name = "SS-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.SS_CODE, vendorId = VendorIDs.TGPP_ID, name = "SS-Code")
 public interface SSCode extends DiameterOctetString
 {
 }

@@ -22,11 +22,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.RecipientAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.VASIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.VASPIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.Adaptations;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AdaptationsEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ApplicID;
@@ -62,7 +60,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.VASPID;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 877L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MMSInformationImpl implements MMSInformation
 {
 	private OriginatorAddress originatorAddress;

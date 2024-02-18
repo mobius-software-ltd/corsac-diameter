@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    a network.  This AVP SHOULD only be present in authorization
    responses.  The supported values are listed in [RADIUSAttrVals].
  */
-@DiameterAvpDefinition(code = 10L, vendorId = -1L, name = "Framed-Routing")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_ROUTING, vendorId = -1L, name = "Framed-Routing")
 public interface FramedRouting extends DiameterEnumerated<FramedRoutingEnum>
 {
 }

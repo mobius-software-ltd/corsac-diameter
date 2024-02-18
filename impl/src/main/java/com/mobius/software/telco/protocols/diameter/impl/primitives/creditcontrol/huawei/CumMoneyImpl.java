@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumUnitValue;
 
@@ -29,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20855L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class CumMoneyImpl implements CumMoney
 {
 	private CumUnitValue cumUnitValue;
@@ -39,7 +41,7 @@ public class CumMoneyImpl implements CumMoney
 		
 	}
 	
-	public CumMoneyImpl(CumUnitValue cumUnitValue)
+	public CumMoneyImpl(CumUnitValue cumUnitValue) throws MissingAvpException
 	{
 		setCumUnitValue(cumUnitValue);
 	}
@@ -51,19 +53,19 @@ public class CumMoneyImpl implements CumMoney
 	}
 	
 	@Override
-	public void setCumUnitValue(CumUnitValue value)
+	public void setCumUnitValue(CumUnitValue value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Cum-Unit-Value is required");
-		
+			throw new MissingAvpException("Cum-Unit-Value is required", Arrays.asList(new DiameterAvp[] { new CumUnitValueImpl() }));
+			
 		this.cumUnitValue = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(cumUnitValue==null)
-			return "Cum-Unit-Value is required";
+			return new MissingAvpException("Cum-Unit-Value is required", Arrays.asList(new DiameterAvp[] { new CumUnitValueImpl() }));
 		
 		return null;
 	}

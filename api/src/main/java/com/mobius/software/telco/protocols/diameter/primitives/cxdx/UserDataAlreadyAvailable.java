@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	USER_DATA_ALREADY_AVAILABLE (1)
     	• 	The S-CSCF already has the data that it needs to serve the user.
  */
-@DiameterAvpDefinition(code = 624L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Data-Already-Available")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_DATA_ALREADY_AVAILABLE, vendorId = VendorIDs.TGPP_ID, name = "User-Data-Already-Available")
 public interface UserDataAlreadyAvailable extends DiameterEnumerated<UserDataAlreadyAvailableEnum>
 {
 }

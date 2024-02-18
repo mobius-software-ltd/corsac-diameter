@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ENodeBIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ExtendedENodeBIdImpl;
@@ -26,7 +25,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.AgeOfLoc
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CurrentLocationRetrievedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.EUTRANCellGlobalIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.TrackingAreaIdentityImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.np.ENodeBId;
 import com.mobius.software.telco.protocols.diameter.primitives.np.ExtendedENodeBId;
@@ -45,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 1600L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MMELocationInformationImpl extends DiameterGroupedAvpImpl implements MMELocationInformation
 {
 	private EUTRANCellGlobalIdentity eutranCellGlobalIdentity;

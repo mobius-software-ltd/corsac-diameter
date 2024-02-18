@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 
    	The Minimum-Policed-Unit AVP (AVP Code 499) is of type Unsigned32.
  */
-@DiameterAvpDefinition(code = 499L, vendorId = -1L, name = "Minimum-Policed-Unit")
+@DiameterAvpDefinition(code = AvpCodes.MINIMUM_POLICED_UNIT, vendorId = -1L, name = "Minimum-Policed-Unit")
 public interface MinimumPolicedUnit extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This AVP shall contain one of the identifiers (IMSI, MSISDN or External-Identifier). The IMSI of the UE shall be included (when applicable) in the User-Name AVP.
 	The External-Identifier AVP may either contain the identity of an individual UE or the identity of a Group of UEs. The Type-Of-External-Identifier is used to indicate which type of identity is carried in the External-Identifier. When the Type-Of-External-Identifier is not present, it means the External-Identifier AVP contains the identity of an individual UE.
  */
-@DiameterAvpDefinition(code = 3102L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "User-Identifier")
 public interface UserIdentifier extends DiameterGroupedAvp
 {
 	String getUserName();

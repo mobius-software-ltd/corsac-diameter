@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Contact AVP is of type OctetString and it contains the Contact Addresses and Parameters in the Contact header as 
 	defined in IETF RFC 3261 [11].
  */
-@DiameterAvpDefinition(code = 641L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Contact")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONTACT, vendorId = VendorIDs.TGPP_ID, must = false, name = "Contact")
 public interface Contact extends DiameterOctetString
 {
 }

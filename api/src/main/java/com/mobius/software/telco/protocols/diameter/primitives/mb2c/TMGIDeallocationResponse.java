@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -44,12 +46,12 @@ import io.netty.buffer.ByteBuf;
                                  [ TMGI-Deallocation-Result ]
                                 *[ AVP ]
  */
-@DiameterAvpDefinition(code = 3513L, vendorId = KnownVendorIDs.TGPP_ID, name = "TMGI-Deallocation-Response")
+@DiameterAvpDefinition(code = TgppAvpCodes.TMGI_DEALLOCATION_RESPONSE, vendorId = VendorIDs.TGPP_ID, name = "TMGI-Deallocation-Response")
 public interface TMGIDeallocationResponse extends DiameterGroupedAvp
 {
 	List<ByteBuf> getTMGI();
 	
-	void setTMGI(List<ByteBuf> value);	
+	void setTMGI(List<ByteBuf> value) throws MissingAvpException;	
 	
 	TMGIDeallocationResult getTMGIDeallocationResult();
 	

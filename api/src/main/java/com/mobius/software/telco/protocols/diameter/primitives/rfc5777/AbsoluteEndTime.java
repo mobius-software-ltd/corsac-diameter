@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
    	UTC when the time window ends.  If this AVP is absent from the Time-
    	Of-Day-Condition AVP, then the time window is open-ended.
  */
-@DiameterAvpDefinition(code = 568L, vendorId = -1L, name = "Absolute-End-Time")
+@DiameterAvpDefinition(code = AvpCodes.ABSOLUTE_END_TIME, vendorId = -1L, name = "Absolute-End-Time")
 public interface AbsoluteEndTime extends DiameterTime
 {
 }

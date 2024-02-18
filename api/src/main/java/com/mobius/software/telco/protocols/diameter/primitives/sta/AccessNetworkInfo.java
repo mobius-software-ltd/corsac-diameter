@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -55,7 +56,7 @@ import io.netty.buffer.ByteBuf;
 	The Location-Data and Location-Information AVPs are defined in IETF RFC 5580 [46]; the content of Location-Information shall indicate that the encoding follows a civic location profile, by setting the "Code" field to 0.
 	The Operator-Name AVP is defined in IETF RFC 5580 [46]; the first 8 bits contain the Namespace ID field, whose values are managed by IANA, and are encoded as a single ASCII character. Only values "1" (Realm) and "2" (E212, containing MCC and MNC values) shall be used in this specification.
  */
-@DiameterAvpDefinition(code = 1526L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Access-Network-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_NETWORK_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Access-Network-Info")
 public interface AccessNetworkInfo extends DiameterGroupedAvp
 {
 	String getSSID();

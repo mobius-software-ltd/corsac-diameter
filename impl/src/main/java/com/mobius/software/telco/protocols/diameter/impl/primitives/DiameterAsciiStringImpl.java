@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
 import java.nio.charset.Charset;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAsciiString;
 
 import io.netty.buffer.ByteBuf;
@@ -33,7 +34,7 @@ import io.netty.buffer.Unpooled;
 public class DiameterAsciiStringImpl extends DiameterOctetStringImpl implements DiameterAsciiString
 {
 	public static final Charset ENCODING=Charset.forName("iso-8859-1");
-	private String value;
+	protected String value;
 	
 	//required for parser
 	protected DiameterAsciiStringImpl() 
@@ -58,7 +59,7 @@ public class DiameterAsciiStringImpl extends DiameterOctetStringImpl implements 
 	}
 
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		super.decode(buffer, length);
 		ByteBuf value = getValue();

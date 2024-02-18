@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 Content Provider
 	1 Subscriber 
  */
-@DiameterAvpDefinition(code = 2323L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Charged-Party")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_CHARGED_PARTY, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Charged-Party")
 public interface MBMSChargedParty extends DiameterEnumerated<MBMSChargedPartyEnum>
 {
 }

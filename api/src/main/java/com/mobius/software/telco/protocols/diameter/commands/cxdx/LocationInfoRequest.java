@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.OriginatingRequestEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SessionPriorityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserAuthorizationTypeEnum;
@@ -54,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 302, request = true, proxyable = true, name="Location-Info-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.LOCATION_INFO, request = true, proxyable = true, name="Location-Info-Request")
 public interface LocationInfoRequest extends CxDxRequest
 {
 	OriginatingRequestEnum getOriginatingRequest();
@@ -67,7 +70,7 @@ public interface LocationInfoRequest extends CxDxRequest
 	 		
 	String getPublicIdentity();
 	
-	void setPublicIdentity(String value);
+	void setPublicIdentity(String value) throws MissingAvpException;
 	
 	UserAuthorizationTypeEnum getUserAuthorizationType();
 	

@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.AuthenticationInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -42,7 +45,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777251, commandCode = 318, request = true)
 public class AuthenticationInformationRequestImpl extends S6aRequestImpl implements AuthenticationInformationRequest
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -60,7 +62,7 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 		super();
 	}
 	
-	public AuthenticationInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,ByteBuf visitedPLMNId)
+	public AuthenticationInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,ByteBuf visitedPLMNId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -113,10 +115,10 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 	}
 	 
 	@Override
-	public void setVisitedPLMNId(ByteBuf value)
+	public void setVisitedPLMNId(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Visited-PLMN-Id is required");
+			throw new MissingAvpException("Visited-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		this.visitedPLMNId = new VisitedPLMNIdImpl(value, null, null);
 	}
@@ -131,16 +133,16 @@ public class AuthenticationInformationRequestImpl extends S6aRequestImpl impleme
 	public void setAIRFlags(AIRFlags value)
 	{
 		if(value == null)
-			throw new IllegalArgumentException("AIR-Flags is required");
-		
-		this.airFlags = value;
+			this.airFlags = null;
+		else
+			this.airFlags = value;
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(visitedPLMNId == null)
-			return "Visited-PLMN-Id is required";
+			return new MissingAvpException("Visited-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		return super.validate();
 	}		

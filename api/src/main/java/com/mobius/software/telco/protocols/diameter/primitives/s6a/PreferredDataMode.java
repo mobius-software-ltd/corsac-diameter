@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	NOTE 3:	This parameter only applies to E-UTRAN and SGi PDN connections. Data over User Plane refers to PDN data transported  over S1-U and Data Radio Bearer. Data over Control Plane refers to PDN data transported over NAS and Signalling Radio Bearer.
  */
-@DiameterAvpDefinition(code = 1686L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Preferred-Data-Mode")
+@DiameterAvpDefinition(code = TgppAvpCodes.PREFERRED_DATA_MODE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Preferred-Data-Mode")
 public interface PreferredDataMode extends DiameterUnsigned32
 {
 }

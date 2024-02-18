@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PendingPolicyCounterInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatus;
@@ -34,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterS
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2903L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PolicyCounterStatusReportImpl extends DiameterGroupedAvpImpl implements PolicyCounterStatusReport
 {
 	private PolicyCounterIdentifier policyCounterIdentifier;
@@ -47,17 +48,11 @@ public class PolicyCounterStatusReportImpl extends DiameterGroupedAvpImpl implem
 	{
 	}
 	
-	public PolicyCounterStatusReportImpl(String policyCounterIdentifier,String policyCounterStatus)
+	public PolicyCounterStatusReportImpl(String policyCounterIdentifier,String policyCounterStatus) throws MissingAvpException
 	{
-		if(policyCounterIdentifier==null)
-			throw new IllegalArgumentException("Transfer-Policy-Id is required");
+		setPolicyCounterIdentifier(policyCounterIdentifier);
 		
-		if(policyCounterStatus==null)
-			throw new IllegalArgumentException("Policy-Counter-Status is required");
-		
-		this.policyCounterIdentifier = new PolicyCounterIdentifierImpl(policyCounterIdentifier, null, null);				
-		
-		this.policyCounterStatus = new PolicyCounterStatusImpl(policyCounterStatus, null, null);
+		setPolicyCounterStatus(policyCounterStatus);		
 	}
 	
 	public String getPolicyCounterIdentifier()
@@ -68,10 +63,10 @@ public class PolicyCounterStatusReportImpl extends DiameterGroupedAvpImpl implem
 		return policyCounterIdentifier.getString();
 	}
 	
-	public void setPolicyCounterIdentifier(String value)
+	public void setPolicyCounterIdentifier(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Policy-Counter-Identifier is required");
+			throw new MissingAvpException("Policy-Counter-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new PolicyCounterIdentifierImpl() }));
 		
 		this.policyCounterIdentifier = new PolicyCounterIdentifierImpl(value, null, null);				
 	}
@@ -84,10 +79,10 @@ public class PolicyCounterStatusReportImpl extends DiameterGroupedAvpImpl implem
 		return policyCounterStatus.getString();
 	}
 	
-	public void setPolicyCounterStatus(String value)
+	public void setPolicyCounterStatus(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Policy-Counter-Status is required");
+			throw new MissingAvpException("Policy-Counter-Status is required is required", Arrays.asList(new DiameterAvp[] { new PolicyCounterStatusImpl() }));
 		
 		this.policyCounterStatus = new PolicyCounterStatusImpl(value, null, null);
 	}
@@ -103,13 +98,13 @@ public class PolicyCounterStatusReportImpl extends DiameterGroupedAvpImpl implem
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(policyCounterIdentifier==null)
-			return "Policy-Counter-Identifier is required";
+			return new MissingAvpException("Policy-Counter-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new PolicyCounterIdentifierImpl() }));
 		
 		if(policyCounterStatus==null)
-			return "Policy-Counter-Status is required";
+			return new MissingAvpException("Policy-Counter-Status is required is required", Arrays.asList(new DiameterAvp[] { new PolicyCounterStatusImpl() }));
 		
 		return null;
 	}

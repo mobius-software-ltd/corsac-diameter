@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -53,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The number format for the MVNO function: CC + MSISDN, and CC is the code of a country where the OCG system located.
  */
-@DiameterAvpDefinition(code = 20337L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Called-Party-Address")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALLED_PARTY_ADDRESS, vendorId = VendorIDs.HUAWEI_ID, name = "Called-Party-Address")
 public interface CalledPartyAddress extends DiameterUTF8String
 {
 }

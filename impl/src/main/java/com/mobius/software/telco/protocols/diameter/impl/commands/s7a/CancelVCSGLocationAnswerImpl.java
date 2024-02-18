@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s7a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
@@ -33,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777308, commandCode = 8388642, request = false)
 public class CancelVCSGLocationAnswerImpl extends S7aAnswerImpl implements CancelVCSGLocationAnswer
 {
 	protected CancelVCSGLocationAnswerImpl() 
@@ -42,7 +42,7 @@ public class CancelVCSGLocationAnswerImpl extends S7aAnswerImpl implements Cance
 		setExperimentalResultAllowed(false);
 	}
 	
-	public CancelVCSGLocationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public CancelVCSGLocationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

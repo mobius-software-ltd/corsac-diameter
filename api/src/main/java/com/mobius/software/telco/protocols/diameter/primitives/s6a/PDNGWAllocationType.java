@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	DYNAMIC (1)
  */
-@DiameterAvpDefinition(code = 1438L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDN-GW-Allocation-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDN_GW_ALLOCATION_TYPE, vendorId = VendorIDs.TGPP_ID, name = "PDN-GW-Allocation-Type")
 public interface PDNGWAllocationType extends DiameterEnumerated<PDNGWAllocationTypeEnum>
 {
 }

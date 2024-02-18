@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 		 { Framed-IPv6-Prefix } ;
 		 { Port-Number } 
 */
-@DiameterAvpDefinition(code = 453L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "V6-Transport-Address")
+@DiameterAvpDefinition(code = EtsiAvpCodes.V6_TRANSPORT_ADDRESS, vendorId = VendorIDs.ETSI_ID, must = false, name = "V6-Transport-Address")
 public interface V6TransportAddress extends DiameterAvp
 {
 	ByteBuf getFramedIPv6Prefix();
 	
-	void setFramedIPv6Prefix(ByteBuf value);	
+	void setFramedIPv6Prefix(ByteBuf value) throws MissingAvpException;	
 	
 	Long getPortNumber();
 	
-	void setPortNumber(Long value);
+	void setPortNumber(Long value) throws MissingAvpException;
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.AbsentSubscriberDiagnosticT4;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.AbsentSubscriberDiagnosticT4Enum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t4.AbsentSubscrib
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3201L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AbsentSubscriberDiagnosticT4Impl extends DiameterEnumeratedImpl<AbsentSubscriberDiagnosticT4Enum> implements AbsentSubscriberDiagnosticT4
 {
 	protected AbsentSubscriberDiagnosticT4Impl()

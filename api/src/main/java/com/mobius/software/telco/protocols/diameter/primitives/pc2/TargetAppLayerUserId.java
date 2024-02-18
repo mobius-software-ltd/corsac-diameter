@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.3	Target-App-Layer-User-Id AVP
 	The Target-App-Layer-User-Id AVP (AVP code 3601) is of type UTF8String, and it contains an identity identifying a target user within the context of a specific application (e.g. tommy@social.net).
  */
-@DiameterAvpDefinition(code = 3601L, vendorId = KnownVendorIDs.TGPP_ID, name = "Target-App-Layer-User-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.TARGET_APP_LAYER_USER_ID, vendorId = VendorIDs.TGPP_ID, name = "Target-App-Layer-User-Id")
 public interface TargetAppLayerUserId extends DiameterUTF8String
 {
 }

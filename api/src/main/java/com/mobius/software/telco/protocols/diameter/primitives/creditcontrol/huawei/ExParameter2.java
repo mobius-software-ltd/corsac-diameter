@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The value format is code1|value1|code2|value2|codeN|valueN. The value must end with a vertical bar (|). 
 	If the value of this AVP exceeds 256 digits, the excessive code|value groups are stored in ExParameter2, ExParameter3, until ExParameter10.
  */
-@DiameterAvpDefinition(code = 30313L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Ex-Parameter-2")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.EX_PARAMETER_2, vendorId = VendorIDs.HUAWEI_ID, name = "Ex-Parameter-2")
 public interface ExParameter2 extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SGSN-Address AVP (AVP code 1228) is of type Address and holds the IP-address of the SGSN/Serving Node (e.g.
 	S-GW, AGW, ePDG, TWAG from the P-GW/TDF and S4-SGSN, MME from the S-GW) that was used during a report.
  */
-@DiameterAvpDefinition(code = 1228L, vendorId = KnownVendorIDs.TGPP_ID, name = "SGSN-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.SGSN_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "SGSN-Address")
 public interface SGSNAddress extends DiameterAddress
 {
 }

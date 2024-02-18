@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ Relationship-Mode ]
 			[ Neighbour-Node-Address ]
  */
-@DiameterAvpDefinition(code = 2703L, vendorId = KnownVendorIDs.TGPP_ID, name = "NNI-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.NNI_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "NNI-Information")
 public interface NNIInformation extends DiameterAvp
 {
 	SessionDirectionEnum getSessionDirection();

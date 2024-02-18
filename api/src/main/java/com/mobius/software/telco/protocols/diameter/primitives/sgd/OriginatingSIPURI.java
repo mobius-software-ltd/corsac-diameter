@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.3.15	Originating-SIP-URI
 	The Originating-SIP-URI AVP is of type UTF8String. It shall contain the Public identity of the IMS UE without MSISDN which is the sender of a short message, in the context of MSISDN-less SMS delivery in IMS (see 3GPP TS 23.204 [17]).
  */
-@DiameterAvpDefinition(code = 3326L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Originating-SIP-URI")
+@DiameterAvpDefinition(code = TgppAvpCodes.ORIGNATING_SIP_URI, vendorId = VendorIDs.TGPP_ID, must = false, name = "Originating-SIP-URI")
 public interface OriginatingSIPURI extends DiameterUTF8String
 {
 }

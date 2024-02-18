@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 ACR_Start_NOT_due_to_SGW_Change
 	1 ACR_Start_due_to_SGW_Change
  */
-@DiameterAvpDefinition(code = 2065L, vendorId = KnownVendorIDs.TGPP_ID, name = "SGW-Change")
+@DiameterAvpDefinition(code = TgppAvpCodes.SGW_CHANGE, vendorId = VendorIDs.TGPP_ID, name = "SGW-Change")
 public interface SGWChange extends DiameterEnumerated<SGWChangeEnum>
 {
 }

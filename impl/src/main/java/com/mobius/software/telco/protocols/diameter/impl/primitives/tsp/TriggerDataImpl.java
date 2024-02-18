@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.ApplicationPortIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.Payload;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.PriorityIndication;
@@ -35,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3003L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TriggerDataImpl extends DiameterGroupedAvpImpl implements TriggerData
 {
 	private Payload payload;
@@ -49,12 +51,9 @@ public class TriggerDataImpl extends DiameterGroupedAvpImpl implements TriggerDa
 		super();
 	}
 	
-	public TriggerDataImpl(ByteBuf payload)
+	public TriggerDataImpl(ByteBuf payload) throws MissingAvpException
 	{
-		if(payload == null)
-			throw new IllegalArgumentException("Payload is required");
-		
-		this.payload = new PayloadImpl(payload, null, null);
+		setPayload(payload);
 	}
 	
 	public ByteBuf getPayload()
@@ -65,10 +64,10 @@ public class TriggerDataImpl extends DiameterGroupedAvpImpl implements TriggerDa
 		return payload.getValue();
 	}
 	
-	public void setPayload(ByteBuf value)
+	public void setPayload(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Payload is required");
+			throw new MissingAvpException("Payload is required is required", Arrays.asList(new DiameterAvp[] { new PayloadImpl() }));
 		
 		this.payload = new PayloadImpl(value, null, null);
 	}
@@ -106,10 +105,10 @@ public class TriggerDataImpl extends DiameterGroupedAvpImpl implements TriggerDa
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(payload == null)
-			return "Payload is required";
+			return new MissingAvpException("Payload is required is required", Arrays.asList(new DiameterAvp[] { new PayloadImpl() }));
 		
 		return null;
 	}	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Location-Estimate-Type ]
 		[ Deferred-Location-Event-Type ]
  */
-@DiameterAvpDefinition(code = 1244L, vendorId = KnownVendorIDs.TGPP_ID, name = "Location-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCATION_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Location-Type")
 public interface LocationType extends DiameterAvp
 {
 	LocationEstimateTypeEnum getLocationEstimateType();

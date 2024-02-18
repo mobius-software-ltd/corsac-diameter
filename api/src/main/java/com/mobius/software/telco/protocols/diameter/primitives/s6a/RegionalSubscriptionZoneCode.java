@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE 2:	The description of RSZI in 3GPP TS 23.003 [3] is applicable, in the context of this specification, not only to location areas, but also to routing and tracking areas.
  */
-@DiameterAvpDefinition(code = 1446L, vendorId = KnownVendorIDs.TGPP_ID, name = "Regional-Subscription-Zone-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.REGIONAL_SUBSCRIPTION_ZONE_CODE, vendorId = VendorIDs.TGPP_ID, name = "Regional-Subscription-Zone-Code")
 public interface RegionalSubscriptionZoneCode extends DiameterOctetString
 {
 }

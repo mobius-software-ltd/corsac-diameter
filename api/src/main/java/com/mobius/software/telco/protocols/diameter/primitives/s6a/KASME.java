@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.56	KASME
 	The KASME AVP is of type OctetString. This AVP shall contain the K_ASME. See 3GPP TS 33.401 [5].
  */
-@DiameterAvpDefinition(code = 1450L, vendorId = KnownVendorIDs.TGPP_ID, name = "KASME")
+@DiameterAvpDefinition(code = TgppAvpCodes.KASME, vendorId = VendorIDs.TGPP_ID, name = "KASME")
 public interface KASME extends DiameterOctetString
 {
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /**
@@ -39,14 +41,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
                       [ Currency-Code ]
 */
 
-@DiameterAvpDefinition(code = 413L, vendorId = -1, name = "CC-Money")
+@DiameterAvpDefinition(code = AvpCodes.CC_MONEY, vendorId = -1, name = "CC-Money")
 public interface CCMoney extends DiameterAvp 
 {
 	UnitValue getUnitValue();
 	
-	void setUnitValue(UnitValue unitValue);
+	void setUnitValue(UnitValue unitValue) throws MissingAvpException;
 	
 	Long getCurrencyCode();
 	
-	void setCurrencyCode(Long currencyCode);	
+	void setCurrencyCode(Long currencyCode) throws MissingAvpException;	
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -52,12 +54,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                              [ SIP-Authentication-Info ]
                            * [ AVP ]          
  */
-@DiameterAvpDefinition(code = 376L, vendorId = -1L, name = "SIP-Auth-Data-Item")
+@DiameterAvpDefinition(code = AvpCodes.SIP_AUTH_DATA_ITEM, vendorId = -1L, name = "SIP-Auth-Data-Item")
 public interface SIPAuthDataItem extends DiameterGroupedAvp
 {
 	SIPAuthenticationSchemeEnum getSIPAuthenticationScheme();
 	
-	void setSIPAuthenticationScheme(SIPAuthenticationSchemeEnum value);	
+	void setSIPAuthenticationScheme(SIPAuthenticationSchemeEnum value) throws MissingAvpException;	
 	
 	Long getSIPItemNumber();
 	

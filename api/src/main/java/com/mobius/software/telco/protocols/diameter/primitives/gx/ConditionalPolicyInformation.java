@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -54,7 +55,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		*[ Conditional-APN-Aggregate-Max-Bitrate ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 2840L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Conditional-Policy-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONDITIONAL_POLICY_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Conditional-Policy-Information")
 public interface ConditionalPolicyInformation extends DiameterGroupedAvp
 {
 	Date getExecutionTime();

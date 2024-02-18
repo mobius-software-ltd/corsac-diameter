@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.59	Discovery-Entry-ID 
 	The Discovery-Entry-ID is of type Unsigned32. It shall contain the discovery Entry ID used to identify the discovery entry in the UE context related to the discovery authorization request in the requesting ProSe Function.
  */
-@DiameterAvpDefinition(code = 3850L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Discovery-Entry-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.DISCOVERY_ENTRY_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "Discovery-Entry-ID")
 public interface DiscoveryEntryID extends DiameterUnsigned32
 {
 }

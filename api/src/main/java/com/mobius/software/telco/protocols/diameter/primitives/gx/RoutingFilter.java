@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescription;
 
 import io.netty.buffer.ByteBuf;
@@ -47,16 +49,16 @@ import io.netty.buffer.ByteBuf;
 		 [ Flow-Label ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1078L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Routing-Filter")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTING_FILTER, vendorId = VendorIDs.TGPP_ID, must=false, name = "Routing-Filter")
 public interface RoutingFilter extends DiameterGroupedAvp
 {
 	FlowDescription getFlowDescription();
 	
-	void setFlowDescription(FlowDescription value);	
+	void setFlowDescription(FlowDescription value) throws MissingAvpException;	
 	
 	FlowDirectionEnum getFlowDirection();
 	
-	void setFlowDirection(FlowDirectionEnum value);	
+	void setFlowDirection(FlowDirectionEnum value) throws MissingAvpException;	
 	
 	ByteBuf getToSTrafficClass();
 	

@@ -1,7 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -35,32 +41,19 @@ public abstract class AuthenticationRequestWithHostBase extends AuthenticationRe
 		setDestinationHostAllowed(true);		
 	}
 	
-	public AuthenticationRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId)
+	public AuthenticationRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{	
 		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID, authApplicationId);
 		setDestinationHostAllowed(true);
-		try 
-		{
-			setDestinationHost(destinationHost);
-		}
-		catch(AvpNotSupportedException ex) 
-		{
-			
-		}
+		
+		setDestinationHost(destinationHost);		
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getDestinationHost()==null)
-				return "Destination-Host is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			return ex.getMessage();
-		}
+		if(destinationHost==null)
+			return new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		return super.validate();
 	}

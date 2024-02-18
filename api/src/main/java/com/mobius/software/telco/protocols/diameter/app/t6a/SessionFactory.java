@@ -23,19 +23,21 @@ import com.mobius.software.telco.protocols.diameter.commands.t6a.ConnectionManag
 import com.mobius.software.telco.protocols.diameter.commands.t6a.MODataRequest;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.MTDataRequest;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ReportingInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 
 import io.netty.buffer.ByteBuf;
 
 public interface SessionFactory
 {
-	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);			
+	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;			
 	
-	public ConnectionManagementRequest createConnectionManagementRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier);
+	public ConnectionManagementRequest createConnectionManagementRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier) throws MissingAvpException, AvpNotSupportedException;
 	
-	public MODataRequest createMODataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier);
+	public MODataRequest createMODataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier) throws MissingAvpException, AvpNotSupportedException;
 	
-	public MTDataRequest createMTDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier);
+	public MTDataRequest createMTDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf bearerIdentifier) throws MissingAvpException, AvpNotSupportedException;
 	
-	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);
+	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;
 }

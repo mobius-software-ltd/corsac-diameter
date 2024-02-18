@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 PLMN_OPERATOR_SERVICES
 	3 LAWFUL_INTERCEPT_SERVICES
  */
-@DiameterAvpDefinition(code = 1241L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Client-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_CLIENT_TYPE, vendorId = VendorIDs.TGPP_ID, name = "LCS-Client-Type")
 public interface LCSClientType extends DiameterEnumerated<LCSClientTypeEnum>
 {
 }

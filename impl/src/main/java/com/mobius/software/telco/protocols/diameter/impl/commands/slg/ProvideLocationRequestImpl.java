@@ -2,17 +2,21 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.slg;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LCSClientTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IMEIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSCodewordImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSEPSClientNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSServiceTypeIDImpl;
@@ -75,7 +79,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777255, commandCode = 8388620, request = true)
 public class ProvideLocationRequestImpl extends SlgRequestImpl implements ProvideLocationRequest
 {
 	private SLgLocationType slgLocationType;
@@ -129,7 +132,7 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 		super();
 	}
 	
-	public ProvideLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,SLgLocationTypeEnum slgLocationType,LCSEPSClientName lcsEPSClientName,LCSClientTypeEnum lcsClientType)
+	public ProvideLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,SLgLocationTypeEnum slgLocationType,LCSEPSClientName lcsEPSClientName,LCSClientTypeEnum lcsClientType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -150,10 +153,10 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 	}
 	
 	@Override
-	public void setSLgLocationType(SLgLocationTypeEnum value)
+	public void setSLgLocationType(SLgLocationTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SLg-Location-Type is required");
+			throw new MissingAvpException("SLg-Location-Type is required is required", Arrays.asList(new DiameterAvp[] { new SLgLocationTypeImpl() }));
 			
 		this.slgLocationType = new SLgLocationTypeImpl(value, null, null);
 	}
@@ -201,10 +204,10 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 	}
 	
 	@Override
-	public void setLCSEPSClientName(LCSEPSClientName value)
+	public void setLCSEPSClientName(LCSEPSClientName value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("LCS-EPS-Client-Name is required");
+			throw new MissingAvpException("LCS-EPS-Client-Name is required is required", Arrays.asList(new DiameterAvp[] { new LCSEPSClientNameImpl() }));
 			
 		this.lcsEPSClientName = value;
 	}
@@ -219,10 +222,10 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 	}
 	
 	@Override
-	public void setLCSClientType(LCSClientTypeEnum value)
+	public void setLCSClientType(LCSClientTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("LCS-Client-Type is required");
+			throw new MissingAvpException("LCS-Client-Type is required is required", Arrays.asList(new DiameterAvp[] { new LCSClientTypeImpl() }));
 			
 		this.lcsClientType = new LCSClientTypeImpl(value, null, null);
 	}
@@ -492,16 +495,16 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(slgLocationType == null)
-			return "SLg-Location-Type is required";
+			return new MissingAvpException("SLg-Location-Type is required is required", Arrays.asList(new DiameterAvp[] { new SLgLocationTypeImpl() }));
 		
 		if(lcsEPSClientName == null)
-			return "LCS-EPS-Client-Name is required";
+			return new MissingAvpException("LCS-EPS-Client-Name is required is required", Arrays.asList(new DiameterAvp[] { new LCSEPSClientNameImpl() }));
 		
 		if(lcsClientType == null)
-			return "LCS-Client-Type is required";
+			return new MissingAvpException("LCS-Client-Type is required is required", Arrays.asList(new DiameterAvp[] { new LCSClientTypeImpl() }));
 		
 		return super.validate();
 	}

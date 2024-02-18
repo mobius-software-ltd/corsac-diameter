@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNull;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import org.jdiameter.client.impl.parser.ElementParser;
 import org.jdiameter.client.impl.parser.MessageParser;
 import org.junit.Test;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleDirection;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleIcmpType;
@@ -33,7 +33,7 @@ import io.netty.buffer.Unpooled;
 public class DiameterIpFilterRuleTest 
 {
 	@Test
-	public void testIpFilterRuleCoding() throws IllegalArgumentException, UnknownHostException, ParseException
+	public void testIpFilterRuleCoding() throws IllegalArgumentException, UnknownHostException, InvalidAvpValueException
 	{
 		MessageParser messageParser = new MessageParser();
 		ElementParser elementParser=new ElementParser();

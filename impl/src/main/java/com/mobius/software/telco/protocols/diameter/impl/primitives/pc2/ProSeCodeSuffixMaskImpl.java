@@ -19,12 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc2;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeCodeSuffixMask;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.SuffixCode;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.SuffixMask;
@@ -36,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3608L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeCodeSuffixMaskImpl extends DiameterGroupedAvpImpl implements ProSeCodeSuffixMask
 {
 	private SuffixCode suffixCode;
@@ -46,19 +47,11 @@ public class ProSeCodeSuffixMaskImpl extends DiameterGroupedAvpImpl implements P
 	{
 	}
 	
-	public ProSeCodeSuffixMaskImpl(ByteBuf suffixCode,List<ByteBuf> suffixMask)
+	public ProSeCodeSuffixMaskImpl(ByteBuf suffixCode,List<ByteBuf> suffixMask) throws MissingAvpException
 	{
-		if(suffixCode==null)
-			throw new IllegalArgumentException("Suffix-Code is required");
+		setSuffixCode(suffixCode);
 		
-		if(suffixMask==null || suffixMask.size()==0)
-			throw new IllegalArgumentException("Suffix-Mask is required");
-		
-		this.suffixCode = new SuffixCodeImpl(suffixCode, null, null);				
-		
-		this.suffixMask =  new ArrayList<SuffixMask>();
-		for(ByteBuf curr:suffixMask)
-			this.suffixMask.add(new SuffixMaskImpl(curr, null, null));
+		setSuffixMask(suffixMask);
 	}
 	
 	public ByteBuf getSuffixCode()
@@ -69,11 +62,11 @@ public class ProSeCodeSuffixMaskImpl extends DiameterGroupedAvpImpl implements P
 		return suffixCode.getValue();
 	}
 	
-	public void setSuffixCode(ByteBuf value)
+	public void setSuffixCode(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Suffix-Code is required");
-		
+			throw new MissingAvpException("Suffix-Code is required is required", Arrays.asList(new DiameterAvp[] { new SuffixCodeImpl() }));
+			
 		this.suffixCode = new SuffixCodeImpl(value, null, null);
 	}
 	
@@ -89,10 +82,10 @@ public class ProSeCodeSuffixMaskImpl extends DiameterGroupedAvpImpl implements P
 		return result;
 	}
 	
-	public void setSuffixMask(List<ByteBuf> value)
+	public void setSuffixMask(List<ByteBuf> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Suffix-Mask is required");
+			throw new MissingAvpException("Suffix-Mask is required is required", Arrays.asList(new DiameterAvp[] { new SuffixMaskImpl() }));
 		
 		this.suffixMask =  new ArrayList<SuffixMask>();
 		for(ByteBuf curr:value)
@@ -100,13 +93,13 @@ public class ProSeCodeSuffixMaskImpl extends DiameterGroupedAvpImpl implements P
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(suffixCode==null)
-			return "Suffix-Code is required";
+			return new MissingAvpException("Suffix-Code is required is required", Arrays.asList(new DiameterAvp[] { new SuffixCodeImpl() }));
 		
 		if(suffixMask==null || suffixMask.size()==0)
-			return "Suffix-Mask is required";
+			return new MissingAvpException("Suffix-Mask is required is required", Arrays.asList(new DiameterAvp[] { new SuffixMaskImpl() }));
 		
 		return null;
 	}

@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInfoChange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CellularNetworkInformation;
@@ -36,7 +34,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4401L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AccessNetworkInfoChangeImpl implements AccessNetworkInfoChange
 {
 	private List<AccessNetworkInformation> accessNetworkInformation;

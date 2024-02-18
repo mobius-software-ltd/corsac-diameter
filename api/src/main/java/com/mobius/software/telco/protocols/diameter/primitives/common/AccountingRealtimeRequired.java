@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -60,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
       SHOULD be granted even if the records cannot be delivered or
       stored.
  */
-@DiameterAvpDefinition(code = 483L, vendorId = -1L, name = "Accounting-Realtime-Required")
+@DiameterAvpDefinition(code = AvpCodes.ACCOUNTING_REALTIME_REQUIRED, vendorId = -1L, name = "Accounting-Realtime-Required")
 public interface AccountingRealtimeRequired extends DiameterEnumerated<AccountingRealtimeRequiredEnum>
 {
 }

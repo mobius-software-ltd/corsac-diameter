@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ReasonCode;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ReasonCodeEnum;
@@ -32,24 +35,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ReasonInfo;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 615L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DeregistrationReasonImpl extends DiameterGroupedAvpImpl implements DeregistrationReason
 {
 	private ReasonCode reasonCode;
 	
 	private ReasonInfo reasonInfo;
 	
-	protected DeregistrationReasonImpl()
+	public DeregistrationReasonImpl()
 	{
 		
 	}
 	
-	public DeregistrationReasonImpl(ReasonCodeEnum reasonCode)
+	public DeregistrationReasonImpl(ReasonCodeEnum reasonCode) throws MissingAvpException
 	{
-		if(reasonCode==null)
-			throw new IllegalArgumentException("Reason-Code is required");
-		
-		this.reasonCode = new ReasonCodeImpl(reasonCode, null, null);
+		setReasonCode(reasonCode);
 	}
 	
 	public ReasonCodeEnum getReasonCode()
@@ -60,11 +59,11 @@ public class DeregistrationReasonImpl extends DiameterGroupedAvpImpl implements 
 		return reasonCode.getEnumerated(ReasonCodeEnum.class);
 	}
 	
-	public void setReasonCode(ReasonCodeEnum value)
+	public void setReasonCode(ReasonCodeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Reason-Code is required");
-		
+			throw new MissingAvpException("Reason-Code is required", Arrays.asList(new DiameterAvp[] { new ReasonCodeImpl() }));
+			
 		this.reasonCode = new ReasonCodeImpl(value, null, null);
 	}
 	
@@ -85,10 +84,10 @@ public class DeregistrationReasonImpl extends DiameterGroupedAvpImpl implements 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(reasonInfo==null)
-			return "Reason-Code is required";
+			return new MissingAvpException("Reason-Code is required", Arrays.asList(new DiameterAvp[] { new ReasonCodeImpl() }));
 		
 		return null;
 	}	

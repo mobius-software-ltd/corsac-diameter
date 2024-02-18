@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /**
@@ -48,14 +50,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
    Experimental-Result AVP.
  */
 
-@DiameterAvpDefinition(code = 297L, vendorId = -1L, name = "Experimental-Result")
+@DiameterAvpDefinition(code = AvpCodes.EXPERIMENTAL_RESULT, vendorId = -1L, name = "Experimental-Result")
 public interface ExperimentalResult extends DiameterAvp 
 {
 	Long getVendorId();
 	
-	void setVendorId(Long vendorId);
+	void setVendorId(Long vendorId) throws MissingAvpException;
 	
 	Long getExperimentalResultCode();
 	
-	void setExperimentalResultCode(Long experimentalResultCode);	
+	void setExperimentalResultCode(Long experimentalResultCode) throws MissingAvpException;	
 }

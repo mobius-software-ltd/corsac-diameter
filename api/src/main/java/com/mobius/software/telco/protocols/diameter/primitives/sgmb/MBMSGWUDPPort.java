@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	20.5a.5	MBMS-GW-UDP-Port AVP
 	The MBMS-GW-UDP-Port AVP (AVP code 927) is of type OctetString, and contains the value of the UDP port from which the user plane data will be received in the MBMS-GW.
  */
-@DiameterAvpDefinition(code = 927L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBMS-GW-UDP-Port")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_SGW_UDP_PORT, vendorId = VendorIDs.TGPP_ID, must = false, name = "MBMS-GW-UDP-Port")
 public interface MBMSGWUDPPort extends DiameterOctetString
 {
 }

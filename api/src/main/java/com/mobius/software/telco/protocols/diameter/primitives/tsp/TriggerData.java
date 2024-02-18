@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,12 +42,12 @@ import io.netty.buffer.ByteBuf;
 			 [ Application-Port-Identifier ]
  			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 3003L, vendorId = KnownVendorIDs.TGPP_ID, name = "Trigger-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRIGGER_DATA, vendorId = VendorIDs.TGPP_ID, name = "Trigger-Data")
 public interface TriggerData extends DiameterGroupedAvp
 {
 	ByteBuf getPayload();
 	
-	void setPayload(ByteBuf value);	
+	void setPayload(ByteBuf value) throws MissingAvpException;	
 	
 	PriorityIndicationEnum getPriorityIndication();
 	

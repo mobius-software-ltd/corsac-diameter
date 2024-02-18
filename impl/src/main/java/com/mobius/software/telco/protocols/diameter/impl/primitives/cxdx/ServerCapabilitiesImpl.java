@@ -21,9 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.MandatoryCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.OptionalCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerCapabilities;
@@ -34,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerName;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 603L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServerCapabilitiesImpl extends DiameterGroupedAvpImpl implements ServerCapabilities
 {
 	private List<MandatoryCapability> mandatoryCapability;

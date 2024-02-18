@@ -1,6 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swd;
 
 import com.mobius.software.telco.protocols.diameter.commands.swd.SwdAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -39,7 +41,7 @@ public abstract class SwdAnswerImpl extends AuthenticationAnswerImpl implements 
 		super();
 	}
 	
-	public SwdAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public SwdAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 	}

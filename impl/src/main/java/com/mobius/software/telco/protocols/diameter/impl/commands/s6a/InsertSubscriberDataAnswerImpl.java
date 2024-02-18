@@ -1,12 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.InsertSubscriberDataAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IMSVoiceOverPSSessionsSupportedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.LastUEActivityTimeImpl;
@@ -49,7 +53,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedServ
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 319, request = false)
 public class InsertSubscriberDataAnswerImpl extends S6aAnswerImpl implements InsertSubscriberDataAnswer
 {
 	private IMSVoiceOverPSSessionsSupported imsVoiceOverPSSessionsSupported;
@@ -78,7 +81,7 @@ public class InsertSubscriberDataAnswerImpl extends S6aAnswerImpl implements Ins
 		setExperimentalResultAllowed(false);
 	}
 	
-	public InsertSubscriberDataAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public InsertSubscriberDataAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);
@@ -130,11 +133,11 @@ public class InsertSubscriberDataAnswerImpl extends S6aAnswerImpl implements Ins
 	}
 	
 	@Override
-	public void setRATType(RATTypeEnum value)
+	public void setRATType(RATTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("RAT-Type is required");
-		
+			throw new MissingAvpException("RAT-Type is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
+			
 		this.ratType = new RATTypeImpl(value, null, null);
 	}
 	
@@ -220,6 +223,15 @@ public class InsertSubscriberDataAnswerImpl extends S6aAnswerImpl implements Ins
 	public void setMonitoringEventConfigStatus(List<MonitoringEventConfigStatus> value)
 	{
 		this.monitoringEventConfigStatus = value;
+	}
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(ratType==null)
+			return new MissingAvpException("RAT-Type is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
+		
+		return super.validate();
 	}
 	
 	@DiameterOrder

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ Number-Of-Messages-Successfully-Sent ]
 		[ Number-Of-Messages-Successfully-Exploded ]
  */
-@DiameterAvpDefinition(code = 2110L, vendorId = KnownVendorIDs.TGPP_ID, name = "IM-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.IM_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "IM-Information")
 public interface IMInformation extends DiameterAvp
 {
 	Long getTotalNumberOfMessagesSent();

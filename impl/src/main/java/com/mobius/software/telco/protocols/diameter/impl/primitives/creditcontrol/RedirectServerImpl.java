@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectServer;
@@ -30,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Red
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 434L, vendorId = -1)
 public class RedirectServerImpl implements RedirectServer
 {
 	private RedirectAddressType redirectAddressType;
@@ -42,17 +45,11 @@ public class RedirectServerImpl implements RedirectServer
 		
 	}
 	
-	public RedirectServerImpl(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress)
+	public RedirectServerImpl(RedirectAddressTypeEnum redirectAddressType, String redirectServerAddress) throws MissingAvpException
 	{
-		if(redirectAddressType==null)
-			throw new IllegalArgumentException("Redirect-Address-Type is required");
+		setRedirectAddressType(redirectAddressType);
 		
-		if(redirectServerAddress==null)
-			throw new IllegalArgumentException("Redirect-Server-Address is required");
-		
-		this.redirectAddressType = new RedirectAddressTypeImpl(redirectAddressType, null, null);
-		
-		this.redirectServerAddress = new RedirectServerAddressImpl(redirectServerAddress, null, null);
+		setRedirectServerAddress(redirectServerAddress);
 	}
 	
 	public RedirectAddressTypeEnum getRedirectAddressType()
@@ -63,10 +60,10 @@ public class RedirectServerImpl implements RedirectServer
 		return redirectAddressType.getEnumerated(RedirectAddressTypeEnum.class);
 	}
 	
-	public void setRedirectAddressType(RedirectAddressTypeEnum value)
+	public void setRedirectAddressType(RedirectAddressTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Redirect-Address-Type is required");
+			throw new MissingAvpException("Redirect-Address-Type is required is required", Arrays.asList(new DiameterAvp[] { new RedirectAddressTypeImpl() }));
 		
 		this.redirectAddressType = new RedirectAddressTypeImpl(value, null, null);		
 	}
@@ -79,22 +76,22 @@ public class RedirectServerImpl implements RedirectServer
 		return redirectServerAddress.getString();
 	}
 	
-	public void setRedirectServerAddress(String value)
+	public void setRedirectServerAddress(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Redirect-Server-Address is required");
-		
+			throw new MissingAvpException("Redirect-Server-Address is required is required", Arrays.asList(new DiameterAvp[] { new RedirectServerAddressImpl() }));
+			
 		this.redirectServerAddress = new RedirectServerAddressImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(redirectAddressType==null)
-			return "Redirect-Address-Type is required";
+			return new MissingAvpException("Redirect-Address-Type is required is required", Arrays.asList(new DiameterAvp[] { new RedirectAddressTypeImpl() }));
 		
 		if(redirectServerAddress==null)
-			return "Redirect-Server-Address is required";
+			return new MissingAvpException("Redirect-Server-Address is required is required", Arrays.asList(new DiameterAvp[] { new RedirectServerAddressImpl() }));
 		
 		return null;
 	}

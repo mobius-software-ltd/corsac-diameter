@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.PortNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.V6TransportAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPv6Prefix;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 453L, vendorId = KnownVendorIDs.TGPP_ID)
 public class V6TransportAddressImpl implements V6TransportAddress
 {
 	private FramedIPv6Prefix framedIPv6Prefix;
@@ -45,17 +47,11 @@ public class V6TransportAddressImpl implements V6TransportAddress
 		
 	}
 	
-	public V6TransportAddressImpl(ByteBuf framedIPv6Prefix,Long portNumber)
+	public V6TransportAddressImpl(ByteBuf framedIPv6Prefix,Long portNumber) throws MissingAvpException
 	{
-		if(framedIPv6Prefix==null)
-			throw new IllegalArgumentException("Framed-IPv6-Prefix is required");
+		setFramedIPv6Prefix(framedIPv6Prefix);
 		
-		if(portNumber==null)
-			throw new IllegalArgumentException("Port-Number is required");
-		
-		this.framedIPv6Prefix = new FramedIPv6PrefixImpl(framedIPv6Prefix, null, null);	
-		
-		this.portNumber = new PortNumberImpl(portNumber, null, null);
+		setPortNumber(portNumber);
 	}
 	
 	public ByteBuf getFramedIPv6Prefix()
@@ -66,11 +62,11 @@ public class V6TransportAddressImpl implements V6TransportAddress
 		return framedIPv6Prefix.getValue();
 	}
 	
-	public void setFramedIPv6Prefix(ByteBuf value)
+	public void setFramedIPv6Prefix(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Framed-IPv6-Prefix is required");
-		
+			throw new MissingAvpException("Framed-IPv6-Prefix requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new FramedIPv6PrefixImpl() }));
+			
 		this.framedIPv6Prefix = new FramedIPv6PrefixImpl(value, null, null);
 	}
 	
@@ -82,22 +78,22 @@ public class V6TransportAddressImpl implements V6TransportAddress
 		return portNumber.getUnsigned();
 	}
 	
-	public void setPortNumber(Long value)
+	public void setPortNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Port-Number is required");
+			throw new MissingAvpException("Port-Number requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new PortNumberImpl() }));
 		
 		this.portNumber = new PortNumberImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(framedIPv6Prefix==null)
-			return "Framed-IPv6-Prefix is required";
+			return new MissingAvpException("Framed-IPv6-Prefix requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new FramedIPv6PrefixImpl() }));
 		
 		if(portNumber==null)
-			return "Port-Number is required";
+			return new MissingAvpException("Port-Number requires exactly one child to be defined", Arrays.asList(new DiameterAvp[] { new PortNumberImpl() }));
 		
 		return null;
 	}

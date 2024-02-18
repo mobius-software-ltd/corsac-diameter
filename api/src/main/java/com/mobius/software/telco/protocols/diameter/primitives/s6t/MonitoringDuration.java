@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.10	Monitoring-Duration
 	The Monitoring-Duration AVP is of typeTime. It shall contain the absolute time at which the related monitoring event request is considered to expire.
  */
-@DiameterAvpDefinition(code = 3130L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Duration")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_DURATION, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Duration")
 public interface MonitoringDuration extends DiameterTime
 {
 }

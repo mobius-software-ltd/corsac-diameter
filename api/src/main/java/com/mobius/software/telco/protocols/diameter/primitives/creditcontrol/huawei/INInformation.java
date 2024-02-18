@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 
 import io.netty.buffer.ByteBuf;
@@ -165,7 +166,7 @@ import io.netty.buffer.ByteBuf;
 					 [PPSBalance]
 					 [POSBalance]
 */
-@DiameterAvpDefinition(code = 20400L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "P2PSMS-Information")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.IN_INFORMATION, vendorId = VendorIDs.HUAWEI_ID, name = "P2PSMS-Information")
 public interface INInformation extends DiameterAvp 
 {
 	Integer getActiveFlag();

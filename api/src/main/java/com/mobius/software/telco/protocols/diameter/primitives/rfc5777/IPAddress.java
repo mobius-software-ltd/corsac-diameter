@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
    	The IP-Address AVP (AVP Code 518) is of type Address and specifies a
    	single IP address (IPv4 or IPv6) to match.
  */
-@DiameterAvpDefinition(code = 518L, vendorId = -1L, name = "IP-Address")
+@DiameterAvpDefinition(code = AvpCodes.IP_ADDRESS, vendorId = -1L, name = "IP-Address")
 public interface IPAddress extends DiameterAddress
 {
 }

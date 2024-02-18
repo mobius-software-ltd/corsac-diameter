@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.np;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
@@ -33,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777342, commandCode = 8388722, request = false)
 public class ModifyUeContextAnswerImpl extends NpAnswerImpl implements ModifyUeContextAnswer
 {
 	protected ModifyUeContextAnswerImpl() 
@@ -41,7 +41,7 @@ public class ModifyUeContextAnswerImpl extends NpAnswerImpl implements ModifyUeC
 		super();
 	}
 	
-	public ModifyUeContextAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public ModifyUeContextAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 	}

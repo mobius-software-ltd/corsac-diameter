@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
    QoS-Parameters  ::= < AVP Header: 576 >
                         * [ AVP ]
  */
-@DiameterAvpDefinition(code = 576L, vendorId = -1L, name = "QoS-Parameters")
+@DiameterAvpDefinition(code = AvpCodes.QOS_PARAMETERS, vendorId = -1L, name = "QoS-Parameters")
 public interface QoSParameters extends DiameterGroupedAvp
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7683;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                 [ OC-Feature-Vector ]
                               * [ AVP ]
  */
-@DiameterAvpDefinition(code = 621L, vendorId = -1L, must = false, name = "OC-Supported-Features")
+@DiameterAvpDefinition(code = AvpCodes.OC_SUPPORTED_FEATURES, vendorId = -1L, must = false, name = "OC-Supported-Features")
 public interface OCSupportedFeatures extends DiameterGroupedAvp
 {
 	Long getOCFeatureVector();

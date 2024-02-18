@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPDTInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.M2MInformation;
@@ -73,7 +74,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGeneri
 The Service-Information AVP group varies with different services. It records the specific information about certain service types, allow the client to transmit the extra service information, and can be flexibly extended.
 
  */
-@DiameterAvpDefinition(code = 873L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Service-Information")
 public interface ServiceInformation extends DiameterAvp 
 {
 	PSInformation getPSInformation();

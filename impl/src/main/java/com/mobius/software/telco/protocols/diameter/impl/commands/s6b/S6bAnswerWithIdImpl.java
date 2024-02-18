@@ -1,6 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6b;
 
 import com.mobius.software.telco.protocols.diameter.commands.s6b.S6bAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -39,7 +41,7 @@ public abstract class S6bAnswerWithIdImpl extends AuthenticationAnswerImpl imple
 		super();
 	}
 	
-	public S6bAnswerWithIdImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public S6bAnswerWithIdImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 	}

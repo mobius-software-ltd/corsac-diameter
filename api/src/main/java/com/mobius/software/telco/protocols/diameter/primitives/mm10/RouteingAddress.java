@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -35,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 	Address; it is coded according to the MMS addressing model defined in [6].
 	MM4-Address; it is coded according to the MM4 address encoding model on SMTP protocol level defined in [1]
  */
-@DiameterAvpDefinition(code = 1109L, vendorId = -1L, name = "Routeing-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROUTEING_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Routeing-Address")
 public interface RouteingAddress extends DiameterUTF8String
 {
 }

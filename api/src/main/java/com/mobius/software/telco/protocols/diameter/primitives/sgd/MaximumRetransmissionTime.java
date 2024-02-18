@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.3.17	Maximum-Retransmission-Time
 	The Maximum-Retransmission-Time is of type Time and in shall contain the maximum retransmission time (in UTC) until which the SMS-GMSC is capable to retransmit the MT Short Message.
  */
-@DiameterAvpDefinition(code = 3330L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Maximum-Retransmission-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAXIMUM_RETRANSMISSION_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Maximum-Retransmission-Time")
 public interface MaximumRetransmissionTime extends DiameterTime
 {
 }

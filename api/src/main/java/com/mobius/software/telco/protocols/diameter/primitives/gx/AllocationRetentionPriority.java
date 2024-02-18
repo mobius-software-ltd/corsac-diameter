@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,12 +44,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	If the Pre-emption-Vulnerability AVP is not present in the Allocation-Retention-Priority AVP, the default value shall be PRE-EMPTION_VULNERABILITY_ENABLED (0).
  */
-@DiameterAvpDefinition(code = 1034L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Allocation-Retention-Priority")
+@DiameterAvpDefinition(code = TgppAvpCodes.ALLOCATION_RETENTION_PRIORITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "Allocation-Retention-Priority")
 public interface AllocationRetentionPriority extends DiameterAvp
 {
 	Long getPriorityLevel();
 	
-	void setPriorityLevel(Long value);	
+	void setPriorityLevel(Long value) throws MissingAvpException;	
 	
 	PreEmptionCapabilityEnum getPreEmptionCapability();
 	

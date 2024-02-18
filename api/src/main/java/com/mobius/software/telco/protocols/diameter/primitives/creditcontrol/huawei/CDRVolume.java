@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates the service access traffic. 
 	The unit is byte. 
  */
-@DiameterAvpDefinition(code = 20629L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "CDR-Volume")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CDR_VOLUME, vendorId = VendorIDs.HUAWEI_ID, name = "CDR-Volume")
 public interface CDRVolume extends DiameterInteger32
 {
 }

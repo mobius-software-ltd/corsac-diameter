@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc6942;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -40,10 +42,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                             { ERP-Realm }
                           * [ AVP ]
  */
-@DiameterAvpDefinition(code = 618L, vendorId = -1L, must = false, name = "ERP-RK-Request")
+@DiameterAvpDefinition(code = AvpCodes.ERP_RK_REQUEST, vendorId = -1L, must = false, name = "ERP-RK-Request")
 public interface ERPRKRequest extends DiameterGroupedAvp
 {
 	String getERPRealm();
 	
-	void setERPRealm(String value);
+	void setERPRealm(String value) throws MissingAvpException;
 }

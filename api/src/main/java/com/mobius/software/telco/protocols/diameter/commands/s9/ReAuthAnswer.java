@@ -22,7 +22,10 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.IPCANTypeEnum;
@@ -82,7 +85,7 @@ import io.netty.buffer.ByteBuf;
 
 	NOTE: Load AVP is only applicable to the EPC-routed feature as described in annex A.6.3.1.
  */
-@DiameterCommandDefinition(applicationId = 16777267, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S9, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	DRMPEnum getDRMP();
@@ -151,7 +154,7 @@ public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diamet
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);		
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;		
 	
 	List<SubsessionEnforcementInfo> getSubsessionEnforcementInfo();
 	

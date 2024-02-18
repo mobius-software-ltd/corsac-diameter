@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.OFRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.OFRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3328L, vendorId = KnownVendorIDs.TGPP_ID)
 public class OFRFlagsImpl extends DiameterBitmask32Impl implements OFRFlags
 {
 	public OFRFlagsImpl()
@@ -44,7 +41,7 @@ public class OFRFlagsImpl extends DiameterBitmask32Impl implements OFRFlags
 	@Override
 	public void setS6aS6dIndicatorBit(boolean isOn)
 	{
-		setBit(S6A_S6D_INDICATOR_BIT, isOn);
+		setBitUnchecked(S6A_S6D_INDICATOR_BIT, isOn);
 	}
 
 	@Override

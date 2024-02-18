@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPAddressEnd;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPAddressRange;
@@ -32,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPAddress
 *
 */
 
-@DiameterAvpImplementation(code = 519L, vendorId = -1L)
 public class IPAddressRangeImpl extends DiameterGroupedAvpImpl implements IPAddressRange
 {
 	private IPAddressStart ipAddressStart;

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Negated;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.NegatedEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.NegatedEn
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 517L, vendorId = -1L)
 public class NegatedImpl extends DiameterEnumeratedImpl<NegatedEnum> implements Negated
 {
 	protected NegatedImpl() 

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Requested-PLMN-Identifier AVP (AVP code 3436) is of type UTF8String and contains PLMN identifier of the
 	user who is targeted in proximity request. 
  */
-@DiameterAvpDefinition(code = 3436L, vendorId = KnownVendorIDs.TGPP_ID, name = "Requested-PLMN-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.REQUESTED_PLMN_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Requested-PLMN-Identifier")
 public interface RequestedPLMNIdentifier extends DiameterUTF8String
 {
 }

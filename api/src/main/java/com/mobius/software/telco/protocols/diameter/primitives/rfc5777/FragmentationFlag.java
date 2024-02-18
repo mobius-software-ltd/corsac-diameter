@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
        0   | Don't Fragment (DF)
        1   | More Fragments (MF)
  */
-@DiameterAvpDefinition(code = 536L, vendorId = -1L, name = "Fragmentation-Flag")
+@DiameterAvpDefinition(code = AvpCodes.FRAGMENTATION_FLAG, vendorId = -1L, name = "Fragmentation-Flag")
 public interface FragmentationFlag extends DiameterEnumerated<FragmentationFlagEnum>
 {
 }

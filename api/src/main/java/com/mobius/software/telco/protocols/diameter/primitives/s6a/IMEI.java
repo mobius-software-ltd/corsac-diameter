@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	3GPP TS 23.003 [3]. It should consist of 14 digits, including the 8-digit Type Allocation Code (TAC) and the 6-digit 
 	Serial Number (SNR). It may also include a 15th digit.
  */
-@DiameterAvpDefinition(code = 1402L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMEI")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMEI, vendorId = VendorIDs.TGPP_ID, name = "IMEI")
 public interface IMEI extends DiameterUTF8String
 {
 }

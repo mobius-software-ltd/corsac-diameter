@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The LMSI AVP is of type OctetString and it shall contain the Local Mobile Station Identity (LMSI) allocated by the
 	VLR, as defined in 3GPP TS 23.003 [10]. For further details on the encoding of this AVP, see 3GPP TS 23.003[10]. 
  */
-@DiameterAvpDefinition(code = 2400L, vendorId = KnownVendorIDs.TGPP_ID, name = "LMSI")
+@DiameterAvpDefinition(code = TgppAvpCodes.LMSI, vendorId = VendorIDs.TGPP_ID, name = "LMSI")
 public interface LMSI extends DiameterOctetString
 {
 }

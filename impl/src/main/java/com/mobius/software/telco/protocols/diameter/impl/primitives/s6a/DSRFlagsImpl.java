@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1421L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 {
 	public DSRFlagsImpl()
@@ -44,7 +41,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setRegionalSubscriptionWithdrawalBit(boolean isOn)
 	{
-		setBit(REGIONAL_SUBSCRIPTION_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(REGIONAL_SUBSCRIPTION_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setCompleteAPNConfigurationProfileWithdrawalBit(boolean isOn)
 	{
-		setBit(COMPLETE_APN_CONFIGURATION_PROFILE_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(COMPLETE_APN_CONFIGURATION_PROFILE_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setSubscripbedChargingCharacteristricsWithdrawalBit(boolean isOn)
 	{
-		setBit(SUBSCRIBED_CHARGING_CHARACTERISTICS_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(SUBSCRIBED_CHARGING_CHARACTERISTICS_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setPDNSubscriptionContextsWithdrawalBit(boolean isOn)
 	{
-		setBit(PDN_SUBSCRIPTION_CONTEXTS_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(PDN_SUBSCRIPTION_CONTEXTS_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setSTNSRBit(boolean isOn)
 	{
-		setBit(STN_SR_BIT, isOn);
+		setBitUnchecked(STN_SR_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setCompletePDPContextListWithdrawalBit(boolean isOn)
 	{
-		setBit(COMPLETE_PDP_CONTEXT_LIST_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(COMPLETE_PDP_CONTEXT_LIST_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setPDPContextWithdrawalBit(boolean isOn)
 	{
-		setBit(PDP_CONTEXTS_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(PDP_CONTEXTS_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setRoamingRestrictedDueToUnsupportedFeatureWithdrawalBit(boolean isOn)
 	{
-		setBit(ROAMING_RESTRICTED_DUE_TO_UNSUPPORTED_FEATURE_BIT, isOn);
+		setBitUnchecked(ROAMING_RESTRICTED_DUE_TO_UNSUPPORTED_FEATURE_BIT, isOn);
 	}
 
 	@Override
@@ -140,7 +137,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setTraceDataWithdrawalBit(boolean isOn)
 	{
-		setBit(TRACE_DATA_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(TRACE_DATA_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -152,7 +149,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setCSGDeletedWithdrawalBit(boolean isOn)
 	{
-		setBit(CSG_DELETED_BIT, isOn);
+		setBitUnchecked(CSG_DELETED_BIT, isOn);
 	}
 
 	@Override
@@ -164,7 +161,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setAPNIOReplacementBit(boolean isOn)
 	{
-		setBit(APN_IO_REPLACEMENT_BIT, isOn);
+		setBitUnchecked(APN_IO_REPLACEMENT_BIT, isOn);
 	}
 
 	@Override
@@ -176,7 +173,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setGMLCListWithdrawalBit(boolean isOn)
 	{
-		setBit(GMLC_LIST_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(GMLC_LIST_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -188,7 +185,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setLCSWithdrawalBit(boolean isOn)
 	{
-		setBit(LCS_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(LCS_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -200,7 +197,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setSMSWithdrawalBit(boolean isOn)
 	{
-		setBit(SMS_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(SMS_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -212,7 +209,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setSubscribedPeriodicRAUTAUTimerWithdrawalBit(boolean isOn)
 	{
-		setBit(SUBSCRIBED_PERIODIC_RAU_TAU_TIMER_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(SUBSCRIBED_PERIODIC_RAU_TAU_TIMER_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -224,7 +221,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setSubscribedVSRVCCWithdrawalBit(boolean isOn)
 	{
-		setBit(SUBSCRIBED_VSRVCC_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(SUBSCRIBED_VSRVCC_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -236,7 +233,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setAMSISDNWithdrawalBit(boolean isOn)
 	{
-		setBit(AMSISDN_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(AMSISDN_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -248,7 +245,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setPROSEWithdrawalBit(boolean isOn)
 	{
-		setBit(PROSE_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(PROSE_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -260,7 +257,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setResetIDsBit(boolean isOn)
 	{
-		setBit(RESET_IDS_BIT, isOn);
+		setBitUnchecked(RESET_IDS_BIT, isOn);
 	}
 
 	@Override
@@ -272,7 +269,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setDLBufferingSuggestedPacketCountWithdrawalBit(boolean isOn)
 	{
-		setBit(DL_BUFFERING_SUGGESTED_PACKET_COUNT_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(DL_BUFFERING_SUGGESTED_PACKET_COUNT_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -284,7 +281,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setSubscribedIMSIGroupIDWithdrawalBit(boolean isOn)
 	{
-		setBit(SUBSCRIBED_IMSI_GROUP_ID_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(SUBSCRIBED_IMSI_GROUP_ID_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -296,7 +293,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setDeleteMonitoringEventsWithdrawalBit(boolean isOn)
 	{
-		setBit(DELETE_MONITORING_EVENTS_BIT, isOn);
+		setBitUnchecked(DELETE_MONITORING_EVENTS_BIT, isOn);
 	}
 
 	@Override
@@ -308,7 +305,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setUserPlaneIntegrityProtectionWithdrawalBit(boolean isOn)
 	{
-		setBit(USER_PLANE_INTEGRITY_PROTECTION_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(USER_PLANE_INTEGRITY_PROTECTION_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -320,7 +317,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setMSISDNWithdrawalBit(boolean isOn)
 	{
-		setBit(MSISDN_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(MSISDN_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -332,7 +329,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setUEUsageTypeWithdrawalBit(boolean isOn)
 	{
-		setBit(UE_USAGE_TYPE_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(UE_USAGE_TYPE_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -344,7 +341,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setV2XWithdrawalBit(boolean isOn)
 	{
-		setBit(V2X_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(V2X_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -356,7 +353,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setExternalIdentifierWithdrawalBit(boolean isOn)
 	{
-		setBit(EXTERNAL_IDENTIFIER_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(EXTERNAL_IDENTIFIER_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -368,7 +365,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setAerialUESubscriptionWithdrawalBit(boolean isOn)
 	{
-		setBit(AERIAL_UE_SUBSCRIPTION_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(AERIAL_UE_SUBSCRIPTION_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -380,7 +377,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setPagingTimeWindowSubscriptionWithdrawalBit(boolean isOn)
 	{
-		setBit(PAGING_TIME_WINDOW_SUBSCRIPTION_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(PAGING_TIME_WINDOW_SUBSCRIPTION_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -392,7 +389,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setActiveTimeWithdrawalBit(boolean isOn)
 	{
-		setBit(ACTIVE_TIME_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(ACTIVE_TIME_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -404,7 +401,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setEDRXCycleLengthWithdrawalBit(boolean isOn)
 	{
-		setBit(EDRX_CYCLE_LENGTH_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(EDRX_CYCLE_LENGTH_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override
@@ -416,7 +413,7 @@ public class DSRFlagsImpl extends DiameterBitmask32Impl implements DSRFlags
 	@Override
 	public void setServiceGapTimeWithdrawalBit(boolean isOn)
 	{
-		setBit(SERVICE_GAP_TIME_WITHDRAWAL_BIT, isOn);
+		setBitUnchecked(SERVICE_GAP_TIME_WITHDRAWAL_BIT, isOn);
 	}
 
 	@Override

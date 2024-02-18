@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gq;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gq.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AbortCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCause;
@@ -36,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777222, commandCode = 274, request = true)
 public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestmpl implements AbortSessionRequest
 {
 	private AbortCause abortCause;
@@ -47,10 +49,12 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 		setUsernameAllowed(false);
 	}
 		
-	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID)
+	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID,AbortCauseEnum value) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
 		setUsernameAllowed(false);
+		
+		setAbortCause(value);
 	}
 
 	@Override
@@ -63,19 +67,19 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	}
 
 	@Override
-	public void setAbortCause(AbortCauseEnum value) 
+	public void setAbortCause(AbortCauseEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Abort-Cause is required");
-		
+			throw new MissingAvpException("Abort-Cause is required", Arrays.asList(new DiameterAvp[] { new AbortCauseImpl() }));
+			
 		this.abortCause = new AbortCauseImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(abortCause==null)
-			return "Abort-Cause is required";
+			return new MissingAvpException("Abort-Cause is required", Arrays.asList(new DiameterAvp[] { new AbortCauseImpl() }));
 		
 		return super.validate();
 	}

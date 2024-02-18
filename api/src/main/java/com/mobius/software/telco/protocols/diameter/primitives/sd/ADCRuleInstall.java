@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sd;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.MonitoringFlags;
 
 import io.netty.buffer.ByteBuf;
@@ -52,7 +53,7 @@ import io.netty.buffer.ByteBuf;
 							 [ Rule-Deactivation-Time ]
 							*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1092L, vendorId = KnownVendorIDs.TGPP_ID, name = "ADC-Rule-Install")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADC_RULE_INSTALL, vendorId = VendorIDs.TGPP_ID, name = "ADC-Rule-Install")
 public interface ADCRuleInstall extends DiameterGroupedAvp
 {
 	List<ADCRuleDefinition> getADCRuleDefinition();

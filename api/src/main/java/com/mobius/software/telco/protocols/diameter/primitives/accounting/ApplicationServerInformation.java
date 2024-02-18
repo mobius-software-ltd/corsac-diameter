@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			* 	[ Application-Provided-Called-Party-Address ]
 				[ Status- AS-Code ]
  */
-@DiameterAvpDefinition(code = 850L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Server-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.APPLICATION_SERVER_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Application-Server-Information")
 public interface ApplicationServerInformation extends DiameterAvp
 {
 	String getApplicationServer();

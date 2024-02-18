@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumUnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumValueDigits;
 
@@ -29,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20856L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class CumUnitValueImpl implements CumUnitValue
 {
 	private CumValueDigits cumValueDigits;
@@ -39,7 +41,7 @@ public class CumUnitValueImpl implements CumUnitValue
 		
 	}
 	
-	public CumUnitValueImpl(Long cumValueDigits)
+	public CumUnitValueImpl(Long cumValueDigits) throws MissingAvpException
 	{
 		setCumValueDigits(cumValueDigits);
 	}
@@ -54,19 +56,19 @@ public class CumUnitValueImpl implements CumUnitValue
 	}
 	
 	@DiameterValidate
-	public void setCumValueDigits(Long value)
+	public void setCumValueDigits(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Cum-Value-Digits is required");
-		
+			throw new MissingAvpException("Cum-Value-Digits is required", Arrays.asList(new DiameterAvp[] { new CumValueDigitsImpl() }));
+			
 		this.cumValueDigits = new CumValueDigitsImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(cumValueDigits==null)
-			return "Cum-Value-Digits is required";
+			return new MissingAvpException("Cum-Value-Digits is required", Arrays.asList(new DiameterAvp[] { new CumValueDigitsImpl() }));
 		
 		return null;
 	}

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	node.  This AVP MUST be present in the AMR if the mobile node used
    	the RADIUS-style MN-AAA computation algorithm [MIPCHAL].
  */
-@DiameterAvpDefinition(code = 344L, vendorId = -1L, name = "MIP-FA-Challenge")
+@DiameterAvpDefinition(code = AvpCodes.MIP_FA_CHALLENGE, vendorId = -1L, name = "MIP-FA-Challenge")
 public interface MIPFAChallenge extends DiameterOctetString
 {
 }

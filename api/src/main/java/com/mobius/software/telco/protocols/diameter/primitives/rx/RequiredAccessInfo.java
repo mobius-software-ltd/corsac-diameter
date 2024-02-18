@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	MS_TIME_ZONE (1)
 		Indicates that the user timezone information shall be reported, the PCRF shall report the user timezone information within the 3GPP-MS-TimeZone AVP.
  */
-@DiameterAvpDefinition(code = 536L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Required-Access-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.REQUIRED_ACCESS_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Required-Access-Info")
 public interface RequiredAccessInfo extends DiameterEnumerated<RequiredAccessInfoEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  	NON_3GPP_SUBSCRIPTION_BARRED (1) 
  	The subscriber has no non-3GPP subscription to access EPC network
  */
-@DiameterAvpDefinition(code = 1501L, vendorId = KnownVendorIDs.TGPP_ID, name = "Non-3GPP-IP-Access")
+@DiameterAvpDefinition(code = TgppAvpCodes.NON_3GPP_IP_ACCESS, vendorId = VendorIDs.TGPP_ID, name = "Non-3GPP-IP-Access")
 public interface Non3GPPIPAccess extends DiameterEnumerated<Non3GPPIPAccessEnum>
 {
 }

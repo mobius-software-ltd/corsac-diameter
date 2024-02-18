@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Min-Desired-Bandwidth-DL AVP (AVP code 545) is of type Unsigned32, and it indicates the minimum desired bandwidth in bits per second for a downlink IP flow as defined in 3GPP TS 26.114 [41]. The bandwidth contains all the overhead coming from the IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
 	When the Extended-BW-E2EQOSMTSI-NR feature is supported and the value to be transmitted exceeds 2^32-1, the Extended-Min-Desired-Bandwidth-DL AVP shall be used, see clause 4.4.10 and clause 5.3.56.
  */
-@DiameterAvpDefinition(code = 545L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Min-Desired-Bandwidth-DL")
+@DiameterAvpDefinition(code = TgppAvpCodes.MIN_DESIRED_BANDWIDTH_DL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Min-Desired-Bandwidth-DL")
 public interface MinDesiredBandwidthDL extends DiameterUnsigned32
 {
 }

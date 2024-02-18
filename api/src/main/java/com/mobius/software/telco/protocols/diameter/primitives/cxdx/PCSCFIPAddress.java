@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.76	PCSCF-IP-Address
 	The PCSCF-IP-Address AVP is of type Address and contains the IPv4 or IPv6 address of the P-CSCF.
  */
-@DiameterAvpDefinition(code = 666L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PCSCF-IP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.PCSCF_IP_ADDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "PCSCF-IP-Address")
 public interface PCSCFIPAddress extends DiameterAddress
 {
 }

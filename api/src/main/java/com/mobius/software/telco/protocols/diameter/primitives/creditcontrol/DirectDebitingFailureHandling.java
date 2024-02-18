@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -59,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    if credit-control messages can't be delivered, and the request should
    be deleted.
  */
-@DiameterAvpDefinition(code = 428L, vendorId = -1L, name = "Direct-Debiting-Failure-Handling")
+@DiameterAvpDefinition(code = AvpCodes.DIRECT_DEBITING_FAILURE_HADING, vendorId = -1L, name = "Direct-Debiting-Failure-Handling")
 public interface DirectDebitingFailureHandling extends DiameterEnumerated<DirectDebitingFailureHandlingEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -75,7 +76,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	ORIGINALMESSAGESENT (112)
 	This value indicates that the message which was intended to be recalled or replaced has already been sent. The result code DIAMETER_ERROR_ORIGINAL_MESSAGE_NOT_PENDING specified in TS 29.337 [17], clause 7.3.7 shall be mapped to this value.
  */
-@DiameterAvpDefinition(code = 3008L, vendorId = KnownVendorIDs.TGPP_ID, name = "Request-Status")
+@DiameterAvpDefinition(code = TgppAvpCodes.REQUEST_STATUS, vendorId = VendorIDs.TGPP_ID, name = "Request-Status")
 public interface RequestStatus extends DiameterEnumerated<RequestStatusEnum>
 {
 }

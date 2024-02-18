@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description 
 	Indicates a international route prefix to transfer the route information of special number.
  */
-@DiameterAvpDefinition(code = 20354L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Route-Prefix")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ROUTE_PREFIX, vendorId = VendorIDs.HUAWEI_ID, name = "Route-Prefix")
 public interface RoutePrefix extends DiameterOctetString
 {
 }

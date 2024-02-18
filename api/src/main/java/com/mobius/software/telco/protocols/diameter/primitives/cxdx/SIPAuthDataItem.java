@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
 import java.net.Inet4Address;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -53,7 +54,7 @@ import io.netty.buffer.ByteBuf;
 		  * [ Line-Identifier ]
 		  * [AVP]
  */
-@DiameterAvpDefinition(code = 612L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Auth-Data-Item")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_AUTH_DATA_ITEM, vendorId = VendorIDs.TGPP_ID, name = "SIP-Auth-Data-Item")
 public interface SIPAuthDataItem extends DiameterGroupedAvp
 {
 	Long getSIPItemNumber();

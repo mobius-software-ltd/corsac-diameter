@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    (e.g., MSISDN), according to the ITU-T E.164 numbering plan defined
    in [E164] and [CE164].
  */
-@DiameterAvpDefinition(code = 660L, vendorId = -1L, must = false, name = "Subscription-Id-E164")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_E164, vendorId = -1L, must = false, name = "Subscription-Id-E164")
 public interface SubscriptionIdE164 extends DiameterUTF8String
 {
 }

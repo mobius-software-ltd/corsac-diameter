@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 Device Trigger replace
 	3 Device Trigger recall 
  */
-@DiameterAvpDefinition(code = 3407L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Device-Trigger-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_DEVICE_TRIGGER_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "SM-Device-Trigger-Indicator")
 public interface SMDeviceTriggerIndicator extends DiameterEnumerated<SMDeviceTriggerIndicatorEnum>
 {
 }

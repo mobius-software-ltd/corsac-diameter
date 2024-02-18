@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the service which is beared in circuit switch domain, like video call, fax and data service.
  */
-@DiameterAvpDefinition(code = 20313L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Bearer-Capability")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.BEARER_CAPABILITY, vendorId = VendorIDs.HUAWEI_ID, name = "Bearer-Capability")
 public interface BearerCapability extends DiameterOctetString
 {
 }

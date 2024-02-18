@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 
 import com.mobius.software.telco.protocols.diameter.commands.st.StRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -44,18 +45,12 @@ public abstract class StRequestImpl extends VendorSpecificRequestmpl implements 
 		setDestinationHostAllowed(true);
 	}
 		
-	public StRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID)
+	public StRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
 		setDestinationHostAllowed(true);
-		try 
-		{
-			setDestinationHost(destinationHost);
-		}
-		catch(AvpNotSupportedException ex) 
-		{
-			
-		}
+		
+		setDestinationHost(destinationHost);		
 	}
 
 	@Override

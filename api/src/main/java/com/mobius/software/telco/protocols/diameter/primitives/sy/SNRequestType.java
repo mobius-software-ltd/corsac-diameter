@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	1 Abort Session Request 
 	This bit, when set, indicates that the SNR is used to request the termination of the Sy session as detailed in clause 4.5.4
  */
-@DiameterAvpDefinition(code = 2907L, vendorId = KnownVendorIDs.TGPP_ID, name = "SN-Request-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.SN_REQUEST_TYPE, vendorId = VendorIDs.TGPP_ID, name = "SN-Request-Type")
 public interface SNRequestType extends DiameterBitmask32
 {
 	public static final int NORMAL_REQUEST_BIT = 0;	

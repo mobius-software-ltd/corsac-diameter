@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Transport-Class AVP (AVP code 311 13019) is of type Unsigned32 and contains an integer used as an index
 	pointing to a class of transport services to be applied (e.g. forwarding behaviour).
  */
-@DiameterAvpDefinition(code = 311L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Transport-Class")
+@DiameterAvpDefinition(code = EtsiAvpCodes.TRANSPORT_CLASS, vendorId = VendorIDs.ETSI_ID, must = false, name = "Transport-Class")
 public interface TransportClass extends DiameterUnsigned32
 {
 }

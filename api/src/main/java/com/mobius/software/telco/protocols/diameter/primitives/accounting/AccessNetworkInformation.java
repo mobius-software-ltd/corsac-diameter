@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	and UE local IP address, ePDG IP Address, and TCP source port, UDP source port are contained in corresponding
 	dedicated fields. 
  */
-@DiameterAvpDefinition(code = 1263L, vendorId = KnownVendorIDs.TGPP_ID, name = "Access-Network-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCESS_NETWORK_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Access-Network-Information")
 public interface AccessNetworkInformation extends DiameterOctetString
 {
 }

@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.InitialRecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.RecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.SequenceNumber;
@@ -31,28 +34,21 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.SequenceNumb
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1105L, vendorId = KnownVendorIDs.TGPP_ID)
 public class InitialRecipientAddressImpl extends DiameterGroupedAvpImpl implements InitialRecipientAddress
 {
 	private SequenceNumber sequenceNumber;
 	
 	private RecipientAddress recipientAddress;
 	
-	protected InitialRecipientAddressImpl() 
+	public InitialRecipientAddressImpl() 
 	{
 	}
 	
-	public InitialRecipientAddressImpl(Long sequenceNumber,String recipientAddress)
+	public InitialRecipientAddressImpl(Long sequenceNumber,String recipientAddress) throws MissingAvpException
 	{
-		if(sequenceNumber==null)
-			throw new IllegalArgumentException("Sequence-Number is required");
+		setSequenceNumber(sequenceNumber);
 		
-		if(recipientAddress==null)
-			throw new IllegalArgumentException("Recipient-Address is required");
-		
-		this.sequenceNumber = new SequenceNumberImpl(sequenceNumber, null, null);				
-		
-		this.recipientAddress = new RecipientAddressImpl(recipientAddress, null, null);
+		setRecipientAddress(recipientAddress);
 	}
 	
 	public Long getSequenceNumber()
@@ -63,11 +59,11 @@ public class InitialRecipientAddressImpl extends DiameterGroupedAvpImpl implemen
 		return sequenceNumber.getUnsigned();
 	}
 	
-	public void setSequenceNumber(Long value)
+	public void setSequenceNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Sequence-Number is required");
-		
+			throw new MissingAvpException("Sequence-Number is required", Arrays.asList(new DiameterAvp[] { new SequenceNumberImpl() }));
+			
 		this.sequenceNumber = new SequenceNumberImpl(value, null, null);						
 	}
 	
@@ -79,22 +75,22 @@ public class InitialRecipientAddressImpl extends DiameterGroupedAvpImpl implemen
 		return recipientAddress.getString();
 	}
 	
-	public void setRecipientAddress(String value)
+	public void setRecipientAddress(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Recipient-Address is required");
-		
+			throw new MissingAvpException("Recipient-Address is required", Arrays.asList(new DiameterAvp[] { new RecipientAddressImpl() }));
+			
 		this.recipientAddress = new RecipientAddressImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(sequenceNumber==null)
-			return "Sequence-Number is required";
+			return new MissingAvpException("Sequence-Number is required", Arrays.asList(new DiameterAvp[] { new SequenceNumberImpl() }));
 		
 		if(recipientAddress==null)
-			return "Recipient-Address is required";
+			return new MissingAvpException("Recipient-Address is required", Arrays.asList(new DiameterAvp[] { new RecipientAddressImpl() }));
 		
 		return null;
 	}

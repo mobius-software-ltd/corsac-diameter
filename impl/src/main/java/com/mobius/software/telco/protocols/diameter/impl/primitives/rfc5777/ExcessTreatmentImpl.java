@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ExcessTreatment;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSParameters;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.QoSProfileTemplate;
@@ -32,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Treatment
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 577L, vendorId = -1L)
 public class ExcessTreatmentImpl extends DiameterGroupedAvpImpl implements ExcessTreatment
 {
 	private TreatmentAction treatmentAction;
@@ -46,12 +49,9 @@ public class ExcessTreatmentImpl extends DiameterGroupedAvpImpl implements Exces
 		
 	}
 	
-	public ExcessTreatmentImpl(TreatmentActionEnum treatmentAction)
+	public ExcessTreatmentImpl(TreatmentActionEnum treatmentAction) throws MissingAvpException
 	{
-		if(treatmentAction==null)
-			throw new IllegalArgumentException("Treatment-Action is required");
-		
-		this.treatmentAction = new TreatmentActionImpl(treatmentAction, null, null);	
+		setTreatmentAction(treatmentAction);
 	}
 	
 	public TreatmentActionEnum getTreatmentAction()
@@ -62,11 +62,11 @@ public class ExcessTreatmentImpl extends DiameterGroupedAvpImpl implements Exces
 		return treatmentAction.getEnumerated(TreatmentActionEnum.class);
 	}
 	
-	public void setTreatmentAction(TreatmentActionEnum value)
+	public void setTreatmentAction(TreatmentActionEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Treatment-Action is required");
-		
+			throw new MissingAvpException("Treatment-Action is required", Arrays.asList(new DiameterAvp[] { new TreatmentActionImpl() }));
+			
 		this.treatmentAction = new TreatmentActionImpl(value, null, null);	
 	}
 	
@@ -91,10 +91,10 @@ public class ExcessTreatmentImpl extends DiameterGroupedAvpImpl implements Exces
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(treatmentAction==null)
-			return "Treatment-Action is required";
+			return new MissingAvpException("Treatment-Action is required", Arrays.asList(new DiameterAvp[] { new TreatmentActionImpl() }));
 		
 		return null;
 	}

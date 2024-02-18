@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.InterfaceId;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.InterfacePort;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.InterfaceText;
@@ -32,7 +30,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Origin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2009L, vendorId = KnownVendorIDs.TGPP_ID)
 public class OriginatorInterfaceImpl implements OriginatorInterface
 {
 	private InterfaceId interfaceId;

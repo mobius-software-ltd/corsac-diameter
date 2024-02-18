@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			*[ PCSCF-IP-Address ]
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 664L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Failed-PCSCF")
+@DiameterAvpDefinition(code = TgppAvpCodes.FAILED_PCSCF, vendorId = VendorIDs.TGPP_ID, must = false, name = "Failed-PCSCF")
 public interface FailedPCSCF extends DiameterGroupedAvp
 {
 	String getPCSCFFQDN();

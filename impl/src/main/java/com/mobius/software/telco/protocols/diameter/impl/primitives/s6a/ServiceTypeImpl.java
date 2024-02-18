@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.GMLCRestriction;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.GMLCRestrictionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NotificationToUEUser;
@@ -34,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.ServiceTypeId
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1483L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServiceTypeImpl extends DiameterGroupedAvpImpl implements ServiceType
 {
 	private ServiceTypeIdentity serviceTypeIdentity;
@@ -48,12 +50,9 @@ public class ServiceTypeImpl extends DiameterGroupedAvpImpl implements ServiceTy
 		
 	}
 	
-	public ServiceTypeImpl(Long serviceTypeIdentity)
+	public ServiceTypeImpl(Long serviceTypeIdentity) throws MissingAvpException
 	{
-		if(serviceTypeIdentity==null)
-			throw new IllegalArgumentException("Service-Type-Identity is required");
-		
-		this.serviceTypeIdentity = new ServiceTypeIdentityImpl(serviceTypeIdentity, null, null);
+		setServiceTypeIdentity(serviceTypeIdentity);
 	}
 	
 	public Long getServiceTypeIdentity()
@@ -64,11 +63,11 @@ public class ServiceTypeImpl extends DiameterGroupedAvpImpl implements ServiceTy
 		return serviceTypeIdentity.getUnsigned();
 	}
 	
-	public void setServiceTypeIdentity(Long value)
+	public void setServiceTypeIdentity(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Type-Identity is required");
-		
+			throw new MissingAvpException("Service-Type-Identity is required is required", Arrays.asList(new DiameterAvp[] { new ServiceTypeIdentityImpl() }));
+			
 		this.serviceTypeIdentity = new ServiceTypeIdentityImpl(value, null, null);	
 	}	
 	
@@ -105,10 +104,10 @@ public class ServiceTypeImpl extends DiameterGroupedAvpImpl implements ServiceTy
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceTypeIdentity==null)
-			return "Service-Type-Identity is required";
+			return new MissingAvpException("Service-Type-Identity is required is required", Arrays.asList(new DiameterAvp[] { new ServiceTypeIdentityImpl() }));
 		
 		return null;
 	}

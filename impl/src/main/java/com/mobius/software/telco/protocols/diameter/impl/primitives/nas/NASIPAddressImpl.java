@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
 
 import java.net.Inet4Address;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpv4AddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASIPAddress;
 
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASIPAddress;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4L, vendorId = -1L)
 public class NASIPAddressImpl extends DiameterIpv4AddressImpl implements NASIPAddress
 {
 	protected NASIPAddressImpl() 

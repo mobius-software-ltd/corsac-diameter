@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.14	Operating-Channel
 	The Operating-Channel AVP is of type Unsigned32 and it shall contain the operating channel in MHz on which Wi-Fi P2P discovery and communication should take place.
  */
-@DiameterAvpDefinition(code = 3808L, vendorId = KnownVendorIDs.TGPP_ID, name = "Operating-Channel")
+@DiameterAvpDefinition(code = TgppAvpCodes.OPERATING_CHANNEL, vendorId = VendorIDs.TGPP_ID, name = "Operating-Channel")
 public interface OperatingChannel extends DiameterUnsigned32
 {
 }

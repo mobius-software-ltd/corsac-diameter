@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.NumberOfUEs;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nt.NumberOfUEs;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4209L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NumberOfUEsImpl extends DiameterUnsigned32Impl implements NumberOfUEs
 {
 	protected NumberOfUEsImpl()

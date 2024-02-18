@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MinRequestedBandwidthUL;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.MinRequestedBa
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 535L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MinRequestedBandwidthULImpl extends DiameterUnsigned32Impl implements MinRequestedBandwidthUL
 {
 	protected MinRequestedBandwidthULImpl()

@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -47,12 +49,12 @@ import io.netty.buffer.ByteBuf;
 			[ WLAN-Operator-Id ]
 			[ Logical-Access-ID ]
  */
-@DiameterAvpDefinition(code = 3918L, vendorId = KnownVendorIDs.TGPP_ID, name = "UWAN-User-Location-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.UWAN_USER_LOCATION_INFO, vendorId = VendorIDs.TGPP_ID, name = "UWAN-User-Location-Info")
 public interface UWANUserLocationInfo extends DiameterAvp
 {
 	InetAddress getUELocalIPAddress();
 	
-	void setUELocalIPAddress(InetAddress value);
+	void setUELocalIPAddress(InetAddress value) throws MissingAvpException;
 	
 	Long getUDPSourcePort();
 	

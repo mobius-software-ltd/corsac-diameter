@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFChargingIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AFCorrelationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFChargingIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.Flows;
@@ -35,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1276L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AFCorrelationInformationImpl implements AFCorrelationInformation
 {
 	private AFChargingIdentifier afChargingIdentifier;
@@ -45,12 +46,9 @@ public class AFCorrelationInformationImpl implements AFCorrelationInformation
 	{
 	}
 	
-	public AFCorrelationInformationImpl(ByteBuf afChargingIdentifier)
+	public AFCorrelationInformationImpl(ByteBuf afChargingIdentifier) throws MissingAvpException
 	{
-		if(afChargingIdentifier==null)
-			throw new IllegalArgumentException("AF-Charging-Identifier is required");
-		
-		this.afChargingIdentifier = new AFChargingIdentifierImpl(afChargingIdentifier, null, null);				
+		setAFChargingIdentifier(afChargingIdentifier);
 	}
 	
 	public ByteBuf getAFChargingIdentifier()
@@ -61,11 +59,11 @@ public class AFCorrelationInformationImpl implements AFCorrelationInformation
 		return afChargingIdentifier.getValue();
 	}
 	
-	public void setAFChargingIdentifier(ByteBuf value)
+	public void setAFChargingIdentifier(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("AF-Charging-Identifier is required");
-		
+			throw new MissingAvpException("AF-Charging-Identifier is required", Arrays.asList(new DiameterAvp[] { new AFChargingIdentifierImpl() }));
+			
 		this.afChargingIdentifier = new AFChargingIdentifierImpl(value, null, null);				
 	}
 	
@@ -80,10 +78,10 @@ public class AFCorrelationInformationImpl implements AFCorrelationInformation
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(afChargingIdentifier==null)
-			return "AF-Charging-Identifier is required";
+			return new MissingAvpException("AF-Charging-Identifier is required", Arrays.asList(new DiameterAvp[] { new AFChargingIdentifierImpl() }));
 		
 		return null;
 	}

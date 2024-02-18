@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	For Monitoring Event charging, it contains a string that identifies the entity towards which accounting/charging
 	functionality is performed by the involved 3GPP network elements. 
  */
-@DiameterAvpDefinition(code = 857L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charged-Party")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGED_PARTY, vendorId = VendorIDs.TGPP_ID, name = "Charged-Party")
 public interface ChargedParty extends DiameterUTF8String
 {
 }

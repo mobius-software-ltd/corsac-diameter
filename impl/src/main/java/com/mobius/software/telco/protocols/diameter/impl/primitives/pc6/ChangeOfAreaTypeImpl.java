@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ChangeOfAreaType;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdateEventTrigger;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdateEventTriggerEnum;
@@ -34,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.ReportCardina
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 33825L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ChangeOfAreaTypeImpl extends DiameterGroupedAvpImpl implements ChangeOfAreaType
 {
 	private LocationUpdateEventTrigger locationUpdateEventTrigger;
@@ -45,17 +47,11 @@ public class ChangeOfAreaTypeImpl extends DiameterGroupedAvpImpl implements Chan
 	{
 	}
 	
-	public ChangeOfAreaTypeImpl(LocationUpdateEventTriggerEnum locationUpdateEventTrigger,ReportCardinalityEnum reportCardinality)
+	public ChangeOfAreaTypeImpl(LocationUpdateEventTriggerEnum locationUpdateEventTrigger,ReportCardinalityEnum reportCardinality) throws MissingAvpException
 	{
-		if(locationUpdateEventTrigger==null)
-			throw new IllegalArgumentException("Location-Update-Event-Trigger is required");
+		setLocationUpdateEventTrigger(locationUpdateEventTrigger);
 		
-		if(reportCardinality==null)
-			throw new IllegalArgumentException("Report-Cardinality is required");
-		
-		this.locationUpdateEventTrigger = new LocationUpdateEventTriggerImpl(locationUpdateEventTrigger, null, null);				
-		
-		this.reportCardinality = new ReportCardinalityImpl(reportCardinality, null, null);
+		setReportCardinality(reportCardinality);
 	}
 	
 	public LocationUpdateEventTriggerEnum getLocationUpdateEventTrigger()
@@ -66,11 +62,11 @@ public class ChangeOfAreaTypeImpl extends DiameterGroupedAvpImpl implements Chan
 		return locationUpdateEventTrigger.getEnumerated(LocationUpdateEventTriggerEnum.class);
 	}
 	
-	public void setLocationUpdateEventTrigger(LocationUpdateEventTriggerEnum value)
+	public void setLocationUpdateEventTrigger(LocationUpdateEventTriggerEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Location-Update-Event-Trigger is required");
-		
+			throw new MissingAvpException("Location-Update-Event-Trigger is required", Arrays.asList(new DiameterAvp[] { new LocationUpdateEventTriggerImpl() }));
+			
 		this.locationUpdateEventTrigger = new LocationUpdateEventTriggerImpl(value, null, null);						
 	}
 	
@@ -82,11 +78,11 @@ public class ChangeOfAreaTypeImpl extends DiameterGroupedAvpImpl implements Chan
 		return reportCardinality.getEnumerated(ReportCardinalityEnum.class);
 	}
 	
-	public void setReportCardinality(ReportCardinalityEnum value)
+	public void setReportCardinality(ReportCardinalityEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Report-Cardinality is required");
-		
+			throw new MissingAvpException("Report-Cardinality is required", Arrays.asList(new DiameterAvp[] { new ReportCardinalityImpl() }));
+			
 		this.reportCardinality = new ReportCardinalityImpl(value, null, null);
 	}
 	
@@ -107,13 +103,13 @@ public class ChangeOfAreaTypeImpl extends DiameterGroupedAvpImpl implements Chan
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(locationUpdateEventTrigger==null)
-			return "Location-Update-Event-Trigger is required";
+			return new MissingAvpException("Location-Update-Event-Trigger is required", Arrays.asList(new DiameterAvp[] { new LocationUpdateEventTriggerImpl() }));
 		
 		if(reportCardinality==null)
-			return "Report-Cardinality is required";
+			return new MissingAvpException("Report-Cardinality is required", Arrays.asList(new DiameterAvp[] { new ReportCardinalityImpl() }));
 		
 		return null;
 	}

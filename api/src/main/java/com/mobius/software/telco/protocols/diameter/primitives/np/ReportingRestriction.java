@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 (Unconditional reporting restriction):
 	This value shall be used by the PCRF to indicate to the RCAF that there are unconditional restrictions on congestion reporting for a specific user id and PDN ID.
  */
-@DiameterAvpDefinition(code = 4011L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Reporting-Restriction")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPORTING_RESTRICTION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Reporting-Restriction")
 public interface ReportingRestriction extends DiameterEnumerated<ReportingRestrictionEnum>
 {
 }

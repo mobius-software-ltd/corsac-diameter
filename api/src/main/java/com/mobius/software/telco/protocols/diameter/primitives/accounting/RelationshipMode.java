@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 trusted
 	1 non-trusted 
  */
-@DiameterAvpDefinition(code = 2706L, vendorId = KnownVendorIDs.TGPP_ID, name = "Relationship-Mode")
+@DiameterAvpDefinition(code = TgppAvpCodes.RELATIONSHIP_MODE, vendorId = VendorIDs.TGPP_ID, name = "Relationship-Mode")
 public interface RelationshipMode extends DiameterEnumerated<RelationshipModeEnum>
 {
 }

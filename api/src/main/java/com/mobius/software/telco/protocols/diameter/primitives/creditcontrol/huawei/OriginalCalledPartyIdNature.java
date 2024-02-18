@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 3: national number
 	    - 4: international number
  */
-@DiameterAvpDefinition(code = 21166L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Original-Called-Party-Id-Nature")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ORIGINAL_CALLED_PARTY_ID_NATURE, vendorId = VendorIDs.HUAWEI_ID, name = "Original-Called-Party-Id-Nature")
 public interface OriginalCalledPartyIdNature extends DiameterUnsigned32
 {
 }

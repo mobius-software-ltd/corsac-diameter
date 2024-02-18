@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	group, uniquely represents a specific one-to-many ProSe Direct Communication and is included in CDRs for each
 	participantes in the specific group. This identity is referred to as "ProSe Layer-2 Group ID" in TS 23.303 [235]. 
  */
-@DiameterAvpDefinition(code = 3429L, vendorId = KnownVendorIDs.TGPP_ID, name = "Layer-2-Group-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.LAYER_2_GROUP_ID, vendorId = VendorIDs.TGPP_ID, name = "Layer-2-Group-ID")
 public interface Layer2GroupID extends DiameterOctetString
 {
 }

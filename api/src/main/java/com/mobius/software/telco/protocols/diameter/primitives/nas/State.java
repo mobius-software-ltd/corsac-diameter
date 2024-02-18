@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    In either usage, the NAS MUST NOT interpret the AVP locally.  Usage
    of the State AVP is implementation dependent.
  */
-@DiameterAvpDefinition(code = 24L, vendorId = -1L, name = "State")
+@DiameterAvpDefinition(code = AvpCodes.STATE, vendorId = -1L, name = "State")
 public interface State extends DiameterOctetString
 {
 }

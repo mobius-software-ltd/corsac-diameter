@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value shall be used to indicate that the Access-Network-Charging-Identifier-Gx AVP for the dynamic PCC
 		rule(s) shall be reported to the PCRF by the PCEF.
  */
-@DiameterAvpDefinition(code = 1073L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Charging-Correlation-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_CORRELATION_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "Charging-Correlation-Indicator")
 public interface ChargingCorrelationIndicator extends DiameterEnumerated<ChargingCorrelationIndicatorEnum>
 {
 }

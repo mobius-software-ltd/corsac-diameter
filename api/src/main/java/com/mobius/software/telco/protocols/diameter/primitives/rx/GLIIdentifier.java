@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * 	5.3.77	GLI-Identifier AVP
 	The GLI-Identifier AVP (AVP code 580) is of type OctetString and contains a Global Line Identifier (see clause 28.16.3 of 3GPP TS 23.003 [38]) encoded as base64-encoded characters, representing the GLI value (up to 150 bytes) as specified in BBF WT-470 [74].
  */
-@DiameterAvpDefinition(code = 580L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "GLI-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.GLI_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "GLI-Identifier")
 public interface GLIIdentifier extends DiameterOctetString
 {
 }

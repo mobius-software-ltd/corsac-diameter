@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	20.5a.4	MBMS-BMSC-SSM-UDP-Port AVP
 	The MBMS-BMSC-SSM-UDP-Port AVP (AVP code 926) is of type OctetString and contains the Sgi-mb (transport) plane source UDP port number at the BM-SC for IP multicast encapsulation of IP multicast datagrams.
  */
-@DiameterAvpDefinition(code = 926L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBMS-BMSC-SSM-UDP-Port")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_BMSC_SM_UDP_PORT, vendorId = VendorIDs.TGPP_ID, must = false, name = "MBMS-BMSC-SSM-UDP-Port")
 public interface MBMSBMSCSSMUDPPort extends DiameterOctetString
 {
 }

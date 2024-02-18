@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    contains the 16-octet authentication data provided by the user in
    response to the CHAP challenge [RFC1994].
  */
-@DiameterAvpDefinition(code = 405L, vendorId = -1L, name = "CHAP-Response")
+@DiameterAvpDefinition(code = AvpCodes.CHAP_RESPONSE, vendorId = -1L, name = "CHAP-Response")
 public interface CHAPResponse extends DiameterOctetString
 {
 }

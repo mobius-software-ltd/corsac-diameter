@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value is used to indicate that, for some reason (e.g. loss of bearer), already installed or activated PCC rules
 		are temporarily disabled.
  */
-@DiameterAvpDefinition(code = 1019L, vendorId = KnownVendorIDs.TGPP_ID, name = "PCC-Rule-Status")
+@DiameterAvpDefinition(code = TgppAvpCodes.PCC_RULE_STATUS, vendorId = VendorIDs.TGPP_ID, name = "PCC-Rule-Status")
 public interface PCCRuleStatus extends DiameterEnumerated<PCCRuleStatusEnum>
 {
 }

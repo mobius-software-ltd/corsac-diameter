@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	If the calling party is a group subscriber in the MO, MT, or MF process, this AVP indicates the short number of the calling party. If the calling party does not have a short number, this AVP is left empty. If the calling party is not a group subscriber, this AVP is also left empty.
  */
-@DiameterAvpDefinition(code = 21208L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "S-Caller-Short-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.S_CALLER_SHORT_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "S-Caller-Short-Number")
 public interface SCallerShortNumber extends DiameterOctetString
 {
 }

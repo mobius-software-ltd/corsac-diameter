@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.10	eNodeB-Id AVP
 	The eNodeB-Id AVP (AVP code 4008) is of type OctetString, and indicates the eNodeB in which the UE is currently located. The AVP shall be coded as in clause 8.51 of 3GPP TS 29.274 [12].
  */
-@DiameterAvpDefinition(code = 4008L, vendorId = KnownVendorIDs.TGPP_ID, name = "eNodeB-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.ENODEB_ID, vendorId = VendorIDs.TGPP_ID, name = "eNodeB-Id")
 public interface ENodeBId extends DiameterOctetString
 {
 }

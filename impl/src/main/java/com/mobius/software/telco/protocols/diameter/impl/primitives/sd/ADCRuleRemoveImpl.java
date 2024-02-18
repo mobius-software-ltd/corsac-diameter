@@ -21,9 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sd;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleBaseName;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleName;
 import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleRemove;
@@ -35,7 +33,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1093L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ADCRuleRemoveImpl extends DiameterGroupedAvpImpl implements ADCRuleRemove
 {
 	private List<ADCRuleName> adcRuleName;

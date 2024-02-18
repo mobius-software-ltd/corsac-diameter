@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,16 +45,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			  [ SIP-Authentication-Scheme ]
 			 *[ AVP ]
  */
-@DiameterAvpDefinition(code = 639L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SCSCF-Restoration-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCSCF_RESTORATION_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "SCSCF-Restoration-Info")
 public interface SCSCFRestorationInfo extends DiameterGroupedAvp
 {
 	String getUserName();
 	
-	void setUserName(String value);
+	void setUserName(String value) throws MissingAvpException;
 	
 	List<RestorationInfo> getRestorationInfo();
 	
-	void setRestorationInfo(List<RestorationInfo> value);
+	void setRestorationInfo(List<RestorationInfo> value) throws MissingAvpException;
 	
 	Date getRegistrationTimeOut();
 	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates the additional information. It is used in writing CDR process.
 	This AVP is used only in [RTBP-Information] group.
  */
-@DiameterAvpDefinition(code = 20665L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Additional-Info")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ADDITIONAL_INFO_20665, vendorId = VendorIDs.HUAWEI_ID, name = "Additional-Info")
 public interface AdditionalInfo20665 extends DiameterUTF8String
 {
 }

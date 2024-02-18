@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.app.rfc5778;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentHost;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.Classifier;
@@ -57,19 +58,19 @@ import io.netty.buffer.ByteBuf;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public QoSResources getQoSResources(List<FilterRule> filterRule);
+	public QoSResources getQoSResources(List<FilterRule> filterRule) throws MissingAvpException;
 	
-	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate);
+	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate) throws MissingAvpException;
 	
-	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId);
+	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId) throws MissingAvpException;
 	
 	public MIP6AgentInfo getMIP6AgentInfo();
 	
-	public MIPMNHAMSA getMIPMNHAMSA(ByteBuf mipSessionKey, Long mipMSALifetime);
+	public MIPMNHAMSA getMIPMNHAMSA(ByteBuf mipSessionKey, Long mipMSALifetime) throws MissingAvpException;
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm);
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException;
 	
-	public ExcessTreatment getExcessTreatment(TreatmentActionEnum treatmentAction);
+	public ExcessTreatment getExcessTreatment(TreatmentActionEnum treatmentAction) throws MissingAvpException;
 	
 	public QoSParameters getQoSParameters();
 	
@@ -77,7 +78,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public TimeOfDayCondition getTimeOfDayCondition();
 	
-	public Classifier getClassifier(ByteBuf classifierID);
+	public Classifier getClassifier(ByteBuf classifierID) throws MissingAvpException;
 	
 	public MonthOfYearMask getMonthOfYearMask();
 	
@@ -89,23 +90,23 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ToSpec getToSpec();
 	
-	public IPOption getIPOption(IPOptionTypeEnum ipOptionType); 
+	public IPOption getIPOption(IPOptionTypeEnum ipOptionType) throws MissingAvpException; 
 	
-	public TCPOption getTCPOption(TCPOptionTypeEnum tcpOptionType);
+	public TCPOption getTCPOption(TCPOptionTypeEnum tcpOptionType) throws MissingAvpException;
 	
-	public TCPFlags getTCPFlags(Long tcpFlagType);
+	public TCPFlags getTCPFlags(Long tcpFlagType) throws MissingAvpException;
 	
-	public ICMPType getICMPType(ICMPTypeNumberEnum icmpTypeNumber);
+	public ICMPType getICMPType(ICMPTypeNumberEnum icmpTypeNumber) throws MissingAvpException;
 	
-	public ETHOption getETHOption(ETHProtoType ethProtoType);
+	public ETHOption getETHOption(ETHProtoType ethProtoType) throws MissingAvpException;
 	
 	public IPAddressRange getIPAddressRange(InetAddress ipAddressStart,InetAddress ipAddressEnd);
 	
-	public IPAddressMask getIPAddressMask(InetAddress ipAddress,Long ipBitMaskWidth);
+	public IPAddressMask getIPAddressMask(InetAddress ipAddress,Long ipBitMaskWidth) throws MissingAvpException;
 	
-	public MACAddressMask getMACAddressMask(ByteBuf macAddress,ByteBuf macAddressMaskPattern);
+	public MACAddressMask getMACAddressMask(ByteBuf macAddress,ByteBuf macAddressMaskPattern) throws MissingAvpException;
 	
-	public EUI64AddressMask getEUI64AddressMask(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern);
+	public EUI64AddressMask getEUI64AddressMask(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern) throws MissingAvpException;
 	
 	public PortRange getPortRange(Integer portStart,Integer portEnd);
 }

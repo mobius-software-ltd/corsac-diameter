@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.38	Service-Result-Code
 	The Service-Result-Code AVP is of type Unsigned32. This AVP shall contain either the value of an Experimental-Result-Code defined by 3GPP or the value of a Result-Code defined in Diameter base protocol by IETF (see IETF RFC 6733 [23]).
  */
-@DiameterAvpDefinition(code = 3147L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Result-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_RESULT_CODE, vendorId = VendorIDs.TGPP_ID, name = "Service-Result-Code")
 public interface ServiceResultCode extends DiameterUnsigned32
 {
 }

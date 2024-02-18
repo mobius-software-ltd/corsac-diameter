@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXCycleLength;
 
 /**
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXCycleLeng
 	The eDRX-Cycle-Length AVP shall contain the eDRX cycle length granted to the UE by the MME/SGSN.
 	The DL-Buffering-Suggested-Packet-Count AVP shall contain the suggested number of downlink packets sent to the S-GW by the MME/SGSN.
  */
-@DiameterAvpDefinition(code = 4322L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Idle-Status-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.IDLE_STATUS_INDICATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Idle-Status-Indication")
 public interface IdleStatusIndication extends DiameterGroupedAvp
 {
 	Date getIdleStatusTimestamp();

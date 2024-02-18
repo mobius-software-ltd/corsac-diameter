@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	time origin for charging and may be equivalent to the time call setup is initiated or the time the call is answered
 	depending on configuration. 
  */
-@DiameterAvpDefinition(code = 3419L, vendorId = KnownVendorIDs.TGPP_ID, name = "Start-of-Charging")
+@DiameterAvpDefinition(code = TgppAvpCodes.START_OF_CHARGING, vendorId = VendorIDs.TGPP_ID, name = "Start-of-Charging")
 public interface StartOfCharging extends DiameterTime
 {
 }

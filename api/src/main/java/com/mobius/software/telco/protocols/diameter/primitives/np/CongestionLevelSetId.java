@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.6	Congestion-Level-Set-Id AVP
 	The Congestion-Level-Set-Id AVP (AVP code 4004) is of type Unsigned32, and it is used to indicate the congestion level set identifier between the PCRF and the RCAF.
  */
-@DiameterAvpDefinition(code = 4004L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Congestion-Level-Set-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONGESTION_LEVEL_SET_ID, vendorId = VendorIDs.TGPP_ID,must = false, name = "Congestion-Level-Set-Id")
 public interface CongestionLevelSetId extends DiameterUnsigned32
 {
 }

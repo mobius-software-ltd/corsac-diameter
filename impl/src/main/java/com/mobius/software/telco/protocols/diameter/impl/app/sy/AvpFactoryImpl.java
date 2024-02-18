@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sy;
 import java.util.Date;
 
 import com.mobius.software.telco.protocols.diameter.app.sy.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.OCOLRImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
@@ -50,28 +51,28 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException
 	{
 		return new SubscriptionIdImpl(subscriptionIdType, subscriptionIdData);
 	}
 	
-	public PolicyCounterStatusReport getPolicyCounterStatusReport(String policyCounterIdentifier,String policyCounterStatus)
+	public PolicyCounterStatusReport getPolicyCounterStatusReport(String policyCounterIdentifier,String policyCounterStatus) throws MissingAvpException
 	{
 		return new PolicyCounterStatusReportImpl(policyCounterIdentifier, policyCounterStatus);
 	}
 	
-	public PendingPolicyCounterInformation getPendingPolicyCounterInformation(String policyCounterStatus,Date pendingPolicyCounterChangeTime)
+	public PendingPolicyCounterInformation getPendingPolicyCounterInformation(String policyCounterStatus,Date pendingPolicyCounterChangeTime) throws MissingAvpException
 	{
-		return new PendingPolicyCounterInformationImpl();
+		return new PendingPolicyCounterInformationImpl(policyCounterStatus, pendingPolicyCounterChangeTime);
 	}
 }

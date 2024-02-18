@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -65,7 +66,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
     	- other: reserved.
     	- > 1000: Extended by external systems.
  */
-@DiameterAvpDefinition(code = 20343L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Recharge-Method")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.RECHARGE_METHOD, vendorId = VendorIDs.HUAWEI_ID, name = "Recharge-Method")
 public interface RechargeMethod extends DiameterEnumerated<RechargeMethodEnum>
 {
 }

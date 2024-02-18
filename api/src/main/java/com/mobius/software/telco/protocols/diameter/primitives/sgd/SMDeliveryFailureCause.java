@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,12 +42,12 @@ import io.netty.buffer.ByteBuf;
 		 [ SM-Diagnostic-Info ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 3303L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Delivery-Failure-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_DELIVERY_FAILURE_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "SM-Delivery-Failure-Cause")
 public interface SMDeliveryFailureCause extends DiameterGroupedAvp
 {
 	SMEnumeratedDeliveryFailureCauseEnum getSMEnumeratedDeliveryFailureCause();
 	
-	void setSMEnumeratedDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum value);	
+	void setSMEnumeratedDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum value) throws MissingAvpException;	
 	
 	ByteBuf getSMDiagnosticInfo();
 	

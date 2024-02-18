@@ -2,12 +2,16 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sta;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sta.EAPRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.eap.EAPPayloadImpl;
@@ -72,7 +76,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777250, commandCode = 268, request = true)
 public class EAPRequestImpl extends StaRequestImpl implements EAPRequest
 {
 	private AuthRequestType authRequestType;
@@ -122,7 +125,7 @@ public class EAPRequestImpl extends StaRequestImpl implements EAPRequest
 		super();
 	}
 	
-	public EAPRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload)
+	public EAPRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -141,10 +144,10 @@ public class EAPRequestImpl extends StaRequestImpl implements EAPRequest
 	}
 
 	@Override
-	public void setAuthRequestType(AuthRequestTypeEnum value) 
+	public void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Auth-Request-Type is required");
+			throw new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));
 		
 		this.authRequestType = new AuthRequestTypeImpl(value, null, null);
 	}	
@@ -159,10 +162,10 @@ public class EAPRequestImpl extends StaRequestImpl implements EAPRequest
 	}
 
 	@Override
-	public void setEAPPayload(ByteBuf value) 
+	public void setEAPPayload(ByteBuf value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("EAP-Payload is required");				
+			throw new MissingAvpException("EAP-Payload is required", Arrays.asList(new DiameterAvp[] { new EAPPayloadImpl() }));				
 
 		this.eapPayload = new EAPPayloadImpl(value, null, null);
 	}
@@ -445,12 +448,18 @@ public class EAPRequestImpl extends StaRequestImpl implements EAPRequest
 	}
 	
 	@Override
-	public void setTWAGCPAddress(List<InetAddress> value)
+	public void setTWAGCPAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value==null || value.size()==0)
 			this.twagCPAddress = null;
 		else if(value.size()>2)
-			throw new IllegalArgumentException("Up to 2 TWAG-CP-Address allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new TWAGCPAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 TWAG-CP-Address allowed", failedAvps);
+		}
 		else
 		{
 			this.twagCPAddress = new ArrayList<TWAGCPAddress>();
@@ -472,16 +481,21 @@ public class EAPRequestImpl extends StaRequestImpl implements EAPRequest
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authRequestType==null)
-			throw new IllegalArgumentException("Auth-Request-Type is required");
+			return new MissingAvpException("Auth-Request-Type is required", Arrays.asList(new DiameterAvp[] { new AuthRequestTypeImpl() }));
 		
 		if(eapPayload==null)
-			return "EAP-Payload is required";
+			return new MissingAvpException("EAP-Payload is required", Arrays.asList(new DiameterAvp[] { new EAPPayloadImpl() }));
 		
 		if(twagCPAddress!=null && twagCPAddress.size()>2)
-			return "Up to 2 TWAG-CP-Address allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(twagCPAddress);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 TWAG-CP-Address allowed", failedAvps);
+		}
 		
 		return super.validate();
 	}

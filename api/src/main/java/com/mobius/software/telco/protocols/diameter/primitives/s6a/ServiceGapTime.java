@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.223	Service-Gap-Time
 	The Service-Gap-Time AVP is of type Unsigned32 and indicates the minimum number of seconds during which the UE shall stay in ECM-IDLE mode, after leaving the ECM-CONNECTED mode, before being allowed to send a subsequent connection request to enter ECM-CONNECTED mode again. See description of the Service Gap Control feature in 3GPP TS 23.401 [2].
  */
-@DiameterAvpDefinition(code = 1698L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Service-Gap-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_GAP_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Service-Gap-Time")
 public interface ServiceGapTime extends DiameterUnsigned32
 {
 }

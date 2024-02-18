@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	UNIDENTIFIED_SUBSCRIBER (5)
 	This value is used when the user is unidentified in all of the serving nodes.
  */
-@DiameterAvpDefinition(code = 3201L, vendorId = KnownVendorIDs.TGPP_ID, name = "Absent-Subscriber-Diagnostic-T4")
+@DiameterAvpDefinition(code = TgppAvpCodes.ABSENT_SUBSCRIBER_DIAGNOSTIC_T4, vendorId = VendorIDs.TGPP_ID, name = "Absent-Subscriber-Diagnostic-T4")
 public interface AbsentSubscriberDiagnosticT4 extends DiameterEnumerated<AbsentSubscriberDiagnosticT4Enum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.4.59	Group-Reporting-Guard-Timer
 	The Group-Reporting-Guard-Timer AVP is of type Unsigned32. The Group Reporting Guard Timer indicates an interval in seconds after which time the HSS (at the latest) shall send aggregated Status Indications and/or event report(s) which have been detected for UEs that are part of a group.
  */
-@DiameterAvpDefinition(code = 3163L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Group-Reporting-Guard-Timer")
+@DiameterAvpDefinition(code = TgppAvpCodes.GROUP_REPORT_GUARD_TIME, vendorId = VendorIDs.TGPP_ID,must = false, name = "Group-Reporting-Guard-Timer")
 public interface GroupReportingGuardTimer extends DiameterUnsigned32
 {
 }

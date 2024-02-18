@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -56,34 +58,34 @@ import io.netty.buffer.ByteBuf;
                 {Account-Date-Change}
                 {Measure-Type}
 */
-@DiameterAvpDefinition(code = 20349L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Account-Change-Info")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACCOUNT_CHANGE_INFO, vendorId = VendorIDs.HUAWEI_ID, name = "Account-Change-Info")
 public interface AccountChangeInfo extends DiameterAvp 
 {
 	ByteBuf getAccountID();
 	
-	void setAccountID(ByteBuf value);
+	void setAccountID(ByteBuf value) throws MissingAvpException;
 	
 	Long getAccountType();
 	
-	void setAccountType(Long value);
+	void setAccountType(Long value) throws MissingAvpException;
 	
 	Long getCurrentAccountBalance();
 	
-	void setCurrentAccountBalance(Long value);
+	void setCurrentAccountBalance(Long value) throws MissingAvpException;
 	
 	Long getAccountBalanceChange();	
 	
-	void setAccountBalanceChange(Long value);
+	void setAccountBalanceChange(Long value) throws MissingAvpException;
 	
 	ByteBuf getAccountDate();
 	
-	void setAccountDate(ByteBuf value);
+	void setAccountDate(ByteBuf value) throws MissingAvpException;
 	
 	Long getAccountDateChange();
 	
-	void setAccountDateChange(Long value);
+	void setAccountDateChange(Long value) throws MissingAvpException;
 	
 	Long getMeasureType();
 	
-	void setMeasureType(Long value);	
+	void setMeasureType(Long value) throws MissingAvpException;	
 }

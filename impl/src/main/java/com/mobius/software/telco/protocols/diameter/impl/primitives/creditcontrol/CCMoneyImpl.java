@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CurrencyCode;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
@@ -29,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 413L, vendorId = -1)
 public class CCMoneyImpl implements CCMoney
 {
 	private UnitValue unitValue;
@@ -41,15 +44,9 @@ public class CCMoneyImpl implements CCMoney
 		
 	}
 	
-	public CCMoneyImpl(UnitValue unitValue,Long currencyCode)
+	public CCMoneyImpl(UnitValue unitValue) throws MissingAvpException
 	{
-		if(unitValue==null)
-			throw new IllegalArgumentException("Unit-Value is required");
-		
-		this.unitValue = unitValue;
-		
-		if(currencyCode!=null)
-			this.currencyCode=new CurrencyCodeImpl(currencyCode, null, null);		
+		setUnitValue(unitValue);		
 	}
 	
 	public UnitValue getUnitValue()
@@ -57,8 +54,11 @@ public class CCMoneyImpl implements CCMoney
 		return this.unitValue;
 	}
 	
-	public void setUnitValue(UnitValue value)
+	public void setUnitValue(UnitValue value) throws MissingAvpException
 	{
+		if(value==null)
+			throw new MissingAvpException("Unit-Value is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() }));
+		
 		this.unitValue = value;
 	}
 	
@@ -70,7 +70,7 @@ public class CCMoneyImpl implements CCMoney
 		return this.currencyCode.getUnsigned();
 	}
 	
-	public void setCurrencyCode(Long value)
+	public void setCurrencyCode(Long value) throws MissingAvpException
 	{
 		if(value!=null)
 			this.currencyCode = new CurrencyCodeImpl(value, null, null);
@@ -79,10 +79,10 @@ public class CCMoneyImpl implements CCMoney
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(unitValue==null)
-			return "Unit-Value is required";
+			return new MissingAvpException("Unit-Value is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() }));
 		
 		return null;
 	}

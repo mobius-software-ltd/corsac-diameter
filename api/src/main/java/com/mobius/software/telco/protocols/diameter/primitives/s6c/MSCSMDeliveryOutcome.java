@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[ SM-Delivery-Cause ]
 		[ Absent-User-Diagnostic-SM ]
  */
-@DiameterAvpDefinition(code = 3318L, vendorId = KnownVendorIDs.TGPP_ID, name = "MSC-SM-Delivery-Outcome")
+@DiameterAvpDefinition(code = TgppAvpCodes.MSC_SM_DELIVERY_OUTCOME, vendorId = VendorIDs.TGPP_ID, name = "MSC-SM-Delivery-Outcome")
 public interface MSCSMDeliveryOutcome extends DiameterAvp
 {
 	SMDeliveryCauseEnum getSMDeliveryCause();

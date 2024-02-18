@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -43,7 +45,7 @@ import io.netty.buffer.ByteBuf;
 			 { KASME }
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1414L, vendorId = KnownVendorIDs.TGPP_ID, name = "E-UTRAN-Vector")
+@DiameterAvpDefinition(code = TgppAvpCodes.EUTRAN_VECTOR, vendorId = VendorIDs.TGPP_ID, name = "E-UTRAN-Vector")
 public interface EUTRANVector extends DiameterGroupedAvp
 {
 	Long getItemNumber();
@@ -52,17 +54,17 @@ public interface EUTRANVector extends DiameterGroupedAvp
 	
 	ByteBuf getRAND();
 	
-	void setRAND(ByteBuf value);
+	void setRAND(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getXRES();
 	
-	void setXRES(ByteBuf value);
+	void setXRES(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getAUTN();
 	
-	void setAUTN(ByteBuf value);
+	void setAUTN(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getKASME();
 	
-	void setKASME(ByteBuf value);
+	void setKASME(ByteBuf value) throws MissingAvpException;
 }

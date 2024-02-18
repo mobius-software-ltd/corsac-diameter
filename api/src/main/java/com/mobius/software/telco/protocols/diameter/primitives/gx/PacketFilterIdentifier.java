@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	filter. For PCC rules created as a result of UE-initiated resource allocation, the packet filter identifier is assigned by the
 	PCRF and within the scope of the PCRF is unique per UE.
  */
-@DiameterAvpDefinition(code = 1060L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.PACKET_FILTER_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Identifier")
 public interface PacketFilterIdentifier extends DiameterOctetString
 {
 }

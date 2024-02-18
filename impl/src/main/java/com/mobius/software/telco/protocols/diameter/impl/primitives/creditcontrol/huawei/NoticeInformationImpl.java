@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.MessageContent1;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.MessageContent2;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.MessageContent3;
@@ -35,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20394L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class NoticeInformationImpl implements NoticeInformation
 {
 	private MessageCount messageCount;

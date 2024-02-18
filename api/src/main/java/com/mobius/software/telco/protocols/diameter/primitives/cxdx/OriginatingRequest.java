@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	ORIGINATING (0)
 		This value indicates to the HSS that the request is related to an AS originating SIP request in the Location-Information-Request operation.
  */
-@DiameterAvpDefinition(code = 633L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Originating-Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.ORIGINAL_REQUEST, vendorId = VendorIDs.TGPP_ID, must = false, name = "Originating-Request")
 public interface OriginatingRequest extends DiameterEnumerated<OriginatingRequestEnum>
 {
 }

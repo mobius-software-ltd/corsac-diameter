@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	TS 29.163 [234] for the Request-URI header. For a mobile originating call, this AVP contains the Called Party Number
 	after processing by the Proxy Function (e.g. number normalization). 
  */
-@DiameterAvpDefinition(code = 832L, vendorId = KnownVendorIDs.TGPP_ID, name = "Called-Party-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.CALLED_PARTY_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Called-Party-Address")
 public interface CalledPartyAddress extends DiameterUTF8String
 {
 }

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.PriorityIndicationEnum;
 
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.PriorityIndic
 		[ Priority-Indication ]
 		[ Application-Port-Identifier ] 
  */
-@DiameterAvpDefinition(code = 3405L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Device-Trigger-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_DEVICE_TRIGGER_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "SM-Device-Trigger-Information")
 public interface SMDeviceTriggerInformation extends DiameterAvp
 {
 	InetAddress getMTCIWFAddress();

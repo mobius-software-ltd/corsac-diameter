@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.18	ProSe-App-Mask
 	The ProSe-App-Mask AVP is of type OctetString. This AVP contains a ProSe Application Mask (see 3GPP TS 24.334 [22]).
  */
-@DiameterAvpDefinition(code = 3812L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-App-Mask")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_APP_MASK, vendorId = VendorIDs.TGPP_ID, name = "ProSe-App-Mask")
 public interface ProSeAppMask extends DiameterOctetString
 {
 }

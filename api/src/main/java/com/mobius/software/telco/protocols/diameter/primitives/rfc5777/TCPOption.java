@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -51,12 +53,12 @@ import io.netty.buffer.ByteBuf;
    Negated AVP is used without the TCP-Option-Value AVP to specify TCP
    headers that do not contain the option type.
  */
-@DiameterAvpDefinition(code = 540L, vendorId = -1L, name = "TCP-Option")
+@DiameterAvpDefinition(code = AvpCodes.TCP_OPTION, vendorId = -1L, name = "TCP-Option")
 public interface TCPOption extends DiameterGroupedAvp
 {
 	TCPOptionTypeEnum getTCPOptionType();
 	
-	void setTCPOptionType(TCPOptionTypeEnum value);	
+	void setTCPOptionType(TCPOptionTypeEnum value) throws MissingAvpException;	
 	
 	ByteBuf getTCPOptionValue();
 	

@@ -21,9 +21,12 @@ package com.mobius.software.telco.protocols.diameter.commands.creditcontrol;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CheckBalanceResultEnum;
@@ -81,16 +84,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoS
                                  *[ Failed-AVP ]
                                  *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Credit-Control-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.CREDIT_CONTROL, request = false, proxyable = true, name="Credit-Control-Answer")
 public interface CreditControlAnswer extends AuthenticationAnswer
 {
     CcRequestTypeEnum getCcRequestType();
 	
-	void setCcRequestType(CcRequestTypeEnum value);
+	void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException;
 	
 	Long getCcRequestNumber();
 	
-	void setCcRequestNumber(Long value);
+	void setCcRequestNumber(Long value) throws MissingAvpException;
 	
 	public CcSessionFailoverEnum getCcSessionFailover();
 	

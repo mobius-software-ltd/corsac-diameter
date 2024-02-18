@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	fall below the supplied threshold. The client shall allow service to continue whilst the re-authorization is progress, until
 	the time at which the original quota would have been consumed. 
  */
-@DiameterAvpDefinition(code = 868L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Quota-Threshold")
+@DiameterAvpDefinition(code = TgppAvpCodes.TIME_QUOTA_THRESHOLD, vendorId = VendorIDs.TGPP_ID, name = "Time-Quota-Threshold")
 public interface TimeQuotaThreshold extends DiameterUnsigned32
 {
 }

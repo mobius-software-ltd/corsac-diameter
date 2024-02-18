@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.app.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AllowedWAFWWSFIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AssociatedIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AssociatedRegisteredIdentities;
@@ -49,17 +50,17 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public ServerCapabilities getServerCapabilities();
 	
 	public FailedPCSCF getFailedPCSCF();
 	
-	public SCSCFRestorationInfo getSCSCFRestorationInfo(String username,List<RestorationInfo> restorationInfo);
+	public SCSCFRestorationInfo getSCSCFRestorationInfo(String username,List<RestorationInfo> restorationInfo) throws MissingAvpException;
 	
 	public AllowedWAFWWSFIdentities getAllowedWAFWWSFIdentities();
 	
@@ -69,17 +70,17 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ChargingInformation getChargingInformation();
 	
-	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode);
+	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode) throws MissingAvpException;
 	
 	public SIPAuthDataItem getSIPAuthDataItem();
 	
-	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm);
+	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm) throws MissingAvpException;
 	
-	public RestorationInfo getRestorationInfo(ByteBuf path,ByteBuf contact);
+	public RestorationInfo getRestorationInfo(ByteBuf path,ByteBuf contact) throws MissingAvpException;
 	
-	public SubscriptionInfo getSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf recordRoute,ByteBuf contact);
+	public SubscriptionInfo getSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf recordRoute,ByteBuf contact) throws MissingAvpException;
 	
-	public PCSCFSubscriptionInfo getPCSCFSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf contact);
+	public PCSCFSubscriptionInfo getPCSCFSubscriptionInfo(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf contact) throws MissingAvpException;
 	
 	public SARFlags getSARFlags();
 	

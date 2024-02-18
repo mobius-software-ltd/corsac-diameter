@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -55,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                   [ Redirect-Address-SIP-URI ]
                                   [ AVP ]
  */
-@DiameterAvpDefinition(code = 665L, vendorId = -1, must = false, name = "Redirect-Server-Extension")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_SERVER_EXTENSION, vendorId = -1, must = false, name = "Redirect-Server-Extension")
 public interface RedirectServerExtension extends DiameterGroupedAvp 
 {
 	InetAddress getIPAddress();

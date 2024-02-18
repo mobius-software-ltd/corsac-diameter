@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescription;
 
 /**
@@ -44,12 +46,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescriptio
                                  { ROHC-Profile }
                                 *[ AVP ]
  */
-@DiameterAvpDefinition(code = 3526L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ROHC‑Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROHC_REQUEST, vendorId = VendorIDs.TGPP_ID, must = false, name = "ROHC‑Request")
 public interface ROHCRequest extends DiameterGroupedAvp
 {
 	List<FlowDescription> getFlowDescription();
 	
-	void setFlowDescription(List<FlowDescription> value);	
+	void setFlowDescription(List<FlowDescription> value) throws MissingAvpException;	
 	
 	Float getROHCFullHeaderPeriodicity();
 	
@@ -57,5 +59,5 @@ public interface ROHCRequest extends DiameterGroupedAvp
 	
 	Long getROHCProfile();
 	
-	void setROHCProfile(Long value);
+	void setROHCProfile(Long value) throws MissingAvpException;
 }

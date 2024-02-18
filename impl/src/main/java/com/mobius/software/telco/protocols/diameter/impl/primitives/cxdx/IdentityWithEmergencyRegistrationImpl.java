@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.IdentityWithEmergencyRegistration;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdentity;
@@ -32,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdenti
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 651L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IdentityWithEmergencyRegistrationImpl extends DiameterGroupedAvpImpl implements IdentityWithEmergencyRegistration
 {
 	private UserName userName;
@@ -44,17 +46,11 @@ public class IdentityWithEmergencyRegistrationImpl extends DiameterGroupedAvpImp
 		
 	}
 	
-	public IdentityWithEmergencyRegistrationImpl(String userName,String publicIdentity)
+	public IdentityWithEmergencyRegistrationImpl(String userName,String publicIdentity) throws MissingAvpException
 	{
-		if(userName==null)
-			throw new IllegalArgumentException("User-Name is required");
+		setUserName(userName);
 		
-		if(publicIdentity==null)
-			throw new IllegalArgumentException("Public-Identity is required");
-		
-		this.userName = new UserNameImpl(userName, null, null);
-		
-		this.publicIdentity = new PublicIdentityImpl(userName, null, null);
+		setPublicIdentity(publicIdentity);
 	}
 	
 	public String getUserName()
@@ -65,11 +61,11 @@ public class IdentityWithEmergencyRegistrationImpl extends DiameterGroupedAvpImp
 		return userName.getString();
 	}
 	
-	public void setUserName(String value)
+	public void setUserName(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("User-Name is required");
-		
+			throw new MissingAvpException("User-Name is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
+			
 		this.userName = new UserNameImpl(value, null, null);
 	}
 	
@@ -81,22 +77,22 @@ public class IdentityWithEmergencyRegistrationImpl extends DiameterGroupedAvpImp
 		return publicIdentity.getString();
 	}
 	
-	public void setPublicIdentity(String value)
+	public void setPublicIdentity(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Public-Identity is required");
-		
+			throw new MissingAvpException("Public-Identity is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
+			
 		this.publicIdentity = new PublicIdentityImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userName==null)
-			return "User-Name is required";
+			return new MissingAvpException("User-Name is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		if(publicIdentity==null)
-			return "Public-Identity is required";
+			return new MissingAvpException("Public-Identity is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
 		
 		return null;
 	}	

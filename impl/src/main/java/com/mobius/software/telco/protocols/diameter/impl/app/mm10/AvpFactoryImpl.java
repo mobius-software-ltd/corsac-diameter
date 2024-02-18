@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.mm10;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.mm10.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.InitialRecipientAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ResultRecipientAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ServedUserIdentityImpl;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.Status;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public InitialRecipientAddress getInitialRecipientAddress(Long sequenceNumber,String recipientAddress)
+	public InitialRecipientAddress getInitialRecipientAddress(Long sequenceNumber,String recipientAddress) throws MissingAvpException
 	{
 		return new InitialRecipientAddressImpl(sequenceNumber, recipientAddress);
 	}
@@ -40,7 +41,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ServedUserIdentityImpl();
 	}
 	
-	public ResultRecipientAddress getResultRecipientAddress(Long sequenceNumber,String recipientAddress)
+	public ResultRecipientAddress getResultRecipientAddress(Long sequenceNumber,String recipientAddress) throws MissingAvpException
 	{
 		return new ResultRecipientAddressImpl(sequenceNumber, recipientAddress);
 	}

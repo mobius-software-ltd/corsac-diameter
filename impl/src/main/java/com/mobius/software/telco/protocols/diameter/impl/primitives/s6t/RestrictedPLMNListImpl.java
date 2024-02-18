@@ -21,10 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.RestrictedPLMNList;
 
@@ -35,7 +33,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3157L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RestrictedPLMNListImpl extends DiameterGroupedAvpImpl implements RestrictedPLMNList
 {
 	private List<VisitedPLMNId> visitedPLMNId;

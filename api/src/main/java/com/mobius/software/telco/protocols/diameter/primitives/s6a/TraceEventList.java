@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.70	Trace-Event-List AVP
 	The Trace-Event-List AVP is of type OctetString. Octets are coded according to 3GPP TS 32.422 [23].
  */
-@DiameterAvpDefinition(code = 1465L, vendorId = KnownVendorIDs.TGPP_ID, name = "Trace-Event-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRACE_EVENT_LIST, vendorId = VendorIDs.TGPP_ID, name = "Trace-Event-List")
 public interface TraceEventList extends DiameterOctetString
 {
 }

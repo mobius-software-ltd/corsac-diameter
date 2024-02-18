@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 ECF address not provided
 	1 ECF address provided 
  */
-@DiameterAvpDefinition(code = 2303L, vendorId = KnownVendorIDs.TGPP_ID, name = "Online-Charging-Flag")
+@DiameterAvpDefinition(code = TgppAvpCodes.ONLINE_CHARGING_FLAG, vendorId = VendorIDs.TGPP_ID, name = "Online-Charging-Flag")
 public interface OnlineChargingFlag extends DiameterEnumerated<OnlineChargingFlagEnum>
 {
 }

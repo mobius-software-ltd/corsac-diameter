@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6b;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
@@ -86,12 +89,12 @@ import io.netty.buffer.ByteBuf;
 				...
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777272, commandCode = 265, request = true, proxyable = true, name="AA-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6B, commandCode = CommandCodes.AAA, request = true, proxyable = true, name="AA-Request")
 public interface AARequest extends S6bRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	MIP6AgentInfo getMIP6AgentInfo();
 	

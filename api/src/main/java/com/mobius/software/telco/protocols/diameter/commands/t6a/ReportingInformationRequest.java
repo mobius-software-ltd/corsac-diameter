@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.t6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -58,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEve
 			*[ Route-Record ]
 			*[AVP]
  */
-@DiameterCommandDefinition(applicationId = 16777346, commandCode = 8388719, request = true, proxyable = true, name="Reporting-Information-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T6A, commandCode = CommandCodes.REPORTING_INFORMATION, request = true, proxyable = true, name="Reporting-Information-Request")
 public interface ReportingInformationRequest extends T6aRequest
 {
 	OCSupportedFeatures getOCSupportedFeatures();

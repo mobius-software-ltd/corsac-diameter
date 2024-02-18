@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This AVP is of type OctetString. This AVP contains the Mobile Equipment Identifier of the user's terminal. For further 
 	details on the encoding of the AVP data, refer to the encoding of the Mobile Identity (MEID) octets 3 to 10 in 3GPP2 A.S0022 [28] Annex A.
  */
-@DiameterAvpDefinition(code = 1471L, vendorId = KnownVendorIDs.TGPP_ID, name = "3GPP2-MEID")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGGP2_MEID, vendorId = VendorIDs.TGPP_ID, name = "3GPP2-MEID")
 public interface TGPP2MEID extends DiameterOctetString
 {
 }

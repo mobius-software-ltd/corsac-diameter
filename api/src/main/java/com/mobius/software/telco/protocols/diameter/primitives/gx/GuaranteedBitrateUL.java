@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	layers above, e.g. IP, UDP, RTP and RTP payload.
 	When the Extended-BW-NR feature is supported and the value to be transmitted exceeds 2^32-1, the Extended-GBRUL AVP shall be used; see subclause 4.5.30 and subclause 5.3.137.
 */
-@DiameterAvpDefinition(code = 1026L, vendorId = KnownVendorIDs.TGPP_ID, name = "Guaranteed-Bitrate-UL")
+@DiameterAvpDefinition(code = TgppAvpCodes.GUARANTEED_BITRATE_UL, vendorId = VendorIDs.TGPP_ID, name = "Guaranteed-Bitrate-UL")
 public interface GuaranteedBitrateUL extends DiameterUnsigned32
 {
 }

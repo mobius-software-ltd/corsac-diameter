@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Screening class of a member.
  */
-@DiameterAvpDefinition(code = 30406L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Member-Screen-Class")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.MEMBER_SCREEN_CLASS, vendorId = VendorIDs.HUAWEI_ID, name = "Member-Screen-Class")
 public interface MemberScreenClass extends DiameterUTF8String
 {
 }

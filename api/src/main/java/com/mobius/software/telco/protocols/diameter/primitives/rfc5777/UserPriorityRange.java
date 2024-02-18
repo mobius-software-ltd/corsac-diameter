@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                          * [ High-User-Priority ]
                          * [ AVP ]
  */
-@DiameterAvpDefinition(code = 557L, vendorId = -1L, name = "User-Priority-Range")
+@DiameterAvpDefinition(code = AvpCodes.USER_PRIORITY_RANGE, vendorId = -1L, name = "User-Priority-Range")
 public interface UserPriorityRange extends DiameterGroupedAvp
 {
 	List<Long> getLowUserPriority();

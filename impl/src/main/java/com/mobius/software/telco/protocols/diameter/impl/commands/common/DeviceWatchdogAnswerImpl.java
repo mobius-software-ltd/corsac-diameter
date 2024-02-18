@@ -3,9 +3,9 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerBase;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
@@ -33,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 0, commandCode = 280, request = false)
 public class DeviceWatchdogAnswerImpl extends DiameterAnswerBase implements DeviceWatchdogAnswer
 {
 	protected DeviceWatchdogAnswerImpl() 
@@ -46,7 +45,7 @@ public class DeviceWatchdogAnswerImpl extends DiameterAnswerBase implements Devi
 		setUsernameAllowed(false);
 	}
 	
-	public DeviceWatchdogAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode)
+	public DeviceWatchdogAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode) throws MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode);
 		setSessionIdAllowed(false);

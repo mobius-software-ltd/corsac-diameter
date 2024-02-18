@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.23	Item-Number
 	The Item-Number AVP is of type Unsigned32. The Item Number is used to order Vectors received within one request.
  */
-@DiameterAvpDefinition(code = 1419L, vendorId = KnownVendorIDs.TGPP_ID, name = "Item-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.ITEM_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "Item-Number")
 public interface ItemNumber extends DiameterUnsigned32
 {
 }

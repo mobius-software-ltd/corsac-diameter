@@ -18,10 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.FlowDescriptionImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowDirection;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowDirectionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.FlowLabel;
@@ -37,7 +41,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1078L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RoutingFilterImpl extends DiameterGroupedAvpImpl implements RoutingFilter
 {
 	private FlowDescription flowDescription;
@@ -51,17 +54,11 @@ public class RoutingFilterImpl extends DiameterGroupedAvpImpl implements Routing
 		
 	}
 	
-	public RoutingFilterImpl(FlowDescription flowDescription,FlowDirectionEnum flowDirection)
+	public RoutingFilterImpl(FlowDescription flowDescription,FlowDirectionEnum flowDirection) throws MissingAvpException
 	{
-		if(flowDescription==null)
-			throw new IllegalArgumentException("Flow-Description is required");
+		setFlowDescription(flowDescription);
 		
-		if(flowDirection==null)
-			throw new IllegalArgumentException("Flow-Direction is required");
-		
-		this.flowDescription = flowDescription;				
-		
-		this.flowDirection = new FlowDirectionImpl(flowDirection, null, null);
+		setFlowDirection(flowDirection);		
 	}
 	
 	public FlowDescription getFlowDescription()
@@ -69,10 +66,10 @@ public class RoutingFilterImpl extends DiameterGroupedAvpImpl implements Routing
 		return flowDescription;
 	}
 	
-	public void setFlowDescription(FlowDescription value)
+	public void setFlowDescription(FlowDescription value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Flow-Description is required");
+			throw new MissingAvpException("Flow-Description is required is required", Arrays.asList(new DiameterAvp[] { new FlowDescriptionImpl() }));
 		
 		this.flowDescription = value;						
 	}
@@ -85,10 +82,10 @@ public class RoutingFilterImpl extends DiameterGroupedAvpImpl implements Routing
 		return flowDirection.getEnumerated(FlowDirectionEnum.class);
 	}
 	
-	public void setFlowDirection(FlowDirectionEnum value)
+	public void setFlowDirection(FlowDirectionEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Flow-Direction is required");
+			throw new MissingAvpException("Flow-Direction is required is required", Arrays.asList(new DiameterAvp[] { new FlowDirectionImpl() }));
 		
 		this.flowDirection = new FlowDirectionImpl(value, null, null);
 	}
@@ -142,13 +139,13 @@ public class RoutingFilterImpl extends DiameterGroupedAvpImpl implements Routing
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(flowDescription==null)
-			return "Flow-Description is required";
+			return new MissingAvpException("Flow-Description is required is required", Arrays.asList(new DiameterAvp[] { new FlowDescriptionImpl() }));
 		
 		if(flowDirection==null)
-			return "Flow-Direction is required";
+			return new MissingAvpException("Flow-Direction is required is required", Arrays.asList(new DiameterAvp[] { new FlowDirectionImpl() }));
 		
 		return null;
 	}		  		  

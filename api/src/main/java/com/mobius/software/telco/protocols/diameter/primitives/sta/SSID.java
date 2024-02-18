@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.2.3.22	SSID
 	The SSID AVP is of type UTF8String and it shall contain the Service Set Identifier which identifies a specific 802.11 extended service set (see IEEE Std 802.11-2012 [40]). It shall contain a string of 1 to 32 octets.
  */
-@DiameterAvpDefinition(code = 1524L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SSID")
+@DiameterAvpDefinition(code = TgppAvpCodes.SSID, vendorId = VendorIDs.TGPP_ID, must = false, name = "SSID")
 public interface SSID extends DiameterUTF8String
 {
 }

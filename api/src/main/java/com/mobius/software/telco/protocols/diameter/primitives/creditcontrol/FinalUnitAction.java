@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -60,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    of the packets not matching any restriction filters (see
    Section 5.6.3) MUST be dropped.
  */
-@DiameterAvpDefinition(code = 449L, vendorId = -1L, name = "Final-Unit-Action")
+@DiameterAvpDefinition(code = AvpCodes.FINAL_UNIT_ACTION, vendorId = -1L, name = "Final-Unit-Action")
 public interface FinalUnitAction extends DiameterEnumerated<FinalUnitActionEnum>
 {
 }

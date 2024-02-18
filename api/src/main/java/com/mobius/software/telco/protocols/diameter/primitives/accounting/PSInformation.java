@@ -22,9 +22,10 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPPDPTypeEnum;
@@ -126,7 +127,7 @@ import io.netty.buffer.ByteBuf;
  		* 	[ RAN-Secondary-RAT-Usage-Report ]
    			[ PSCell-Info ]
 */
-@DiameterAvpDefinition(code = 874L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.PS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "PS-Information")
 public interface PSInformation extends DiameterAvp
 {
 	List<SupportedFeatures> getSupportedFeatures();

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingCorrelationIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingCorrelationIndicatorEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingCorrel
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1073L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ChargingCorrelationIndicatorImpl extends DiameterEnumeratedImpl<ChargingCorrelationIndicatorEnum> implements ChargingCorrelationIndicator
 {
 	protected ChargingCorrelationIndicatorImpl()

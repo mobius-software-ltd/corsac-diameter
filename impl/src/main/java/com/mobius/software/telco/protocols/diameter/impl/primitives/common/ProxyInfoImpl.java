@@ -1,8 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyState;
@@ -33,28 +37,21 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 284L, vendorId = -1L)
 public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 {
 	private ProxyHost proxyHost;
 	
 	private ProxyState proxyState;
 	
-	protected ProxyInfoImpl() 
+	public ProxyInfoImpl() 
 	{
 	}
 	
-	public ProxyInfoImpl(String proxyHost,ByteBuf proxyState)
+	public ProxyInfoImpl(String proxyHost,ByteBuf proxyState) throws MissingAvpException
 	{
-		if(proxyHost==null)
-			throw new IllegalArgumentException("Proxy-Host is required");
-
-		if(proxyState==null)
-			throw new IllegalArgumentException("Proxy-State is required");
-
-		this.proxyHost=new ProxyHostImpl(proxyHost, null, null);	
+		setProxyHost(proxyHost);
 		
-		this.proxyState=new ProxyStateImpl(proxyState, null, null);			
+		setProxyState(proxyState);
 	}
 
 	@Override
@@ -67,10 +64,10 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	}
 
 	@Override
-	public void setProxyHost(String value) 
+	public void setProxyHost(String value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Proxy-Host is required");
+			throw new MissingAvpException("Proxy-Host is required", Arrays.asList(new DiameterAvp[] { new ProxyHostImpl() }));
 
 		this.proxyHost = new ProxyHostImpl(value, null, null);
 	}
@@ -85,10 +82,10 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	}
 
 	@Override
-	public void setProxyState(ByteBuf value) 
+	public void setProxyState(ByteBuf value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Proxy-State is required");
+			throw new MissingAvpException("Proxy-State is required", Arrays.asList(new DiameterAvp[] { new ProxyHostImpl() }));
 
 		this.proxyState = new ProxyStateImpl(value, null, null);
 	}
@@ -136,13 +133,13 @@ public class ProxyInfoImpl extends DiameterGroupedAvpImpl implements ProxyInfo
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(proxyHost==null)
-			return "Proxy-Host is required";
+			return new MissingAvpException("Proxy-Host is required", Arrays.asList(new DiameterAvp[] { new ProxyHostImpl() }));
 
 		if(proxyState==null)
-			return "Proxy-State is required";
+			return new MissingAvpException("Proxy-State is required", Arrays.asList(new DiameterAvp[] { new ProxyHostImpl() }));
 		
 		return null;
 	}

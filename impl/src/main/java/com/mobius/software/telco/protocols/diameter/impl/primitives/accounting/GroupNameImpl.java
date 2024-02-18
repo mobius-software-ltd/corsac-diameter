@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.GroupName;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.GroupN
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1006L, vendorId = KnownVendorIDs.ONEM2M_ID)
 public class GroupNameImpl extends DiameterUTF8StringImpl implements GroupName
 {
 	protected GroupNameImpl()

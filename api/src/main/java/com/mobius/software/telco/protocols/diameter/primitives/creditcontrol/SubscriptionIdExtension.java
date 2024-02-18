@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -64,26 +66,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                    [ AVP ]
  */
 
-@DiameterAvpDefinition(code = 659L, vendorId = -1, must = false, name = "Subscription-Id-Extension")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_EXTENSION, vendorId = -1, must = false, name = "Subscription-Id-Extension")
 public interface SubscriptionIdExtension extends DiameterGroupedAvp 
 {
 	String getE164();
 	
-	void setE164(String e164);
+	void setE164(String e164) throws MissingAvpException;
 	
 	String getIMSI();
 	
-	void setIMSI(String imsi);
+	void setIMSI(String imsi) throws MissingAvpException;
 	
 	String getSIPURI();
 	
-	void setSIPURI(String sipURI);
+	void setSIPURI(String sipURI) throws MissingAvpException;
 	
 	String getNAI();
 	
-	void setNAI(String nai);
+	void setNAI(String nai) throws MissingAvpException;
 	
 	String getPrivate();
 	
-	void setPrivate(String uePrivate);
+	void setPrivate(String uePrivate) throws MissingAvpException;
 }

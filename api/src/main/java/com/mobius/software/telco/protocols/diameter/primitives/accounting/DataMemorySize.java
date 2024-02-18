@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Data-Memory-Size AVP (AVP Code 1004) is of type Unsigned32 and represents the storage memory in bytes, 
 	where applicable, to store data  associated with container related operations. 
  */
-@DiameterAvpDefinition(code = 1004L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Data-Memory-Size")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.DATA_MEMORY_SIZE, vendorId = VendorIDs.ONEM2M_ID, name = "Data-Memory-Size")
 public interface DataMemorySize extends DiameterUnsigned32
 {
 }

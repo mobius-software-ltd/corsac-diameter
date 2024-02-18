@@ -4,11 +4,16 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionTimeoutImpl;
@@ -163,7 +168,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 1, commandCode = 271, request = true)
 public class AccountingRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AccountingRequestImpl implements AccountingRequest
 {
 	private OriginAAAProtocol originAAAProtocol;
@@ -291,7 +295,7 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 		setAccountingRealtimeRequiredAllowed(true);			
 	}
 	
-	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber, Long acctApplicationId)
+	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber, Long acctApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, accountingRecordType, accountingRecordNumber);
 		setVendorSpecificApplicationIdAllowed(false);
@@ -301,10 +305,10 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	}
 
 	@Override
-	public void setAcctApplicationId(Long value) 
+	public void setAcctApplicationId(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Acct-Application-Id is required");	
+			throw new MissingAvpException("Acct-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AcctApplicationIdImpl() }));	
 		
 		super.setAcctApplicationId(value);
 	}
@@ -1415,6 +1419,15 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 	public void setTunneling(List<Tunneling> value) 
 	{
 		this.tunneling = value;
+	}	
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(acctApplicationId==null)
+			return new MissingAvpException("Acct-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AcctApplicationIdImpl() }));
+		
+		return super.validate();
 	}
 	
 	@DiameterOrder

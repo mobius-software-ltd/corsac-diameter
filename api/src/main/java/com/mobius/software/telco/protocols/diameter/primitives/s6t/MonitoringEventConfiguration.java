@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -68,7 +70,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When the "Extended Reference IDs" feature is supported by the HSS and SCEF, the SCEF-Reference-ID-Ext and SCEF-Reference-ID-for-Deletion-Ext AVPs shall be used insted of SCEF-Reference-ID and SCEF-Reference-ID-for-Deletion respectively.
 	When the "Dynamic-Group-Event-Monitoring" feature is supported by the HSS and SCEF, the Exclude-Identifiers AVP may be included to cancel the event monitoring for the listed UEs in a group for which there is a configured Monitoring Event, or the Include-Identifiers AVP may be included to create the event monitoring for the listed UEs in a group for which there is a configured Monitoring Event.
  */
-@DiameterAvpDefinition(code = 3122L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Configuration")
+@DiameterAvpDefinition(code = TgppAvpCodes.S6T_MONITORING_EVENT_CONFIGURATION, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Event-Configuration")
 public interface MonitoringEventConfiguration extends DiameterGroupedAvp
 {
 	Long getSCEFReferenceID();
@@ -81,11 +83,11 @@ public interface MonitoringEventConfiguration extends DiameterGroupedAvp
 	
 	String getSCEFID();
 	
-	void setSCEFID(String value);	
+	void setSCEFID(String value) throws MissingAvpException;	
 	
 	MonitoringTypeEnum getMonitoringType();
 	
-	void setMonitoringType(MonitoringTypeEnum value);
+	void setMonitoringType(MonitoringTypeEnum value) throws MissingAvpException;
 	
 	List<Long> getSCEFReferenceIDForDeletion();
 	

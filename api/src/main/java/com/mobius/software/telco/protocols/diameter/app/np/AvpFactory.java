@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.app.np;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -38,21 +39,21 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
-	public CongestionLevelDefinition getCongestionLevelDefinition(Long congestionLevelSetId,CongestionLevelRange congestionLevelRange);
+	public CongestionLevelDefinition getCongestionLevelDefinition(Long congestionLevelSetId,CongestionLevelRange congestionLevelRange) throws MissingAvpException;
 	
 	public CongestionLevelRange getCongestionLevelRange();
 	
 	public ConditionalRestriction getConditionalRestriction();
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData);
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException;
 	
-	public AggregatedRUCIReport getAggregatedRUCIReport(List<AggregatedCongestionInfo> aggregatedCongestionInfo);
+	public AggregatedRUCIReport getAggregatedRUCIReport(List<AggregatedCongestionInfo> aggregatedCongestionInfo) throws MissingAvpException;
 	
 	public AggregatedCongestionInfo getAggregatedCongestionInfo();
 	

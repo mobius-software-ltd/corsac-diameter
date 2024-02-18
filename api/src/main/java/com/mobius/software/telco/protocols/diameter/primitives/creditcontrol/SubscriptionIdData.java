@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    end user and is of type UTF8String.  The Subscription-Id-Type AVP
    defines which type of identifier is used.
  */
-@DiameterAvpDefinition(code = 444L, vendorId = -1L, name = "Subscription-Id-Data")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_DATA, vendorId = -1L, name = "Subscription-Id-Data")
 public interface SubscriptionIdData extends DiameterUTF8String
 {
 }

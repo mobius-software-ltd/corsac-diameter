@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.swm;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
@@ -51,12 +54,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
 			…
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777264, commandCode = 265, request = true, proxyable = true, name="AA-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWM, commandCode = CommandCodes.AAA, request = true, proxyable = true, name="AA-Request")
 public interface AARequest extends SwmRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);			
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;			
 			
 	public OCSupportedFeatures getOCSupportedFeatures();
 			 

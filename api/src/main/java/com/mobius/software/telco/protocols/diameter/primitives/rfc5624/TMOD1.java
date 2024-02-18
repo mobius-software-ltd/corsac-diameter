@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /**
@@ -40,26 +42,26 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
                  { Minimum-Policed-Unit }
                  { Maximum-Packet-Size }
  */
-@DiameterAvpDefinition(code = 495L, vendorId = -1L, name = "TMOD-1")
+@DiameterAvpDefinition(code = AvpCodes.TMOD1, vendorId = -1L, name = "TMOD-1")
 public interface TMOD1 extends DiameterAvp
 {
 	Float getTokenRate();
 	
-	void setTokenRate(Float value);	
+	void setTokenRate(Float value) throws MissingAvpException;	
 	
 	Float getBucketDepth();
 	
-	void setBucketDepth(Float value);
+	void setBucketDepth(Float value) throws MissingAvpException;
 	
 	Float getPeakTrafficRate();
 	
-	void setPeakTrafficRate(Float value);
+	void setPeakTrafficRate(Float value) throws MissingAvpException;
 	
 	Long getMinimumPolicedUnit();
 	
-	void setMinimumPolicedUnit(Long value);	
+	void setMinimumPolicedUnit(Long value) throws MissingAvpException;	
 	
 	Long getMaximumPacketSize();	
 	
-	void setMaximumPacketSize(Long value);	
+	void setMaximumPacketSize(Long value) throws MissingAvpException;	
 }

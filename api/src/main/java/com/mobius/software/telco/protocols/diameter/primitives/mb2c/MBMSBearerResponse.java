@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -55,7 +57,7 @@ import io.netty.buffer.ByteBuf;
                                 *[ Userplane-Protocol‑Result ]
                                 *[ AVP ]
  */
-@DiameterAvpDefinition(code = 3505L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Event‑Notification")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_BEARER_RESPONSE, vendorId = VendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Event‑Notification")
 public interface MBMSBearerResponse extends DiameterGroupedAvp
 {
 	ByteBuf getTMGI();
@@ -72,7 +74,7 @@ public interface MBMSBearerResponse extends DiameterGroupedAvp
 	
 	List<InetAddress> getBMSCAddress();
 	
-	void setBMSCAddress(List<InetAddress> value);
+	void setBMSCAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	Long getBMSCPort();
 	

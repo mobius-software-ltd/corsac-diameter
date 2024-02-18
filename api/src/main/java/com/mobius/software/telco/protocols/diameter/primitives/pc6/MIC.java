@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.40	MIC
 	The MIC AVP is of type OctetString and shall contain a MIC (Message Integrity Check) associated with a discovered ProSe Application Code, as defined in 3GPP TS 33.303 [23].
  */
-@DiameterAvpDefinition(code = 3836L, vendorId = KnownVendorIDs.TGPP_ID, name = "MIC")
+@DiameterAvpDefinition(code = TgppAvpCodes.MIC, vendorId = VendorIDs.TGPP_ID, name = "MIC")
 public interface MIC extends DiameterOctetString
 {
 }

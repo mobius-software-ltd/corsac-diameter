@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Service-URN AVP (AVP code 525) is of type OctetString, and it indicates that an AF session is used for emergency or RLOS traffic.
 	It contains values of the service URN and it may include subservices, as defined in [21] for emergency and other well-known services or registered at IANA. The string "urn:service:" in the beginning of the URN shall be omitted in the AVP and all subsequent text shall be included. Examples of valid values of the AVP are "sos", "sos.fire", "sos.police" and "sos.ambulance".
  */
-@DiameterAvpDefinition(code = 525L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-URN")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_URN, vendorId = VendorIDs.TGPP_ID, name = "Service-URN")
 public interface ServiceURN extends DiameterOctetString
 {
 }

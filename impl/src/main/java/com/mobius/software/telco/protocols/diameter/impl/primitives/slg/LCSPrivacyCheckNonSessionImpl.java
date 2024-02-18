@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSPrivacyCheck;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSPrivacyCheckEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSPrivacyCheckNonSession;
@@ -30,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSPrivacyChe
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2521L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LCSPrivacyCheckNonSessionImpl implements LCSPrivacyCheckNonSession
 {
 	private LCSPrivacyCheck lcsPrivacyCheck;
@@ -39,12 +41,9 @@ public class LCSPrivacyCheckNonSessionImpl implements LCSPrivacyCheckNonSession
 	{
 	}
 	
-	public LCSPrivacyCheckNonSessionImpl(LCSPrivacyCheckEnum lcsPrivacyCheck)
+	public LCSPrivacyCheckNonSessionImpl(LCSPrivacyCheckEnum lcsPrivacyCheck) throws MissingAvpException
 	{
-		if(lcsPrivacyCheck==null)
-			throw new IllegalArgumentException("LCS-Privacy-Check is required");
-		
-		this.lcsPrivacyCheck = new LCSPrivacyCheckImpl(lcsPrivacyCheck, null, null);
+		setLCSPrivacyCheck(lcsPrivacyCheck);
 	}
 	
 	public LCSPrivacyCheckEnum getLCSPrivacyCheck()
@@ -55,19 +54,19 @@ public class LCSPrivacyCheckNonSessionImpl implements LCSPrivacyCheckNonSession
 		return lcsPrivacyCheck.getEnumerated(LCSPrivacyCheckEnum.class);
 	}
 	
-	public void setLCSPrivacyCheck(LCSPrivacyCheckEnum value)
+	public void setLCSPrivacyCheck(LCSPrivacyCheckEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("LCS-Privacy-Check is required");
-		
+			throw new MissingAvpException("LCS-Privacy-Check is required", Arrays.asList(new DiameterAvp[] { new LCSPrivacyCheckImpl() }));
+			
 		this.lcsPrivacyCheck = new LCSPrivacyCheckImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(lcsPrivacyCheck==null)
-			return "LCS-Privacy-Check is required";
+			return new MissingAvpException("LCS-Privacy-Check is required", Arrays.asList(new DiameterAvp[] { new LCSPrivacyCheckImpl() }));
 		
 		return null;
 	}

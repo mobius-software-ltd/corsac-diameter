@@ -22,10 +22,14 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddressTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -100,7 +104,7 @@ public class DiameterAddressImpl extends DiameterOctetStringImpl implements Diam
 	}
 	
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		super.decode(buffer, length);
 		ByteBuf value = getValue();
@@ -123,7 +127,7 @@ public class DiameterAddressImpl extends DiameterOctetStringImpl implements Diam
 				}
 				catch(UnknownHostException ex)
 				{
-					return "AVP is having invalid format";
+					return new InvalidAvpValueException("Value can not be Diameter Address", Arrays.asList(new DiameterAvp[] { this }));
 				}
 			}
 			

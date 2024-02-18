@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc2;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
@@ -34,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestT
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777350, commandCode = 8388727, request = false)
 public class ProXimityApplicationAnswerImpl extends Pc2AnswerImpl implements ProXimityApplicationAnswer
 {
 	protected ProXimityApplicationAnswerImpl() 
@@ -42,7 +42,7 @@ public class ProXimityApplicationAnswerImpl extends Pc2AnswerImpl implements Pro
 		super();
 	}
 	
-	public ProXimityApplicationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
+	public ProXimityApplicationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, authSessionState, proSeRequestType);
 	}

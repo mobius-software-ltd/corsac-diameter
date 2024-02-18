@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		NOTE: Due to the increased signalling load, it is recommended that such reporting applied for a limited number
 		of subscribers only
  */
-@DiameterAvpDefinition(code = 1071L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "CSG-Information-Reporting")
+@DiameterAvpDefinition(code = TgppAvpCodes.CSG_INFORMATION_REPORTING, vendorId = VendorIDs.TGPP_ID, must = false, name = "CSG-Information-Reporting")
 public interface CSGInformationReporting extends DiameterEnumerated<CSGInformationReportingEnum>
 {
 }

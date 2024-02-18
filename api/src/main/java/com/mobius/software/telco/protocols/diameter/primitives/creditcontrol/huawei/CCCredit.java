@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 
 /**
@@ -50,12 +52,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
               {Unit-Value} 
               [Currency-Code] 
 */
-@DiameterAvpDefinition(code = 473L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "CC-Credit")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CC_CREDIT, vendorId = VendorIDs.HUAWEI_ID, name = "CC-Credit")
 public interface CCCredit extends DiameterAvp 
 {
 	UnitValue getUnitValue();
 	
-	void setUnitValue(UnitValue value);
+	void setUnitValue(UnitValue value) throws MissingAvpException;
 	
 	Long getCurrencyCode();
 	

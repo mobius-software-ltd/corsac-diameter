@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.79	DUCK 
 	The DUCK AVP is of type OctetString. It shall contain the Discovery User Confidentiality Key used to encrypt and decrypt a portion in restricted ProSe direct discovery message.The format of the DUCK is defined in 3GPP TS 33.303 [23].
  */
-@DiameterAvpDefinition(code = 3864L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "DUCK")
+@DiameterAvpDefinition(code = TgppAvpCodes.DUCK, vendorId = VendorIDs.TGPP_ID, must = false, name = "DUCK")
 public interface DUCK extends DiameterOctetString
 {
 }

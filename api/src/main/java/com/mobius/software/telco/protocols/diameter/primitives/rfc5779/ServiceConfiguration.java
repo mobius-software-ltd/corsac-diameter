@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5779;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6Agent
                                  [ Service-Selection ]
                                * [ AVP ]
  */
-@DiameterAvpDefinition(code = 507L, vendorId = -1L, name = "Service-Configuration")
+@DiameterAvpDefinition(code = AvpCodes.SERVICE_CONFIGURATION, vendorId = -1L, name = "Service-Configuration")
 public interface ServiceConfiguration extends DiameterGroupedAvp
 {
 	MIP6AgentInfo getMIP6AgentInfo();

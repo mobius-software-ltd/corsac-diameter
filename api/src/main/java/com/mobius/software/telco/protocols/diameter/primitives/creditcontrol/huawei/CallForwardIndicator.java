@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	In case of B forwarding conditionally, the indicator reported in the Update or Termination message.
     	- In the MF flow, the indicator reported in the Initial message. 
  */
-@DiameterAvpDefinition(code = 20387L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Call-Forward-Indicator")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALL_FORWARD_INDICATOR, vendorId = VendorIDs.HUAWEI_ID, name = "Call-Forward-Indicator")
 public interface CallForwardIndicator extends DiameterUnsigned32
 {
 }

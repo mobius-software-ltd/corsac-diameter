@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	EXTERNAL-GROUP-IDENTIFIER-TYPE (1)
 	The value 1 indicates the External-Identifier AVP carries the identity of a Group of UEs.
  */
-@DiameterAvpDefinition(code = 3168L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Type-Of-External-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.TYPE_OF_EXTERNAL_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Type-Of-External-Identifier")
 public interface TypeOfExternalIdentifier extends DiameterEnumerated<TypeOfExternalIdentifierEnum>
 {
 }

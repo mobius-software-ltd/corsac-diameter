@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rf;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
@@ -36,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Ser
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 3, commandCode = 271, request = true)
 public class AccountingRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AccountingRequestImpl implements AccountingRequest
 {
 	private ServiceContextId serviceContextId;
@@ -53,7 +53,7 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 		setAccountingRealtimeRequiredAllowed(false);			
 	}
 	
-	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber)
+	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, accountingRecordType, accountingRecordNumber);
 		setVendorSpecificApplicationIdAllowed(false);
@@ -63,7 +63,7 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
 		setAccountingRealtimeRequiredAllowed(false);		
 	}
 	
-	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long applicationId, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber)
+	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long applicationId, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, accountingRecordType, accountingRecordNumber);
 		setVendorSpecificApplicationIdAllowed(false);

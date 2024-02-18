@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Fill the translated number. For example, if the number dialed by a user is a short number, fill the actual long number.
  */
-@DiameterAvpDefinition(code = 20327L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Real-Called-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.REAL_CALLED_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "Real-Called-Number")
 public interface RealCalledNumber extends DiameterUTF8String
 {
 }

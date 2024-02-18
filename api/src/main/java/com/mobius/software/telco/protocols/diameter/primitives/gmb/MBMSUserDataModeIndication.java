@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When BM-SC sends this value, that indicates to GGSN that BM-SC supports both modes of operation.
 	When GGSN sends this value, that indicates to BM-SC that BM-SC shall send user plane data with multicast mode.
  */
-@DiameterAvpDefinition(code = 915L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-User-Data-Mode-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_USER_DATA_MODE_INDICATION, vendorId = VendorIDs.TGPP_ID, name = "MBMS-User-Data-Mode-Indication")
 public interface MBMSUserDataModeIndication extends DiameterEnumerated<MBMSUserDataModeIndicationEnum>
 {
 }

@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdData;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdType;
@@ -30,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Sub
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 443L, vendorId = -1)
 public class SubscriptionIdImpl implements SubscriptionId 
 {
 	private SubscriptionIdType subscriptionIdType;
@@ -42,17 +45,11 @@ public class SubscriptionIdImpl implements SubscriptionId
 		
 	}
 	
-	public SubscriptionIdImpl(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)	
+	public SubscriptionIdImpl(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException	
 	{
-		if(subscriptionIdType==null)
-			throw new IllegalArgumentException("Subscription-id-Type is required");
+		setSubscriptionIdType(subscriptionIdType);
 		
-		if(subscriptionIdData==null)
-			throw new IllegalArgumentException("Subscription-Id-Data is required");
-		
-		this.subscriptionIdType = new SubscriptionIdTypeImpl(subscriptionIdType, null, null);
-		
-		this.subscriptionIdData = new SubscriptionIdDataImpl(subscriptionIdData, null, null);
+		setSubscriptionIdData(subscriptionIdData);
 	}
 	
 	public SubscriptionIdTypeEnum getSubscriptionIdType()
@@ -63,11 +60,11 @@ public class SubscriptionIdImpl implements SubscriptionId
 		return subscriptionIdType.getEnumerated(SubscriptionIdTypeEnum.class);
 	}
 	
-	public void setSubscriptionIdType(SubscriptionIdTypeEnum value)
+	public void setSubscriptionIdType(SubscriptionIdTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Subscription-id-Type is required");
-		
+			throw new MissingAvpException("Subscription-id-Type is required is required", Arrays.asList(new DiameterAvp[] { new SubscriptionIdTypeImpl() }));
+			
 		this.subscriptionIdType = new SubscriptionIdTypeImpl(value, null, null);		
 	}
 	
@@ -79,22 +76,22 @@ public class SubscriptionIdImpl implements SubscriptionId
 		return subscriptionIdData.getString();
 	}
 	
-	public void setSubscriptionIdData(String value)
+	public void setSubscriptionIdData(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Subscription-Id-Data is required");
+			throw new MissingAvpException("Subscription-Id-Data is required is required", Arrays.asList(new DiameterAvp[] { new SubscriptionIdDataImpl() }));
 		
 		this.subscriptionIdData = new SubscriptionIdDataImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(subscriptionIdType==null)
-			return "Subscription-id-Type is required";
+			return new MissingAvpException("Subscription-id-Type is required is required", Arrays.asList(new DiameterAvp[] { new SubscriptionIdTypeImpl() }));
 		
 		if(subscriptionIdData==null)
-			return "Subscription-Id-Data is required";
+			return new MissingAvpException("Subscription-Id-Data is required is required", Arrays.asList(new DiameterAvp[] { new SubscriptionIdDataImpl() }));
 		
 		return null;
 	}

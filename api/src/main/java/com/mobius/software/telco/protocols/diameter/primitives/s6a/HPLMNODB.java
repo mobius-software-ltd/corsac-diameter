@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	HPLMN-ODB may apply to mobile originated short messages; See 3GPP TS 23.015 [36].
  */
-@DiameterAvpDefinition(code = 1418L, vendorId = KnownVendorIDs.TGPP_ID, name = "HPLMN-ODB")
+@DiameterAvpDefinition(code = TgppAvpCodes.HPLM_ODB, vendorId = VendorIDs.TGPP_ID, name = "HPLMN-ODB")
 public interface HPLMNODB extends DiameterBitmask32
 {
 	public static final int TYPE_1_BIT = 0;

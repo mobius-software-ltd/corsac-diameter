@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.23	MBMS-Flow-Identifier AVP
 	The MBMS-Flow-Identifier AVP (AVP code 920) is of type OctetString. Its length is two octets. It represents a location dependent subflow of a broadcast MBMS bearer service. When present, the MBMS-Flow-Identifier together with the TMGI uniquely identify an MBMS Bearer Context.
  */
-@DiameterAvpDefinition(code = 920L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Flow-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_FLOW_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Flow-Identifier")
 public interface MBMSFlowIdentifier extends DiameterOctetString
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 No Reply Path Set
 	1 Reply path Set
  */
-@DiameterAvpDefinition(code = 2011L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reply-Path-Requested")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPLY_PATH_REQUESTED, vendorId = VendorIDs.TGPP_ID, name = "Reply-Path-Requested")
 public interface ReplyPathRequested extends DiameterEnumerated<ReplyPathRequestedEnum>
 {
 }

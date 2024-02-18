@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.45	MCPTT-Identifier AVP
 	The MCPTT-Identifier AVP (AVP code 547) is of type OctetString, and it includes either one of the namespace values used for MCPTT (see IETF RFC 8101 [45]) and it may include the name of the MCPTT service provider.
  */
-@DiameterAvpDefinition(code = 547L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MCPTT-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.MCPTT_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "MCPTT-Identifier")
 public interface MCPTTIdentifier extends DiameterOctetString
 {
 }

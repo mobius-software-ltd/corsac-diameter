@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -63,7 +64,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
     	- 22: The CHG returns information and validity periods of all account books by AVP and returns bonus account books by SMS message, where specific account books can be excluded.
     	- 26: Query accumulator information by USSD.
  */
-@DiameterAvpDefinition(code = 20346L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Account-Query-Method")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACCOUNT_QUERY_METHOD, vendorId = VendorIDs.HUAWEI_ID, name = "Account-Query-Method")
 public interface AccountQueryMethod extends DiameterUnsigned32
 {
 }

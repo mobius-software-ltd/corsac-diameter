@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This bit, when set, indicates that the request corresponds to an IMS Emergency Registration.
 	Bits not defined in this table shall be cleared by the sending I-CSCF and discarded by the receiving HSS.
  */
-@DiameterAvpDefinition(code = 637L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "UAR-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.UAR_FLAGS, vendorId = VendorIDs.TGPP_ID, must = false, name = "UAR-Flags")
 public interface UARFlags extends DiameterBitmask32
 {
 	public static final int IMS_EMERGENCY_REGISTRATION_BIT = 0;	

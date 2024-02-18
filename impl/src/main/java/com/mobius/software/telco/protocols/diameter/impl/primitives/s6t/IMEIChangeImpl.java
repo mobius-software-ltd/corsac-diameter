@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.IMEIChange;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.IMEIChange;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3141L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IMEIChangeImpl extends DiameterBitmask32Impl implements IMEIChange
 {
 	public IMEIChangeImpl()
@@ -44,7 +41,7 @@ public class IMEIChangeImpl extends DiameterBitmask32Impl implements IMEIChange
 	@Override
 	public void setIMEIBit(boolean isOn)
 	{
-		setBit(IMEI_BIT, isOn);
+		setBitUnchecked(IMEI_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class IMEIChangeImpl extends DiameterBitmask32Impl implements IMEIChange
 	@Override
 	public void setIMEISVBit(boolean isOn)
 	{
-		setBit(IMEISV_BIT, isOn);
+		setBitUnchecked(IMEISV_BIT, isOn);
 	}
 
 	@Override

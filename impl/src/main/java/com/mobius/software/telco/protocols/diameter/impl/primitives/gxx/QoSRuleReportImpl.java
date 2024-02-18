@@ -21,12 +21,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gxx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PCCRuleStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RuleFailureCodeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ContentVersionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PCCRuleStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PCCRuleStatusEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RuleFailureCode;
@@ -43,7 +41,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1055L, vendorId = KnownVendorIDs.TGPP_ID)
 public class QoSRuleReportImpl extends DiameterGroupedAvpImpl implements QoSRuleReport
 {
 	private List<QoSRuleName> qosRuleName;

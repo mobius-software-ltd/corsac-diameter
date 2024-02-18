@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
 
 import java.net.Inet4Address;
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,7 +43,7 @@ import io.netty.buffer.ByteBuf;
 		 [Frame-IPv6-Prefix]
 		 [Address-Realm] 
  */
-@DiameterAvpDefinition(code = 300L, vendorId = KnownVendorIDs.ETSI_ID, name = "Globally-Unique-Address")
+@DiameterAvpDefinition(code = EtsiAvpCodes.GLOBALLY_UNIQUE_ADDRESS, vendorId = VendorIDs.ETSI_ID, name = "Globally-Unique-Address")
 public interface GloballyUniqueAddress extends DiameterAvp
 {
 	Inet4Address getFrameIPAddress();

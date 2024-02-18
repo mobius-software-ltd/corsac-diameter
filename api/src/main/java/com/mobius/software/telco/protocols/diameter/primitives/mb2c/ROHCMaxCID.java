@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	It shall indicate the MAX_CID parameter for the compressor (see IETF RFC 5795 [29] and IETF RFC 3095 [30]). The value for the LARGE_CIDS parameter (usage of short CID representation or large CID representation) shall be deducted from the MAX_CID parameter as follows: 
 	If MAX_CID > 15 then LARGE_CIDS = TRUE else LARGE_CIDS = FALSE
 */
-@DiameterAvpDefinition(code = 3532L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ROHC-Max-CID")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROHC_MAX_CID, vendorId = VendorIDs.TGPP_ID, must = false, name = "ROHC-Max-CID")
 public interface ROHCMaxCID extends DiameterUnsigned32
 {
 }

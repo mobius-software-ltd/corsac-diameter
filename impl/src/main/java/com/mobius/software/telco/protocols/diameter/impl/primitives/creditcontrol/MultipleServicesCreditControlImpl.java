@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ResultCodeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ResultCode;
@@ -43,7 +42,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 456L, vendorId = -1)
 public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl implements MultipleServicesCreditControl
 {
 	private GrantedServiceUnit grantedServiceUnit;
@@ -68,42 +66,8 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 	
 	private QoSFinalUnitIndication qosFinalUnitIndication;
 	
-	protected MultipleServicesCreditControlImpl() 
+	public MultipleServicesCreditControlImpl()
 	{
-	}
-	
-	public MultipleServicesCreditControlImpl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, TariffChangeUsageEnum tariffChangeUsage, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication,QoSFinalUnitIndication qosFinalUnitIndication)
-	{
-		this.grantedServiceUnit = grantedServiceUnit;
-		
-		this.requestedServiceUnit = requestedServiceUnit;
-		
-		this.usedServiceUnit = usedServiceUnit;
-		
-		if(tariffChangeUsage!=null)
-			this.tariffChangeUsage = new TariffChangeUsageImpl(tariffChangeUsage, null, null);
-		
-		if(serviceIdentifier!=null && serviceIdentifier.size()>0)
-		{
-			this.serviceIdentifier = new ArrayList<ServiceIdentifier>(serviceIdentifier.size());
-			for(Long curr:serviceIdentifier)
-				this.serviceIdentifier.add(new ServiceIdentifierImpl(curr, null, null));
-		}
-		
-		if(ratingGroup != null)
-			this.ratingGroup = new RatingGroupImpl(ratingGroup, null, null);
-		
-		this.gsuPoolReference = gsuPoolReference;
-		
-		if(validityTime != null)
-			this.validityTime = new ValidityTimeImpl(validityTime, null, null);
-		
-		if(resultCode != null)
-			this.resultCode = new ResultCodeImpl(resultCode, null, null);
-		
-		this.finalUnitIndication = finalUnitIndication;
-		
-		this.qosFinalUnitIndication = qosFinalUnitIndication;
 	}
 	
 	public GrantedServiceUnit getGrantedServiceUnit()

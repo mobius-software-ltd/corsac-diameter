@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
    	foreign network that the AAAF proposes to be dynamically assigned to
    	the mobile node.
  */
-@DiameterAvpDefinition(code = 336L, vendorId = -1L, name = "MIP-Candidate-Home-Agent-Host")
+@DiameterAvpDefinition(code = AvpCodes.MIP_CANDIDATE_HOME_AGENT_HOST, vendorId = -1L, name = "MIP-Candidate-Home-Agent-Host")
 public interface MIPCandidateHomeAgentHost extends DiameterIdentity
 {
 }

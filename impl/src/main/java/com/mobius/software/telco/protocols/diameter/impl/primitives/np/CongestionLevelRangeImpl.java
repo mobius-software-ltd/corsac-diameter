@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLevelRange;
 
 /**
@@ -28,7 +30,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLeve
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4003L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CongestionLevelRangeImpl extends DiameterBitmask32Impl implements CongestionLevelRange
 {
 	public CongestionLevelRangeImpl()
@@ -44,7 +45,7 @@ public class CongestionLevelRangeImpl extends DiameterBitmask32Impl implements C
 	@Override
 	public void setNoCongestionBit(boolean isOn)
 	{
-		setBit(NO_CONGESTION_BIT, isOn);
+		setBitUnchecked(NO_CONGESTION_BIT, isOn);		
 	}
 
 	@Override
@@ -54,19 +55,19 @@ public class CongestionLevelRangeImpl extends DiameterBitmask32Impl implements C
 	}
 
 	@Override
-	public void setCongestionLevelBit(int level, boolean isOn)
+	public void setCongestionLevelBit(int level, boolean isOn) throws InvalidAvpValueException
 	{
 		if(level<1)
-			throw new RuntimeException("Invalid level(should be 1 to 31");
+			throw new InvalidAvpValueException("Invalid level(should be 1 to 31", Arrays.asList(new DiameterAvp[] { this }));
 		
-		setBit(level, isOn);
+		setBitUnchecked(level, isOn);
 	}
 
 	@Override
-	public boolean isCongestionLevelBitSet(int level)
+	public boolean isCongestionLevelBitSet(int level) throws InvalidAvpValueException
 	{
 		if(level<1)
-			throw new RuntimeException("Invalid level(should be 1 to 31");
+			throw new InvalidAvpValueException("Invalid level(should be 1 to 31", Arrays.asList(new DiameterAvp[] { this }));
 		
 		return getBit(level);
 	}

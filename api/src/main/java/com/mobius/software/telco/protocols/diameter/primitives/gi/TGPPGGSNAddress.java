@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7 - 3GPP-GGSN address
 	GGSN address value: Address type. 
  */
-@DiameterAvpDefinition(code = 7L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-GGSNAddress")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_GGSN_ADDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-GGSNAddress")
 public interface TGPPGGSNAddress extends DiameterOctetString
 {
 }

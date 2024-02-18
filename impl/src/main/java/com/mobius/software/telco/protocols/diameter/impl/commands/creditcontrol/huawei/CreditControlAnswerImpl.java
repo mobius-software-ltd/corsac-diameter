@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.huawei;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
@@ -58,7 +61,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = false)
 public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements CreditControlAnswer
 {
 	private CcRequestType ccRequestType;
@@ -91,7 +93,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 		setExperimentalResultAllowed(false);
 	}
 	
-	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, 4L);
 		setExperimentalResultAllowed(false);
@@ -102,7 +104,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 	
 	//for overriding with different auth application ID
-	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	protected CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);
@@ -122,10 +124,10 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 
 	@Override
-	public void setCcRequestType(CcRequestTypeEnum value) 
+	public void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
+			throw new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
 		
 		this.ccRequestType = new CcRequestTypeImpl(value, null, null);
 	}
@@ -140,10 +142,10 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 
 	@Override
-	public void setCcRequestNumber(Long value) 
+	public void setCcRequestNumber(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
+			throw new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));	
 		
 		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
@@ -269,13 +271,13 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ccRequestType==null)
-			return "CC-Request-Type is required";
+			return new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { ccRequestType }));
 		
 		if(ccRequestNumber==null)
-			return "CC-Request-Number is required";
+			return new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { ccRequestNumber }));	
 		
 		return super.validate();
 	}

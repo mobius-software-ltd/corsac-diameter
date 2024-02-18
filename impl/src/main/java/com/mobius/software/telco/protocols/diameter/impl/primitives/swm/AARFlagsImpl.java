@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swm;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.swm.AARFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1539L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AARFlagsImpl extends DiameterBitmask32Impl implements AARFlags
 {
 	public AARFlagsImpl()
@@ -44,7 +41,7 @@ public class AARFlagsImpl extends DiameterBitmask32Impl implements AARFlags
 	@Override
 	public void setWLANLocationInfoRequestBit(boolean isOn)
 	{
-		setBit(WLAN_LOCATION_INFO_REQUEST_BIT, isOn);
+		setBitUnchecked(WLAN_LOCATION_INFO_REQUEST_BIT, isOn);
 	}
 
 	@Override

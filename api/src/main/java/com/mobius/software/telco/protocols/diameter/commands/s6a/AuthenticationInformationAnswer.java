@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -59,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.ErrorDiagnost
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 318, request = false, proxyable = true, name="Authentication-Information-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.AUTHENTICATION, request = false, proxyable = true, name="Authentication-Information-Answer")
 public interface AuthenticationInformationAnswer extends S6aAnswer
 {
 	ErrorDiagnosticEnum getErrorDiagnostic();

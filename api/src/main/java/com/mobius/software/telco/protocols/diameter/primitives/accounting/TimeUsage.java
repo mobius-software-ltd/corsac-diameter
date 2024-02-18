@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Time-Usage AVP (AVP code 2045) is of type Unsigned32 and holds the effective used time within the service
 	data container reporting interval. 
  */
-@DiameterAvpDefinition(code = 2045L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Usage")
+@DiameterAvpDefinition(code = TgppAvpCodes.TIME_USAGE, vendorId = VendorIDs.TGPP_ID, name = "Time-Usage")
 public interface TimeUsage extends DiameterUnsigned32
 {
 }

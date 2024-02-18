@@ -1,7 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gqtag;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -27,14 +28,13 @@ import com.mobius.software.telco.protocols.diameter.commands.gqtag.SessionTermin
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777222, commandCode = 275, request = false)
 public class SessionTerminationAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.gq.SessionTerminationAnswerImpl implements SessionTerminationAnswer
 {
 	protected SessionTerminationAnswerImpl() 
 	{
 	}
 	
-	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}

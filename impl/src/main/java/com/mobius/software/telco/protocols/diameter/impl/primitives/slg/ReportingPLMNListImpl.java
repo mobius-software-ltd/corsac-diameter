@@ -18,12 +18,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PLMNIDList;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PrioritizedListIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PrioritizedListIndicatorEnum;
@@ -34,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.ReportingPLMN
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2543L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ReportingPLMNListImpl extends DiameterGroupedAvpImpl implements ReportingPLMNList
 {
 	private List<PLMNIDList> plmnIDList;
@@ -45,15 +48,9 @@ public class ReportingPLMNListImpl extends DiameterGroupedAvpImpl implements Rep
 	{
 	}
 	
-	public ReportingPLMNListImpl(List<PLMNIDList> plmnIDList)
+	public ReportingPLMNListImpl(List<PLMNIDList> plmnIDList) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
-		if(plmnIDList==null || plmnIDList.size()==0)
-			throw new IllegalArgumentException("PLMN-ID-List is required");
-		
-		if(plmnIDList.size()>20)
-			throw new IllegalArgumentException("Up to 20 PLMN-ID-List allowed");
-		
-		this.plmnIDList = plmnIDList;
+		setPLMNIDList(plmnIDList);
 	}
 	
 	public List<PLMNIDList> getPLMNIDList()
@@ -61,13 +58,17 @@ public class ReportingPLMNListImpl extends DiameterGroupedAvpImpl implements Rep
 		return plmnIDList;
 	}
 	
-	public void setPLMNIDList(List<PLMNIDList> value)
+	public void setPLMNIDList(List<PLMNIDList> value) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("PLMN-ID-List is required");
-		
+			throw new MissingAvpException("PLMN-ID-List is required is required", Arrays.asList(new DiameterAvp[] { new PLMNIDListImpl() }));
+			
 		if(value.size()>20)
-			throw new IllegalArgumentException("Up to 20 PLMN-ID-List allowed");
+		{ 
+			List<DiameterAvp> failedAvps = new ArrayList<DiameterAvp>();
+			failedAvps.addAll(value);
+			throw new AvpOccursTooManyTimesException("Up to 20 PLMN-ID-List allowed", failedAvps);
+		}
 		
 		this.plmnIDList = value;
 	}
@@ -89,13 +90,17 @@ public class ReportingPLMNListImpl extends DiameterGroupedAvpImpl implements Rep
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(plmnIDList==null || plmnIDList.size()==0)
-			return "PLMN-ID-List is required";
+			return new MissingAvpException("PLMN-ID-List is required is required", Arrays.asList(new DiameterAvp[] { new PLMNIDListImpl() }));
 		
 		if(plmnIDList.size()>20)
-			return "Up to 20 PLMN-ID-List allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(plmnIDList);
+			return new AvpOccursTooManyTimesException("Up to 20 PLMN-ID-List allowed", failedAvps);
+		}
 		
 		return null;
 	}

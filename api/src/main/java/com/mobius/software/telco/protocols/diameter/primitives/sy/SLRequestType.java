@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	INTERMEDIATE_REQUEST (1)
 	This value indicates that this is the second or subsequent request in the Diameter session.
  */
-@DiameterAvpDefinition(code = 2904L, vendorId = KnownVendorIDs.TGPP_ID, name = "SL-Request-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.SL_REQUEST_TYPE, vendorId = VendorIDs.TGPP_ID, name = "SL-Request-Type")
 public interface SLRequestType extends DiameterEnumerated<SLRequestTypeEnum>
 {
 }

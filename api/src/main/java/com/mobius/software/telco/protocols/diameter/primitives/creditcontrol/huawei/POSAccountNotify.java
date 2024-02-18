@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -53,7 +54,7 @@ import io.netty.buffer.ByteBuf;
                  [PPOx-Credit]
                  [Next-Bill-Date] 
 */
-@DiameterAvpDefinition(code = 21182L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "POS-Account-Notify")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.POS_ACCOUNT_NOTIFY, vendorId = VendorIDs.HUAWEI_ID, name = "POS-Account-Notify")
 public interface POSAccountNotify extends DiameterAvp 
 {
 	Integer getPOSNotifyMode();

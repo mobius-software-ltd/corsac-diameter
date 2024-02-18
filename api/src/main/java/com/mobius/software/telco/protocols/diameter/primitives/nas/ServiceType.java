@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -75,7 +76,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
          user.  The message MAY include additional AVPs defined in
          Sections 4.4.10 or 4.5 for tunneling services.
  */
-@DiameterAvpDefinition(code = 6L, vendorId = -1L, name = "Service-Type")
+@DiameterAvpDefinition(code = AvpCodes.SERVICE_TYPE, vendorId = -1L, name = "Service-Type")
 public interface ServiceType extends DiameterEnumerated<ServiceTypeEnum>
 {
 }

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.ro;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBalanceIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -62,7 +64,7 @@ The CCA message format is defined according to RFC 4006 [402] as follows:
                  [ Service-Information ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = false, proxyable = true, name="Credit-Control-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.CREDIT_CONTROL, request = false, proxyable = true, name="Credit-Control-Answer")
 public interface CreditControlAnswer extends com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer
 {
 	LowBalanceIndicationEnum getLowBalanceIndication();

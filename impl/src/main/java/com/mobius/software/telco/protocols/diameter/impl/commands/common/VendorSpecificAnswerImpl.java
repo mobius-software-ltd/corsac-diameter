@@ -1,6 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
@@ -37,7 +39,7 @@ public abstract class VendorSpecificAnswerImpl extends DiameterAnswerWithSession
 		super();
 	}
 	
-	public VendorSpecificAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public VendorSpecificAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);		
 	}

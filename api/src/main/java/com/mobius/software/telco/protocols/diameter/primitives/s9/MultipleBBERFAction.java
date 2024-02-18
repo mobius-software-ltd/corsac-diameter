@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s9;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	TERMINATION (1)
 	This value shall be used to indicate that the Gateway Control Session in the VPLMN is terminated in the multiple BBERFs scenario.
  */
-@DiameterAvpDefinition(code = 2204L, vendorId = KnownVendorIDs.TGPP_ID, name = "Multiple-BBERF-Action")
+@DiameterAvpDefinition(code = TgppAvpCodes.MULTIPLE_BBERF_ACTION, vendorId = VendorIDs.TGPP_ID, name = "Multiple-BBERF-Action")
 public interface MultipleBBERFAction extends DiameterEnumerated<MultipleBBERFActionEnum>
 {
 }

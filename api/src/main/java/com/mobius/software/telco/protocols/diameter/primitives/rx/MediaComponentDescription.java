@@ -20,9 +20,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.ReservationPriorityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PreEmptionCapabilityEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PreEmptionVulnerabilityEnum;
@@ -106,12 +109,12 @@ import io.netty.buffer.ByteBuf;
 			 [ Desired-Max-Loss ]
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 517L, vendorId = KnownVendorIDs.TGPP_ID, name = "Media-Component-Description")
+@DiameterAvpDefinition(code = TgppAvpCodes.MEDIA_COMPONENT_DESCRIPTION, vendorId = VendorIDs.TGPP_ID, name = "Media-Component-Description")
 public interface MediaComponentDescription extends DiameterGroupedAvp
 {
 	Long getMediaComponentNumber();
 	
-	void setMediaComponentNumber(Long value);
+	void setMediaComponentNumber(Long value) throws MissingAvpException;
 	
 	List<MediaSubComponent> getMediaSubComponent();
 	
@@ -223,7 +226,7 @@ public interface MediaComponentDescription extends DiameterGroupedAvp
 	
 	List<ByteBuf> getCodecData();
 	
-	void setCodecData(List<ByteBuf> value);
+	void setCodecData(List<ByteBuf> value) throws AvpOccursTooManyTimesException;
 	
 	Long getSharingKeyDL();
 	

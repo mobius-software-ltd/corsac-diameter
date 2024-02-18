@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.RepositoryDataID;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.SequenceNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.ServiceIndication;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 715L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RepositoryDataIDImpl extends DiameterGroupedAvpImpl implements RepositoryDataID
 {
 	private ServiceIndication serviceIndication;
@@ -45,17 +47,11 @@ public class RepositoryDataIDImpl extends DiameterGroupedAvpImpl implements Repo
 		super();
 	}
 	
-	public RepositoryDataIDImpl(ByteBuf serviceIndication, Long sequenceNumber)
+	public RepositoryDataIDImpl(ByteBuf serviceIndication, Long sequenceNumber) throws MissingAvpException
 	{
-		if(serviceIndication == null)
-			throw new IllegalArgumentException("Service-Indication is required");
+		setServiceIndication(serviceIndication);
 		
-		if(sequenceNumber == null)
-			throw new IllegalArgumentException("Sequence-Number is required");
-		
-		this.serviceIndication = new ServiceIndicationImpl(serviceIndication, null, null);
-		
-		this.sequenceNumber = new SequenceNumberImpl(sequenceNumber, null, null);
+		setSequenceNumber(sequenceNumber);
 	}
 	
 	public ByteBuf getServiceIndication()
@@ -66,11 +62,11 @@ public class RepositoryDataIDImpl extends DiameterGroupedAvpImpl implements Repo
 		return serviceIndication.getValue();
 	}
 	
-	public void setServiceIndication(ByteBuf value)
+	public void setServiceIndication(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Indication is required");
-		
+			throw new MissingAvpException("Service-Indication is required is required", Arrays.asList(new DiameterAvp[] { new ServiceIndicationImpl() }));
+			
 		this.serviceIndication = new ServiceIndicationImpl(value, null, null);		
 	}
 	
@@ -82,22 +78,22 @@ public class RepositoryDataIDImpl extends DiameterGroupedAvpImpl implements Repo
 		return sequenceNumber.getUnsigned();
 	}
 	
-	public void setSequenceNumber(Long value)
+	public void setSequenceNumber(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Sequence-Number is required");
+			throw new MissingAvpException("Sequence-Number is required is required", Arrays.asList(new DiameterAvp[] { new SequenceNumberImpl() }));
 		
 		this.sequenceNumber = new SequenceNumberImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceIndication == null)
-			return "Service-Indication is required";
+			return new MissingAvpException("Service-Indication is required is required", Arrays.asList(new DiameterAvp[] { new ServiceIndicationImpl() }));
 		
 		if(sequenceNumber == null)
-			return "Sequence-Number is required";
+			return new MissingAvpException("Sequence-Number is required is required", Arrays.asList(new DiameterAvp[] { new SequenceNumberImpl() }));
 		
 		return null;
 	}

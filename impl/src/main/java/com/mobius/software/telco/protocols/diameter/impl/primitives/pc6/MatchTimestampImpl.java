@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchTimestamp;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchTimestam
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3851L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MatchTimestampImpl extends DiameterTimeImpl implements MatchTimestamp
 {
 	protected MatchTimestampImpl()

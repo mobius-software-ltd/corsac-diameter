@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.SIRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.ServiceIDEnum;
@@ -57,12 +60,12 @@ import io.netty.buffer.ByteBuf;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777310, commandCode = 8388641, request = true, proxyable = true, name="Subscriber-Information-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6M, commandCode = CommandCodes.SUBSCRIBER_INFORMATION, request = true, proxyable = true, name="Subscriber-Information-Request")
 public interface SubscriberInformationRequest extends S6mRequest
 {
 	UserIdentifier getUserIdentifier();
 	
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	
 	ServiceIDEnum getServiceID();
 	
@@ -78,7 +81,7 @@ public interface SubscriberInformationRequest extends S6mRequest
 	
 	SIRFlags getSIRFlags();
 	
-	void setSIRFlags(SIRFlags value);
+	void setSIRFlags(SIRFlags value) throws MissingAvpException;
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	 

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	4 SM Device Trigger
 	5 MO-SMS T4 submission
  */
-@DiameterAvpDefinition(code = 2007L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-Message-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_MESSAGE_TYPE, vendorId = VendorIDs.TGPP_ID, name = "SM-Message-Type")
 public interface SMMessageType extends DiameterEnumerated<SMMessageTypeEnum>
 {
 }

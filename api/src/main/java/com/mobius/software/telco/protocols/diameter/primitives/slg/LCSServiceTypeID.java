@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.22	LCS-Service-Type-ID
 	The LCS-Service-Type-ID is of type Unsigned32. It defines the identifier associated to one of the Service Types for which the LCS client is allowed to locate the particular UE. 
  */
-@DiameterAvpDefinition(code = 2520L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Service-Type-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_SERVICE_TYPE_ID, vendorId = VendorIDs.TGPP_ID, name = "LCS-Service-Type-ID")
 public interface LCSServiceTypeID extends DiameterUnsigned32
 {
 }

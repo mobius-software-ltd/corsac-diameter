@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.LocalTimeZone;
@@ -52,12 +55,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.AccessNetwork
 				…
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777250, commandCode = 265, request = true, proxyable = true, name="AA-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.STA, commandCode = CommandCodes.AAA, request = true, proxyable = true, name="AA-Request")
 public interface AARequest extends StaRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	Long getMIP6FeatureVector();
 	

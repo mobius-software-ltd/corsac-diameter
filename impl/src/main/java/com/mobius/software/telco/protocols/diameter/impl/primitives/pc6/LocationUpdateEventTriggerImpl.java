@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdateEventTrigger;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdateEventTriggerEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationUpdat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3826L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LocationUpdateEventTriggerImpl extends DiameterEnumeratedImpl<LocationUpdateEventTriggerEnum> implements LocationUpdateEventTrigger
 {
 	protected LocationUpdateEventTriggerImpl()

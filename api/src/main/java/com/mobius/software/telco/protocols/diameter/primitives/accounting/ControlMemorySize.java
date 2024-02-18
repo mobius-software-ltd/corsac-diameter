@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Control-Memory-Size AVP (AVP Code 1002) is of type Unsigned32 and represents the storage memory (in bytes) used to store control related information 
 	associated with the M2M event record (excludes data storage associated with container related operations).
  */
-@DiameterAvpDefinition(code = 1002L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Control-Memory-Size")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.CONTROL_MEMORY_SIZE, vendorId = VendorIDs.ONEM2M_ID, name = "Control-Memory-Size")
 public interface ControlMemorySize extends DiameterUnsigned32
 {
 }

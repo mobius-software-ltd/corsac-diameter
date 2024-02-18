@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASFilterRule;
 
 /**
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASFilterRule
 	Absence of the Maximum-Allowed-Bandwidth-DL AVP indicates that no limitation is placed by the subscription on the
 	amount of bandwidth that can be used on the downlink direction. 
  */
-@DiameterAvpDefinition(code = 303L, vendorId = KnownVendorIDs.ETSI_ID,must = false, name = "Initial-Gate-Setting-Description")
+@DiameterAvpDefinition(code = EtsiAvpCodes.INITIAL_GATE_SETTING_DESCRIPTION, vendorId = VendorIDs.ETSI_ID,must = false, name = "Initial-Gate-Setting-Description")
 public interface InitialGateSettingDescription extends DiameterAvp
 {
 	List<NASFilterRule> getNASFilterRule();

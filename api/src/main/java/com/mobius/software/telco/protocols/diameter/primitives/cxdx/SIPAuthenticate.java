@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	details about RAND and AUTN. The Authentication Information has a fixed length of 32 octets; the 16 most significant octets shall contain the RAND, 
 	the 16 least significant octets shall contain the AUTN.
  */
-@DiameterAvpDefinition(code = 609L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Authenticate")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_AUTHENTICATE, vendorId = VendorIDs.TGPP_ID, name = "SIP-Authenticate")
 public interface SIPAuthenticate extends DiameterOctetString
 {
 }

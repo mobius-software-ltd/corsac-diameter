@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 EPC-level identities required
 	This bit, when set, indicates that the AF requests the PCRF to provide the EPC-level identities (MSISDN, IMSI, IMEI(SV)) available for that IP-CAN session. 
  */
-@DiameterAvpDefinition(code = 551L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "AF-Requested-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.AF_REQUESTED_DATA, vendorId = VendorIDs.TGPP_ID, must = false, name = "AF-Requested-Data")
 public interface AFRequestedData extends DiameterBitmask32
 {
 	public static final int EPC_LEVEL_IDENTITIES_REQUIRED_BIT = 0;	

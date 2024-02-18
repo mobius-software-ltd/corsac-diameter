@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6b;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Maximum-Wait-Time is of type Unsigned32. It indicates the number of milliseconds since the Origination-Time-Stamp 
 	during which the originator of a request waits for a response. See 3GPP TS 29.274 [38].
  */
-@DiameterAvpDefinition(code = 1537L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Maximum-Wait-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAXIMUM_WAIT_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Maximum-Wait-Time")
 public interface MaximumWaitTime extends DiameterUnsigned32
 {
 }

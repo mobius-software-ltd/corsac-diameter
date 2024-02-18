@@ -18,11 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777.TimeOfDayEndImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777.TimeOfDayStartImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfWeekMask;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TimeOfDayEnd;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TimeOfDayStart;
@@ -33,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.ScheduledComm
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3118L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ScheduledCommunicationTimeImpl extends DiameterGroupedAvpImpl implements ScheduledCommunicationTime
 {
 	private DayOfWeekMask dayOfWeekMask;

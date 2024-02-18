@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,12 +48,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	In circumstances, in which an envelope is retrospectively deemed to have been closed, e.g. with Quota-Consumption-Time changes in a CCA, then the client shall include the Envelope AVP for the envelope in the next usage report.
 	Multiple occurrences of this AVP shall be in chronological order, i.e. the first envelope is listed first in CCR.
  */
-@DiameterAvpDefinition(code = 1266L, vendorId = KnownVendorIDs.TGPP_ID, name = "Envelope")
+@DiameterAvpDefinition(code = TgppAvpCodes.ENVELOPE, vendorId = VendorIDs.TGPP_ID, name = "Envelope")
 public interface Envelope extends DiameterAvp
 {
 	Date getEnvelopeStartTime();
 	
-	void setEnvelopeStartTime(Date value);
+	void setEnvelopeStartTime(Date value) throws MissingAvpException;
 	
 	Date getEnvelopeEndTime();
 	

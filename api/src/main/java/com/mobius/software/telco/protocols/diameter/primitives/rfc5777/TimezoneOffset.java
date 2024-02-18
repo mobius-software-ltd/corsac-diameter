@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32
    	Mask, and Month-Of-Year-Mask AVPs.  This AVP MUST be present if the
    	Timezone-Flag AVP is set to OFFSET.
  */
-@DiameterAvpDefinition(code = 571L, vendorId = -1L, name = "Timezone-Offset")
+@DiameterAvpDefinition(code = AvpCodes.TIMEZONE_OFFSET, vendorId = -1L, name = "Timezone-Offset")
 public interface TimezoneOffset extends DiameterInteger32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Local-Sequence-Number AVP (AVP code 2063) is of type Unsigned32 and holds the service data container
 	sequence number : increased by 1 for each service data container closed. 
  */
-@DiameterAvpDefinition(code = 2063L, vendorId = KnownVendorIDs.TGPP_ID, name = "Local-Sequence-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCAL_SEQUENCE_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "Local-Sequence-Number")
 public interface LocalSequenceNumber extends DiameterUnsigned32
 {
 }

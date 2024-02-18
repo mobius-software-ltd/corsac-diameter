@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
 
 import java.net.Inet4Address;
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,14 +42,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 { Framed-IP-Address } ;
 		 { Port-Number }
 */
-@DiameterAvpDefinition(code = 454L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "V4-Transport-Address")
+@DiameterAvpDefinition(code = EtsiAvpCodes.V4_TRANSPORT_ADDRESS, vendorId = VendorIDs.ETSI_ID, must = false, name = "V4-Transport-Address")
 public interface V4TransportAddress extends DiameterAvp
 {
 	Inet4Address getFramedIPAddress();
 	
-	void setFramedIPAddress(Inet4Address value);	
+	void setFramedIPAddress(Inet4Address value) throws MissingAvpException;	
 	
 	Long getPortNumber();
 	
-	void setPortNumber(Long value);
+	void setPortNumber(Long value) throws MissingAvpException;
 }

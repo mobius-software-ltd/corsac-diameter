@@ -18,10 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.EPSLocationInformationImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IMSIGroupId;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.NumberOfUEPerLocationReport;
@@ -32,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.UECount;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4307L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NumberOfUEPerLocationReportImpl extends DiameterGroupedAvpImpl implements NumberOfUEPerLocationReport
 {
 	private EPSLocationInformation epsLocationInformation;
@@ -45,17 +48,11 @@ public class NumberOfUEPerLocationReportImpl extends DiameterGroupedAvpImpl impl
 	{
 	}
 	
-	public NumberOfUEPerLocationReportImpl(EPSLocationInformation epsLocationInformation,Long ueCount)
+	public NumberOfUEPerLocationReportImpl(EPSLocationInformation epsLocationInformation,Long ueCount) throws MissingAvpException
 	{
-		if(epsLocationInformation==null)
-			throw new IllegalArgumentException("EPS-Location-Information is required");
+		setEPSLocationInformation(epsLocationInformation);
 		
-		if(ueCount==null)
-			throw new IllegalArgumentException("UE-Count is required");
-		
-		this.epsLocationInformation = epsLocationInformation;				
-		
-		this.ueCount = new UECountImpl(ueCount, null, null);						
+		setUECount(ueCount);
 	}
 	
 	public EPSLocationInformation getEPSLocationInformation()
@@ -63,10 +60,10 @@ public class NumberOfUEPerLocationReportImpl extends DiameterGroupedAvpImpl impl
 		return epsLocationInformation;
 	}
 	
-	public void setEPSLocationInformation(EPSLocationInformation value)
+	public void setEPSLocationInformation(EPSLocationInformation value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("EPS-Location-Information is required");
+			throw new MissingAvpException("EPS-Location-Information is required", Arrays.asList(new DiameterAvp[] { new EPSLocationInformationImpl() }));
 		
 		this.epsLocationInformation = value;		
 	}
@@ -79,10 +76,10 @@ public class NumberOfUEPerLocationReportImpl extends DiameterGroupedAvpImpl impl
 		return ueCount.getUnsigned();
 	}
 	
-	public void setUECount(Long value)
+	public void setUECount(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("UE-Count is required");
+			throw new MissingAvpException("UE-Count is required", Arrays.asList(new DiameterAvp[] { new UECountImpl() }));
 		
 		this.ueCount = new UECountImpl(value, null, null);		
 	}
@@ -98,13 +95,13 @@ public class NumberOfUEPerLocationReportImpl extends DiameterGroupedAvpImpl impl
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(epsLocationInformation==null)
-			return "EPS-Location-Information is required";
+			return new MissingAvpException("EPS-Location-Information is required", Arrays.asList(new DiameterAvp[] { new EPSLocationInformationImpl() }));
 		
 		if(ueCount==null)
-			return "UE-Count is required";
+			return new MissingAvpException("UE-Count is required", Arrays.asList(new DiameterAvp[] { new UECountImpl() }));
 		
 		return null;
 	}

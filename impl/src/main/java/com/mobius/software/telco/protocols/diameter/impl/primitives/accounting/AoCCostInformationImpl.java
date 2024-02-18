@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CurrencyCodeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccumulatedCost;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCCostInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.IncrementalCost;
@@ -33,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Cur
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2053L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AoCCostInformationImpl implements AoCCostInformation
 {
 	private AccumulatedCost accumulatedCost;

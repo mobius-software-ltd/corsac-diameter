@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		2 [ Tunnel-Header-Filter ]
 		* [ AVP ]
  */
-@DiameterAvpDefinition(code = 1038L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Tunnel-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.TUNNEL_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Tunnel-Information")
 public interface TunnelInformation extends DiameterGroupedAvp
 {
 	Long getTunnelHeaderLength();
@@ -52,5 +54,5 @@ public interface TunnelInformation extends DiameterGroupedAvp
 	
 	List<TunnelHeaderFilter> getTunnelHeaderFilter();
 	
-	void setTunnelHeaderFilter(List<TunnelHeaderFilter> value);		  
+	void setTunnelHeaderFilter(List<TunnelHeaderFilter> value) throws AvpOccursTooManyTimesException;		  
 }

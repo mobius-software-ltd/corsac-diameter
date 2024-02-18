@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.67	Sampling-Interval
 	The Sampling-Interval AVP is of type Unsigned32 and it contains the maximum time interval between consecutive evaluations by a UE of an area event or motion event, in seconds. The minimum value shall be 1 second and the maximum value 3600 seconds. The Sampling-Interval AVP is only applicable to a deferred EPC-MT-LR. 
  */
-@DiameterAvpDefinition(code = 2562L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Sampling-Interval")
+@DiameterAvpDefinition(code = TgppAvpCodes.SAMPLING_INTERVAL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Sampling-Interval")
 public interface SamplingInterval extends DiameterUnsigned32
 {
 }

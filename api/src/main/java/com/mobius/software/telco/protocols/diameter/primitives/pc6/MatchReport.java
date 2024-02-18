@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -50,12 +52,12 @@ import io.netty.buffer.ByteBuf;
 	When the Discovery-Type is set to "MONITORING_REQUEST_FOR_OPEN_PROSE_DIRECT_DISCOVERY", the Match-Report shall contain a ProSe Application Code, the associated ProSe Application ID Name, the validity time for which the ProSe Application Code is valid, the associated match report refresh timer and optionally the PC5 radio technology that the UE is using.
 	If the ProSe Application Code contains a metadata index, a ProSe-Metadata-Index-Mask AVP shall be provided for this ProSe Application Code.
  */
-@DiameterAvpDefinition(code = 3807L, vendorId = KnownVendorIDs.TGPP_ID, name = "Match-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.MATCH_REPORT, vendorId = VendorIDs.TGPP_ID, name = "Match-Report")
 public interface MatchReport extends DiameterGroupedAvp
 {
 	DiscoveryTypeEnum getDiscoveryType();
 	
-	void setDiscoveryType(DiscoveryTypeEnum value);
+	void setDiscoveryType(DiscoveryTypeEnum value) throws MissingAvpException;
 	
 	ByteBuf getProSeAppCode();
 	

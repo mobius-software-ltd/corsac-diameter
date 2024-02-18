@@ -1,6 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sta;
 
 import com.mobius.software.telco.protocols.diameter.commands.sta.StaRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -40,7 +42,7 @@ public abstract class StaRequestImpl extends AuthenticationRequestWithHostBase i
 		setDestinationHostAllowed(true);
 	}
 		
-	public StaRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId)
+	public StaRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
 		setDestinationHostAllowed(true);

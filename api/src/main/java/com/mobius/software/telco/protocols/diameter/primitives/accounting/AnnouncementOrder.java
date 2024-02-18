@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 	should be connected for playback when there are multiple Announcement-Information AVPs provided in a single
 	message with the same timing indicator.
  */
-@DiameterAvpDefinition(code = 3906L, vendorId = -1L, name = "Announcement-Order")
+@DiameterAvpDefinition(code = TgppAvpCodes.ANNOUNCEMENT_ORDER, vendorId = -1L, name = "Announcement-Order")
 public interface AnnouncementOrder extends DiameterUnsigned32
 {
 }

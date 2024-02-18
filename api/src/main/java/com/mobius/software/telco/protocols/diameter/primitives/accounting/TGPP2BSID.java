@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.Tgpp2AvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * This AVP indicates the BSID of where the UE is currently located (for example, Cell-Id, SID, NID).
  * Octet String
  */
-@DiameterAvpDefinition(code = 9010L, vendorId = KnownVendorIDs.TGPP2_ID, name = "3GPP2-BSID")
+@DiameterAvpDefinition(code = Tgpp2AvpCodes.BSID, vendorId = VendorIDs.TGPP2_ID, name = "3GPP2-BSID")
 public interface TGPP2BSID extends DiameterOctetString
 {
 }

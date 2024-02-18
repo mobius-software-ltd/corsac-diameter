@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	to be used for performing ProSe direct communication. It is referred to as "ProSe Group IP multicast address" in TS
 	23.303 [235]. 
  */
-@DiameterAvpDefinition(code = 3446L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Group-IP-Multicast-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_GROUP_IP_MULTICAST_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Group-IP-Multicast-Address")
 public interface ProSeGroupIPMulticastAddress extends DiameterAddress
 {
 }

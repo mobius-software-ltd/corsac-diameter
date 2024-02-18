@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.234 Token-Text AVP
 	The Token-Text AVP (AVP code 1215) is of type UTF8String and contains extension information for the MessageClass AVP. 
  */
-@DiameterAvpDefinition(code = 1215L, vendorId = KnownVendorIDs.TGPP_ID, name = "Token-Text")
+@DiameterAvpDefinition(code = TgppAvpCodes.TOKEN_TEXT, vendorId = VendorIDs.TGPP_ID, name = "Token-Text")
 public interface TokenText extends DiameterUTF8String
 {
 }

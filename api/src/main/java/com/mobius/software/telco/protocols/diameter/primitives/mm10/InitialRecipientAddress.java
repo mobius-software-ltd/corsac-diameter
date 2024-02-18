@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,14 +39,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 {Recipient-Address}
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 1105L, vendorId = KnownVendorIDs.TGPP_ID, name = "Initial-Recipient-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.INITIAL_RECIPIENT_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Initial-Recipient-Address")
 public interface InitialRecipientAddress extends DiameterGroupedAvp
 {
 	Long getSequenceNumber();
 	
-	void setSequenceNumber(Long value);	
+	void setSequenceNumber(Long value) throws MissingAvpException;	
 	
 	String getRecipientAddress();
 	
-	void setRecipientAddress(String value);
+	void setRecipientAddress(String value) throws MissingAvpException;
 }

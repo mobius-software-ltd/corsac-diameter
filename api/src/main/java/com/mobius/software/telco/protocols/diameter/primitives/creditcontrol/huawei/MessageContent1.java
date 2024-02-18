@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Refer to the description about the message contents that contain up to 140 English characters.
 	The AVP whether to be used is depended on the value of the MessageCount AVP.
  */
-@DiameterAvpDefinition(code = 20396L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Message-Content-1")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.MESSAGE_CONTENT_1, vendorId = VendorIDs.HUAWEI_ID, name = "Message-Content-1")
 public interface MessageContent1 extends DiameterUTF8String
 {
 }

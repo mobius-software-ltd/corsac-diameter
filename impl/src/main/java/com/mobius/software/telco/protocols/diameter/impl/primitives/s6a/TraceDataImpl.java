@@ -19,11 +19,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.net.InetAddress;
+import java.util.Arrays;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MDTConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.OMCId;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TraceCollectionEntity;
@@ -42,7 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1458L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 {
 	private TraceReference traceReference;
@@ -66,32 +67,17 @@ public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 		
 	}
 	
-	public TraceDataImpl(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity)
+	public TraceDataImpl(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity) throws MissingAvpException
 	{
-		if(traceReference==null)
-			throw new IllegalArgumentException("Trace-Reference is required");
+		setTraceReference(traceReference);
 		
-		if(traceDepth==null)
-			throw new IllegalArgumentException("Trace-Depth is required");
+		setTraceDepth(traceDepth);
 		
-		if(traceNETypeList==null)
-			throw new IllegalArgumentException("Trace-NE-Type-List is required");
+		setTraceNETypeList(traceNETypeList);
 		
-		if(traceEventList==null)
-			throw new IllegalArgumentException("Trace-Event-List is required");
+		setTraceEventList(traceEventList);
 		
-		if(traceCollectionEntity==null)
-			throw new IllegalArgumentException("Trace-Collection-Entity is required");
-		
-		this.traceReference = new TraceReferenceImpl(traceReference, null, null);				
-		
-		this.traceDepth = new TraceDepthImpl(traceDepth, null, null);
-		
-		this.traceNETypeList = new TraceNETypeListImpl(traceNETypeList, null, null);
-		
-		this.traceEventList = new TraceEventListImpl(traceEventList, null, null);
-		
-		this.traceCollectionEntity = new TraceCollectionEntityImpl(traceCollectionEntity, null, null);
+		setTraceCollectionEntity(traceCollectionEntity);
 	}
 	
 	public ByteBuf getTraceReference()
@@ -102,10 +88,10 @@ public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 		return traceReference.getValue();
 	}
 	
-	public void setTraceReference(ByteBuf value)
+	public void setTraceReference(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Trace-Reference is required");
+			throw new MissingAvpException("Trace-Reference is required is required", Arrays.asList(new DiameterAvp[] { new TraceReferenceImpl() }));
 		
 		this.traceReference = new TraceReferenceImpl(value, null, null);	
 	}	
@@ -118,10 +104,10 @@ public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 		return traceDepth.getEnumerated(TraceDepthEnum.class);
 	}
 	
-	public void setTraceDepth(TraceDepthEnum value)
+	public void setTraceDepth(TraceDepthEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Trace-Depth is required");
+			throw new MissingAvpException("Trace-Depth is required is required", Arrays.asList(new DiameterAvp[] { new TraceDepthImpl() }));
 		
 		this.traceDepth = new TraceDepthImpl(value, null, null);
 	}
@@ -134,10 +120,10 @@ public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 		return traceNETypeList.getValue();
 	}
 	
-	public void setTraceNETypeList(ByteBuf value)
+	public void setTraceNETypeList(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Trace-NE-Type-List is required");
+			throw new MissingAvpException("Trace-NE-Type-List is required is required", Arrays.asList(new DiameterAvp[] { new TraceNETypeListImpl() }));
 		
 		this.traceNETypeList = new TraceNETypeListImpl(value, null, null);
 	}
@@ -166,10 +152,10 @@ public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 		return traceEventList.getValue();
 	}
 	
-	public void setTraceEventList(ByteBuf value)
+	public void setTraceEventList(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Trace-Event-List is required");
+			throw new MissingAvpException("Trace-Event-List is required is required", Arrays.asList(new DiameterAvp[] { new TraceEventListImpl() }));
 		
 		this.traceEventList = new TraceEventListImpl(value, null, null);
 	}
@@ -198,11 +184,11 @@ public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 		return traceCollectionEntity.getAddress();
 	}
 	
-	public void setTraceCollectionEntity(InetAddress value)
+	public void setTraceCollectionEntity(InetAddress value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Trace-Collection-Entity is required");
-		
+			throw new MissingAvpException("Trace-Collection-Entity is required is required", Arrays.asList(new DiameterAvp[] { new TraceCollectionEntityImpl() }));
+			
 		this.traceCollectionEntity = new TraceCollectionEntityImpl(value, null, null);
 	}
 
@@ -217,22 +203,22 @@ public class TraceDataImpl extends DiameterGroupedAvpImpl implements TraceData
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(traceReference==null)
-			return "Trace-Reference is required";
+			return new MissingAvpException("Trace-Reference is required is required", Arrays.asList(new DiameterAvp[] { new TraceReferenceImpl() }));
 		
 		if(traceDepth==null)
-			return "Trace-Depth is required";
+			return new MissingAvpException("Trace-Depth is required is required", Arrays.asList(new DiameterAvp[] { new TraceDepthImpl() }));
 		
 		if(traceNETypeList==null)
-			return "Trace-NE-Type-List is required";
+			return new MissingAvpException("Trace-NE-Type-List is required is required", Arrays.asList(new DiameterAvp[] { new TraceNETypeListImpl() }));
 		
 		if(traceEventList==null)
-			return "Trace-Event-List is required";
+			return new MissingAvpException("Trace-Event-List is required is required", Arrays.asList(new DiameterAvp[] { new TraceEventListImpl() }));
 		
 		if(traceCollectionEntity==null)
-			return "Trace-Collection-Entity is required";
+			return new MissingAvpException("Trace-Collection-Entity is required is required", Arrays.asList(new DiameterAvp[] { new TraceCollectionEntityImpl() }));
 		
 		return null;
 	}

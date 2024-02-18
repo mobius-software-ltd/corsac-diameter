@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.AbsentSubscriberDiagnosticT4Enum;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.SMDeliveryOutcomeT4Enum;
@@ -54,20 +57,20 @@ import io.netty.buffer.ByteBuf;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777311, commandCode = 8388644, request = true, proxyable = true, name="Delivery-Report-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T4, commandCode = CommandCodes.DELIVERY_REPORT, request = true, proxyable = true, name="Delivery-Report-Request")
 public interface DeliveryReportRequest extends T4Request
 {
 	UserIdentifier getUserIdentifier();
 	 
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	
 	ByteBuf getSMRPSMEA();
 	
-	void setSMRPSMEA(ByteBuf value);
+	void setSMRPSMEA(ByteBuf value) throws MissingAvpException;
 	 		
 	SMDeliveryOutcomeT4Enum getSMDeliveryOutcomeT4();
 	
-	void setSMDeliveryOutcomeT4(SMDeliveryOutcomeT4Enum value);
+	void setSMDeliveryOutcomeT4(SMDeliveryOutcomeT4Enum value) throws MissingAvpException;
 	
 	AbsentSubscriberDiagnosticT4Enum getAbsentSubscriberDiagnosticT4();
 	 

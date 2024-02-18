@@ -22,9 +22,10 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.BMSCAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.BMSCPort;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.LocalMB2UInformation;
@@ -34,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.LocalMB2UInf
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3519L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LocalMB2UInformationImpl implements LocalMB2UInformation
 {
 	private List<BMSCAddress> bmscAddress;
@@ -58,10 +58,16 @@ public class LocalMB2UInformationImpl implements LocalMB2UInformation
 		return result;
 	}
 	
-	public void setMBMSENBIPMulticastAddress(List<InetAddress> value)
+	public void setMBMSENBIPMulticastAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Only 2 BMSC‑Address are allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new BMSCAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 BMSC‑Address are allowed", failedAvps);
+		}
 		else if(value==null || value.size()==0)
 			this.bmscAddress = null;
 		else
@@ -89,10 +95,14 @@ public class LocalMB2UInformationImpl implements LocalMB2UInformation
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(bmscAddress!=null || bmscAddress.size()>2)
-			return "Only 2 BMSC‑Address are allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(bmscAddress);
+			return new AvpOccursTooManyTimesException("Up to 2 BMSC‑Address are allowed", failedAvps);
+		}
 		
 		return null;
 	}

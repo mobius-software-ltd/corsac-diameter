@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANS2aFailureCause;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.TWANS2aFailur
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1533L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TWANS2aFailureCauseImpl extends DiameterUnsigned32Impl implements TWANS2aFailureCause 
 {
 	protected TWANS2aFailureCauseImpl()

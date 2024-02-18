@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.23	Requesting-EPUID
 	The Requesting-EPUID AVP is of type UTF8String. This AVP contains an identifier for EPC-level ProSe Discovery and EPC support for WLAN direct communication that uniquely identifies a UE registered for ProSe triggering a Proximity request.
  */
-@DiameterAvpDefinition(code = 3816L, vendorId = KnownVendorIDs.TGPP_ID, name = "Requesting-EPUID")
+@DiameterAvpDefinition(code = TgppAvpCodes.REQUESTING_EPUID, vendorId = VendorIDs.TGPP_ID, name = "Requesting-EPUID")
 public interface RequestingEPUID extends DiameterUTF8String
 {
 }

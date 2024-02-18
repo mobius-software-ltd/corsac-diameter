@@ -19,13 +19,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.SCEFIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ContextIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SSCode;
@@ -41,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1685L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SubscriptionDataDeletionImpl extends DiameterGroupedAvpImpl implements SubscriptionDataDeletion
 {
 	private DSRFlags dsrFlags;
@@ -61,7 +62,7 @@ public class SubscriptionDataDeletionImpl extends DiameterGroupedAvpImpl impleme
 		
 	}
 	
-	public SubscriptionDataDeletionImpl(DSRFlags dsrFlags)
+	public SubscriptionDataDeletionImpl(DSRFlags dsrFlags) throws MissingAvpException
 	{
 		setDSRFlags(dsrFlags);
 	}
@@ -71,8 +72,11 @@ public class SubscriptionDataDeletionImpl extends DiameterGroupedAvpImpl impleme
 		return dsrFlags;
 	}
 	
-	public void setDSRFlags(DSRFlags value)
+	public void setDSRFlags(DSRFlags value) throws MissingAvpException
 	{
+		if(value == null)
+			throw new MissingAvpException("DSR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new DSRFlagsImpl() }));
+		
 		this.dsrFlags = value;
 	}
 	
@@ -181,10 +185,10 @@ public class SubscriptionDataDeletionImpl extends DiameterGroupedAvpImpl impleme
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(dsrFlags==null)
-			return "DSR-Flags is required";
+			return new MissingAvpException("DSR-Flags is required is required", Arrays.asList(new DiameterAvp[] { new DSRFlagsImpl() }));
 		
 		return null;
 	}

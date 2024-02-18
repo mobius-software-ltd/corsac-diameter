@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 0: no
 	    - 1: yes
  */
-@DiameterAvpDefinition(code = 20978L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Active-Flag")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACTIVE_FLAG, vendorId = VendorIDs.HUAWEI_ID, name = "Active-Flag")
 public interface ActiveFlag extends DiameterInteger32
 {
 }

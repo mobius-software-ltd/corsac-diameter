@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	3 Bearer Activation Failure
 	The MBMS bearer is not activated successfully based on the MBMS-Start-Time.
  */
-@DiameterAvpDefinition(code = 3502L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Event")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_BEARER_EVENT, vendorId = VendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Event")
 public interface MBMSBearerEvent extends DiameterBitmask32
 {
 	public static final int BEARER_TERMINATED_BIT = 0;

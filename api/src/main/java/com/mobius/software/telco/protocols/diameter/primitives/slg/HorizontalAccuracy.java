@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.7	Horizontal-Accuracy
 	The Horizontal-Accuracy AVP is of type Unsigned32. Bits 6-0 corresponds to Uncertainty Code defined in 3GPP TS 23.032 [3]. The horizontal location error should be less than the error indicated by the uncertainty code with 67% confidence. Bits 7 to 31 shall be ignored. 
  */
-@DiameterAvpDefinition(code = 2505L, vendorId = KnownVendorIDs.TGPP_ID, name = "Horizontal-Accuracy")
+@DiameterAvpDefinition(code = TgppAvpCodes.HORIZONTAL_ACCURACY, vendorId = VendorIDs.TGPP_ID, name = "Horizontal-Accuracy")
 public interface HorizontalAccuracy extends DiameterUnsigned32
 {
 }

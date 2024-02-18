@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    where error messages are processed automatically.  It SHOULD NOT be
    expected that the content of this AVP be parsed by network entities.
  */
-@DiameterAvpDefinition(code = 281L, vendorId = -1L, must = false, name = "Error-Message")
+@DiameterAvpDefinition(code = AvpCodes.ERROR_MESSAGE, vendorId = -1L, must = false, name = "Error-Message")
 public interface ErrorMessage extends DiameterUTF8String
 {
 }

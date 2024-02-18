@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.sgd;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelationID;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.TFRFlags;
 
@@ -62,7 +65,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777313, commandCode = 8388646, request = true, proxyable = true, name="MT-Forward-Short-Message-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SGD, commandCode = CommandCodes.MT_FORWARD_SHORT_MESSAGE, request = true, proxyable = true, name="MT-Forward-Short-Message-Request")
 public interface MTForwardShortMessageRequest extends SgdRequest
 {
 	SMSMICorrelationID getSMSMICorrelationID();
@@ -71,11 +74,11 @@ public interface MTForwardShortMessageRequest extends SgdRequest
 	
 	String getSCAddress();
 	
-	void setSCAddress(String value);
+	void setSCAddress(String value) throws MissingAvpException;
 	
 	ByteBuf getSMRPUI();
 	
-	void setSMRPUI(ByteBuf value);
+	void setSMRPUI(ByteBuf value) throws MissingAvpException;
 	
 	String getMMENumberForMTSMS();
 	 

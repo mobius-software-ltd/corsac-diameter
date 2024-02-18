@@ -18,11 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ChargingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PrimaryChargingCollectionFunctionName;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PrimaryEventChargingFunctionName;
@@ -34,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SecondaryEve
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 618L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ChargingInformationImpl extends DiameterGroupedAvpImpl implements ChargingInformation
 {
 	private PrimaryEventChargingFunctionName primaryEventChargingFunctionName;
@@ -58,7 +54,7 @@ public class ChargingInformationImpl extends DiameterGroupedAvpImpl implements C
 		return primaryEventChargingFunctionName.getUri();
 	}
 	
-	public void setPrimaryEventChargingFunctionName(String value) throws ParseException
+	public void setPrimaryEventChargingFunctionName(String value) throws InvalidAvpValueException
 	{
 		if(value == null)
 			this.primaryEventChargingFunctionName = null;
@@ -74,7 +70,7 @@ public class ChargingInformationImpl extends DiameterGroupedAvpImpl implements C
 		return secondaryEventChargingFunctionName.getUri();
 	}
 	
-	public void setSecondaryEventChargingFunctionName(String value) throws ParseException
+	public void setSecondaryEventChargingFunctionName(String value) throws InvalidAvpValueException
 	{
 		if(value == null)
 			this.secondaryEventChargingFunctionName = null;
@@ -90,7 +86,7 @@ public class ChargingInformationImpl extends DiameterGroupedAvpImpl implements C
 		return primaryChargingCollectionFunctionName.getUri();
 	}
 	
-	public void setPrimaryChargingCollectionFunctionName(String value) throws ParseException
+	public void setPrimaryChargingCollectionFunctionName(String value) throws InvalidAvpValueException
 	{
 		if(value == null)
 			this.primaryChargingCollectionFunctionName = null;
@@ -106,7 +102,7 @@ public class ChargingInformationImpl extends DiameterGroupedAvpImpl implements C
 		return secondaryChargingCollectionFunctionName.getUri();
 	}
 	
-	public void setSecondaryChargingCollectionFunctionName(String value) throws ParseException
+	public void setSecondaryChargingCollectionFunctionName(String value) throws InvalidAvpValueException
 	{
 		if(value == null)
 			this.secondaryChargingCollectionFunctionName = null;

@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
 
 /**
@@ -47,10 +50,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.Deregistrati
 			…
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777265, commandCode = 304, request = true, proxyable = true, name="Registration-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWX, commandCode = CommandCodes.REGISTRATION_TERMINATION, request = true, proxyable = true, name="Registration-Termination-Request")
 public interface RegistrationTerminationRequest extends SwxRequest
 {
 	DeregistrationReason getDeregistrationReason();
 	
-	void setDeregistrationReason(DeregistrationReason value);
+	void setDeregistrationReason(DeregistrationReason value) throws MissingAvpException;
 }

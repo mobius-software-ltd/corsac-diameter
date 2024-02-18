@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the IMSI of the calling number reported in an SMPP+ message. This AVP is used based on the SM number portability scheme of the Fake-IMSI.
  */
-@DiameterAvpDefinition(code = 20434L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Orig-IMSI")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ORIG_IMSI, vendorId = VendorIDs.HUAWEI_ID, name = "Orig-IMSI")
 public interface OrigIMSI extends DiameterUTF8String
 {
 }

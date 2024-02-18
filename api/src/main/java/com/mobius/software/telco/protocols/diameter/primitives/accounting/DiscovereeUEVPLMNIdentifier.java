@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Discoveree-UE-VPLMN-Identifier AVP (AVP code 4403) is of type UTF8String and contains identifier of
 	Discoveree UE VPLMN. 
  */
-@DiameterAvpDefinition(code = 4403L, vendorId = KnownVendorIDs.TGPP_ID, name = "Discoveree-UE-VPLMN-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.DISCOVEREE_UEVPLMN_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, name = "Discoveree-UE-VPLMN-Identifier")
 public interface DiscovereeUEVPLMNIdentifier extends DiameterUTF8String
 {
 }

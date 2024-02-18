@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc8583;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
       value of 65535.  A node that is 100% loaded would have a Load
       value of 0.
  */
-@DiameterAvpDefinition(code = 652L, vendorId = -1L, must = false, name = "Load-Value")
+@DiameterAvpDefinition(code = AvpCodes.LOAD_VALUE, vendorId = -1L, must = false, name = "Load-Value")
 public interface LoadValue extends DiameterUnsigned64
 {
 }

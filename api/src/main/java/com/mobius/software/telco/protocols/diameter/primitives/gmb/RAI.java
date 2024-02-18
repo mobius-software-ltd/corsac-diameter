@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	As an example, a RAI with the following information: MCC=123, MNC=45, LAC=41655(0xA2C1) and RAC=10(0x0A) is encoded within the RAI AVP as a UTF-8 string of "12345A2C10A".
  */
-@DiameterAvpDefinition(code = 909L, vendorId = KnownVendorIDs.TGPP_ID, name = "RAI")
+@DiameterAvpDefinition(code = TgppAvpCodes.RAI, vendorId = VendorIDs.TGPP_ID, name = "RAI")
 public interface RAI extends DiameterUTF8String
 {
 }

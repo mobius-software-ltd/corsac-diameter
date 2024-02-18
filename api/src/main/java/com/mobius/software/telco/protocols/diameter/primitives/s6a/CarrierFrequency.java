@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.221	Carrier-Frequency
 	The Carrier-Frequency AVP is of type Unsigned32 and it shall contain the Carrier Frequency value, in the range of 0..262143 (see 3GPP TS 36.331 [62]).
  */
-@DiameterAvpDefinition(code = 1696L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Carrier-Frequency")
+@DiameterAvpDefinition(code = TgppAvpCodes.CARRIER_FREQUENCY, vendorId = VendorIDs.TGPP_ID, must = false, name = "Carrier-Frequency")
 public interface CarrierFrequency extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -77,7 +78,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Set all the other digits to 0.
  */
-@DiameterAvpDefinition(code = 21210L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "S-Caller-VPN-Phone-Flags")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.S_CALLER_VPPN_PHONE_FLAGS, vendorId = VendorIDs.HUAWEI_ID, name = "S-Caller-VPN-Phone-Flags")
 public interface SCallerVPNPhoneFlags extends DiameterOctetString
 {
 }

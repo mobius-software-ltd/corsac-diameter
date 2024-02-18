@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		 *[ V6-Transport-Address ]
 		 *[ V4-Transport-Address ] 
 */
-@DiameterAvpDefinition(code = 452L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Binding-Output-List")
+@DiameterAvpDefinition(code = EtsiAvpCodes.BINDING_OUTPUT_LIST, vendorId = VendorIDs.ETSI_ID, must = false, name = "Binding-Output-List")
 public interface BindingOutputList extends DiameterAvp
 {
 	List<V6TransportAddress> getV6TransportAddress();

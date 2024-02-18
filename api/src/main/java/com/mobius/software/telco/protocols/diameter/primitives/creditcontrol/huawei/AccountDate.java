@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the validity date of an account.
  */
-@DiameterAvpDefinition(code = 20359L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Account-Date")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACCOUNT_DATE, vendorId = VendorIDs.HUAWEI_ID, name = "Account-Date")
 public interface AccountDate extends DiameterOctetString
 {
 }

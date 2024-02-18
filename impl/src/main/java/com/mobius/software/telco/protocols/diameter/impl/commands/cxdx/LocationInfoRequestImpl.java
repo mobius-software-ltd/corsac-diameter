@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.OriginatingRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SessionPriorityImpl;
@@ -46,7 +49,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 302, request = true)
 public class LocationInfoRequestImpl extends CxDxRequestWithHostBase implements LocationInfoRequest
 {
 	private OriginatingRequest originatingRequest;
@@ -64,7 +66,7 @@ public class LocationInfoRequestImpl extends CxDxRequestWithHostBase implements 
 		super();
 	}
 	
-	public LocationInfoRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String publicIdentity)
+	public LocationInfoRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String publicIdentity) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -105,11 +107,11 @@ public class LocationInfoRequestImpl extends CxDxRequestWithHostBase implements 
 		return publicIdentity.getString();
 	}
 	 
-	public void setPublicIdentity(String value)
+	public void setPublicIdentity(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Public-Identity is required");
-		
+			throw new MissingAvpException("Public-Identity is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
+			
 		this.publicIdentity = new PublicIdentityImpl(value, null, null);
 	}
 		
@@ -148,10 +150,10 @@ public class LocationInfoRequestImpl extends CxDxRequestWithHostBase implements 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(publicIdentity == null)
-			return "Public-Identity is required";
+			return new MissingAvpException("Public-Identity is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
 		
 		return super.validate();
 	}	

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    corresponds to an entry in the Route-Record AVP.  If no match is
    found, then an error is logged, but no other action is taken.
  */
-@DiameterAvpDefinition(code = 32L, vendorId = -1L, name = "NAS-Identifier")
+@DiameterAvpDefinition(code = AvpCodes.NAS_IDENTIFIER, vendorId = -1L, name = "NAS-Identifier")
 public interface NASIdentifier extends DiameterUTF8String
 {
 }

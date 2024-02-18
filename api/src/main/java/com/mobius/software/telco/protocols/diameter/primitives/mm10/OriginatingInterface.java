@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -35,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 	MM4 (2)
 	MM7 (3)
  */
-@DiameterAvpDefinition(code = 1110L, vendorId = -1L, name = "Originating-Interface")
+@DiameterAvpDefinition(code = TgppAvpCodes.ORIGINATING_INTERFACE, vendorId = VendorIDs.TGPP_ID, name = "Originating-Interface")
 public interface OriginatingInterface extends DiameterEnumerated<OriginatingInterfaceEnum>
 {
 }

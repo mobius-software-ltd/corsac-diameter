@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Application-Provided-Called-Party-Address AVP (AVP code 837) is of type UTF8String and holds the called
 	party number (SIP URI, E.164), if it is determined by an application server.
  */
-@DiameterAvpDefinition(code = 837L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Provided-Called-Party-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.APPLICATION_PROVIDED_CALLED_PARTY_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Application-Provided-Called-Party-Address")
 public interface ApplicationProvidedCalledPartyAddress extends DiameterUTF8String
 {
 }

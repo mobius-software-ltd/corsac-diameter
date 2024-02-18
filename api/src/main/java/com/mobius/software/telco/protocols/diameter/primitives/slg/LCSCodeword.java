@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.13	LCS-Codeword
 	The LCS-Codeword AVP is of type UTF8String. It indicates the potential codeword string to send in a notification message to the UE.
  */
-@DiameterAvpDefinition(code = 2511L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Codeword")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_CODEWORD, vendorId = VendorIDs.TGPP_ID, name = "LCS-Codeword")
 public interface LCSCodeword extends DiameterUTF8String
 {
 }

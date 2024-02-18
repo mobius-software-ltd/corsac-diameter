@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AccessAvailabilityChangeReasonEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaStatusEnum;
@@ -64,7 +65,7 @@ import io.netty.buffer.ByteBuf;
 		    [ Serving-PLMN-Rate-Control ]
 		    [ APN-Rate-Control ]
  */
-@DiameterAvpDefinition(code = 2046L, vendorId = KnownVendorIDs.TGPP_ID, name = "Traffic-Data-Volumes")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRAFFIC_DATA_VOLUMES, vendorId = VendorIDs.TGPP_ID, name = "Traffic-Data-Volumes")
 public interface TrafficDataVolumes extends DiameterAvp
 {
 	QoSInformation getQoSInformation();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	included in the CCA of the previous IEC. This AVP shall be used by the CTF in case of a refund scenario and thus shall
 	be included in the CCR for refund if previously received in CCA for IEC. 
  */
-@DiameterAvpDefinition(code = 2022L, vendorId = KnownVendorIDs.TGPP_ID, name = "Refund-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.REFUND_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Refund-Information")
 public interface RefundInformation extends DiameterOctetString
 {
 }

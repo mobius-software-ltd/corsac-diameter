@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
 
@@ -48,7 +50,7 @@ import io.netty.buffer.ByteBuf;
                         * [ Proxy-Info ]
                         * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 1, commandCode = 274, request = false, proxyable = true, name="Abort-Session-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.ABORT_SESSION, request = false, proxyable = true, name="Abort-Session-Answer")
 public interface AbortSessionAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer
 {
 	OriginAAAProtocolEnum getOriginAAAProtocol();

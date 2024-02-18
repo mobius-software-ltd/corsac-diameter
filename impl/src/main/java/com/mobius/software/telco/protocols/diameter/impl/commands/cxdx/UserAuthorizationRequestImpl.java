@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.UserAuthorizationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserAuthorizationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
@@ -46,7 +49,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 300, request = true)
 public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implements UserAuthorizationRequest
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -64,25 +66,18 @@ public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implem
 		super();
 	}
 	
-	public UserAuthorizationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState)
+	public UserAuthorizationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
 	}
 	
 	@Override
-	public void setUsername(String value)
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Username is required");
+			throw new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
-		try
-		{
-			super.setUsername(value);
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		super.setUsername(value);		
 	}
 	
 	public OCSupportedFeatures getOCSupportedFeatures()
@@ -103,10 +98,10 @@ public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implem
 		return publicIdentity.getString();
 	}
 	 
-	public void setPublicIdentity(String value)
+	public void setPublicIdentity(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Public-Identity is required");
+			throw new MissingAvpException("Public-Identity is required is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
 		
 		this.publicIdentity = new PublicIdentityImpl(value, null, null);
 	}
@@ -121,10 +116,10 @@ public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implem
 	}
 	
 	@Override
-	public void setVisitedNetworkId(ByteBuf value)
+	public void setVisitedNetworkId(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Visited-Network-Identifier is required");
+			throw new MissingAvpException("Visited-Network-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new VisitedNetworkIdentifierImpl() }));
 		
 		this.visitedNetworkId = new VisitedNetworkIdentifierImpl(value, null, null);
 	}
@@ -158,23 +153,16 @@ public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implem
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getUsername() == null)
-				return "Username is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		if(username == null)
+			return new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		if(publicIdentity == null)
-			return "Public-Identity is required";
+			return new MissingAvpException("Public-Identity is required is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
 		
 		if(visitedNetworkId == null)
-			return "Visited-Network-Identifier is required";
+			return new MissingAvpException("Visited-Network-Identifier is required is required", Arrays.asList(new DiameterAvp[] { new VisitedNetworkIdentifierImpl() }));
 		
 		return super.validate();
 	}

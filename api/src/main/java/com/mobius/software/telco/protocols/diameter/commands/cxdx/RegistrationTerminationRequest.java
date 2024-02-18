@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AssociatedIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.RTRFlags;
@@ -54,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.RTRFlags;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 304, request = true, proxyable = true, name="Registration-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.REGISTRATION_TERMINATION, request = true, proxyable = true, name="Registration-Termination-Request")
 public interface RegistrationTerminationRequest extends CxDxRequest
 {
 	AssociatedIdentities getAssociatedIdentities();
@@ -67,7 +70,7 @@ public interface RegistrationTerminationRequest extends CxDxRequest
 					
 	DeregistrationReason getDeregistrationReason();
 	
-	void setDeregistrationReason(DeregistrationReason value);	
+	void setDeregistrationReason(DeregistrationReason value) throws MissingAvpException;	
 	
 	RTRFlags getRTRFlags();
 	

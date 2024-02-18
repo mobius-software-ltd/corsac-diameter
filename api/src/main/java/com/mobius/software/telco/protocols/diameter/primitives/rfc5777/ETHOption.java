@@ -20,7 +20,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -41,12 +43,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                 * [ User-Priority-Range ]
                 * [ AVP ]
  */
-@DiameterAvpDefinition(code = 548L, vendorId = -1L, name = "ETH-Option")
+@DiameterAvpDefinition(code = AvpCodes.ETH_OPTION, vendorId = -1L, name = "ETH-Option")
 public interface ETHOption extends DiameterGroupedAvp
 {
 	ETHProtoType getETHProtoType();
 	
-	void setETHProtoType(ETHProtoType ethProtoType);
+	void setETHProtoType(ETHProtoType ethProtoType) throws MissingAvpException;
 	
 	List<VLANIDRange> getVLANIDRange();
 	

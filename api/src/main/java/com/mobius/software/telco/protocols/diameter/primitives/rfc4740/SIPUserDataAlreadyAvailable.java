@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
       	The Diameter client (SIP server) already has received the data
       	that it needs to serve the user.
  */
-@DiameterAvpDefinition(code = 392L, vendorId = -1, name = "SIP-User-Data-Already-Available")
+@DiameterAvpDefinition(code = AvpCodes.SIP_USER_DATA_ALREADY_AVAILABLE, vendorId = -1, name = "SIP-User-Data-Already-Available")
 public interface SIPUserDataAlreadyAvailable extends DiameterEnumerated<SIPUserDataAlreadyAvailableEnum>
 {
 }

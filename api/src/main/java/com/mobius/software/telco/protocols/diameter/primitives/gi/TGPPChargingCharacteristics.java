@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Each octet of this IE field value is represented via 2 UTF-8 encoded character, defining its hexadecimal
 	representation. 
  */
-@DiameterAvpDefinition(code = 13L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-ChargingCharacteristics")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_CHARGING_CHARACTERISTICS, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-ChargingCharacteristics")
 public interface TGPPChargingCharacteristics extends DiameterUTF8String
 {
 }

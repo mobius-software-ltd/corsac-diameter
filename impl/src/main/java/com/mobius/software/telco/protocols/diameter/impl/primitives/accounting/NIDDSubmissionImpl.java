@@ -20,11 +20,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.AccountingInputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.AccountingOutputOctetsImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChangeCondition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NIDDSubmission;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SubmissionTime;
@@ -37,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.AccountingOut
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3928L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NIDDSubmissionImpl implements NIDDSubmission
 {
 	private SubmissionTime submissionTime;

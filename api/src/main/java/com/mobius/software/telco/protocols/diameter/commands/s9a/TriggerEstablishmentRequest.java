@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.s9a;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -59,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
                *[ Route-Record ]
                *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777319, commandCode = 8388656, request = true, proxyable = true, name="Trigger-Establishment-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S9A, commandCode = CommandCodes.TRIGGER_ESTABLIHMENT, request = true, proxyable = true, name="Trigger-Establishment-Request")
 public interface TriggerEstablishmentRequest extends AuthenticationRequest
 {
 	DRMPEnum getDRMP();
@@ -68,7 +71,7 @@ public interface TriggerEstablishmentRequest extends AuthenticationRequest
 	
 	public AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 
 	OCSupportedFeatures getOCSupportedFeatures();
 	

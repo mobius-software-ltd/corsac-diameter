@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    cached.  Note that once a host is no longer reachable, any associated
    cache, peer, and routing table entries MUST be deleted.
  */
-@DiameterAvpDefinition(code = 262L, vendorId = -1L, name = "Redirect-Max-Cache-Time")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_MAX_CACHE_TIME, vendorId = -1L, name = "Redirect-Max-Cache-Time")
 public interface RedirectMaxCacheTime extends DiameterUnsigned32
 {
 }

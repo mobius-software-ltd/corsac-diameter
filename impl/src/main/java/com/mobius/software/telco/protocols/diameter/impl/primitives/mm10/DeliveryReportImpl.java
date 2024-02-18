@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReport;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReportEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryRepo
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1111L, vendorId = -1L)
 public class DeliveryReportImpl extends DiameterEnumeratedImpl<DeliveryReportEnum> implements DeliveryReport
 {
 	protected DeliveryReportImpl()

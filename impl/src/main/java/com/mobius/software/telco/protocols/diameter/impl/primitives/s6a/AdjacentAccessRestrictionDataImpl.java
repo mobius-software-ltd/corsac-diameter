@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AccessRestrictionData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AdjacentAccessRestrictionData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
@@ -33,7 +36,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1673L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AdjacentAccessRestrictionDataImpl extends DiameterGroupedAvpImpl implements AdjacentAccessRestrictionData
 {
 	private VisitedPLMNId visitedPLMNId;
@@ -44,14 +46,8 @@ public class AdjacentAccessRestrictionDataImpl extends DiameterGroupedAvpImpl im
 	{
 	}
 	
-	public AdjacentAccessRestrictionDataImpl(ByteBuf visitedPLMNId,AccessRestrictionData accessRestrictionData)
+	public AdjacentAccessRestrictionDataImpl(ByteBuf visitedPLMNId,AccessRestrictionData accessRestrictionData) throws MissingAvpException
 	{
-		if(visitedPLMNId==null)
-			throw new IllegalArgumentException("Visited-PLMN-Id is required");
-		
-		if(accessRestrictionData==null)
-			throw new IllegalArgumentException("Access-Restriction-Data is required");
-		
 		setVisitedPLMNId(visitedPLMNId);
 		
 		setAccessRestrictionData(accessRestrictionData);
@@ -65,11 +61,11 @@ public class AdjacentAccessRestrictionDataImpl extends DiameterGroupedAvpImpl im
 		return visitedPLMNId.getValue();
 	}
 	
-	public void setVisitedPLMNId(ByteBuf value)
+	public void setVisitedPLMNId(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Visited-PLMN-Id is required");
-		
+			throw new MissingAvpException("Visited-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
+			
 		this.visitedPLMNId = new VisitedPLMNIdImpl(value, null, null);	
 	}
 	
@@ -81,22 +77,22 @@ public class AdjacentAccessRestrictionDataImpl extends DiameterGroupedAvpImpl im
 		return accessRestrictionData;
 	}
 	
-	public void setAccessRestrictionData(AccessRestrictionData value)
+	public void setAccessRestrictionData(AccessRestrictionData value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Access-Restriction-Data is required");
-		
+			throw new MissingAvpException("Access-Restriction-Data is required", Arrays.asList(new DiameterAvp[] { new AccessRestrictionDataImpl() })); 
+			
 		this.accessRestrictionData = value;	
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(visitedPLMNId==null)
-			return "Visited-PLMN-Id is required";
+			return new MissingAvpException("Visited-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		if(accessRestrictionData==null)
-			return "Access-Restriction-Data is required";
+			return new MissingAvpException("Access-Restriction-Data is required", Arrays.asList(new DiameterAvp[] { new AccessRestrictionDataImpl() }));
 		
 		return null;
 	}

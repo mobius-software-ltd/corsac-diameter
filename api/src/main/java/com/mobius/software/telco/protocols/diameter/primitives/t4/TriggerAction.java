@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	REPLACE (2)
 	This value is used when device trigger requests the replacement of a pending device trigger.
  */
-@DiameterAvpDefinition(code = 3202L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Trigger-Action")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRIGGER_ACTION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Trigger-Action")
 public interface TriggerAction extends DiameterEnumerated<TriggerActionEnum>
 {
 }

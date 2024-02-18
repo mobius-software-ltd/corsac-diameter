@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.st;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
@@ -61,7 +63,7 @@ import io.netty.buffer.ByteBuf;
 				*[ AVP ]
 
  */
-@DiameterCommandDefinition(applicationId = 16777349, commandCode = 275, request = false, proxyable = true, name="Session-Termination-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.ST, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
 public interface SessionTerminationAnswer extends AuthenticationAnswer
 {
 	public DRMPEnum getDRMP();

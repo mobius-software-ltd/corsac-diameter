@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.gxx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
@@ -64,7 +67,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777266, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GXX, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends AuthenticationRequest
 {
 	DRMPEnum getDRMP();
@@ -73,7 +76,7 @@ public interface ReAuthRequest extends AuthenticationRequest
 	
 	ReAuthRequestTypeEnum getReAuthRequestType();
 	
-	void setReAuthRequestType(ReAuthRequestTypeEnum value);
+	void setReAuthRequestType(ReAuthRequestTypeEnum value) throws MissingAvpException;
 	
 	SessionReleaseCauseEnum getSessionReleaseCause();
 	

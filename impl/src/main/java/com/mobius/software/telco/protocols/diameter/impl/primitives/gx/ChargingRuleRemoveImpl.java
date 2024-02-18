@@ -21,10 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.RequiredAccessInfoImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleBaseName;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleName;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleRemove;
@@ -40,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1002L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ChargingRuleRemoveImpl extends DiameterGroupedAvpImpl implements ChargingRuleRemove
 {
 	private List<ChargingRuleName> chargingRuleName;

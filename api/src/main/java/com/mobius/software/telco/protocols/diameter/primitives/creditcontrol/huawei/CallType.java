@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -81,7 +82,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
     	- 11: Off-net number group call at group member level
 		Indicates the call, at the group member level, whose calling party is a VPN subscriber and called party is a non-VPN subscriber who belongs to the non-VPN number group defined by a corporate member.
  */
-@DiameterAvpDefinition(code = 20807L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Call-Type")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALL_TYPE, vendorId = VendorIDs.HUAWEI_ID, name = "Call-Type")
 public interface CallType extends DiameterUnsigned32
 {
 }

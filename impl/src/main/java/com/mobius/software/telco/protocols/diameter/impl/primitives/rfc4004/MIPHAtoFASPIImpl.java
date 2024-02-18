@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoFASPI;
 
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoFA
 *
 */
 
-@DiameterAvpImplementation(code = 323L, vendorId = -1)
 public class MIPHAtoFASPIImpl extends DiameterUnsigned32Impl implements MIPHAtoFASPI
 {
 	protected MIPHAtoFASPIImpl() 

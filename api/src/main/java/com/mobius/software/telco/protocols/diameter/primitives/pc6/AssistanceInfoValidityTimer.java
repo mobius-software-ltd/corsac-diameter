@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.4	Assistance-Info-Validity-Timer
 	The Assistance-Info-Validity-Timer AVP is of type Unsigned32 and it shall contain the maximum number of seconds of validity of the provided assistance information.
  */
-@DiameterAvpDefinition(code = 3803L, vendorId = KnownVendorIDs.TGPP_ID, name = "Assistance-Info-Validity-Timer")
+@DiameterAvpDefinition(code = TgppAvpCodes.ASSISTANCE_VALIDITY_TIMER, vendorId = VendorIDs.TGPP_ID, name = "Assistance-Info-Validity-Timer")
 public interface AssistanceInfoValidityTimer extends DiameterUnsigned32
 {
 }

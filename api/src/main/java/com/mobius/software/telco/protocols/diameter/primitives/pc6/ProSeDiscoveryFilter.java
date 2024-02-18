@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -45,24 +47,24 @@ import io.netty.buffer.ByteBuf;
 		*[ ProSe-App-Mask ]
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 3813L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Discovery-Filter")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_DISCOVERY_FILTER, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Discovery-Filter")
 public interface ProSeDiscoveryFilter extends DiameterGroupedAvp
 {
 	ByteBuf getFilterId();
 	
-	void setFilterId(ByteBuf value);
+	void setFilterId(ByteBuf value) throws MissingAvpException;
 	
 	String getProSeAppId();
 	
-	void setProSeAppId(String value);
+	void setProSeAppId(String value) throws MissingAvpException;
 	
 	Long getProSeValidityTimer();
 	
-	void setProSeValidityTimer(Long value);
+	void setProSeValidityTimer(Long value) throws MissingAvpException;
 	
 	ByteBuf getProSeAppCode();
 	
-	void setProSeAppCode(ByteBuf value);
+	void setProSeAppCode(ByteBuf value) throws MissingAvpException;
 	
 	List<ByteBuf> getProSeAppMask();
 	

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterOctetStringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPv6Prefix;
 
@@ -29,10 +28,9 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 97L, vendorId = -1L)
 public class FramedIPv6PrefixImpl extends DiameterOctetStringImpl implements FramedIPv6Prefix
 {
-	protected FramedIPv6PrefixImpl() 
+	public FramedIPv6PrefixImpl() 
 	{
 		super();
 	}

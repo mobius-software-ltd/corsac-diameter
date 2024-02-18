@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,12 +44,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Absence of Service-Selection AVP indicates that the Granted-Validity-Time applies to all granted NIDD Authorizations for the user. In this case only one APN-Validity-Time AVP shall be present within the NIDD-Authorization-Update AVP.
  */
-@DiameterAvpDefinition(code = 3169L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "APN-Validity-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.APN_VALIDITY_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "APN-Validity-Time")
 public interface APNValidityTime extends DiameterGroupedAvp
 {
 	Date getGrantedValidityTime();
 	
-	void setGrantedValidityTime(Date value);
+	void setGrantedValidityTime(Date value) throws MissingAvpException;
 	
 	String getServiceSelection();
 	

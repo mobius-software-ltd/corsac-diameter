@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    AVP ([RFC6733], Section 7.1) is set to DIAMETER_MULTI_ROUND_AUTH.
    See RFC 2869 for more information on the contents of this AVP.
  */
-@DiameterAvpDefinition(code = 73L, vendorId = -1L, name = "ARAP-Security")
+@DiameterAvpDefinition(code = AvpCodes.ARAP_SECURITY, vendorId = -1L, name = "ARAP-Security")
 public interface ARAPSecurity extends DiameterUnsigned32
 {
 }

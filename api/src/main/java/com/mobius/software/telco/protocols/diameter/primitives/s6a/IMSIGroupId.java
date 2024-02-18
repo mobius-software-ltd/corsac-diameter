@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -43,18 +45,18 @@ import io.netty.buffer.ByteBuf;
 
 	For details see 3GPP TS 23.003 [3], clause 19.9).
  */
-@DiameterAvpDefinition(code = 1675L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "IMSI-Group-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMSI_GROUP_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "IMSI-Group-Id")
 public interface IMSIGroupId extends DiameterGroupedAvp
 {
 	Long getGroupServiceId();
 	
-	void setGroupServiceId(Long value);
+	void setGroupServiceId(Long value) throws MissingAvpException;
 	
 	ByteBuf getGroupPLMNId();
 	
-	void setGroupPLMNId(ByteBuf value);
+	void setGroupPLMNId(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getLocalGroupId();
 	
-	void setLocalGroupId(ByteBuf value);
+	void setLocalGroupId(ByteBuf value) throws MissingAvpException;
 }

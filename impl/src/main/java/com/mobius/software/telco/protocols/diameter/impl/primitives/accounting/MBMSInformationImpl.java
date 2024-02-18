@@ -22,7 +22,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.CNIPMulticastDistributionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMS2G3GIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSServiceAreaImpl;
@@ -34,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSDataTransferStartImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.MBMSDataTransferStopImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.FileRepairSupported;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.FileRepairSupportedEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MBMSChargedParty;
@@ -65,7 +63,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 880L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBMSInformationImpl implements MBMSInformation
 {
 	private TMGI tmgi;

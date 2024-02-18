@@ -3,6 +3,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
 import java.util.Date;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 
 import io.netty.buffer.ByteBuf;
@@ -60,7 +61,7 @@ public class DiameterTimeImpl extends DiameterUnsigned32Impl implements Diameter
 	}
 
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		super.decode(buffer, length);
 		Long value = getUnsigned();

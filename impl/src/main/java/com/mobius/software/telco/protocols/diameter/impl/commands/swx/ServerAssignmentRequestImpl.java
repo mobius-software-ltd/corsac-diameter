@@ -1,13 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swx.ServerAssignmentRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerAssignmentTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
@@ -51,7 +54,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777265, commandCode = 301, request = true)
 public class ServerAssignmentRequestImpl extends SwxRequestImpl implements ServerAssignmentRequest
 {
 	private ServiceSelection serviceSelection;
@@ -77,7 +79,7 @@ public class ServerAssignmentRequestImpl extends SwxRequestImpl implements Serve
 		super();
 	}
 	
-	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String userName,ServerAssignmentTypeEnum serverAssignmentType)
+	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String userName,ServerAssignmentTypeEnum serverAssignmentType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -87,19 +89,12 @@ public class ServerAssignmentRequestImpl extends SwxRequestImpl implements Serve
 	}
 	
 	@Override
-	public void setUsername(String value)
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Username is required");
-		
-		try
-		{
-			super.setUsername(value);
-		}
-		catch(AvpNotSupportedException ex)
-		{
+			throw new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 			
-		}
+		super.setUsername(value);		
 	}
 
 	@Override
@@ -178,11 +173,11 @@ public class ServerAssignmentRequestImpl extends SwxRequestImpl implements Serve
 	}
 
 	@Override
-	public void setServerAssignmentType(ServerAssignmentTypeEnum value) 
+	public void setServerAssignmentType(ServerAssignmentTypeEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Server-Assignment-Type is required");
-		
+			throw new MissingAvpException("Server-Assignment-Type is required is required", Arrays.asList(new DiameterAvp[] { new ServerAssignmentTypeImpl() }));
+			
 		this.serverAssignmentType = new ServerAssignmentTypeImpl(value, null, null);
 	}
 	
@@ -233,20 +228,13 @@ public class ServerAssignmentRequestImpl extends SwxRequestImpl implements Serve
 	}
     
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getUsername() == null)
-				return "Username is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		if(username == null)
+			return new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		if(serverAssignmentType == null)
-			return "Server-Assignment-Type is required";
+			return new MissingAvpException("Server-Assignment-Type is required is required", Arrays.asList(new DiameterAvp[] { new ServerAssignmentTypeImpl() }));
 		
 		return super.validate();
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When balance-category is 1, it indicates id of a credit instance.
 	When balance-category is 2, it indicates id of a free resource instance.
  */
-@DiameterAvpDefinition(code = 60004L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Balance-Id")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.BALANCE_ID, vendorId = VendorIDs.HUAWEI_ID, name = "Balance-Id")
 public interface BalanceID extends DiameterInteger64
 {
 }

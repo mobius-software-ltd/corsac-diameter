@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.er
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EricssonAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	AVP and Other-Party-Id-Nature AVP define the type and nature of address
 	that is used.
  */
-@DiameterAvpDefinition(code = 1077L, vendorId = KnownVendorIDs.ERICSSON_ID, name = "Other-Party-Id-Data")
+@DiameterAvpDefinition(code = EricssonAvpCodes.OTHER_PARTY_ID_DATA, vendorId = VendorIDs.ERICSSON_ID, name = "Other-Party-Id-Data")
 public interface OtherPartyIdData extends DiameterUTF8String
 {
 }

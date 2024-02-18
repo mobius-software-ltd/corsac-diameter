@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	is still active, either the session key or nonce MUST be changed or
    	the association Mobile IPv4 session MUST be terminated.	   
  */
-@DiameterAvpDefinition(code = 367L, vendorId = -1, name = "MIP-MSA-Lifetime")
+@DiameterAvpDefinition(code = AvpCodes.MIP_MSA_LIFETIME, vendorId = -1, name = "MIP-MSA-Lifetime")
 public interface MIPMSALifetime extends DiameterUnsigned32
 {
 }

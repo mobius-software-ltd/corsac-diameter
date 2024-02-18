@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	For the whole session duration the seconds and days are added together and the maximum session duration is 19 days.
 	The lowest value of this AVP (i.e. all 0’s), is reserved to indicate an indefinite value to denote sessions that are expected to be always-on.
  */
-@DiameterAvpDefinition(code = 904L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Session-Duration")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_SERVICE_DURATION, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Session-Duration")
 public interface MBMSSessionDuration extends DiameterOctetString
 {
 }

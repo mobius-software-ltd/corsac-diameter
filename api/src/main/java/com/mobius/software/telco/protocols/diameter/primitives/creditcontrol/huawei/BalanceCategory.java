@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	NOTE
 	When this AVP is set to 0, Payment-Type can be set to 0 or 1. When this AVP is set to 1, Payment-Type can be set only to 1. When this AVP is set to 2, Payment-Type can be blank.
  */
-@DiameterAvpDefinition(code = 60003L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Balance-Category")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.BALANCE_CATEGORY, vendorId = VendorIDs.HUAWEI_ID, name = "Balance-Category")
 public interface BalanceCategory extends DiameterInteger32
 {
 }

@@ -19,14 +19,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  */
 
 import java.net.InetAddress;
+import java.util.Arrays;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.TCPSourcePortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UDPSourcePortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.SSIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BSSID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CivicAddressInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
@@ -44,7 +46,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3918L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UWANUserLocationInfoImpl implements UWANUserLocationInfo
 {
 	private UELocalIPAddress ueLocalIPAddress;
@@ -60,12 +61,9 @@ public class UWANUserLocationInfoImpl implements UWANUserLocationInfo
 	{
 	}
 	
-	public UWANUserLocationInfoImpl(InetAddress ueLocalIPAddress)
+	public UWANUserLocationInfoImpl(InetAddress ueLocalIPAddress) throws MissingAvpException
 	{
-		if(ueLocalIPAddress==null)
-			throw new IllegalArgumentException("UE-Local-IP-Address is required");
-		
-		this.ueLocalIPAddress = new UELocalIPAddressImpl(ueLocalIPAddress, null, null);		
+		setUELocalIPAddress(ueLocalIPAddress);
 	}
 			
 	public InetAddress getUELocalIPAddress()
@@ -76,11 +74,11 @@ public class UWANUserLocationInfoImpl implements UWANUserLocationInfo
 		return ueLocalIPAddress.getAddress();
 	}
 	
-	public void setUELocalIPAddress(InetAddress value)
+	public void setUELocalIPAddress(InetAddress value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("UE-Local-IP-Address is required");
-		
+			throw new MissingAvpException("UE-Local-IP-Address is required is required", Arrays.asList(new DiameterAvp[] { new UELocalIPAddressImpl() }));
+			
 		this.ueLocalIPAddress = new UELocalIPAddressImpl(value, null, null);		
 	}
 	
@@ -191,10 +189,10 @@ public class UWANUserLocationInfoImpl implements UWANUserLocationInfo
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ueLocalIPAddress==null)
-			return "UE-Local-IP-Address is required";
+			return new MissingAvpException("UE-Local-IP-Address is required is required", Arrays.asList(new DiameterAvp[] { new UELocalIPAddressImpl() }));
 		
 		return null;
 	}	

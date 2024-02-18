@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NORFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.NORFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1443L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 {
 	public NORFlagsImpl()
@@ -44,7 +41,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setSingleRegistrationIndicationBit(boolean isOn)
 	{
-		setBit(SINGLE_REGISTRATION_INDICATION_BIT, isOn);
+		setBitUnchecked(SINGLE_REGISTRATION_INDICATION_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setSGSNAreaRestrictedBit(boolean isOn)
 	{
-		setBit(SGSN_AREA_RESTRICTED_BIT, isOn);
+		setBitUnchecked(SGSN_AREA_RESTRICTED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setReadyForSMFromSGSNBit(boolean isOn)
 	{
-		setBit(READY_FOR_SM_FROM_SGSN_BIT, isOn);
+		setBitUnchecked(READY_FOR_SM_FROM_SGSN_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setUEReachabilityFromMMEBit(boolean isOn)
 	{
-		setBit(UE_REACHABILITY_FROM_MME_BIT, isOn);
+		setBitUnchecked(UE_REACHABILITY_FROM_MME_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setUEReachabilityFromSGSNBit(boolean isOn)
 	{
-		setBit(UE_REACHABILITY_FROM_SGSN_BIT, isOn);
+		setBitUnchecked(UE_REACHABILITY_FROM_SGSN_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setReadyForSMFromMMEBit(boolean isOn)
 	{
-		setBit(READY_FOR_SM_FROM_MME_BIT, isOn);
+		setBitUnchecked(READY_FOR_SM_FROM_MME_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setHomogenousSupportOfIMSVoiceOverPSSessionsBit(boolean isOn)
 	{
-		setBit(HOMOGENOUS_SUPPORT_OF_IMS_VOICE_OVER_PS_SESSIONS_BIT, isOn);
+		setBitUnchecked(HOMOGENOUS_SUPPORT_OF_IMS_VOICE_OVER_PS_SESSIONS_BIT, isOn);
 	}
 
 	@Override
@@ -128,7 +125,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setS6AS6DIndicatorBit(boolean isOn)
 	{
-		setBit(S6A_S6D_INDICATOR_BIT, isOn);
+		setBitUnchecked(S6A_S6D_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -140,7 +137,7 @@ public class NORFlagsImpl extends DiameterBitmask32Impl implements NORFlags
 	@Override
 	public void setRemovalOfMMERegistrationForSMSBit(boolean isOn)
 	{
-		setBit(REMOVAL_OF_MME_REGISTRATION_FOR_SMS_BIT, isOn);
+		setBitUnchecked(REMOVAL_OF_MME_REGISTRATION_FOR_SMS_BIT, isOn);
 	}
 
 	@Override

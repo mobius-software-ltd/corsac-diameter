@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.APNValidityTime;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthorizationUpdate;
 
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthoriza
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3161L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NIDDAuthorizationUpdateImpl extends DiameterGroupedAvpImpl implements NIDDAuthorizationUpdate
 {
 	private List<APNValidityTime> apnValidityTime;

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UEPC5AMBR;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.V2XPermission;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.V2XSubscriptionData;
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.V2XSubscripti
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1688L, vendorId = KnownVendorIDs.TGPP_ID)
 public class V2XSubscriptionDataImpl extends DiameterGroupedAvpImpl implements V2XSubscriptionData
 {
 	private V2XPermission v2xPermission;

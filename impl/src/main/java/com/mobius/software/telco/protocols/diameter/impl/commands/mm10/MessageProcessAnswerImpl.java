@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.mm10;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
@@ -52,7 +55,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.Status;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777226, commandCode = 311, request = false)
 public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implements MessageProcessAnswer
 {
 	private AuthSessionState authSessionState;
@@ -79,7 +81,7 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 		setUsernameAllowed(false);
 	}
 	
-	protected MessageProcessAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState)
+	protected MessageProcessAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);
@@ -99,11 +101,11 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
-		
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
+			
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 	
@@ -232,10 +234,10 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState==null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		return super.validate();
 	}

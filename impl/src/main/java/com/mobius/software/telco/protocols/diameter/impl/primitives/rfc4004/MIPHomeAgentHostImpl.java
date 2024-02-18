@@ -18,11 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DestinationHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DestinationRealmImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DestinationHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DestinationRealm;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentHost;
@@ -32,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAg
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 348L, vendorId = -1L)
 public class MIPHomeAgentHostImpl extends DiameterGroupedAvpImpl implements MIPHomeAgentHost
 {
 	private DestinationHost destinationHost;
@@ -44,17 +47,11 @@ public class MIPHomeAgentHostImpl extends DiameterGroupedAvpImpl implements MIPH
 		
 	}
 	
-	public MIPHomeAgentHostImpl(String destinationHost,String destinationRealm)
+	public MIPHomeAgentHostImpl(String destinationHost,String destinationRealm) throws MissingAvpException
 	{
-		if(destinationHost==null)
-			throw new IllegalArgumentException("Destination-Host is required");
+		setDestinationHost(destinationHost);
 		
-		if(destinationRealm==null)
-			throw new IllegalArgumentException("Destination-Realm is required");
-		
-		this.destinationHost = new DestinationHostImpl(destinationHost, null, null);		
-		
-		this.destinationRealm = new DestinationRealmImpl(destinationHost, null, null);
+		setDestinationRealm(destinationRealm);
 	}
 	
 	public String getDestinationHost()
@@ -65,10 +62,10 @@ public class MIPHomeAgentHostImpl extends DiameterGroupedAvpImpl implements MIPH
 		return destinationHost.getIdentity();
 	}
 	
-	public void setDestinationHost(String value)
+	public void setDestinationHost(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Destination-Host is required");
+			throw new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl() }));
 		
 		this.destinationHost = new DestinationHostImpl(value, null, null);		
 	}
@@ -81,22 +78,22 @@ public class MIPHomeAgentHostImpl extends DiameterGroupedAvpImpl implements MIPH
 		return destinationRealm.getIdentity();
 	}
 	
-	public void setDestinationRealm(String value)
+	public void setDestinationRealm(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Destination-Realm is required");
+			throw new MissingAvpException("Destination-Realm is required", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl() }));
 		
 		this.destinationRealm = new DestinationRealmImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(destinationHost==null)
-			return "Destination-Host is required";
+			return new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl() }));
 		
 		if(destinationRealm==null)
-			return "Destination-Realm is required";
+			return new MissingAvpException("Destination-Realm is required", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl() }));
 		
 		return null;
 	}

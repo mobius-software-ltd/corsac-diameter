@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 		 { OS-App-ID }
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 3840L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "App-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.APP_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "App-Identifier")
 public interface AppIdentifier extends DiameterGroupedAvp
 {
 	ByteBuf getOSID();
 	
-	void setOSID(ByteBuf value);
+	void setOSID(ByteBuf value) throws MissingAvpException;
 	
 	String getOSAppID();
 	
-	void setOSAppID(String value);
+	void setOSAppID(String value) throws MissingAvpException;
 }

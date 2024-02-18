@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.68	Reporting-Duration
 	The Reporting-Duration AVP is of type Unsigned32 and it contains the maximum duration of event reporting, in seconds. Its minimum value shall be 1 and maximum value shall be 8640000. The Reporting-Duration AVP is only applicable to a deferred EPC-MT-LR. 
  */
-@DiameterAvpDefinition(code = 2563L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Reporting-Duration")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPORTING_DURATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Reporting-Duration")
 public interface ReportingDuration extends DiameterUnsigned32
 {
 }

@@ -21,7 +21,11 @@ package com.mobius.software.telco.protocols.diameter.commands.sta;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
@@ -80,16 +84,16 @@ import io.netty.buffer.ByteBuf;
 				…
 				*	[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777250, commandCode = 268, request = true, proxyable = true, name="Diameter-EAP-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.STA, commandCode = CommandCodes.EAP, request = true, proxyable = true, name="Diameter-EAP-Request")
 public interface EAPRequest extends StaRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	ByteBuf getEAPPayload();
 	
-	void setEAPPayload(ByteBuf value);	
+	void setEAPPayload(ByteBuf value) throws MissingAvpException;	
 	
 	String getCallingStationId();
 	
@@ -161,7 +165,7 @@ public interface EAPRequest extends StaRequest
 	
 	List<InetAddress> getTWAGCPAddress();
 	
-	void setTWAGCPAddress(List<InetAddress> value);
+	void setTWAGCPAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	ERPRKRequest getERPRKRequest();
 	

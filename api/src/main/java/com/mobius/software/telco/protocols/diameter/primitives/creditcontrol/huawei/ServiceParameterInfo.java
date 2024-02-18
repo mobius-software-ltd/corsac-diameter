@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,14 +50,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	-
  */
 
-@DiameterAvpDefinition(code = 20920L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Service-Parameter-Info")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.SERVICE_PARAMETER_INFO, vendorId = VendorIDs.HUAWEI_ID, name = "Service-Parameter-Info")
 public interface ServiceParameterInfo extends DiameterAvp 
 {
 	Long getServiceParameterType();
 	
-	void setServiceParameterType(Long value);
+	void setServiceParameterType(Long value) throws MissingAvpException;
 	
 	Long getServiceParameterValue();
 	
-	void setServiceParameterValue(Long value);
+	void setServiceParameterValue(Long value) throws MissingAvpException;
 }

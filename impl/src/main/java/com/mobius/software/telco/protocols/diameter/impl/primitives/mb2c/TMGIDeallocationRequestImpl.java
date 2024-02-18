@@ -21,10 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.TMGIImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.TMGI;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDeallocationRequest;
 
@@ -35,7 +33,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3512L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TMGIDeallocationRequestImpl extends DiameterGroupedAvpImpl implements TMGIDeallocationRequest
 {
 	private List<TMGI> tmgi;

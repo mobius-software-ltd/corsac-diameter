@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	contains the Session Key for the associated Mobile IPv4
    	authentication extension.  The HAAA selects the session key.
  */
-@DiameterAvpDefinition(code = 343L, vendorId = -1L, name = "MIP-Session-Key")
+@DiameterAvpDefinition(code = AvpCodes.MIP_SESSION_KEY, vendorId = -1L, name = "MIP-Session-Key")
 public interface MIPSessionKey extends DiameterOctetString
 {
 }

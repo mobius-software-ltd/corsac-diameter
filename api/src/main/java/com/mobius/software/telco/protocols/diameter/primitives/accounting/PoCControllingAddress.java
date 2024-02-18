@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The PoC-Controlling-Address AVP (AVP code 858) is of type UTF8String and identifies the PoC server performing
 	the controlling function for the associated PoC session. 
  */
-@DiameterAvpDefinition(code = 858L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Controlling-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.POC_CONTROLLING_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "PoC-Controlling-Address")
 public interface PoCControllingAddress extends DiameterUTF8String
 {
 }

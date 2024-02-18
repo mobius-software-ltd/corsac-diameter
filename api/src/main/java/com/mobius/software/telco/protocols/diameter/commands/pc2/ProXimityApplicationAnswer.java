@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -50,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 				{ ProSe-Request-Type }
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777350, commandCode = 8388727, request = false, proxyable = true, name="XA-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC2, commandCode = CommandCodes.PROXIMITY_APPLICATION, request = false, proxyable = true, name="XA-Answer")
 public interface ProXimityApplicationAnswer extends Pc2Answer
 {
 }

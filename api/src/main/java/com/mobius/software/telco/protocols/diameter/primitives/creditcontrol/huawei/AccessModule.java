@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -52,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 4: CBS AR GUI (A recharge request is initiated from the Huawei Billing care AR GUI.)
 	    - 5: to be extended
  */
-@DiameterAvpDefinition(code = 30349L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Access-Module")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.ACCESS_MODULE, vendorId = VendorIDs.HUAWEI_ID, name = "Access-Module")
 public interface AccessModule extends DiameterInteger32
 {
 }

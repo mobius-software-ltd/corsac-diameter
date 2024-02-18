@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
@@ -71,7 +72,7 @@ import io.netty.buffer.ByteBuf;
 			  [ 3GPP-RAT-Type ]
 			  [ Related-Trigger ]
  */
-@DiameterAvpDefinition(code = 456L, vendorId = -1, name = "Multiple-Services-Credit-Control")
+@DiameterAvpDefinition(code = AvpCodes.MULTIPLE_SERVICES_CREDIT_CONTROL, vendorId = -1, name = "Multiple-Services-Credit-Control")
 public interface TGPPMultipleServicesCreditControl extends DiameterAvp 
 {
 	GrantedServiceUnit getGrantedServiceUnit();

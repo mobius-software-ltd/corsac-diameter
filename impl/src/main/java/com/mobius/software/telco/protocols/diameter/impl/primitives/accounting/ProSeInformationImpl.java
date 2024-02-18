@@ -22,7 +22,6 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.OriginAppLayerUserIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeFunctionIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.TargetAppLayerUserIdImpl;
@@ -30,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ProSeApp
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ProSeValidityTimerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TimeWindowImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncingPLMNID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncingUEHPLMNIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncingUEVPLMNIdentifier;
@@ -98,7 +96,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3441L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeInformationImpl implements ProSeInformation
 {
 	private List<SupportedFeatures> supportedFeatures;

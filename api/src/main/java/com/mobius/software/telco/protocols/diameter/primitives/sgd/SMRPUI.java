@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.3.3	SM-RP-UI
 	The SM-RP-UI is of type OctetString and it shall contain a short message transfer protocol data unit (TPDU) which is defined in 3GPP TS 23.040 [3] and represents the user data field carried by the short message service relay sub-layer protocol. Its maximum length is of 200 octets.
  */
-@DiameterAvpDefinition(code = 3301L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-RP-UI")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_RP_UI, vendorId = VendorIDs.TGPP_ID, name = "SM-RP-UI")
 public interface SMRPUI extends DiameterOctetString
 {
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -42,22 +44,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                              { MIP-Authenticator-Offset }
                            * [ AVP ]
  */
-@DiameterAvpDefinition(code = 322L, vendorId = -1L, name = "MIP-MN-AAA-Auth")
+@DiameterAvpDefinition(code = AvpCodes.MIP_MN_AA_AUTH, vendorId = -1L, name = "MIP-MN-AAA-Auth")
 public interface MIPMNAAAAuth extends DiameterGroupedAvp
 {
 	Long getMIPMNAAASPI();
 	
-	void setMIPMNAAASPI(Long value);	
+	void setMIPMNAAASPI(Long value) throws MissingAvpException;	
 	
 	Long getMIPAuthInputDataLength();
 	
-	void setMIPAuthInputDataLength(Long value);	
+	void setMIPAuthInputDataLength(Long value) throws MissingAvpException;	
 	
 	Long getMIPAuthenticatorLength();
 	
-	void setMIPAuthenticatorLength(Long value);	
+	void setMIPAuthenticatorLength(Long value) throws MissingAvpException;	
 	
 	Long getMIPAuthenticatorOffset();
 	
-	void setMIPAuthenticatorOffset(Long value);	
+	void setMIPAuthenticatorOffset(Long value) throws MissingAvpException;	
 }

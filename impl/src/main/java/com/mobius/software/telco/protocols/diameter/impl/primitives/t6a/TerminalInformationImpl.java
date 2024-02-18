@@ -18,11 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.IMEIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SoftwareVersionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IMEI;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SoftwareVersion;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.TerminalInformation;
@@ -32,7 +30,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.TerminalInfor
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1401L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TerminalInformationImpl extends DiameterGroupedAvpImpl implements TerminalInformation
 {
 	private IMEI imei;

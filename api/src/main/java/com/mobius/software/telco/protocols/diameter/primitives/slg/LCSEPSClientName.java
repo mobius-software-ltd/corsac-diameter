@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSFormatIndicatorEnum;
 
 /**
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSFor
 
 	The details of the LCS-Name-String AVP and the LCS-Format-Indicator AVP are described in 3GPP TS 32.299 [10].
  */
-@DiameterAvpDefinition(code = 2501L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-EPS-Client-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_EPS_CLIENT_NAME, vendorId = VendorIDs.TGPP_ID, name = "LCS-EPS-Client-Name")
 public interface LCSEPSClientName extends DiameterAvp
 {
 	String getLCSNameString();

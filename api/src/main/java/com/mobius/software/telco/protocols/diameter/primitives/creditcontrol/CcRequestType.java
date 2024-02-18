@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -65,7 +66,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    be included in the Credit-Control-Request message when CC-Request-
    Type is set to EVENT_REQUEST.   
  */
-@DiameterAvpDefinition(code = 416L, vendorId = -1L, name = "CC-Request-Type")
+@DiameterAvpDefinition(code = AvpCodes.CC_REQUEST_TYPE, vendorId = -1L, name = "CC-Request-Type")
 public interface CcRequestType extends DiameterEnumerated<CcRequestTypeEnum>
 {
 }

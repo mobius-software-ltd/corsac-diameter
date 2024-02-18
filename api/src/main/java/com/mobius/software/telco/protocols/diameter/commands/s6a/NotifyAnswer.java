@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -54,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 323, request = false, proxyable = true, name="Notify-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.NOTIFY, request = false, proxyable = true, name="Notify-Answer")
 public interface NotifyAnswer extends S6aAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

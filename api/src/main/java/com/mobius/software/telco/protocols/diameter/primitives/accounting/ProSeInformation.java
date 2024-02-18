@@ -22,9 +22,10 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.WLANLinkLayerId;
 
@@ -93,7 +94,7 @@ import io.netty.buffer.ByteBuf;
 			[ Target-IP-Address ]
 			[ PC5-Radio-Technology ]
  */
-@DiameterAvpDefinition(code = 3441L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Direct-Communication- Transmission-Data-Container")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Direct-Communication- Transmission-Data-Container")
 public interface ProSeInformation extends DiameterAvp
 {
 	List<SupportedFeatures> getSupportedFeatures();

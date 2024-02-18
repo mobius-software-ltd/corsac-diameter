@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -56,12 +58,12 @@ import io.netty.buffer.ByteBuf;
 	When the Discovery-Type is set to "MONITORING_REQUEST_FOR_RESTRICTED_PROSE_DIRECT_DISCOVERY", the Discovery-Auth-Response shall contain a ProSe Restricted Code, a Code Receiving Security Material, optionally a DUIK, a ProSe Validity Timer and the PC5 radio technology that the UE is using. The DUIK parameter shall be included in Discovery-Auth-Response only if the Code-Receiving-Security-Material contains a MIC Check Indicator set to MIC_CHECK_BY_PROSE_FUNCTION.
 	When the Discovery-Type is set to "DISCOVERER_REQUEST_FOR_RESTRICTED_PROSE_DIRECT_DISCOVERY", the Discovery-Auth-Response shall contain a ProSe Query Code, a Code Sending Security Material, a ProSe Response Code, a Code Receiving Security Material, optionally a DUIK, a ProSe Validity Timer and the PC5 radio technology that the UE is using. The DUIK parameter shall be included in Discovery-Auth-Response only if the Code-Receiving-Security-Material contains a MIC Check Indicator set to MIC_CHECK_BY_PROSE_FUNCTION.
  */
-@DiameterAvpDefinition(code = 3855L, vendorId = KnownVendorIDs.TGPP_ID, name = "Discovery-Auth-Response")
+@DiameterAvpDefinition(code = TgppAvpCodes.DISCOVERY_AUTH_RESPONSE, vendorId = VendorIDs.TGPP_ID, name = "Discovery-Auth-Response")
 public interface DiscoveryAuthResponse extends DiameterGroupedAvp
 {
 	DiscoveryTypeEnum getDiscoveryType();
 	
-	void setDiscoveryType(DiscoveryTypeEnum value);
+	void setDiscoveryType(DiscoveryTypeEnum value) throws MissingAvpException;
 	
 	List<ProSeDiscoveryFilter> getProSeDiscoveryFilter();
 	

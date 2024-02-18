@@ -18,8 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
@@ -30,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 260L, vendorId = -1L)
 public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicationId
 {
 	private VendorId vendorId;
@@ -39,18 +43,18 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 	
 	private AcctApplicationId acctAppicationId;
 	
-	protected VendorSpecificApplicationIdImpl()
+	public VendorSpecificApplicationIdImpl()
 	{
 		
 	}
 	
-	public VendorSpecificApplicationIdImpl(Long vendorId,Long authApplicationId,Long acctAppicationId)
+	public VendorSpecificApplicationIdImpl(Long vendorId,Long authApplicationId,Long acctAppicationId) throws AvpOccursTooManyTimesException, MissingAvpException
 	{
 		if(authApplicationId!=null && acctAppicationId!=null)
-			throw new IllegalArgumentException("Auth Application Id and Acct Application Id can not be set both");
+			throw new AvpOccursTooManyTimesException("Auth Application Id and Acct Application Id can not be set both", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl(authApplicationId, null, null), new AcctApplicationIdImpl(acctAppicationId, null, null) }));
 
 		if(authApplicationId==null && acctAppicationId==null)
-			throw new IllegalArgumentException("Either Auth Application Id or Acct Application Id should be set");
+			throw new MissingAvpException("Either Auth Application Id or Acct Application Id should be set", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl(), new AcctApplicationIdImpl() }));
 		
 		if(vendorId!=null)
 			this.vendorId=new VendorIdImpl(vendorId, null, null);
@@ -87,10 +91,12 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 		return this.authApplicationId.getUnsigned();
 	}
 	
-	public void setAuthApplicationId(Long value)
+	public void setAuthApplicationId(Long value) throws MissingAvpException
 	{
 		if(value!=null)
 			this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
+		else if(this.acctAppicationId==null)
+			throw new MissingAvpException("Either Auth Application Id or Acct Application Id should be set", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl(), new AcctApplicationIdImpl() }));
 		else
 			this.authApplicationId = null;
 	}
@@ -103,22 +109,24 @@ public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicatio
 		return this.acctAppicationId.getUnsigned();
 	}
 	
-	public void setAcctApplicationId(Long value)
+	public void setAcctApplicationId(Long value) throws MissingAvpException
 	{
 		if(value!=null)
 			this.acctAppicationId = new AcctApplicationIdImpl(value, null, null);
+		else if(this.authApplicationId==null)
+			throw new MissingAvpException("Either Auth Application Id or Acct Application Id should be set", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl(), new AcctApplicationIdImpl() }));
 		else
 			this.acctAppicationId = null;
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authApplicationId!=null && acctAppicationId!=null)
-			return "Auth Application Id and Acct Application Id can not be set both";
+			return new AvpOccursTooManyTimesException("Auth Application Id and Acct Application Id can not be set both", Arrays.asList(new DiameterAvp[] { authApplicationId, acctAppicationId }));
 
 		if(authApplicationId==null && acctAppicationId==null)
-			return "Either Auth Application Id or Acct Application Id should be set";
+			return new MissingAvpException("Either Auth Application Id or Acct Application Id should be set", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl(), new AcctApplicationIdImpl() }));
 		
 		return null;
 	}

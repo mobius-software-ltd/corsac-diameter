@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestCNonceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestNextnonceImpl;
@@ -37,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthen
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 381L, vendorId = -1L)
 public class SIPAuthenticationInfoImpl extends DiameterGroupedAvpImpl implements SIPAuthenticationInfo
 {
 	private DigestNextnonce digestNextnonce;

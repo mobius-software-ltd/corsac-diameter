@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -51,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	PRIORITY-FOURTEEN (14)
 	PRIORITY-FIFTEEN (15)
  */
-@DiameterAvpDefinition(code = 458L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Reservation-Priority")
+@DiameterAvpDefinition(code = EtsiAvpCodes.RESERVATION_PRIORITY, vendorId = VendorIDs.ETSI_ID, must = false, name = "Reservation-Priority")
 public interface ReservationPriority extends DiameterEnumerated<ReservationPriorityEnum>
 {
 }

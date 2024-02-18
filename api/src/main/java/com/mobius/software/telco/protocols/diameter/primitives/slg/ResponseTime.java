@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	DELAY_TOLERANT (1)
  */
-@DiameterAvpDefinition(code = 2509L, vendorId = KnownVendorIDs.TGPP_ID, name = "Response-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.RESPONSE_TIME, vendorId = VendorIDs.TGPP_ID, name = "Response-Time")
 public interface ResponseTime extends DiameterEnumerated<ResponseTimeEnum>
 {
 }

@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.app.swd;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -62,13 +63,13 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData);
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException;
 	
-	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate);
+	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate) throws MissingAvpException;
 	
-	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId);
+	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId) throws MissingAvpException;
 	
 	public TerminalInformation getTerminalInformation();
 	
@@ -76,29 +77,29 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public TWANConnectivityParameters getTWANConnectivityParameters();
 	
-	public ERPRKRequest getERPRKRequest(String erpRealm);
+	public ERPRKRequest getERPRKRequest(String erpRealm) throws MissingAvpException;
 	
-	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection);
+	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection) throws MissingAvpException;
 	
-	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority);
+	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority) throws MissingAvpException;
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel);
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException;
 	
 	public MIP6AgentInfo getMIP6AgentInfo();
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm);
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException;
 	
-	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL);
+	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL) throws MissingAvpException;
 	
-	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo);
+	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo) throws MissingAvpException;
 	
 	public WLANOffloadability getWLANOffloadability();
 	
 	public TraceInfo getTraceInfo();
 	
-	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity);
+	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity) throws MissingAvpException;
 	
-	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType);
+	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType) throws MissingAvpException;
 	
 	public AreaScope getAreaScope();
 	
@@ -110,7 +111,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ConnectivityFlags getConnectivityFlags();
 	
-	public Key getKey(KeyTypeEnum keyType, ByteBuf keyingMaterial);
+	public Key getKey(KeyTypeEnum keyType, ByteBuf keyingMaterial) throws MissingAvpException;
 	
 	public DERFlags getDERFlags();
 	

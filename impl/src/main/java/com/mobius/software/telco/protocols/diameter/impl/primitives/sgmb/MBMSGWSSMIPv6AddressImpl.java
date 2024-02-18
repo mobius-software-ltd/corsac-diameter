@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb;
 
 import java.net.Inet6Address;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpv6AddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSGWSSMIPv6Address;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSGWSSMIPv
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 925L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBMSGWSSMIPv6AddressImpl extends DiameterIpv6AddressImpl implements MBMSGWSSMIPv6Address
 {
 	protected MBMSGWSSMIPv6AddressImpl()

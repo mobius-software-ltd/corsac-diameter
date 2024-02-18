@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -45,16 +47,16 @@ import io.netty.buffer.ByteBuf;
 			*[ Service-Type ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1475L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Privacy-Exception")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_PRIVACY_EXCEPTION, vendorId = VendorIDs.TGPP_ID, name = "LCS-Privacy-Exception")
 public interface LCSPrivacyException extends DiameterGroupedAvp
 {
 	ByteBuf getSSCode();
 	
-	void setSSCode(ByteBuf value);	
+	void setSSCode(ByteBuf value) throws MissingAvpException;	
 	
 	ByteBuf getSSStatus();
 	
-	void setSSStatus(ByteBuf value);
+	void setSSStatus(ByteBuf value) throws MissingAvpException;
 	
 	NotificationToUEUserEnum getNotificationToUEUser();
 	

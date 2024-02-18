@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		*[ WLAN-Link-Layer-Id ]
  		*AVP
  */
-@DiameterAvpDefinition(code = 3822L, vendorId = KnownVendorIDs.TGPP_ID, name = "WLAN-Link-Layer-Id-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.WLAN_LINK_LAYER_ID_LIST, vendorId = VendorIDs.TGPP_ID, name = "WLAN-Link-Layer-Id-List")
 public interface WLANLinkLayerIdList extends DiameterGroupedAvp
 {
 	List<WLANLinkLayerId> getWLANLinkLayerId();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The UE-PC5-AMBR AVP within the V2X-Subscription-Data AVP indicates the UE AMBR used for NR PC5 interface.
  */
-@DiameterAvpDefinition(code = 1710L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "V2X-Subscription-Data-Nr")
+@DiameterAvpDefinition(code = TgppAvpCodes.V2X_SUBSCRIPTION_DATA_NR, vendorId = VendorIDs.TGPP_ID, must = false, name = "V2X-Subscription-Data-Nr")
 public interface V2XSubscriptionDataNr extends DiameterGroupedAvp
 {
 	V2XPermission getV2XPermission();

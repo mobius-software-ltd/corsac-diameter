@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Traffic-Steering-Policy-Identifier-DL (AVP code 2836) is of type OctetString and is used to contain a reference to
 	a pre-configured traffic steering policy at the PCEF as defined in subclause 4.4.2 in the downlink direction. 
  */
-@DiameterAvpDefinition(code = 2836L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Traffic-Steering-Policy-Identifier-DL")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRAFFIC_STEERING_POLICY_IDENTIFIER_DL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Traffic-Steering-Policy-Identifier-DL")
 public interface TrafficSteeringPolicyIdentifierDL extends DiameterOctetString
 {
 }

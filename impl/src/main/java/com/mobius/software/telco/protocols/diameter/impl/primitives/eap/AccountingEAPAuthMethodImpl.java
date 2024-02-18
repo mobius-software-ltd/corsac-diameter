@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.eap.AccountingEAPAuthMethod;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.eap.AccountingEAP
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 465L, vendorId = -1L)
 public class AccountingEAPAuthMethodImpl extends DiameterUnsigned64Impl implements AccountingEAPAuthMethod
 {
 	protected AccountingEAPAuthMethodImpl() 

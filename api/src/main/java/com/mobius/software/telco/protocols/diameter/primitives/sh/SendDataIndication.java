@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	USER_DATA_REQUESTED (1) 
  */
-@DiameterAvpDefinition(code = 710L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Send-Data-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.SEND_DATA_INDICATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Send-Data-Indication")
 public interface SendDataIndication extends DiameterEnumerated<SendDataIndicationEnum>
 {
 }

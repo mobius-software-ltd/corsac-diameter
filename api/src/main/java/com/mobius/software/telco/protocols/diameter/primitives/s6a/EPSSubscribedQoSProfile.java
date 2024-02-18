@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AllocationRetentionPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdentifierEnum;
 
@@ -42,14 +44,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdenti
 
 	NOTE:	QoS-Class-Identifier is defined in 3GPP TS 29.212 [10] as an Enumerated AVP. The values allowed for this AVP over the S6a/S6d interface are only those associated to non-GBR bearers, as indicated in 3GPP TS 23.008 [30]; e.g., values QCI_1, QCI_2, QCI_3 and QCI_4, which are associated to GBR bearers, cannot be sent over S6a/S6d.
  */
-@DiameterAvpDefinition(code = 1431L, vendorId = KnownVendorIDs.TGPP_ID, name = "EPS-Subscribed-QoS-Profile")
+@DiameterAvpDefinition(code = TgppAvpCodes.EPS_SUBSCRIBER_QOS_PROFILE, vendorId = VendorIDs.TGPP_ID, name = "EPS-Subscribed-QoS-Profile")
 public interface EPSSubscribedQoSProfile extends DiameterGroupedAvp
 {
 	QoSClassIdentifierEnum getQoSClassIdentifier();
 	
-	void setQoSClassIdentifier(QoSClassIdentifierEnum value);	
+	void setQoSClassIdentifier(QoSClassIdentifierEnum value) throws MissingAvpException;	
 	
 	AllocationRetentionPriority getAllocationRetentionPriority();
 	
-	void setAllocationRetentionPriority(AllocationRetentionPriority value);
+	void setAllocationRetentionPriority(AllocationRetentionPriority value) throws MissingAvpException;
 }

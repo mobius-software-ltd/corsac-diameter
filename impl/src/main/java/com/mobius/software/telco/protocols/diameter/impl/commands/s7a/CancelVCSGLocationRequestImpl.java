@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s7a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CancellationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -37,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.CancellationT
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777308, commandCode = 8388642, request = true)
 public class CancelVCSGLocationRequestImpl extends S7aRequestImpl implements CancelVCSGLocationRequest
 {
 	private CancellationType cancellationType;
@@ -47,7 +49,7 @@ public class CancelVCSGLocationRequestImpl extends S7aRequestImpl implements Can
 		super();
 	}
 	
-	public CancelVCSGLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,CancellationTypeEnum cancellationType)
+	public CancelVCSGLocationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,CancellationTypeEnum cancellationType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -64,19 +66,19 @@ public class CancelVCSGLocationRequestImpl extends S7aRequestImpl implements Can
 	}
 	
 	@Override
-	public void setCancellationType(CancellationTypeEnum value)
+	public void setCancellationType(CancellationTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Cancellation-Type is required");
-		
+			throw new MissingAvpException("Cancellation-Type is required", Arrays.asList(new DiameterAvp[] { new CancellationTypeImpl() }));
+			
 		this.cancellationType = new CancellationTypeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(cancellationType == null)
-			return "Cancellation-Type is required";
+			return new MissingAvpException("Cancellation-Type is required", Arrays.asList(new DiameterAvp[] { new CancellationTypeImpl() }));
 		
 		return super.validate();
 	}		

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPGGSNMCCMNCImpl;
@@ -46,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.MMENumbe
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sd.ADCRuleBaseNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.MMENameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.MMERealmImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CGAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CNOperatorSelectionEntity;
@@ -147,7 +145,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 874L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PSInformationImpl implements PSInformation
 {
 	private List<SupportedFeatures> supportedFeatures;

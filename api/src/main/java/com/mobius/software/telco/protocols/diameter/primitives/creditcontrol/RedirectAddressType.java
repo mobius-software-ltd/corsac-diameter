@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -62,7 +63,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    The address type is in the form of a SIP Uniform Resource Identifier,
    as defined in [RFC3261].
  */
-@DiameterAvpDefinition(code = 433L, vendorId = -1L, name = "Redirect-Address-Type")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_ADDRESS_TYPE, vendorId = -1L, name = "Redirect-Address-Type")
 public interface RedirectAddressType extends DiameterEnumerated<RedirectAddressTypeEnum>
 {
 }

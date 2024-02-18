@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.commands.t6a;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -62,7 +64,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.TDAFlags;
 				 [ TDA-Flags ]
 				*[AVP]
  */
-@DiameterCommandDefinition(applicationId = 16777346, commandCode = 8388734, request = false, proxyable = true, name="MT-Data-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T6A, commandCode = CommandCodes.MT_DATA, request = false, proxyable = true, name="MT-Data-Answer")
 public interface MTDataAnswer extends T6aAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

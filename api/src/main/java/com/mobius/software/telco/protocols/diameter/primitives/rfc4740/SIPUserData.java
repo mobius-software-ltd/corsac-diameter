@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -53,14 +55,14 @@ import io.netty.buffer.ByteBuf;
                         { SIP-User-Data-Contents }
                       * [ AVP ]                            
  */
-@DiameterAvpDefinition(code = 389L, vendorId = -1L, name = "SIP-User-Data")
+@DiameterAvpDefinition(code = AvpCodes.SIP_USER_DATA, vendorId = -1L, name = "SIP-User-Data")
 public interface SIPUserData extends DiameterGroupedAvp
 {
 	String getSIPUserDataType();
 	
-	void setSIPUserDataType(String value);	
+	void setSIPUserDataType(String value) throws MissingAvpException;	
 	
 	ByteBuf getSIPUserDataContents();
 	
-	void setSIPUserDataContents(ByteBuf value);			
+	void setSIPUserDataContents(ByteBuf value) throws MissingAvpException;			
 }

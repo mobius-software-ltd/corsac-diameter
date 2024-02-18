@@ -23,8 +23,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPGGSNAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPGGSNIPv6AddressImpl;
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RuleActiv
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RuleDeactivationTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UDPSourcePortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingIdentifierValueImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPGGSNAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPGGSNIPv6Address;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ANGWAddress;
@@ -54,7 +55,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1051L, vendorId = KnownVendorIDs.TGPP_ID)
 public class QoSRuleInstallImpl extends DiameterGroupedAvpImpl implements QoSRuleInstall
 {
 	private List<QoSRuleDefinition> qosRuleDefinition;
@@ -240,10 +240,16 @@ public class QoSRuleInstallImpl extends DiameterGroupedAvpImpl implements QoSRul
 	}
 	
 	@Override
-	public void setANGWAddress(List<InetAddress> value)
+	public void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 AN-GW-Address allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new ANGWAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		if(value==null)
 			this.anGWAddress = null;
@@ -274,10 +280,14 @@ public class QoSRuleInstallImpl extends DiameterGroupedAvpImpl implements QoSRul
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(anGWAddress!=null && anGWAddress.size()>2)
-			return "Up to 2 AN-GW-Address allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(anGWAddress);
+			return new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		return null;
 	}

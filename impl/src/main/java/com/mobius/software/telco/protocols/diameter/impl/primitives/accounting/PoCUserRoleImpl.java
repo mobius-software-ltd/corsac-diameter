@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PoCUserRole;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PoCUserRoleIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PoCUserRoleInfoUnits;
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.PoCUse
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1252L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PoCUserRoleImpl implements PoCUserRole
 {
 	private PoCUserRoleIDs pocUserRoleIds;

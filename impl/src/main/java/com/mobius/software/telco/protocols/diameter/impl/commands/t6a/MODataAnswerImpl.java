@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.MODataAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -36,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777346, commandCode = 8388733, request = false)
 public class MODataAnswerImpl extends T6aAnswerImpl implements MODataAnswer
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -51,7 +51,7 @@ public class MODataAnswerImpl extends T6aAnswerImpl implements MODataAnswer
 		setExperimentalResultAllowed(false);
 	}
 	
-	public MODataAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public MODataAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

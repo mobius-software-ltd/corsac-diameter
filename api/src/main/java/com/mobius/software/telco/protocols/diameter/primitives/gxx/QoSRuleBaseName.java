@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gxx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5a.3.7	QoS-Rule-Base-Name AVP (All access types)
 	The QoS-Rule-Base-Name AVP (AVP code 1074) is of type UTF8String, and it indicates the name of a pre‑defined group of QoS rules residing at the BBERF.
  */
-@DiameterAvpDefinition(code = 1074L, vendorId = KnownVendorIDs.TGPP_ID, name = "QoS-Rule-Base-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.QOS_RULE_BASE_NAME, vendorId = VendorIDs.TGPP_ID, name = "QoS-Rule-Base-Name")
 public interface QoSRuleBaseName extends DiameterUTF8String
 {
 }

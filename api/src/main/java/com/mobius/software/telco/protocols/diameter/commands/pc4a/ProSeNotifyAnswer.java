@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -55,12 +58,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777336, commandCode = 8388666, request = false, proxyable = true, name="ProSe-Notify-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC4A, commandCode = CommandCodes.PROSE_NOTIFY, request = false, proxyable = true, name="ProSe-Notify-Answer")
 public interface ProSeNotifyAnswer extends Pc4aAnswer
 {	
 	public AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 
 	public OCSupportedFeatures getOCSupportedFeatures();
 	 

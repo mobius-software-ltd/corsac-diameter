@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.PrioritySharingIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.PrioritySharingIndicatorEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.PrioritySharin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 550L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PrioritySharingIndicatorImpl extends DiameterEnumeratedImpl<PrioritySharingIndicatorEnum> implements PrioritySharingIndicator
 {
 	protected PrioritySharingIndicatorImpl()

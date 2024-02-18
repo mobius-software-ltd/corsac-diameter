@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ReportCardinality;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ReportCardinalityEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.ReportCardina
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3827L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ReportCardinalityImpl extends DiameterEnumeratedImpl<ReportCardinalityEnum> implements ReportCardinality
 {
 	protected ReportCardinalityImpl()

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 
 /**
@@ -38,14 +40,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 		{ Unit-Value }
 		{ Currency-Code }
  */
-@DiameterAvpDefinition(code = 2021L, vendorId = KnownVendorIDs.TGPP_ID, name = "Remaining-Balance")
+@DiameterAvpDefinition(code = TgppAvpCodes.REMAINING_BALANCE, vendorId = VendorIDs.TGPP_ID, name = "Remaining-Balance")
 public interface RemainingBalance extends DiameterAvp
 {
 	UnitValue getUnitValue();
 	
-	void setUnitValue(UnitValue value);
+	void setUnitValue(UnitValue value) throws MissingAvpException;
 	
 	Long getCurrencyCode();
 	
-	void setCurrencyCode(Long value);
+	void setCurrencyCode(Long value) throws MissingAvpException;
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.er
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EricssonAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	used by the SCAPv2 service context shall be 1 (INTERNATIONAL) when the
 	AVP is omitted and the Other-Party-Id-Type AVP is 0 (END_USER_E164).
  */
-@DiameterAvpDefinition(code = 1076L, vendorId = KnownVendorIDs.ERICSSON_ID, name = "Other-Party-Id-Nature")
+@DiameterAvpDefinition(code = EricssonAvpCodes.OTHER_PARTY_ID_NATURE, vendorId = VendorIDs.ERICSSON_ID, name = "Other-Party-Id-Nature")
 public interface OtherPartyIdNature extends DiameterEnumerated<OtherPartyIdNatureEnum>
 {
 }

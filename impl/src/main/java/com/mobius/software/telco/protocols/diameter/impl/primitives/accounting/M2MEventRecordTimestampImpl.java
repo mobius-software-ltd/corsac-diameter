@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.M2MEventRecordTimestamp;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.M2MEve
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1010L, vendorId = KnownVendorIDs.ONEM2M_ID)
 public class M2MEventRecordTimestampImpl extends DiameterTimeImpl implements M2MEventRecordTimestamp
 {
 	protected M2MEventRecordTimestampImpl()

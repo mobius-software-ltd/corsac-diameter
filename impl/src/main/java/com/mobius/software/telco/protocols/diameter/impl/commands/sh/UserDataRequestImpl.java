@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sh;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sh.UserDataRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SessionPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.CurrentLocationImpl;
@@ -71,7 +74,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777217, commandCode = 306, request = true)
 public class UserDataRequestImpl extends ShRequestImpl implements UserDataRequest
 {
 	private ServerName serverName;
@@ -109,7 +111,7 @@ public class UserDataRequestImpl extends ShRequestImpl implements UserDataReques
 		super();
 	}
 	
-	public UserDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity, List<DataReferenceEnum> dataReference)
+	public UserDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState, userIdentity);		
 		
@@ -170,10 +172,10 @@ public class UserDataRequestImpl extends ShRequestImpl implements UserDataReques
 		return result;
 	}
 	 
-	public void setDataReference(List<DataReferenceEnum> value)
+	public void setDataReference(List<DataReferenceEnum> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Data-Reference is required");
+			throw new MissingAvpException("Data-Reference is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
 			
 		this.dataReference = new ArrayList<DataReference>();
 		for(DataReferenceEnum curr:value)
@@ -365,10 +367,10 @@ public class UserDataRequestImpl extends ShRequestImpl implements UserDataReques
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(dataReference == null || dataReference.size()==0)
-			return "Data-Reference is required";
+			return new MissingAvpException("Data-Reference is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
 		
 		return super.validate();
 	}

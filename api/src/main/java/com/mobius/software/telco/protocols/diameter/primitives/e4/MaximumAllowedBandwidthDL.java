@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	maximum downlink bandwidth that can be authorized for a particular traffic class. The AVP value is expressed in
 	kbits/s.  
  */
-@DiameterAvpDefinition(code = 309L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Maximum-Allowed-Bandwidth-DL")
+@DiameterAvpDefinition(code = EtsiAvpCodes.MAXIMUM_ALLOWED_BANWIDTH_DL, vendorId = VendorIDs.ETSI_ID, must = false, name = "Maximum-Allowed-Bandwidth-DL")
 public interface MaximumAllowedBandwidthDL extends DiameterUnsigned32
 {
 }

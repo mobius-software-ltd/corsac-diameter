@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	adding/removing, connecting/disconnecting the media. The Media Initiator Party shall be populated with the SIP URI or
 	Tel URI contained in the Request-URI of the outgoing request. It is use for PoC charging. 
  */
-@DiameterAvpDefinition(code = 1288L, vendorId = KnownVendorIDs.TGPP_ID, name = "Media-Initiator-Party")
+@DiameterAvpDefinition(code = TgppAvpCodes.MEDIA_INITIATOR_PARTY, vendorId = VendorIDs.TGPP_ID, name = "Media-Initiator-Party")
 public interface MediaInitiatorParty extends DiameterUTF8String
 {
 }

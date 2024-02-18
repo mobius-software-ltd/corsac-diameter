@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s7a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VPLMNCSGSubscriptionDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ResetID;
@@ -39,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777308, commandCode = 319, request = true)
 public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements InsertSubscriberDataRequest
 {
 	private List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData;
@@ -51,7 +54,7 @@ public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements I
 		super();
 	}
 	
-	public InsertSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData)
+	public InsertSubscriberDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -65,11 +68,11 @@ public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements I
 	}
 	
 	@Override
-	public void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value)
+	public void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value) throws MissingAvpException
 	{
 		if(value == null || value.size()==0)
-			throw new IllegalArgumentException("VPLMN-CSG-Subscription-Data is required");
-		
+			throw new MissingAvpException("VPLMN-CSG-Subscription-Data is required", Arrays.asList(new DiameterAvp[] { new VPLMNCSGSubscriptionDataImpl() }));
+			
 		this.vplmnCSGSubscriptionData = value;
 	}
 	
@@ -100,10 +103,10 @@ public class InsertSubscriberDataRequestImpl extends S7aRequestImpl implements I
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(vplmnCSGSubscriptionData == null || vplmnCSGSubscriptionData.size()==0)
-			return "VPLMN-CSG-Subscription-Data is required";
+			return new MissingAvpException("VPLMN-CSG-Subscription-Data is required", Arrays.asList(new DiameterAvp[] { new VPLMNCSGSubscriptionDataImpl() }));
 		
 		return super.validate();
 	}		

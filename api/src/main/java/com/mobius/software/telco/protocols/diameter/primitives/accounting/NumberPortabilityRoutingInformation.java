@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	information is also sent over SIP in the Requested URI header enabling other IMS nodes receiving this header to also
 	report this information. 
  */
-@DiameterAvpDefinition(code = 2024L, vendorId = KnownVendorIDs.TGPP_ID, name = "Number-Portability-Routing-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.NUMBER_PORTABILITY_ROUTING_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Number-Portability-Routing-Information")
 public interface NumberPortabilityRoutingInformation extends DiameterUTF8String
 {
 }

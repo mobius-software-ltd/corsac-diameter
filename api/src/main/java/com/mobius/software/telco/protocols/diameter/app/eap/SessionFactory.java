@@ -19,11 +19,13 @@ package com.mobius.software.telco.protocols.diameter.app.eap;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 
 import io.netty.buffer.ByteBuf;
 
 public interface SessionFactory
 {
-	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload);		
+	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException;		
 }

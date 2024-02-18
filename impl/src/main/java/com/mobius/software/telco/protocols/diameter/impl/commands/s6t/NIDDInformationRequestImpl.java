@@ -1,21 +1,25 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6t;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.NIDDInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupUserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MTCProviderInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthorizationRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIDDAuthorizationUpdate;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIRFlags;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -41,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.NIRFlags;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777345, commandCode = 8388726, request = true)
 public class NIDDInformationRequestImpl extends S6tRequestImpl implements NIDDInformationRequest
 {
 	private UserIdentifier userIdentifier;
@@ -63,7 +66,7 @@ public class NIDDInformationRequestImpl extends S6tRequestImpl implements NIDDIn
 		super();
 	}
 	
-	public NIDDInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier)
+	public NIDDInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -80,13 +83,13 @@ public class NIDDInformationRequestImpl extends S6tRequestImpl implements NIDDIn
 	}
 	
 	@Override
-	public void setUserIdentifier(UserIdentifier value)
+	public void setUserIdentifier(UserIdentifier value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identifier is required");
+			throw new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		this.userIdentifier = value;
-	}	
+	}
 	
 	@Override
 	public OCSupportedFeatures getOCSupportedFeatures()
@@ -161,10 +164,10 @@ public class NIDDInformationRequestImpl extends S6tRequestImpl implements NIDDIn
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userIdentifier == null)
-			return "User-Identifier is required";
+			return new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		return super.validate();
 	}		

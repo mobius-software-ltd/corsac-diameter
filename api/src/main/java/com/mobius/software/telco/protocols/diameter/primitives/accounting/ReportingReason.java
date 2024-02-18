@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -92,7 +93,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	particular quota type and shall occur only in the Used-Service-Units AVP. The value POOL_EXHAUSTED apply to all
 	quota types using the credit pool and occurs in the Used-Service-Units AVP. It may optionally occur in the MultipleServices-Credit-Control AVP if all quota types use the same pool. 
  */
-@DiameterAvpDefinition(code = 872L, vendorId = KnownVendorIDs.TGPP_ID, name = "Reporting-Reason")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPORTING_REASON, vendorId = VendorIDs.TGPP_ID, name = "Reporting-Reason")
 public interface ReportingReason extends DiameterEnumerated<ReportingReasonEnum>
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32
    	indicated by the value of the Protocol AVP; i.e., if Protocol AVP
    	value is 6 (TCP), then the Port AVP represents a TCP port.
  */
-@DiameterAvpDefinition(code = 530L, vendorId = -1L, name = "Port")
+@DiameterAvpDefinition(code = AvpCodes.PORT, vendorId = -1L, name = "Port")
 public interface Port extends DiameterInteger32
 {
 }

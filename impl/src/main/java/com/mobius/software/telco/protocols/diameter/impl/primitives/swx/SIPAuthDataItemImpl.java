@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ConfidentialityKeyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.IntegrityKeyImpl;
@@ -26,7 +25,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPAuth
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPAuthenticationSchemeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPAuthorizationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPItemNumberImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ConfidentialityKey;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.IntegrityKey;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthenticate;
@@ -42,7 +40,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 612L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SIPAuthDataItemImpl extends DiameterGroupedAvpImpl implements SIPAuthDataItem
 {
 	private SIPItemNumber sipItemNumber;

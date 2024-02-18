@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.34	Active-Time
 	Active-Time AVP is of type Unsigned32 and shall provide the active time granted to the UE in seconds.	
  */
-@DiameterAvpDefinition(code = 4324L, vendorId = KnownVendorIDs.TGPP_ID,must = false, name = "Active-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACTIVE_TIME, vendorId = VendorIDs.TGPP_ID,must = false, name = "Active-Time")
 public interface ActiveTime extends DiameterUnsigned32
 {
 }

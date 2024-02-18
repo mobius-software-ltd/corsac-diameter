@@ -18,12 +18,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AdditionalArea;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.Area;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaDefinition;
@@ -33,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.AreaDefinitio
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2534L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AreaDefinitionImpl extends DiameterGroupedAvpImpl implements AreaDefinition
 {
 	private List<Area> area;
@@ -44,15 +47,9 @@ public class AreaDefinitionImpl extends DiameterGroupedAvpImpl implements AreaDe
 	{
 	}
 	
-	public AreaDefinitionImpl(List<Area> area)
+	public AreaDefinitionImpl(List<Area> area) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
-		if(area==null || area.size()==0)
-			throw new IllegalArgumentException("Area is required");
-		
-		if(area.size()>10)
-			throw new IllegalArgumentException("Up to 10 Area allowed");
-		
-		this.area = area;
+		setArea(area);
 	}
 	
 	public List<Area> getArea()
@@ -60,13 +57,17 @@ public class AreaDefinitionImpl extends DiameterGroupedAvpImpl implements AreaDe
 		return area;
 	}
 	
-	public void setArea(List<Area> value)
+	public void setArea(List<Area> value) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Area is required");
-		
+			throw new MissingAvpException("Area is required", Arrays.asList(new DiameterAvp[] { new AreaImpl() }));
+			
 		if(value.size()>10)
-			throw new IllegalArgumentException("Up to 10 Area allowed");
+		{ 
+			List<DiameterAvp> failedAvps = new ArrayList<DiameterAvp>();
+			failedAvps.addAll(value);
+			throw new AvpOccursTooManyTimesException("Up to 10 Area allowed", failedAvps);
+		}
 		
 		this.area = value;
 	}
@@ -76,25 +77,37 @@ public class AreaDefinitionImpl extends DiameterGroupedAvpImpl implements AreaDe
 		return additionalArea;
 	}
 	
-	public void setAdditionalArea(List<AdditionalArea> value)
+	public void setAdditionalArea(List<AdditionalArea> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>240)
-			throw new IllegalArgumentException("Up to 240 Additional-Area allowed");
+		{ 
+			List<DiameterAvp> failedAvps = new ArrayList<DiameterAvp>();
+			failedAvps.addAll(value);
+			throw new AvpOccursTooManyTimesException("Up to 240 Additional-Area allowed", failedAvps);
+		}
 		
 		this.additionalArea = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(area==null || area.size()==0)
-			return "Area is required";
+			return new MissingAvpException("Area is required", Arrays.asList(new DiameterAvp[] { new AreaImpl() }));
 		
 		if(area.size()>10)
-			return "Up to 10 Area allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(area);
+			return new AvpOccursTooManyTimesException("Up to 10 Area allowed", failedAvps);
+		}
 		
 		if(additionalArea!=null && additionalArea.size()>240)
-			return "Up to 240 Additional-Area allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(additionalArea);
+			return new AvpOccursTooManyTimesException("Up to 240 Additional-Area allowed", failedAvps);
+		}
 		
 		return null;
 	}

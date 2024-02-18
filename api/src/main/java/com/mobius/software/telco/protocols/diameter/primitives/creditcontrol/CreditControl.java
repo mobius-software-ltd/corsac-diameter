@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -55,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    value MUST NOT be used in an AA-Request sent to perform the first
    interrogation.
  */
-@DiameterAvpDefinition(code = 426L, vendorId = -1L, name = "Credit-Control")
+@DiameterAvpDefinition(code = AvpCodes.CREDIT_CONTROL, vendorId = -1L, name = "Credit-Control")
 public interface CreditControl extends DiameterEnumerated<CreditControlEnum>
 {
 }

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,14 +44,14 @@ import io.netty.buffer.ByteBuf;
 
 If the Metadata-Indicator value is "0 (NO_METADATA)", the Metadata-Indicator AVP may be omitted.
  */
-@DiameterAvpDefinition(code = 3611L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Banned-User-Target")
+@DiameterAvpDefinition(code = TgppAvpCodes.BANNED_USER_TARGER, vendorId = VendorIDs.TGPP_ID, must = false, name = "Banned-User-Target")
 public interface BannedUserTarget extends DiameterGroupedAvp
 {
 	String getTargetRPAUID();
 	
-	void setTargetRPAUID(String value);
+	void setTargetRPAUID(String value) throws MissingAvpException;
 	
 	ByteBuf getTargetPDUID();
 	
-	void TargetPDUID(ByteBuf value);
+	void setTargetPDUID(ByteBuf value) throws MissingAvpException;
 }

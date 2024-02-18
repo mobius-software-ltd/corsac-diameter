@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0: yes (The RB updates the attribute and returns the attribute to the OM.)
 	1: no (The RB is 1 by default and is not updated for a non-first call.)
  */
-@DiameterAvpDefinition(code = 30050L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "I-First-Call-Flag")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.IFIRST_CALL_FLAG, vendorId = VendorIDs.HUAWEI_ID, name = "I-First-Call-Flag")
 public interface IFirstCallFlag extends DiameterUTF8String
 {
 }

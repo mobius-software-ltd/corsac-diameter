@@ -3,13 +3,17 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.gxx;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gxx.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPP2BSIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
@@ -109,7 +113,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777266, commandCode = 272, request = true)
 public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase implements CreditControlRequest
 {
 	private DRMP drmp;
@@ -189,7 +192,7 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 		super();
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, 16777238L);
 		
@@ -198,7 +201,7 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 		setCcRequestNumber(ccRequestNumber);
 	}
 
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -235,10 +238,10 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	}
 
 	@Override
-	public void setCcRequestType(CcRequestTypeEnum value) 
+	public void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
+			throw new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
 		
 		this.ccRequestType = new CcRequestTypeImpl(value, null, null);		
 	}
@@ -253,10 +256,10 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	}
 
 	@Override
-	public void setCcRequestNumber(Long value) 
+	public void setCcRequestNumber(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
+			throw new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));	
 		
 		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
@@ -497,10 +500,16 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	}
 	
 	@Override
-	public void setANGWAddress(List<InetAddress> value)
+	public void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value!=null && value.size()>2)
-			throw new IllegalArgumentException("Up to 2 AN-GW-Address allowed");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new ANGWAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		if(value==null)
 			this.anGWAddress = null;
@@ -809,16 +818,21 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ccRequestType==null)
-			return "CC-Request-Type is required";
+			return new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
 		
 		if(ccRequestNumber==null)
-			return "CC-Request-Request is required";
+			return new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));
 		
 		if(anGWAddress!=null && anGWAddress.size()>2)
-			return "Up to 2 AN-GW-Address allowed";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(anGWAddress);
+			
+			return new AvpOccursTooManyTimesException("Up to 2 AN-GW-Address allowed", failedAvps);
+		}
 		
 		return super.validate();
 	}

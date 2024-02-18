@@ -19,8 +19,10 @@ package com.mobius.software.telco.protocols.diameter.app.gqtag;
  */
 
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AARequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public interface SessionFactory
 {
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm);		
+	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;		
 }

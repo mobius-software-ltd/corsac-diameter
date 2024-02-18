@@ -18,15 +18,18 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683.OCReductionPercentageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683.OCReportTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683.OCSequenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683.OCValidityDurationImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCSpecificReduction;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReductionPercentage;
@@ -40,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCValidit
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 623L, vendorId = -1)
 public class OCOLRImpl extends DiameterGroupedAvpImpl implements OCOLR
 {
 	private OCSequenceNumber ocSequenceNumber;
@@ -58,17 +60,11 @@ public class OCOLRImpl extends DiameterGroupedAvpImpl implements OCOLR
 		super();
 	}
 	
-	public OCOLRImpl(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLRImpl(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
-		if(ocSequenceNumber == null)
-			throw new IllegalArgumentException("OC-Sequence-Number is required");
+		setOCSequenceNumber(ocSequenceNumber);
 		
-		if(ocReportType == null)
-			throw new IllegalArgumentException("OC-Report-Type is required");
-		
-		this.ocSequenceNumber = new OCSequenceNumberImpl(ocSequenceNumber, null, null);
-		
-		this.ocReportType = new OCReportTypeImpl(ocReportType, null, null);
+		setOCReportType(ocReportType);
 	}
 	
 	public Long getOCSequenceNumber()
@@ -79,10 +75,10 @@ public class OCOLRImpl extends DiameterGroupedAvpImpl implements OCOLR
 		return ocSequenceNumber.getLong();
 	}
 	
-	public void setOCSequenceNumber(Long value)
+	public void setOCSequenceNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("OC-Sequence-Number is required");
+			throw new MissingAvpException("OC-Sequence-Number is required", Arrays.asList(new DiameterAvp[] { new OCSequenceNumberImpl() }));
 		
 		this.ocSequenceNumber = new OCSequenceNumberImpl(value, null, null);
 	}
@@ -95,10 +91,10 @@ public class OCOLRImpl extends DiameterGroupedAvpImpl implements OCOLR
 		return ocReportType.getEnumerated(OCReportTypeEnum.class);
 	}
 	
-	public void setOCReportType(OCReportTypeEnum value)
+	public void setOCReportType(OCReportTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("OC-Report-Type is required");
+			throw new MissingAvpException("OC-Report-Type is required", Arrays.asList(new DiameterAvp[] { new OCReportTypeImpl() }));
 		
 		this.ocReportType = new OCReportTypeImpl(value, null, null);		
 	}
@@ -146,13 +142,13 @@ public class OCOLRImpl extends DiameterGroupedAvpImpl implements OCOLR
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ocSequenceNumber == null)
-			return "OC-Sequence-Number is required";
+			return new MissingAvpException("OC-Sequence-Number is required", Arrays.asList(new DiameterAvp[] { new OCSequenceNumberImpl() }));
 		
 		if(ocReportType == null)
-			return "OC-Report-Type is required";
+			return new MissingAvpException("OC-Report-Type is required", Arrays.asList(new DiameterAvp[] { new OCReportTypeImpl() }));
 		
 		return null;
 	}

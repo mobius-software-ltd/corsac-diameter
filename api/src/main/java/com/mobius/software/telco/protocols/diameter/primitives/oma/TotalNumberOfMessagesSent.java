@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This data element indicates the total number of individual messages sent by the sender. However, the number does not
 	necessarily correspond to the number of message actually delivered to recipients.
  */
-@DiameterAvpDefinition(code = 2114L, vendorId = KnownVendorIDs.TGPP_ID, name = "Total-Number-Of-Messages-Sent")
+@DiameterAvpDefinition(code = TgppAvpCodes.TOTAL_NUMBER_OF_MESSAGES_SENT, vendorId = VendorIDs.TGPP_ID, name = "Total-Number-Of-Messages-Sent")
 public interface TotalNumberOfMessagesSent extends DiameterUnsigned32
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
    identity added in this AVP MUST be the same as the one received in
    the Origin-Host of the Capabilities Exchange message.
  */
-@DiameterAvpDefinition(code = 282L, vendorId = -1L, name = "Route-Record")
+@DiameterAvpDefinition(code = AvpCodes.ROUTE_RECORD, vendorId = -1L, name = "Route-Record")
 public interface RouteRecord extends DiameterIdentity
 {
 }

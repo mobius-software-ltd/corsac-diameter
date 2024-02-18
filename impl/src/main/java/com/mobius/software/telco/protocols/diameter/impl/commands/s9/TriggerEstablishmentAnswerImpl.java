@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s9;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablishmentAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s9.DRADeploymentImpl;
@@ -42,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s9.DRADeploymentE
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777267, commandCode = 8388656, request = false)
 public class TriggerEstablishmentAnswerImpl extends AuthenticationAnswerImpl implements TriggerEstablishmentAnswer
 {
 	private DRMP drmp;
@@ -63,7 +63,7 @@ public class TriggerEstablishmentAnswerImpl extends AuthenticationAnswerImpl imp
 		setUsernameAllowed(false);
 	}
 	
-	protected TriggerEstablishmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	protected TriggerEstablishmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(true);

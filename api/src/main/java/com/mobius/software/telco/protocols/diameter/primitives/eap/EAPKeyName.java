@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    SHOULD include this AVP in Diameter-EAP-Response only if an empty
    EAP-Key-Name AVP was present in Diameter-EAP-Request.
  */
-@DiameterAvpDefinition(code = 102L, vendorId = -1L, name = "EAP-Key-Name")
+@DiameterAvpDefinition(code = AvpCodes.EAP_KEY_NAME, vendorId = -1L, name = "EAP-Key-Name")
 public interface EAPKeyName extends DiameterOctetString
 {
 }

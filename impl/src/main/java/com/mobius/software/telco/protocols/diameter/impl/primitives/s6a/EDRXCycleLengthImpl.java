@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATType;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EDRXCycleLength;
@@ -35,7 +38,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1691L, vendorId = KnownVendorIDs.TGPP_ID)
 public class EDRXCycleLengthImpl extends DiameterGroupedAvpImpl implements EDRXCycleLength
 {
 	private RATType ratType;
@@ -46,17 +48,11 @@ public class EDRXCycleLengthImpl extends DiameterGroupedAvpImpl implements EDRXC
 	{
 	}
 	
-	public EDRXCycleLengthImpl(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue)
+	public EDRXCycleLengthImpl(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue) throws MissingAvpException
 	{
-		if(ratType==null)
-			throw new IllegalArgumentException("RAT-Type is required");
+		setRATType(ratType);
 		
-		if(eDRXCycleLengthValue==null)
-			throw new IllegalArgumentException("eDRX-Cycle-Length-Value is required");
-		
-		this.ratType = new RATTypeImpl(ratType, null, null);
-		
-		this.eDRXCycleLengthValue = new EDRXCycleLengthValueImpl(eDRXCycleLengthValue, null, null);				
+		setEDRXCycleLengthValue(eDRXCycleLengthValue);
 	}
 	
 	public RATTypeEnum getRATType()
@@ -67,11 +63,11 @@ public class EDRXCycleLengthImpl extends DiameterGroupedAvpImpl implements EDRXC
 		return ratType.getEnumerated(RATTypeEnum.class);
 	}
 	
-	public void setRATType(RATTypeEnum value)
+	public void setRATType(RATTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("RAT-Type is required");
-		
+			throw new MissingAvpException("RAT-Type is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
+			
 		this.ratType = new RATTypeImpl(value, null, null);		
 	}
 	
@@ -83,22 +79,22 @@ public class EDRXCycleLengthImpl extends DiameterGroupedAvpImpl implements EDRXC
 		return eDRXCycleLengthValue.getValue();
 	}
 	
-	public void setEDRXCycleLengthValue(ByteBuf value)
+	public void setEDRXCycleLengthValue(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("eDRX-Cycle-Length-Value is required");
-		
+			throw new MissingAvpException("eDRX-Cycle-Length-Value is required", Arrays.asList(new DiameterAvp[] { new EDRXCycleLengthValueImpl() }));
+			
 		this.eDRXCycleLengthValue = new EDRXCycleLengthValueImpl(value, null, null);	
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ratType==null)
-			return "RAT-Type is required";
+			return new MissingAvpException("RAT-Type is required", Arrays.asList(new DiameterAvp[] { new RATTypeImpl() }));
 		
 		if(eDRXCycleLengthValue==null)
-			return "eDRX-Cycle-Length-Value is required";
+			return new MissingAvpException("eDRX-Cycle-Length-Value is required", Arrays.asList(new DiameterAvp[] { new EDRXCycleLengthValueImpl() }));
 		
 		return null;
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -53,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - ATS-C: 1 ACR(A-C)
 	    - ATS-C: 2 ACR(C-D) 
  */
-@DiameterAvpDefinition(code = 20822L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Diversion-Count")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.DIVERSION_COUNT, vendorId = VendorIDs.HUAWEI_ID, name = "Diversion-Count")
 public interface DiversionCount extends DiameterUnsigned32
 {
 }

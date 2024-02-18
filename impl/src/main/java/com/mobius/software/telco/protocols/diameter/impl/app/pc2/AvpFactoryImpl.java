@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc2;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.pc2.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.BannedUserTargetImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.MonitorTargetImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeCodeSuffixMaskImpl;
@@ -43,27 +44,27 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public MonitorTarget getMonitorTarget(String targetRPAUID,ByteBuf pduid)
+	public MonitorTarget getMonitorTarget(String targetRPAUID,ByteBuf pduid) throws MissingAvpException
 	{
 		return new MonitorTargetImpl(targetRPAUID, pduid);
 	}
 	
-	public ProSeCodeSuffixMask getProSeCodeSuffixMask(ByteBuf suffixCode,List<ByteBuf> suffixMask)
+	public ProSeCodeSuffixMask getProSeCodeSuffixMask(ByteBuf suffixCode,List<ByteBuf> suffixMask) throws MissingAvpException
 	{
 		return new ProSeCodeSuffixMaskImpl(suffixCode, suffixMask);
 	}
 	
-	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix)
+	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException
 	{
 		return new ProSeAppCodeSuffixRangeImpl(beginningSuffix);
 	}
 	
-	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix)
+	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException
 	{
 		return new ProSeRestrictedCodeSuffixRangeImpl(beginningSuffix);
 	}
 	
-	public BannedUserTarget getBannedUserTarget(String targetRPAUID,ByteBuf targetPDUID)
+	public BannedUserTarget getBannedUserTarget(String targetRPAUID,ByteBuf targetPDUID) throws MissingAvpException
 	{
 		return new BannedUserTargetImpl(targetRPAUID, targetPDUID);
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates whether the calling party is connected in the call.
  */
-@DiameterAvpDefinition(code = 30017L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Keep-Voice-Flag")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.KEEP_VOICE_FLAG, vendorId = VendorIDs.HUAWEI_ID, name = "Keep-Voice-Flag")
 public interface KeepVoiceFlag extends DiameterUnsigned32
 {
 }

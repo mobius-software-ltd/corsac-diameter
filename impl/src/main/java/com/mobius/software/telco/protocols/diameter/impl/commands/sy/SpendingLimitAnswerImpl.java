@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -35,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterS
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777302, commandCode = 8388635, request = false)
 public class SpendingLimitAnswerImpl extends SyAnswerImpl implements SpendingLimitAnswer
 {
 	public List<SupportedFeatures> supportedFeatures;
@@ -49,7 +49,7 @@ public class SpendingLimitAnswerImpl extends SyAnswerImpl implements SpendingLim
 		super();
 	}
 	
-	public SpendingLimitAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId)
+	public SpendingLimitAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 	}

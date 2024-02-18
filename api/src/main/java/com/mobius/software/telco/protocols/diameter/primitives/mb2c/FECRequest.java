@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	It is used by the GCS AS to request that the BM-SC applies FEC (see IETF RFC 6363 [31]).
 	The FEC-Request AVP shall include an SDP description of FEC framework configuration information (see subclause 5.5 of IETF RFC 6363 [31]) formatted according to subclause 8A.5 of 3GPP TS 26.346 [5] . The description shall relate to the IP layer and higher protocols within the "User Plane Data" as depicted in Figure 7.1-1.
  */
-@DiameterAvpDefinition(code = 3525L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "FEC-Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.FEC_REQUEST, vendorId = VendorIDs.TGPP_ID, must = false, name = "FEC-Request")
 public interface FECRequest extends DiameterOctetString
 {
 }

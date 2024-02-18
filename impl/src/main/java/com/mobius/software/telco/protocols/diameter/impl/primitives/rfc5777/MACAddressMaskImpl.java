@@ -18,9 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.MACAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.MACAddressMask;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.MACAddressMaskPattern;
@@ -33,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 525L, vendorId = -1L)
 public class MACAddressMaskImpl extends DiameterGroupedAvpImpl implements MACAddressMask
 {
 	private MACAddress macAddress;
@@ -44,17 +47,11 @@ public class MACAddressMaskImpl extends DiameterGroupedAvpImpl implements MACAdd
 	{
 	}
 	
-	public MACAddressMaskImpl(ByteBuf macAddress,ByteBuf macAddressMaskPattern)
+	public MACAddressMaskImpl(ByteBuf macAddress,ByteBuf macAddressMaskPattern) throws MissingAvpException
 	{
-		if(macAddress==null)
-			throw new IllegalArgumentException("MAC-Address is required");
+		setMACAddress(macAddress);
 		
-		if(macAddressMaskPattern==null)
-			throw new IllegalArgumentException("MAC-Address-Mask-Pattern is required");
-		
-		this.macAddress = new MACAddressImpl(macAddress, null, null);
-		
-		this.macAddressMaskPattern = new MACAddressMaskPatternImpl(macAddressMaskPattern, null, null);
+		setMACAddressMaskPattern(macAddressMaskPattern);
 	}
 	
 	public ByteBuf getMACAddress()
@@ -65,10 +62,10 @@ public class MACAddressMaskImpl extends DiameterGroupedAvpImpl implements MACAdd
 		return this.macAddress.getValue();
 	}
 	
-	public void setMACAddress(ByteBuf value)
+	public void setMACAddress(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MAC-Address is required");
+			throw new MissingAvpException("MAC-Address is required", Arrays.asList(new DiameterAvp[] { new MACAddressImpl() }));
 		
 		this.macAddress = new MACAddressImpl(value, null, null);		
 	}
@@ -81,22 +78,22 @@ public class MACAddressMaskImpl extends DiameterGroupedAvpImpl implements MACAdd
 		return this.macAddressMaskPattern.getValue();
 	}
 	
-	public void setMACAddressMaskPattern(ByteBuf value)
+	public void setMACAddressMaskPattern(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MAC-Address-Mask-Pattern is required");
-		
+			throw new MissingAvpException("MAC-Address-Mask-Pattern is required", Arrays.asList(new DiameterAvp[] { new MACAddressMaskPatternImpl() }));
+			
 		this.macAddressMaskPattern = new MACAddressMaskPatternImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(macAddress==null)
-			return "MAC-Address is required";
+			return new MissingAvpException("MAC-Address is required", Arrays.asList(new DiameterAvp[] { new MACAddressImpl() }));
 		
 		if(macAddressMaskPattern==null)
-			return "MAC-Address-Mask-Pattern is required";
+			return new MissingAvpException("MAC-Address-Mask-Pattern is required", Arrays.asList(new DiameterAvp[] { new MACAddressMaskPatternImpl() }));
 		
 		return null;
 	}

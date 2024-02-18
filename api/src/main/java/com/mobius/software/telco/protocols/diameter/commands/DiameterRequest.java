@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.commands;
  */
 
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 /**
 *
@@ -29,9 +30,9 @@ public interface DiameterRequest extends DiameterMessage
 {
 	public String getDestinationHost() throws AvpNotSupportedException;
 	
-	void setDestinationHost(String value) throws AvpNotSupportedException;
+	void setDestinationHost(String value) throws AvpNotSupportedException, MissingAvpException;
 	
 	public String getDestinationRealm() throws AvpNotSupportedException;
 	
-	void setDestinationRealm(String value) throws AvpNotSupportedException;
+	void setDestinationRealm(String value) throws AvpNotSupportedException, MissingAvpException;
 }

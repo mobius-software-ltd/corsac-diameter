@@ -2,12 +2,15 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
@@ -60,7 +63,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 2, commandCode = 260, request = true)
 public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements AAMobileNodeRequest
 {
 	private MIPRegRequest mipRegRequest;
@@ -94,7 +96,7 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 		super();
 	}
 	
-	public AAMobileNodeRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, ByteBuf mipRegRequest, MIPMNAAAAuth mipMNAAAAuth)
+	public AAMobileNodeRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, ByteBuf mipRegRequest, MIPMNAAAAuth mipMNAAAAuth) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -113,11 +115,11 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 	}
 	
 	@Override
-	public void setMIPRegRequest(ByteBuf value)
+	public void setMIPRegRequest(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("MIP-Reg-Request is required");
-		
+			throw new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
+			
 		this.mipRegRequest = new MIPRegRequestImpl(value, null, null);
 	}
 	
@@ -128,11 +130,11 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 	}
 	
 	@Override
-	public void setMIPMNAAAAuth(MIPMNAAAAuth value)
+	public void setMIPMNAAAAuth(MIPMNAAAAuth value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("MIP-MN-AAA-Auth is required");
-		
+			throw new MissingAvpException("MIP-MN-AAA-Auth is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
+			
 		this.mipMNAAAAuth = value;
 	}
 	
@@ -324,13 +326,13 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mipRegRequest == null)
-			throw new IllegalArgumentException("MIP-Reg-Request is required");
+			return new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
 		
 		if(mipMNAAAAuth == null)
-			throw new IllegalArgumentException("MIP-MN-AAA-Auth is required");
+			return new MissingAvpException("MIP-MN-AAA-Auth is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
 		
 		return super.validate();
 	}

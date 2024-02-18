@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	or a TEL URL (with the format defined in IETF RFC 3966 [8]). Both SIP URL and TEL URL shall be in canonical form, as described 
 	in 3GPP TS 23.003 [13].
  */
-@DiameterAvpDefinition(code = 601L, vendorId = KnownVendorIDs.TGPP_ID, name = "Public-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.PUBLIC_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "Public-Identity")
 public interface PublicIdentity extends DiameterUTF8String
 {
 }

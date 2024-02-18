@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SARFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SARFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 655L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SARFlagsImpl extends DiameterBitmask32Impl implements SARFlags
 {
 	public SARFlagsImpl()
@@ -44,7 +41,7 @@ public class SARFlagsImpl extends DiameterBitmask32Impl implements SARFlags
 	@Override
 	public void setPCSCFRestorationIndicationBit(boolean isOn)
 	{
-		setBit(PCSCF_RESTORATION_INDICATION_BIT, isOn);
+		setBitUnchecked(PCSCF_RESTORATION_INDICATION_BIT, isOn);
 	}
 
 	@Override

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Identifier of package or node sp
  */
-@DiameterAvpDefinition(code = 20634L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "CDR-PkgSp-Id")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CDR_PACKAGE_SP_ID, vendorId = VendorIDs.HUAWEI_ID, name = "CDR-PkgSp-Id")
 public interface CDRPkgSpId extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.4.16	Age-Of-Location-Estimate
 	The Age-Of-Location-Estimate AVP is of type Unsigned32. It indicates how long ago the location estimate was obtained in minutes, as indicated in 3GPP TS 29.002 [19]. 
  */
-@DiameterAvpDefinition(code = 2514L, vendorId = KnownVendorIDs.TGPP_ID, name = "Age-Of-Location-Estimate")
+@DiameterAvpDefinition(code = TgppAvpCodes.AGE_OF_LOCATION_ESTIMATE, vendorId = VendorIDs.TGPP_ID, name = "Age-Of-Location-Estimate")
 public interface AgeOfLocationEstimate extends DiameterUnsigned32
 {
 }

@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.pc4a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 import io.netty.buffer.ByteBuf;
@@ -50,7 +52,7 @@ import io.netty.buffer.ByteBuf;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777336, commandCode = 322, request = true, proxyable = true, name="Reset-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC4A, commandCode = CommandCodes.RESET, request = true, proxyable = true, name="Reset-Request")
 public interface ResetRequest extends Pc4aRequest
 {
 	List<String> getUserId();

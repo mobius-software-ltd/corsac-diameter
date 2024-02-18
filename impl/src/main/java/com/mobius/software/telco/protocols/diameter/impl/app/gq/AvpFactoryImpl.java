@@ -18,10 +18,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gq;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.gq.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.FlowGroupingImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.FlowsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.MediaComponentDescriptionImpl;
@@ -49,27 +50,27 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public Flows getFlows(Long mediaComponentNumber)
+	public Flows getFlows(Long mediaComponentNumber) throws MissingAvpException
 	{
 		return new FlowsImpl(mediaComponentNumber);
 	}
 	
-	public AccessNetworkChargingIdentifier getAccessNetworkChargingIdentifier(ByteBuf accessNetworkChargingIdentifierValue)
+	public AccessNetworkChargingIdentifier getAccessNetworkChargingIdentifier(ByteBuf accessNetworkChargingIdentifierValue) throws MissingAvpException
 	{
 		return new AccessNetworkChargingIdentifierImpl(accessNetworkChargingIdentifierValue);
 	}
 	
-	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber)
+	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber) throws MissingAvpException
 	{
 		return new MediaComponentDescriptionImpl(mediaComponentNumber);
 	}
 	
-	public MediaSubComponent getMediaSubComponent(Long flowNumber)
+	public MediaSubComponent getMediaSubComponent(Long flowNumber) throws MissingAvpException
 	{
 		return new MediaSubComponentImpl(flowNumber);
 	}
 	
-	public FlowDescription getFlowDescription(String rule) throws ParseException
+	public FlowDescription getFlowDescription(String rule) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(rule, null, null);
 	}
@@ -77,7 +78,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, null, null);
 	}

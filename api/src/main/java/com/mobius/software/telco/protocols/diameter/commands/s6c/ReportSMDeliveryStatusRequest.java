@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.RDRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -54,12 +57,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelat
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777312, commandCode = 8388649, request = true, proxyable = true, name="Report-SM-Delivery-Status-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6C, commandCode = CommandCodes.REPORT_SM_DELIVERY_STATUS, request = true, proxyable = true, name="Report-SM-Delivery-Status-Request")
 public interface ReportSMDeliveryStatusRequest extends S6cRequest
 {
 	UserIdentifier getUserIdentifier();
 	 
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	 		
 	SMSMICorrelationID getSMSMICorrelationID();
 	
@@ -67,11 +70,11 @@ public interface ReportSMDeliveryStatusRequest extends S6cRequest
 	
 	String getSCAddress();
 	
-	void setSCAddress(String value);
+	void setSCAddress(String value) throws MissingAvpException;
 	
 	SMDeliveryOutcome getSMDeliveryOutcome();
 	
-	void setSMDeliveryOutcome(SMDeliveryOutcome value);
+	void setSMDeliveryOutcome(SMDeliveryOutcome value) throws MissingAvpException;
 	
 	RDRFlags getRDRFlags();
 	

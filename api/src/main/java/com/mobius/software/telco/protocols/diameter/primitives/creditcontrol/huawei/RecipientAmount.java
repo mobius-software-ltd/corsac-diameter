@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Note:
 	If the value of this parameter is greater than 1, you need to multiply the unit price with the value of this parameter to calculate the total cost after the rating is complete. Otherwise, this parameter is not used.
  */
-@DiameterAvpDefinition(code = 20538L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Recipient-Amount")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.RECIPIENT_AMOUNT, vendorId = VendorIDs.HUAWEI_ID, name = "Recipient-Amount")
 public interface RecipientAmount extends DiameterUnsigned32
 {
 }

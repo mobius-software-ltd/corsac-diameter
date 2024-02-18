@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManageme
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1082L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements CreditManagementStatus
 {
 	public CreditManagementStatusImpl()
@@ -44,7 +41,7 @@ public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setEndUserServiceDeniedBit(boolean isOn)
 	{
-		setBit(END_USER_SERVICE_DENIED_BIT, isOn);
+		setBitUnchecked(END_USER_SERVICE_DENIED_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setCreditControlNotApplicableBit(boolean isOn)
 	{
-		setBit(CREDIT_CONTROL_NOT_APPLICABLE_BIT, isOn);
+		setBitUnchecked(CREDIT_CONTROL_NOT_APPLICABLE_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setAuthorizationRejectedBit(boolean isOn)
 	{
-		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+		setBitUnchecked(AUTHORIZATION_REJECTED_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setUserUnknownBit(boolean isOn)
 	{
-		setBit(USER_UNKNOWN_BIT, isOn);
+		setBitUnchecked(USER_UNKNOWN_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setRatingFailedBit(boolean isOn)
 	{
-		setBit(RATING_FAILED_BIT, isOn);
+		setBitUnchecked(RATING_FAILED_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setNoGynSessionServiceAllowedBit(boolean isOn)
 	{
-		setBit(NO_GYN_SESSION_SERVICE_ALLOWED_BIT, isOn);
+		setBitUnchecked(NO_GYN_SESSION_SERVICE_ALLOWED_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class CreditManagementStatusImpl extends DiameterBitmask32Impl implements
 	@Override
 	public void setNoGynSessionServiceNotAllowedBit(boolean isOn)
 	{
-		setBit(NO_GYN_SESSION_SERVICE_NOT_ALLOWED_BIT, isOn);
+		setBitUnchecked(NO_GYN_SESSION_SERVICE_NOT_ALLOWED_BIT, isOn);
 	}
 
 	@Override

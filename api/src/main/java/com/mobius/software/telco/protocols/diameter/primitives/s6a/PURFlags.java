@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	Bits not defined in this table shall be cleared by the sending MME or SGSN and discarded by the receiving HSS.
 */
-@DiameterAvpDefinition(code = 1635L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PUR-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.PUR_FLAGS, vendorId = VendorIDs.TGPP_ID, must = false, name = "PUR-Flags")
 public interface PURFlags extends DiameterBitmask32
 {
 	public static final int UE_PURGED_IN_MME_BIT = 0;

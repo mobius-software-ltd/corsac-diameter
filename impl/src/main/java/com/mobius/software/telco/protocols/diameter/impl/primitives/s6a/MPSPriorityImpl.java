@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MPSPriority;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.MPSPriority;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1616L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MPSPriorityImpl extends DiameterBitmask32Impl implements MPSPriority
 {
 	public MPSPriorityImpl()
@@ -44,7 +41,7 @@ public class MPSPriorityImpl extends DiameterBitmask32Impl implements MPSPriorit
 	@Override
 	public void setMPSCSPriorityBit(boolean isOn)
 	{
-		setBit(MPS_CS_PRIORITY_BIT, isOn);
+		setBitUnchecked(MPS_CS_PRIORITY_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class MPSPriorityImpl extends DiameterBitmask32Impl implements MPSPriorit
 	@Override
 	public void setMPSEPSPriorityBit(boolean isOn)
 	{
-		setBit(MPS_EPS_PRIORITY_BIT, isOn);
+		setBitUnchecked(MPS_EPS_PRIORITY_BIT, isOn);
 	}
 
 	@Override

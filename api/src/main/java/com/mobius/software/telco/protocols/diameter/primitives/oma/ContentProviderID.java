@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	6.2.13 Content Provider ID
 	This data element will be used as the globally unique identity of the content provider within the DCD Server Domain.  
  */
-@DiameterAvpDefinition(code = 2117L, vendorId = KnownVendorIDs.TGPP_ID, name = "Content-Provider-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONTENT_PROVIDER_ID, vendorId = VendorIDs.TGPP_ID, name = "Content-Provider-ID")
 public interface ContentProviderID extends DiameterUTF8String
 {
 }

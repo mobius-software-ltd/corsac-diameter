@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Proximity-Alert-Timestamp AVP (AVP code 3455) is of type Time, and it holds the timestamp when proximity
 	alert is sent, to indicate two UEs are in proximity. 
  */
-@DiameterAvpDefinition(code = 3455L, vendorId = KnownVendorIDs.TGPP_ID, name = "Proximity-Alert-Timestamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROXIMITY_ALERT_TIMESTAMP, vendorId = VendorIDs.TGPP_ID, name = "Proximity-Alert-Timestamp")
 public interface ProximityAlertTimestamp extends DiameterTime
 {
 }

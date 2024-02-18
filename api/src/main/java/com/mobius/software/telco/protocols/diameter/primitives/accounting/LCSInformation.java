@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 		[ 3GPP-IMSI ]
 		[ MSISDN ]
  */
-@DiameterAvpDefinition(code = 878L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "LCS-Information")
 public interface LCSInformation extends DiameterAvp
 {
 	LCSClientID getLCSClientID();

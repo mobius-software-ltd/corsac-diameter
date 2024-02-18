@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	In the context of the Rating-Element AVP it denotes the durability of a Rating Element within a Tariff. I.e. if the service
 	consumed Unit-Quota-Threshold number of Unit-Types, the next Rating element becomes in effect. 
  */
-@DiameterAvpDefinition(code = 1226L, vendorId = KnownVendorIDs.TGPP_ID, name = "Unit-Quota-Threshold")
+@DiameterAvpDefinition(code = TgppAvpCodes.UNIT_QUOTA_THRESHOLD, vendorId = VendorIDs.TGPP_ID, name = "Unit-Quota-Threshold")
 public interface UnitQuotaThreshold extends DiameterUnsigned32
 {
 }

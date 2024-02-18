@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	uniquely identifies a specific device amongst all other devices. The Instance Id is transported in the Contact header of a
 	SIP request associated with the served user. 
  */
-@DiameterAvpDefinition(code = 3402L, vendorId = KnownVendorIDs.TGPP_ID, name = "Instance-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.INSTANCE_ID, vendorId = VendorIDs.TGPP_ID, name = "Instance-Id")
 public interface InstanceId extends DiameterUTF8String
 {
 }

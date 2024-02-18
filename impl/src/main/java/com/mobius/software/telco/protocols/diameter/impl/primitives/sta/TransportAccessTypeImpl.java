@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TransportAccessType;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.TransportAccessTypeEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.TransportAcce
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1519L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TransportAccessTypeImpl extends DiameterEnumeratedImpl<TransportAccessTypeEnum> implements TransportAccessType
 {
 	protected TransportAccessTypeImpl()

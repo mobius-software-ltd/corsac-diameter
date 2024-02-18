@@ -18,8 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolIdentifier;
@@ -31,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 457L, vendorId = -1)
 public class GSUPoolReferenceImpl implements GSUPoolReference
 {
 	private GSUPoolIdentifier gsuPoolIdentifier;
@@ -44,22 +47,13 @@ public class GSUPoolReferenceImpl implements GSUPoolReference
 	{
 	}
 	
-	public GSUPoolReferenceImpl(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue)
+	public GSUPoolReferenceImpl(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue) throws MissingAvpException
 	{
-		if(gsuPoolIdentifier==null)
-			throw new IllegalArgumentException("G-S-U-Pool-Identifier is required");
+		setGSUPoolIdentifier(gsuPoolIdentifier);
 		
-		if(ccUnitType==null)
-			throw new IllegalArgumentException("CC-Unit-Type is required");
+		setCCUnitType(ccUnitType);
 		
-		if(unitValue==null)
-			throw new IllegalArgumentException("Unit-Value is required");
-		
-		this.gsuPoolIdentifier = new GSUPoolIdentifierImpl(gsuPoolIdentifier, null, null);
-		
-		this.ccUnitType = new CcUnitTypeImpl(ccUnitType, null, null);
-		
-		this.unitValue = unitValue;
+		setUnitValue(unitValue);		
 	}
 	
 	public Long getGSUPoolIdentifier()
@@ -70,11 +64,11 @@ public class GSUPoolReferenceImpl implements GSUPoolReference
 		return gsuPoolIdentifier.getUnsigned();
 	}
 	
-	public void setGSUPoolIdentifier(Long value)
+	public void setGSUPoolIdentifier(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("G-S-U-Pool-Identifier is required");
-		
+			throw new MissingAvpException("G-S-U-Pool-Identifier is required", Arrays.asList(new DiameterAvp[] { new GSUPoolIdentifierImpl() }));
+			
 		this.gsuPoolIdentifier = new GSUPoolIdentifierImpl(value, null, null);		
 	}
 	
@@ -86,11 +80,11 @@ public class GSUPoolReferenceImpl implements GSUPoolReference
 		return ccUnitType.getEnumerated(CcUnitTypeEnum.class);
 	}
 	
-	public void setCCUnitType(CcUnitTypeEnum value)
+	public void setCCUnitType(CcUnitTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Unit-Type is required");
-		
+			throw new MissingAvpException("CC-Unit-Type is required", Arrays.asList(new DiameterAvp[] { new CcUnitTypeImpl() }));
+			
 		this.ccUnitType = new CcUnitTypeImpl(value, null, null);
 	}
 	
@@ -99,25 +93,25 @@ public class GSUPoolReferenceImpl implements GSUPoolReference
 		return this.unitValue;
 	}
 	
-	public void setUnitValue(UnitValue value)
+	public void setUnitValue(UnitValue value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Unit-Value is required");
-		
+			throw new MissingAvpException("Unit-Value is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() })); 
+			
 		this.unitValue = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(gsuPoolIdentifier==null)
-			return "G-S-U-Pool-Identifier is required";
+			return new MissingAvpException("G-S-U-Pool-Identifier is required", Arrays.asList(new DiameterAvp[] { new GSUPoolIdentifierImpl() }));
 		
 		if(ccUnitType==null)
-			return "CC-Unit-Type is required";
+			return new MissingAvpException("CC-Unit-Type is required", Arrays.asList(new DiameterAvp[] { new CcUnitTypeImpl() }));
 		
 		if(unitValue==null)
-			return "Unit-Value is required";
+			return new MissingAvpException("Unit-Value is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() }));
 		
 		return null;
 	}

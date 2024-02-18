@@ -20,8 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CalledIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CalledIdentityChange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChangeTime;
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Change
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3917L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CalledIdentityChangeImpl implements CalledIdentityChange
 {
 	private CalledIdentity calledIdentity;

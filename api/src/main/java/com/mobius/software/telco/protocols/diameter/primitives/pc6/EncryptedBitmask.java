@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.81	Encrypted-Bitmask 
 	The Encrypted-Bitmask AVP is of type OctetString. It shall contain a 184-bit bitmask which uses bit "1" to mark the positions of the bits of a ProSe Restricted Code, ProSe Query Code or ProSe Response Code, for which the DUCK encryption is applied.
  */
-@DiameterAvpDefinition(code = 3866L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Encrypted-Bitmask")
+@DiameterAvpDefinition(code = TgppAvpCodes.ENCRYPTED_BITMASK, vendorId = VendorIDs.TGPP_ID, must = false, name = "Encrypted-Bitmask")
 public interface EncryptedBitmask extends DiameterOctetString
 {
 }

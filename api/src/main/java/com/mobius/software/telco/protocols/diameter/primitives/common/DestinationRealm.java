@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
    This AVP SHOULD be placed as close to the Diameter header as
    possible.
  */
-@DiameterAvpDefinition(code = 283L, vendorId = -1L, name = "Destination-Realm")
+@DiameterAvpDefinition(code = AvpCodes.DESTINATION_REALM, vendorId = -1L, name = "Destination-Realm")
 public interface DestinationRealm extends DiameterIdentity
 {
 }

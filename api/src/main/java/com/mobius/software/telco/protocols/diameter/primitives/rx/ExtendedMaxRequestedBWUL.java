@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Extended-Max–Requested-BW-UL AVP (AVP code 555) is of type Unsigned32, and it indicates the maximum requested bandwidth in kbit per second for an uplink IP flow. The bandwidth contains all the overhead coming from the IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
 	When provided in an AA-Request, it indicates the maximum requested bandwidth. When provided in an AA-Answer, it indicates the maximum bandwidth acceptable by PCRF.
  */
-@DiameterAvpDefinition(code = 555L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Extended-Max-Requested-BW-UL")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXTENDED_MAX_REQUESTED_BW_UL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Extended-Max-Requested-BW-UL")
 public interface ExtendedMaxRequestedBWUL extends DiameterUnsigned32
 {
 }

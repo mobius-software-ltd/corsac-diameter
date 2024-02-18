@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAlertRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.AppLayerUserIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetedEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -39,7 +42,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.TargetedEPUID
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388674, request = true)
 public class ProSeAlertRequestImpl extends Pc6RequestImpl implements ProSeAlertRequest
 {
 	private AppLayerUserId appLayerUserId;
@@ -53,7 +55,7 @@ public class ProSeAlertRequestImpl extends Pc6RequestImpl implements ProSeAlertR
 		super();
 	}
 	
-	public ProSeAlertRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String appLayerUserId,String targetedEPUID)
+	public ProSeAlertRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String appLayerUserId,String targetedEPUID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -72,10 +74,10 @@ public class ProSeAlertRequestImpl extends Pc6RequestImpl implements ProSeAlertR
 	}
 	 
 	@Override	
-	public void setAppLayerUserId(String value)
+	public void setAppLayerUserId(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("App-Layer-User-Id is required");
+			throw new MissingAvpException("App-Layer-User-Id is required is required", Arrays.asList(new DiameterAvp[] { new AppLayerUserIdImpl() }));
 		
 		this.appLayerUserId = new AppLayerUserIdImpl(value, null, null);
 	}
@@ -90,10 +92,10 @@ public class ProSeAlertRequestImpl extends Pc6RequestImpl implements ProSeAlertR
 	}
 	
 	@Override	
-	public void setTargetedEPUID(String value)
+	public void setTargetedEPUID(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Targeted-EPUID is required");
+			throw new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		this.targetedEPUID = new TargetedEPUIDImpl(value, null, null);
 	}
@@ -111,13 +113,13 @@ public class ProSeAlertRequestImpl extends Pc6RequestImpl implements ProSeAlertR
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(appLayerUserId == null)
-			return "App-Layer-User-Id is required";
+			return new MissingAvpException("App-Layer-User-Id is required is required", Arrays.asList(new DiameterAvp[] { new AppLayerUserIdImpl() }));
 		
 		if(targetedEPUID == null)
-			return "Targeted-EPUID is required";
+			return new MissingAvpException("Targeted-EPUID is required is required", Arrays.asList(new DiameterAvp[] { new TargetedEPUIDImpl() }));
 		
 		return super.validate();
 	}		

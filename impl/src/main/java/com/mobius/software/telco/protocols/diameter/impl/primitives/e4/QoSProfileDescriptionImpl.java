@@ -21,11 +21,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.e4;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ReservationPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MediaTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.TrafficProfileImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.ApplicationClassID;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.MaximumAllowedBandwidthDL;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.MaximumAllowedBandwidthUL;
@@ -42,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.TrafficProfil
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 303L, vendorId = KnownVendorIDs.ETSI_ID)
 public class QoSProfileDescriptionImpl implements QoSProfileDescription
 {
 	private List<ApplicationClassID> applicationClassID;

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sd;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PCCRuleStatusEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RuleFailureCodeEnum;
@@ -52,7 +53,7 @@ import io.netty.buffer.ByteBuf;
 
 	Multiple instances of ADC-Rule-Report AVPs shall be used in the case it is required to report different PCC-Rule-Status or Rule-Failure-Code values for different groups of rules within the same Diameter command.
  */
-@DiameterAvpDefinition(code = 1097L, vendorId = KnownVendorIDs.TGPP_ID, name = "ADC-Rule-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADC_RULE_REPORT, vendorId = VendorIDs.TGPP_ID, name = "ADC-Rule-Report")
 public interface ADCRuleReport extends DiameterGroupedAvp
 {
 	List<ByteBuf> getADCRuleName();

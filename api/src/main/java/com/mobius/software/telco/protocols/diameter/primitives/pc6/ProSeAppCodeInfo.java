@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -41,18 +43,18 @@ import io.netty.buffer.ByteBuf;
 		 { UTC-based-Counter }
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 3835L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-App-Code-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_APP_CODE_INFO, vendorId = VendorIDs.TGPP_ID, name = "ProSe-App-Code-Info")
 public interface ProSeAppCodeInfo extends DiameterGroupedAvp
 {
 	ByteBuf getProSeAppCode();
 	
-	void setProSeAppCode(ByteBuf value);
+	void setProSeAppCode(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getMIC();
 	
-	void setMIC(ByteBuf value);
+	void setMIC(ByteBuf value) throws MissingAvpException;
 	
 	Long getUTCBasedCounter();
 	
-	void setUTCBasedCounter(Long value);
+	void setUTCBasedCounter(Long value) throws MissingAvpException;
 }

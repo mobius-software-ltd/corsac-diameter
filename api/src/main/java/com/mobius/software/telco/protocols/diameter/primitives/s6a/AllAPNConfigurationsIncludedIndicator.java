@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	MODIFIED_ADDED_APN_CONFIGURATIONS_INCLUDED (1)
  */
-@DiameterAvpDefinition(code = 1428L, vendorId = KnownVendorIDs.TGPP_ID, name = "All-APN-Configurations-Included-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.ALL_APN_CONFIGURATIONS_INCLUDED, vendorId = VendorIDs.TGPP_ID, name = "All-APN-Configurations-Included-Indicator")
 public interface AllAPNConfigurationsIncludedIndicator extends DiameterEnumerated<AllAPNConfigurationsIncludedIndicatorEnum>
 {
 }

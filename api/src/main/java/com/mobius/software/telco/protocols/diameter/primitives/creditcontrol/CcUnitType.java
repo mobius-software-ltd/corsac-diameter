@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
          OUTPUT-OCTETS                4
          SERVICE-SPECIFIC-UNITS       5
  */
-@DiameterAvpDefinition(code = 454L, vendorId = -1L, name = "CC-Unit-Type")
+@DiameterAvpDefinition(code = AvpCodes.CC_UNIT_TYPE, vendorId = -1L, name = "CC-Unit-Type")
 public interface CcUnitType extends DiameterEnumerated<CcUnitTypeEnum>
 {
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.ReachabilityType;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.ReachabilityT
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3132L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ReachabilityTypeImpl extends DiameterBitmask32Impl implements ReachabilityType
 {
 	public ReachabilityTypeImpl()
@@ -44,7 +41,7 @@ public class ReachabilityTypeImpl extends DiameterBitmask32Impl implements Reach
 	@Override
 	public void setReachabilityForSMSBit(boolean isOn)
 	{
-		setBit(REACHABILITY_FOR_SMS_BIT, isOn);
+		setBitUnchecked(REACHABILITY_FOR_SMS_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class ReachabilityTypeImpl extends DiameterBitmask32Impl implements Reach
 	@Override
 	public void setReachabilityForDataBit(boolean isOn)
 	{
-		setBit(REACHABILITY_FOR_DATA_BIT, isOn);
+		setBitUnchecked(REACHABILITY_FOR_DATA_BIT, isOn);
 	}
 
 	@Override

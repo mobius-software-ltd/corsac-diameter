@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SGSN-Name AVP is of type DiameterIdentity and it shall contain the Diameter identity of the serving SGSN. For
 	further details on the encoding of this AVP, see IETF RFC 6733 [17].  
  */
-@DiameterAvpDefinition(code = 2409L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "SGSN-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.SGSN_NAME, vendorId = VendorIDs.TGPP_ID, must = false, name = "SGSN-Name")
 public interface SGSNName extends DiameterIdentity
 {
 }

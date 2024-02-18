@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -95,7 +96,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
    6.  ALL_HOST
  */
-@DiameterAvpDefinition(code = 261L, vendorId = -1L, name = "Redirect-Host-Usage")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_HOST_USAGE, vendorId = -1L, name = "Redirect-Host-Usage")
 public interface RedirectHostUsage extends DiameterEnumerated<RedirectHostUsageEnum>
 {
 }

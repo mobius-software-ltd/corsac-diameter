@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The authentication result code is used to identify the result of authenticating the authorization to use a service. The subscriber state, service scenario, subscriber information, and other information about the service are authenticated.
 	For the details, see 3.3.2 Result Codes.
  */
-@DiameterAvpDefinition(code = 30801L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Auth-Result-Code")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.AUTH_RESULT_CODE, vendorId = VendorIDs.HUAWEI_ID, name = "Auth-Result-Code")
 public interface AuthResultCode extends DiameterUnsigned32
 {
 }

@@ -1,4 +1,10 @@
-package com.mobius.software.telco.protocols.diameter.primitives;
+package com.mobius.software.telco.protocols.diameter.exceptions;
+
+import java.util.List;
+
+import com.mobius.software.telco.protocols.diameter.ResultCodes;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -24,18 +30,12 @@ package com.mobius.software.telco.protocols.diameter.primitives;
 *
 */
 
-public class KnownVendorIDs
+public class InvalidAvpLengthException extends DiameterException 
 {
-	public static final long HP_ID = 11;
-	public static final long SUN_ID = 42;
-	public static final long MERIT_ID = 61;
-	public static final long ERICSSON_ID = 193;
-	public static final long US_ROBOTICS_ID = 429;
-	public static final long TGPP2_ID = 5535;
-	public static final long TGPP_ID = 10415;
-	public static final long VODAFONE_ID = 12645;
-	public static final long ETSI_ID = 13019;
-	public static final long CABLE_LABS_ID = 4491;
-	public static final long HUAWEI_ID = 2011;	
-	public static final long ONEM2M_ID = 45687;	
+	private static final long serialVersionUID = 1L;
+
+	public InvalidAvpLengthException(String message, List<DiameterAvp> failedAVPs) 
+	{
+		super(message,  null, ResultCodes.DIAMETER_INVALID_AVP_LENGTH, failedAVPs);
+	}
 }

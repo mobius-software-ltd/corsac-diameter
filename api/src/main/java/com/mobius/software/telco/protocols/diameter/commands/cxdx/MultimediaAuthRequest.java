@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
@@ -53,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 303, request = true, proxyable = true, name="Multimedia-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.MULTIMEDIA_AUTH, request = true, proxyable = true, name="Multimedia-Auth-Request")
 public interface MultimediaAuthRequest extends CxDxRequest
 {
 	OCSupportedFeatures getOCSupportedFeatures();
@@ -62,17 +65,17 @@ public interface MultimediaAuthRequest extends CxDxRequest
 	 		
 	String getPublicIdentity();
 	
-	void setPublicIdentity(String value);
+	void setPublicIdentity(String value) throws MissingAvpException;
 	
 	SIPAuthDataItem getSIPAuthDataItem();
 	
-	void setSIPAuthDataItem(SIPAuthDataItem value);  
+	void setSIPAuthDataItem(SIPAuthDataItem value) throws MissingAvpException;  
 	
 	Long getSIPNumberAuthItems();
 	
-	void setSIPNumberAuthItems(Long value);	
+	void setSIPNumberAuthItems(Long value) throws MissingAvpException;	
 	
 	String getServerName();
 	 
-	void setServerName(String value);
+	void setServerName(String value) throws MissingAvpException;
 }

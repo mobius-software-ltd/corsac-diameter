@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
@@ -52,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.PURFlags;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 321, request = true, proxyable = true, name="Purge-UE-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.PURGE_UE, request = true, proxyable = true, name="Purge-UE-Request")
 public interface PurgeUERequest extends S6aRequest
 {
 	OCSupportedFeatures getOCSupportedFeatures();

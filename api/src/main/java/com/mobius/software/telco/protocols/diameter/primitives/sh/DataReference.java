@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -65,7 +66,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	NOTE: Value 20 is reserved. 
  */
-@DiameterAvpDefinition(code = 703L, vendorId = KnownVendorIDs.TGPP_ID, name = "Data-Reference")
+@DiameterAvpDefinition(code = TgppAvpCodes.DATA_REFERENCE, vendorId = VendorIDs.TGPP_ID, name = "Data-Reference")
 public interface DataReference extends DiameterEnumerated<DataReferenceEnum>
 {
 }

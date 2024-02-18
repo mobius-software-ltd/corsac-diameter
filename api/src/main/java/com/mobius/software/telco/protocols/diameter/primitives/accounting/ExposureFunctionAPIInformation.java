@@ -22,9 +22,10 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 
 import io.netty.buffer.ByteBuf;
@@ -54,7 +55,7 @@ import io.netty.buffer.ByteBuf;
 			[ SCS-AS-Address ]
 			[ TLTRI ] 
  */
-@DiameterAvpDefinition(code = 1316L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Exposure-Function-API-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXPOSURE_FUNCTION_API_INFORMATION, vendorId = VendorIDs.TGPP_ID, must = false, name = "Exposure-Function-API-Information")
 public interface ExposureFunctionAPIInformation extends DiameterAvp
 {
 	List<SupportedFeatures> getSupportedFeatures();

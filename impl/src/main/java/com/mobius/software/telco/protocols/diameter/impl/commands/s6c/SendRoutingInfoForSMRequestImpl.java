@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s6c;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMDeliveryNotIntendedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPMTIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPSMEAImpl;
@@ -49,7 +50,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777312, commandCode = 8388647, request = true)
 public class SendRoutingInfoForSMRequestImpl extends S6cRequestImpl implements SendRoutingInfoForSMRequest
 {
 	private MSISDN msisdn;
@@ -71,7 +71,7 @@ public class SendRoutingInfoForSMRequestImpl extends S6cRequestImpl implements S
 		super();
 	}
 	
-	public SendRoutingInfoForSMRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
+	public SendRoutingInfoForSMRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
 	}

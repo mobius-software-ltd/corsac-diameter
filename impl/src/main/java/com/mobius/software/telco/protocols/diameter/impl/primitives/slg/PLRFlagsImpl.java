@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PLRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.PLRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2545L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PLRFlagsImpl extends DiameterBitmask32Impl implements PLRFlags
 {
 	public PLRFlagsImpl()
@@ -44,7 +41,7 @@ public class PLRFlagsImpl extends DiameterBitmask32Impl implements PLRFlags
 	@Override
 	public void setMOLRShortCircuitIndicatorBit(boolean isOn)
 	{
-		setBit(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
+		setBitUnchecked(MOLR_SHORT_CIRCUIT_INDICATOR_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class PLRFlagsImpl extends DiameterBitmask32Impl implements PLRFlags
 	@Override
 	public void setOptimizedLCSProcReqBit(boolean isOn)
 	{
-		setBit(OPTIMIZED_LCS_PROC_REQ_BIT, isOn);
+		setBitUnchecked(OPTIMIZED_LCS_PROC_REQ_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class PLRFlagsImpl extends DiameterBitmask32Impl implements PLRFlags
 	@Override
 	public void setDelayedLocationReportingSupportIndicatorBit(boolean isOn)
 	{
-		setBit(DELAYED_LOCATION_REPORTING_SUPPORT_INDICATOR_BIT, isOn);
+		setBitUnchecked(DELAYED_LOCATION_REPORTING_SUPPORT_INDICATOR_BIT, isOn);
 	}
 
 	@Override

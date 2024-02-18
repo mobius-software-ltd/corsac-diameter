@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.18	TMGI‑Number AVP
 	The TMGI‑Number AVP (AVP code 3516) is of type Unsigned32 and it indicates a number of requested TMGIs.
  */
-@DiameterAvpDefinition(code = 3516L, vendorId = KnownVendorIDs.TGPP_ID, name = "TMGI‑Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.TMGI_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "TMGI‑Number")
 public interface TMGINumber extends DiameterUnsigned32
 {
 }

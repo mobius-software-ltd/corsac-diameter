@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedCompression;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedCompressionEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedCompres
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 13L, vendorId = -1L)
 public class FramedCompressionImpl extends DiameterEnumeratedImpl<FramedCompressionEnum> implements FramedCompression
 {
 	protected FramedCompressionImpl() 

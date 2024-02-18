@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAuthorizationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a.AuthorizedDiscoveryRangeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeAnnounceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeCommunicationImpl;
@@ -42,7 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.ValidityTimeM
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388668, request = false)
 public class ProSeAuthorizationAnswerImpl extends Pc6AnswerImpl implements ProSeAuthorizationAnswer
 {
 	private ProSeDirectAllowed proSeDirectAllowed;
@@ -60,7 +60,7 @@ public class ProSeAuthorizationAnswerImpl extends Pc6AnswerImpl implements ProSe
 		super();
 	}
 	
-	public ProSeAuthorizationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public ProSeAuthorizationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 	}

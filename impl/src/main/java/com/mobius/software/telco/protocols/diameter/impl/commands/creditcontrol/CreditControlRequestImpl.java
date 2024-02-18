@@ -1,14 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
@@ -21,8 +23,13 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSubSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.MultipleServicesIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedActionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedServiceUnitImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceParameterInfoImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdExtensionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UsedServiceUnitImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UserEquipmentInfoExtensionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
@@ -76,7 +83,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 4, commandCode = 272, request = true)
 public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealmBase implements CreditControlRequest
 {	
 	protected AuthApplicationId authApplicationId;
@@ -136,7 +142,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		setDestinationHostAllowed(false);
 	}
 		
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
 		setDestinationHostAllowed(false);
@@ -150,7 +156,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 		setCcRequestNumber(ccRequestNumber);		
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
 		setDestinationHostAllowed(false);
@@ -217,10 +223,10 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setServiceContextId(String value) 
+	public void setServiceContextId(String value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Context-Id is required");
+			throw new MissingAvpException("Service-Context-Id is required",Arrays.asList(new DiameterAvp[] { new ServiceContextIdImpl() } ));
 		
 		this.serviceContextId = new ServiceContextIdImpl(value, null, null);		
 	}
@@ -235,10 +241,10 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setCcRequestType(CcRequestTypeEnum value) 
+	public void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Type is required");
+			throw new MissingAvpException("CC-Request-Type is required",Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() } ));
 		
 		this.ccRequestType = new CcRequestTypeImpl(value, null, null);		
 	}
@@ -253,10 +259,10 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}
 
 	@Override
-	public void setCcRequestNumber(Long value) 
+	public void setCcRequestNumber(Long value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("CC-Request-Number is required");	
+			throw new MissingAvpException("CC-Request-Number is required",Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() } ));	
 		
 		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
@@ -274,7 +280,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public Long getCcSubSessionId() throws AvpNotSupportedException
 	{
 		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl() } ));
 		
 		if(this.ccSubSessionId==null)
 			return null;
@@ -285,8 +291,8 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	@Override
 	public void setCcSubSessionId(Long value) throws AvpNotSupportedException
 	{
-		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!ccSubSessionIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl(value, null, null) } ));
 		
 		if(value == null)
 			this.ccSubSessionId = null;
@@ -298,7 +304,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public String getAcctMultiSessionId() throws AvpNotSupportedException
 	{
 		if(!acctMultiSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl() } ));
 		
 		if(this.acctMultiSessionId == null)
 			return null;
@@ -309,8 +315,8 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	@Override
 	public void setAcctMultiSessionId(String value) throws AvpNotSupportedException
 	{
-		if(!acctMultiSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!acctMultiSessionIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl(value, null, null) } ));
 		
 		if(value == null)
 			this.acctMultiSessionId = null;
@@ -349,15 +355,21 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public List<SubscriptionIdExtension> getSubscriptionIdExtension() throws AvpNotSupportedException
 	{
 		if(!subscriptionIdExtensionAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new SubscriptionIdExtensionImpl() } ));
 		
 		return subscriptionIdExtension;
 	}
 
 	public void setSubscriptionIdExtension(List<SubscriptionIdExtension> value) throws AvpNotSupportedException
 	{
-		if(!subscriptionIdExtensionAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!subscriptionIdExtensionAllowed && value!=null && value.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(SubscriptionIdExtension curr:value)
+				avps.add(curr);
+			
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
+		}
 		
 		this.subscriptionIdExtension = value;
 	}
@@ -365,7 +377,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public Long getServiceIdentifier() throws AvpNotSupportedException
 	{
 		if(!serviceIdentifierAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceIdentifierImpl() } ));
 		
 		if(serviceIdentifier == null)
 			return null;
@@ -375,8 +387,8 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 
 	public void setServiceIdentifier(Long value) throws AvpNotSupportedException
 	{
-		if(!serviceIdentifierAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!serviceIdentifierAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceIdentifierImpl(value, null, null) } ));
 		
 		if(value == null)
 			this.serviceIdentifier = null;
@@ -403,15 +415,15 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public RequestedServiceUnit getRequestedServiceUnit() throws AvpNotSupportedException 
 	{
 		if(!requestedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RequestedServiceUnitImpl() } ));
 		
 		return requestedServiceUnit;
 	}
 
 	public void setRequestedServiceUnit(RequestedServiceUnit value) throws AvpNotSupportedException
 	{
-		if(!requestedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!requestedServiceUnitAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value } ));
 		
 		this.requestedServiceUnit = value;
 	}
@@ -435,15 +447,21 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public List<UsedServiceUnit> getUsedServiceUnit() throws AvpNotSupportedException 
 	{
 		if(!usedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UsedServiceUnitImpl() } ));
 		
 		return usedServiceUnit;
 	}
 
 	public void setUsedServiceUnit(List<UsedServiceUnit> value) throws AvpNotSupportedException
 	{
-		if(!usedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!usedServiceUnitAllowed && value!=null && value.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(UsedServiceUnit curr:value)
+				avps.add(curr);
+			
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", avps );
+		}
 		
 		this.usedServiceUnit = value;
 	}
@@ -477,15 +495,21 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public List<ServiceParameterInfo> getServiceParameterInfo() throws AvpNotSupportedException
 	{
 		if(!serviceParameterInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceParameterInfoImpl() } ));
 		
 		return serviceParameterInfo;
 	}
 
 	public void setServiceParameterInfo(List<ServiceParameterInfo> value) throws AvpNotSupportedException
 	{
-		if(!serviceParameterInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+		if(!serviceParameterInfoAllowed && value!=null && value.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(ServiceParameterInfo curr:value)
+				avps.add(curr);
+			
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
+		}
 		
 		this.serviceParameterInfo = value;
 	}
@@ -519,7 +543,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public UserEquipmentInfoExtension getUserEquipmentInfoExtension() throws AvpNotSupportedException
 	{
 		if(!userEquipmentInfoExtensionAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UserEquipmentInfoExtensionImpl() } ));
 		
 		return userEquipmentInfoExtension;
 	}
@@ -527,7 +551,7 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	public void setUserEquipmentInfoExtension(UserEquipmentInfoExtension value) throws AvpNotSupportedException
 	{
 		if(!userEquipmentInfoExtensionAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application");
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value } ));
 		
 		this.userEquipmentInfoExtension = value;
 	}
@@ -561,16 +585,58 @@ public class CreditControlRequestImpl extends DiameterRequestWithSessionAndRealm
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(serviceContextId==null)
-			return "Service-Context-Id is required";
+			return new MissingAvpException("Service-Context-Id is required",Arrays.asList(new DiameterAvp[] { new ServiceContextIdImpl() } ));
 		
 		if(ccRequestType==null)
-			return "CC-Request-Type is required";
+			return new MissingAvpException("CC-Request-Type is required",Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() } ));
 		
 		if(ccRequestNumber==null)
-			return "CC-Request-Request is required";
+			return new MissingAvpException("CC-Request-Number is required",Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() } ));	
+		
+		if(!ccSubSessionIdAllowed && ccSubSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { ccSubSessionId } ));
+		
+		if(!acctMultiSessionIdAllowed && acctMultiSessionId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { acctMultiSessionId } ));
+		
+		if(!subscriptionIdExtensionAllowed && subscriptionIdExtension!=null && subscriptionIdExtension.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(SubscriptionIdExtension curr:subscriptionIdExtension)
+				avps.add(curr);
+			
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
+		}
+		
+		if(!serviceIdentifierAllowed && serviceIdentifier!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { serviceIdentifier } ));
+		
+		if(!requestedServiceUnitAllowed && requestedServiceUnit!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { requestedServiceUnit } ));
+		
+		if(!usedServiceUnitAllowed && usedServiceUnit!=null && usedServiceUnit.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(UsedServiceUnit curr:usedServiceUnit)
+				avps.add(curr);
+			
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps );
+		}
+		
+		if(!serviceParameterInfoAllowed && serviceParameterInfo!=null && serviceParameterInfo.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(ServiceParameterInfo curr:serviceParameterInfo)
+				avps.add(curr);
+			
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
+		}
+		
+		if(!userEquipmentInfoExtensionAllowed && userEquipmentInfoExtension!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { userEquipmentInfoExtension } ));
 		
 		return super.validate();
 	}

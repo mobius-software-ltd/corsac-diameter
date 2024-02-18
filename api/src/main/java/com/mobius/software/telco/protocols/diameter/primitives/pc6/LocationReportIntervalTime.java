@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.49	Location-Report-Interval-Time
 	The Location-Report-Interval-Time AVP is of type Unsigned32 and shall contain the number of seconds between successive location reports.
  */
-@DiameterAvpDefinition(code = 3830L, vendorId = KnownVendorIDs.TGPP_ID, name = "Location-Report-Interval-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCATION_REPORT_INTERVAL_TIME, vendorId = VendorIDs.TGPP_ID, name = "Location-Report-Interval-Time")
 public interface LocationReportIntervalTime extends DiameterUnsigned32
 {
 }

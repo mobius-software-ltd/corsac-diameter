@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	It is used in the balance query process. Payment limit that the parent card subscriber assigns to the special child card subscriber if the calling party is a special child card subscriber. If there are multiple payment limit records, only one record is returned. If there is no payment limit, value 0 is returned.
  */
-@DiameterAvpDefinition(code = 21220L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Parent-Limit-Value")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.PARENT_LIMIT_VALUE, vendorId = VendorIDs.HUAWEI_ID, name = "Parent-Limit-Value")
 public interface ParentLimitValue extends DiameterInteger64
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Wildcarded-IMPU AVP is of type UTF8String. This AVP contains a Wildcarded Public User Identity stored in the HSS. 
 	The syntax of the contents of this AVP is described in 3GPP TS 23.003 [13].
  */
-@DiameterAvpDefinition(code = 636L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Wildcarded-IMPU")
+@DiameterAvpDefinition(code = TgppAvpCodes.WILDCARD_IMPU, vendorId = VendorIDs.TGPP_ID, must = false, name = "Wildcarded-IMPU")
 public interface WildcardedIMPU extends DiameterUTF8String
 {
 }

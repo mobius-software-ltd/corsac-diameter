@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    	To compute the Digest authentication, the Diameter server MUST use
    	the Digest-Method AVP instead.
  */
-@DiameterAvpDefinition(code = 393L, vendorId = -1, name = "SIP-Method")
+@DiameterAvpDefinition(code = AvpCodes.SIP_METHOD, vendorId = -1, name = "SIP-Method")
 public interface SIPMethod extends DiameterUTF8String
 {
 }

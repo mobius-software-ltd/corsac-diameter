@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MaximumUEAvailabilityTime;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.MaximumUEAvai
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3329L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MaximumUEAvailabilityTimeImpl extends DiameterTimeImpl implements MaximumUEAvailabilityTime
 {
 	protected MaximumUEAvailabilityTimeImpl()

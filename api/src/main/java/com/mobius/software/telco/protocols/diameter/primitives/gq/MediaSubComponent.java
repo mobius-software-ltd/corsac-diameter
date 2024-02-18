@@ -20,9 +20,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowStatusEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowUsageEnum;
@@ -47,16 +50,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowUsageEnum;
 				[ Max-Requested-Bandwidth-UL ]
 				[ Max-Requested-Bandwidth-DL ]
  */
-@DiameterAvpDefinition(code = 519L, vendorId = KnownVendorIDs.TGPP_ID, name = "Media-Sub-Component")
+@DiameterAvpDefinition(code = TgppAvpCodes.MEDIA_SUBCOMPONENT, vendorId = VendorIDs.TGPP_ID, name = "Media-Sub-Component")
 public interface MediaSubComponent extends DiameterAvp
 {
 	Long getFlowNumber();
 	
-	void setFlowNumber(Long value);
+	void setFlowNumber(Long value) throws MissingAvpException;
 	
 	List<FlowDescription> getFlowDescription();
 	
-	void setFlowDescription(List<FlowDescription> value);
+	void setFlowDescription(List<FlowDescription> value) throws AvpOccursTooManyTimesException;
 	
 	FlowStatusEnum getFlowStatus();
 	

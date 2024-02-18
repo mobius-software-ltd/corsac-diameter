@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.t4;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeviceTriggerAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.MTCErrorDiagnosticImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.TriggerActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.OldReferenceNumberImpl;
@@ -41,7 +42,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.OldReferenceN
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777311, commandCode = 8388643, request = false)
 public class DeviceTriggerAnswerImpl extends T4AnswerImpl implements DeviceTriggerAnswer
 {
 	private MTCErrorDiagnostic mtcErrorDiagnostic;
@@ -56,7 +56,7 @@ public class DeviceTriggerAnswerImpl extends T4AnswerImpl implements DeviceTrigg
 		setExperimentalResultAllowed(false);
 	}
 	
-	public DeviceTriggerAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public DeviceTriggerAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

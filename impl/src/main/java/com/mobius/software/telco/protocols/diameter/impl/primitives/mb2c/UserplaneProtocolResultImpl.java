@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.FECResult;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.ROHCResult;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.UserplaneProtocolResult;
@@ -33,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescriptio
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3529L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UserplaneProtocolResultImpl extends DiameterGroupedAvpImpl implements UserplaneProtocolResult
 {
 	private List<FlowDescription> flowDescription;

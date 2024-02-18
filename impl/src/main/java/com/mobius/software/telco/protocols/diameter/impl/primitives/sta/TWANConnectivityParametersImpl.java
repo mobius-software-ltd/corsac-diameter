@@ -22,13 +22,14 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ServedPartyIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.PDNTypeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServedPartyIPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PDNType;
@@ -47,7 +48,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1528L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TWANConnectivityParametersImpl extends DiameterGroupedAvpImpl implements TWANConnectivityParameters
 {
 	private ConnectivityFlags connectivityFlags;
@@ -125,12 +125,18 @@ public class TWANConnectivityParametersImpl extends DiameterGroupedAvpImpl imple
 		return result;
 	}
 	
-	public void setServedPartyIPAddress(List<InetAddress> value)
+	public void setServedPartyIPAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException
 	{
 		if(value == null || value.size() == 0)
 			this.servedPartyIPAddress = null;
 		else if(value.size() > 2)
-			throw new IllegalArgumentException("Number of Served-Party-IP-Address can not exceed 2");
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			for(InetAddress curr:value)
+				failedAvps.add(new ServedPartyIPAddressImpl(curr, null, null));
+			
+			throw new AvpOccursTooManyTimesException("Up to 2 Served-Party-IP-Address are allowed", failedAvps);
+		}
 		else
 		{
 			this.servedPartyIPAddress = new ArrayList<ServedPartyIPAddress>();
@@ -204,10 +210,14 @@ public class TWANConnectivityParametersImpl extends DiameterGroupedAvpImpl imple
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(servedPartyIPAddress!=null && servedPartyIPAddress.size()>2)
-			return "Number of Served-Party-IP-Address can not exceed 2";
+		{
+			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();
+			failedAvps.addAll(servedPartyIPAddress);
+			return new AvpOccursTooManyTimesException("Up to 2 Served-Party-IP-Address are allowed", failedAvps);
+		}
 		
 		return null;
 	}

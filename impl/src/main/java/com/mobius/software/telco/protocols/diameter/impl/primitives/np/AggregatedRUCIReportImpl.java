@@ -18,13 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledStationIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CalledStationId;
 import com.mobius.software.telco.protocols.diameter.primitives.np.AggregatedCongestionInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.np.AggregatedRUCIReport;
@@ -36,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.CongestionLeve
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4001L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AggregatedRUCIReportImpl extends DiameterGroupedAvpImpl implements AggregatedRUCIReport
 {
 	private List<AggregatedCongestionInfo> aggregatedCongestionInfo;
@@ -52,12 +53,9 @@ public class AggregatedRUCIReportImpl extends DiameterGroupedAvpImpl implements 
 		
 	}
 	
-	public AggregatedRUCIReportImpl(List<AggregatedCongestionInfo> aggregatedCongestionInfo)
+	public AggregatedRUCIReportImpl(List<AggregatedCongestionInfo> aggregatedCongestionInfo) throws MissingAvpException
 	{
-		if(aggregatedCongestionInfo==null || aggregatedCongestionInfo.size()==0)
-			throw new IllegalArgumentException("Aggregated-Congestion-Info is required");
-		
-		this.aggregatedCongestionInfo = aggregatedCongestionInfo;
+		setAggregatedCongestionInfo(aggregatedCongestionInfo);
 	}
 	
 	public List<AggregatedCongestionInfo> getAggregatedCongestionInfo()
@@ -65,11 +63,11 @@ public class AggregatedRUCIReportImpl extends DiameterGroupedAvpImpl implements 
 		return aggregatedCongestionInfo;
 	}
 	
-	public void setAggregatedCongestionInfo(List<AggregatedCongestionInfo> value)
+	public void setAggregatedCongestionInfo(List<AggregatedCongestionInfo> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Aggregated-Congestion-Info is required");
-		
+			throw new MissingAvpException("Aggregated-Congestion-Info is required", Arrays.asList(new DiameterAvp[] { new AggregatedCongestionInfoImpl() }));
+			
 		this.aggregatedCongestionInfo = value;
 	}
 	
@@ -122,10 +120,10 @@ public class AggregatedRUCIReportImpl extends DiameterGroupedAvpImpl implements 
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(aggregatedCongestionInfo == null || aggregatedCongestionInfo.size()==0)
-			return "Aggregated-Congestion-Info is required";
+			return new MissingAvpException("Aggregated-Congestion-Info is required", Arrays.asList(new DiameterAvp[] { new AggregatedCongestionInfoImpl() }));
 		
 		return null;
 	}

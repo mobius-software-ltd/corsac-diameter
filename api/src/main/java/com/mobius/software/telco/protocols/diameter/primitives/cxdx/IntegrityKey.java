@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.28	Integrity-Key AVP
 	The Integrity-Key is of type OctetString, and contains the Integrity Key (IK).
  */
-@DiameterAvpDefinition(code = 626L, vendorId = KnownVendorIDs.TGPP_ID, name = "Integrity-Key")
+@DiameterAvpDefinition(code = TgppAvpCodes.INTEGRITY_KEY, vendorId = VendorIDs.TGPP_ID, name = "Integrity-Key")
 public interface IntegrityKey extends DiameterOctetString
 {
 }

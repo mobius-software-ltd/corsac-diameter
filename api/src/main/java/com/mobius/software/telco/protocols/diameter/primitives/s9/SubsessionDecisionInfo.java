@@ -22,9 +22,12 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerControlModeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleRemove;
@@ -89,16 +92,16 @@ import io.netty.buffer.ByteBuf;
                             *[ QoS-Information ]
                             *[ AVP ]
  */
-@DiameterAvpDefinition(code = 2200L, vendorId = KnownVendorIDs.TGPP_ID, name = "Subsession-Decision-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUBSESSION_DECISION_INFO, vendorId = VendorIDs.TGPP_ID, name = "Subsession-Decision-Info")
 public interface SubsessionDecisionInfo extends DiameterGroupedAvp
 {
 	Long getSubsessionId();
 	
-	void setSubsessionId(Long value);
+	void setSubsessionId(Long value) throws MissingAvpException;
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	public Long getResultCode();
 	

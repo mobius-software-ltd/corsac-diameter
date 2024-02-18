@@ -2,12 +2,15 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.gq;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gq.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AbortCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
@@ -45,7 +48,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.SpecificAction
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777222, commandCode = 258, request = true)
 public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestmpl implements ReAuthRequest
 {
 	private List<SpecificAction> specificAction;
@@ -64,7 +66,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 		super();
 	}
 		
-	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType,List<SpecificActionEnum> specificAction)
+	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType,List<SpecificActionEnum> specificAction) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, reAuthRequestType);
 		
@@ -85,11 +87,11 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 	
 	@Override
-	public void setSpecificAction(List<SpecificActionEnum> value)
+	public void setSpecificAction(List<SpecificActionEnum> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Specific-Action is required");
-		
+			throw new MissingAvpException("Specific-Action is required is required", Arrays.asList(new DiameterAvp[] { new SpecificActionImpl() }));
+			
 		this.specificAction = new ArrayList<SpecificAction>();
 		for(SpecificActionEnum curr:value)
 			this.specificAction.add(new SpecificActionImpl(curr, null, null));
@@ -156,10 +158,10 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(specificAction==null || specificAction.size()==0)
-			return "Specific-Action is required";
+			return new MissingAvpException("Specific-Action is required is required", Arrays.asList(new DiameterAvp[] { new SpecificActionImpl() }));
 		
 		return super.validate();
 	}

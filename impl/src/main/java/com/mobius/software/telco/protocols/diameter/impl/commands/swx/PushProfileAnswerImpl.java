@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.swx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.swx.PushProfileAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.LocalTimeZone;
@@ -35,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.AccessNetwork
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777265, commandCode = 305, request = false)
 public class PushProfileAnswerImpl extends SwxAnswerImpl implements PushProfileAnswer
 {
 	private AccessNetworkInfo accessNetworkInfo;
@@ -48,7 +48,7 @@ public class PushProfileAnswerImpl extends SwxAnswerImpl implements PushProfileA
 		setExperimentalResultAllowed(false);
 	}
 	
-	public PushProfileAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState)
+	public PushProfileAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

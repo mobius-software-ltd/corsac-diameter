@@ -21,12 +21,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.CalledAssertedIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.CalledPartyAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RequestedPartyAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CalledAssertedIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CalledPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RequestedPartyAddress;
@@ -37,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 565L, vendorId = KnownVendorIDs.TGPP_ID)
 public class CalleeInformationImpl extends DiameterGroupedAvpImpl implements CalleeInformation
 {
 	private CalledPartyAddress calledPartyAddress;

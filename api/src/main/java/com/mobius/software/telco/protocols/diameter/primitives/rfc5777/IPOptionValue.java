@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	The IP-Option-Value AVP (AVP Code 539) is of type OctetString and
    	contains the option value that must be matched.
  */
-@DiameterAvpDefinition(code = 539L, vendorId = -1L, name = "IP-Option-Value")
+@DiameterAvpDefinition(code = AvpCodes.IP_OPTION_VALUE, vendorId = -1L, name = "IP-Option-Value")
 public interface IPOptionValue extends DiameterOctetString
 {
 }

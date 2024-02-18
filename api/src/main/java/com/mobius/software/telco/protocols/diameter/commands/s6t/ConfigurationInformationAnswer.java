@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6t;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -74,7 +76,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SupportedServ
 				 [ Suggested-Network-Configuration ]
 				*[AVP]
  */
-@DiameterCommandDefinition(applicationId = 16777345, commandCode = 8388718, request = false, proxyable = true, name="Configuration-Information-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6T, commandCode = CommandCodes.CONFIGURATION_INFORMATION, request = false, proxyable = true, name="Configuration-Information-Answer")
 public interface ConfigurationInformationAnswer extends S6tAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

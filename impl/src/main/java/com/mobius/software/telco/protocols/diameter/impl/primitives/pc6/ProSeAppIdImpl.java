@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.ProSeAppId;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.ProSeAppId;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3811L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ProSeAppIdImpl extends DiameterUTF8StringImpl implements ProSeAppId
 {
 	protected ProSeAppIdImpl()

@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sh;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -62,7 +64,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.RepositoryData
 
 	NOTE:	The Data-Reference AVP may be present in the message only if both the AS and the HSS support the Update-Eff-Enhance feature.
 */
-@DiameterCommandDefinition(applicationId = 16777217, commandCode = 307, request = false, proxyable = true, name="Profile-Update-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SH, commandCode = CommandCodes.PROFILE_UPDATE, request = false, proxyable = true, name="Profile-Update-Answer")
 public interface ProfileUpdateAnswer extends ShAnswer
 {
 	public String getWildcardedPublicIdentity();

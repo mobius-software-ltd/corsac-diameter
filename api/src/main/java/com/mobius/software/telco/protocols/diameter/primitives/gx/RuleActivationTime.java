@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	rule has to be enforced. The AVP is included in Charging-Rule-Install AVP and is applicable for all the PCC rules
 	included within the Charging-Rule-Install AVP. 
 */
-@DiameterAvpDefinition(code = 1043L, vendorId = KnownVendorIDs.TGPP_ID, name = "Rule-Activation-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.RULE_ACTIVATION_TIME, vendorId = VendorIDs.TGPP_ID, name = "Rule-Activation-Time")
 public interface RuleActivationTime extends DiameterTime
 {
 }

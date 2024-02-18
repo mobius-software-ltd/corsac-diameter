@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.177	Coupled-Node-Diameter-ID
 	The Coupled-Node-Diameter-ID AVP is of type DiameterIdentity. This AVP shall contain the S6a or S6d Diameter identity of the coupled node as specified in 3GPP TS 23.003 [3] clause 19.4.2.4 and clause 19.4.2.6.
  */
-@DiameterAvpDefinition(code = 1666L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Coupled-Node-Diameter-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.COUPLED_NODE_DIAMETER_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "Coupled-Node-Diameter-ID")
 public interface CoupledNodeDiameterID extends DiameterIdentity
 {
 }

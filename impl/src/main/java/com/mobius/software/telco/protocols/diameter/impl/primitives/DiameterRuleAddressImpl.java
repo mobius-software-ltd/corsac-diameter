@@ -22,8 +22,10 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.text.ParseException;
+import java.util.Arrays;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
 /**
 *
@@ -46,13 +48,13 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 		
 	}
 	
-	public DiameterRuleAddressImpl(String value) throws ParseException
+	public DiameterRuleAddressImpl(DiameterAvp avp, String value) throws InvalidAvpValueException
 	{
 		this.value = value;
-		parseAddress();
+		parseAddress(avp);
 	}
 		
-	public DiameterRuleAddressImpl(Boolean isAssigned,Boolean isAny,Boolean isInverse) throws IllegalArgumentException 
+	public DiameterRuleAddressImpl(Boolean isAssigned,Boolean isAny,Boolean isInverse) throws InvalidAvpValueException 
 	{
 		this.address = null;
 		this.bits = null;
@@ -61,10 +63,10 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 		this.isAny = isAny;
 		
 		if(isAssigned!=null && isAssigned && isAny!=null && isAny)
-			throw new IllegalArgumentException("both assigned and any can not be true");
+			throw new InvalidAvpValueException("both assigned and any can not be true", Arrays.asList(new DiameterAvp[] {  }));
 		
 		if((isAssigned==null || !isAssigned) && (isAny==null || !isAny))
-			throw new IllegalArgumentException("neither assigned nor any are not true");
+			throw new InvalidAvpValueException("neither assigned nor any are not true", Arrays.asList(new DiameterAvp[] {  }));
 		
 		if(isAssigned!=null && isAssigned)
 		{
@@ -82,7 +84,7 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 		}
 	}
 		
-	public DiameterRuleAddressImpl(InetAddress address,Integer bits,Boolean isInverse) throws IllegalArgumentException 
+	public DiameterRuleAddressImpl(InetAddress address,Integer bits,Boolean isInverse) throws InvalidAvpValueException 
 	{
 		this.address = address;
 		this.bits = bits;
@@ -93,16 +95,16 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 		if(bits!=null)
 		{
 			if(bits<0)
-				throw new IllegalArgumentException("bits can not be negative");
+				throw new InvalidAvpValueException("bits can not be negative", Arrays.asList(new DiameterAvp[] {  }));
 			
 			if(isAssigned!=null && isAssigned && isAny!=null && isAny)
-				throw new IllegalArgumentException("both assigned and any can not be true");
+				throw new InvalidAvpValueException("both assigned and any can not be true", Arrays.asList(new DiameterAvp[] {  }));
 			
 			if(address instanceof Inet4Address && bits>32)
-				throw new IllegalArgumentException("bits for ipv4 can not exceed /32");
+				throw new InvalidAvpValueException("bits for ipv4 can not exceed /32", Arrays.asList(new DiameterAvp[] {  }));
 			
 			if(address instanceof Inet6Address && bits>128)
-				throw new IllegalArgumentException("bits for ipv6 can not exceed /128");
+				throw new InvalidAvpValueException("bits for ipv6 can not exceed /128", Arrays.asList(new DiameterAvp[] {  }));
 			
 			if(isInverse!=null && isInverse)
 				value = "!" + this.address.getHostAddress() + "/" + bits;
@@ -181,7 +183,7 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 		return true;
 	}
 	
-	private void parseAddress() throws ParseException
+	private void parseAddress(DiameterAvp avp) throws InvalidAvpValueException
 	{
 		String remaining=getAddressAsString();
 		this.isInverse=false;
@@ -197,7 +199,7 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 		{
 			String[] segments=remaining.split("/");
 			if(segments.length!=2)
-				throw new ParseException("Invalid address",errorOffset);
+				throw new InvalidAvpValueException("Invalid address" + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { avp }));
 			
 			try 
 			{
@@ -205,11 +207,11 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 			}
 			catch(NumberFormatException ex)
 			{
-				throw new ParseException("Invalid number of bits " + segments[1], errorOffset);					
+				throw new InvalidAvpValueException("Invalid number of bits " + segments[1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { avp }));					
 			}
 			
 			if(bits<=0 || bits>128)
-				throw new ParseException("Invalid number of bits " + segments[1], errorOffset);
+				throw new InvalidAvpValueException("Invalid number of bits " + segments[1] + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { avp }));
 			
 			remaining=segments[0];
 		}
@@ -228,11 +230,11 @@ public class DiameterRuleAddressImpl implements DiameterRuleAddress
 			}
 			catch(UnknownHostException ex)
 			{
-				throw new ParseException("Invalid address " + remaining, errorOffset);				
+				throw new InvalidAvpValueException("Invalid address " + remaining + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { avp }));				
 			}
 			
 			if(this.address instanceof Inet4Address && bits!=null && bits>32)
-				throw new ParseException("Invalid number of bits " + bits, errorOffset);
+				throw new InvalidAvpValueException("Invalid number of bits " + bits + " at offset " + errorOffset, Arrays.asList(new DiameterAvp[] { avp }));
 			
 		}
 	}

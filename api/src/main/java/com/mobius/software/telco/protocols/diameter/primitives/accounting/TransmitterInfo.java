@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -41,7 +42,7 @@ import io.netty.buffer.ByteBuf;
 			[ ProSe-Source-IP-Address ]
 			[ ProSe-UE-ID ]
  */
-@DiameterAvpDefinition(code = 3468L, vendorId = KnownVendorIDs.TGPP_ID, name = "Transmitter-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRANSMITTER_INFO, vendorId = VendorIDs.TGPP_ID, name = "Transmitter-Info")
 public interface TransmitterInfo extends DiameterAvp
 {
 	InetAddress getProSeSourceIPAddress();

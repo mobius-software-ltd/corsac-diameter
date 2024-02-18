@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterEncode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpLengthException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger64;
 
 /*
@@ -91,10 +96,10 @@ public class DiameterInteger64Impl implements DiameterInteger64
 	}
 	
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		if(buffer.readableBytes()<8)
-			return "Avp length is invalid";
+			new InvalidAvpLengthException("AVP Length should be 8 bytes", Arrays.asList(new DiameterAvp[] { this }));
 		
 		value = buffer.readLong();
 		return null;

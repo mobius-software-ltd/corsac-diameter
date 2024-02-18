@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -59,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
          components of the URI are regarded in the authorization
          decision.
  */
-@DiameterAvpDefinition(code = 122L, vendorId = -1, name = "SIP-AOR")
+@DiameterAvpDefinition(code = AvpCodes.SIP_AOR, vendorId = -1, name = "SIP-AOR")
 public interface SIPAOR extends DiameterUTF8String
 {
 }

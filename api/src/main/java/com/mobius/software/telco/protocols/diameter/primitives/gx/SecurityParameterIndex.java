@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Security-Parameter-Index AVP (AVP code 1056) is of type OctetString, and it contains the security parameter
 	index of the IPSec packet. One example is that of a TFT packet filter as defined in 3GPP TS 24.008 [13]. 
  */
-@DiameterAvpDefinition(code = 1056L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Security-Parameter-Index")
+@DiameterAvpDefinition(code = TgppAvpCodes.SECURITY_PAREMETER_INDEX, vendorId = VendorIDs.TGPP_ID, must = false, name = "Security-Parameter-Index")
 public interface SecurityParameterIndex extends DiameterOctetString
 {
 }

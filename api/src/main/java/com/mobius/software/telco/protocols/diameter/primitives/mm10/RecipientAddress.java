@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -33,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
 	Recipient Type = ( "To:" / "Cc:" / "Bcc:" )
 	Recipient = Address ; Address is coded according to the MMS addressing model defined in [6].
  */
-@DiameterAvpDefinition(code = 1108L, vendorId = -1L, name = "Recipient-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.RECIPIENT_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Recipient-Address")
 public interface RecipientAddress extends DiameterUTF8String
 {
 }

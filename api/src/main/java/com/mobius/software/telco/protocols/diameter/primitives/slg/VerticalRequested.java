@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Default value if AVP is not present is: VERTICAL_COORDINATE_IS_NOT_REQUESTED (0).
  */
-@DiameterAvpDefinition(code = 2507L, vendorId = KnownVendorIDs.TGPP_ID, name = "Vertical-Requested")
+@DiameterAvpDefinition(code = TgppAvpCodes.VERTICAL_REQUESTED, vendorId = VendorIDs.TGPP_ID, name = "Vertical-Requested")
 public interface VerticalRequested extends DiameterEnumerated<VerticalRequestedEnum>
 {
 }

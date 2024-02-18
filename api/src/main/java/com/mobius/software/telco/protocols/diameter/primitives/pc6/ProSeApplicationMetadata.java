@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.58	ProSe-Application-Metadata
 	The ProSe-Application-Metadata AVP is of type UTF8String. This AVP shall contain the metadata associated with the ProSe Application ID contained in the Match Report. As defined in 3GPP TS 24.334 [22], the length and contents of the metadata formatted as UTF8-encoded string are out of scope of 3GPP.
  */
-@DiameterAvpDefinition(code = 3853L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Application-Metadata")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_APPLICATION_METADATA, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Application-Metadata")
 public interface ProSeApplicationMetadata extends DiameterUTF8String
 {
 }

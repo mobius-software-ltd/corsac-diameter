@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.45A	MCVideo-Identifier AVP
 	The MCVideo-Identifier AVP (AVP code 562) is of type OctetString, and it includes the name of the MCVideo service provider.
  */
-@DiameterAvpDefinition(code = 562L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MCVideo-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.MC_VIDEO_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "MCVideo-Identifier")
 public interface MCVideoIdentifier extends DiameterOctetString
 {
 }

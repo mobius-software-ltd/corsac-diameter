@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	MODIFIED_ADDED_PDP CONTEXTS_INCLUDED (1)
  */
-@DiameterAvpDefinition(code = 1468L, vendorId = KnownVendorIDs.TGPP_ID, name = "Complete-Data-List-Included-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.COMPLETE_DATA_LIST_INCLUDED_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "Complete-Data-List-Included-Indicator")
 public interface CompleteDataListIncludedIndicator extends DiameterEnumerated<CompleteDataListIncludedIndicatorEnum>
 {
 }

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingSubSessionId;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 287L, vendorId = -1L)
 public class AccountingSubSessionIdImpl extends DiameterUnsigned64Impl implements AccountingSubSessionId
 {
-	protected AccountingSubSessionIdImpl() 
+	public AccountingSubSessionIdImpl() 
 	{
 		super();
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	N (Congestion level n):
 	These values indicate that there is congestion. The value n is an integer between 1 and 31 and indicates a congestion level. The value 1 is the lowest congestion level and value 31 is the highest congestion level.
  */
-@DiameterAvpDefinition(code = 4005L, vendorId = KnownVendorIDs.TGPP_ID, name = "Congestion-Level-Value")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONGESTION_LEVEL_VALUE, vendorId = VendorIDs.TGPP_ID, name = "Congestion-Level-Value")
 public interface CongestionLevelValue extends DiameterUnsigned32
 {
 }

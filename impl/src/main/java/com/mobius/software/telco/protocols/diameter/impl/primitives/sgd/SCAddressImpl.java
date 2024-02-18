@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterE164AddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SCAddress;
 
 /**
@@ -28,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.SCAddress;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3300L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SCAddressImpl extends DiameterE164AddressImpl implements SCAddress
 {
-	protected SCAddressImpl()
+	public SCAddressImpl()
 	{
 		super();
 	}

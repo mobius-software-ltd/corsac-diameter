@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SGWAddress;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SGWAdd
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2067L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SGWAddressImpl extends DiameterAddressImpl implements SGWAddress
 {
 	protected SGWAddressImpl()

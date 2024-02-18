@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	that the AoC function would like to get the AoC information. It is specified by using the numeric values defined in the
 	ISO 4217 standard, refer RFC 4006 [402]. 
  */
-@DiameterAvpDefinition(code = 2315L, vendorId = KnownVendorIDs.TGPP_ID, name = "Preferred-AoC-Currency")
+@DiameterAvpDefinition(code = TgppAvpCodes.PREFERRED_AOC_CURRENCY, vendorId = VendorIDs.TGPP_ID, name = "Preferred-AoC-Currency")
 public interface PreferredAoCCurrency extends DiameterUnsigned32
 {
 }

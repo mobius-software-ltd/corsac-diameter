@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PC5LinkAMBR;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PC5QoSFlow;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UEPC5QoS;
@@ -33,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.UEPC5QoS;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1711L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UEPC5QoSImpl extends DiameterGroupedAvpImpl implements UEPC5QoS
 {
 	private List<PC5QoSFlow> pc5QoSFlow;
@@ -45,12 +46,9 @@ public class UEPC5QoSImpl extends DiameterGroupedAvpImpl implements UEPC5QoS
 		
 	}
 	
-	public UEPC5QoSImpl(List<PC5QoSFlow> pc5QoSFlow)
+	public UEPC5QoSImpl(List<PC5QoSFlow> pc5QoSFlow) throws MissingAvpException
 	{
-		if(pc5QoSFlow == null || pc5QoSFlow.size()==0)
-			throw new IllegalArgumentException("PC5-QoS-Flow is required");
-		
-		this.pc5QoSFlow = pc5QoSFlow;
+		setPC5QoSFlow(pc5QoSFlow);
 	}
 	
 	public List<PC5QoSFlow> getPC5QoSFlow()
@@ -58,10 +56,10 @@ public class UEPC5QoSImpl extends DiameterGroupedAvpImpl implements UEPC5QoS
 		return pc5QoSFlow;
 	}
 	
-	public void setPC5QoSFlow(List<PC5QoSFlow> value)
+	public void setPC5QoSFlow(List<PC5QoSFlow> value) throws MissingAvpException
 	{
 		if(value == null || value.size()==0)
-			throw new IllegalArgumentException("PC5-QoS-Flow is required");
+			throw new MissingAvpException("PC5-QoS-Flow is required is required", Arrays.asList(new DiameterAvp[] { new PC5QoSFlowImpl() }));
 		
 		this.pc5QoSFlow = value;
 	}
@@ -83,10 +81,10 @@ public class UEPC5QoSImpl extends DiameterGroupedAvpImpl implements UEPC5QoS
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(pc5QoSFlow==null || pc5QoSFlow.size()==0)
-			return "PC5-QoS-Flow is required";
+			return new MissingAvpException("PC5-QoS-Flow is required is required", Arrays.asList(new DiameterAvp[] { new PC5QoSFlowImpl() }));
 		
 		return null;
 	}

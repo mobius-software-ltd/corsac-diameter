@@ -20,9 +20,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,12 +46,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	If not included, the default value of Prioritized-List-Indicator shall be considered as "NOT_PRIORITIZED" (0).
  */
-@DiameterAvpDefinition(code = 2543L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Reporting-PLMN-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPORTING_PLMN_LIST, vendorId = VendorIDs.TGPP_ID, must = false, name = "Reporting-PLMN-List")
 public interface ReportingPLMNList extends DiameterGroupedAvp
 {
 	List<PLMNIDList> getPLMNIDList();
 	
-	void setPLMNIDList(List<PLMNIDList> value);
+	void setPLMNIDList(List<PLMNIDList> value) throws MissingAvpException, AvpOccursTooManyTimesException;
 	
 	PrioritizedListIndicatorEnum getPrioritizedListIndicator();
 	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -48,7 +49,7 @@ import io.netty.buffer.ByteBuf;
 		[ Presence-Reporting-Area-Node ]
 	   *[ AVP ]
  */
-@DiameterAvpDefinition(code = 2822L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Presence-Reporting-Area-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.PRESENCE_REPORTING_AREA_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Presence-Reporting-Area-Information")
 public interface PresenceReportingAreaInformation extends DiameterGroupedAvp
 {
 	ByteBuf getPresenceReportingAreaIdentifier();

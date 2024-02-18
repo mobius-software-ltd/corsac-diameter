@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.t6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfiguration;
@@ -58,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEve
 				*[ Route-Record ]
 				*[AVP]
  */
-@DiameterCommandDefinition(applicationId = 16777346, commandCode = 8388718, request = true, proxyable = true, name="Configuration-Information-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T6A, commandCode = CommandCodes.CONFIGURATION_INFORMATION, request = true, proxyable = true, name="Configuration-Information-Request")
 public interface ConfigurationInformationRequest extends T6aRequest
 {
 	List<MonitoringEventConfiguration> getMonitoringEventConfiguration();

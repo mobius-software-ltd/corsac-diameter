@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -53,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Note 4:	Applicability: Bits marked with a supported feature (e.g. "Device-Trigger-Recall-Replace") are applicable as described in clause 6.4.12.
  */
-@DiameterAvpDefinition(code = 3012L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Feature-Supported-In-Final-Target")
+@DiameterAvpDefinition(code = TgppAvpCodes.FEATURE_SUPPORTED_IN_FINAL_TARGET, vendorId = VendorIDs.TGPP_ID, must = false, name = "Feature-Supported-In-Final-Target")
 public interface FeatureSupportedInFinalTarget extends DiameterUnsigned32
 {
 }

@@ -1,17 +1,21 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6t;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.GroupReportingGuardTimerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AESECommunicationPattern;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AdditionalIdentifiers;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.CIRFlags;
@@ -44,7 +48,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SuggestedNetw
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777345, commandCode = 8388718, request = true)
 public class ConfigurationInformationRequestImpl extends S6tRequestImpl implements ConfigurationInformationRequest
 {
 	private UserIdentifier userIdentifier;
@@ -70,7 +73,7 @@ public class ConfigurationInformationRequestImpl extends S6tRequestImpl implemen
 		super();
 	}
 	
-	public ConfigurationInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier)
+	public ConfigurationInformationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -87,11 +90,11 @@ public class ConfigurationInformationRequestImpl extends S6tRequestImpl implemen
 	}
 	
 	@Override
-	public void setUserIdentifier(UserIdentifier value)
+	public void setUserIdentifier(UserIdentifier value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identifier is required");
-		
+			throw new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
+			
 		this.userIdentifier = value;
 	}		
 	
@@ -198,10 +201,10 @@ public class ConfigurationInformationRequestImpl extends S6tRequestImpl implemen
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userIdentifier == null)
-			return "User-Identifier is required";
+			return new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		return super.validate();
 	}			

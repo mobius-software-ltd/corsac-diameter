@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.170	Positioning-Method
 	The Positioning-Method AVP is of type OctetString. It contains one octet carrying a bit map of 8 bits. The possible values are those defined in 3GPP TS 32.422 [23] for Positioning Method.
  */
-@DiameterAvpDefinition(code = 1659L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Positioning-Method")
+@DiameterAvpDefinition(code = TgppAvpCodes.POSITIONING_METHOD, vendorId = VendorIDs.TGPP_ID, must = false, name = "Positioning-Method")
 public interface PositioningMethod extends DiameterUnsigned32
 {
 }

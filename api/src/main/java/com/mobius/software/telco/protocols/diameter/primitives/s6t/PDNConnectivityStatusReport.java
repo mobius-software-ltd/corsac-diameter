@@ -21,9 +21,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NonIPDataDeliveryMechanismEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.NonIPPDNTypeIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.PDNTypeEnum;
@@ -66,16 +69,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.PDNTypeEnum;
 	
 	For the IPv6 prefix, the lower 64 bits of the address shall be set to zero.
  */
-@DiameterAvpDefinition(code = 3181L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PDN-Connectivity-Status-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDN_CONNECTIVITY_STATUS_REPORT, vendorId = VendorIDs.TGPP_ID, must = false, name = "PDN-Connectivity-Status-Report")
 public interface PDNConnectivityStatusReport extends DiameterGroupedAvp
 {
 	String getServiceSelection();
 	
-	void setServiceSelection(String value);	
+	void setServiceSelection(String value) throws MissingAvpException;	
 	
 	PDNConnectivityStatusTypeEnum getPDNConnectivityStatusType();
 	
-	void setPDNConnectivityStatusType(PDNConnectivityStatusTypeEnum value);
+	void setPDNConnectivityStatusType(PDNConnectivityStatusTypeEnum value) throws MissingAvpException;
 	
 	PDNTypeEnum getPDNType();
 	
@@ -91,5 +94,5 @@ public interface PDNConnectivityStatusReport extends DiameterGroupedAvp
 	
 	List<InetAddress> getServedPartyIPAddress();
 	
-	void setServedPartyIPAddress(List<InetAddress> value);
+	void setServedPartyIPAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 }

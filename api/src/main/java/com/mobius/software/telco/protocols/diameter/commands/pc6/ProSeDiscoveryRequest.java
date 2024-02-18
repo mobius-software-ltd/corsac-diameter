@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.DiscoveryAuthRequest;
 
 /**
@@ -49,12 +52,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.DiscoveryAuth
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777340, commandCode = 8388669, request = true, proxyable = true, name="ProSe-Discovery-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC6, commandCode = CommandCodes.PROSE_DISCOVERY, request = true, proxyable = true, name="ProSe-Discovery-Request")
 public interface ProSeDiscoveryRequest extends Pc6Request
 {
 	DiscoveryAuthRequest getDiscoveryAuthRequest();
 	
-	void setDiscoveryAuthRequest(DiscoveryAuthRequest value);
+	void setDiscoveryAuthRequest(DiscoveryAuthRequest value) throws MissingAvpException;
 	
 	Long getDiscoveryEntryID();
 	

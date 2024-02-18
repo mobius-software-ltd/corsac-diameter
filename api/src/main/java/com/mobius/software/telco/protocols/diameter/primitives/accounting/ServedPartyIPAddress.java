@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	called party, depending on whether the P-CSCF is in touch with the calling or the called party. This AVP is only
 	provided by the P-CSCF. 
  */
-@DiameterAvpDefinition(code = 848L, vendorId = KnownVendorIDs.TGPP_ID, name = "Served-Party-IP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVED_PARTY_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Served-Party-IP-Address")
 public interface ServedPartyIPAddress extends DiameterAddress
 {
 }

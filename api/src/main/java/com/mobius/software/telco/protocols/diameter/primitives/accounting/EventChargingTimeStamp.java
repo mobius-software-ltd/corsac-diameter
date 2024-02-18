@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Event-Charging-TimeStamp AVP (AVP code 1258) is of type Time, and it holds the timestamp of the event
 	reported in the CC-Service-Specific-Units AVP when event based charging applies. 
  */
-@DiameterAvpDefinition(code = 1258L, vendorId = KnownVendorIDs.TGPP_ID, name = "Event-Charging-TimeStamp")
+@DiameterAvpDefinition(code = TgppAvpCodes.EVENT_CHARGING_TIMESTAMP, vendorId = VendorIDs.TGPP_ID, name = "Event-Charging-TimeStamp")
 public interface EventChargingTimeStamp extends DiameterTime
 {
 }

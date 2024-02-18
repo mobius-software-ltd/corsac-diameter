@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.CallIDSIPHeader;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.Contact;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.FromSIPHeader;
@@ -36,7 +39,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 642L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SubscriptionInfoImpl extends DiameterGroupedAvpImpl implements SubscriptionInfo
 {
 	private CallIDSIPHeader callIDSIPHeader;
@@ -54,32 +56,17 @@ public class SubscriptionInfoImpl extends DiameterGroupedAvpImpl implements Subs
 		
 	}
 	
-	public SubscriptionInfoImpl(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf recordRoute,ByteBuf contact)
+	public SubscriptionInfoImpl(ByteBuf callIDSIPHeader,ByteBuf fromSIPHeader,ByteBuf toSIPHeader,ByteBuf recordRoute,ByteBuf contact) throws MissingAvpException
 	{
-		if(callIDSIPHeader==null)
-			throw new IllegalArgumentException("Call-ID-SIP-Header is required");
+		setCallIDSIPHeader(callIDSIPHeader);
 		
-		if(fromSIPHeader==null)
-			throw new IllegalArgumentException("From-SIP-Header is required");
+		setFromSIPHeader(fromSIPHeader);
 		
-		if(toSIPHeader==null)
-			throw new IllegalArgumentException("To-SIP-Header is required");
+		setToSIPHeader(toSIPHeader);
 		
-		if(recordRoute==null)
-			throw new IllegalArgumentException("Record-Route is required");
+		setRecordRoute(recordRoute);
 		
-		if(contact==null)
-			throw new IllegalArgumentException("Contact is required");
-		
-		this.callIDSIPHeader = new CallIDSIPHeaderImpl(callIDSIPHeader, null, null);
-		
-		this.fromSIPHeader = new FromSIPHeaderImpl(fromSIPHeader, null, null);
-		
-		this.toSIPHeader = new ToSIPHeaderImpl(toSIPHeader, null, null);
-		
-		this.recordRoute = new RecordRouteImpl(recordRoute, null, null);
-		
-		this.contact = new ContactImpl(contact, null, null);
+		setContact(contact);
 	}
 	
 	public ByteBuf getCallIDSIPHeader()
@@ -90,10 +77,10 @@ public class SubscriptionInfoImpl extends DiameterGroupedAvpImpl implements Subs
 		return callIDSIPHeader.getValue();
 	}
 	
-	public void setCallIDSIPHeader(ByteBuf value)
+	public void setCallIDSIPHeader(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Call-ID-SIP-Header is required");
+			throw new MissingAvpException("Call-ID-SIP-Header is required is required", Arrays.asList(new DiameterAvp[] { new CallIDSIPHeaderImpl() }));
 		
 		this.callIDSIPHeader = new CallIDSIPHeaderImpl(value, null, null);
 	}
@@ -106,10 +93,10 @@ public class SubscriptionInfoImpl extends DiameterGroupedAvpImpl implements Subs
 		return fromSIPHeader.getValue();
 	}
 	
-	public void setFromSIPHeader(ByteBuf value)
+	public void setFromSIPHeader(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("From-SIP-Header is required");
+			throw new MissingAvpException("From-SIP-Header is required is required", Arrays.asList(new DiameterAvp[] { new FromSIPHeaderImpl() }));
 		
 		this.fromSIPHeader = new FromSIPHeaderImpl(value, null, null);
 	}
@@ -122,10 +109,10 @@ public class SubscriptionInfoImpl extends DiameterGroupedAvpImpl implements Subs
 		return toSIPHeader.getValue();
 	}
 	
-	public void setToSIPHeader(ByteBuf value)
+	public void setToSIPHeader(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("To-SIP-Header is required");
+			throw new MissingAvpException("To-SIP-Header is required is required", Arrays.asList(new DiameterAvp[] { new ToSIPHeaderImpl() }));			
 		
 		this.toSIPHeader = new ToSIPHeaderImpl(value, null, null);
 	}
@@ -139,10 +126,10 @@ public class SubscriptionInfoImpl extends DiameterGroupedAvpImpl implements Subs
 	}
 	
 	
-	public void setRecordRoute(ByteBuf value)
+	public void setRecordRoute(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Record-Route is required");
+			throw new MissingAvpException("Record-Route is required is required", Arrays.asList(new DiameterAvp[] { new RecordRouteImpl() }));
 		
 		this.recordRoute = new RecordRouteImpl(value, null, null);
 	}
@@ -155,31 +142,31 @@ public class SubscriptionInfoImpl extends DiameterGroupedAvpImpl implements Subs
 		return contact.getValue();
 	}
 	
-	public void setContact(ByteBuf value)
+	public void setContact(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Contact is required");
+			throw new MissingAvpException("Contact is required is required", Arrays.asList(new DiameterAvp[] { new ContactImpl() }));
 		
 		this.contact = new ContactImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(callIDSIPHeader==null)
-			return "Call-ID-SIP-Header is required";
+			return new MissingAvpException("Call-ID-SIP-Header is required is required", Arrays.asList(new DiameterAvp[] { new CallIDSIPHeaderImpl() }));
 		
 		if(fromSIPHeader==null)
-			return "From-SIP-Header is required";
+			return new MissingAvpException("From-SIP-Header is required is required", Arrays.asList(new DiameterAvp[] { new FromSIPHeaderImpl() }));
 		
 		if(toSIPHeader==null)
-			return "To-SIP-Header is required";
+			return new MissingAvpException("To-SIP-Header is required is required", Arrays.asList(new DiameterAvp[] { new ToSIPHeaderImpl() }));
 		
 		if(recordRoute==null)
-			return "Record-Route is required";
+			return new MissingAvpException("Record-Route is required is required", Arrays.asList(new DiameterAvp[] { new RecordRouteImpl() }));
 		
 		if(contact==null)
-			return "Contact is required";
+			return new MissingAvpException("Contact is required is required", Arrays.asList(new DiameterAvp[] { new ContactImpl() }));
 		
 		return null;
 	}

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	    - 1: yes
 
  */
-@DiameterAvpDefinition(code = 20917L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Fav-Area-Flag")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.FAV_AREA_FLAG, vendorId = VendorIDs.HUAWEI_ID, name = "Fav-Area-Flag")
 public interface FavAreaFlag extends DiameterUnsigned32
 {
 }

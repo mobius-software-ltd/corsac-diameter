@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.243	PC5-Link-AMBR
 	The PC5-Link-AMBR AVP is of type Integer32. It indicates t the PC5 Link Aggregated Bit Rates for all the Non-GBR QoS Flows. The unit of PC5-Link-AMBR is bits/s.
  */
-@DiameterAvpDefinition(code = 1718L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PC5-Link-AMBR")
+@DiameterAvpDefinition(code = TgppAvpCodes.PC5_LINK_AMBR, vendorId = VendorIDs.TGPP_ID, must = false, name = "PC5-Link-AMBR")
 public interface PC5LinkAMBR extends DiameterInteger32
 {
 }

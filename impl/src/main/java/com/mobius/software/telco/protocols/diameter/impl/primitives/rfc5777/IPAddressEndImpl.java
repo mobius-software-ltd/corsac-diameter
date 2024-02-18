@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPAddressEnd;
 
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPAddress
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 521L, vendorId = -1L)
 public class IPAddressEndImpl extends DiameterAddressImpl implements IPAddressEnd
 {
 	protected IPAddressEndImpl() 

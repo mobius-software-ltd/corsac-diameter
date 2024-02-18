@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AESECommunicationPattern;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfiguration;
@@ -96,7 +98,7 @@ import io.netty.buffer.ByteBuf;
 	The APN-OI-Replacement included in this grouped AVP shall include the UE level APN-OI-Replacement associated to the user's subscription.
 	When multiple External Identifiers are defined for the same subscription, the External-Identifier in this grouped AVP shall contain a default External Identifier determined by the HSS.
  */
-@DiameterAvpDefinition(code = 1400L, vendorId = KnownVendorIDs.TGPP_ID, name = "Subscription-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.SUBSCRIPTION_DATA, vendorId = VendorIDs.TGPP_ID, name = "Subscription-Data")
 public interface SubscriptionData extends DiameterGroupedAvp
 {
 	SubscriberStatusEnum getSubscriberStatus();
@@ -133,7 +135,7 @@ public interface SubscriptionData extends DiameterGroupedAvp
 	
 	List<ByteBuf> getRegionalSubscriptionZoneCode();
 	
-	void setRegionalSubscriptionZoneCode(List<ByteBuf> value);
+	void setRegionalSubscriptionZoneCode(List<ByteBuf> value) throws AvpOccursTooManyTimesException;
 	
 	AccessRestrictionData getAccessRestrictionData();
 	

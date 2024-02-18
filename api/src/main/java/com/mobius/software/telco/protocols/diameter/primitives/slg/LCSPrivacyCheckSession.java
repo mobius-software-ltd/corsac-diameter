@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,10 +40,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Default value if AVP is not present is that AVP LCS-Privacy-Check take value: NOT_ALLOWED (4).
  */
-@DiameterAvpDefinition(code = 2522L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Privacy-Check-Session")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_PRIVACY_CHECK_SESSION, vendorId = VendorIDs.TGPP_ID, name = "LCS-Privacy-Check-Session")
 public interface LCSPrivacyCheckSession extends DiameterAvp
 {
 	LCSPrivacyCheckEnum getLCSPrivacyCheck();
 	
-	void setLCSPrivacyCheck(LCSPrivacyCheckEnum value);
+	void setLCSPrivacyCheck(LCSPrivacyCheckEnum value) throws MissingAvpException;
 }

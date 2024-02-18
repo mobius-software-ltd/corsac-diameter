@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Extended-Min-Requested-BW-DL AVP (AVP code 560) is of type Unsigned32, and it indicates the minimum requested bandwidth in kbit per second for a downlink IP flow. The bandwidth contains all the overhead coming from the IP-layer and the layers above, e.g. IP, TCP, UDP, HTTP, RTP and RTP payload.
 	When provided in an AA-Request, it indicates the minimum requested bandwidth.
  */
-@DiameterAvpDefinition(code = 560L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Extended-Min-Requested-BW-DL")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXTENDED_MIN_REQUESTED_BW_DL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Extended-Min-Requested-BW-DL")
 public interface ExtendedMinRequestedBWDL extends DiameterUnsigned32
 {
 }

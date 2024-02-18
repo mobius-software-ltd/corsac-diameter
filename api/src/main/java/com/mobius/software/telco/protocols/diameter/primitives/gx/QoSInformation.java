@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -77,7 +78,7 @@ import io.netty.buffer.ByteBuf;
 		*[ Conditional-APN-Aggregate-Max-Bitrate ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1016L, vendorId = KnownVendorIDs.TGPP_ID, name = "QoS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.QOS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "QoS-Information")
 public interface QoSInformation extends DiameterGroupedAvp
 {
 	QoSClassIdentifierEnum getQoSClassIdentifier();

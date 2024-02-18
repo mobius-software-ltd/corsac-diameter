@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIdentityImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.MMERealm;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.MMERealm;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2408L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MMERealmImpl extends DiameterIdentityImpl implements MMERealm
 {
 	protected MMERealmImpl()

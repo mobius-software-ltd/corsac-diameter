@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    for this AVP are managed by IANA under the Protocol Numbers registry
    as defined in [RFC2780].
  */
-@DiameterAvpDefinition(code = 513L, vendorId = -1L, name = "Protocol")
+@DiameterAvpDefinition(code = AvpCodes.PROTOCOL, vendorId = -1L, name = "Protocol")
 public interface Protocol extends DiameterEnumerated<ProtocolEnum>
 {
 }

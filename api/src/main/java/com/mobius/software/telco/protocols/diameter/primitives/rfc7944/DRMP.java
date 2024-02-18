@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc7944;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -80,7 +81,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
    PRIORITY_0 0  Priority 0 is the highest priority.
  */
-@DiameterAvpDefinition(code = 301L, vendorId = -1L, must = false, name = "DRMP")
+@DiameterAvpDefinition(code = AvpCodes.DRMP, vendorId = -1L, must = false, name = "DRMP")
 public interface DRMP extends DiameterEnumerated<DRMPEnum>
 {
 }

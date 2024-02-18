@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gq;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.FlowGrouping;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaComponentDescription;
@@ -51,7 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaComponent
 				*[ AVP ]
 
  */
-@DiameterCommandDefinition(applicationId = 16777222, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GQ, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	List<MediaComponentDescription> getMediaComponentDescription();

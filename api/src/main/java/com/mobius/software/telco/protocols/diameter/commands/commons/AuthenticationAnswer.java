@@ -18,11 +18,12 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHostUsageEnum;
 
 /**
@@ -35,11 +36,11 @@ public abstract interface AuthenticationAnswer extends DiameterAnswer
 {
 	public Long getAuthApplicationId();
 	
-	void setAuthApplicationId(Long value) throws AvpNotSupportedException;
+	void setAuthApplicationId(Long value) throws AvpNotSupportedException, MissingAvpException;
 	
 	public List<String> getRedirectHost();
 	
-	void setRedirectHost(List<String> value) throws ParseException;
+	void setRedirectHost(List<String> value) throws InvalidAvpValueException;
 
 	public RedirectHostUsageEnum getRedirectHostUsage();
 	

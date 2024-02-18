@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	-	SM_STATUS_REPORT (1)  
  */
-@DiameterAvpDefinition(code = 3308L, vendorId = KnownVendorIDs.TGPP_ID, name = "SM-RP-MTI")
+@DiameterAvpDefinition(code = TgppAvpCodes.SM_RP_MTI, vendorId = VendorIDs.TGPP_ID, name = "SM-RP-MTI")
 public interface SMRPMTI extends DiameterEnumerated<SMRPMTIEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	1 (PON):
 		This value shall be used to indicate PON line.
  */
-@DiameterAvpDefinition(code = 581L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Line-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.LINE_TYPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Line-Type")
 public interface LineType extends DiameterEnumerated<LineTypeEnum>
 {
 }

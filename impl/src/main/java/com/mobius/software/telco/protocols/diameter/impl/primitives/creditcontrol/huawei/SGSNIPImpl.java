@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.SGSNIP;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20671L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class SGSNIPImpl extends DiameterAddressImpl implements SGSNIP
 {
 	protected SGSNIPImpl()

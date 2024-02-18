@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    disconnected.  This AVP is primarily intended for use when the
    Framed-Protocol AVP (Section 4.4.10.1) is set to ARAP.
  */
-@DiameterAvpDefinition(code = 75L, vendorId = -1L, name = "Password-Retry")
+@DiameterAvpDefinition(code = AvpCodes.PASSWORD_RETRY, vendorId = -1L, name = "Password-Retry")
 public interface PasswordRetry extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  		This value indicates that redirection is enabled for a detected application's traffic. This is the default value
 		applicable if a Redirect-Information AVP is provided for the first time and if this AVP is not supplied. 
  */
-@DiameterAvpDefinition(code = 1086L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Redirect-Support")
+@DiameterAvpDefinition(code = TgppAvpCodes.REDIRECT_SUPPORT, vendorId = VendorIDs.TGPP_ID, must = false, name = "Redirect-Support")
 public interface RedirectSupport extends DiameterEnumerated<RedirectSupportEnum>
 {
 }

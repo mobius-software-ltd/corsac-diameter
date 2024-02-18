@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.ROHCResult;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.ROHCResult;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3530L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 {
 	public ROHCResultImpl()
@@ -44,7 +41,7 @@ public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 	@Override
 	public void setSuccessBit(boolean isOn)
 	{
-		setBit(SUCCESS_BIT, isOn);
+		setBitUnchecked(SUCCESS_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 	@Override
 	public void setTryingBit(boolean isOn)
 	{
-		setBit(TRYING_BIT, isOn);
+		setBitUnchecked(TRYING_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 	@Override
 	public void setAuthorizationRejectBit(boolean isOn)
 	{
-		setBit(AUTHORIZATION_REJECTED_BIT, isOn);
+		setBitUnchecked(AUTHORIZATION_REJECTED_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 	@Override
 	public void setResourcesExceededBit(boolean isOn)
 	{
-		setBit(RESOURCED_EXCEEDED_BIT, isOn);
+		setBitUnchecked(RESOURCED_EXCEEDED_BIT, isOn);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 	@Override
 	public void setUnknownProfileBit(boolean isOn)
 	{
-		setBit(UNKNOWN_PROFILE_BIT, isOn);
+		setBitUnchecked(UNKNOWN_PROFILE_BIT, isOn);
 	}
 
 	@Override
@@ -104,7 +101,7 @@ public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 	@Override
 	public void setSystemErrorBit(boolean isOn)
 	{
-		setBit(SYSTEM_ERROR_BIT, isOn);
+		setBitUnchecked(SYSTEM_ERROR_BIT, isOn);
 	}
 
 	@Override
@@ -116,7 +113,7 @@ public class ROHCResultImpl extends DiameterBitmask32Impl implements ROHCResult
 	@Override
 	public void setNoTrafficBit(boolean isOn)
 	{
-		setBit(NO_TRAFFIC_BIT, isOn);
+		setBitUnchecked(NO_TRAFFIC_BIT, isOn);
 	}
 
 	@Override

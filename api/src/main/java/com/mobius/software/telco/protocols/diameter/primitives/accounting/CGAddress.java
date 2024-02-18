@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.36 CG-Address AVP
 	The CG-Address AVP (AVP code 846) is of type Address and holds the IP-address of the charging gateway. 
  */
-@DiameterAvpDefinition(code = 846L, vendorId = KnownVendorIDs.TGPP_ID, name = "CG-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.CG_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "CG-Address")
 public interface CGAddress extends DiameterAddress
 {
 }

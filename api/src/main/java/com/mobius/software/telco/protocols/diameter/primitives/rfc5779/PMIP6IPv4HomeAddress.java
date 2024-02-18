@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5779;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
    the HAAA, then the AVP contains the HAAA assigned IPv4-MN-HoA in the
    response message.
  */
-@DiameterAvpDefinition(code = 505L, vendorId = -1L, name = "PMIP6-IPv4-Home-Address")
+@DiameterAvpDefinition(code = AvpCodes.PMIP6_IPV4_HOME_ADDRESS, vendorId = -1L, name = "PMIP6-IPv4-Home-Address")
 public interface PMIP6IPv4HomeAddress extends DiameterAddress
 {
 }

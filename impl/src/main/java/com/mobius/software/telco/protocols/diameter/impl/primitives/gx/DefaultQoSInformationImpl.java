@@ -18,11 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MaxRequestedBandwidthDLImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MaxRequestedBandwidthULImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultQoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultQoSName;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdentifier;
@@ -35,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.MaxRequestedBa
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2816L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DefaultQoSInformationImpl extends DiameterGroupedAvpImpl implements DefaultQoSInformation
 {
 	private QoSClassIdentifier qosClassIdentifier;

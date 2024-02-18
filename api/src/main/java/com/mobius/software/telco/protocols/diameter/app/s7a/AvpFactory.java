@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.s7a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVAFlags;
@@ -26,9 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubsc
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
-	public VPLMNCSGSubscriptionData getVPLMNCSGSubscriptionData(Long csgId);
+	public VPLMNCSGSubscriptionData getVPLMNCSGSubscriptionData(Long csgId) throws MissingAvpException;
 	
 	public UVRFlags getUVRFlags();
 	

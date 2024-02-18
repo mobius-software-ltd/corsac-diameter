@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 		 { Area-Identification }
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 2535L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Area")
+@DiameterAvpDefinition(code = TgppAvpCodes.AREA, vendorId = VendorIDs.TGPP_ID, must = false, name = "Area")
 public interface Area extends DiameterGroupedAvp
 {
 	Long getAreaType();
 	
-	void setAreaType(Long value);
+	void setAreaType(Long value) throws MissingAvpException;
 	
 	ByteBuf getAreaIdentification();
 	
-	void setAreaIdentification(ByteBuf value);
+	void setAreaIdentification(ByteBuf value) throws MissingAvpException;
 }

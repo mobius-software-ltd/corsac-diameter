@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.OneM2MAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Target-ID AVP (AVP Code 1022) is of type UTF8String and identifies the target URL for the M2M request if available. 
 	Alternatively the Target-ID AVP can identify the target resource identifier with format defined in clause 6.3.4.
  */
-@DiameterAvpDefinition(code = 1022L, vendorId = KnownVendorIDs.ONEM2M_ID, name = "Target-ID")
+@DiameterAvpDefinition(code = OneM2MAvpCodes.TARGET_ID, vendorId = VendorIDs.ONEM2M_ID, name = "Target-ID")
 public interface TargetID extends DiameterUTF8String
 {
 }

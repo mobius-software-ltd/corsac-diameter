@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    AVP SHOULD only be present in authorization responses.  The MTU value
    MUST be in the range from 64 to 65535.
  */
-@DiameterAvpDefinition(code = 12L, vendorId = -1L, name = "Framed-MTU")
+@DiameterAvpDefinition(code = AvpCodes.FRAMED_MTU, vendorId = -1L, name = "Framed-MTU")
 public interface FramedMTU extends DiameterUnsigned32
 {
 }

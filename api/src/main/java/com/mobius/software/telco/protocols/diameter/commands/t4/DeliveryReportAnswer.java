@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -46,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777311, commandCode = 8388644, request = false, proxyable = true, name="Delivery-Report-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T4, commandCode = CommandCodes.DELIVERY_REPORT, request = false, proxyable = true, name="Delivery-Report-Answer")
 public interface DeliveryReportAnswer extends T4Answer
 {
 }

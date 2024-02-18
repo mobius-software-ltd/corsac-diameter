@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.IntervalTime;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LinearDistance;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.MaximumInterval;
@@ -37,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.SamplingInter
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2559L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MotionEventInfoImpl extends DiameterGroupedAvpImpl implements MotionEventInfo
 {
 	private LinearDistance linearDistance;
@@ -58,12 +60,9 @@ public class MotionEventInfoImpl extends DiameterGroupedAvpImpl implements Motio
 	{
 	}
 	
-	public MotionEventInfoImpl(Long linearDistance)
+	public MotionEventInfoImpl(Long linearDistance) throws MissingAvpException
 	{
-		if(linearDistance==null)
-			throw new IllegalArgumentException("Linear-Distance is required");
-		
-		this.linearDistance = new LinearDistanceImpl(linearDistance, null, null);
+		setLinearDistance(linearDistance);
 	}
 	
 	public Long getLinearDistance()
@@ -74,10 +73,10 @@ public class MotionEventInfoImpl extends DiameterGroupedAvpImpl implements Motio
 		return linearDistance.getUnsigned();
 	}
 	
-	public void setLinearDistance(Long value)
+	public void setLinearDistance(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Linear-Distance is required");
+			throw new MissingAvpException("Linear-Distance is required", Arrays.asList(new DiameterAvp[] { new LinearDistanceImpl() }));
 		
 		this.linearDistance = new LinearDistanceImpl(value, null, null);
 	}
@@ -179,10 +178,10 @@ public class MotionEventInfoImpl extends DiameterGroupedAvpImpl implements Motio
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(linearDistance==null)
-			return "Linear-Distance is required";
+			return new MissingAvpException("Linear-Distance is required", Arrays.asList(new DiameterAvp[] { new LinearDistanceImpl() }));
 		
 		return null;
 	}

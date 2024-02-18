@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,22 +44,22 @@ import io.netty.buffer.ByteBuf;
 			{ Contact }
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 660L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "P-CSCF-Subscription-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.PCSCF_SUBSCRIPTION_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "P-CSCF-Subscription-Info")
 public interface PCSCFSubscriptionInfo extends DiameterGroupedAvp
 {
 	ByteBuf getCallIDSIPHeader();
 	
-	void setCallIDSIPHeader(ByteBuf value);
+	void setCallIDSIPHeader(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getFromSIPHeader();
 	
-	void setFromSIPHeader(ByteBuf value);
+	void setFromSIPHeader(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getToSIPHeader();
 	
-	void setToSIPHeader(ByteBuf value);
+	void setToSIPHeader(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getContact();
 	
-	void setContact(ByteBuf value);	
+	void setContact(ByteBuf value) throws MissingAvpException;	
 }

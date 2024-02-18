@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	3 Early Ssession Setting-up event;
 	4 PoC Talk Burst 
  */
-@DiameterAvpDefinition(code = 2025L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Event-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.POC_EVENT_TYPE, vendorId = VendorIDs.TGPP_ID, name = "PoC-Event-Type")
 public interface PoCEventType extends DiameterEnumerated<PoCEventTypeEnum>
 {
 }

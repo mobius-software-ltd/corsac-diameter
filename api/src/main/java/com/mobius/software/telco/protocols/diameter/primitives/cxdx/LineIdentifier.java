@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Line-Identifier AVP is of type OctetString. This AVP has Vendor Id ETSI (13019) and AVP code 500. This AVP contains a 
 	fixed broadband access line identifier associated with the user.
  */
-@DiameterAvpDefinition(code = 500L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Line-Identifier")
+@DiameterAvpDefinition(code = EtsiAvpCodes.LINE_IDENTIFIER, vendorId = VendorIDs.ETSI_ID, must = false, name = "Line-Identifier")
 public interface LineIdentifier extends DiameterOctetString
 {
 }

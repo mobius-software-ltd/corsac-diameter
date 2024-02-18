@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Aux-Applic-Info AVP (AVP code 1219) is of type UTF8String and holds additional application/implementation
 	specific control information. 
  */
-@DiameterAvpDefinition(code = 1219L, vendorId = KnownVendorIDs.TGPP_ID, name = "Aux-Applic-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.AUX_APPLIC_INFO, vendorId = VendorIDs.TGPP_ID, name = "Aux-Applic-Info")
 public interface AuxApplicInfo extends DiameterUTF8String
 {
 }

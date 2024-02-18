@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Profile ID for RAT/Frequency Priority. For details, see 3GPP TS 23.401 [2] and 3GPP TS 23.060 [12] . The coding is defined 
 	in 3GPP TS 36.413 [19]. Values shall be in the range of 1 to 256.
  */
-@DiameterAvpDefinition(code = 1440L, vendorId = KnownVendorIDs.TGPP_ID, name = "RAT-Frequency-Selection-Priority-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.RAT_FREQUENCY_SELCTION_PRIORITY_ID, vendorId = VendorIDs.TGPP_ID, name = "RAT-Frequency-Selection-Priority-ID")
 public interface RATFrequencySelectionPriorityID extends DiameterUnsigned32
 {
 }

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 import io.netty.buffer.ByteBuf;
@@ -52,7 +54,7 @@ import io.netty.buffer.ByteBuf;
                       *	[ Route-Record ]
                       	[ Additional-MBMS-Trace-Info ]
  */
-@DiameterCommandDefinition(applicationId = 16777223, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GMB, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest
 {
 	ByteBuf getAdditionalMBMSTraceInfo();

@@ -21,8 +21,11 @@ package com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huaw
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
@@ -39,22 +42,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterCommandDefinition(applicationId = 4, commandCode = 272, request = true, proxyable = true, name="Credit-Control-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.CREDIT_CONTROL, request = true, proxyable = true, name="Credit-Control-Request")
 public interface CreditControlRequest extends DiameterRequest
 {
 	public Long getAuthApplicationId();
 	
 	public String getServiceContextId();
 	
-	void setServiceContextId(String value);
+	void setServiceContextId(String value) throws MissingAvpException;
 	
 	CcRequestTypeEnum getCcRequestType();
 	
-	void setCcRequestType(CcRequestTypeEnum value);
+	void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException;
 	
 	Long getCcRequestNumber();
 	
-	void setCcRequestNumber(Long value);
+	void setCcRequestNumber(Long value) throws MissingAvpException;
 	
 	public Date getEventTimestamp();
 	

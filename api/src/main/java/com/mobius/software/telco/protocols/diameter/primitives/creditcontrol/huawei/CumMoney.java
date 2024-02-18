@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,10 +46,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Accumulated consumption amount. This AVP is an AVP group and contains the {CumUnit-Value} AVP.
 */
-@DiameterAvpDefinition(code = 20855L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Cum-Money")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CUM_MONEY, vendorId = VendorIDs.HUAWEI_ID, name = "Cum-Money")
 public interface CumMoney extends DiameterAvp 
 {
 	CumUnitValue getCumUnitValue();
 	
-	void setCumUnitValue(CumUnitValue value);
+	void setCumUnitValue(CumUnitValue value) throws MissingAvpException;
 }

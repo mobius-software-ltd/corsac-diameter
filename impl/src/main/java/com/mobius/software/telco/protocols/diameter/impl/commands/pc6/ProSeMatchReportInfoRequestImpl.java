@@ -1,12 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchReportInfoRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.MatchReportInfoImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchReportInfo;
@@ -35,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchReportIn
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388671, request = true)
 public class ProSeMatchReportInfoRequestImpl extends Pc6RequestImpl implements ProSeMatchReportInfoRequest
 {
 	private MatchReportInfo matchReportInfo;
@@ -45,7 +48,7 @@ public class ProSeMatchReportInfoRequestImpl extends Pc6RequestImpl implements P
 		super();
 	}
 	
-	public ProSeMatchReportInfoRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,MatchReportInfo matchReportInfo)
+	public ProSeMatchReportInfoRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,MatchReportInfo matchReportInfo) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -59,19 +62,19 @@ public class ProSeMatchReportInfoRequestImpl extends Pc6RequestImpl implements P
 	}
 	 
 	@Override	
-	public void setMatchReportInfo(MatchReportInfo value)
+	public void setMatchReportInfo(MatchReportInfo value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Match-Report-Info is required");
+			throw new MissingAvpException("Match-Report-Info is required is required", Arrays.asList(new DiameterAvp[] { new MatchReportInfoImpl() }));
 		
 		this.matchReportInfo = value;
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(matchReportInfo == null)
-			return "Match-Report-Info is required";
+			return new MissingAvpException("Match-Report-Info is required is required", Arrays.asList(new DiameterAvp[] { new MatchReportInfoImpl() }));
 		
 		return super.validate();
 	}		

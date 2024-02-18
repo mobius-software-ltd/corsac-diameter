@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
 
 import java.net.Inet4Address;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpv4AddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPAddress;
 
@@ -29,10 +28,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPAddre
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 12L, vendorId = -1L)
 public class FramedIPAddressImpl extends DiameterIpv4AddressImpl implements FramedIPAddress
 {
-	protected FramedIPAddressImpl() 
+	public FramedIPAddressImpl() 
 	{
 		super();
 	}

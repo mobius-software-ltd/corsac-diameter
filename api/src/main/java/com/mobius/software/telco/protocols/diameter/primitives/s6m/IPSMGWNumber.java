@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.14	IP-SM-GW-Number
 	The IP-SM-GW-Number AVP is of type OctetString and it shall contain the ISDN number of the IP-SM-GW in international number format as described in ITU-T Rec E.164 [41]. It shall be encoded as a TBCD-string. See 3GPP TS 29.002 [24] for encoding of TBCD-strings. This AVP shall not include leading indicators for the nature of address and the numbering plan. 
  */
-@DiameterAvpDefinition(code = 3100L, vendorId = KnownVendorIDs.TGPP_ID, name = "IP-SM-GW-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.IPSMGW_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "IP-SM-GW-Number")
 public interface IPSMGWNumber extends DiameterE164Address
 {
 }

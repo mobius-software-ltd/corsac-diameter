@@ -24,11 +24,13 @@ import com.mobius.software.telco.protocols.diameter.app.s6t.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.NIDDInformationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ReportingInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s6t.ConfigurationInformationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s6t.NIDDInformationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s6t.ReportingInformationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 
 public class SessionFactoryImpl implements SessionFactory
 {
@@ -41,17 +43,17 @@ public class SessionFactoryImpl implements SessionFactory
 		this.idGenerator = idGenerator;
 	}
 	
-	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier)
+	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ConfigurationInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier);
 	}			
 	
-	public NIDDInformationRequest createNIDDInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier)
+	public NIDDInformationRequest createNIDDInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new NIDDInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier);
 	}
 	
-	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm)
+	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ReportingInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}

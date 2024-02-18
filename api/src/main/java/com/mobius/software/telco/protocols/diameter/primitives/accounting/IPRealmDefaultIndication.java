@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 Default IP Realm Not used
 	1 Default IP realm used 
  */
-@DiameterAvpDefinition(code = 2603L, vendorId = KnownVendorIDs.TGPP_ID, name = "IP-Realm-Default-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.IP_REALM_DEFAULT_INDICATION, vendorId = VendorIDs.TGPP_ID, name = "IP-Realm-Default-Indication")
 public interface IPRealmDefaultIndication extends DiameterEnumerated<IPRealmDefaultIndicationEnum>
 {
 }

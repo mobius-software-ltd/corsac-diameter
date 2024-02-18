@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
 
 /**
@@ -45,12 +47,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
 	The valid value for Discovery-Type for Match-Report-Info AVP is: "MONITORING_REQUEST_FOR_OPEN_PROSE_DIRECT_DISCOVERY",
 	When the Discovery-Type is set to "MONITORING_REQUEST_FOR_OPEN_PROSE_DIRECT_DISCOVERY", the Match-Report-Info shall contain one User Identity and one or more ProSe Application IDs.
  */
-@DiameterAvpDefinition(code = 3857L, vendorId = KnownVendorIDs.TGPP_ID, name = "Match-Report-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.MATCH_REPORT_INFO, vendorId = VendorIDs.TGPP_ID, name = "Match-Report-Info")
 public interface MatchReportInfo extends DiameterGroupedAvp
 {
 	DiscoveryTypeEnum getDiscoveryType();
 	
-	void setDiscoveryType(DiscoveryTypeEnum value);
+	void setDiscoveryType(DiscoveryTypeEnum value) throws MissingAvpException;
 	
 	UserIdentity getUserIdentity();
 	

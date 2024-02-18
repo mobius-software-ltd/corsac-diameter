@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    Further codification of this field's allowed content and usage is
    outside the scope of this specification.
  */
-@DiameterAvpDefinition(code = 30L, vendorId = -1L, name = "Called-Station-Id")
+@DiameterAvpDefinition(code = AvpCodes.CALLED_STATION_ID, vendorId = -1L, name = "Called-Station-Id")
 public interface CalledStationId extends DiameterUTF8String
 {
 }

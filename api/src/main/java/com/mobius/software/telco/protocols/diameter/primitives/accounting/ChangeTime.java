@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	In ProSe Charging, it holds the time in UTC format when the volume counts associated to the ProSe group
 	communication container, is closed and reported due to ProSe charging condition change.
  */
-@DiameterAvpDefinition(code = 2038L, vendorId = KnownVendorIDs.TGPP_ID, name = "Change-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHANGE_TIME, vendorId = VendorIDs.TGPP_ID, name = "Change-Time")
 public interface ChangeTime extends DiameterTime
 {
 }

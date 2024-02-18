@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
    	from the Time-Of-Day-Condition AVP, the time window starts on January
    	1, 1900, 00:00 UTC.
  */
-@DiameterAvpDefinition(code = 566L, vendorId = -1L, name = "Absolute-Start-Time")
+@DiameterAvpDefinition(code = AvpCodes.ABSOLUTE_START_TIME, vendorId = -1L, name = "Absolute-Start-Time")
 public interface AbsoluteStartTime extends DiameterTime
 {
 }

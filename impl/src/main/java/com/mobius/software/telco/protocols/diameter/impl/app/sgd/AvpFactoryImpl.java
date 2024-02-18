@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sgd;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.sgd.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.UserCSGInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.EPSLocationInformationImpl;
@@ -58,7 +59,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.TFRFlags;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
@@ -83,7 +84,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SGSNLocationInformationImpl();
 	}
 	
-	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode)
+	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode) throws MissingAvpException
 	{
 		return new UserCSGInformationImpl(csgId, csgAccessMode);
 	}	
@@ -128,7 +129,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SMSFNon3GPPSMDeliveryOutcomeImpl();
 	}
 	
-	public SMDeliveryFailureCause getSMDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum smEnumeratedDeliveryFailureCause)
+	public SMDeliveryFailureCause getSMDeliveryFailureCause(SMEnumeratedDeliveryFailureCauseEnum smEnumeratedDeliveryFailureCause) throws MissingAvpException
 	{
 		return new SMDeliveryFailureCauseImpl(smEnumeratedDeliveryFailureCause);
 	}

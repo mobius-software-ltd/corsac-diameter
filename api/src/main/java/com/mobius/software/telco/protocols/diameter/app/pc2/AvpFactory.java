@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.app.pc2;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.BannedUserTarget;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.MonitorTarget;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeCodeSuffixMask;
@@ -33,13 +34,13 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public MonitorTarget getMonitorTarget(String targetRPAUID,ByteBuf pduid);
+	public MonitorTarget getMonitorTarget(String targetRPAUID,ByteBuf pduid) throws MissingAvpException;
 	
-	public ProSeCodeSuffixMask getProSeCodeSuffixMask(ByteBuf suffixCode,List<ByteBuf> suffixMask);
+	public ProSeCodeSuffixMask getProSeCodeSuffixMask(ByteBuf suffixCode,List<ByteBuf> suffixMask) throws MissingAvpException;
 	
-	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix);
+	public ProSeAppCodeSuffixRange getProSeAppCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException;
 	
-	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix);
+	public ProSeRestrictedCodeSuffixRange getProSeRestrictedCodeSuffixRange(ByteBuf beginningSuffix) throws MissingAvpException;
 	
-	public BannedUserTarget getBannedUserTarget(String targetRPAUID,ByteBuf targetPDUID);
+	public BannedUserTarget getBannedUserTarget(String targetRPAUID,ByteBuf targetPDUID) throws MissingAvpException;
 }

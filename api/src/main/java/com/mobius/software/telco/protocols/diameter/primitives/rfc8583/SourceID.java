@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc8583;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
    	The SourceID AVP is defined in [RFC8581].  It is used to identify the
    	Diameter node that sent the load report.
  */
-@DiameterAvpDefinition(code = 649L, vendorId = -1L, must = false, name = "SourceID")
+@DiameterAvpDefinition(code = AvpCodes.SOURCE_ID, vendorId = -1L, must = false, name = "SourceID")
 public interface SourceID extends DiameterIdentity
 {
 }

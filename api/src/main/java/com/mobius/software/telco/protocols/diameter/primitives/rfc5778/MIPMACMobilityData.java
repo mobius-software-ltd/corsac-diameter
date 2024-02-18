@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    When the MIP6-Auth-Mode AVP is set to value MIP6_AUTH_MN_AAA, this
    AVP MUST be present in the MIR message.
  */
-@DiameterAvpDefinition(code = 489L, vendorId = -1L, name = "MIP-MAC-Mobility-Data")
+@DiameterAvpDefinition(code = AvpCodes.MIP_MAC_MOBILITY_DATA, vendorId = -1L, name = "MIP-MAC-Mobility-Data")
 public interface MIPMACMobilityData extends DiameterOctetString
 {
 }

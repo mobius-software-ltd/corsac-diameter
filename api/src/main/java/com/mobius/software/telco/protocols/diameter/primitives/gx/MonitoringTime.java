@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Monitoring-Time AVP (AVP Code 2810) is of type Time and it defines the time at which the PCEF shall reapply
 	the threshold value provided by the PCRF. 
  */
-@DiameterAvpDefinition(code = 2810L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Monitoring-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Monitoring-Time")
 public interface MonitoringTime extends DiameterTime
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	NOTE:	Bits not defined in this table shall be cleared by the sender and discarded by the receiver of the command.
  */
-@DiameterAvpDefinition(code = 1529L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Connectivity-Flags")
+@DiameterAvpDefinition(code = TgppAvpCodes.CONNECTIVITY_FLAGS, vendorId = VendorIDs.TGPP_ID, must = false, name = "Connectivity-Flags")
 public interface ConnectivityFlags extends DiameterBitmask32
 {
 	public static final int INITIAL_ATTACH_INDICATOR_BIT = 0;	

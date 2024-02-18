@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Account-Expiration AVP (AVP code 2309) is of type Time and indicates the subscriber account expiration date and
 	time of day. 
  */
-@DiameterAvpDefinition(code = 2309L, vendorId = KnownVendorIDs.TGPP_ID, name = "Account-Expiration")
+@DiameterAvpDefinition(code = TgppAvpCodes.ACCOUNT_EXPIRATION, vendorId = VendorIDs.TGPP_ID, name = "Account-Expiration")
 public interface AccountExpiration extends DiameterTime
 {
 }

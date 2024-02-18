@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sh;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sh.PushNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UserDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -39,7 +42,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777217, commandCode = 309, request = true)
 public class PushNotificationsRequestImpl extends ShRequestImpl implements PushNotificationRequest
 {
 	private UserData userData;
@@ -49,7 +51,7 @@ public class PushNotificationsRequestImpl extends ShRequestImpl implements PushN
 		super();
 	}
 	
-	public PushNotificationsRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity, ByteBuf userData)
+	public PushNotificationsRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity, ByteBuf userData) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState, userIdentity);		
 		
@@ -64,19 +66,19 @@ public class PushNotificationsRequestImpl extends ShRequestImpl implements PushN
 		return userData.getValue();
 	}
 	
-	public void setUserData(ByteBuf value)
+	public void setUserData(ByteBuf value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("User-Data is required");
+			throw new MissingAvpException("User-Data is required is required", Arrays.asList(new DiameterAvp[] { new UserDataImpl() }));
 		
 		this.userData = new UserDataImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userData == null)
-			return "User-Data is required";
+			return new MissingAvpException("User-Data is required is required", Arrays.asList(new DiameterAvp[] { new UserDataImpl() }));
 		
 		return super.validate();
 	}

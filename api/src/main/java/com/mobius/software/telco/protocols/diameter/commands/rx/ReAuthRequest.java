@@ -22,7 +22,11 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.IPCANTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.NetLocAccessSupportEnum;
@@ -90,12 +94,12 @@ import io.netty.buffer.ByteBuf;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777236, commandCode = 258, request = true, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends RxRequest
 {
 	public List<SpecificActionEnum> getSpecificAction();
 	
-	void setSpecificAction(List<SpecificActionEnum> value);
+	void setSpecificAction(List<SpecificActionEnum> value) throws MissingAvpException;
 	
 	List<AccessNetworkChargingIdentifier> getAccessNetworkChargingIdentifier();
 	
@@ -107,7 +111,7 @@ public interface ReAuthRequest extends RxRequest
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	ANTrustedEnum getANTrusted();
 	

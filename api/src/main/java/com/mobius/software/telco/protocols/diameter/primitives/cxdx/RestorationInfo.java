@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -44,16 +46,16 @@ import io.netty.buffer.ByteBuf;
 			 [ P-CSCF-Subscription-Info ]
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 649L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Restoration-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.RESTORATION_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Restoration-Info")
 public interface RestorationInfo extends DiameterGroupedAvp
 {
 	ByteBuf getPath();
 	
-	void setPath(ByteBuf value);
+	void setPath(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getContact();
 	
-	void setContact(ByteBuf value);
+	void setContact(ByteBuf value) throws MissingAvpException;
 	
 	Long getInitialCSeqSequenceNumber();
 	

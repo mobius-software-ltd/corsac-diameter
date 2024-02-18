@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -44,12 +46,12 @@ import io.netty.buffer.ByteBuf;
 		*[ Flow-Information ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1098L, vendorId = KnownVendorIDs.TGPP_ID, must=false, name = "Application-Detection-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.APPLICATION_DETECTION_INFORMATION, vendorId = VendorIDs.TGPP_ID, must=false, name = "Application-Detection-Information")
 public interface ApplicationDetectionInformation extends DiameterGroupedAvp
 {
 	ByteBuf getTDFApplicationIdentifier();
 	
-	void setTDFApplicationIdentifier(ByteBuf value);	
+	void setTDFApplicationIdentifier(ByteBuf value) throws MissingAvpException;	
 	
 	ByteBuf getTDFApplicationInstanceIdentifier();
 	

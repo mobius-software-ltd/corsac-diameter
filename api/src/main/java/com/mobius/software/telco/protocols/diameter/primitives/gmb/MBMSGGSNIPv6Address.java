@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpv6Address;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	17.7.20	MBMS-GGSN-Ipv6-Address AVP
 	The MBMS-GGSN-Ipv6-Address AVP (AVP code 917) is of type OctetString, and contains the value of GGSN’s Ipv6 address for user plane data. Dual stack GGSN includes this AVP in case BM-SC requests GGSN’s user plane unicast address.
  */
-@DiameterAvpDefinition(code = 917L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-GGSN-Ipv6-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_GGSN_IPV6_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "MBMS-GGSN-Ipv6-Address")
 public interface MBMSGGSNIPv6Address extends DiameterIpv6Address
 {
 }

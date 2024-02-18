@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPort;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPort;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 5L, vendorId = -1L)
 public class NASPortImpl extends DiameterUnsigned32Impl implements NASPort
 {
 	protected NASPortImpl() 

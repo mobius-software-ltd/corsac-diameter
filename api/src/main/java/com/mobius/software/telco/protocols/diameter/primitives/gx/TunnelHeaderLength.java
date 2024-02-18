@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Tunnel-Header-Length AVP (AVP code 1037) is of type Unsigned32. This AVP indicates the length of the tunnel
 	header in octets. 
  */
-@DiameterAvpDefinition(code = 1037L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Tunnel-Header-Length")
+@DiameterAvpDefinition(code = TgppAvpCodes.TUNNEL_HEADER_LENGTH, vendorId = VendorIDs.TGPP_ID, must = false, name = "Tunnel-Header-Length")
 public interface TunnelHeaderLength extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.DestinationSIPURI;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.HSSID;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.OriginatingSIPURI;
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelat
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3324L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMSMICorrelationIDImpl extends DiameterGroupedAvpImpl implements SMSMICorrelationID
 {
 	private HSSID hssID;

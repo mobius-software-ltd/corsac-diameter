@@ -22,12 +22,10 @@ import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedInterfaceIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ConfidentialityKey;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.IntegrityKey;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.LineIdentifier;
@@ -49,7 +47,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 612L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SIPAuthDataItemImpl extends DiameterGroupedAvpImpl implements SIPAuthDataItem
 {
 	private SIPItemNumber sipItemNumber;

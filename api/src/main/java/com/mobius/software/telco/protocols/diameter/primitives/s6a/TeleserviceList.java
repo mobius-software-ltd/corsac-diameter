@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -41,10 +43,10 @@ import io.netty.buffer.ByteBuf;
 		1 * { TS-Code }
 		  * [ AVP ]
  */
-@DiameterAvpDefinition(code = 1486L, vendorId = KnownVendorIDs.TGPP_ID, name = "Teleservice-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_LIST, vendorId = VendorIDs.TGPP_ID, name = "Teleservice-List")
 public interface TeleserviceList extends DiameterGroupedAvp
 {
 	List<ByteBuf> getTSCode();
 	
-	void setTSCode(List<ByteBuf> value);
+	void setTSCode(List<ByteBuf> value) throws MissingAvpException;
 }

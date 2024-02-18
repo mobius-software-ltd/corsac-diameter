@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.RegistrationTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.DeregistrationReasonImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -40,7 +44,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.RTRFlags;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 304, request = true)
 public class RegistrationTerminationRequestImpl extends CxDxRequestImpl implements RegistrationTerminationRequest
 {
 	private AssociatedIdentities associatedIdentities;
@@ -56,28 +59,22 @@ public class RegistrationTerminationRequestImpl extends CxDxRequestImpl implemen
 		super();
 	}
 	
-	public RegistrationTerminationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String username, DeregistrationReason deregistrationReason)
+	public RegistrationTerminationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String username, DeregistrationReason deregistrationReason) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authSessionState);
 
 		setUsername(username);
+		
 		setDeregistrationReason(deregistrationReason);
 	}
 	
 	@Override
-	public void setUsername(String value)
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Username is required");
-		
-		try
-		{
-			super.setUsername(value);
-		}
-		catch(AvpNotSupportedException ex)
-		{
+			throw new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 			
-		}
+		super.setUsername(value);
 	}
 
 	public AssociatedIdentities getAssociatedIdentities()
@@ -119,10 +116,10 @@ public class RegistrationTerminationRequestImpl extends CxDxRequestImpl implemen
 	}
 	
 	@Override
-	public void setDeregistrationReason(DeregistrationReason value)
+	public void setDeregistrationReason(DeregistrationReason value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Deregistration-Reason is required");
+			throw new MissingAvpException("Deregistration-Reason is required is required", Arrays.asList(new DiameterAvp[] { new DeregistrationReasonImpl() }));
 		
 		this.deregistrationReason = value;
 	}
@@ -138,20 +135,13 @@ public class RegistrationTerminationRequestImpl extends CxDxRequestImpl implemen
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getUsername() == null)
-				return "Username is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		if(username == null)
+			return new MissingAvpException("Username is required is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		if(deregistrationReason == null)
-			return "Deregistration-Reason is required";
+			return new MissingAvpException("Deregistration-Reason is required is required", Arrays.asList(new DiameterAvp[] { new DeregistrationReasonImpl() }));
 		
 		return super.validate();
 	}

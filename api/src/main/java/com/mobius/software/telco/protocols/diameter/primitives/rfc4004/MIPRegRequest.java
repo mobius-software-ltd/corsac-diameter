@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	contains the Mobile IPv4 Registration Request [MOBILEIP] sent by the
    	mobile node to the foreign agent.
  */
-@DiameterAvpDefinition(code = 320L, vendorId = -1L, name = "MIP-Reg-Request")
+@DiameterAvpDefinition(code = AvpCodes.MIP_REG_REQUEST, vendorId = -1L, name = "MIP-Reg-Request")
 public interface MIPRegRequest extends DiameterOctetString
 {
 }

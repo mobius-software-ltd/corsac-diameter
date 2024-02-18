@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slh;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			 [ GMLC-Address ]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 2401L, vendorId = KnownVendorIDs.TGPP_ID, name = "Serving-Node")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVING_NODE, vendorId = VendorIDs.TGPP_ID, name = "Serving-Node")
 public interface ServingNode extends DiameterGroupedAvp
 {
 	String getSGSNNumber();

@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.SSIDImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BSSID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CivicAddressInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
@@ -36,7 +39,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2714L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TWANUserLocationInfoImpl implements TWANUserLocationInfo
 {
 	private SSID ssid;
@@ -49,12 +51,9 @@ public class TWANUserLocationInfoImpl implements TWANUserLocationInfo
 	{
 	}
 	
-	public TWANUserLocationInfoImpl(String ssid)
+	public TWANUserLocationInfoImpl(String ssid) throws MissingAvpException
 	{
-		if(ssid==null)
-			throw new IllegalArgumentException("SSID is required");
-		
-		this.ssid = new SSIDImpl(ssid, null, null);
+		setSSID(ssid);
 	}
 			
 	public String getSSID()
@@ -65,10 +64,10 @@ public class TWANUserLocationInfoImpl implements TWANUserLocationInfo
 		return ssid.getString();
 	}
 	
-	public void setSSID(String value)
+	public void setSSID(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SSID is required");
+			throw new MissingAvpException("SSID is required is required", Arrays.asList(new DiameterAvp[] { new SSIDImpl() }));
 		
 		this.ssid = new SSIDImpl(value, null, null);
 	}
@@ -132,10 +131,10 @@ public class TWANUserLocationInfoImpl implements TWANUserLocationInfo
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ssid==null)
-			return "SSID is required";
+			return new MissingAvpException("SSID is required is required", Arrays.asList(new DiameterAvp[] { new SSIDImpl() }));
 		
 		return null;
 	}	

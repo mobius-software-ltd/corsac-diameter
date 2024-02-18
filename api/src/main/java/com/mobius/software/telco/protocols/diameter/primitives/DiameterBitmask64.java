@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.primitives;
+
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -28,5 +31,5 @@ public interface DiameterBitmask64 extends DiameterAvp
 {
 	public Boolean getBit(int bit);
 	
-	public void setBit(int bit, boolean isOn);
+	public void setBit(int bit, boolean isOn) throws InvalidAvpValueException;
 }

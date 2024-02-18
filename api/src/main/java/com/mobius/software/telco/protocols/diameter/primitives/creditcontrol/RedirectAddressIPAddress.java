@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
    The interpretation of Redirect-Address-IPAddress by the Diameter
    Credit-Control client is a matter of local policy.
  */
-@DiameterAvpDefinition(code = 666L, vendorId = -1L, must = false, name = "Redirect-Address-IP-Address")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_ADDRESS_IP_ADDRESS, vendorId = -1L, must = false, name = "Redirect-Address-IP-Address")
 public interface RedirectAddressIPAddress extends DiameterAddress
 {
 }

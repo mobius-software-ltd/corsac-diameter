@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 Forwarding not pending
 	1 Forwarding pending
  */
-@DiameterAvpDefinition(code = 3415L, vendorId = KnownVendorIDs.TGPP_ID, name = "Forwarding-Pending")
+@DiameterAvpDefinition(code = TgppAvpCodes.FORWARD_PENDING, vendorId = VendorIDs.TGPP_ID, name = "Forwarding-Pending")
 public interface ForwardingPending extends DiameterEnumerated<ForwardingPendingEnum>
 {
 }

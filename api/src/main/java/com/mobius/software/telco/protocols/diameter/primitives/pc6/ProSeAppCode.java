@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.16	ProSe-App-Code
 	The ProSe-App-Code AVP is of type OctetString. This AVP contains a ProSe Application Code or ProSe Application Code Prefix (see 3GPP TS 23.003 [4]) is associated with a ProSe Application ID.
  */
-@DiameterAvpDefinition(code = 3810L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-App-Code")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_APP_CODE, vendorId = VendorIDs.TGPP_ID, name = "ProSe-App-Code")
 public interface ProSeAppCode extends DiameterOctetString
 {
 }

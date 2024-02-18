@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 /**
 *
@@ -32,7 +33,7 @@ public abstract interface AuthenticationRequest extends DiameterRequest
 {
 	public Long getAuthApplicationId();
 	
-	void setAuthApplicationId(Long value);
+	void setAuthApplicationId(Long value) throws MissingAvpException;
 	
 	public List<String> getRouteRecords();
 	

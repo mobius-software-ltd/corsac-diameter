@@ -23,8 +23,11 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedCompressionEnum;
@@ -102,12 +105,12 @@ import io.netty.buffer.ByteBuf;
                                * [ Route-Record ]
                                * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 5, commandCode = 268, request = true, proxyable = true, name="EAP-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.EAP, commandCode = CommandCodes.EAP, request = true, proxyable = true, name="EAP-Request")
 public interface EAPRequest extends AuthenticationRequest
 {	
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	String getNASIdentifier();
 	
@@ -143,7 +146,7 @@ public interface EAPRequest extends AuthenticationRequest
 	
 	ByteBuf getEAPPayload();
 	
-	void setEAPPayload(ByteBuf value);	
+	void setEAPPayload(ByteBuf value) throws MissingAvpException;	
 	
 	ByteBuf getEAPKeyName();
 	

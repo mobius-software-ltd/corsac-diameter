@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -104,7 +105,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
       of the IEEE 802.1ad C-VID bits or IEEE 802.1Q VLAN-ID bits for
       this classifier is irrelevant.
  */
-@DiameterAvpDefinition(code = 552L, vendorId = -1L, name = "VLAN-ID-Range")
+@DiameterAvpDefinition(code = AvpCodes.VLAN_ID_RANGE, vendorId = -1L, name = "VLAN-ID-Range")
 public interface VLANIDRange extends DiameterGroupedAvp
 {
 	Long getSVIDStart();

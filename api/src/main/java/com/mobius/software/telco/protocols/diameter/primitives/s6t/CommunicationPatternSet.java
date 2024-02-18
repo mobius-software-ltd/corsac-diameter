@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Communication-duration-time and Periodic-Time shall be only provided when the Periodic-Communication-Indicator is set to PERIODICALLY.
 	If the Reference-ID-Validity-Time AVP is absent, it indicates that there is no expiration time defined for the Communication-Pattern-Set.
  */
-@DiameterAvpDefinition(code = 3114L, vendorId = KnownVendorIDs.TGPP_ID, name = "Communication-Pattern-Set")
+@DiameterAvpDefinition(code = TgppAvpCodes.COMMUNICATION_PATTERN_SET, vendorId = VendorIDs.TGPP_ID, name = "Communication-Pattern-Set")
 public interface CommunicationPatternSet extends DiameterGroupedAvp
 {
 	PeriodicCommunicationIndicatorEnum getPeriodicCommunicationIndicator();

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Carrier-Select-Routing-Information AVP (AVP code 2023) is of type UTF8String. This AVP holds information on
 	carrier selection performed by S-CSCF/AS. This information is sent over SIP in the Requested URI header. 
  */
-@DiameterAvpDefinition(code = 2023L, vendorId = KnownVendorIDs.TGPP_ID, name = "Carrier-Select-Routing-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.CARRIER_SELECT_ROUTING_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Carrier-Select-Routing-Information")
 public interface CarrierSelectRoutingInformation extends DiameterUTF8String
 {
 }

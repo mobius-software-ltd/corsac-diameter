@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s13;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
@@ -34,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInfor
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777252, commandCode = 324, request = true)
 public class MEIdentityCheckRequestImpl extends S13RequestImpl implements MEIdentityCheckRequest
 {
 	private TerminalInformation terminalInformation;
@@ -44,7 +44,7 @@ public class MEIdentityCheckRequestImpl extends S13RequestImpl implements MEIden
 		super();
 	}
 	
-	public MEIdentityCheckRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
+	public MEIdentityCheckRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 	}

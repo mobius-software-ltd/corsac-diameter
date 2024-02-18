@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,12 +40,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The message containing this AVP is indicating an MBMS session stop procedure.
 
 	UPDATE (2)
-	The message containing this AVP is indicating an MBMS session update procedure.
+	The message containing this AVP i.s indicating an MBMS session update procedure.
 
 	HEARTBEAT (3)
 	The message containing this AVP is indicating an MBMS heartbeat procedure.
  */
-@DiameterAvpDefinition(code = 902L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-StartStop-Indication")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_START_STOP_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "MBMS-StartStop-Indication")
 public interface MBMSStartStopIndication extends DiameterEnumerated<MBMSStartStopIndicationEnum>
 {
 }

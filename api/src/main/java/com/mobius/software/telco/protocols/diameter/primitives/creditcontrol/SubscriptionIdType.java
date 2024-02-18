@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -66,7 +67,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
    The identifier is a credit-control server private identifier.
  */
-@DiameterAvpDefinition(code = 450L, vendorId = -1L, name = "Subscription-id-Type")
+@DiameterAvpDefinition(code = AvpCodes.SUBSCRIPTION_ID_TYPE, vendorId = -1L, name = "Subscription-id-Type")
 public interface SubscriptionIdType extends DiameterEnumerated<SubscriptionIdTypeEnum>
 {
 }

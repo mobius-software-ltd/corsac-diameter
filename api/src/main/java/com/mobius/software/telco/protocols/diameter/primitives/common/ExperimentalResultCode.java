@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    types of result codes and the handling of errors (for non-2xxx
    values).
  */
-@DiameterAvpDefinition(code = 298L, vendorId = -1L, name = "Experimental-Result-Code")
+@DiameterAvpDefinition(code = AvpCodes.EXPERIMENTAL_RESULT_CODE, vendorId = -1L, name = "Experimental-Result-Code")
 public interface ExperimentalResultCode extends DiameterUnsigned32
 {
 		

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -75,7 +76,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    Otherwise, the service SHOULD NOT be granted when the credit-control
    messages can't be delivered.
  */
-@DiameterAvpDefinition(code = 427L, vendorId = -1L, name = "Credit-Control-Failure-Handling")
+@DiameterAvpDefinition(code = AvpCodes.CREDIT_CONTROL_FAILURE_HADING, vendorId = -1L, name = "Credit-Control-Failure-Handling")
 public interface CreditControlFailureHandling extends DiameterEnumerated<CreditControlFailureHandlingEnum>
 {
 }

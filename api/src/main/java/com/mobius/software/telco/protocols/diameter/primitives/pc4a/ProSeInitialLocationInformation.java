@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,7 +43,7 @@ import io.netty.buffer.ByteBuf;
 		 [Age-Of-Location-Information]
 		*[AVP]
  */
-@DiameterAvpDefinition(code = 3707L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Initial-Location-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_INITIAL_LOCATION_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Initial-Location-Information")
 public interface ProSeInitialLocationInformation extends DiameterGroupedAvp
 {
 	String getMMEName();

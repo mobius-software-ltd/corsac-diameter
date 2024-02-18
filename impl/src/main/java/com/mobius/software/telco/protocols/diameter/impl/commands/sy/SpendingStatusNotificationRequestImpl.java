@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
@@ -34,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sy.SNRequestType;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777302, commandCode = 8388636, request = true)
 public class SpendingStatusNotificationRequestImpl extends SyRequestImpl implements SpendingStatusNotificationRequest
 {
 	private List<PolicyCounterStatusReport> policyCounterStatusReport;
@@ -46,7 +46,7 @@ public class SpendingStatusNotificationRequestImpl extends SyRequestImpl impleme
 		super();
 	}
 	
-	public SpendingStatusNotificationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId)
+	public SpendingStatusNotificationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 	}				

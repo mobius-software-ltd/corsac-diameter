@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.38	Validity-Time-Communication
 	The Validity-Time-Communication AVP is of type Unsigned32 and it shall contain the maximum number of seconds of validity of a ProSe communication authorization policy.
  */
-@DiameterAvpDefinition(code = 3834L, vendorId = KnownVendorIDs.TGPP_ID, name = "Validity-Time-Communication")
+@DiameterAvpDefinition(code = TgppAvpCodes.VALIDITY_TIME_COMMUNICATION, vendorId = VendorIDs.TGPP_ID, name = "Validity-Time-Communication")
 public interface ValidityTimeCommunication extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.70	Ending-Suffix 
 	The Ending-Suffix AVP is of type OctetString. This AVP shall contain the highest ProSe Restricted Code Suffix in a consecutive sequence of ProSe Restricted Code suffixes or the highest ProSe Application Code Suffix in a consecutive sequence of ProSe Application Code Suffixes. The format of ProSe Restricted Code Suffix or ProSe Application Code Suffix is defined in 3GPP TS 23.003 [4]. The size of this suffix shall align with octet boundary.
  */
-@DiameterAvpDefinition(code = 3849L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Ending-Suffix")
+@DiameterAvpDefinition(code = TgppAvpCodes.ENDING_SUFFIX, vendorId = VendorIDs.TGPP_ID, must = false, name = "Ending-Suffix")
 public interface EndingSuffix extends DiameterOctetString
 {
 }

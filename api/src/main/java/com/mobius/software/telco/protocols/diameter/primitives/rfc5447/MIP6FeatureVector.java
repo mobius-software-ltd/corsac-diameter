@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5447;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -93,7 +94,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 
    	An NAS should expect to receive multiple MIP6-Agent-Info AVPs.
  */
-@DiameterAvpDefinition(code = 124L, vendorId = -1, name = "MIP6-Feature-Vector")
+@DiameterAvpDefinition(code = AvpCodes.MIP6_FEATURE_VECTOR, vendorId = -1, name = "MIP6-Feature-Vector")
 public interface MIP6FeatureVector extends DiameterUnsigned64
 {
 }

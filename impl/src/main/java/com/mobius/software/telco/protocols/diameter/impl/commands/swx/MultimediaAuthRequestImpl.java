@@ -1,19 +1,23 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swx;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.swx.MultimediaAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPNumberAuthItemsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.SIPAuthDataItemImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
@@ -54,7 +58,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777265, commandCode = 303, request = true)
 public class MultimediaAuthRequestImpl extends SwxRequestImpl implements MultimediaAuthRequest
 {
 	private RATType ratType;
@@ -80,7 +83,7 @@ public class MultimediaAuthRequestImpl extends SwxRequestImpl implements Multime
 		super();
 	}
 	
-	public MultimediaAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,String username, Long sipNumberAuthItems,SIPAuthDataItem sIPAuthDataItem)
+	public MultimediaAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,String username, Long sipNumberAuthItems,SIPAuthDataItem sIPAuthDataItem) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);		
 		
@@ -90,19 +93,12 @@ public class MultimediaAuthRequestImpl extends SwxRequestImpl implements Multime
 	}
 	
 	@Override
-	public void setUsername(String value)
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Username is required");
-		
-		try
-		{
-			super.setUsername(value);
-		}
-		catch(AvpNotSupportedException ex)
-		{
+			throw new MissingAvpException("Username is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 			
-		}
+		super.setUsername(value);		
 	}
 	
 	@Override
@@ -199,10 +195,10 @@ public class MultimediaAuthRequestImpl extends SwxRequestImpl implements Multime
 	}
 	
 	@Override
-	public void setSIPNumberAuthItems(Long value)
+	public void setSIPNumberAuthItems(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-Number-Auth-Items is required");
+			throw new MissingAvpException("SIP-Number-Auth-Items is required", Arrays.asList(new DiameterAvp[] { new SIPNumberAuthItemsImpl() }));
 		
 		this.sipNumberAuthItems = new SIPNumberAuthItemsImpl(value, null, null);
 	}
@@ -214,11 +210,11 @@ public class MultimediaAuthRequestImpl extends SwxRequestImpl implements Multime
 	}
 	
 	@Override
-	public void setSIPAuthDataItem(SIPAuthDataItem value)
+	public void setSIPAuthDataItem(SIPAuthDataItem value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("SIP-Auth-Data-Item is required");
-		
+			throw new MissingAvpException("SIP-Auth-Data-Item is required", Arrays.asList(new DiameterAvp[] { new SIPAuthDataItemImpl() }));
+			
 		this.sipAuthDataItem = value;
 	}
 
@@ -253,23 +249,16 @@ public class MultimediaAuthRequestImpl extends SwxRequestImpl implements Multime
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getUsername() == null)
-				return "Username is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
+		if(username == null)
+			return new MissingAvpException("Username is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
 		
 		if(sipNumberAuthItems == null)
-			return "SIP-Number-Auth-Items is required";
+			return new MissingAvpException("SIP-Number-Auth-Items is required", Arrays.asList(new DiameterAvp[] { new SIPNumberAuthItemsImpl() }));
 		
 		if(sipAuthDataItem == null)
-			return "SIP-Auth-Data-Item is required";
+			return new MissingAvpException("SIP-Auth-Data-Item is required", Arrays.asList(new DiameterAvp[] { new SIPAuthDataItemImpl() }));
 		
 		return super.validate();
 	}

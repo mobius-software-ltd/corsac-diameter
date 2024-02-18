@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.CVIDEnd;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.CVIDStart;
@@ -32,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.VLANIDRan
 *
 */
 
-@DiameterAvpImplementation(code = 552L, vendorId = -1L)
 public class VLANIDRangeImpl extends DiameterGroupedAvpImpl implements VLANIDRange
 {
 	private SVIDStart svidStart;

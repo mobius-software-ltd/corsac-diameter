@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When included in an Authentication Request Response, it shall contain, binary encoded, the expected response XRES. See 3GPP TS 33.203 [3] for further 
 	details about XRES.
  */
-@DiameterAvpDefinition(code = 610L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Authorization")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_AUTHORIZATION, vendorId = VendorIDs.TGPP_ID, name = "SIP-Authorization")
 public interface SIPAuthorization extends DiameterOctetString
 {
 }

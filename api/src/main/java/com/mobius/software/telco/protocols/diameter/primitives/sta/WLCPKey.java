@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.2.3.33	WLCP-Key
 	The WLCP-Key AVP (AVP Code 1535) is of type OctetString and it shall contain the WLCP Key used for protecting the WLCP signalling between the UE and the TWAN, as specified in 3GPP TS 33.402 [19].
  */
-@DiameterAvpDefinition(code = 1535L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "WLCP-Key")
+@DiameterAvpDefinition(code = TgppAvpCodes.WLCP_KEY, vendorId = VendorIDs.TGPP_ID, must = false, name = "WLCP-Key")
 public interface WLCPKey extends DiameterOctetString
 {
 }

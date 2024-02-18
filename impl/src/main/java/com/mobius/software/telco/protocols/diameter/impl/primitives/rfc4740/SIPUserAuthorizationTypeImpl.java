@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserAuthorizationType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserAuthorizationTypeEnum;
@@ -28,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserAu
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 387L, vendorId = -1)
 public class SIPUserAuthorizationTypeImpl extends DiameterEnumeratedImpl<SIPUserAuthorizationTypeEnum> implements SIPUserAuthorizationType
 {
 	protected SIPUserAuthorizationTypeImpl()

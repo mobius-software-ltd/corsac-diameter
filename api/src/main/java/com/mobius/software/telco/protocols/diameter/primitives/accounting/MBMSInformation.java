@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.CNIPMulticastDistributionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMS2G3GIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSServiceTypeEnum;
@@ -58,7 +59,7 @@ import io.netty.buffer.ByteBuf;
 				[ MBMS-Data-Transfer-Start ]
 				[ MBMS-Data-Transfer-Stop ]
  */
-@DiameterAvpDefinition(code = 880L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Information")
 public interface MBMSInformation extends DiameterAvp
 {
 	ByteBuf getTMGI();

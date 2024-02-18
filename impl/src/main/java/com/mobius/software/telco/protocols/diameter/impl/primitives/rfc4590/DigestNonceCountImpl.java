@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestNonceCount;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestNon
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 114L, vendorId = -1)
 public class DigestNonceCountImpl extends DiameterUTF8StringImpl implements DigestNonceCount
 {
 	protected DigestNonceCountImpl()

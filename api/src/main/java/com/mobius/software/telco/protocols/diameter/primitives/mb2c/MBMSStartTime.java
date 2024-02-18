@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.9	MBMS‑Start‑Time AVP
 	The MBMS‑Start‑Time AVP (AVP code 3507) is of type Time and indicates the requested time when an MBMS bearer shall be allocated.
  */
-@DiameterAvpDefinition(code = 3507L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS‑Start‑Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_START_TIME, vendorId = VendorIDs.TGPP_ID, name = "MBMS‑Start‑Time")
 public interface MBMSStartTime extends DiameterTime
 {
 }

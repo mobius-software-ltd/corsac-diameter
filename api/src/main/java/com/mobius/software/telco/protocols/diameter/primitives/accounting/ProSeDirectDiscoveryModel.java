@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 Model A
 	1 Model B 
  */
-@DiameterAvpDefinition(code = 3442L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Direct-Discovery-Model")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_DIRECT_DISCOVERY_MODEL, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Direct-Discovery-Model")
 public interface ProSeDirectDiscoveryModel extends DiameterEnumerated<ProSeDirectDiscoveryModelEnum>
 {
 }

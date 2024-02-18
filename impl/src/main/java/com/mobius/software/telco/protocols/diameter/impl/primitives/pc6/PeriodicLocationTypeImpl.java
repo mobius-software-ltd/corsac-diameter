@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.LocationReportIntervalTime;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.PeriodicLocationType;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.TotalNumberOfReports;
@@ -31,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.TotalNumberOf
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3829L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PeriodicLocationTypeImpl extends DiameterGroupedAvpImpl implements PeriodicLocationType
 {
 	private LocationReportIntervalTime locationReportIntervalTime;
@@ -41,17 +43,11 @@ public class PeriodicLocationTypeImpl extends DiameterGroupedAvpImpl implements 
 	{
 	}
 	
-	public PeriodicLocationTypeImpl(Long locationReportIntervalTime,Long totalNumberOfReports)
+	public PeriodicLocationTypeImpl(Long locationReportIntervalTime,Long totalNumberOfReports) throws MissingAvpException
 	{
-		if(locationReportIntervalTime==null)
-			throw new IllegalArgumentException("Location-Report-Interval-Time is required");
+		setLocationReportIntervalTime(locationReportIntervalTime);
 		
-		if(totalNumberOfReports==null)
-			throw new IllegalArgumentException("Total-Number-Of-Reports is required");
-		
-		this.locationReportIntervalTime = new LocationReportIntervalTimeImpl(locationReportIntervalTime, null, null);						
-		
-		this.totalNumberOfReports = new TotalNumberOfReportsImpl(totalNumberOfReports, null, null);
+		setTotalNumberOfReports(totalNumberOfReports);
 	}
 	
 	public Long getLocationReportIntervalTime()
@@ -62,10 +58,10 @@ public class PeriodicLocationTypeImpl extends DiameterGroupedAvpImpl implements 
 		return locationReportIntervalTime.getUnsigned();
 	}
 	
-	public void setLocationReportIntervalTime(Long value)
+	public void setLocationReportIntervalTime(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Location-Report-Interval-Time is required");
+			throw new MissingAvpException("Location-Report-Interval-Time is required", Arrays.asList(new DiameterAvp[] { new LocationReportIntervalTimeImpl() }));
 		
 		this.locationReportIntervalTime = new LocationReportIntervalTimeImpl(value, null, null);								
 	}
@@ -78,22 +74,22 @@ public class PeriodicLocationTypeImpl extends DiameterGroupedAvpImpl implements 
 		return totalNumberOfReports.getUnsigned();
 	}
 	
-	public void setTotalNumberOfReports(Long value)
+	public void setTotalNumberOfReports(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Total-Number-Of-Reports is required");
+			throw new MissingAvpException("Total-Number-Of-Reports is required is required", Arrays.asList(new DiameterAvp[] { new TotalNumberOfReportsImpl() }));
 		
 		this.totalNumberOfReports = new TotalNumberOfReportsImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(locationReportIntervalTime==null)
-			return "Location-Report-Interval-Time is required";
+			return new MissingAvpException("Location-Report-Interval-Time is required", Arrays.asList(new DiameterAvp[] { new LocationReportIntervalTimeImpl() }));
 		
 		if(totalNumberOfReports==null)
-			return "Total-Number-Of-Reports is required";
+			return new MissingAvpException("Total-Number-Of-Reports is required is required", Arrays.asList(new DiameterAvp[] { new TotalNumberOfReportsImpl() }));
 		
 		return null;
 	}

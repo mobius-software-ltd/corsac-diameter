@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -77,7 +78,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    Further action values can be registered, as described in
    Section 10.3.
  */
-@DiameterAvpDefinition(code = 572L, vendorId = -1L, name = "Treatment-Action")
+@DiameterAvpDefinition(code = AvpCodes.TREATMENT_ACTION, vendorId = -1L, name = "Treatment-Action")
 public interface TreatmentAction extends DiameterEnumerated<TreatmentActionEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EtsiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Application-Class-ID AVP (AVP code 312 13019) is of type UTF8String and represents a class of applications that
 	share the same QoS profile. 
  */
-@DiameterAvpDefinition(code = 312L, vendorId = KnownVendorIDs.ETSI_ID, must = false, name = "Application-Class-ID")
+@DiameterAvpDefinition(code = EtsiAvpCodes.APPLICATION_CLASS_ID, vendorId = VendorIDs.ETSI_ID, must = false, name = "Application-Class-ID")
 public interface ApplicationClassID extends DiameterUTF8String
 {
 }

@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.mm10;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.DeliveryReportEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.ReadReplyEnum;
@@ -58,12 +61,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.Status;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777226, commandCode = 311, request = false, proxyable = true, name="Message-Process-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MM10, commandCode = CommandCodes.MESSAGE_PROCESS, request = false, proxyable = true, name="Message-Process-Answer")
 public interface MessageProcessAnswer extends VendorSpecificAnswer
 {
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 	
 	Status getStatus();
 	

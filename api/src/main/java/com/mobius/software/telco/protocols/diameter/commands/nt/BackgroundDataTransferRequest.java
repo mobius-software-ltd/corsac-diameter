@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TimeWindow;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -61,12 +64,12 @@ import io.netty.buffer.ByteBuf;
                 *[ Supported-Features ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777348, commandCode = 8388723, request = true, proxyable = true, name="Background-Data-Transfer-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NT, commandCode = CommandCodes.BACKGROUND_DATA_TRANSFER, request = true, proxyable = true, name="Background-Data-Transfer-Request")
 public interface BackgroundDataTransferRequest extends NtRequest
 {
 	TransferRequestTypeEnum getTransferRequestType();
 	
-	void setTransferRequestType(TransferRequestTypeEnum value);	
+	void setTransferRequestType(TransferRequestTypeEnum value) throws MissingAvpException;	
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	 

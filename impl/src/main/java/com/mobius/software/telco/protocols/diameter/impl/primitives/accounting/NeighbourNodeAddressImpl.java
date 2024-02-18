@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NeighbourNodeAddress;
 
 /**
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Neighb
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2705L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NeighbourNodeAddressImpl extends DiameterAddressImpl implements NeighbourNodeAddress
 {
 	protected NeighbourNodeAddressImpl()

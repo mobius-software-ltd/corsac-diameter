@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentHost;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNAAAAuth;
@@ -103,16 +106,16 @@ import io.netty.buffer.ByteBuf;
                                     * [ Route-Record ]
                                     * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 2, commandCode = 260, request = true, proxyable = true, name="AA-Mobile-Node-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.AA_MOBILE_NODE, request = true, proxyable = true, name="AA-Mobile-Node-Request")
 public interface AAMobileNodeRequest extends AuthenticationRequest
 {
 	ByteBuf getMIPRegRequest();
 	
-	void setMIPRegRequest(ByteBuf value);
+	void setMIPRegRequest(ByteBuf value) throws MissingAvpException;
 	
 	MIPMNAAAAuth getMIPMNAAAAuth();
 	
-	void setMIPMNAAAAuth(MIPMNAAAAuth value);
+	void setMIPMNAAAAuth(MIPMNAAAAuth value) throws MissingAvpException;
 	
 	public String getAcctMultiSessionId();
 	

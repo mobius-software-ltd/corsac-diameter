@@ -22,10 +22,8 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ApplicationPortIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ClientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DataCodingScheme;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MTCIWFAddress;
@@ -63,7 +61,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2000L, vendorId = KnownVendorIDs.TGPP_ID)
 public class SMSInformationImpl implements SMSInformation
 {
 	private SMSNode smsNode;

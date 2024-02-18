@@ -21,9 +21,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AccuracyEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MONTELocationTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringTypeEnum;
@@ -59,7 +60,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.NumberOfUEPer
 		* 	[ Number-Of-UE-Per-Location-Configuration ]
 		* 	[ Monitoring-Event-Report ]
  */
-@DiameterAvpDefinition(code = 3921L, vendorId = KnownVendorIDs.TGPP_ID, name = "Monitoring-Event-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.MONITORING_EVENT_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Monitoring-Event-Information")
 public interface MonitoringEventInformation extends DiameterAvp
 {
 	MonitoringEventFunctionalityEnum getMonitoringEventFunctionality();

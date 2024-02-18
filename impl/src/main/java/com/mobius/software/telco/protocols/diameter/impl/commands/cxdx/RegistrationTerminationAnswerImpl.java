@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.RegistrationTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -37,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.IdentityWith
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777216, commandCode = 304, request = false)
 public class RegistrationTerminationAnswerImpl extends CxDxAnswerImpl implements RegistrationTerminationAnswer
 {
 	private AssociatedIdentities associatedIdentities;
@@ -52,7 +52,7 @@ public class RegistrationTerminationAnswerImpl extends CxDxAnswerImpl implements
 		setExperimentalResultAllowed(false);
 	}
 	
-	public RegistrationTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState)
+	public RegistrationTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
@@ -33,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777302, commandCode = 275, request = false)
 public class SessionTerminationAnswerImpl extends SyAnswerImpl implements SessionTerminationAnswer
 {
 	public List<Load> load;
@@ -43,7 +43,7 @@ public class SessionTerminationAnswerImpl extends SyAnswerImpl implements Sessio
 		super();
 	}
 	
-	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}

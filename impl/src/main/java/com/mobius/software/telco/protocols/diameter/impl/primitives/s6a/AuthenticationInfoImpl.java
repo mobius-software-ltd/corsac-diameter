@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AuthenticationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EUTRANVector;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.GERANVector;
@@ -33,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.UTRANVector;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1413L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AuthenticationInfoImpl extends DiameterGroupedAvpImpl implements AuthenticationInfo
 {
 	private List<EUTRANVector> eutranVector;

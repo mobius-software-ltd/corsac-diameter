@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.PeriodicLDRInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.ReportingAmount;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.ReportingInterval;
@@ -31,7 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.ReportingInte
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2540L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PeriodicLDRInfoImpl extends DiameterGroupedAvpImpl implements PeriodicLDRInfo
 {
 	private ReportingAmount reportingAmount;
@@ -42,17 +44,11 @@ public class PeriodicLDRInfoImpl extends DiameterGroupedAvpImpl implements Perio
 	{
 	}
 	
-	public PeriodicLDRInfoImpl(Long reportingAmount,Long reportingInterval)
+	public PeriodicLDRInfoImpl(Long reportingAmount,Long reportingInterval) throws MissingAvpException
 	{
-		if(reportingAmount==null)
-			throw new IllegalArgumentException("Reporting-Amount is required");
+		setReportingAmount(reportingAmount);
 		
-		if(reportingInterval==null)
-			throw new IllegalArgumentException("Reporting-Interval is required");
-		
-		this.reportingAmount = new ReportingAmountImpl(reportingAmount, null, null);
-		
-		this.reportingInterval = new ReportingIntervalImpl(reportingInterval, null, null);
+		setReportingInterval(reportingInterval);
 	}
 	
 	public Long getReportingAmount()
@@ -63,11 +59,11 @@ public class PeriodicLDRInfoImpl extends DiameterGroupedAvpImpl implements Perio
 		return reportingAmount.getUnsigned();
 	}
 	
-	public void setReportingAmount(Long value)
+	public void setReportingAmount(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Reporting-Amount is required");
-		
+			throw new MissingAvpException("Reporting-Amount is required", Arrays.asList(new DiameterAvp[] { new ReportingAmountImpl() }));
+			
 		this.reportingAmount = new ReportingAmountImpl(value, null, null);
 	}
 	
@@ -79,22 +75,22 @@ public class PeriodicLDRInfoImpl extends DiameterGroupedAvpImpl implements Perio
 		return reportingInterval.getUnsigned();
 	}
 	
-	public void setReportingInterval(Long value)
+	public void setReportingInterval(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Reporting-Interval is required");
+			throw new MissingAvpException("Reporting-Interval is required", Arrays.asList(new DiameterAvp[] { new ReportingIntervalImpl() }));
 		
 		this.reportingInterval = new ReportingIntervalImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(reportingAmount==null)
-			return "Reporting-Amount is required";
+			return new MissingAvpException("Reporting-Amount is required", Arrays.asList(new DiameterAvp[] { new ReportingAmountImpl() }));
 		
 		if(reportingInterval==null)
-			return "Reporting-Interval is required";
+			return new MissingAvpException("Reporting-Interval is required", Arrays.asList(new DiameterAvp[] { new ReportingIntervalImpl() }));
 		
 		return null;
 	}

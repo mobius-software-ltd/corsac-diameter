@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	"MT_LR_Restart" cause code shall be used to trigger the GMLC to restart the location procedure, either because the sending node knows that the terminal has moved under coverage of another SGSN or MME, or because the subscriber has been deregistered due to a Cancel Location received from HSS.
 	Any unrecognized value of Termination-Cause shall be treated the same as value 1 ("Error Undefined"). 
  */
-@DiameterAvpDefinition(code = 2548L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Termination-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.TERMINATION_CAUSE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Termination-Cause")
 public interface TerminationCause extends DiameterUnsigned32
 {
 }

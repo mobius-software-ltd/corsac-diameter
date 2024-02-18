@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Service-ID AVP (AVP code 855) is of type UTF8String and identifies the service the MRFC is hosting or AoC
 	service. For conferences the conference ID is used as the value of this parameter. 
  */
-@DiameterAvpDefinition(code = 855L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_ID, vendorId = VendorIDs.TGPP_ID, name = "Service-ID")
 public interface ServiceID extends DiameterUTF8String
 {
 }

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -41,14 +43,14 @@ import io.netty.buffer.ByteBuf;
 			 { eDRX-Cycle-Length-Value }
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1691L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "eDRX-Cycle-Length")
+@DiameterAvpDefinition(code = TgppAvpCodes.EDRX_CYCLE_LENGTH, vendorId = VendorIDs.TGPP_ID, must = false, name = "eDRX-Cycle-Length")
 public interface EDRXCycleLength extends DiameterGroupedAvp
 {
 	RATTypeEnum getRATType();
 	
-	void setRATType(RATTypeEnum value);
+	void setRATType(RATTypeEnum value) throws MissingAvpException;
 	
 	ByteBuf getEDRXCycleLengthValue();
 	
-	void setEDRXCycleLengthValue(ByteBuf value);
+	void setEDRXCycleLengthValue(ByteBuf value) throws MissingAvpException;
 }

@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sd;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
@@ -45,7 +46,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleReport;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777303, commandCode = 8388637, request = false)
 public class TDFSessionAnswerImpl extends VendorSpecificAnswerImpl implements TDFSessionAnswer
 {
 	private DRMP drmp;
@@ -72,7 +72,7 @@ public class TDFSessionAnswerImpl extends VendorSpecificAnswerImpl implements TD
 		setUsernameAllowed(false);
 	}
 	
-	public TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)
+	public TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);
@@ -80,7 +80,7 @@ public class TDFSessionAnswerImpl extends VendorSpecificAnswerImpl implements TD
 		setUsernameAllowed(false);
 	}
 	
-	protected TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID)
+	protected TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);

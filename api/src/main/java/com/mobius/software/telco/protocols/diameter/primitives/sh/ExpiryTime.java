@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.16 Expiry-Time AVP
 	The Expiry-Time AVP is of type Time. This AVP contains the expiry time of subscriptions to notifications in the HSS. 
  */
-@DiameterAvpDefinition(code = 709L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Expiry-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXPIRY_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Expiry-Time")
 public interface ExpiryTime extends DiameterTime
 {
 }

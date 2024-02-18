@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -41,7 +42,7 @@ import io.netty.buffer.ByteBuf;
 		[ Radio-Parameter-Set-Values ]
 		[ Change-Time ]
  */
-@DiameterAvpDefinition(code = 3463L, vendorId = KnownVendorIDs.TGPP_ID, name = "Radio-Parameter-Set-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.RADIO_PARAMETER_SET_INFO, vendorId = VendorIDs.TGPP_ID, name = "Radio-Parameter-Set-Info")
 public interface RadioParameterSetInfo extends DiameterAvp
 {
 	ByteBuf getRadioParameterSetValues();

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned6
 
    The use of this AVP is described in Section 2.7.
  */
-@DiameterAvpDefinition(code = 465L, vendorId = -1L, name = "Accounting-EAP-Auth-Method")
+@DiameterAvpDefinition(code = AvpCodes.ACCOUNTING_EAP_AUTH_METHOD, vendorId = -1L, name = "Accounting-EAP-Auth-Method")
 public interface AccountingEAPAuthMethod extends DiameterUnsigned64
 {
 }

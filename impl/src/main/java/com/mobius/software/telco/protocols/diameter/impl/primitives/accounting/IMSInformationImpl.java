@@ -20,13 +20,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SessionPriorityImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInfoChange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessTransferInformation;
@@ -95,7 +97,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 876L, vendorId = KnownVendorIDs.TGPP_ID)
 public class IMSInformationImpl implements IMSInformation
 {
 	private EventType eventType;
@@ -156,12 +157,9 @@ public class IMSInformationImpl implements IMSInformation
 	{
 	}
 	
-	public IMSInformationImpl(NodeFunctionalityEnum nodeFunctionality)
+	public IMSInformationImpl(NodeFunctionalityEnum nodeFunctionality) throws MissingAvpException
 	{
-		if(nodeFunctionality==null)
-			throw new IllegalArgumentException("Node-Functionality is required");
-		
-		this.nodeFunctionality = new NodeFunctionalityImpl(nodeFunctionality, null, null);				
+		setNodeFunctionality(nodeFunctionality);				
 	}
 	
 	public EventType getEventType()
@@ -198,10 +196,10 @@ public class IMSInformationImpl implements IMSInformation
 		return nodeFunctionality.getEnumerated(NodeFunctionalityEnum.class);
 	}
 	
-	public void setNodeFunctionality(NodeFunctionalityEnum value)
+	public void setNodeFunctionality(NodeFunctionalityEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Node-Functionality is required");
+			throw new MissingAvpException("Node-Functionality is required", Arrays.asList(new DiameterAvp[] { new NodeFunctionalityImpl() }));
 		
 		this.nodeFunctionality = new NodeFunctionalityImpl(value, null, null);				
 	}
@@ -981,10 +979,10 @@ public class IMSInformationImpl implements IMSInformation
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(nodeFunctionality==null)
-			return "Node-Functionality is required";
+			return new MissingAvpException("Node-Functionality is required", Arrays.asList(new DiameterAvp[] { new NodeFunctionalityImpl() }));
 		
 		return null;
 	}

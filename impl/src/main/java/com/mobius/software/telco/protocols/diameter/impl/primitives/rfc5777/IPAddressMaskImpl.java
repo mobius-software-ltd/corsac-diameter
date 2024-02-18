@@ -19,10 +19,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  */
 
 import java.net.InetAddress;
+import java.util.Arrays;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPAddressMask;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPBitMaskWidth;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.IPBitMask
 *
 */
 
-@DiameterAvpImplementation(code = 522L, vendorId = -1L)
 public class IPAddressMaskImpl extends DiameterGroupedAvpImpl implements IPAddressMask
 {
 	private IPAddress ipAddress;
@@ -44,17 +46,11 @@ public class IPAddressMaskImpl extends DiameterGroupedAvpImpl implements IPAddre
 	{
 	}
 	
-	public IPAddressMaskImpl(InetAddress ipAddress,Long ipBitMaskWidth)
+	public IPAddressMaskImpl(InetAddress ipAddress,Long ipBitMaskWidth) throws MissingAvpException
 	{
-		if(ipAddress==null)
-			throw new IllegalArgumentException("IP-Address is required");
+		setIPAddress(ipAddress);
 		
-		if(ipBitMaskWidth==null)
-			throw new IllegalArgumentException("IP-Bit-Mask-Width is required");
-		
-		this.ipAddress = new IPAddressImpl(ipAddress, null, null);
-		
-		this.ipBitMaskWidth = new IPBitMaskWidthImpl(ipBitMaskWidth, null, null);
+		setIPBitMaskWidth(ipBitMaskWidth);
 	}
 	
 	public InetAddress getIPAddress()
@@ -65,11 +61,11 @@ public class IPAddressMaskImpl extends DiameterGroupedAvpImpl implements IPAddre
 		return this.ipAddress.getAddress();
 	}
 	
-	public void setIPAddress(InetAddress value)
+	public void setIPAddress(InetAddress value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("IP-Address is required");
-		
+			throw new MissingAvpException("IP-Address is required", Arrays.asList(new DiameterAvp[] { new IPAddressImpl() }));
+			
 		this.ipAddress = new IPAddressImpl(value, null, null);		
 	}
 	
@@ -81,22 +77,22 @@ public class IPAddressMaskImpl extends DiameterGroupedAvpImpl implements IPAddre
 		return this.ipBitMaskWidth.getUnsigned();
 	}
 	
-	public void setIPBitMaskWidth(Long value)
+	public void setIPBitMaskWidth(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("IP-Bit-Mask-Width is required");
-		
+			throw new MissingAvpException("IP-Bit-Mask-Width is required", Arrays.asList(new DiameterAvp[] { new IPBitMaskWidthImpl() }));
+			
 		this.ipBitMaskWidth = new IPBitMaskWidthImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ipAddress==null)
-			return "IP-Address is required";
+			return new MissingAvpException("IP-Address is required", Arrays.asList(new DiameterAvp[] { new IPAddressImpl() }));
 		
 		if(ipBitMaskWidth==null)
-			return "IP-Bit-Mask-Width is required";
+			return new MissingAvpException("IP-Bit-Mask-Width is required", Arrays.asList(new DiameterAvp[] { new IPBitMaskWidthImpl() }));
 		
 		return null;
 	}

@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ETHEtherType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ETHProtoType;
@@ -35,7 +34,6 @@ import io.netty.buffer.ByteBuf;
 *
 */
 
-@DiameterAvpImplementation(code = 549L, vendorId = -1L)
 public class ETHProtoTypeImpl extends DiameterGroupedAvpImpl implements ETHProtoType
 {
 	private List<ETHEtherType> ethEtherType;

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfWeekMask;
 
 /**
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.DayOfWeek
 	If Time-Of-Day-Start is not provided, starting time shall be set to start of the day(s) indicated by Day-Of-Week-Mask.
 	If Time-Of-Day-End is not provided, ending time is end of the day(s) indicated by Day-Of-Week-Mask.
  */
-@DiameterAvpDefinition(code = 3118L, vendorId = KnownVendorIDs.TGPP_ID, name = "Scheduled-Communication-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.SCHEDULED_COMMUNICATION_TIME, vendorId = VendorIDs.TGPP_ID, name = "Scheduled-Communication-Time")
 public interface ScheduledCommunicationTime extends DiameterGroupedAvp
 {
 	DayOfWeekMask getDayOfWeekMask();

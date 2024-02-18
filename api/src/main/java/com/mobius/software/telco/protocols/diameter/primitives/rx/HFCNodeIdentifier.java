@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * 	5.3.76	HFC-Node-Identifier AVP
 	The HFC-Node-Identifier AVP (AVP code 579) is of type OctetString and contains an HFC Node Identifier as specified in CableLabs WR-TR-5WWC-ARCH [73].
  */
-@DiameterAvpDefinition(code = 579L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "HFC-Node-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.HFC_NODE_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "HFC-Node-Identifier")
 public interface HFCNodeIdentifier extends DiameterOctetString
 {
 }

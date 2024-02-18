@@ -1,12 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.MatchRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchRequest;
@@ -36,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.PMRFlags;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388670, request = true)
 public class ProSeMatchRequestImpl extends Pc6RequestImpl implements ProSeMatchRequest
 {
 	private MatchRequest matchRequest;
@@ -48,7 +51,7 @@ public class ProSeMatchRequestImpl extends Pc6RequestImpl implements ProSeMatchR
 		super();
 	}
 	
-	public ProSeMatchRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,MatchRequest matchRequest)
+	public ProSeMatchRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,MatchRequest matchRequest) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -62,10 +65,10 @@ public class ProSeMatchRequestImpl extends Pc6RequestImpl implements ProSeMatchR
 	}
 	 
 	@Override	
-	public void setMatchRequest(MatchRequest value)
+	public void setMatchRequest(MatchRequest value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Match-Request is required");
+			throw new MissingAvpException("Match-Request is required is required", Arrays.asList(new DiameterAvp[] { new MatchRequestImpl() }));
 		
 		this.matchRequest = value;
 	}
@@ -83,10 +86,10 @@ public class ProSeMatchRequestImpl extends Pc6RequestImpl implements ProSeMatchR
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(matchRequest == null)
-			return "Match-Request is required";
+			return new MissingAvpException("Match-Request is required is required", Arrays.asList(new DiameterAvp[] { new MatchRequestImpl() }));
 		
 		return super.validate();
 	}	

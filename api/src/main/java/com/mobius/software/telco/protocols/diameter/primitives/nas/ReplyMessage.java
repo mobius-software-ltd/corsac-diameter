@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    or in a Re-Auth-Request message, it MAY contain text to prompt the
    user for a response.
  */
-@DiameterAvpDefinition(code = 18L, vendorId = -1L, name = "Reply-Message")
+@DiameterAvpDefinition(code = AvpCodes.REPLY_MESSAGE, vendorId = -1L, name = "Reply-Message")
 public interface ReplyMessage extends DiameterUTF8String
 {
 }

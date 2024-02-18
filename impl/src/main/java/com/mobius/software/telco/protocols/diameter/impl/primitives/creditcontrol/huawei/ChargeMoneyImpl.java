@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ActiveDay;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ChargeMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.MoneyValue;
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20344L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class ChargeMoneyImpl implements ChargeMoney
 {
 	private MoneyValue moneyValue;

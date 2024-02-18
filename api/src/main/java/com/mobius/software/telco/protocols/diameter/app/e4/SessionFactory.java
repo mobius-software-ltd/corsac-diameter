@@ -20,10 +20,13 @@ package com.mobius.software.telco.protocols.diameter.app.e4;
 
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public interface SessionFactory
 {
-	public UserDataRequest createUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);	
+	public UserDataRequest createUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException;	
 	
-	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm);	
+	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 }

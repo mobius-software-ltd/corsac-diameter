@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s7a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubscriptionData;
 
 import io.netty.buffer.ByteBuf;
@@ -53,12 +56,12 @@ import io.netty.buffer.ByteBuf;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777308, commandCode = 319, request = true, proxyable = true, name="Insert-Subscriber-Data-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S7A, commandCode = CommandCodes.INSERT_SUBSCRIBER_DATA, request = true, proxyable = true, name="Insert-Subscriber-Data-Request")
 public interface InsertSubscriberDataRequest extends S7aRequest
 {
 	List<VPLMNCSGSubscriptionData> getVPLMNCSGSubscriptionData();
 	 
-	void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value);
+	void setVPLMNCSGSubscriptionData(List<VPLMNCSGSubscriptionData> value) throws MissingAvpException;
 	
 	List<ByteBuf> getResetID();
 	 

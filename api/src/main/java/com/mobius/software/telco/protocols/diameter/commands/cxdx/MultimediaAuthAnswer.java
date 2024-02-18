@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.cxdx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
@@ -59,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777216, commandCode = 303, request = false, proxyable = true, name="Multimedia-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CX_DX, commandCode = CommandCodes.MULTIMEDIA_AUTH, request = false, proxyable = true, name="Multimedia-Auth-Answer")
 public interface MultimediaAuthAnswer extends CxDxAnswer
 {
 	OCSupportedFeatures getOCSupportedFeatures();

@@ -22,8 +22,11 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
@@ -131,12 +134,12 @@ import io.netty.buffer.ByteBuf;
                               * [ Proxy-Info ]
                               * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 5, commandCode = 268, request = false, proxyable = true, name="EAP-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.EAP, commandCode = CommandCodes.EAP, request = false, proxyable = true, name="EAP-Answer")
 public interface EAPAnswer extends AuthenticationAnswer
 {
 	public AuthRequestTypeEnum getAuthRequestType();
 	
-	void setAuthRequestType(AuthRequestTypeEnum value);		
+	void setAuthRequestType(AuthRequestTypeEnum value) throws MissingAvpException;		
 	
 	ByteBuf getEAPPayload();
 	

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -42,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 			 { Kc }
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1416L, vendorId = KnownVendorIDs.TGPP_ID, name = "GERAN-Vector")
+@DiameterAvpDefinition(code = TgppAvpCodes.GERAN_VECTOR, vendorId = VendorIDs.TGPP_ID, name = "GERAN-Vector")
 public interface GERANVector extends DiameterGroupedAvp
 {
 	Long getItemNumber();
@@ -51,13 +53,13 @@ public interface GERANVector extends DiameterGroupedAvp
 	
 	ByteBuf getRAND();
 	
-	void setRAND(ByteBuf value);
+	void setRAND(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getSRES();
 	
-	void setSRES(ByteBuf value);
+	void setSRES(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getKc();
 	
-	void setKc(ByteBuf value);	
+	void setKc(ByteBuf value) throws MissingAvpException;	
 }

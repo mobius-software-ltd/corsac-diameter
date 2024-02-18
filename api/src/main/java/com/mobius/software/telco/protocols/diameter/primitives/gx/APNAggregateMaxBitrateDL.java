@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	the PCEF. When provided in a CC-Answer, it indicates the maximum bandwidth authorized by PCRF.
 	When the Extended-BW-NR feature is supported and the value to be transmitted exceeds 2^32-1, the Extended-APNAMBR-DL AVP shall be used; see subclause 4.5.30 and subclause 5.3.134. 
  */
-@DiameterAvpDefinition(code = 1040L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "APN-Aggregate-Max-Bitrate-DL")
+@DiameterAvpDefinition(code = TgppAvpCodes.APN_AGGREGATE_MAX_BITRATE_DL, vendorId = VendorIDs.TGPP_ID, must = false, name = "APN-Aggregate-Max-Bitrate-DL")
 public interface APNAggregateMaxBitrateDL extends DiameterUnsigned32
 {
 }

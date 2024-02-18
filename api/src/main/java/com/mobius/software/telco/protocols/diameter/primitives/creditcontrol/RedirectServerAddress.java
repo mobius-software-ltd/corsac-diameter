@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    server, SIP Server) with which the end user is to be connected when
    the account cannot cover the service cost.
  */
-@DiameterAvpDefinition(code = 435L, vendorId = -1L, name = "Redirect-Server-Address")
+@DiameterAvpDefinition(code = AvpCodes.REDIRECT_SERVER_ADDRESS, vendorId = -1L, name = "Redirect-Server-Address")
 public interface RedirectServerAddress extends DiameterUTF8String
 {
 }

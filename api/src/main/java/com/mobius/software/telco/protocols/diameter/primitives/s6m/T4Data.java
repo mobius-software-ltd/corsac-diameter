@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6m;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When the HSS-Cause indicates Absent Subscriber, via the corresponding flag in the bit mask, the Serving-Node and Additional-Serving-Node AVPs shall not be present. When the HSS-Cause indicates Teleservice Not Provisioned or
 	Call Barred, via the corresponding flag in the bit mask, the Serving-Node and Additional-Serving-Node AVPs should not be present. Additional-Serving-Node AVP shall be absent if Serving-Node AVP is absent.
  */
-@DiameterAvpDefinition(code = 3108L, vendorId = KnownVendorIDs.TGPP_ID, name = "T4-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.T4_DATA, vendorId = VendorIDs.TGPP_ID, name = "T4-Data")
 public interface T4Data extends DiameterGroupedAvp
 {
 	HSSCause getHSSCause();

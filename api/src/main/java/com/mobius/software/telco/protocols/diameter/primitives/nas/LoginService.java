@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    login host.  This AVP SHOULD only be present in authorization
    responses.  The supported values are listed in RFC 2869.
  */
-@DiameterAvpDefinition(code = 15L, vendorId = -1L, name = "Login-Service")
+@DiameterAvpDefinition(code = AvpCodes.LOGIN_SERVICE, vendorId = -1L, name = "Login-Service")
 public interface LoginService extends DiameterEnumerated<LoginServiceEnum>
 {
 }

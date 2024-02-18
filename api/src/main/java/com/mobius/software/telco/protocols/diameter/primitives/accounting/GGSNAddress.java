@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The GGSN-Address AVP (AVP code 847) is of type Address and holds the IP-address of the GGSN/P-GW/SMF that
 	generated the GPRS/EPC/5GS Charging ID, as described in [1]. 
  */
-@DiameterAvpDefinition(code = 847L, vendorId = KnownVendorIDs.TGPP_ID, name = "GGSN-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.GGSN_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "GGSN-Address")
 public interface GGSNAddress extends DiameterAddress
 {
 }

@@ -21,9 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.APNAggregateMaxBitrateDL;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.APNAggregateMaxBitrateUL;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ConditionalAPNAggregateMaxBitrate;
@@ -39,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2818L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ConditionalAPNAggregateMaxBitrateImpl extends DiameterGroupedAvpImpl implements ConditionalAPNAggregateMaxBitrate
 {
 	private APNAggregateMaxBitrateUL apnAggregateMaxBitrateUL;

@@ -1,12 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeDiscoveryRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.DiscoveryAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.DiscoveryEntryIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -37,7 +41,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.DiscoveryEntr
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388669, request = true)
 public class ProSeDiscoveryRequestImpl extends Pc6RequestImpl implements ProSeDiscoveryRequest
 {
 	private DiscoveryAuthRequest discoveryAuthRequest;
@@ -49,7 +52,7 @@ public class ProSeDiscoveryRequestImpl extends Pc6RequestImpl implements ProSeDi
 		super();
 	}
 	
-	public ProSeDiscoveryRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,DiscoveryAuthRequest discoveryAuthRequest)
+	public ProSeDiscoveryRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,DiscoveryAuthRequest discoveryAuthRequest) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -63,11 +66,11 @@ public class ProSeDiscoveryRequestImpl extends Pc6RequestImpl implements ProSeDi
 	}
 	 
 	@Override	
-	public void setDiscoveryAuthRequest(DiscoveryAuthRequest value)
+	public void setDiscoveryAuthRequest(DiscoveryAuthRequest value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Discovery-Auth-Request is required");
-		
+			throw new MissingAvpException("Discovery-Auth-Request is required is required", Arrays.asList(new DiameterAvp[] { new DiscoveryAuthRequestImpl() }));
+			
 		this.discoveryAuthRequest = value;
 	}
 	
@@ -90,10 +93,10 @@ public class ProSeDiscoveryRequestImpl extends Pc6RequestImpl implements ProSeDi
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(discoveryAuthRequest == null)
-			return "Discovery-Auth-Request is required";
+			return new MissingAvpException("Discovery-Auth-Request is required is required", Arrays.asList(new DiameterAvp[] { new DiscoveryAuthRequestImpl() }));
 		
 		return super.validate();
 	}	

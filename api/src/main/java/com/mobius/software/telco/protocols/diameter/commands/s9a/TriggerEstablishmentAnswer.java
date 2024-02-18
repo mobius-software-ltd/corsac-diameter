@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s9a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -54,7 +56,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
                *[ Load ]
                *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777319, commandCode = 8388656, request = false, proxyable = true, name="Trigger-Establishment-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S9A, commandCode = CommandCodes.TRIGGER_ESTABLIHMENT, request = false, proxyable = true, name="Trigger-Establishment-Answer")
 public interface TriggerEstablishmentAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	DRMPEnum getDRMP();

@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
 
 import java.net.Inet6Address;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpv6AddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASIPv6Address;
 
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASIPv6Addres
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 95L, vendorId = -1L)
 public class NASIPv6AddressImpl extends DiameterIpv6AddressImpl implements NASIPv6Address
 {
 	protected NASIPv6AddressImpl() 

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc6734;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
       the lifetime of a key should not generally be longer than the
       session lifetime (see Section 8.13 of [RFC6733]).
 */
-@DiameterAvpDefinition(code = 584L, vendorId = -1L, must = false, name = "Key-Lifetime")
+@DiameterAvpDefinition(code = AvpCodes.KEY_LIFETIME, vendorId = -1L, must = false, name = "Key-Lifetime")
 public interface KeyLifetime extends DiameterUnsigned32
 {
 }

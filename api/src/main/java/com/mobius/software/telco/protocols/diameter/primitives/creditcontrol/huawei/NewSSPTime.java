@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the time of SSP reporting. 
  */
-@DiameterAvpDefinition(code = 22992L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "New-SSP-Time")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.NEW_SSP_TIME, vendorId = VendorIDs.HUAWEI_ID, name = "New-SSP-Time")
 public interface NewSSPTime extends DiameterTime
 {
 }

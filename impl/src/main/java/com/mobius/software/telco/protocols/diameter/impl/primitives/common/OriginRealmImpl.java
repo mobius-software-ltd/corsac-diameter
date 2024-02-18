@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginRealm;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.OriginReal
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 296L, vendorId = -1L)
 public class OriginRealmImpl extends DiameterIdentityImpl implements OriginRealm
 {
-	protected OriginRealmImpl() 
+	public OriginRealmImpl() 
 	{
 		super();
 	}

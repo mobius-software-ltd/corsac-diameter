@@ -22,6 +22,7 @@ import java.net.InetAddress;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.rfc5778.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHomeAgentHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6AgentInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777.ClassifierImpl;
@@ -84,17 +85,17 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public QoSResources getQoSResources(List<FilterRule> filterRule)
+	public QoSResources getQoSResources(List<FilterRule> filterRule) throws MissingAvpException
 	{
 		return new QoSResourcesImpl(filterRule);
 	}
 	
-	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate)
+	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate) throws MissingAvpException
 	{
 		return new QoSCapabilityImpl(qoSProfileTemplate);
 	}
 	
-	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId)
+	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId) throws MissingAvpException
 	{
 		return new QoSProfileTemplateImpl(vendorId, qoSProfileId);
 	}
@@ -104,17 +105,17 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new MIP6AgentInfoImpl();
 	}
 	
-	public MIPMNHAMSA getMIPMNHAMSA(ByteBuf mipSessionKey, Long mipMSALifetime)
+	public MIPMNHAMSA getMIPMNHAMSA(ByteBuf mipSessionKey, Long mipMSALifetime) throws MissingAvpException
 	{
 		return new MIPMNHAMSAImpl(mipSessionKey, mipMSALifetime);
 	}
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm)
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException
 	{
 		return new MIPHomeAgentHostImpl(destinationHost, destinationRealm);
 	}
 	
-	public ExcessTreatment getExcessTreatment(TreatmentActionEnum treatmentAction)
+	public ExcessTreatment getExcessTreatment(TreatmentActionEnum treatmentAction) throws MissingAvpException
 	{
 		return new ExcessTreatmentImpl(treatmentAction);
 	}
@@ -134,7 +135,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new TimeOfDayConditionImpl();
 	}
 	
-	public Classifier getClassifier(ByteBuf classifierID)
+	public Classifier getClassifier(ByteBuf classifierID) throws MissingAvpException
 	{
 		return new ClassifierImpl(classifierID);
 	}
@@ -164,27 +165,27 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ToSpecImpl();
 	}
 	
-	public IPOption getIPOption(IPOptionTypeEnum ipOptionType)
+	public IPOption getIPOption(IPOptionTypeEnum ipOptionType) throws MissingAvpException
 	{
 		return new IPOptionImpl(ipOptionType);
 	} 
 	
-	public TCPOption getTCPOption(TCPOptionTypeEnum tcpOptionType)
+	public TCPOption getTCPOption(TCPOptionTypeEnum tcpOptionType) throws MissingAvpException
 	{
 		return new TCPOptionImpl(tcpOptionType);
 	}
 	
-	public TCPFlags getTCPFlags(Long tcpFlagType)
+	public TCPFlags getTCPFlags(Long tcpFlagType) throws MissingAvpException
 	{
 		return new TCPFlagsImpl(tcpFlagType);
 	}
 	
-	public ICMPType getICMPType(ICMPTypeNumberEnum icmpTypeNumber)
+	public ICMPType getICMPType(ICMPTypeNumberEnum icmpTypeNumber) throws MissingAvpException
 	{
 		return new ICMPTypeImpl(icmpTypeNumber);
 	}
 	
-	public ETHOption getETHOption(ETHProtoType ethProtoType)
+	public ETHOption getETHOption(ETHProtoType ethProtoType) throws MissingAvpException
 	{
 		return new ETHOptionImpl(ethProtoType);
 	}
@@ -194,17 +195,17 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new IPAddressRangeImpl(ipAddressStart, ipAddressEnd);
 	}
 	
-	public IPAddressMask getIPAddressMask(InetAddress ipAddress,Long ipBitMaskWidth)
+	public IPAddressMask getIPAddressMask(InetAddress ipAddress,Long ipBitMaskWidth) throws MissingAvpException
 	{
 		return new IPAddressMaskImpl(ipAddress, ipBitMaskWidth);
 	}
 	
-	public MACAddressMask getMACAddressMask(ByteBuf macAddress,ByteBuf macAddressMaskPattern)
+	public MACAddressMask getMACAddressMask(ByteBuf macAddress,ByteBuf macAddressMaskPattern) throws MissingAvpException
 	{
 		return new MACAddressMaskImpl(macAddress, macAddressMaskPattern);
 	}
 	
-	public EUI64AddressMask getEUI64AddressMask(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern)
+	public EUI64AddressMask getEUI64AddressMask(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern) throws MissingAvpException
 	{
 		return new EUI64AddressMaskImpl(eui64Address, eui64AddressMaskPattern);
 	}

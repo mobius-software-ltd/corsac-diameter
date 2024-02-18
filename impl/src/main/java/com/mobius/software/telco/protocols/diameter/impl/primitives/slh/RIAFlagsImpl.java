@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.RIAFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.RIAFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2411L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RIAFlagsImpl extends DiameterBitmask32Impl implements RIAFlags
 {
 	public RIAFlagsImpl()
@@ -44,7 +41,7 @@ public class RIAFlagsImpl extends DiameterBitmask32Impl implements RIAFlags
 	@Override
 	public void setCombinedMMEBit(boolean isOn)
 	{
-		setBit(COMBINED_MME_BIT, isOn);
+		setBitUnchecked(COMBINED_MME_BIT, isOn);
 	}
 
 	@Override

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the charged party number attribute, which is transferred by the OM to the CBS to strip the charged party number for analysis.
  */
-@DiameterAvpDefinition(code = 30051L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Charge-Number-Nature")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CHARGE_NUMBER_NATURE, vendorId = VendorIDs.HUAWEI_ID, name = "Charge-Number-Nature")
 public interface ChargeNumberNature extends DiameterInteger32
 {
 }

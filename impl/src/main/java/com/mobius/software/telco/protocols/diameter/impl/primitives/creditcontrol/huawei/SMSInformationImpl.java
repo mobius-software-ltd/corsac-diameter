@@ -20,8 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OriginatorAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.SMSInformation;
@@ -31,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpDefinition(code = 2000L, vendorId = KnownVendorIDs.TGPP_ID, name = "SMS-Information")
 public class SMSInformationImpl extends com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.SMSInformationImpl implements SMSInformation  
 {
 	private List<OriginatorAddress> originatorAddress;

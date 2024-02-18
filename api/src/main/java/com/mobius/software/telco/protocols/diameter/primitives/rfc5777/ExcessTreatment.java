@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -46,12 +48,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                         [ QoS-Parameters ]
                       * [ AVP ]
  */
-@DiameterAvpDefinition(code = 577L, vendorId = -1L, name = "Excess-Treatment")
+@DiameterAvpDefinition(code = AvpCodes.EXCESS_TREATMENT, vendorId = -1L, name = "Excess-Treatment")
 public interface ExcessTreatment extends DiameterGroupedAvp
 {
 	TreatmentActionEnum getTreatmentAction();
 	
-	void setTreatmentAction(TreatmentActionEnum value);	
+	void setTreatmentAction(TreatmentActionEnum value) throws MissingAvpException;	
 	
 	QoSProfileTemplate getQoSProfileTemplate();
 	

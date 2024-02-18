@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.app.s6b;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.AllocationRetentionPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSClassIdentifierEnum;
@@ -82,37 +83,37 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public MIP6AgentInfo getMIP6AgentInfo();
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm);
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException;
 	
-	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate);
+	public QoSCapability getQoSCapability(List<QoSProfileTemplate> qoSProfileTemplate) throws MissingAvpException;
 	
-	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId);
+	public QoSProfileTemplate getQoSProfileTemplate(Long vendorId,Long qoSProfileId) throws MissingAvpException;
 	
 	public QoSParameters getQoSParameters();
 	
-	public ExcessTreatment getExcessTreatment(TreatmentActionEnum treatmentAction);
+	public ExcessTreatment getExcessTreatment(TreatmentActionEnum treatmentAction) throws MissingAvpException;
 	
-	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection);
+	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection) throws MissingAvpException;
 	
-	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority);
+	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority) throws MissingAvpException;
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel);
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException;
 	
-	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL);
+	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL) throws MissingAvpException;
 	
-	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo);
+	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo) throws MissingAvpException;
 	
 	public WLANOffloadability getWLANOffloadability();
 	
-	public QoSResources getQoSResources(List<FilterRule> filterRule);
+	public QoSResources getQoSResources(List<FilterRule> filterRule) throws MissingAvpException;
 	
 	public RARFlags getRARFlags();
 	
@@ -120,7 +121,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public TimeOfDayCondition getTimeOfDayCondition();
 	
-	public Classifier getClassifier(ByteBuf classifierID);
+	public Classifier getClassifier(ByteBuf classifierID) throws MissingAvpException;
 	
 	public MonthOfYearMask getMonthOfYearMask();
 	
@@ -132,31 +133,31 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ToSpec getToSpec();
 	
-	public IPOption getIPOption(IPOptionTypeEnum ipOptionType); 
+	public IPOption getIPOption(IPOptionTypeEnum ipOptionType) throws MissingAvpException; 
 	
-	public TCPOption getTCPOption(TCPOptionTypeEnum tcpOptionType);
+	public TCPOption getTCPOption(TCPOptionTypeEnum tcpOptionType) throws MissingAvpException;
 	
-	public TCPFlags getTCPFlags(Long tcpFlagType);
+	public TCPFlags getTCPFlags(Long tcpFlagType) throws MissingAvpException;
 	
-	public ICMPType getICMPType(ICMPTypeNumberEnum icmpTypeNumber);
+	public ICMPType getICMPType(ICMPTypeNumberEnum icmpTypeNumber) throws MissingAvpException;
 	
-	public ETHOption getETHOption(ETHProtoType ethProtoType);
+	public ETHOption getETHOption(ETHProtoType ethProtoType) throws MissingAvpException;
 	
 	public IPAddressRange getIPAddressRange(InetAddress ipAddressStart,InetAddress ipAddressEnd);
 	
-	public IPAddressMask getIPAddressMask(InetAddress ipAddress,Long ipBitMaskWidth);
+	public IPAddressMask getIPAddressMask(InetAddress ipAddress,Long ipBitMaskWidth) throws MissingAvpException;
 	
-	public MACAddressMask getMACAddressMask(ByteBuf macAddress,ByteBuf macAddressMaskPattern);
+	public MACAddressMask getMACAddressMask(ByteBuf macAddress,ByteBuf macAddressMaskPattern) throws MissingAvpException;
 	
-	public EUI64AddressMask getEUI64AddressMask(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern);
+	public EUI64AddressMask getEUI64AddressMask(ByteBuf eui64Address,ByteBuf eui64AddressMaskPattern) throws MissingAvpException;
 	
 	public PortRange getPortRange(Integer portStart,Integer portEnd);
 	
 	public TraceInfo getTraceInfo();
 	
-	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity);
+	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity) throws MissingAvpException;
 	
-	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType);
+	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType) throws MissingAvpException;
 	
 	public AreaScope getAreaScope();
 	

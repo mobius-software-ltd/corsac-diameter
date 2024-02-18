@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DaylightSavingTime;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DaylightSavingTimeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.LocalTimeZone;
@@ -32,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.TimeZone;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1649L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LocalTimeZoneImpl extends DiameterGroupedAvpImpl implements LocalTimeZone
 {
 	private TimeZone timeZone;
@@ -44,17 +46,11 @@ public class LocalTimeZoneImpl extends DiameterGroupedAvpImpl implements LocalTi
 		
 	}
 	
-	public LocalTimeZoneImpl(String timeZone,DaylightSavingTimeEnum daylightSavingTime)
+	public LocalTimeZoneImpl(String timeZone,DaylightSavingTimeEnum daylightSavingTime) throws MissingAvpException
 	{
-		if(timeZone==null)
-			throw new IllegalArgumentException("Time-Zone is required");
+		setTimeZone(timeZone);
 		
-		if(daylightSavingTime==null)
-			throw new IllegalArgumentException("Daylight-Saving-Time is required");
-		
-		this.timeZone = new TimeZoneImpl(timeZone, null, null);				
-		
-		this.daylightSavingTime = new DaylightSavingTimeImpl(daylightSavingTime, null, null);
+		setDaylightSavingTime(daylightSavingTime);
 	}
 	
 	public String getTimeZone()
@@ -65,11 +61,11 @@ public class LocalTimeZoneImpl extends DiameterGroupedAvpImpl implements LocalTi
 		return timeZone.getString();
 	}
 	
-	public void setTimeZone(String value)
+	public void setTimeZone(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Time-Zone is required");
-		
+			throw new MissingAvpException("Time-Zone is required", Arrays.asList(new DiameterAvp[] { new TimeZoneImpl() }));
+			
 		this.timeZone = new TimeZoneImpl(value, null, null);	
 	}
 	
@@ -81,22 +77,22 @@ public class LocalTimeZoneImpl extends DiameterGroupedAvpImpl implements LocalTi
 		return daylightSavingTime.getEnumerated(DaylightSavingTimeEnum.class);
 	}
 	
-	public void setDaylightSavingTime(DaylightSavingTimeEnum value)
+	public void setDaylightSavingTime(DaylightSavingTimeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Daylight-Saving-Time is required");
-		
+			throw new MissingAvpException("Daylight-Saving-Time is required", Arrays.asList(new DiameterAvp[] { new DaylightSavingTimeImpl() }));
+			
 		this.daylightSavingTime = new DaylightSavingTimeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(timeZone==null)
-			return "Time-Zone is required";
+			return new MissingAvpException("Time-Zone is required", Arrays.asList(new DiameterAvp[] { new TimeZoneImpl() }));
 		
 		if(daylightSavingTime==null)
-			return "Daylight-Saving-Time is required";
+			return new MissingAvpException("Daylight-Saving-Time is required", Arrays.asList(new DiameterAvp[] { new DaylightSavingTimeImpl() }));
 		
 		return null;
 	}

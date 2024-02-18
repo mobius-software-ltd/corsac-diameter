@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.65	Desired-Max-Loss AVP
 	The Desired-Max-Loss AVP (AVP code 568) is of type Float32 and describes the maximum desirable end to end transport level packet loss rate in percent (without "%" sign) as a zero-based integer or as a non-zero real value.
  */
-@DiameterAvpDefinition(code = 568L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Desired-Max-Loss")
+@DiameterAvpDefinition(code = TgppAvpCodes.DESIRED_MAX_LOSS, vendorId = VendorIDs.TGPP_ID, must = false, name = "Desired-Max-Loss")
 public interface DesiredMaxLoss extends DiameterFloat32
 {
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -49,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
       This node supports TLS/TCP [RFC5246] and DTLS/SCTP [RFC6083]
       security.
  */
-@DiameterAvpDefinition(code = 299L, vendorId = -1L, name = "Inband-Security-Id")
+@DiameterAvpDefinition(code = AvpCodes.INBAND_SECURITY_ID, vendorId = -1L, name = "Inband-Security-Id")
 public interface InbandSecurityId extends DiameterUnsigned32
 {
 		

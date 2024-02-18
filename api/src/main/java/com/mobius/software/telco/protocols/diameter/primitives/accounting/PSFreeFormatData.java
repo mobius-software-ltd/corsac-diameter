@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The PS-Free-Format-Data AVP (AVP code 866) is of type OctectString and holds online charging session specific
 	data. 
  */
-@DiameterAvpDefinition(code = 866L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Free-Format-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.PS_FREE_FORMAT_DATA, vendorId = VendorIDs.TGPP_ID, name = "PS-Free-Format-Data")
 public interface PSFreeFormatData extends DiameterOctetString
 {
 }

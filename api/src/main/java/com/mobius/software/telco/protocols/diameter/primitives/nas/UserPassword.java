@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    The clear-text password (prior to encryption) MUST NOT be longer than
    128 bytes in length.
  */
-@DiameterAvpDefinition(code = 2L, vendorId = -1L, name = "User-Password")
+@DiameterAvpDefinition(code = AvpCodes.USER_PASSWORD, vendorId = -1L, name = "User-Password")
 public interface UserPassword extends DiameterOctetString
 {
 }

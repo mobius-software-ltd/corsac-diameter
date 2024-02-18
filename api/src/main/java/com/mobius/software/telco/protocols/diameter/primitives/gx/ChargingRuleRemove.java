@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.RequiredAccessInfoEnum;
 
 import io.netty.buffer.ByteBuf;
@@ -47,7 +48,7 @@ import io.netty.buffer.ByteBuf;
 		 [ Resource-Release-Notification ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1002L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Rule-Remove")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_RULE_REMOVE, vendorId = VendorIDs.TGPP_ID, name = "Charging-Rule-Remove")
 public interface ChargingRuleRemove extends DiameterGroupedAvp
 {
 	List<ByteBuf> getChargingRuleName();

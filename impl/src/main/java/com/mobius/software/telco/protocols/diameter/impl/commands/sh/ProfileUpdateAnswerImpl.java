@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.sh;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sh.ProfileUpdateAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedIMPUImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.DataReferenceImpl;
@@ -44,7 +45,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.RepositoryData
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777217, commandCode = 307, request = false)
 public class ProfileUpdateAnswerImpl extends ShAnswerImpl implements ProfileUpdateAnswer
 {
 	private WildcardedPublicIdentity wildcardedPublicIdentity;
@@ -67,7 +67,7 @@ public class ProfileUpdateAnswerImpl extends ShAnswerImpl implements ProfileUpda
 		setExperimentalResultAllowed(false);
 	}
 	
-	public ProfileUpdateAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState)
+	public ProfileUpdateAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

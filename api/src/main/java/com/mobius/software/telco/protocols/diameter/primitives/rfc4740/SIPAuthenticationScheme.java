@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -75,7 +76,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    	the syntax of the Digest-* attributes defined in the "RADIUS
    	Extension for Digest Authentication" [RFC4590].
  */
-@DiameterAvpDefinition(code = 377L, vendorId = -1, name = "SIP-Authentication-Scheme")
+@DiameterAvpDefinition(code = AvpCodes.SIP_AUTHENTICATION_SCHEME, vendorId = -1, name = "SIP-Authentication-Scheme")
 public interface SIPAuthenticationScheme extends DiameterEnumerated<SIPAuthenticationSchemeEnum>
 {
 }

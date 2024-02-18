@@ -1,13 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAuthorizationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UserIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
@@ -39,7 +43,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777340, commandCode = 8388668, request = true)
 public class ProSeAuthorizationRequestImpl extends Pc6RequestImpl implements ProSeAuthorizationRequest
 {
 	private UserIdentity userIdentity;
@@ -51,7 +54,7 @@ public class ProSeAuthorizationRequestImpl extends Pc6RequestImpl implements Pro
 		super();
 	}
 	
-	public ProSeAuthorizationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentity userIdentity,ByteBuf visitedPLMNId)
+	public ProSeAuthorizationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentity userIdentity,ByteBuf visitedPLMNId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -67,10 +70,10 @@ public class ProSeAuthorizationRequestImpl extends Pc6RequestImpl implements Pro
 	}
 	 
 	@Override	
-	public void setUserIdentity(UserIdentity value)
+	public void setUserIdentity(UserIdentity value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identity is required");
+			throw new MissingAvpException("User-Identity is required is required", Arrays.asList(new DiameterAvp[] { new UserIdentityImpl() }));
 		
 		this.userIdentity = value;
 	}
@@ -85,22 +88,22 @@ public class ProSeAuthorizationRequestImpl extends Pc6RequestImpl implements Pro
 	}
 	
 	@Override	
-	public void setVisitedPLMNId(ByteBuf value)
+	public void setVisitedPLMNId(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Visited-PLMN-Id is required");
+			throw new MissingAvpException("Visited-PLMN-Id is required is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		this.visitedPLMNId = new VisitedPLMNIdImpl(value, null, null);
 	}
 		
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(userIdentity == null)
-			return "User-Identity is required";
+			return new MissingAvpException("User-Identity is required is required", Arrays.asList(new DiameterAvp[] { new UserIdentityImpl() }));
 		
 		if(visitedPLMNId == null)
-			return "Visited-PLMN-Id is required";
+			return new MissingAvpException("Visited-PLMN-Id is required is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		return super.validate();
 	}	

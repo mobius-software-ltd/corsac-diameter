@@ -18,10 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CurrencyCodeImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UnitValueImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RemainingBalance;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CurrencyCode;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
@@ -31,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 2021L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RemainingBalanceImpl implements RemainingBalance
 {
 	private UnitValue unitValue;
@@ -41,17 +44,11 @@ public class RemainingBalanceImpl implements RemainingBalance
 	{
 	}
 
-	public RemainingBalanceImpl(UnitValue unitValue,Long currencyCode)
+	public RemainingBalanceImpl(UnitValue unitValue,Long currencyCode) throws MissingAvpException
 	{
-		if(unitValue==null)
-			throw new IllegalArgumentException("Unit-Value is required");
+		setUnitValue(unitValue);
 		
-		if(currencyCode==null)
-			throw new IllegalArgumentException("Currency-Code is required");
-		
-		this.unitValue = unitValue;
-		
-		this.currencyCode = new CurrencyCodeImpl(currencyCode, null, null);
+		setCurrencyCode(currencyCode);
 	}
 
 	public UnitValue getUnitValue()
@@ -59,10 +56,10 @@ public class RemainingBalanceImpl implements RemainingBalance
 		return unitValue;
 	}
 	
-	public void setUnitValue(UnitValue value)
+	public void setUnitValue(UnitValue value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Unit-Value is required");
+			throw new MissingAvpException("Unit-Value is required is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() }));
 		
 		this.unitValue = value;		
 	}
@@ -75,22 +72,22 @@ public class RemainingBalanceImpl implements RemainingBalance
 		return currencyCode.getUnsigned();
 	}
 	
-	public void setCurrencyCode(Long value)
+	public void setCurrencyCode(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Currency-Code is required");
+			throw new MissingAvpException("Currency-Code is required is required", Arrays.asList(new DiameterAvp[] { new CurrencyCodeImpl() }));
 		
 		this.currencyCode = new CurrencyCodeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(unitValue==null)
-			return "Unit-Value is required";
+			return new MissingAvpException("Unit-Value is required is required", Arrays.asList(new DiameterAvp[] { new UnitValueImpl() }));
 		
 		if(currencyCode==null)
-			return "Currency-Code is required is required";
+			return new MissingAvpException("Currency-Code is required is required", Arrays.asList(new DiameterAvp[] { new CurrencyCodeImpl() }));
 		
 		return null;
 	}

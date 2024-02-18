@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6t;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.IdleStatusIndication;
 
@@ -63,12 +65,12 @@ import io.netty.buffer.ByteBuf;
 
 	When the "Extended Reference IDs" feature is supported by the HSS and SCEF, the SCEF-Reference-ID-for-Deletion-Ext AVP shall be used insted of SCEF-Reference-ID-for-Deletion.
  */
-@DiameterAvpDefinition(code = 3166L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Group-Report-Item")
+@DiameterAvpDefinition(code = TgppAvpCodes.GROUP_REPORT_ITEM, vendorId = VendorIDs.TGPP_ID, must = false, name = "Group-Report-Item")
 public interface GroupReportItem extends DiameterGroupedAvp
 {
 	UserIdentifier getUserIdentifier();
 	
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	
 	ByteBuf getVisitedPLMNId();
 	

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    	OctetString.  The value is 6 octets specifying the bit positions of a
    	MAC address that are taken for matching.
  */
-@DiameterAvpDefinition(code = 526L, vendorId = -1L, name = "MAC-Address-Mask-Pattern")
+@DiameterAvpDefinition(code = AvpCodes.MAC_ADDRESS_MASK_PATTERN, vendorId = -1L, name = "MAC-Address-Mask-Pattern")
 public interface MACAddressMaskPattern extends DiameterOctetString
 {
 }

@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.RecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.ResultRecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.RouteingAddress;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.SequenceNumb
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1106L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ResultRecipientAddressImpl extends DiameterGroupedAvpImpl implements ResultRecipientAddress
 {
 	private SequenceNumber sequenceNumber;
@@ -48,12 +50,9 @@ public class ResultRecipientAddressImpl extends DiameterGroupedAvpImpl implement
 	{
 	}
 	
-	public ResultRecipientAddressImpl(Long sequenceNumber,String recipientAddress)
+	public ResultRecipientAddressImpl(Long sequenceNumber,String recipientAddress) throws MissingAvpException
 	{
-		if(sequenceNumber==null)
-			throw new IllegalArgumentException("Sequence-Number is required");
-		
-		this.sequenceNumber = new SequenceNumberImpl(sequenceNumber, null, null);		
+		setSequenceNumber(sequenceNumber);
 	}
 	
 	public Long getSequenceNumber()
@@ -64,10 +63,10 @@ public class ResultRecipientAddressImpl extends DiameterGroupedAvpImpl implement
 		return sequenceNumber.getUnsigned();
 	}
 	
-	public void setSequenceNumber(Long value)
+	public void setSequenceNumber(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Sequence-Number is required");
+			throw new MissingAvpException("Sequence-Number is required is required", Arrays.asList(new DiameterAvp[] { new SequenceNumberImpl() }));
 		
 		this.sequenceNumber = new SequenceNumberImpl(value, null, null);		
 	}
@@ -121,10 +120,10 @@ public class ResultRecipientAddressImpl extends DiameterGroupedAvpImpl implement
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(sequenceNumber==null)
-			return "Sequence-Number is required";
+			return new MissingAvpException("Sequence-Number is required is required", Arrays.asList(new DiameterAvp[] { new SequenceNumberImpl() }));
 		
 		return null;
 	}

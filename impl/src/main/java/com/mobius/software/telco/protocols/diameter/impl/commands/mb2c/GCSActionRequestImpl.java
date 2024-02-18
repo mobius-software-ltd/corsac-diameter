@@ -1,12 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.mb2c;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.RestartCounterImpl;
@@ -45,7 +48,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.RestartCount
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777335, commandCode = 8388662, request = true)
 public class GCSActionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestImpl implements GCSActionRequest
 {
 	private DRMP drmp;
@@ -67,7 +69,7 @@ public class GCSActionRequestImpl extends com.mobius.software.telco.protocols.di
 		super();
 	}
 	
-	public GCSActionRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState)
+	public GCSActionRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -93,21 +95,21 @@ public class GCSActionRequestImpl extends com.mobius.software.telco.protocols.di
 	}
 
 	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
+	public AuthSessionStateEnum getAuthSessionState()
 	{
 		if(authSessionState==null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			return null;
 		
 		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
-		if(value == null)
-			this.authSessionState = null;
-		else
-			this.authSessionState = new AuthSessionStateImpl(value, null, null);
+		if(value==null)
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
+		
+		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 
 	@Override
@@ -177,10 +179,10 @@ public class GCSActionRequestImpl extends com.mobius.software.telco.protocols.di
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState==null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		return super.validate();
 	}

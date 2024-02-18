@@ -19,10 +19,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestAlgorithmImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestAuthParamImpl;
@@ -33,6 +35,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.Dige
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestQopImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestRealmImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.DigestStaleImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestAlgorithm;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestAuthParam;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.DigestDomain;
@@ -49,7 +52,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthen
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 379L, vendorId = -1L)
 public class SIPAuthenticateImpl extends DiameterGroupedAvpImpl implements SIPAuthenticate
 {
 	private DigestRealm digestRealm;
@@ -75,12 +77,9 @@ public class SIPAuthenticateImpl extends DiameterGroupedAvpImpl implements SIPAu
 		
 	}
 	
-	public SIPAuthenticateImpl(String digestRealm)
+	public SIPAuthenticateImpl(String digestRealm) throws MissingAvpException
 	{
-		if(digestRealm == null)
-			throw new IllegalArgumentException("Digest-Realm is required");
-		
-		this.digestRealm = new DigestRealmImpl(digestRealm, null, null);
+		setDigestRealm(digestRealm);
 	}
 	
 	public String getDigestRealm()
@@ -91,10 +90,10 @@ public class SIPAuthenticateImpl extends DiameterGroupedAvpImpl implements SIPAu
 		return digestRealm.getString();
 	}
 	
-	public void setDigestRealm(String value)
+	public void setDigestRealm(String value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Digest-Realm is required");
+			throw new MissingAvpException("Digest-Realm is required is required", Arrays.asList(new DiameterAvp[] { new DigestRealmImpl() }));
 		
 		this.digestRealm = new DigestRealmImpl(value, null, null);
 	}
@@ -236,10 +235,10 @@ public class SIPAuthenticateImpl extends DiameterGroupedAvpImpl implements SIPAu
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(digestRealm == null)
-			return "Digest-Realm is required";
+			return new MissingAvpException("Digest-Realm is required is required", Arrays.asList(new DiameterAvp[] { new DigestRealmImpl() }));
 		
 		return null;
 	}	

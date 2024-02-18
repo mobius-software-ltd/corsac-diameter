@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUri;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Online Charging Function. The Destination-Host and Destination-Realm values for the Diameter accounting requests should be 
 	extracted from the DiameterURI in the way indicated in clause 6.3.20.
  */
-@DiameterAvpDefinition(code = 620L, vendorId = KnownVendorIDs.TGPP_ID, name = "Secondary-Event-Charging-Function-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.SECONDARY_EVENT_CHARGING_FUNCTION_NAME, vendorId = VendorIDs.TGPP_ID, name = "Secondary-Event-Charging-Function-Name")
 public interface SecondaryEventChargingFunctionName extends DiameterUri
 {
 }

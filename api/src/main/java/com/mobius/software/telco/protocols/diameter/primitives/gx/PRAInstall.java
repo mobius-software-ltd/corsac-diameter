@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		*[ Presence-Reporting-Area-Information ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 2845L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PRA-Install")
+@DiameterAvpDefinition(code = TgppAvpCodes.PRA_INSTALL, vendorId = VendorIDs.TGPP_ID, must = false, name = "PRA-Install")
 public interface PRAInstall extends DiameterGroupedAvp
 {
 	List<PresenceReportingAreaInformation> getPresenceReportingAreaInformation();

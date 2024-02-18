@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
    used for troubleshooting purposes, and it MUST be set when the
    Result-Code AVP indicates a failure.
  */
-@DiameterAvpDefinition(code = 294L, vendorId = -1L, must = false, name = "Error-Reporting-Host")
+@DiameterAvpDefinition(code = AvpCodes.ERROR_REPORTING_HOST, vendorId = -1L, must = false, name = "Error-Reporting-Host")
 public interface ErrorReportingHost extends DiameterIdentity
 {
 }

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -45,7 +46,7 @@ import io.netty.buffer.ByteBuf;
 		   [ Accounting-Output-Octets ] 
 		   [ 3GPP-Charging-Id ]
  */
-@DiameterAvpDefinition(code = 1302L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RAN-Secondary-RAT-Usage-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.RAN_SECONDARY_RAT_USAGE_REPORT, vendorId = VendorIDs.TGPP_ID, must = false, name = "RAN-Secondary-RAT-Usage-Report")
 public interface RANSecondaryRATUsageReport extends DiameterAvp
 {
 	ByteBuf getSecondaryRATType();

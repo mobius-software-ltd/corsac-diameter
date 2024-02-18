@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.AdditionalServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.HSSCause;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.ServingNode;
@@ -33,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.T4Data;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3108L, vendorId = KnownVendorIDs.TGPP_ID)
 public class T4DataImpl extends DiameterGroupedAvpImpl implements T4Data
 {
 	private HSSCause hssCause;

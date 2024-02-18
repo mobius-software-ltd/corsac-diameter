@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gxx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5a.3.4	QoS-Rule-Name AVP (All access types)
 	The QoS-Rule-Name AVP (AVP code 1054) is of type OctetString, and it defines a name for QoS rule. For QoS rules provided by the PCRF it uniquely identifies a QoS rule within one Gateway Control session. For QoS pre-defined at the BBERF it uniquely identifies a QoS rule within the BBERF.]
  */
-@DiameterAvpDefinition(code = 1054L, vendorId = KnownVendorIDs.TGPP_ID, name = "QoS-Rule-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.QOS_RULE_NAME, vendorId = VendorIDs.TGPP_ID, name = "QoS-Rule-Name")
 public interface QoSRuleName extends DiameterOctetString
 {
 }

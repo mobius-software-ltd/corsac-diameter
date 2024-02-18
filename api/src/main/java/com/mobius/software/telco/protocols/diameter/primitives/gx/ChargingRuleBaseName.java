@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Charging-Rule-Base-Name AVP (AVP code 1004) is of type UTF8String, and it indicates the name of a
 	pre-defined group of PCC rules residing at the PCEF.
  */
-@DiameterAvpDefinition(code = 1004L, vendorId = KnownVendorIDs.TGPP_ID, name = "Charging-Rule-Base-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHARGING_RULE_BASE_NAME, vendorId = VendorIDs.TGPP_ID, name = "Charging-Rule-Base-Name")
 public interface ChargingRuleBaseName extends DiameterUTF8String
 {
 }

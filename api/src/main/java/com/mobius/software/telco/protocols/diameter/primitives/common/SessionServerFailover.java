@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -63,7 +64,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
       succeeded.  If the second delivery fails for STR, terminate the
       session.            
  */
-@DiameterAvpDefinition(code = 271L, vendorId = -1L, name = "Session-Server-Failover")
+@DiameterAvpDefinition(code = AvpCodes.SESSION_SERVER_FAILORE, vendorId = -1L, name = "Session-Server-Failover")
 public interface SessionServerFailover extends DiameterEnumerated<SessionServerFailoverEnum>
 {
 }

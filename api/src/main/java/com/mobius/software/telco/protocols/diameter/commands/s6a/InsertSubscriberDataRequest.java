@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.IDRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SubscriptionData;
 
@@ -54,12 +57,12 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777251, commandCode = 319, request = true, proxyable = true, name="Insert-Subscriber-Data-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6A, commandCode = CommandCodes.INSERT_SUBSCRIBER_DATA, request = true, proxyable = true, name="Insert-Subscriber-Data-Request")
 public interface InsertSubscriberDataRequest extends S6aRequest
 {
 	SubscriptionData getSubscriptionData();
 	 
-	void setSubscriptionData(SubscriptionData value);
+	void setSubscriptionData(SubscriptionData value) throws MissingAvpException;
 	
 	IDRFlags getIDRFlags();
 	

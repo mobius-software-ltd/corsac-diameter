@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	from the Filter-Rule AVP, the rules SHOULD be executed in the order
    	in which they appear in the QoS-Resources AVP.
  */
-@DiameterAvpDefinition(code = 510L, vendorId = -1L, name = "Filter-Rule-Precedence")
+@DiameterAvpDefinition(code = AvpCodes.FILTER_RULE_PRECEDENCE, vendorId = -1L, name = "Filter-Rule-Precedence")
 public interface FilterRulePrecedence extends DiameterUnsigned32
 {
 }

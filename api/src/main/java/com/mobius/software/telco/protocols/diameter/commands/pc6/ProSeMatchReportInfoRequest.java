@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchReportInfo;
 
 /**
@@ -48,10 +51,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchReportIn
 			*[ Proxy-Info ]
 			*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777340, commandCode = 8388671, request = true, proxyable = true, name="ProSe-Match-Report-Info-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.PC6, commandCode = CommandCodes.PROSE_MATCH_REPORT_INFO, request = true, proxyable = true, name="ProSe-Match-Report-Info-Request")
 public interface ProSeMatchReportInfoRequest extends Pc6Request
 {
 	MatchReportInfo getMatchReportInfo();
 	
-	void setMatchReportInfo(MatchReportInfo value);
+	void setMatchReportInfo(MatchReportInfo value) throws MissingAvpException;
 }

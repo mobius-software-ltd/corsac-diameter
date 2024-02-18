@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5.3.57	Extended-Min-Desired-BW-UL AVP
 	The Extended-Min-Desired-BW-UL AVP (AVP code 559) is of type Unsigned32, and it indicates the minimum desired bandwidth in kbit per second for an uplink IP flow as defined in 3GPP TS 26.114 [41]. The bandwidth contains all the overhead coming from the IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
  */
-@DiameterAvpDefinition(code = 559L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Extended-Min-Desired-BW-UL")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXTENDED_MIN_DESIRED_BW_UL, vendorId = VendorIDs.TGPP_ID, must = false, name = "Extended-Min-Desired-BW-UL")
 public interface ExtendedMinDesiredBWUL extends DiameterUnsigned32
 {
 }

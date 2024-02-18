@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	TARGET_UE_SUBSCRIBED_SERVICE (4)
  */
-@DiameterAvpDefinition(code = 1482L, vendorId = KnownVendorIDs.TGPP_ID, name = "PLMN-Client")
+@DiameterAvpDefinition(code = TgppAvpCodes.PLMN_CLIENT, vendorId = VendorIDs.TGPP_ID, name = "PLMN-Client")
 public interface PLMNClient extends DiameterEnumerated<PLMNClientEnum>
 {
 }

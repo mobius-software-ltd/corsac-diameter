@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	A value of zero means at the time quota is exhausted. Absence of this field indicates that the announcement is to be
 	played before the IMS session is allowed to continue. 
  */
-@DiameterAvpDefinition(code = 3911L, vendorId = KnownVendorIDs.TGPP_ID, name = "Time-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.TIME_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "Time-Indicator")
 public interface TimeIndicator extends DiameterUnsigned32
 {
 }

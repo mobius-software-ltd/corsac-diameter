@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			 [ Tariff-Information ]
 			 [ Tariff-XML ]
  */
-@DiameterAvpDefinition(code = 2305L, vendorId = KnownVendorIDs.TGPP_ID, name = "Real-Time-Tariff-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.REALTIME_TARIFF_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "Real-Time-Tariff-Information")
 public interface RealTimeTariffInformation extends DiameterAvp
 {
 	TariffInformation getTariffInformation();

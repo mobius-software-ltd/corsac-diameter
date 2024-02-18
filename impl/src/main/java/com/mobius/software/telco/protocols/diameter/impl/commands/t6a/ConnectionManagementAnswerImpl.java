@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ConnectionManagementAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.PDNConnectionChargingIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.ExtendedPCOImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -43,7 +44,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777346, commandCode = 8388732, request = false)
 public class ConnectionManagementAnswerImpl extends T6aAnswerImpl implements ConnectionManagementAnswer
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -64,7 +64,7 @@ public class ConnectionManagementAnswerImpl extends T6aAnswerImpl implements Con
 		setExperimentalResultAllowed(false);
 	}
 	
-	public ConnectionManagementAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public ConnectionManagementAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    identifier of a service-specific document) is also responsible for
    defining the content and encoding of the CC-Correlation-Id AVP.
  */
-@DiameterAvpDefinition(code = 411L, vendorId = -1L, must = false, name = "Cc-Correlation-Id")
+@DiameterAvpDefinition(code = AvpCodes.CC_CORRELATION_ID, vendorId = -1L, must = false, name = "Cc-Correlation-Id")
 public interface CcCorrelationId extends DiameterOctetString
 {
 }

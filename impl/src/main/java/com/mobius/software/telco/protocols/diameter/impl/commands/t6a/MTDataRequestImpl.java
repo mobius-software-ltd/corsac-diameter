@@ -1,14 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.MTDataRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerIdentifierImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.MaximumRetransmissionTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.NonIPDataImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t6a.SCEFWaitTimeImpl;
@@ -47,7 +51,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777346, commandCode = 8388734, request = true)
 public class MTDataRequestImpl extends T6aRequestImpl implements MTDataRequest
 {
 	private UserIdentifier userIdentifier;
@@ -67,7 +70,7 @@ public class MTDataRequestImpl extends T6aRequestImpl implements MTDataRequest
 		super();
 	}
 	
-	public MTDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf bearerIdentifier)
+	public MTDataRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf bearerIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		
@@ -86,13 +89,13 @@ public class MTDataRequestImpl extends T6aRequestImpl implements MTDataRequest
 	}
 	
 	@Override
-	public void setUserIdentifier(UserIdentifier value)
+	public void setUserIdentifier(UserIdentifier value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("User-Identifier is required");
-		
+			throw new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
+			
 		this.userIdentifier = value;
-	}		
+	}
 	
 	@Override
 	public ByteBuf getBearerIdentifier()
@@ -104,11 +107,11 @@ public class MTDataRequestImpl extends T6aRequestImpl implements MTDataRequest
 	}
 	
 	@Override
-	public void setBearerIdentifier(ByteBuf value)
+	public void setBearerIdentifier(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Bearer-Identifier is required");
-		
+			throw new MissingAvpException("Bearer-Identifier is required", Arrays.asList(new DiameterAvp[] { new BearerIdentifierImpl() }));
+			
 		this.bearerIdentifier = new BearerIdentifierImpl(value, null, null);
 	}
 	
@@ -179,13 +182,13 @@ public class MTDataRequestImpl extends T6aRequestImpl implements MTDataRequest
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(bearerIdentifier == null)
-			return "Bearer-Identifier is required";
+			return new MissingAvpException("Bearer-Identifier is required", Arrays.asList(new DiameterAvp[] { new BearerIdentifierImpl() }));
 		
 		if(userIdentifier == null)
-			return "User-Identifier is required";
+			return new MissingAvpException("User-Identifier is required", Arrays.asList(new DiameterAvp[] { new UserIdentifierImpl() }));
 		
 		return super.validate();
 	}	

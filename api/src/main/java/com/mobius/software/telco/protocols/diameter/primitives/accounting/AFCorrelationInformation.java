@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.Flows;
 
 import io.netty.buffer.ByteBuf;
@@ -43,12 +45,12 @@ import io.netty.buffer.ByteBuf;
 	  		{ AF-Charging-Identifier }
 		* 	[ Flows ]
  */
-@DiameterAvpDefinition(code = 1276L, vendorId = KnownVendorIDs.TGPP_ID, name = "AF-Correlation-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.AF_CORRELATION_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "AF-Correlation-Information")
 public interface AFCorrelationInformation extends DiameterAvp
 {
 	ByteBuf getAFChargingIdentifier();
 	
-	void setAFChargingIdentifier(ByteBuf value);
+	void setAFChargingIdentifier(ByteBuf value) throws MissingAvpException;
 	
 	List<Flows> getFlows();
 	

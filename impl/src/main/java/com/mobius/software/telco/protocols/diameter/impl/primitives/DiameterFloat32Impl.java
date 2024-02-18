@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterEncode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpLengthException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
 /*
@@ -86,10 +91,10 @@ public class DiameterFloat32Impl implements DiameterFloat32
 	}
 	
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		if(buffer.readableBytes()<4)
-			return "Avp length is invalid";
+			return new InvalidAvpLengthException("AVP Length should be 4 bytes", Arrays.asList(new DiameterAvp[] { this }));
 		
 		value = buffer.readFloat();	
 		return null;

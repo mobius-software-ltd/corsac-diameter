@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.t6a;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.t6a.ConfigurationInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
@@ -35,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEve
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777346, commandCode = 8388718, request = false)
 public class ConfigurationInformationAnswerImpl extends T6aAnswerImpl implements ConfigurationInformationAnswer
 {
 	private List<MonitoringEventReport> monitoringEventReport;
@@ -48,7 +48,7 @@ public class ConfigurationInformationAnswerImpl extends T6aAnswerImpl implements
 		setExperimentalResultAllowed(false);
 	}
 	
-	public ConfigurationInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public ConfigurationInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

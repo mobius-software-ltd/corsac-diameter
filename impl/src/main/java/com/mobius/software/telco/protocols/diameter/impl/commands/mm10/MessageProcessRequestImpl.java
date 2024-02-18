@@ -1,22 +1,27 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.mm10;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.DeliveryReportImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.InitialRecipientAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.OriginatingInterfaceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ReadReplyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.SenderAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.SenderVisibilityImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ServedUserIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ServiceKeyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.TriggerEventImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -63,7 +68,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEvent
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777226, commandCode = 311, request = true)
 public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase implements MessageProcessRequest
 {
 	protected AuthSessionState authSessionState;
@@ -95,7 +99,7 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 		super();
 	}
 	
-	public MessageProcessRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface)
+	public MessageProcessRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID);		
 		
@@ -122,10 +126,10 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
@@ -140,10 +144,10 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	}
 
 	@Override
-	public void setEventTimestamp(Date value) 
+	public void setEventTimestamp(Date value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Event-Timestamp is required");
+			throw new MissingAvpException("Event-Timestamp is required", Arrays.asList(new DiameterAvp[] { new EventTimestampImpl() }));
 		
 		this.eventTimestamp = new EventTimestampImpl(value, null, null);
 	}
@@ -158,11 +162,11 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	}
 	
 	@Override
-	public void setTriggerEvent(TriggerEventEnum value)
+	public void setTriggerEvent(TriggerEventEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Trigger-Event is required");
-	
+			throw new MissingAvpException("Trigger-Event is required", Arrays.asList(new DiameterAvp[] { new EventTimestampImpl() }));
+			
 		this.triggerEvent = new TriggerEventImpl(value, null, null);
 	}
 
@@ -173,11 +177,11 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	}
 	
 	@Override
-	public void setServedUserIdentity(ServedUserIdentity value)
+	public void setServedUserIdentity(ServedUserIdentity value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Served-User-Identity is required");
-		
+			throw new MissingAvpException("Served-User-Identity is required", Arrays.asList(new DiameterAvp[] { new ServedUserIdentityImpl() }));
+			
 		this.servedUserIdentity = value;
 	}
 	
@@ -224,11 +228,11 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	}
 	
 	@Override
-	public void setInitialRecipientAddress(List<InitialRecipientAddress> value)
+	public void setInitialRecipientAddress(List<InitialRecipientAddress> value) throws MissingAvpException
 	{
 		if(value==null || initialRecipientAddress.size()==0)
-			throw new IllegalArgumentException("Initial-Recipient-Address is required");
-		
+			throw new MissingAvpException("Initial-Recipient-Address is required", Arrays.asList(new DiameterAvp[] { new InitialRecipientAddressImpl() }));
+			
 		this.initialRecipientAddress = value;
 	}
 	
@@ -242,11 +246,11 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	}
 	
 	@Override
-	public void setOriginatingInterface(OriginatingInterfaceEnum value)
+	public void setOriginatingInterface(OriginatingInterfaceEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Originating-Interface is required");
-		
+			throw new MissingAvpException("Originating-Interface is required", Arrays.asList(new DiameterAvp[] { new OriginatingInterfaceImpl() }));
+			
 		this.originatingInterface = new OriginatingInterfaceImpl(value, null, null);
 	}
 	
@@ -323,25 +327,25 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 	
 		if(eventTimestamp==null)
-			return "Event-Timestamp is required";
+			return new MissingAvpException("Event-Timestamp is required", Arrays.asList(new DiameterAvp[] { new EventTimestampImpl() }));
 		
 		if(triggerEvent==null)
-			return "Trigger-Event is required";
+			return new MissingAvpException("Trigger-Event is required", Arrays.asList(new DiameterAvp[] { new EventTimestampImpl() }));
 		
 		if(servedUserIdentity==null)
-			return "Served-User-Identity is required";
+			return new MissingAvpException("Served-User-Identity is required", Arrays.asList(new DiameterAvp[] { new ServedUserIdentityImpl() }));
 		
 		if(initialRecipientAddress==null || initialRecipientAddress.size()==0)
-			return "Initial-Recipient-Address is required";
+			return new MissingAvpException("Initial-Recipient-Address is required", Arrays.asList(new DiameterAvp[] { new InitialRecipientAddressImpl() }));
 		
 		if(originatingInterface==null)
-			return "Originating-Interface is required";
+			return new MissingAvpException("Originating-Interface is required", Arrays.asList(new DiameterAvp[] { new OriginatingInterfaceImpl() }));
 		
 		return super.validate();
 	}

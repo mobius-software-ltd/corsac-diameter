@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	information in Non-3GPP-EPS access type. The AVP shall be coded as per the RAN/NAS Cause in clause 8.103 of
 	3GPP TS 29.274 [22], starting with Octet 5. 
  */
-@DiameterAvpDefinition(code = 2819L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "RAN-NAS-Release-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.RAN_NAS_RELEASE_CAUSE, vendorId = VendorIDs.TGPP_ID, must = false, name = "RAN-NAS-Release-Cause")
 public interface RANNASReleaseCause extends DiameterOctetString
 {
 }

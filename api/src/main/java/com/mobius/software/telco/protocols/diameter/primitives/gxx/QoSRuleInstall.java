@@ -22,9 +22,11 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.TunnelInformation;
 
 import io.netty.buffer.ByteBuf;
@@ -61,7 +63,7 @@ import io.netty.buffer.ByteBuf;
 							  [ UDP-Source-Port ]
 							* [ AVP ]
  */
-@DiameterAvpDefinition(code = 1051L, vendorId = KnownVendorIDs.TGPP_ID, name = "QoS-Rule-Install")
+@DiameterAvpDefinition(code = TgppAvpCodes.QOS_RULE_INSTALL, vendorId = VendorIDs.TGPP_ID, name = "QoS-Rule-Install")
 public interface QoSRuleInstall extends DiameterGroupedAvp
 {
 	List<QoSRuleDefinition> getQoSRuleDefinition();
@@ -102,7 +104,7 @@ public interface QoSRuleInstall extends DiameterGroupedAvp
 	
 	List<InetAddress> getANGWAddress();
 	
-	void setANGWAddress(List<InetAddress> value);
+	void setANGWAddress(List<InetAddress> value) throws AvpOccursTooManyTimesException;
 	
 	Long getUDPSourcePort();
 	

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpFilterRule;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -64,7 +65,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Destination IP address including the value provided by the UE may be provided within the Packet-Filter-Content AVP
 	when the ExtendedFilter feature is supported as described in clause 5.4.1. 
  */
-@DiameterAvpDefinition(code = 1059L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Content")
+@DiameterAvpDefinition(code = TgppAvpCodes.PACKET_FILTER_CONTENT, vendorId = VendorIDs.TGPP_ID, must = false, name = "Packet-Filter-Content")
 public interface PacketFilterContent extends DiameterIpFilterRule
 {
 }

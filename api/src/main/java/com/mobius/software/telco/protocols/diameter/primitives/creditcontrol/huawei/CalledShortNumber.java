@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	This system supports a call that is made by dialing the VPN short number of the called party when both the calling party and the called party belong to the VPN network.
  */
-@DiameterAvpDefinition(code = 20338L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Called-Short-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALLED_SHORT_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "Called-Short-Number")
 public interface CalledShortNumber extends DiameterUTF8String
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	released. When used for IMS charging, this AVP indicates the reason a CS call is released. Refer to TS 29.078 [233]
 	for supported values.
  */
-@DiameterAvpDefinition(code = 3424L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Cause-Value")
+@DiameterAvpDefinition(code = TgppAvpCodes.ISUP_CAUSE_VALUE, vendorId = VendorIDs.TGPP_ID, name = "ISUP-Cause-Value")
 public interface ISUPCauseValue extends DiameterUnsigned32
 {
 }

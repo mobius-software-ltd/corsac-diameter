@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
 
 import io.netty.buffer.ByteBuf;
@@ -42,16 +44,16 @@ import io.netty.buffer.ByteBuf;
 		 [ Visited-Network-Identifier ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1472L, vendorId = KnownVendorIDs.TGPP_ID, name = "Specific-APN-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.SPECIFIC_APN_INFO, vendorId = VendorIDs.TGPP_ID, name = "Specific-APN-Info")
 public interface SpecificAPNInfo extends DiameterGroupedAvp
 {
 	String getServiceSelection();
 	
-	void setServiceSelection(String value);
+	void setServiceSelection(String value) throws MissingAvpException;
 	
 	MIP6AgentInfo getMIP6AgentInfo();
 	
-	void setMIP6AgentInfo(MIP6AgentInfo value);
+	void setMIP6AgentInfo(MIP6AgentInfo value) throws MissingAvpException;
 	
 	ByteBuf getVisitedNetworkIdentifier();
 	

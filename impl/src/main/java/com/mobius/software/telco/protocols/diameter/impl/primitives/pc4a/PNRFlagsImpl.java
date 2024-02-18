@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.PNRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.PNRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3706L, vendorId = KnownVendorIDs.TGPP_ID)
 public class PNRFlagsImpl extends DiameterBitmask32Impl implements PNRFlags
 {
 	public PNRFlagsImpl()
@@ -44,7 +41,7 @@ public class PNRFlagsImpl extends DiameterBitmask32Impl implements PNRFlags
 	@Override
 	public void setDirectDiscoveryRevokedBit(boolean isOn)
 	{
-		setBit(DIRECT_DISCOVERY_REVOKED_BIT, isOn);
+		setBitUnchecked(DIRECT_DISCOVERY_REVOKED_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class PNRFlagsImpl extends DiameterBitmask32Impl implements PNRFlags
 	@Override
 	public void setDirectCommunicationRevokedBit(boolean isOn)
 	{
-		setBit(DIRECT_COMMUNICATION_REVOKED_BIT, isOn);
+		setBitUnchecked(DIRECT_COMMUNICATION_REVOKED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class PNRFlagsImpl extends DiameterBitmask32Impl implements PNRFlags
 	@Override
 	public void setPurgedUEBit(boolean isOn)
 	{
-		setBit(PURGED_UE_BIT, isOn);
+		setBitUnchecked(PURGED_UE_BIT, isOn);
 	}
 
 	@Override

@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPCause;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPGroup;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPValue;
@@ -30,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPValue;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 575L, vendorId = KnownVendorIDs.TGPP_ID)
 public class NGAPCauseImpl implements NGAPCause
 {
 	private NGAPGroup ngapGroup;
@@ -42,17 +44,11 @@ public class NGAPCauseImpl implements NGAPCause
 		
 	}
 	
-	public NGAPCauseImpl(Long ngapGroup,Long ngapValue)
+	public NGAPCauseImpl(Long ngapGroup,Long ngapValue) throws MissingAvpException
 	{
-		if(ngapGroup==null)
-			throw new IllegalArgumentException("NGAP-Group is required");
+		setNGAPGroup(ngapGroup);
 		
-		if(ngapValue==null)
-			throw new IllegalArgumentException("NGAP-Value is required");
-		
-		this.ngapGroup = new NGAPGroupImpl(ngapGroup, null, null);	
-		
-		this.ngapValue = new NGAPValueImpl(ngapValue, null, null);
+		setNGAPValue(ngapValue);
 	}
 	
 	public Long getNGAPGroup()
@@ -63,10 +59,10 @@ public class NGAPCauseImpl implements NGAPCause
 		return ngapGroup.getUnsigned();
 	}
 	
-	public void setNGAPGroup(Long value)
+	public void setNGAPGroup(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("NGAP-Group is required");
+			throw new MissingAvpException("NGAP-Group is required", Arrays.asList(new DiameterAvp[] { new NGAPGroupImpl() }));
 		
 		this.ngapGroup = new NGAPGroupImpl(value, null, null);	
 	}
@@ -79,22 +75,22 @@ public class NGAPCauseImpl implements NGAPCause
 		return ngapValue.getUnsigned();
 	}
 	
-	public void setNGAPValue(Long value)		
+	public void setNGAPValue(Long value) throws MissingAvpException		
 	{
 		if(value==null)
-			throw new IllegalArgumentException("NGAP-Value is required");
+			throw new MissingAvpException("NGAP-Value is required", Arrays.asList(new DiameterAvp[] { new NGAPValueImpl() }));
 		
 		this.ngapValue = new NGAPValueImpl(value, null, null);
 	}				
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(ngapGroup==null)
-			return "NGAP-Group is required";
+			return new MissingAvpException("NGAP-Group is required", Arrays.asList(new DiameterAvp[] { new NGAPGroupImpl() }));
 		
 		if(ngapValue==null)
-			return "NGAP-Value is required";
+			return new MissingAvpException("NGAP-Value is required", Arrays.asList(new DiameterAvp[] { new NGAPValueImpl() }));
 		
 		return null;
 	}	

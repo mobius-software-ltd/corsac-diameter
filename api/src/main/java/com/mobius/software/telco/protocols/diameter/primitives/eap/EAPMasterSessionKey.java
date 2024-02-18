@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    depends on the link layer in question, and is beyond the scope of
    this document.
  */
-@DiameterAvpDefinition(code = 464L, vendorId = -1L, name = "EAP-Master-Session-Key")
+@DiameterAvpDefinition(code = AvpCodes.EAP_MASTER_SESSION_KEY, vendorId = -1L, name = "EAP-Master-Session-Key")
 public interface EAPMasterSessionKey extends DiameterOctetString
 {
 }

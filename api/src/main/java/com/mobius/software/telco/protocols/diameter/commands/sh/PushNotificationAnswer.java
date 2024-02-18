@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -46,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 			*[ Proxy-Info ]
 			*[ Route-Record ]
 */
-@DiameterCommandDefinition(applicationId = 16777217, commandCode = 309, request = false, proxyable = true, name="Push-Notification-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SH, commandCode = CommandCodes.PUSH_NOTIFICATION, request = false, proxyable = true, name="Push-Notification-Answer")
 public interface PushNotificationAnswer extends ShAnswer
 {	
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc6734;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	SPI value that can be used with other parameters for identifying
    	associated keying material.
 */
-@DiameterAvpDefinition(code = 585L, vendorId = -1L, must = false, name = "Key-SPI")
+@DiameterAvpDefinition(code = AvpCodes.KEY_SPI, vendorId = -1L, must = false, name = "Key-SPI")
 public interface KeySPI extends DiameterUnsigned32
 {
 }

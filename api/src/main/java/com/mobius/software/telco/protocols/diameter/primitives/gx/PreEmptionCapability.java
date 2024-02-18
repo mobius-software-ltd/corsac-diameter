@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		to another service data flow or bearer with a lower priority level. This is the default value applicable if this AVP
 		is not supplied. 
  */
-@DiameterAvpDefinition(code = 1047L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Pre-emption-Capability")
+@DiameterAvpDefinition(code = TgppAvpCodes.PREEMPTION_CAPABILITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "Pre-emption-Capability")
 public interface PreEmptionCapability extends DiameterEnumerated<PreEmptionCapabilityEnum>
 {
 }

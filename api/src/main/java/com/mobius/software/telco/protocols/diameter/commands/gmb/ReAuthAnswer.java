@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.commands.gmb;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSStartStopIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSUserDataModeIndicationEnum;
@@ -62,7 +64,7 @@ import io.netty.buffer.ByteBuf;
 If multicast user plane data are to be sent to the GGSN using IP unicast, the GGSN shall allocate an IP transport address and a separate UDP port for each MBMS bearer ( i.e the service uniquely identified by its TMGI and Flow ID and provided by the GPRS to deliver the same IP datagrams to multiple receivers in a designated location). The GGSN shall then use the destination unicast IP address and destination UDP port of user plane packets received over the Gi interface to determine on which MBMS bearer to forward the received user plane packet.
 
  */
-@DiameterCommandDefinition(applicationId = 16777223, commandCode = 258, request = false, proxyable = true, name="Re-Auth-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GMB, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
 public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	MBMSStartStopIndicationEnum getMBMSStartStopIndication();

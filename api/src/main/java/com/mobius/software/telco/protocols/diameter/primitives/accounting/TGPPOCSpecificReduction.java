@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		   [ OC-Reduction-Percentage ]
 		*  [ AVP ]
  */
-@DiameterAvpDefinition(code = 1320L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-OC-Specific-Reduction")
+@DiameterAvpDefinition(code = TgppAvpCodes.OC_SPECIFIC_REDUCTION, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-OC-Specific-Reduction")
 public interface TGPPOCSpecificReduction extends DiameterGroupedAvp
 {
 	List<Long> get3GPPOCRatingGroup();

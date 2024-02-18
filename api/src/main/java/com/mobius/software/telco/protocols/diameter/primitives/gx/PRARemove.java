@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -41,7 +42,7 @@ import io.netty.buffer.ByteBuf;
 		*[ Presence-Reporting-Area-Identifier ]
 		*[ AVP ]
  */
-@DiameterAvpDefinition(code = 2846L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PRA-Remove")
+@DiameterAvpDefinition(code = TgppAvpCodes.PRA_REMOVE, vendorId = VendorIDs.TGPP_ID, must = false, name = "PRA-Remove")
 public interface PRARemove extends DiameterGroupedAvp
 {
 	List<ByteBuf> getPresenceReportingAreaIdentifier();

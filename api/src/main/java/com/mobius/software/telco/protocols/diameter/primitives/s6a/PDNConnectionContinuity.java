@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	This AVP corresponds to the "PDN continuity at inter RAT mobility" field as defined in 3GPP TS 23.401 [2] table 5.7.1-1.
  */
-@DiameterAvpDefinition(code = 1690L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "PDN-Connection-Continuity")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDN_CONNECTION_CONTINUITY, vendorId = VendorIDs.TGPP_ID, must = false, name = "PDN-Connection-Continuity")
 public interface PDNConnectionContinuity extends DiameterEnumerated<PDNConnectionContinuityEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Usage-Information-Report-Sequence-Number AVP (AVP code 3439) is of type Integer32 and indicates the
 	sequence number of usage information report, which is used to generate the container.
  */
-@DiameterAvpDefinition(code = 3439L, vendorId = KnownVendorIDs.TGPP_ID, name = "Usage-Information-Report-Sequence-Number")
+@DiameterAvpDefinition(code = TgppAvpCodes.USAGE_INFORMATION_REPORT_SEQUENCE_NUMBER, vendorId = VendorIDs.TGPP_ID, name = "Usage-Information-Report-Sequence-Number")
 public interface UsageInformationReportSequenceNumber extends DiameterInteger32
 {
 }

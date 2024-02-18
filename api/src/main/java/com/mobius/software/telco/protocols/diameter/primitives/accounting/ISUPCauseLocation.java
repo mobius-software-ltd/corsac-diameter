@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The ISUP-Cause-Location AVP (AVP code 3423) is of type Unsigned32 and identifies the network in which the event
 	causing the call release. Refer to TS 29.078 [233] for supported values.
  */
-@DiameterAvpDefinition(code = 3423L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Cause-Location")
+@DiameterAvpDefinition(code = TgppAvpCodes.ISUP_CAUSE_LOCATION, vendorId = VendorIDs.TGPP_ID, name = "ISUP-Cause-Location")
 public interface ISUPCauseLocation extends DiameterUnsigned32
 {
 }

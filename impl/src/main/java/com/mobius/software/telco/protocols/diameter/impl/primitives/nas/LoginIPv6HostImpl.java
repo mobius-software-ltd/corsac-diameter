@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
 
 import java.net.Inet6Address;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpv6AddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginIPv6Host;
 
@@ -29,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.LoginIPv6Host
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 98L, vendorId = -1L)
 public class LoginIPv6HostImpl extends DiameterIpv6AddressImpl implements LoginIPv6Host
 {
 	protected LoginIPv6HostImpl() 

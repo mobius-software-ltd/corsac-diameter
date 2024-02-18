@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.2.63 Event AVP
 	The Event AVP (AVP code 825) is of type UTF8String and holds the content of the "Event" header.
  */
-@DiameterAvpDefinition(code = 825L, vendorId = KnownVendorIDs.TGPP_ID, name = "Event")
+@DiameterAvpDefinition(code = TgppAvpCodes.EVENT, vendorId = VendorIDs.TGPP_ID, name = "Event")
 public interface Event extends DiameterUTF8String
 {
 }

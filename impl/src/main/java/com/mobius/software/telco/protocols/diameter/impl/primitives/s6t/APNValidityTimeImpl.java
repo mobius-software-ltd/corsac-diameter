@@ -18,13 +18,15 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.APNValidityTime;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GrantedValidityTime;
@@ -34,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.GrantedValidi
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3169L, vendorId = KnownVendorIDs.TGPP_ID)
 public class APNValidityTimeImpl extends DiameterGroupedAvpImpl implements APNValidityTime
 {
 	private GrantedValidityTime grantedValidityTime;
@@ -46,12 +47,9 @@ public class APNValidityTimeImpl extends DiameterGroupedAvpImpl implements APNVa
 		
 	}
 	
-	public APNValidityTimeImpl(Date grantedValidityTime)
+	public APNValidityTimeImpl(Date grantedValidityTime) throws MissingAvpException
 	{
-		if(grantedValidityTime==null)
-			throw new IllegalArgumentException("Granted-Validity-Time is required");
-		
-		this.grantedValidityTime = new GrantedValidityTimeImpl(grantedValidityTime, null, null);
+		setGrantedValidityTime(grantedValidityTime);
 	}
 	
 	public Date getGrantedValidityTime()
@@ -62,11 +60,11 @@ public class APNValidityTimeImpl extends DiameterGroupedAvpImpl implements APNVa
 		return grantedValidityTime.getDateTime();
 	}
 	
-	public void setGrantedValidityTime(Date value)
+	public void setGrantedValidityTime(Date value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Granted-Validity-Time is required");
-		
+			throw new MissingAvpException("Granted-Validity-Time is required", Arrays.asList(new DiameterAvp[] { new GrantedValidityTimeImpl() }));
+
 		this.grantedValidityTime = new GrantedValidityTimeImpl(value, null, null);
 	}
 	
@@ -87,10 +85,10 @@ public class APNValidityTimeImpl extends DiameterGroupedAvpImpl implements APNVa
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(grantedValidityTime==null)
-			return "Granted-Validity-Time is required";
+			return new MissingAvpException("Granted-Validity-Time is required", Arrays.asList(new DiameterAvp[] { new GrantedValidityTimeImpl() }));
 		
 		return null;
 	}

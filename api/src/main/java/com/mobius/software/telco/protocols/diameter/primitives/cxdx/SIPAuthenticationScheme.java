@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	
 	- "Unknown": it indicates that the authentication scheme to be used is unknown at this point.
  */
-@DiameterAvpDefinition(code = 608L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Authentication-Scheme")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_AUTHENTICATION_SCHEME, vendorId = VendorIDs.TGPP_ID, name = "SIP-Authentication-Scheme")
 public interface SIPAuthenticationScheme extends DiameterUTF8String
 {
 }

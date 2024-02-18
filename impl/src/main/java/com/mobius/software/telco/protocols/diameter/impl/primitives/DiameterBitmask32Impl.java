@@ -1,7 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
 /**
 *
@@ -25,7 +28,7 @@ public class DiameterBitmask32Impl extends DiameterInteger32Impl implements Diam
 		super(value, null, null);
 	}
 	
-	public DiameterBitmask32Impl(List<Integer> bitsToSet) 
+	public DiameterBitmask32Impl(List<Integer> bitsToSet) throws InvalidAvpValueException 
 	{
 		Integer value=0;
 		if(bitsToSet!=null && bitsToSet.size()>0)
@@ -33,7 +36,7 @@ public class DiameterBitmask32Impl extends DiameterInteger32Impl implements Diam
 			for(Integer curr:bitsToSet)
 			{
 				if(curr>=masks.length)
-					throw new RuntimeException("Invalid bit index(should be 0 to 63)");
+					throw new InvalidAvpValueException("Invalid bit index(should be 0 to 63)", Arrays.asList(new DiameterAvp[] { this }));
 				
 				value|=masks[curr];
 			}
@@ -53,11 +56,16 @@ public class DiameterBitmask32Impl extends DiameterInteger32Impl implements Diam
 	}
 
 	@Override
-	public void setBit(int bit,boolean isOn)
+	public void setBit(int bit,boolean isOn) throws InvalidAvpValueException
 	{
 		if(bit>=masks.length)
-			throw new RuntimeException("Invalid bit index(should be 0 to 31");
+			throw new InvalidAvpValueException("Invalid bit index(should be 0 to 31", Arrays.asList(new DiameterAvp[] { this }));
 		
+		setBitUnchecked(bit, false);
+	}
+	
+	protected void setBitUnchecked(int bit,boolean isOn)
+	{
 		Integer value=getInteger();
 		if(value==null)
 			value=0;

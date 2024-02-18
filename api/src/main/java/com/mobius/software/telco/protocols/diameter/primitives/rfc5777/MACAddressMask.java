@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -48,14 +50,14 @@ import io.netty.buffer.ByteBuf;
                         { MAC-Address-Mask-Pattern }
                       * [ AVP ]
  */
-@DiameterAvpDefinition(code = 525L, vendorId = -1L, name = "MAC-Address-Mask")
+@DiameterAvpDefinition(code = AvpCodes.MAC_ADDRESS_MASK, vendorId = -1L, name = "MAC-Address-Mask")
 public interface MACAddressMask extends DiameterGroupedAvp
 {
 	ByteBuf getMACAddress();
 	
-	void setMACAddress(ByteBuf value);	
+	void setMACAddress(ByteBuf value) throws MissingAvpException;	
 	
 	ByteBuf getMACAddressMaskPattern();
 	
-	void setMACAddressMaskPattern(ByteBuf value);	
+	void setMACAddressMaskPattern(ByteBuf value) throws MissingAvpException;	
 }

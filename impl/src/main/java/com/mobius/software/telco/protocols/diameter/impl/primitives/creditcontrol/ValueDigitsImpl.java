@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterInteger64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ValueDigits;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 447L, vendorId = -1L)
 public class ValueDigitsImpl extends DiameterInteger64Impl implements ValueDigits
 {
-	protected ValueDigitsImpl() 
+	public ValueDigitsImpl() 
 	{
 		super();
 	}

@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolIdentifier;
 
@@ -27,10 +26,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSU
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 453L, vendorId = -1L)
 public class GSUPoolIdentifierImpl extends DiameterUnsigned32Impl implements GSUPoolIdentifier
 {
-	protected GSUPoolIdentifierImpl() 
+	public GSUPoolIdentifierImpl() 
 	{
 		super();
 	}

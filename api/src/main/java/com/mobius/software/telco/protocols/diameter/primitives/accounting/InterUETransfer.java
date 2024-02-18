@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	0 Intra-UE transfer
 	1 Inter-UE transfer
  */
-@DiameterAvpDefinition(code = 3902L, vendorId = KnownVendorIDs.TGPP_ID, name = "Inter-UE-Transfer")
+@DiameterAvpDefinition(code = TgppAvpCodes.INTER_UE_TRANSFER, vendorId = VendorIDs.TGPP_ID, name = "Inter-UE-Transfer")
 public interface InterUETransfer extends DiameterEnumerated<InterUETransferEnum>
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	pre-arranged group session or a chat group session. It can be used for PoC and OMA SIMPE IM Charging, or other
 	applications. 
  */
-@DiameterAvpDefinition(code = 859L, vendorId = KnownVendorIDs.TGPP_ID, name = "PoC-Group-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.POC_GROUP_NAME, vendorId = VendorIDs.TGPP_ID, name = "PoC-Group-Name")
 public interface PoCGroupName extends DiameterUTF8String
 {
 }

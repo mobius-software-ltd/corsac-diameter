@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMDeliveryFailureCause;
 
@@ -52,7 +54,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777313, commandCode = 8388645, request = false, proxyable = true, name="MO-Forward-Short-Message-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SGD, commandCode = CommandCodes.MO_FORWARD_SHORT_MESSAGE, request = false, proxyable = true, name="MO-Forward-Short-Message-Answer")
 public interface MOForwardShortMessageAnswer extends SgdAnswer
 {
 	SMDeliveryFailureCause getSMDeliveryFailureCause();

@@ -1,4 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.huawei;
+
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterInteger64Impl;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceTimeOut;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,17 +22,11 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterInteger64Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceTimeOut;
-
 /**
 *
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 30360L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class ServiceTimeOutImpl extends DiameterInteger64Impl implements ServiceTimeOut
 {
 	protected ServiceTimeOutImpl()

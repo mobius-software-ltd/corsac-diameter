@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -61,7 +62,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    Note that this application handles IDNs in the same way as the
    Diameter base protocol (see Appendix D of RFC 6733 for details).
  */
-@DiameterAvpDefinition(code = 67L, vendorId = -1L, name = "Tunnel-Server-Endpoint")
+@DiameterAvpDefinition(code = AvpCodes.TUNNEL_SERVER_ENDPOINT, vendorId = -1L, name = "Tunnel-Server-Endpoint")
 public interface TunnelServerEndpoint extends DiameterUTF8String
 {
 }

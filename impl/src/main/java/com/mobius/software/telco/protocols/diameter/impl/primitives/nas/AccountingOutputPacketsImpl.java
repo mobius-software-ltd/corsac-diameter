@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.AccountingOutputPackets;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.AccountingOut
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 366L, vendorId = -1L)
 public class AccountingOutputPacketsImpl extends DiameterUnsigned64Impl implements AccountingOutputPackets
 {
 	protected AccountingOutputPacketsImpl() 

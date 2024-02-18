@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.2.3.13	MIP-FA-RK-SPI
 	The MIP-FA-RK-SPI AVP is of type Unsigned32; this AVP contains the security index used in identifying the security context for the FA-RK as defined by 3GPP TS 33.402 [19].
  */
-@DiameterAvpDefinition(code = 1507L, vendorId = KnownVendorIDs.TGPP_ID, name = "MIP-FA-RK-SPI")
+@DiameterAvpDefinition(code = TgppAvpCodes.MIP_FARK_SPI, vendorId = VendorIDs.TGPP_ID, name = "MIP-FA-RK-SPI")
 public interface MIPFARKSPI extends DiameterUnsigned32
 {
 }

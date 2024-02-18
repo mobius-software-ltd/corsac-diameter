@@ -18,8 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -64,7 +65,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
                     [Service-ID] 
                     [Service-Specific-Data]
 */
-@DiameterAvpDefinition(code = 876L, vendorId = KnownVendorIDs.TGPP_ID, name = "IMS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.IMS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "IMS-Information")
 public interface IMSInformation extends com.mobius.software.telco.protocols.diameter.primitives.accounting.IMSInformation 
 {
 	DiversionReasonEnum getDiversionReason();

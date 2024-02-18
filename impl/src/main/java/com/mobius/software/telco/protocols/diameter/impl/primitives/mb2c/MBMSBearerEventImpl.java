@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEvent;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEv
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3502L, vendorId = KnownVendorIDs.TGPP_ID)
 public class MBMSBearerEventImpl extends DiameterBitmask32Impl implements MBMSBearerEvent
 {
 	public MBMSBearerEventImpl()
@@ -44,7 +41,7 @@ public class MBMSBearerEventImpl extends DiameterBitmask32Impl implements MBMSBe
 	@Override
 	public void setBearerTerminatedBit(boolean isOn)
 	{
-		setBit(BEARER_TERMINATED_BIT, isOn);
+		setBitUnchecked(BEARER_TERMINATED_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class MBMSBearerEventImpl extends DiameterBitmask32Impl implements MBMSBe
 	@Override
 	public void setBearerActivatedBit(boolean isOn)
 	{
-		setBit(BEARER_ACTIVATED_BIT, isOn);
+		setBitUnchecked(BEARER_ACTIVATED_BIT, isOn);
 	}
 
 	@Override
@@ -68,7 +65,7 @@ public class MBMSBearerEventImpl extends DiameterBitmask32Impl implements MBMSBe
 	@Override
 	public void setUserplaneEventBit(boolean isOn)
 	{
-		setBit(USERPLANE_EVENT_BIT, isOn);
+		setBitUnchecked(USERPLANE_EVENT_BIT, isOn);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class MBMSBearerEventImpl extends DiameterBitmask32Impl implements MBMSBe
 	@Override
 	public void setBearerActivationFailureBit(boolean isOn)
 	{
-		setBit(BEARER_ACTIVATION_FAILURE_BIT, isOn);
+		setBitUnchecked(BEARER_ACTIVATION_FAILURE_BIT, isOn);
 	}
 
 	@Override

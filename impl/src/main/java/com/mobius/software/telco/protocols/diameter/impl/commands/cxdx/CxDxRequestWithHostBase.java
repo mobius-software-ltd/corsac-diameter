@@ -1,7 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.cxdx;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DestinationHostImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /*
@@ -36,33 +42,29 @@ public abstract class CxDxRequestWithHostBase extends CxDxRequestImpl
 		setDestinationHostAllowed(true);		
 	}
 	
-	public CxDxRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState)
+	public CxDxRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{	
 		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID,authSessionState);
 		setDestinationHostAllowed(true);
-		try 
-		{
-			setDestinationHost(destinationHost);
-		}
-		catch(AvpNotSupportedException ex) 
-		{
-			
-		}
+		
+		setDestinationHost(destinationHost);		
+	}
+	
+	@Override
+	public void setDestinationHost(String value) throws AvpNotSupportedException, MissingAvpException 
+	{
+		if(value==null)
+			throw new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl()}));;
+		
+		this.destinationHost = new DestinationHostImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
-		try
-		{
-			if(getDestinationHost()==null)
-				return "Destination-Host is required";
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			return ex.getMessage();
-		}
-		
+		if(destinationHost==null)
+			return new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl()}));
+					
 		return super.validate();
 	}
 }

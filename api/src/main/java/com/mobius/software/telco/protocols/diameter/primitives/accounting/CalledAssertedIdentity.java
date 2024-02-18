@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	P-Asserted-Identity contains both a SIP URI and a Tel URI.
 	This field shall be present when the P-Asserted-Identity SIP header field is available in the SIP 2xx response. 
  */
-@DiameterAvpDefinition(code = 1250L, vendorId = KnownVendorIDs.TGPP_ID, name = "Called-Asserted-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.CALLED_ASSERTED_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "Called-Asserted-Identity")
 public interface CalledAssertedIdentity extends DiameterUTF8String
 {
 }

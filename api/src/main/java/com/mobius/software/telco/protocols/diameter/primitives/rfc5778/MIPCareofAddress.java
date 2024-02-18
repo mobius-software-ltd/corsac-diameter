@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
    contains the IPv6 or the IPv4 care-of address of the mobile node.
    The HA extracts this IP address from the received BU message.h.
  */
-@DiameterAvpDefinition(code = 487L, vendorId = -1L, name = "MIP-Careof-Address")
+@DiameterAvpDefinition(code = AvpCodes.MIP_CAREOF_ADDRESS, vendorId = -1L, name = "MIP-Careof-Address")
 public interface MIPCareofAddress extends DiameterAddress
 {
 }

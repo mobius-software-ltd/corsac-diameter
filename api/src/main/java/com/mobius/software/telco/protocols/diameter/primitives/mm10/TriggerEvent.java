@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -36,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 	MM7 Message Submission, Profile based (3)
 	MM7 Message Submission, Address based (4)
  */
-@DiameterAvpDefinition(code = 1103L, vendorId = -1L, name = "Trigger-Event")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRIGGER_EVNET, vendorId = VendorIDs.TGPP_ID, name = "Trigger-Event")
 public interface TriggerEvent extends DiameterEnumerated<TriggerEventEnum>
 {
 }

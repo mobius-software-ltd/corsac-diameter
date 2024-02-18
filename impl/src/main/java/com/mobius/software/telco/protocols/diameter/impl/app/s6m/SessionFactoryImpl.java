@@ -22,6 +22,8 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.app.s6m.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s6m.SubscriberInformationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.SIRFlags;
@@ -38,7 +40,7 @@ public class SessionFactoryImpl implements SessionFactory
 		this.idGenerator = idGenerator;
 	}
 	
-	public SubscriberInformationRequest createSubscriberInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,SIRFlags sirFlags)
+	public SubscriberInformationRequest createSubscriberInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,SIRFlags sirFlags) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new SubscriberInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, sirFlags);
 	}		

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,14 +42,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	Reporting-Interval x Rreporting-Amount shall not exceed 8639999 (99 days, 23 hours, 59 minutes and 59 seconds) for compatibility with OMA MLP and RLP.
  */
-@DiameterAvpDefinition(code = 2540L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Periodic-LDR-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.PERIODIC_LDR_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Periodic-LDR-Info")
 public interface PeriodicLDRInfo extends DiameterGroupedAvp
 {
 	Long getReportingAmount();
 	
-	void setReportingAmount(Long value);
+	void setReportingAmount(Long value) throws MissingAvpException;
 	
 	Long getReportingInterval();
 	
-	void setReportingInterval(Long value);
+	void setReportingInterval(Long value) throws MissingAvpException;
 }

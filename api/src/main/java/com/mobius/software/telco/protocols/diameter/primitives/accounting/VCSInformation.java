@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -51,7 +52,7 @@ import io.netty.buffer.ByteBuf;
 			[ Stop-Time ]
 			[ PS-Free-Format-Data ]
  */
-@DiameterAvpDefinition(code = 3410L, vendorId = KnownVendorIDs.TGPP_ID, name = "VCS-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.VCS_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "VCS-Information")
 public interface VCSInformation extends DiameterAvp
 {
 	ByteBuf getBearerCapability();

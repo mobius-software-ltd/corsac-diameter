@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AdditionalServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MWDStatus;
@@ -67,7 +69,7 @@ import io.netty.buffer.ByteBuf;
 					*[ Proxy-Info ]
 					*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777312, commandCode = 8388647, request = false, proxyable = true, name="Send-Routing-info-for-SM-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6C, commandCode = CommandCodes.SEND_ROUTING_INFO_FOR_SM, request = false, proxyable = true, name="Send-Routing-info-for-SM-Answer")
 public interface SendRoutingInfoForSMAnswer extends S6cAnswer
 {
 	ServingNode getServingNode();

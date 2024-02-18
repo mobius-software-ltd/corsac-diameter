@@ -18,13 +18,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPAlgorithmTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMSALifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPReplayModeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPSessionKeyImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMSALifetime;
@@ -41,7 +45,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 492L, vendorId = -1L)
 public class MIPMNHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNHAMSA
 {
 	private MIPSessionKey mipSessionKey;
@@ -59,17 +62,11 @@ public class MIPMNHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNHAMSA
 		
 	}
 	
-	public MIPMNHAMSAImpl(ByteBuf mipSessionKey, Long mipMSALifetime)
+	public MIPMNHAMSAImpl(ByteBuf mipSessionKey, Long mipMSALifetime) throws MissingAvpException
 	{
-		if(mipSessionKey==null)
-			throw new IllegalArgumentException("MIP-Session-Key is required");
+		setMIPSessionKey(mipSessionKey);
 		
-		if(mipMSALifetime==null)
-			throw new IllegalArgumentException("MIP-HA-to-MN-SPI is required");
-		
-		this.mipSessionKey = new MIPSessionKeyImpl(mipSessionKey, null, null);
-		
-		this.mipMSALifetime = new MIPMSALifetimeImpl(mipMSALifetime, null, null);	
+		setMIPMSALifetime(mipMSALifetime);
 	}
 	
 	@Override
@@ -82,10 +79,10 @@ public class MIPMNHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNHAMSA
 	}
 
 	@Override
-	public void setMIPSessionKey(ByteBuf value) 
+	public void setMIPSessionKey(ByteBuf value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Session-Key is required");
+			throw new MissingAvpException("MIP-Session-Key is required", Arrays.asList(new DiameterAvp[] { new MIPSessionKeyImpl() }));
 		
 		this.mipSessionKey = new MIPSessionKeyImpl(value, null, null);
 	}	
@@ -98,11 +95,11 @@ public class MIPMNHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNHAMSA
 		return mipMSALifetime.getUnsigned();
 	}
 	
-	public void setMIPMSALifetime(Long value)
+	public void setMIPMSALifetime(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-MSA-Lifetime is required");
-		
+			throw new MissingAvpException("MIP-MSA-Lifetime is required", Arrays.asList(new DiameterAvp[] { new MIPMSALifetimeImpl() }));
+			
 		this.mipMSALifetime = new MIPMSALifetimeImpl(value, null, null);		
 	}
 	
@@ -155,13 +152,13 @@ public class MIPMNHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNHAMSA
 	}		
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mipSessionKey==null)
-			return "MIP-Session-Key is required";
+			return new MissingAvpException("MIP-Session-Key is required", Arrays.asList(new DiameterAvp[] { new MIPSessionKeyImpl() }));
 		
 		if(mipMSALifetime==null)
-			return "MIP-MSA-Lifetime is required";
+			return new MissingAvpException("MIP-MSA-Lifetime is required", Arrays.asList(new DiameterAvp[] { new MIPMSALifetimeImpl() }));
 		
 		return null;
 	}

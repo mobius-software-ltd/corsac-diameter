@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,18 +42,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 		[External-Identifier]
  	   *[AVP] 	
  */
-@DiameterAvpDefinition(code = 700L, vendorId = KnownVendorIDs.TGPP_ID, name = "User-Identity")
+@DiameterAvpDefinition(code = TgppAvpCodes.USER_IDENTITY, vendorId = VendorIDs.TGPP_ID, name = "User-Identity")
 public interface UserIdentity extends DiameterGroupedAvp
 {
 	String getPublicIdentity();
 	
-	void setPublicIdentity(String value);	
+	void setPublicIdentity(String value) throws MissingAvpException;	
 	
 	String getMSISDN();
 	
-	void setMSISDN(String value);	
+	void setMSISDN(String value) throws MissingAvpException;	
 	
 	String getExternalIdentifier();
 	
-	void setExternalIdentifier(String value);		
+	void setExternalIdentifier(String value) throws MissingAvpException;		
 }

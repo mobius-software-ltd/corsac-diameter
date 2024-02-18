@@ -20,8 +20,8 @@ package com.mobius.software.telco.protocols.diameter.app.ro;
 
 import java.net.InetAddress;
 import java.util.Date;
-import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInfoChange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessTransferInformation;
@@ -121,19 +121,19 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public TGPPOCSpecificReduction getTGPPOCSpecificReduction();
 	
-	public ServiceInformation getServiceInformation(List<SubscriptionId> subscriptionId);
+	public ServiceInformation getServiceInformation();
 	
-	public RemainingBalance getRemainingBalance(UnitValue unitValue,Long currencyCode);	
+	public RemainingBalance getRemainingBalance(UnitValue unitValue,Long currencyCode) throws MissingAvpException;	
 	
-	public UnitValue getUnitValue(Long valueDigits,Long exponent);
+	public UnitValue getUnitValue(Long valueDigits) throws MissingAvpException;
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData);
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException;
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	//ServiceInformation - standard
 	
@@ -141,7 +141,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 					
 	public PSInformation getPSInformation();
 			
-	public IMSInformation getIMSInformation(NodeFunctionalityEnum nodeFunctionality);
+	public IMSInformation getIMSInformation(NodeFunctionalityEnum nodeFunctionality) throws MissingAvpException;
 			
 	public MMSInformation getMMSInformation();
 			
@@ -171,9 +171,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 		
 	//PSInformation - standard
 		
-	public TWANUserLocationInfo getTWANUserLocationInfo(String ssid);
+	public TWANUserLocationInfo getTWANUserLocationInfo(String ssid) throws MissingAvpException;
 		
-	public UWANUserLocationInfo getUWANUserLocationInfo(InetAddress ueLocalIPAddress);
+	public UWANUserLocationInfo getUWANUserLocationInfo(InetAddress ueLocalIPAddress) throws MissingAvpException;
 		
 	public WLANOperatorId getWLANOperatorId();
 		
@@ -197,7 +197,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 			
 	public ServiceSpecificInfo getServiceSpecificInfo();
 			
-	public MessageBody getMessageBody(String contentType,Long contentLength);
+	public MessageBody getMessageBody(String contentType,Long contentLength) throws MissingAvpException;
 			
 	public EarlyMediaDescription getEarlyMediaDescription();
 			
@@ -205,17 +205,17 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 			
 	public RealTimeTariffInformation getRealTimeTariffInformation();
 			
-	public TariffInformation getTariffInformation(CurrentTariff currentTariff);
+	public TariffInformation getTariffInformation(CurrentTariff currentTariff) throws MissingAvpException;
 			
 	public CurrentTariff getCurrentTariff();
 			
 	public NextTariff getNextTariff();
 			
-	public ScaleFactor getScaleFactor(Long valueDigits);
+	public ScaleFactor getScaleFactor(Long valueDigits) throws MissingAvpException;
 			
-	public RateElement getRateElement(CcUnitTypeEnum ccUnitType);
+	public RateElement getRateElement(CcUnitTypeEnum ccUnitType) throws MissingAvpException;
 			
-	public UnitCost getUnitCost(Long valueDigits);
+	public UnitCost getUnitCost(Long valueDigits) throws MissingAvpException;
 			
 	public NNIInformation getNNIInformation();
 			
@@ -249,7 +249,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 			
 	//PoCInformation - standard
 			
-	public TalkBurstExchange getTalkBurstExchange(Date pocChangeTime);
+	public TalkBurstExchange getTalkBurstExchange(Date pocChangeTime) throws MissingAvpException;
 			
 	public ParticipantGroup getParticipantGroup();
 			
@@ -289,9 +289,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 			
 	public AoCService getAoCService();
 			
-	public IncrementalCost getIncrementalCost(Long valueDigits);
+	public IncrementalCost getIncrementalCost(Long valueDigits) throws MissingAvpException;
 			
-	public AccumulatedCost getAccumulatedCost(Long valueDigits);
+	public AccumulatedCost getAccumulatedCost(Long valueDigits) throws MissingAvpException;
 			
 	//ProSeInformation - standard
 			

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	7.3.79	CSG-Id
 	The CSG-Id AVP is of type Unsigned32. Values are coded according to 3GPP TS 23.003 [3]. Unused bits (least significant) shall be padded with zeros.
  */
-@DiameterAvpDefinition(code = 1437L, vendorId = KnownVendorIDs.TGPP_ID, name = "CSG-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.CSG_ID, vendorId = VendorIDs.TGPP_ID, name = "CSG-Id")
 public interface CSGId extends DiameterUnsigned32
 {
 }

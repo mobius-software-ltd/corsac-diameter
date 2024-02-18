@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.2.3.12	MIP-FA-RK
 	The MIP-FA-RK AVP is of type OctetString; this AVP contains the FA-RK used to calculate the security parameters needed for the MN-FA authentication extension as defined by 3GPP TS 33.402 [19].
  */
-@DiameterAvpDefinition(code = 1506L, vendorId = KnownVendorIDs.TGPP_ID, name = "MIP-FA-RK")
+@DiameterAvpDefinition(code = TgppAvpCodes.MIP_FARK, vendorId = VendorIDs.TGPP_ID, name = "MIP-FA-RK")
 public interface MIPFARK extends DiameterOctetString
 {
 }

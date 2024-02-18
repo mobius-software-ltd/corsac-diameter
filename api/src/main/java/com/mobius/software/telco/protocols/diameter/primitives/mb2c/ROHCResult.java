@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -57,7 +58,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6 No Traffic
 	The ROHC execution was terminated because the BM-SC did not detect any user plane traffic for a longer period.
 */
-@DiameterAvpDefinition(code = 3530L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "ROHC‑Result")
+@DiameterAvpDefinition(code = TgppAvpCodes.ROHC_RESULT, vendorId = VendorIDs.TGPP_ID, must = false, name = "ROHC‑Result")
 public interface ROHCResult extends DiameterBitmask32
 {
 	public static final int SUCCESS_BIT = 0;

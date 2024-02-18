@@ -18,11 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.app.rx.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CCMoneyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GrantedServiceUnitImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdImpl;
@@ -64,7 +65,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCM
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.TariffChangeUsageEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
@@ -101,7 +101,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
@@ -111,17 +111,17 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
 	
-	public UserEquipmentInfoExtension getUserEquipmentInfoExtension(ByteBuf imeiSV,ByteBuf mac,ByteBuf eui64,ByteBuf modifiedEUI64,ByteBuf imei)
+	public UserEquipmentInfoExtension getUserEquipmentInfoExtension(ByteBuf imeiSV,ByteBuf mac,ByteBuf eui64,ByteBuf modifiedEUI64,ByteBuf imei) throws MissingAvpException, AvpOccursTooManyTimesException
 	{
 		return new UserEquipmentInfoExtensionImpl(imeiSV, mac, eui64, modifiedEUI64, imei);
 	}
 	
-	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue)
+	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue) throws MissingAvpException
 	{
 		return new UserEquipmentInfoImpl(userEquipmentInfoType, userEquipmentInfoValue);
 	}
@@ -136,7 +136,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new FiveGSRANNASReleaseCauseImpl();
 	}
 	
-	public NGAPCause getNGAPCause(Long ngapGroup,Long ngapValue)
+	public NGAPCause getNGAPCause(Long ngapGroup,Long ngapValue) throws MissingAvpException
 	{
 		return new NGAPCauseImpl(ngapGroup, ngapValue);
 	}
@@ -146,24 +146,24 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SponsoredConnectivityDataImpl();
 	}
 	
-	public UsedServiceUnit getUsedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage)
+	public UsedServiceUnit getUsedServiceUnit()
 	{
-		return new UsedServiceUnitImpl(ccTime, ccMoney, ccTotalOctets, ccInputOctets, ccOutputOctets, ccServiceSpecificUnits, tariffChangeUsage);
+		return new UsedServiceUnitImpl();
 	}
 	
-	public GrantedServiceUnit getGrantedServiceUnit(Date ccTime,CCMoney ccMoney,Long ccTotalOctets,Long ccInputOctets,Long ccOutputOctets,Long ccServiceSpecificUnits,TariffChangeUsageEnum tariffChangeUsage)
+	public GrantedServiceUnit getGrantedServiceUnit()
 	{
-		return new GrantedServiceUnitImpl(ccTime, ccMoney, ccTotalOctets, ccInputOctets, ccOutputOctets, ccServiceSpecificUnits, tariffChangeUsage);
+		return new GrantedServiceUnitImpl();
 	}
 	
-	public CCMoney getCCMoney(UnitValue unitValue,Long currencyCode)
+	public CCMoney getCCMoney(UnitValue unitValue) throws MissingAvpException
 	{
-		return new CCMoneyImpl(unitValue, currencyCode);
+		return new CCMoneyImpl(unitValue);
 	}
 	
-	public UnitValue getUnitValue(Long valueDigits,Long exponent)
+	public UnitValue getUnitValue(Long valueDigits) throws MissingAvpException
 	{
-		return new UnitValueImpl(valueDigits, exponent);
+		return new UnitValueImpl(valueDigits);
 	}
 	
 	public MAInformation getMAInformation()
@@ -171,12 +171,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new MAInformationImpl();
 	}
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException
 	{
 		return new SubscriptionIdImpl(subscriptionIdType, subscriptionIdData);
 	}
 	
-	public Flows getFlows(Long mediaComponentNumber)
+	public Flows getFlows(Long mediaComponentNumber) throws MissingAvpException
 	{
 		return new FlowsImpl(mediaComponentNumber);
 	}
@@ -186,22 +186,22 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new RedirectInformationImpl();
 	}
 	
-	public AccessNetworkChargingIdentifier getAccessNetworkChargingIdentifier(ByteBuf accessNetworkChargingIdentifierValue)
+	public AccessNetworkChargingIdentifier getAccessNetworkChargingIdentifier(ByteBuf accessNetworkChargingIdentifierValue) throws MissingAvpException
 	{
 		return new AccessNetworkChargingIdentifierImpl(accessNetworkChargingIdentifierValue);
 	}
 	
-	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber)
+	public MediaComponentDescription getMediaComponentDescription(Long mediaComponentNumber) throws MissingAvpException
 	{
 		return new MediaComponentDescriptionImpl(mediaComponentNumber);
 	}
 	
-	public MediaSubComponent getMediaSubComponent(Long flowNumber)
+	public MediaSubComponent getMediaSubComponent(Long flowNumber) throws MissingAvpException
 	{
 		return new MediaSubComponentImpl(flowNumber);
 	}
 	
-	public FlowDescription getFlowDescription(String rule) throws ParseException
+	public FlowDescription getFlowDescription(String rule) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(rule, null, null);
 	}
@@ -209,7 +209,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 	public FlowDescription getFlowDescription(DiameterIpAction action, DiameterRuleDirection direction, InternetProtocol protocol, DiameterRuleAddress from, List<DiameterRulePorts> fromPorts, DiameterRuleAddress to,
 			List<DiameterRulePorts> toPorts, List<DiameterRuleOption> options, List<DiameterRuleIpOption> ipOptions, List<DiameterRuleIpOption> negativeIpOptions,
 			List<DiameterRuleTcpOption> tcpOptions, List<DiameterRuleTcpOption> negativeTcpOptions, List<DiameterRuleTcpFlag> tcpFlags, List<DiameterRuleTcpFlag> negativeTcpFlags,
-			List<DiameterRuleIcmpType> icmpTypes) throws ParseException
+			List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
 	{
 		return new FlowDescriptionImpl(action, direction, protocol, from, fromPorts, to, toPorts, options, ipOptions, negativeIpOptions, tcpOptions, negativeTcpOptions, tcpFlags, negativeTcpFlags, icmpTypes, null, null);
 	}

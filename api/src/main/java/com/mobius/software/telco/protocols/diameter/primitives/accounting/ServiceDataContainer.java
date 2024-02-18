@@ -22,9 +22,10 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.PresenceReportingAreaStatusEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
@@ -78,7 +79,7 @@ import io.netty.buffer.ByteBuf;
  			[Traffic-Steering-Policy-Identifier-UL]
  			[VoLTE-Information] 
  */
-@DiameterAvpDefinition(code = 2040L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-Data-Container")
+@DiameterAvpDefinition(code = TgppAvpCodes.SERVICE_DATA_CONTAINER, vendorId = VendorIDs.TGPP_ID, name = "Service-Data-Container")
 public interface ServiceDataContainer extends DiameterAvp
 {
 	AFCorrelationInformation getAFCorrelationInformation();

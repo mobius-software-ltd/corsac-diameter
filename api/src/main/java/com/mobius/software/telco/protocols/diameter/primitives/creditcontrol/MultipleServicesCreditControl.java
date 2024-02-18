@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -101,7 +102,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
                                         *[ AVP ]
  */
 
-@DiameterAvpDefinition(code = 456L, vendorId = -1, name = "Multiple-Services-Credit-Control")
+@DiameterAvpDefinition(code = AvpCodes.MULTIPLE_SERVICES_CREDIT_CONTROL, vendorId = -1, name = "Multiple-Services-Credit-Control")
 public interface MultipleServicesCreditControl extends DiameterGroupedAvp 
 {
 	GrantedServiceUnit getGrantedServiceUnit();

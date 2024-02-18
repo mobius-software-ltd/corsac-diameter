@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -48,24 +50,24 @@ import io.netty.buffer.ByteBuf;
                      [ Tunnel-Password ]
                      [ Tunnel-Private-Group-Id ]
  */
-@DiameterAvpDefinition(code = 401L, vendorId = -1L, name = "Tunneling")
+@DiameterAvpDefinition(code = AvpCodes.TUNNELING, vendorId = -1L, name = "Tunneling")
 public interface Tunneling extends DiameterAvp
 {
 	TunnelTypeEnum getTunnelType();
 	
-	void setTunnelType(TunnelTypeEnum tunnelType);
+	void setTunnelType(TunnelTypeEnum tunnelType) throws MissingAvpException;
 	
 	TunnelMediumTypeEnum getTunnelMediumType();
 	
-	void setTunnelMediumType(TunnelMediumTypeEnum tunnelMediumType);
+	void setTunnelMediumType(TunnelMediumTypeEnum tunnelMediumType) throws MissingAvpException;
 	
 	String getTunnelClientEndpoint();
 	
-	void setTunnelClientEndpoint(String value);	
+	void setTunnelClientEndpoint(String value) throws MissingAvpException;	
 	
 	String getTunnelServerEndpoint();
 	
-	void setTunnelServerEndpoint(String value);	
+	void setTunnelServerEndpoint(String value) throws MissingAvpException;	
 	
 	Long getTunnelPreference();
 	

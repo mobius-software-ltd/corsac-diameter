@@ -22,6 +22,8 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
@@ -64,7 +66,7 @@ import io.netty.buffer.ByteBuf;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777349, commandCode = 8388637, request = true, proxyable = true, name="TS-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.ST, commandCode = CommandCodes.TDF_SESSION, request = true, proxyable = true, name="TS-Request")
 public interface TDFSessionRequest extends StRequest
 {
 	RequestTypeEnum getRequestType();

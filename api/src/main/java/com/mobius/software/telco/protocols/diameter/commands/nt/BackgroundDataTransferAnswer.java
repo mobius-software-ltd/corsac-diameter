@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.nt;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferPolicy;
@@ -65,7 +67,7 @@ import io.netty.buffer.ByteBuf;
                 *[ Load ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777348, commandCode = 8388723, request = false, proxyable = true, name="Server-Assignment-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NT, commandCode = CommandCodes.BACKGROUND_DATA_TRANSFER, request = false, proxyable = true, name="Server-Assignment-Answer")
 public interface BackgroundDataTransferAnswer extends NtAnswer
 {
 	ByteBuf getReferenceId();

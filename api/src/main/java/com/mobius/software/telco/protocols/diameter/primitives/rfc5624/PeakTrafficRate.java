@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5624;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterFloat32;
 
     The Peak-Traffic-Rate AVP (AVP Code 498) is of type Float32.
  */
-@DiameterAvpDefinition(code = 498L, vendorId = -1L, name = "Peak-Traffic-Rate")
+@DiameterAvpDefinition(code = AvpCodes.PEAK_TRAFFIC_RATE, vendorId = -1L, name = "Peak-Traffic-Rate")
 public interface PeakTrafficRate extends DiameterFloat32
 {
 }

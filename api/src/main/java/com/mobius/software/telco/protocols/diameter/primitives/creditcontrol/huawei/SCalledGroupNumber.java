@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	If the called party is a group subscriber in the MO, MT, or MF process, this AVP indicates the code of the group to which the called party belongs. Otherwise, this AVP is left empty.
  */
-@DiameterAvpDefinition(code = 21213L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "S-Called-Group-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.S_CALLED_GROUP_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "S-Called-Group-Number")
 public interface SCalledGroupNumber extends DiameterOctetString
 {
 }

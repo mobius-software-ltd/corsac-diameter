@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	This data element can be used to identify the application-level session to which the charging information relates. Note that
 	the Session Id data element identifies the charging session between a charging enabler user and a charging enabler.
  */
-@DiameterAvpDefinition(code = 2103L, vendorId = KnownVendorIDs.TGPP_ID, name = "Application-Session-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.APPLICATION_SESSION_ID, vendorId = VendorIDs.TGPP_ID, name = "Application-Session-Id")
 public interface ApplicationSessionId extends DiameterUnsigned32
 {
 }

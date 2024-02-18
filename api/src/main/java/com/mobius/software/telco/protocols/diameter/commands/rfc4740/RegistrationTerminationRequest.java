@@ -20,8 +20,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4740;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPDeregistrationReason;
 
@@ -72,16 +75,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPDeregi
                * [ Route-Record ]
                * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 6, commandCode = 287, request = true, proxyable = true, name="Registration-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.REGISTRATION_TERMINATION, request = true, proxyable = true, name="Registration-Termination-Request")
 public interface RegistrationTerminationRequest extends AuthenticationRequest
 {
 	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value);
+	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 	
 	SIPDeregistrationReason getSIPDeregistrationReason();
 	
-	void setSIPDeregistrationReason(SIPDeregistrationReason value);	
+	void setSIPDeregistrationReason(SIPDeregistrationReason value) throws MissingAvpException;	
 	
 	List<String> getSIPAOR();
 	

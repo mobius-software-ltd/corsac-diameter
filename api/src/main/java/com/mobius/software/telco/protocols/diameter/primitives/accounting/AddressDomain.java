@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ Domain-Name ]
 			[ 3GPP-IMSI-MCC-MNC ]
  */
-@DiameterAvpDefinition(code = 898L, vendorId = KnownVendorIDs.TGPP_ID, name = "Address-Domain")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADDRESS_DOMAIN, vendorId = VendorIDs.TGPP_ID, name = "Address-Domain")
 public interface AddressDomain extends DiameterAvp
 {
 	String getDomainName();

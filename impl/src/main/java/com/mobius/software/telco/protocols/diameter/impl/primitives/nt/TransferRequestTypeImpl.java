@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferRequestTypeEnum;
 
@@ -29,10 +27,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferReques
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4203L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TransferRequestTypeImpl extends DiameterEnumeratedImpl<TransferRequestTypeEnum> implements TransferRequestType
 {
-	protected TransferRequestTypeImpl()
+	public TransferRequestTypeImpl()
 	{
 		super();
 	}

@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -51,7 +52,7 @@ import io.netty.buffer.ByteBuf;
 
 	NOTE:	When populating the SDP-Media-Component, either the 3GPP-Charging-ID or the Access-Network-Charging-Identifier-Value should be present but not both. The 3GPP-Charging-ID is expected to be used for 3GPP defined IP-CANS (e.g. GPRS, EPS, 5GS) while the Access-Network-Charging-Identifier-Value is used for non-3GPP defined IP-CANs. 
  */
-@DiameterAvpDefinition(code = 843L, vendorId = KnownVendorIDs.TGPP_ID, name = "SDP-Media-Component")
+@DiameterAvpDefinition(code = TgppAvpCodes.SDP_MEDIA_COMPONENT, vendorId = VendorIDs.TGPP_ID, name = "SDP-Media-Component")
 public interface SDPMediaComponent extends DiameterAvp
 {
 	String getSDPMediaName();

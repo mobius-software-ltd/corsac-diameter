@@ -20,7 +20,10 @@ package com.mobius.software.telco.protocols.diameter.commands.t6a;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
 
@@ -61,16 +64,16 @@ import io.netty.buffer.ByteBuf;
 					*[ Route-Record ]
 					*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777346, commandCode = 8388734, request = true, proxyable = true, name="MT-Data-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.T6A, commandCode = CommandCodes.MT_DATA, request = true, proxyable = true, name="MT-Data-Request")
 public interface MTDataRequest extends T6aRequest
 {
 	UserIdentifier getUserIdentifier();
 	
-	void setUserIdentifier(UserIdentifier value);
+	void setUserIdentifier(UserIdentifier value) throws MissingAvpException;
 	
 	ByteBuf getBearerIdentifier();
 	
-	void setBearerIdentifier(ByteBuf value);
+	void setBearerIdentifier(ByteBuf value) throws MissingAvpException;
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	 

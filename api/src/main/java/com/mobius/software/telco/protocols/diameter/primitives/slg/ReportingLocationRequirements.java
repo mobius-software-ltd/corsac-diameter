@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	1-31 None
 	Spare
  */
-@DiameterAvpDefinition(code = 2564L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Reporting-Location-Requirements")
+@DiameterAvpDefinition(code = TgppAvpCodes.REPORTING_LOCATION_REQUIREMENTS, vendorId = VendorIDs.TGPP_ID, must = false, name = "Reporting-Location-Requirements")
 public interface ReportingLocationRequirements extends DiameterUnsigned32
 {
 }

@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -45,12 +47,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 				[ Congestion-Level-Set-Id ]
  			   *[ AVP ]
  */
-@DiameterAvpDefinition(code = 4001L, vendorId = KnownVendorIDs.TGPP_ID, name = "Aggregated-RUCI-Report")
+@DiameterAvpDefinition(code = TgppAvpCodes.AGGREGATED_RUCI_REPORT, vendorId = VendorIDs.TGPP_ID, name = "Aggregated-RUCI-Report")
 public interface AggregatedRUCIReport extends DiameterGroupedAvp
 {
 	List<AggregatedCongestionInfo> getAggregatedCongestionInfo();
 	
-	void setAggregatedCongestionInfo(List<AggregatedCongestionInfo> value);
+	void setAggregatedCongestionInfo(List<AggregatedCongestionInfo> value) throws MissingAvpException;
 	
 	String getCalledStationId();
 	

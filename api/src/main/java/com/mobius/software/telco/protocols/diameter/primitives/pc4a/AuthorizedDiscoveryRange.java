@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	announcing authorisation policy for this UE. Refer to 3GPP TS 24.334 [16] for the policy handling and to 3GPP TS 24.333 [17] 
 	for the possible values of the range.
  */
-@DiameterAvpDefinition(code = 3708L, vendorId = KnownVendorIDs.TGPP_ID, name = "Authorized-Discovery-Range")
+@DiameterAvpDefinition(code = TgppAvpCodes.AUTHORIZED_DISCOVERY_RANGE, vendorId = VendorIDs.TGPP_ID, name = "Authorized-Discovery-Range")
 public interface AuthorizedDiscoveryRange extends DiameterUnsigned32
 {
 }

@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.12	RCAF-Id AVP
 	The RCAF-Id AVP (AVP code 4010) is of type DiameterIdentity, and it is used to contain the RCAF identity.
  */
-@DiameterAvpDefinition(code = 4010L, vendorId = KnownVendorIDs.TGPP_ID, name = "RCAF-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.RCAF_ID, vendorId = VendorIDs.TGPP_ID, name = "RCAF-Id")
 public interface RCAFId extends DiameterIdentity
 {
 }

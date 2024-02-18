@@ -21,9 +21,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gmb.MBMSStartStopIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 
@@ -60,12 +62,12 @@ import io.netty.buffer.ByteBuf;
                                  [ ROHC-Max-CID ]
                                 *[ AVP ]
  */
-@DiameterAvpDefinition(code = 3504L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_BEARER_REQUEST, vendorId = VendorIDs.TGPP_ID, name = "MBMS‑Bearer‑Request")
 public interface MBMSBearerRequest extends DiameterGroupedAvp
 {
 	MBMSStartStopIndicationEnum getMBMSStartStopIndication();
 	
-	void setMBMSStartStopIndication(MBMSStartStopIndicationEnum value);	
+	void setMBMSStartStopIndication(MBMSStartStopIndicationEnum value) throws MissingAvpException;	
 	
 	ByteBuf getTMGI();
 	

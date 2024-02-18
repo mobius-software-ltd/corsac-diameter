@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	SMS_MO (1)
 	The UE (identified by IMSI and application port identifier) requests SMS_MO to be delivered to the SCS.  
  */
-@DiameterAvpDefinition(code = 3103L, vendorId = KnownVendorIDs.TGPP_ID, name = "Service-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.S6M_SERVICE_ID, vendorId = VendorIDs.TGPP_ID, name = "Service-ID")
 public interface ServiceID extends DiameterEnumerated<ServiceIDEnum>
 {
 }

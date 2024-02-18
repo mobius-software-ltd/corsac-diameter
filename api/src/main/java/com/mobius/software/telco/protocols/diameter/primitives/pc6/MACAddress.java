@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.11	MAC-Address
 	The MAC-Address AVP is of type UTF8String and it shall contain a 6-octet MAC address used as link layer identifier for discovery and communication. It shall be encoded in upper-case ASCII characters with the octet values separated by dash characters. It shall contain a string of 17 octets. Example: "00-10-A4-23-19-C0". 
  */
-@DiameterAvpDefinition(code = 3806L, vendorId = KnownVendorIDs.TGPP_ID, name = "MAC-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAC_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "MAC-Address")
 public interface MACAddress extends DiameterUTF8String
 {
 }

@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticInfo;
 
@@ -48,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticIn
                       	[ Diagnostic-Info ]
 	                 	[ Restart-Counter ]
  */
-@DiameterCommandDefinition(applicationId = 16777292, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SGMB, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest
 {
 	DiagnosticInfo getDiagnosticInfo();

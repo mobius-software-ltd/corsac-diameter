@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.swm;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
@@ -62,12 +65,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 			…
 			*[ AVP ]			
  */
-@DiameterCommandDefinition(applicationId = 16777264, commandCode = 275, request = true, proxyable = true, name="Session-Termination-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SWM, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="Session-Termination-Request")
 public interface SessionTerminationRequest extends SwmRequest
 {
 	TerminationCauseEnum getTerminationCause();
 	
-	void setTerminationCause(TerminationCauseEnum value);
+	void setTerminationCause(TerminationCauseEnum value) throws MissingAvpException;
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	

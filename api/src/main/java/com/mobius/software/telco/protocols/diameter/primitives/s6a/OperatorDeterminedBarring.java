@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterBitmask32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -54,7 +55,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8 Barring of all outgoing international calls except those directed to the home PLMN country and Barring of all outgoing inter-zonal calls
 
  */
-@DiameterAvpDefinition(code = 1425L, vendorId = KnownVendorIDs.TGPP_ID, name = "Operator-Determined-Barring")
+@DiameterAvpDefinition(code = TgppAvpCodes.OPERATOR_DETERMINED_BARRING, vendorId = VendorIDs.TGPP_ID, name = "Operator-Determined-Barring")
 public interface OperatorDeterminedBarring extends DiameterBitmask32
 {
 	public static final int ALL_PACKET_ORIENTED_SERVICES_BARRED_BIT = 0;

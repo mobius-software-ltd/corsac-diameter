@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	5b.3.5	ADC-Rule-Name AVP
 	The ADC-Rule-Name AVP (AVP code 1096) is of type OctetString, and it defines a name for ADC rule. For ADC rules provided by the PCRF it uniquely identifies an ADC rule within one TDF session. For predefined ADC rules, it uniquely identifies an ADC rule within the TDF. 
  */
-@DiameterAvpDefinition(code = 1096L, vendorId = KnownVendorIDs.TGPP_ID, name = "ADC-Rule-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.ADC_RULE_NAME, vendorId = VendorIDs.TGPP_ID, name = "ADC-Rule-Name")
 public interface ADCRuleName extends DiameterOctetString
 {
 }

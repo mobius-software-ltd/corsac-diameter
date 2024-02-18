@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticInfo;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticIn
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 933L, vendorId = KnownVendorIDs.TGPP_ID)
 public class DiagnosticInfoImpl extends DiameterBitmask32Impl implements DiagnosticInfo
 {
 	public DiagnosticInfoImpl()
@@ -44,7 +41,7 @@ public class DiagnosticInfoImpl extends DiameterBitmask32Impl implements Diagnos
 	@Override
 	public void setUPFAILBit(boolean isOn)
 	{
-		setBit(UPFAIL_BIT, isOn);
+		setBitUnchecked(UPFAIL_BIT, isOn);
 	}
 
 	@Override

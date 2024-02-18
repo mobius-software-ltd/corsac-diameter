@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s6b;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6b.RARFlags;
 
@@ -46,12 +49,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6b.RARFlags;
 			...
 			*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777272, commandCode = 258, request = true, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S6B, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends S6bRequest
 {	
 	public ReAuthRequestTypeEnum getReAuthRequestType();
 	
-	void setReAuthRequestType(ReAuthRequestTypeEnum value);
+	void setReAuthRequestType(ReAuthRequestTypeEnum value) throws MissingAvpException;
 	
 	RARFlags getRARFlags();
 	

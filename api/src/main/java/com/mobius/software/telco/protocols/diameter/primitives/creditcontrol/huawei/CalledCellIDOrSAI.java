@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	Indicates the cell ID that the called party visits.
  */
-@DiameterAvpDefinition(code = 20306L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Called-CellID-Or-SAI")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALLED_CELL_ID_OR_SAI, vendorId = VendorIDs.HUAWEI_ID, name = "Called-CellID-Or-SAI")
 public interface CalledCellIDOrSAI extends DiameterUTF8String
 {
 }

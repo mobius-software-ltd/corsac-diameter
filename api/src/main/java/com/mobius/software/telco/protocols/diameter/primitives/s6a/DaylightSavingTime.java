@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	PLUS_TWO_HOURS_ADJUSTMENT (2)
  */
-@DiameterAvpDefinition(code = 1650L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Daylight-Saving-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.DAYLIGHT_SAVING_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Daylight-Saving-Time")
 public interface DaylightSavingTime extends DiameterEnumerated<DaylightSavingTimeEnum>
 {
 }

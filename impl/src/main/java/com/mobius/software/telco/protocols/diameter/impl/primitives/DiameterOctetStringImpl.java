@@ -1,9 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterEncode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpLengthException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
 /*
@@ -101,10 +106,10 @@ public class DiameterOctetStringImpl implements DiameterOctetString
 	}
 	
 	@DiameterDecode
-	public String decode(ByteBuf buffer,Integer length) 
+	public DiameterException decode(ByteBuf buffer,Integer length) 
 	{
 		if(buffer.readableBytes()<length)
-			return "Avp length is invalid";
+			return new InvalidAvpLengthException("AVP Length is bigger then available data", Arrays.asList(new DiameterAvp[] { this }));
 		
 		value =  buffer.readBytes(length);		
 		this.padding = PADDINGS[value.readableBytes()%4];	

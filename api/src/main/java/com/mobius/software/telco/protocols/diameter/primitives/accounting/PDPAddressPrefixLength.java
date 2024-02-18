@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	IPv6 typed PDP-Address AVP. The omission of this AVP for an IPv6 typed IP address implicitly means prefix length
 	of 64 bits, as in this case the 64 bit prefix length default shall be assumed. 
  */
-@DiameterAvpDefinition(code = 2606L, vendorId = KnownVendorIDs.TGPP_ID, name = "PDP-Address-Prefix-Length")
+@DiameterAvpDefinition(code = TgppAvpCodes.PDP_ADDRESS_PREFIX_LENGTH, vendorId = VendorIDs.TGPP_ID, name = "PDP-Address-Prefix-Length")
 public interface PDPAddressPrefixLength extends DiameterUnsigned32
 {
 }

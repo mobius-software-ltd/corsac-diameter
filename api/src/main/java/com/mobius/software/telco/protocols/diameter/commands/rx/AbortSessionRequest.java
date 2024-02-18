@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum;
 
 /**
@@ -47,10 +50,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777236, commandCode = 274, request = true, proxyable = true, name="Abort-Session-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.ABORT_SESSION, request = true, proxyable = true, name="Abort-Session-Request")
 public interface AbortSessionRequest extends RxRequest
 {
 	AbortCauseEnum getAbortCause();
 	
-	void setAbortCause(AbortCauseEnum value);	
+	void setAbortCause(AbortCauseEnum value) throws MissingAvpException;	
 }

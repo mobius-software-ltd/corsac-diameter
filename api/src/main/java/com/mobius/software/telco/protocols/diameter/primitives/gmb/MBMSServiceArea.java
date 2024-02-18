@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The length of an MBMS service area code is 2 octets.
 	Each MBMS service area code shall only be present once in the list.
  */
-@DiameterAvpDefinition(code = 903L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Service-Area")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_SERVICE_AREA, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Service-Area")
 public interface MBMSServiceArea extends DiameterOctetString
 {
 }

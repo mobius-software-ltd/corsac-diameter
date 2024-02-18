@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5778;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPReplayModeEnum;
@@ -51,16 +53,16 @@ import io.netty.buffer.ByteBuf;
    the Mobile IPv6 MN-HA Authentication Option.  The absence of the MIP-
    Replay-Mode AVP MUST be treated as no replay protection was selected.
  */
-@DiameterAvpDefinition(code = 492L, vendorId = -1L, name = "MIP-MN-HA-MSA")
+@DiameterAvpDefinition(code = AvpCodes.MIP_MN_HA_MSA, vendorId = -1L, name = "MIP-MN-HA-MSA")
 public interface MIPMNHAMSA extends DiameterGroupedAvp
 {
 	ByteBuf getMIPSessionKey();
 	
-	void setMIPSessionKey(ByteBuf value);
+	void setMIPSessionKey(ByteBuf value) throws MissingAvpException;
 			
 	Long getMIPMSALifetime();
 	
-	void setMIPMSALifetime(Long value);
+	void setMIPMSALifetime(Long value) throws MissingAvpException;
 	
 	Long getMIPMNHASPI();
 	

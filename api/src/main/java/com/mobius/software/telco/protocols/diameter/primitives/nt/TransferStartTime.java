@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.3.7	Transfer-Start-Time AVP
 	The Transfer-Start-Time AVP (AVP code 4206) is of type Time. It indicates the NTP time when the SCS/AS may start the background data transfer.
  */
-@DiameterAvpDefinition(code = 4206L, vendorId = KnownVendorIDs.TGPP_ID, name = "Transfer-Start-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRANSFER_START_TIME, vendorId = VendorIDs.TGPP_ID, name = "Transfer-Start-Time")
 public interface TransferStartTime extends DiameterTime
 {
 }

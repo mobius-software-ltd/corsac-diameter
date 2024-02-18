@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -48,20 +50,20 @@ import io.netty.buffer.ByteBuf;
 			 [MDT-Configuration]
 			*[AVP]
  */
-@DiameterAvpDefinition(code = 1458L, vendorId = KnownVendorIDs.TGPP_ID, name = "Trace-Data")
+@DiameterAvpDefinition(code = TgppAvpCodes.TRACE_DATA, vendorId = VendorIDs.TGPP_ID, name = "Trace-Data")
 public interface TraceData extends DiameterGroupedAvp
 {
 	ByteBuf getTraceReference();
 	
-	void setTraceReference(ByteBuf value);	
+	void setTraceReference(ByteBuf value) throws MissingAvpException;	
 	
 	TraceDepthEnum getTraceDepth();
 	
-	void setTraceDepth(TraceDepthEnum value);
+	void setTraceDepth(TraceDepthEnum value) throws MissingAvpException;
 	
 	ByteBuf getTraceNETypeList();
 	
-	void setTraceNETypeList(ByteBuf value);
+	void setTraceNETypeList(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getTraceInterfaceList();
 	
@@ -69,7 +71,7 @@ public interface TraceData extends DiameterGroupedAvp
 	
 	ByteBuf getTraceEventList();
 	
-	void setTraceEventList(ByteBuf value);
+	void setTraceEventList(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getOMCId();
 	
@@ -77,7 +79,7 @@ public interface TraceData extends DiameterGroupedAvp
 	
 	InetAddress getTraceCollectionEntity();
 	
-	void setTraceCollectionEntity(InetAddress value);
+	void setTraceCollectionEntity(InetAddress value) throws MissingAvpException;
 
 	MDTConfiguration getMDTConfiguration();
 	

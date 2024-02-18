@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sh;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -59,7 +61,7 @@ import io.netty.buffer.ByteBuf;
 			*[ Proxy-Info ]
 			*[ Route-Record ]
 */
-@DiameterCommandDefinition(applicationId = 16777217, commandCode = 306, request = false, proxyable = true, name="User-Data-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SH, commandCode = CommandCodes.USER_DATA, request = false, proxyable = true, name="User-Data-Answer")
 public interface UserDataAnswer extends ShAnswer
 {
 	public String getWildcardedPublicIdentity();

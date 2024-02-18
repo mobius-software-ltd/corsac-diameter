@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -48,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
       will be sent by the access device upon expiration of the
       Authorization-Lifetime.
  */
-@DiameterAvpDefinition(code = 277L, vendorId = -1L, name = "Auth-Session-State")
+@DiameterAvpDefinition(code = AvpCodes.AUTH_SESSION_STATE, vendorId = -1L, name = "Auth-Session-State")
 public interface AuthSessionState extends DiameterEnumerated<AuthSessionStateEnum>
 {
 }

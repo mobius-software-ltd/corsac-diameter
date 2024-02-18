@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The types of change of area event listed above are defined in the clause 4.4.2.1 of the 3GPP TS 23.271 [24]. 
  */
-@DiameterAvpDefinition(code = 3826L, vendorId = KnownVendorIDs.TGPP_ID, name = "Location-Update-Event-Trigger")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCATION_UPDATE_EVENT_TRIGGER, vendorId = VendorIDs.TGPP_ID, name = "Location-Update-Event-Trigger")
 public interface LocationUpdateEventTrigger extends DiameterEnumerated<LocationUpdateEventTriggerEnum>
 {
 }

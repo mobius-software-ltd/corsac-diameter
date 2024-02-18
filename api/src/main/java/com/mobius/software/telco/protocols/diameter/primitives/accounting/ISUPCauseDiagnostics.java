@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	with the release of the voice call service, if available. When used for IMS charging, this AVP holds the diagnostics field
 	associated with the release of a CS call. Refer to TS 29.078 [233] for supported values. 
  */
-@DiameterAvpDefinition(code = 3422L, vendorId = KnownVendorIDs.TGPP_ID, name = "ISUP-Cause-Diagnostics")
+@DiameterAvpDefinition(code = TgppAvpCodes.ISUP_CAUSE_DIAGNOSTICS, vendorId = VendorIDs.TGPP_ID, name = "ISUP-Cause-Diagnostics")
 public interface ISUPCauseDiagnostics extends DiameterOctetString
 {
 }

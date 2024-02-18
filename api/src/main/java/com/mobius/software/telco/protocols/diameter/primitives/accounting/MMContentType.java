@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 			[ Content-Size ]
 		* 	[ Additional-Content-Information ]
  */
-@DiameterAvpDefinition(code = 1203L, vendorId = KnownVendorIDs.TGPP_ID, name = "MM-Content-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.MM_CONTENT_TYPE, vendorId = VendorIDs.TGPP_ID, name = "MM-Content-Type")
 public interface MMContentType extends DiameterAvp
 {
 	TypeNumberEnum getTypeNumber();

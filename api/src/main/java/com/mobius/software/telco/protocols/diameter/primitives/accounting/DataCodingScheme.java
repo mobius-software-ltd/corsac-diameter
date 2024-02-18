@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Data-Coding-Scheme AVP (AVP code 2001) is of type Integer32 and contains the data coding scheme of the
 	message. For SM applications the specific coding is as described in TS 23.040 [216].
  */
-@DiameterAvpDefinition(code = 2001L, vendorId = KnownVendorIDs.TGPP_ID, name = "Data-Coding-Scheme")
+@DiameterAvpDefinition(code = TgppAvpCodes.DATA_CODING_SCHEME, vendorId = VendorIDs.TGPP_ID, name = "Data-Coding-Scheme")
 public interface DataCodingScheme extends DiameterInteger32
 {
 }

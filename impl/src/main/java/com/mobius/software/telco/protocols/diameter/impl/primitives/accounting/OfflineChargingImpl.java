@@ -20,9 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EnvelopeReporting;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EnvelopeReportingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OfflineCharging;
@@ -35,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Mul
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1278L, vendorId = KnownVendorIDs.TGPP_ID)
 public class OfflineChargingImpl extends DiameterGroupedAvpImpl implements OfflineCharging
 {
 	private QuotaConsumptionTime quotaConsumptionTime;

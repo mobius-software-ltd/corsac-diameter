@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    be present in ACR messages with an Accounting-Record-Type of
    INTERIM_RECORD or STOP_RECORD.
  */
-@DiameterAvpDefinition(code = 46L, vendorId = -1L, name = "Acct-Session-Time")
+@DiameterAvpDefinition(code = AvpCodes.ACCT_SESSION_TIME, vendorId = -1L, name = "Acct-Session-Time")
 public interface AcctSessionTime extends DiameterUnsigned32
 {
 }

@@ -23,6 +23,8 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.mb2c.GCSActionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.mb2c.GCSNotificationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -46,12 +48,12 @@ public class SessionFactoryImpl implements SessionFactory
 		this.applicationId = applicationId;
 	}
 	
-	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationRealm)
+	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new GCSNotificationRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}	
 	
-	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationRealm)
+	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new GCSActionRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}

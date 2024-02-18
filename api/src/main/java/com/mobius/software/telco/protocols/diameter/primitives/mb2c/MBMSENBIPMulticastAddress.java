@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.22	MBMS-eNB-IP-Multicast-Address AVP
 	The MBMS-eNB-IP-Multicast-Address AVP (AVP code 3520) is of type Address and contains the M1 (transport) plane IPv4 destination multicast address used by MBMS-GW for IP multicast encapsulation of user plane IP multicast datagrams.
  */
-@DiameterAvpDefinition(code = 3520L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "MBMS-eNB-IP-Multicast-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_ENB_IP_MULTICAST_ADDDRESS, vendorId = VendorIDs.TGPP_ID, must = false, name = "MBMS-eNB-IP-Multicast-Address")
 public interface MBMSENBIPMulticastAddress extends DiameterAddress
 {
 }

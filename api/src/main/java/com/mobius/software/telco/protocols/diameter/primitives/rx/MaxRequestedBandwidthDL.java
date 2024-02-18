@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	When provided in an AA-Request, it indicates the maximum requested bandwidth. When provided in an AA-Answer, it indicates the maximum bandwidth acceptable by PCRF.
 	When the Extended-Max-Requested-BW-NR feature is supported and the value to be transmitted exceeds 2^32-1, the Extended-Max-Requested-Bandwidth-DL AVP shall be used , see clause 4.4.10 and clause 5.3.52.
  */
-@DiameterAvpDefinition(code = 515L, vendorId = KnownVendorIDs.TGPP_ID, name = "Max-Requested-Bandwidth-DL")
+@DiameterAvpDefinition(code = TgppAvpCodes.MAX_REQUESTED_BANDWIDTH_DL, vendorId = VendorIDs.TGPP_ID, name = "Max-Requested-Bandwidth-DL")
 public interface MaxRequestedBandwidthDL extends DiameterUnsigned32
 {
 }

@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.gq;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowStatusEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaTypeEnum;
 
@@ -54,12 +56,12 @@ import io.netty.buffer.ByteBuf;
 			 [ RS-Bandwidth ]
 			 [ RR-Bandwidth ]
  */
-@DiameterAvpDefinition(code = 517L, vendorId = KnownVendorIDs.TGPP_ID, name = "Media-Component-Description")
+@DiameterAvpDefinition(code = TgppAvpCodes.MEDIA_COMPONENT_DESCRIPTION, vendorId = VendorIDs.TGPP_ID, name = "Media-Component-Description")
 public interface MediaComponentDescription extends DiameterAvp
 {
 	Long getMediaComponentNumber();
 	
-	void setMediaComponentNumber(Long value);
+	void setMediaComponentNumber(Long value) throws MissingAvpException;
 	
 	List<MediaSubComponent> getMediaSubComponent();
 	

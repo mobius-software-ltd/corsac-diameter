@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.er
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.EricssonAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	recommended to send NDC. LSP is considered optional.
 	The AVP is in this service context defined as ‘static’ and ‘cached’
  */
-@DiameterAvpDefinition(code = 1074L, vendorId = KnownVendorIDs.ERICSSON_ID, name = "Subscription-Id-Location")
+@DiameterAvpDefinition(code = EricssonAvpCodes.SUBSCRIPTION_ID_LOCATION, vendorId = VendorIDs.ERICSSON_ID, name = "Subscription-Id-Location")
 public interface SubscriptionIdLocation extends DiameterUTF8String
 {
 }

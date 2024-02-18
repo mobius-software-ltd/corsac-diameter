@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	2 (METADATA_UPDATE_ALLOWED):
 	This value shall be used to indicate that there exists metadata associated with the target RPAUID, and the metadata is allowed to be updated.  
  */
-@DiameterAvpDefinition(code = 3612L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Metadata-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.METADATA_INDICATOR, vendorId = VendorIDs.TGPP_ID, must = false, name = "Metadata-Indicator")
 public interface MetadataIndicator extends DiameterEnumerated<MetadataIndicatorEnum>
 {
 }

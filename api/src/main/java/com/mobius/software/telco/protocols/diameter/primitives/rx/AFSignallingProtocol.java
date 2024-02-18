@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	SIP (1)
 		This value is used to indicate that the signalling protocol is Session Initiation Protocol.
  */
-@DiameterAvpDefinition(code = 529L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "AF-Signalling-Protocol")
+@DiameterAvpDefinition(code = TgppAvpCodes.AF_SIGNALLING_PROTOCOL, vendorId = VendorIDs.TGPP_ID, must = false, name = "AF-Signalling-Protocol")
 public interface AFSignallingProtocol extends DiameterEnumerated<AFSignallingProtocolEnum>
 {
 }

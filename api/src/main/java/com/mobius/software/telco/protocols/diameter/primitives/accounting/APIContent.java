@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The API-Content AVP (AVP code 1309) is of type UTF8String and holds the message content (e.g. location,
 	Monitoring Type) used in the T8 transaction for the API invocation request, if available. 
  */
-@DiameterAvpDefinition(code = 1309L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "API-Content")
+@DiameterAvpDefinition(code = TgppAvpCodes.API_CONTENT, vendorId = VendorIDs.TGPP_ID, must = false, name = "API-Content")
 public interface APIContent extends DiameterUTF8String
 {
 }

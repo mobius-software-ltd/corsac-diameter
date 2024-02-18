@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	1 (Security):
 	This value shall be used to indicate that the usage of a security protocol for the MB2 U interface is requested or decided.
  */
-@DiameterAvpDefinition(code = 3517L, vendorId = KnownVendorIDs.TGPP_ID, name = "MB2U-Security")
+@DiameterAvpDefinition(code = TgppAvpCodes.MB2U_SECURITY, vendorId = VendorIDs.TGPP_ID, name = "MB2U-Security")
 public interface MB2USecurity extends DiameterUnsigned32
 {
 }

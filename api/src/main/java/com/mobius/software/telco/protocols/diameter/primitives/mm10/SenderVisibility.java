@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -36,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
 	If the Sender-Visibility AVP is not present, then the default "Sender Identification requested not to be hidden" shall be assumed.
  */
-@DiameterAvpDefinition(code = 1113L, vendorId = -1L, name = "Sender-Visibility")
+@DiameterAvpDefinition(code = TgppAvpCodes.SENDER_VISIBILITY, vendorId = VendorIDs.TGPP_ID, name = "Sender-Visibility")
 public interface SenderVisibility extends DiameterEnumerated<SenderVisibilityEnum>
 {
 }

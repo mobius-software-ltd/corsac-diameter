@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Presence-Reporting-Area-Elements-List AVP (AVP code 2820) is of type Octetstring and is coded as specified in
 	3GPP TS 29.274 [22] in Presence Reporting Area Action IE, starting from octet 9. 
  */
-@DiameterAvpDefinition(code = 2820L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Presence-Reporting-Area-Elements-List")
+@DiameterAvpDefinition(code = TgppAvpCodes.PRESENCE_REPORTING_AREA_ELEMENTS_LIST, vendorId = VendorIDs.TGPP_ID, must = false, name = "Presence-Reporting-Area-Elements-List")
 public interface PresenceReportingAreaElementsList extends DiameterOctetString
 {
 }

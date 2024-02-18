@@ -1,10 +1,16 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.pc2;
 
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Answer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeRequestTypeImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestType;
@@ -45,7 +51,7 @@ public abstract class Pc2AnswerImpl extends AuthenticationAnswerImpl implements 
 		super();
 	}
 	
-	public Pc2AnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType)
+	public Pc2AnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		
@@ -64,10 +70,10 @@ public abstract class Pc2AnswerImpl extends AuthenticationAnswerImpl implements 
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
@@ -82,22 +88,22 @@ public abstract class Pc2AnswerImpl extends AuthenticationAnswerImpl implements 
 	}
 
 	@Override
-	public void setProSeRequestType(ProSeRequestTypeEnum value) 
+	public void setProSeRequestType(ProSeRequestTypeEnum value) throws MissingAvpException 
 	{
 		if(proSeRequestType==null)
-			throw new IllegalArgumentException("ProSe-Request-Type is required");
+			throw new MissingAvpException("ProSe-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ProSeRequestTypeImpl() }));
 		
 		this.proSeRequestType = new ProSeRequestTypeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authSessionState == null)
-			return "Auth-Session-State is required";
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		if(proSeRequestType==null)
-			return "ProSe-Request-Type is required";
+			return new MissingAvpException("ProSe-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ProSeRequestTypeImpl() }));
 		
 		return super.validate();
 	}

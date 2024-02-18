@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8Strin
    AVP SHOULD remain constant across firmware revisions for the same
    product.
  */
-@DiameterAvpDefinition(code = 269L, vendorId = -1L, must = false, name = "Product-Name")
+@DiameterAvpDefinition(code = AvpCodes.PRODUCT_NAME, vendorId = -1L, must = false, name = "Product-Name")
 public interface ProductName extends DiameterUTF8String
 {
 }

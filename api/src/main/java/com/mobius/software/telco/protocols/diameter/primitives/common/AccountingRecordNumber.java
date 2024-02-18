@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    INTERIM_RECORD, 2 for the second, and so on until the value for
    STOP_RECORD is one more than for the last INTERIM_RECORD.
  */
-@DiameterAvpDefinition(code = 485L, vendorId = -1L, name = "Accounting-Record-Number")
+@DiameterAvpDefinition(code = AvpCodes.ACCOUNTING_RECORD_NUMBER, vendorId = -1L, name = "Accounting-Record-Number")
 public interface AccountingRecordNumber extends DiameterUnsigned32
 {
 }

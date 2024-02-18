@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UDRFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.UDRFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 719L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UDRFlagsImpl extends DiameterBitmask32Impl implements UDRFlags
 {
 	public UDRFlagsImpl() 
@@ -44,7 +41,7 @@ public class UDRFlagsImpl extends DiameterBitmask32Impl implements UDRFlags
 	@Override
 	public void setLocationInformationEPSSupportedBit(boolean isOn)
 	{
-		setBit(LOCATION_INFORMATION_EPS_SUPPORTED_BIT, isOn);
+		setBitUnchecked(LOCATION_INFORMATION_EPS_SUPPORTED_BIT, isOn);
 	}
 
 	@Override
@@ -56,7 +53,7 @@ public class UDRFlagsImpl extends DiameterBitmask32Impl implements UDRFlags
 	@Override
 	public void setRATTypeRequestedBit(boolean isOn)
 	{
-		setBit(RAT_TYPE_REQUESTED_BIT, isOn);
+		setBitUnchecked(RAT_TYPE_REQUESTED_BIT, isOn);
 	}
 
 	@Override

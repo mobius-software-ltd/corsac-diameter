@@ -18,10 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nas;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterIpFilterRuleImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIpAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
@@ -40,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASFilterRule
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 400L, vendorId = -1L)
 public class NASFilterRuleImpl extends DiameterIpFilterRuleImpl implements NASFilterRule
 {
 	protected NASFilterRuleImpl() 
@@ -53,12 +51,12 @@ public class NASFilterRuleImpl extends DiameterIpFilterRuleImpl implements NASFi
 		super(minLength,maxLength);		
 	}
 		
-	public NASFilterRuleImpl(String rule,Integer minLength,Integer maxLength) throws ParseException 
+	public NASFilterRuleImpl(String rule,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
 		super(rule,minLength,maxLength);	
 	}
 
-	public NASFilterRuleImpl(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes,Integer minLength,Integer maxLength) throws ParseException 
+	public NASFilterRuleImpl(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
 		super(action,direction,protocol,from,fromPorts,to,toPorts,options,ipOptions,negativeIpOptions,tcpOptions,negativeTcpOptions,tcpFlags,negativeTcpFlags,icmpTypes,minLength,maxLength);	
 	}

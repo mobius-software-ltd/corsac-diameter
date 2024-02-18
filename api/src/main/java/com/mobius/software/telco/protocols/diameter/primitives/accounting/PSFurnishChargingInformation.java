@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,16 +42,16 @@ import io.netty.buffer.ByteBuf;
 		{ PS-Free-Format-Data }
 		[ PS-Append-Free-Format-Data ]
  */
-@DiameterAvpDefinition(code = 865L, vendorId = KnownVendorIDs.TGPP_ID, name = "PS-Furnish-Charging-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.PS_FURNISH_CHARGING_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "PS-Furnish-Charging-Information")
 public interface PSFurnishChargingInformation extends DiameterAvp
 {
 	ByteBuf getTGPPChargingId();
 	
-	void setTGPPChargingId(ByteBuf value);
+	void setTGPPChargingId(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getPSFreeFormatData();
 	
-	void setPSFreeFormatData(ByteBuf value);
+	void setPSFreeFormatData(ByteBuf value) throws MissingAvpException;
 	
 	PSAppendFreeFormatDataEnum getPSAppendFreeFormatData();
 	

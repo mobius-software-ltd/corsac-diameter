@@ -18,12 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.APNConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.APNConfigurationProfile;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AdditionalContextIdentifier;
@@ -37,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.ThirdContextI
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1429L, vendorId = KnownVendorIDs.TGPP_ID)
 public class APNConfigurationProfileImpl extends DiameterGroupedAvpImpl implements APNConfigurationProfile
 {
 	private ContextIdentifier contextIdentifier;
@@ -54,17 +55,11 @@ public class APNConfigurationProfileImpl extends DiameterGroupedAvpImpl implemen
 	{
 	}
 	
-	public APNConfigurationProfileImpl(Long contextIdentifier,List<APNConfiguration> apnConfiguration)
+	public APNConfigurationProfileImpl(Long contextIdentifier,List<APNConfiguration> apnConfiguration) throws MissingAvpException
 	{
-		if(contextIdentifier==null)
-			throw new IllegalArgumentException("Context-Identifier is required");
+		setContextIdentifier(contextIdentifier);
 		
-		if(apnConfiguration==null || apnConfiguration.size()==0)
-			throw new IllegalArgumentException("APN-Configuration is required");
-		
-		this.contextIdentifier = new ContextIdentifierImpl(contextIdentifier, null, null);
-		
-		this.apnConfiguration = apnConfiguration;
+		setAPNConfiguration(apnConfiguration);
 	}
 	
 	public Long getContextIdentifier()
@@ -75,11 +70,11 @@ public class APNConfigurationProfileImpl extends DiameterGroupedAvpImpl implemen
 		return contextIdentifier.getUnsigned();
 	}
 	
-	public void setContextIdentifier(Long value)
+	public void setContextIdentifier(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Context-Identifier is required");
-		
+			throw new MissingAvpException("Context-Identifier is required", Arrays.asList(new DiameterAvp[] { new ContextIdentifierImpl() }));
+			
 		this.contextIdentifier = new ContextIdentifierImpl(value, null, null);	
 	}
 	
@@ -136,22 +131,22 @@ public class APNConfigurationProfileImpl extends DiameterGroupedAvpImpl implemen
 		return apnConfiguration;
 	}
 	
-	public void setAPNConfiguration(List<APNConfiguration> value)
+	public void setAPNConfiguration(List<APNConfiguration> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("APN-Configuration is required");
-		
+			throw new MissingAvpException("APN-Configuration is required", Arrays.asList(new DiameterAvp[] { new APNConfigurationImpl() }));
+			
 		this.apnConfiguration = value;
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(contextIdentifier==null)
-			return "Context-Identifier is required";
+			return new MissingAvpException("Context-Identifier is required", Arrays.asList(new DiameterAvp[] { new ContextIdentifierImpl() }));
 		
 		if(apnConfiguration==null || apnConfiguration.size()==0)
-			return "APN-Configuration is required";
+			return new MissingAvpException("APN-Configuration is required", Arrays.asList(new DiameterAvp[] { new APNConfigurationImpl() }));
 		
 		return null;
 	}

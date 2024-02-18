@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
  * 	7.3.108	Last-UE-Activity-Time
 	The Last-UE-Activity-Time AVP is of type Time (see IETF RFC 6733 [61]), and contains the point of time of the last radio contact of the serving node (MME or SGSN) with the UE.
  */
-@DiameterAvpDefinition(code = 1494L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Last-UE-Activity-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.LAST_UE_ACTIVITY_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Last-UE-Activity-Time")
 public interface LastUEActivityTime extends DiameterTime
 {
 }

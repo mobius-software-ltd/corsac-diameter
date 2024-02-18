@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterOctetStringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.ETHSAP;
 
@@ -29,7 +28,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 551L, vendorId = -1L)
 public class ETHSAPImpl extends DiameterOctetStringImpl implements ETHSAP
 {
 	protected ETHSAPImpl() 

@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.sh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -40,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 		{AS-Number}
  	   *[AVP] 
  */
-@DiameterAvpDefinition(code = 720L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Call-Reference-Info")
+@DiameterAvpDefinition(code = TgppAvpCodes.CALL_REFERENCE_INFO, vendorId = VendorIDs.TGPP_ID, must = false, name = "Call-Reference-Info")
 public interface CallReferenceInfo extends DiameterGroupedAvp
 {
 	ByteBuf getCallReferenceNumber();
 	
-	void setCallReferenceNumber(ByteBuf value);
+	void setCallReferenceNumber(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getASNumber();
 	
-	void setASNumber(ByteBuf value);	
+	void setASNumber(ByteBuf value) throws MissingAvpException;	
 }

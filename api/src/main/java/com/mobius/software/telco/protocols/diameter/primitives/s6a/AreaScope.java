@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.s6a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -37,7 +38,7 @@ import io.netty.buffer.ByteBuf;
 	The Area-Scope AVP is of type Grouped. See 3GPP TS 32.422 [23].
 	The AVP format shall conform to:
 	
-	Area-Scope ::= <AVP header: 1623 10415>
+	Area-Scope ::= <AVP header: 1624 10415>
 			*[ Cell-Global-Identity ]
 			*[ E-UTRAN-Cell-Global-Identity ]
 			*[ Routing-Area-Identity ]
@@ -45,7 +46,7 @@ import io.netty.buffer.ByteBuf;
 			*[ Tracking-Area-Identity ]
 			*[ AVP ]
  */
-@DiameterAvpDefinition(code = 1623L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Area-Scope")
+@DiameterAvpDefinition(code = TgppAvpCodes.AREA_SCOPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Area-Scope")
 public interface AreaScope extends DiameterGroupedAvp
 {
 	List<ByteBuf> getCellGlobalIdentity();

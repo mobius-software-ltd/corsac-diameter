@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
    If the Port-Start AVP is omitted, then port 0 is assumed.  If the
    Port-End AVP is omitted, then port 65535 is assumed.
  */
-@DiameterAvpDefinition(code = 531L, vendorId = -1L, name = "Port-Range")
+@DiameterAvpDefinition(code = AvpCodes.PORT_RANGE, vendorId = -1L, name = "Port-Range")
 public interface PortRange extends DiameterGroupedAvp
 {
 	Integer getPortStart();

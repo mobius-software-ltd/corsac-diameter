@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    used when RADIUS/Diameter translation occurs.  This AVP contains the
    contents of the RADIUS Acct-Session-Id attribute.
  */
-@DiameterAvpDefinition(code = 44L, vendorId = -1L, name = "Acct-Session-Id")
+@DiameterAvpDefinition(code = AvpCodes.ACCT_SESSION_ID, vendorId = -1L, name = "Acct-Session-Id")
 public interface AcctSessionId extends DiameterOctetString
 {
 }

@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5777;
 
 import java.util.Date;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.AbsoluteEndTime;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.AbsoluteStartTime;
@@ -38,7 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5777.TimezoneF
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 560L, vendorId = -1L)
 public class TimeOfDayConditionImpl extends DiameterGroupedAvpImpl implements TimeOfDayCondition
 {
 	private TimeOfDayStart timeOfDayStart;

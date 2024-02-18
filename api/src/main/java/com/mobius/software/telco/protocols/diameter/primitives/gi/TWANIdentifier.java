@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	TWAN Identifier field is used to convey the location information in a Trusted WLAN Access Network (TWAN). The coding of this field shall be the same as for the GTP TWAN Identifier starting with Octet 5, as per clause 8.100 in 3GPP TS 29.274 [81].
 	TWAN Identifier field is Octet String type.
 */
-@DiameterAvpDefinition(code = 29L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "TWAN-Identifier")
+@DiameterAvpDefinition(code = TgppAvpCodes.TWAN_IDENTIFIER, vendorId = VendorIDs.TGPP_ID, must = false, name = "TWAN-Identifier")
 public interface TWANIdentifier extends DiameterOctetString
 {
 }

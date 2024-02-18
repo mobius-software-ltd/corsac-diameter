@@ -1,6 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s6b;
 
 import com.mobius.software.telco.protocols.diameter.commands.s6b.S6bRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -40,7 +42,7 @@ public abstract class S6bRequestImpl extends AuthenticationRequestWithHostBase i
 		setDestinationHostAllowed(true);
 	}
 		
-	public S6bRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId)
+	public S6bRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
 		setDestinationHostAllowed(true);

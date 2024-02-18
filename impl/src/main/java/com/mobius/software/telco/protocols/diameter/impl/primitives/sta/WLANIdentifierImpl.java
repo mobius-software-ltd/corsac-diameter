@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.HESSID;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.SSID;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.WLANIdentifier;
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.sta.WLANIdentifie
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1509L, vendorId = KnownVendorIDs.TGPP_ID)
 public class WLANIdentifierImpl extends DiameterGroupedAvpImpl implements WLANIdentifier
 {
 	private SSID ssid;

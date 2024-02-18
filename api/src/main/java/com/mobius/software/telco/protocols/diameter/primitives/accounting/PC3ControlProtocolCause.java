@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterInteger32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	DISCOVERY_REQUEST or MATCH_REPORT messages from the UE have been rejected by the ProSe Function. It is
 	referred to as "PC3 Control Protocol cause value” in TS 24.334 [236].
  */
-@DiameterAvpDefinition(code = 3434L, vendorId = KnownVendorIDs.TGPP_ID, name = "PC3-Control-Protocol-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.PC3_CONTROL_PROTOCOL_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "PC3-Control-Protocol-Cause")
 public interface PC3ControlProtocolCause extends DiameterInteger32
 {
 }

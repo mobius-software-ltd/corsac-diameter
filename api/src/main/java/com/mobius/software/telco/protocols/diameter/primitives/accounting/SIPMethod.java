@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The SIP-Method AVP (AVP code 824) is of type UTF8String and holds the name of the SIP Method (INVITE,
 	UPDATE etc.) causing a accounting request to be sent to the CDF or CCR to be sent to the OCF. 
  */
-@DiameterAvpDefinition(code = 824L, vendorId = KnownVendorIDs.TGPP_ID, name = "SIP-Method")
+@DiameterAvpDefinition(code = TgppAvpCodes.SIP_METHOD, vendorId = VendorIDs.TGPP_ID, name = "SIP-Method")
 public interface SIPMethod extends DiameterUTF8String
 {
 }

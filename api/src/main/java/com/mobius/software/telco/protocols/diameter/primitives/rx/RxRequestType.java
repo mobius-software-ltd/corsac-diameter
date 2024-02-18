@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	PCSCF_RESTORATION (2)
 		A P-CSCF Restoration is requested. This value is only applicable to the PCSCF-Restoration-Enhancement feature defined in clause 5.4.1.
  */
-@DiameterAvpDefinition(code = 533L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Rx-Request-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.RX_REQUEST_TYPE, vendorId = VendorIDs.TGPP_ID, must = false, name = "Rx-Request-Type")
 public interface RxRequestType extends DiameterEnumerated<RxRequestTypeEnum>
 {
 }

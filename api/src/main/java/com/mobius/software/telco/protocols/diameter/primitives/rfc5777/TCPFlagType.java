@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
    	are unused and bits 4 to 15 are managed by IANA under the TCP Header
    	Flag registry as defined in [RFC3168].
  */
-@DiameterAvpDefinition(code = 544L, vendorId = -1L, name = "TCP-Flag-Type")
+@DiameterAvpDefinition(code = AvpCodes.TCP_FLAG_TYPE, vendorId = -1L, name = "TCP-Flag-Type")
 public interface TCPFlagType extends DiameterUnsigned32
 {
 }

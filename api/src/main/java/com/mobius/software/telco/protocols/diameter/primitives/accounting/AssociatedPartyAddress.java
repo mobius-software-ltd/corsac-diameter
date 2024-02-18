@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	"forwarding party" for CDIV, the "transferor" for ECT, the "Pilot Identity" for Flexible Alerting (FA), the "Initiator
 	party" for 3PTY. 
  */
-@DiameterAvpDefinition(code = 2035L, vendorId = KnownVendorIDs.TGPP_ID, name = "Associated-Party-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.ASSOCIATED_PARTY_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Associated-Party-Address")
 public interface AssociatedPartyAddress extends DiameterUTF8String
 {
 }

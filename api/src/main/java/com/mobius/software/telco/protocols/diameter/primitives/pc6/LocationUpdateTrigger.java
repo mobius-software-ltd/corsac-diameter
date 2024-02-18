@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -42,12 +44,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Change-Of-Area-Type AVP shall be present if the Location-Update-Event-Type AVP value is set to CHANGE_OR_AREA (1). Otherwise, it shall be absent.
 	The Periodic-Location-Type AVP shall be present if the Location-Update-Event-Type AVP value is set to PERIODIC_LOCATION (2). Otherwise, it shall be absent.
  */
-@DiameterAvpDefinition(code = 3823L, vendorId = KnownVendorIDs.TGPP_ID, name = "Location-Update-Trigger")
+@DiameterAvpDefinition(code = TgppAvpCodes.LOCATION_UPDATE_TRIGGER, vendorId = VendorIDs.TGPP_ID, name = "Location-Update-Trigger")
 public interface LocationUpdateTrigger extends DiameterGroupedAvp
 {
 	LocationUpdateEventTypeEnum getLocationUpdateEventType();
 	
-	void setLocationUpdateEventType(LocationUpdateEventTypeEnum value);
+	void setLocationUpdateEventType(LocationUpdateEventTypeEnum value) throws MissingAvpException;
 	
 	ChangeOfAreaType getChangeOfAreaType();
 	

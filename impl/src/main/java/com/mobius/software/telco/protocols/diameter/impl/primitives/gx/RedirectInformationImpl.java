@@ -18,11 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RedirectAddressTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RedirectServerAddressImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectServerAddress;
@@ -35,7 +33,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.RedirectSuppor
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1085L, vendorId = KnownVendorIDs.TGPP_ID)
 public class RedirectInformationImpl extends DiameterGroupedAvpImpl implements RedirectInformation
 {
 	private RedirectSupport redirectSupport;

@@ -18,10 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPMNHASPIImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmType;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPAlgorithmTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoHAMSA;
@@ -37,7 +41,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 331L, vendorId = -1L)
 public class MIPMNtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoHAMSA
 {
 	private MIPMNHASPI mipMNtoHASPI;
@@ -53,27 +56,15 @@ public class MIPMNtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoH
 		
 	}
 	
-	public MIPMNtoHAMSAImpl(Long mipMNtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,MIPReplayModeEnum mipReplayMode, ByteBuf mipNonce)
+	public MIPMNtoHAMSAImpl(Long mipMNtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,MIPReplayModeEnum mipReplayMode, ByteBuf mipNonce) throws MissingAvpException
 	{
-		if(mipMNtoHASPI==null)
-			throw new IllegalArgumentException("MIP-MN-to-HA-SPI is required");
+		setMIPMNHASPI(mipMNtoHASPI);
 		
-		if(mipAlgorithmType==null)
-			throw new IllegalArgumentException("MIP-Algorithm-Type is required");
+		setMIPAlgorithmType(mipAlgorithmType);
 		
-		if(mipReplayMode==null)
-			throw new IllegalArgumentException("MIP-Replay-Mode is required");
+		setMIPReplayMode(mipReplayMode);
 		
-		if(mipNonce==null)
-			throw new IllegalArgumentException("MIP-Nonce is required");
-		
-		this.mipMNtoHASPI = new MIPMNHASPIImpl(mipMNtoHASPI, null, null);		
-		
-		this.mipAlgorithmType = new MIPAlgorithmTypeImpl(mipAlgorithmType, null, null);
-		
-		this.mipReplayMode = new MIPReplayModeImpl(mipReplayMode, null, null);
-		
-		this.mipNonce = new MIPNonceImpl(mipNonce, null, null);
+		setMIPNonce(mipNonce);
 	}
 	
 	public Long getMIPMNHASPI()
@@ -84,10 +75,10 @@ public class MIPMNtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoH
 		return mipMNtoHASPI.getUnsigned();
 	}
 	
-	public void setMIPMNHASPI(Long value)
+	public void setMIPMNHASPI(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-MN-to-HA-SPI is required");
+			throw new MissingAvpException("MIP-MN-to-HA-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPMNHASPIImpl() }));
 		
 		this.mipMNtoHASPI = new MIPMNHASPIImpl(value, null, null);		
 	}
@@ -100,10 +91,10 @@ public class MIPMNtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoH
 		return mipAlgorithmType.getEnumerated(MIPAlgorithmTypeEnum.class);
 	}
 	
-	public void setMIPAlgorithmType(MIPAlgorithmTypeEnum value)
+	public void setMIPAlgorithmType(MIPAlgorithmTypeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Algorithm-Type is required");
+			throw new MissingAvpException("MIP-Algorithm-Type is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		this.mipAlgorithmType = new MIPAlgorithmTypeImpl(value, null, null);
 	}
@@ -116,10 +107,10 @@ public class MIPMNtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoH
 		return mipReplayMode.getEnumerated(MIPReplayModeEnum.class);
 	}
 	
-	public void setMIPReplayMode(MIPReplayModeEnum value)
+	public void setMIPReplayMode(MIPReplayModeEnum value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Replay-Mode is required");
+			throw new MissingAvpException("MIP-Replay-Mode is required", Arrays.asList(new DiameterAvp[] { new MIPReplayModeImpl() }));
 		
 		this.mipReplayMode = new MIPReplayModeImpl(value, null, null);
 	}
@@ -134,28 +125,28 @@ public class MIPMNtoHAMSAImpl extends DiameterGroupedAvpImpl implements MIPMNtoH
 	}
 
 	@Override
-	public void setMIPNonce(ByteBuf value) 
+	public void setMIPNonce(ByteBuf value) throws MissingAvpException 
 	{
 		if(value==null)
-			throw new IllegalArgumentException("MIP-Nonce is required");
+			throw new MissingAvpException("MIP-Nonce is required", Arrays.asList(new DiameterAvp[] { new MIPNonceImpl() }));
 		
 		this.mipNonce = new MIPNonceImpl(value, null, null);
 	}	
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(mipMNtoHASPI==null)
-			return "MIP-MN-to-HA-SPI is required";
+			return new MissingAvpException("MIP-MN-to-HA-SPI is required", Arrays.asList(new DiameterAvp[] { new MIPMNHASPIImpl() }));
 		
 		if(mipAlgorithmType==null)
-			return "MIP-Algorithm-Type is required";
+			return new MissingAvpException("MIP-Algorithm-Type is required", Arrays.asList(new DiameterAvp[] { new MIPAlgorithmTypeImpl() }));
 		
 		if(mipReplayMode==null)
-			return "MIP-Replay-Mode is required";
+			return new MissingAvpException("MIP-Replay-Mode is required", Arrays.asList(new DiameterAvp[] { new MIPReplayModeImpl() }));
 		
 		if(mipNonce==null)
-			return "MIP-Nonce is required";
+			return new MissingAvpException("MIP-Nonce is required", Arrays.asList(new DiameterAvp[] { new MIPNonceImpl() }));
 		
 		return null;
 	}

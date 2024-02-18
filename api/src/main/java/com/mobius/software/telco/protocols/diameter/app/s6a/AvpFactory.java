@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.app.s6a;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CSGAccessModeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -143,11 +145,11 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType);
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException;
 	
 	public RequestedEUTRANAuthenticationInfo getRequestedEUTRANAuthenticationInfo();
 	
@@ -155,13 +157,13 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public AuthenticationInfo getAuthenticationInfo();
 	
-	public EUTRANVector getEUTRANVector(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf kasme);
+	public EUTRANVector getEUTRANVector(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf kasme) throws MissingAvpException;
 	
-	public UTRANVector getUTRANVector(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf confidentialityKey,ByteBuf integrityKey);
+	public UTRANVector getUTRANVector(ByteBuf rand,ByteBuf xres,ByteBuf autn,ByteBuf confidentialityKey,ByteBuf integrityKey) throws MissingAvpException;
 	
-	public GERANVector getGERANVector(ByteBuf rand,ByteBuf sres,ByteBuf kc);
+	public GERANVector getGERANVector(ByteBuf rand,ByteBuf sres,ByteBuf kc) throws MissingAvpException;
 	
-	public EDRXRelatedRAT getEDRXRelatedRAT(List<RATTypeEnum> ratType);
+	public EDRXRelatedRAT getEDRXRelatedRAT(List<RATTypeEnum> ratType) throws MissingAvpException;
 	
 	public EPSUserState getEPSUserState();
 	
@@ -181,17 +183,17 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public com.mobius.software.telco.protocols.diameter.primitives.s6t.SGSNLocationInformation getS6TSGSNLocationInformation();
 	
-	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode);	
+	public UserCSGInformation getUserCSGInformation(Long csgId,CSGAccessModeEnum csgAccessMode) throws MissingAvpException;	
 	
-	public LocalTimeZone getLocalTimeZone(String timeZone,DaylightSavingTimeEnum daylightSavingTime);
+	public LocalTimeZone getLocalTimeZone(String timeZone,DaylightSavingTimeEnum daylightSavingTime) throws MissingAvpException;
 	
 	public SupportedServices getSupportedServices();
 	
 	public SupportedMonitoringEvents getSupportedMonitoringEvents();
 	
-	public MonitoringEventReport getMonitoringEventReport(Long scefReferenceID);
+	public MonitoringEventReport getMonitoringEventReport(Long scefReferenceID) throws MissingAvpException;
 	
-	public MonitoringEventConfigStatus getMonitoringEventConfigStatus(List<ServiceReport> serviceReport);
+	public MonitoringEventConfigStatus getMonitoringEventConfigStatus(List<ServiceReport> serviceReport) throws MissingAvpException;
 	
 	public IMEIChange getIMEIChange();
 	
@@ -201,9 +203,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public IdleStatusIndication getIdleStatusIndication();
 	
-	public EDRXCycleLength getEDRXCycleLength(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue);
+	public EDRXCycleLength getEDRXCycleLength(RATTypeEnum ratType,ByteBuf eDRXCycleLengthValue) throws MissingAvpException;
 	
-	public PDNConnectivityStatusReport getPDNConnectivityStatusReport(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection);
+	public PDNConnectivityStatusReport getPDNConnectivityStatusReport(Long contextIdentifier,PDNConnectivityStatusTypeEnum pdnConnectivityStatusType,String serviceSelection) throws MissingAvpException;
 	
 	public SubscriptionData getSubscriptionData();
 	
@@ -215,35 +217,35 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public LCSInfo getLCSInfo();
 	
-	public LCSPrivacyException getLCSPrivacyException(ByteBuf ssCode,ByteBuf ssStatus);
+	public LCSPrivacyException getLCSPrivacyException(ByteBuf ssCode,ByteBuf ssStatus) throws MissingAvpException;
 	
-	public ExternalClient getExternalClient(String clientIdentity);
+	public ExternalClient getExternalClient(String clientIdentity) throws MissingAvpException;
 	
-	public ServiceType getServiceType(Long serviceTypeIdentity);
+	public ServiceType getServiceType(Long serviceTypeIdentity) throws MissingAvpException;
 	
-	public MOLR getMOLR(ByteBuf ssCode,ByteBuf ssStatus);
+	public MOLR getMOLR(ByteBuf ssCode,ByteBuf ssStatus) throws MissingAvpException;
 	
-	public TeleserviceList getTeleserviceList(List<ByteBuf> tsCode);
+	public TeleserviceList getTeleserviceList(List<ByteBuf> tsCode) throws MissingAvpException;
 		
-	public CallBarringInfo getCallBarringInfo(ByteBuf ssCode,ByteBuf ssStatus);
+	public CallBarringInfo getCallBarringInfo(ByteBuf ssCode,ByteBuf ssStatus) throws MissingAvpException;
 	
-	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL);
+	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL) throws MissingAvpException;
 	
-	public APNConfigurationProfile getAPNConfigurationProfile(Long contextIdentifier,List<APNConfiguration> apnConfiguration);
+	public APNConfigurationProfile getAPNConfigurationProfile(Long contextIdentifier,List<APNConfiguration> apnConfiguration) throws MissingAvpException;
 	
-	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection);
+	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection) throws MissingAvpException;
 	
-	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority);
+	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority) throws MissingAvpException;
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel);
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException;
 	
-	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo);
+	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo) throws MissingAvpException;
 	
 	public WLANOffloadability getWLANOffloadability();
 	
-	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity);
+	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity) throws MissingAvpException;
 	
-	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType);
+	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType) throws MissingAvpException;
 	
 	public AreaScope getAreaScope();
 	
@@ -253,15 +255,15 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public MBSFNArea getMBSFNArea();
 	
-	public GPRSSubscriptionData getGPRSSubscriptionData(CompleteDataListIncludedIndicatorEnum completeDataListIncludedIndicator,List<PDPContext> pdpContext);
+	public GPRSSubscriptionData getGPRSSubscriptionData(CompleteDataListIncludedIndicatorEnum completeDataListIncludedIndicator,List<PDPContext> pdpContext) throws MissingAvpException, AvpOccursTooManyTimesException;
 	
-	public PDPContext getPDPContext(Long contextIdentifier,ByteBuf qoSSubscribed ,String serviceSelection);
+	public PDPContext getPDPContext(Long contextIdentifier,ByteBuf qoSSubscribed ,String serviceSelection) throws MissingAvpException;
 	
-	public CSGSubscriptionData getCSGSubscriptionData(Long csgId);
+	public CSGSubscriptionData getCSGSubscriptionData(Long csgId) throws MissingAvpException;
 	
 	public MPSPriority getMPSPriority();
 	
-	public ProSeSubscriptionData getProSeSubscriptionData(ProSePermission proSePermission);
+	public ProSeSubscriptionData getProSeSubscriptionData(ProSePermission proSePermission) throws MissingAvpException;
 	
 	public ProSePermission getProSePermission();
 	
@@ -271,11 +273,11 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public SubscriptionDataFlags getSubscriptionDataFlags();
 	
-	public AdjacentAccessRestrictionData getAdjacentAccessRestrictionData(ByteBuf visitedPLMNId,AccessRestrictionData accessRestrictionData);
+	public AdjacentAccessRestrictionData getAdjacentAccessRestrictionData(ByteBuf visitedPLMNId,AccessRestrictionData accessRestrictionData) throws MissingAvpException;
 	
-	public IMSIGroupId getIMSIGroupId(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId);
+	public IMSIGroupId getIMSIGroupId(Long groupServiceId,ByteBuf groupPLMNId,ByteBuf localGroupId) throws MissingAvpException;
 	
-	public AESECommunicationPattern getAESECommunicationPattern(String scefID);
+	public AESECommunicationPattern getAESECommunicationPattern(String scefID) throws MissingAvpException;
 	
 	public CommunicationPatternSet getCommunicationPatternSet();
 	
@@ -285,7 +287,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public MTCProviderInfo getMTCProviderInfo();
 	
-	public MonitoringEventConfiguration getMonitoringEventConfiguration(String scefID,MonitoringTypeEnum monitoringType);
+	public MonitoringEventConfiguration getMonitoringEventConfiguration(String scefID,MonitoringTypeEnum monitoringType) throws MissingAvpException;
 	
 	public UEReachabilityConfiguration getUEReachabilityConfiguration();
 	
@@ -303,9 +305,9 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public MIP6AgentInfo getMIP6AgentInfo();
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm);
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException;
 	
-	public SubscriptionDataDeletion getSubscriptionDataDeletion(DSRFlags dsrFlags);
+	public SubscriptionDataDeletion getSubscriptionDataDeletion(DSRFlags dsrFlags) throws MissingAvpException;
 	
 	public EmergencyInfo getEmergencyInfo();
 	
@@ -315,21 +317,21 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public V2XPermission getV2XPermission();
 	
-	public UEPC5QoS getUEPC5QoS(List<PC5QoSFlow> pc5QoSFlow);
+	public UEPC5QoS getUEPC5QoS(List<PC5QoSFlow> pc5QoSFlow) throws MissingAvpException;
 	
-	public PC5QoSFlow getPC5QoSFlow(Integer fiveQI);
+	public PC5QoSFlow getPC5QoSFlow(Integer fiveQI) throws MissingAvpException;
 	
 	public PC5FlowBitrates getPC5FlowBitrates();
 	
 	public BroadcastLocationAssistanceDataTypes getBroadcastLocationAssistanceDataTypes();
 	
-	public PagingTimeWindow getPagingTimeWindow(OperationModeEnum operationMode,ByteBuf pagingTimeWindowLength);
+	public PagingTimeWindow getPagingTimeWindow(OperationModeEnum operationMode,ByteBuf pagingTimeWindowLength) throws MissingAvpException;
 	
-	public ActiveAPN getActiveAPN(Long contextIdentifier);
+	public ActiveAPN getActiveAPN(Long contextIdentifier) throws MissingAvpException;
 	
-	public EquivalentPLMNList getEquivalentPLMNList(List<ByteBuf> visitedPLMNId);
+	public EquivalentPLMNList getEquivalentPLMNList(List<ByteBuf> visitedPLMNId) throws MissingAvpException;
 	
-	public AdjacentPLMNs getAdjacentPLMNs(List<ByteBuf> visitedPLMNId);
+	public AdjacentPLMNs getAdjacentPLMNs(List<ByteBuf> visitedPLMNId) throws MissingAvpException;
 	
 	public AIRFlags getAIRFlags();
 	

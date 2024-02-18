@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,16 +43,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 	The Minimum-Interval-Time AVP may be present only if the Report-Cardinality AVP value is set to MULTIPLE (1).
  */
-@DiameterAvpDefinition(code = 33825L, vendorId = KnownVendorIDs.TGPP_ID, name = "Change-Of-Area-Type")
+@DiameterAvpDefinition(code = TgppAvpCodes.CHANGE_OF_AREA_TYPE, vendorId = VendorIDs.TGPP_ID, name = "Change-Of-Area-Type")
 public interface ChangeOfAreaType extends DiameterGroupedAvp
 {
 	LocationUpdateEventTriggerEnum getLocationUpdateEventTrigger();
 	
-	void setLocationUpdateEventTrigger(LocationUpdateEventTriggerEnum value);
+	void setLocationUpdateEventTrigger(LocationUpdateEventTriggerEnum value) throws MissingAvpException;
 	
 	ReportCardinalityEnum getReportCardinality();
 	
-	void setReportCardinality(ReportCardinalityEnum value);
+	void setReportCardinality(ReportCardinalityEnum value) throws MissingAvpException;
 	
 	Long getMinimumIntervalTime();
 	

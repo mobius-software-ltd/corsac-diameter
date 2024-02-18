@@ -18,13 +18,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MaxRequestedBandwidthDLImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MaxRequestedBandwidthULImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RatingGroup;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TimeWindow;
 import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferPolicy;
@@ -37,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.MaxRequestedBa
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4207L, vendorId = KnownVendorIDs.TGPP_ID)
 public class TransferPolicyImpl extends DiameterGroupedAvpImpl implements TransferPolicy
 {
 	private TransferPolicyId transferPolicyId;
@@ -54,12 +56,9 @@ public class TransferPolicyImpl extends DiameterGroupedAvpImpl implements Transf
 	{
 	}
 	
-	public TransferPolicyImpl(Long transferPolicyId)
+	public TransferPolicyImpl(Long transferPolicyId) throws MissingAvpException
 	{
-		if(transferPolicyId==null)
-			throw new IllegalArgumentException("Transfer-Policy-Id is required");
-		
-		this.transferPolicyId = new TransferPolicyIdImpl(transferPolicyId, null, null);				
+		setTransferPolicyId(transferPolicyId);
 	}
 	
 	public Long getTransferPolicyId()
@@ -70,10 +69,10 @@ public class TransferPolicyImpl extends DiameterGroupedAvpImpl implements Transf
 		return transferPolicyId.getUnsigned();
 	}
 	
-	public void setTransferPolicyId(Long value)
+	public void setTransferPolicyId(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Transfer-Policy-Id is required");
+			throw new MissingAvpException("Transfer-Policy-Id is required is required", Arrays.asList(new DiameterAvp[] { new TransferPolicyIdImpl() }));
 		
 		this.transferPolicyId = new TransferPolicyIdImpl(value, null, null);				
 	}
@@ -137,10 +136,10 @@ public class TransferPolicyImpl extends DiameterGroupedAvpImpl implements Transf
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(transferPolicyId==null)
-			return "Transfer-Policy-Id is required";
+			return new MissingAvpException("Transfer-Policy-Id is required is required", Arrays.asList(new DiameterAvp[] { new TransferPolicyIdImpl() }));
 		
 		return null;
 	}

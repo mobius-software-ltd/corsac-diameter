@@ -18,9 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.text.ParseException;
-
 import com.mobius.software.telco.protocols.diameter.app.rfc4004.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFAtoHAMSAImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFAtoMNMSAImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFilterRuleImpl;
@@ -48,52 +48,52 @@ import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
-	public MIPMNAAAAuth getMIPMNAAAAuth(Long mipMNAAASPI,Long mipAuthInputDataLength,Long mipAuthenticatorLength,Long mipAuthenticatorOffset)
+	public MIPMNAAAAuth getMIPMNAAAAuth(Long mipMNAAASPI,Long mipAuthInputDataLength,Long mipAuthenticatorLength,Long mipAuthenticatorOffset) throws MissingAvpException
 	{
 		return new MIPMNAAAAuthImpl(mipMNAAASPI, mipAuthInputDataLength, mipAuthenticatorLength, mipAuthenticatorOffset);
 	}
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm)
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException
 	{
 		return new MIPHomeAgentHostImpl(destinationHost, destinationRealm);
 	}
 	
-	public MIPFAtoMNMSA getMIPFAtoMNMSA(Long mipFAtoMNSPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey)
+	public MIPFAtoMNMSA getMIPFAtoMNMSA(Long mipFAtoMNSPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey) throws MissingAvpException
 	{
 		return new MIPFAtoMNMSAImpl(mipFAtoMNSPI, mipAlgorithmType, mipSessionKey);
 	}
 	
-	public MIPFAtoHAMSA getMIPFAtoHAMSA(Long mipFAtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey)
+	public MIPFAtoHAMSA getMIPFAtoHAMSA(Long mipFAtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey) throws MissingAvpException
 	{
 		return new MIPFAtoHAMSAImpl(mipFAtoHASPI, mipAlgorithmType, mipSessionKey);
 	}
 	
-	public MIPMNtoFAMSA getMIPMNtoFAMSA(Long mipMNtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipNonce)
+	public MIPMNtoFAMSA getMIPMNtoFAMSA(Long mipMNtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipNonce) throws MissingAvpException
 	{
 		return new MIPMNtoFAMSAImpl(mipMNtoFASPI, mipAlgorithmType, mipNonce);
 	}
 	
-	public MIPMNtoHAMSA getMIPMNtoHAMSA(Long mipMNtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,MIPReplayModeEnum mipReplayMode, ByteBuf mipNonce)
+	public MIPMNtoHAMSA getMIPMNtoHAMSA(Long mipMNtoHASPI,MIPAlgorithmTypeEnum mipAlgorithmType,MIPReplayModeEnum mipReplayMode, ByteBuf mipNonce) throws MissingAvpException
 	{
 		return new MIPMNtoHAMSAImpl(mipMNtoHASPI, mipAlgorithmType, mipReplayMode, mipNonce);
 	}
 	
-	public MIPHAtoMNMSA getMIPHAtoMNMSA(Long mipHAtoMNSPI,MIPAlgorithmTypeEnum mipAlgorithmType,MIPReplayModeEnum mipReplayMode, ByteBuf mipSessionKey)
+	public MIPHAtoMNMSA getMIPHAtoMNMSA(Long mipHAtoMNSPI,MIPAlgorithmTypeEnum mipAlgorithmType,MIPReplayModeEnum mipReplayMode, ByteBuf mipSessionKey) throws MissingAvpException
 	{
 		return new MIPHAtoMNMSAImpl(mipHAtoMNSPI, mipAlgorithmType, mipReplayMode, mipSessionKey);
 	}
 	
-	public MIPHAtoFAMSA getMIPHAtoFAMSA(Long mipHAtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey)
+	public MIPHAtoFAMSA getMIPHAtoFAMSA(Long mipHAtoFASPI,MIPAlgorithmTypeEnum mipAlgorithmType,ByteBuf mipSessionKey) throws MissingAvpException
 	{
 		return new MIPHAtoFAMSAImpl(mipHAtoFASPI, mipAlgorithmType, mipSessionKey);
 	}
 	
-	public MIPOriginatingForeignAAA getMIPOriginatingForeignAAA(String originHost,String originRealm)
+	public MIPOriginatingForeignAAA getMIPOriginatingForeignAAA(String originHost,String originRealm) throws MissingAvpException
 	{
 		return new MIPOriginatingForeignAAAImpl(originHost, originRealm);
 	}
 	
-	public MIPFilterRule getMIPFilterRule(String rule) throws ParseException
+	public MIPFilterRule getMIPFilterRule(String rule) throws InvalidAvpValueException
 	{
 		return new MIPFilterRuleImpl(rule, null, null);
 	}		

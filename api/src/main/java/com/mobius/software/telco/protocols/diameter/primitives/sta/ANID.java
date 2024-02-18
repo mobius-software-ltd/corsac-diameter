@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	5.2.3.7	ANID
 	The ANID AVP is of type UTF8String; this AVP contains the Access Network Identity; see 3GPP TS 24.302 [26] for defined values.
  */
-@DiameterAvpDefinition(code = 1504L, vendorId = KnownVendorIDs.TGPP_ID, name = "ANID")
+@DiameterAvpDefinition(code = TgppAvpCodes.ANID, vendorId = VendorIDs.TGPP_ID, name = "ANID")
 public interface ANID extends DiameterUTF8String
 {
 }

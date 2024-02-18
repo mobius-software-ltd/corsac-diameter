@@ -20,9 +20,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
    			[ AoC-Format ]
    			[ Preferred-AoC-Currency ]
  */
-@DiameterAvpDefinition(code = 2314L, vendorId = KnownVendorIDs.TGPP_ID, name = "AoC-Subscription-Information")
+@DiameterAvpDefinition(code = TgppAvpCodes.AOC_SUBSCRIPTION_INFORMATION, vendorId = VendorIDs.TGPP_ID, name = "AoC-Subscription-Information")
 public interface AoCSubscriptionInformation extends DiameterAvp
 {
 	List<AoCService> getAoCService();

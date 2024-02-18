@@ -19,12 +19,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6a;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.AdjacentPLMNs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VisitedPLMNId;
 
@@ -35,7 +37,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1672L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AdjacentPLMNsImpl extends DiameterGroupedAvpImpl implements AdjacentPLMNs
 {
 	private List<VisitedPLMNId> visitedPLMNId;
@@ -44,14 +45,9 @@ public class AdjacentPLMNsImpl extends DiameterGroupedAvpImpl implements Adjacen
 	{
 	}
 	
-	public AdjacentPLMNsImpl(List<ByteBuf> visitedPLMNId)
+	public AdjacentPLMNsImpl(List<ByteBuf> visitedPLMNId) throws MissingAvpException
 	{
-		if(visitedPLMNId==null || visitedPLMNId.size()==0)
-			throw new IllegalArgumentException("Visited-PLMN-Id is required");
-		
-		this.visitedPLMNId = new ArrayList<VisitedPLMNId>();
-		for(ByteBuf curr:visitedPLMNId)
-			this.visitedPLMNId.add(new VisitedPLMNIdImpl(curr, null, null));
+		setVisitedPLMNId(visitedPLMNId);
 	}
 	
 	public List<ByteBuf> getVisitedPLMNId()
@@ -66,21 +62,21 @@ public class AdjacentPLMNsImpl extends DiameterGroupedAvpImpl implements Adjacen
 		return result;
 	}
 	
-	public void setVisitedPLMNId(List<ByteBuf> value)
+	public void setVisitedPLMNId(List<ByteBuf> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new IllegalArgumentException("Visited-PLMN-Id is required");
-		
+			throw new MissingAvpException("Visited-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
+			
 		this.visitedPLMNId = new ArrayList<VisitedPLMNId>();
 		for(ByteBuf curr:value)
 			this.visitedPLMNId.add(new VisitedPLMNIdImpl(curr, null, null));
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(visitedPLMNId==null || visitedPLMNId.size()==0)
-			return "Visited-PLMN-Id is required";
+			return new MissingAvpException("Visited-PLMN-Id is required", Arrays.asList(new DiameterAvp[] { new VisitedPLMNIdImpl() }));
 		
 		return null;
 	}

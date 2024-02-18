@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The meaning of each digit of the value is predefined. For example, the first digit indicates the RBT service, and the second digit indicates the Background Music (BGM) service.
 	For the digit that indicates successful authentication, enter 1; for the digit that indicates failed authentication, enter 0.
  */
-@DiameterAvpDefinition(code = 20362L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "User-Passwd")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.USER_PASSWD, vendorId = VendorIDs.HUAWEI_ID, name = "User-Passwd")
 public interface UserPasswd extends DiameterUTF8String
 {
 }

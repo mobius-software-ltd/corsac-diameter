@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
 /**
@@ -50,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
                 *[ Proxy-Info ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777302, commandCode = 8388636, request = false, proxyable = true, name="SN-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SY, commandCode = CommandCodes.SPENDING_STATUS, request = false, proxyable = true, name="SN-Answer")
 public interface SpendingStatusNotificationAnswer extends SyAnswer
 {	
 }

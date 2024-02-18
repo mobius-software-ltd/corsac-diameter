@@ -2,12 +2,15 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFeatureVectorImpl;
@@ -57,7 +60,6 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 2, commandCode = 262, request = true)
 public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements HomeAgentMIPRequest
 {
 	private AuthorizationLifetime authorizationLifetime;
@@ -91,7 +93,7 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 		super();
 	}
 	
-	public HomeAgentMIPRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, Long authorizationLifetime, AuthSessionStateEnum authSessionState,ByteBuf mipRegRequest, Long mipFeatureVector)
+	public HomeAgentMIPRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, Long authorizationLifetime, AuthSessionStateEnum authSessionState,ByteBuf mipRegRequest, Long mipFeatureVector) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
@@ -114,11 +116,11 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	}
 
 	@Override
-	public void setAuthorizationLifetime(Long value) 
+	public void setAuthorizationLifetime(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Authorization-Lifetime is required");
-		
+			throw new MissingAvpException("Authorization-Lifetime is required", Arrays.asList(new DiameterAvp[] { new AuthorizationLifetimeImpl() }));
+			
 		this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
 	}
 
@@ -132,11 +134,11 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	}
 
 	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) 
+	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
-		
+			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
+			
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
 	}
 	
@@ -150,11 +152,11 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	}
 	
 	@Override
-	public void setMIPRegRequest(ByteBuf value)
+	public void setMIPRegRequest(ByteBuf value) throws MissingAvpException
 	{
 		if(value == null)
-			throw new IllegalArgumentException("MIP-Reg-Request is required");
-		
+			throw new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
+			
 		this.mipRegRequest = new MIPRegRequestImpl(value, null, null);
 	}
 	
@@ -168,12 +170,12 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	}
 	
 	@Override
-	public void setMIPFeatureVector(Long value)
+	public void setMIPFeatureVector(Long value) throws MissingAvpException
 	{
 		if(value == null)
-			this.mipFeatureVector = null;
-		else
-			this.mipFeatureVector = new MIPFeatureVectorImpl(value, null, null);
+			throw new MissingAvpException("MIP-Feature-Vector is required", Arrays.asList(new DiameterAvp[] { new MIPFeatureVectorImpl() }));
+			
+		this.mipFeatureVector = new MIPFeatureVectorImpl(value, null, null);
 	}
 	
 	@Override
@@ -304,19 +306,19 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(authorizationLifetime == null)
-			throw new IllegalArgumentException("Authorization-Lifetime is required");
+			return new MissingAvpException("Authorization-Lifetime is required", Arrays.asList(new DiameterAvp[] { new AuthorizationLifetimeImpl() }));
 		
 		if(authSessionState == null)
-			throw new IllegalArgumentException("Auth-Session-State is required");
+			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		if(mipRegRequest == null)
-			throw new IllegalArgumentException("MIP-Reg-Request is required");
+			return new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
 		
 		if(mipFeatureVector == null)
-			throw new IllegalArgumentException("MIP-Feature-Vector is required");
+			return new MissingAvpException("MIP-Feature-Vector is required", Arrays.asList(new DiameterAvp[] { new MIPFeatureVectorImpl() }));
 		
 		return super.validate();
 	}

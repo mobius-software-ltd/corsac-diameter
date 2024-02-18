@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.LIAFlags;
 
 /**
@@ -28,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.LIAFlags;
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 653L, vendorId = KnownVendorIDs.TGPP_ID)
 public class LIAFlagsImpl extends DiameterBitmask32Impl implements LIAFlags
 {
 	public LIAFlagsImpl()
@@ -44,7 +41,7 @@ public class LIAFlagsImpl extends DiameterBitmask32Impl implements LIAFlags
 	@Override
 	public void setPSIDirectRoutingIndicationBit(boolean isOn)
 	{
-		setBit(PSI_DIRECT_ROUTING_INDICATION_BIT, isOn);
+		setBitUnchecked(PSI_DIRECT_ROUTING_INDICATION_BIT, isOn);
 	}
 
 	@Override

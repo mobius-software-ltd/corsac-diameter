@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
    the Specification Required policy [RFC8126] and conditions for
    enumerated values described in [RFC7423], Section 5.6.
  */
-@DiameterAvpDefinition(code = 452L, vendorId = -1L, name = "Tariff-Change-Usage")
+@DiameterAvpDefinition(code = AvpCodes.TARIFF_CHANGE_USAGE, vendorId = -1L, name = "Tariff-Change-Usage")
 public interface TariffChangeUsage extends DiameterEnumerated<TariffChangeUsageEnum>
 {
 }

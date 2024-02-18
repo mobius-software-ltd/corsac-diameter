@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.DownlinkRateLimit;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ServingPLMNRateControl;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.UplinkRateLimit;
@@ -30,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.UplinkRateLim
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4310L, vendorId = KnownVendorIDs.TGPP_ID)
 public class ServingPLMNRateControlImpl extends DiameterGroupedAvpImpl implements ServingPLMNRateControl
 {
 	private UplinkRateLimit uplinkRateLimit;

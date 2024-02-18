@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Alternate-Charged-Party-Address AVP (AVP code 1280) is of type UTF8String and holds the address of the
 	alternate charged party determined by an AS at IMS session initiation. 
 */
-@DiameterAvpDefinition(code = 1280L, vendorId = KnownVendorIDs.TGPP_ID, name = "Alternate-Charged-Party-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.ALTERNATIVE_CHARGED_PARTY_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Alternate-Charged-Party-Address")
 public interface AlternateChargedPartyAddress extends DiameterUTF8String
 {
 }

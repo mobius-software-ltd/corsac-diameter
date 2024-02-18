@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	configured in the UE for direct communication. The format of the value is according to the SL-Preconfiguration-r12
 	ASN.1 data type described in TS 36.331 [241]. 
  */
-@DiameterAvpDefinition(code = 3464L, vendorId = KnownVendorIDs.TGPP_ID, name = "Radio-Parameter-Set-Values")
+@DiameterAvpDefinition(code = TgppAvpCodes.RADIO_PARAMETER_SET_VALUES, vendorId = VendorIDs.TGPP_ID, name = "Radio-Parameter-Set-Values")
 public interface RadioParameterSetValues extends DiameterOctetString
 {
 }

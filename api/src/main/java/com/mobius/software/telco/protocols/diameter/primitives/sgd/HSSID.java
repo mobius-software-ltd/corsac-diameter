@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.3.3.14	HSS-ID
 	The HSS-ID AVP is of type UTF8String. The definition and the composition of the HSS-ID are specified in 3GPP TS 23.003 [16].
  */
-@DiameterAvpDefinition(code = 3325L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "HSS-ID")
+@DiameterAvpDefinition(code = TgppAvpCodes.HSS_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "HSS-ID")
 public interface HSSID extends DiameterUTF8String
 {
 }

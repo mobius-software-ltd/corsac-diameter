@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
    The Service-Parameter-Value AVP is of type OctetString (AVP Code 442)
    and contains the value of the service parameter type.
  */
-@DiameterAvpDefinition(code = 442L, vendorId = -1L, must = false, name = "Service-Parameter-Value")
+@DiameterAvpDefinition(code = AvpCodes.SERVICE_PARAMETER_VALUE, vendorId = -1L, must = false, name = "Service-Parameter-Value")
 public interface ServiceParameterValue extends DiameterOctetString
 {
 }

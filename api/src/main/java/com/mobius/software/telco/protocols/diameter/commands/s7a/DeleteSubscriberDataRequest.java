@@ -18,7 +18,10 @@ package com.mobius.software.telco.protocols.diameter.commands.s7a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 
 /**
@@ -48,10 +51,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 				*[ Proxy-Info ]
 				*[ Route-Record ]
  */
-@DiameterCommandDefinition(applicationId = 16777308, commandCode = 320, request = true, proxyable = true, name="Delete-Subscriber-Data-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.S7A, commandCode = CommandCodes.DELETE_SUBSCRIBER_DATA, request = true, proxyable = true, name="Delete-Subscriber-Data-Request")
 public interface DeleteSubscriberDataRequest extends S7aRequest
 {
 	DSRFlags getDSRFlags();
 	
-	void setDSRFlags(DSRFlags value);		
+	void setDSRFlags(DSRFlags value) throws MissingAvpException;		
 }

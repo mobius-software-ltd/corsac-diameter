@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -46,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Description
 	In the MO, MT, or MF process, this AVP indicates the long number of the called party in the naked MSISDN format. If the called party is not a group subscriber and the short number translation is not performed, this AVP indicates the original called number.
  */
-@DiameterAvpDefinition(code = 21207L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "S-Called-Long-Number")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.S_CALLED_LONG_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "S-Called-Long-Number")
 public interface SCalledLongNumber extends DiameterOctetString
 {
 }

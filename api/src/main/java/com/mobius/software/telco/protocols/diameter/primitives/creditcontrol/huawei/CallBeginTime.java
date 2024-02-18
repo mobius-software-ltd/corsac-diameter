@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hu
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.HuaweiAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Indicates the call start time, which is accurated to 0.1 second.
 	eg: 201603101416201
  */
-@DiameterAvpDefinition(code = 30365L, vendorId = KnownVendorIDs.HUAWEI_ID, name = "Call-Begin-Time")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALL_BEGIN_TIME, vendorId = VendorIDs.HUAWEI_ID, name = "Call-Begin-Time")
 public interface CallBeginTime extends DiameterUTF8String
 {
 }

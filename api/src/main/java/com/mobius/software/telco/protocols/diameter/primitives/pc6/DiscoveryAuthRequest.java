@@ -20,9 +20,11 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc6;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.ServiceResult;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
 
@@ -70,12 +72,12 @@ import io.netty.buffer.ByteBuf;
 	When the Discovery-Type is set to "MONITORING_UPDATE_FOR_RESTRICTED_PROSE_DIRECT_DISCOVERY", the Discovery-Auth-Request shall contain an Application Identifier, a ProSe Restricted Code, a Banned RPAUID, a Banned PDUID and optionally the PC5 radio technology that the UE is using.
 	When the Discovery-Type is set to "MONITORING_RESPONSE_FOR_RESTRICTED_PROSE_DIRECT_DISCOVERY", the Discovery-Auth-Request shall contain an Application Identifier, ProSe-Restricted-Code, Banned RPAUID, Banned PDUID, Result and optionally the PC5 radio technology that the UE is using.
  */
-@DiameterAvpDefinition(code = 3854L, vendorId = KnownVendorIDs.TGPP_ID, name = "Discovery-Auth-Request")
+@DiameterAvpDefinition(code = TgppAvpCodes.DISCOVERY_AUTH_REQUEST, vendorId = VendorIDs.TGPP_ID, name = "Discovery-Auth-Request")
 public interface DiscoveryAuthRequest extends DiameterGroupedAvp
 {
 	DiscoveryTypeEnum getDiscoveryType();
 	
-	void setDiscoveryType(DiscoveryTypeEnum value);
+	void setDiscoveryType(DiscoveryTypeEnum value) throws MissingAvpException;
 	
 	UserIdentity getUserIdentity();
 	

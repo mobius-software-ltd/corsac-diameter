@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.sgmb;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	UTRAN-AND-E-UTRAN (2)
 	The MBMS bearer service shall be delivered both in UTRAN and E-UTRAN coverage areas.
  */
-@DiameterAvpDefinition(code = 923L, vendorId = KnownVendorIDs.TGPP_ID, name = "MBMS-Access-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.MBMS_ACCESS_INDICATOR, vendorId = VendorIDs.TGPP_ID, name = "MBMS-Access-Indicator")
 public interface MBMSAccessIndicator extends DiameterEnumerated<MBMSAccessIndicatorEnum>
 {
 }

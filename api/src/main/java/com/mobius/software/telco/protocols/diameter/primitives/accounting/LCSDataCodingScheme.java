@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The LCS-Data-Coding-Scheme AVP (AVP code 1236) is of type UTF8String and contains the information of the
 	alphabet and the language used. 
  */
-@DiameterAvpDefinition(code = 1236L, vendorId = KnownVendorIDs.TGPP_ID, name = "LCS-Data-Coding-Scheme")
+@DiameterAvpDefinition(code = TgppAvpCodes.LCS_DATA_CODING_SCHEME, vendorId = VendorIDs.TGPP_ID, name = "LCS-Data-Coding-Scheme")
 public interface LCSDataCodingScheme extends DiameterUTF8String
 {
 }

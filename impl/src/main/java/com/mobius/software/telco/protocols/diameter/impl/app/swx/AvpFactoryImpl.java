@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.swx;
 import java.net.InetAddress;
 
 import com.mobius.software.telco.protocols.diameter.app.swx.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.DeregistrationReasonImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPAuthDataItemImpl;
@@ -107,7 +108,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType)
+	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException
 	{
 		return new OCOLRImpl(ocSequenceNumber, ocReportType);
 	}
@@ -117,7 +118,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new OCSupportedFeaturesImpl();
 	}
 	
-	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList)
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
 	{
 		return new SupportedFeaturesImpl(vendorId, featureListID, featureList);
 	}
@@ -132,7 +133,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new SIPAuthDataItemImpl();
 	}
 	
-	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm)
+	public SIPDigestAuthenticate getSIPDigestAuthenticate(String digestRealm) throws MissingAvpException
 	{
 		return new SIPDigestAuthenticateImpl(digestRealm);
 	}
@@ -142,12 +143,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new Non3GPPUserDataImpl();
 	}
 	
-	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData)
+	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException
 	{
 		return new SubscriptionIdImpl(subscriptionIdType, subscriptionIdData);
 	}
 	
-	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL)
+	public AMBR getAMBR(Long maxRequestedBandwidthUL,Long maxRequestedBandwidthDL) throws MissingAvpException
 	{
 		return new AMBRImpl(maxRequestedBandwidthUL, maxRequestedBandwidthDL);
 	}
@@ -157,27 +158,27 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new MIP6AgentInfoImpl();
 	}
 	
-	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm)
+	public MIPHomeAgentHost getMIPHomeAgentHost(String destinationHost,String destinationRealm) throws MissingAvpException
 	{
 		return new MIPHomeAgentHostImpl(destinationHost, destinationRealm);
 	}
 	
-	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection)
+	public APNConfiguration getAPNConfiguration(Long contextIdentifier,PDNTypeEnum pdnType,String serviceSelection) throws MissingAvpException
 	{
 		return new APNConfigurationImpl(contextIdentifier, pdnType, serviceSelection);
 	}
 	
-	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority)
+	public EPSSubscribedQoSProfile getEPSSubscribedQoSProfile(QoSClassIdentifierEnum qoSClassIdentifier,AllocationRetentionPriority allocationRetentionPriority) throws MissingAvpException
 	{
 		return new EPSSubscribedQoSProfileImpl(qoSClassIdentifier, allocationRetentionPriority);
 	}
 	
-	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel)
+	public AllocationRetentionPriority getAllocationRetentionPriority(Long priorityLevel) throws MissingAvpException
 	{
 		return new AllocationRetentionPriorityImpl(priorityLevel);
 	}
 	
-	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo)
+	public SpecificAPNInfo getSpecificAPNInfo(String serviceSelection,MIP6AgentInfo mip6AgentInfo) throws MissingAvpException
 	{
 		return new SpecificAPNInfoImpl(serviceSelection, mip6AgentInfo);
 	}
@@ -192,12 +193,12 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new TraceInfoImpl();
 	}
 	
-	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity)
+	public TraceData getTraceData(ByteBuf traceReference,TraceDepthEnum traceDepth,ByteBuf traceNETypeList,ByteBuf traceEventList,InetAddress traceCollectionEntity) throws MissingAvpException
 	{
 		return new TraceDataImpl(traceReference, traceDepth, traceNETypeList, traceEventList, traceCollectionEntity);
 	}
 	
-	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType)
+	public MDTConfiguration getMDTConfiguration(JobTypeEnum jobType) throws MissingAvpException
 	{
 		return new MDTConfigurationImpl(jobType);
 	}
@@ -247,17 +248,17 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new AccessNetworkInfoImpl();
 	}
 	
-	public LocalTimeZone getLocalTimeZone(String timeZone,DaylightSavingTimeEnum daylightSavingTime)
+	public LocalTimeZone getLocalTimeZone(String timeZone,DaylightSavingTimeEnum daylightSavingTime) throws MissingAvpException
 	{
 		return new LocalTimeZoneImpl(timeZone, daylightSavingTime);
 	}
 	
-	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode)
+	public DeregistrationReason getDeregistrationReason(ReasonCodeEnum reasonCode) throws MissingAvpException
 	{
 		return new DeregistrationReasonImpl(reasonCode);
 	}
 	
-	public ActiveAPN getActiveAPN(Long contextIdentifier)
+	public ActiveAPN getActiveAPN(Long contextIdentifier) throws MissingAvpException
 	{
 		return new ActiveAPNImpl(contextIdentifier);
 	}

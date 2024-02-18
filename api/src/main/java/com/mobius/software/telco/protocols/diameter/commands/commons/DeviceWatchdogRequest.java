@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 
@@ -42,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
                     [ Origin-State-Id ]
                   * [ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 0, commandCode = 280, request = true, proxyable = false, name="Device-Watchdog-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.COMMON, commandCode = CommandCodes.DEVICE_WATCHDOG, request = true, proxyable = false, name="Device-Watchdog-Request")
 public interface DeviceWatchdogRequest extends DiameterMessage
 {		
 }

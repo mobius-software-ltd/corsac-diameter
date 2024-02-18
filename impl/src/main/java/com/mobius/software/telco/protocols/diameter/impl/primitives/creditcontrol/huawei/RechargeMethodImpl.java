@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.RechargeMethod;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.RechargeMethodEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 20343L, vendorId = KnownVendorIDs.HUAWEI_ID)
 public class RechargeMethodImpl extends DiameterEnumeratedImpl<RechargeMethodEnum> implements RechargeMethod
 {
 	protected RechargeMethodImpl()

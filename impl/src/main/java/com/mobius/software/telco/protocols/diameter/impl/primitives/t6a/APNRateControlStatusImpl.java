@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5778.ServiceSelection;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.APNRateControlStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.APNRateControlStatusValidityTime;
@@ -35,7 +38,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.UplinkNumberO
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 4326L, vendorId = KnownVendorIDs.TGPP_ID)
 public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements APNRateControlStatus
 {
 	private ServiceSelection apn;
@@ -48,32 +50,17 @@ public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements 
 	
 	private APNRateControlStatusValidityTime apnRateControlStatusValidityTime;
 	
-	public APNRateControlStatusImpl(String apn,Long uplinkNumberOfPacketsAllowed,Long numberOfAdditionalExceptionReports,Long downlinkNumberOfPacketsAllowed,Long apnRateControlStatusValidityTime)
+	public APNRateControlStatusImpl(String apn,Long uplinkNumberOfPacketsAllowed,Long numberOfAdditionalExceptionReports,Long downlinkNumberOfPacketsAllowed,Long apnRateControlStatusValidityTime) throws MissingAvpException
 	{
-		if(apn==null)
-			throw new IllegalArgumentException("Service-Selection is required");
+		setAPN(apn);
 		
-		if(uplinkNumberOfPacketsAllowed==null)
-			throw new IllegalArgumentException("Uplink-Number-Of-Packets-Allowed is required");
+		setUplinkNumberOfPacketsAllowed(uplinkNumberOfPacketsAllowed);
 		
-		if(numberOfAdditionalExceptionReports==null)
-			throw new IllegalArgumentException("Number-Of-Additional-Exception-Reports is required");
+		setNumberOfAdditionalExceptionReports(numberOfAdditionalExceptionReports);
 		
-		if(downlinkNumberOfPacketsAllowed==null)
-			throw new IllegalArgumentException("Downlink-Number-Of-Packets-Allowed is required");
+		setDownlinkNumberOfPacketsAllowed(downlinkNumberOfPacketsAllowed);
 		
-		if(apnRateControlStatusValidityTime==null)
-			throw new IllegalArgumentException("APN-Rate-Control-Status-Validity-Time is required");
-		
-		this.apn = new ServiceSelectionImpl(apn, null, null);	
-		
-		this.uplinkNumberOfPacketsAllowed = new UplinkNumberOfPacketsAllowedImpl(uplinkNumberOfPacketsAllowed, null, null);	
-		
-		this.numberOfAdditionalExceptionReports = new NumberOfAdditionalExceptionReportsImpl(numberOfAdditionalExceptionReports, null, null);	
-		
-		this.downlinkNumberOfPacketsAllowed = new DownlinkNumberOfPacketsAllowedImpl(downlinkNumberOfPacketsAllowed, null, null);	
-		
-		this.apnRateControlStatusValidityTime = new APNRateControlStatusValidityTimeImpl(apnRateControlStatusValidityTime, null, null);	
+		setAPNRateControlStatusValidityTime(apnRateControlStatusValidityTime);		
 	}
 	
 	public String getAPN()
@@ -84,11 +71,11 @@ public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements 
 		return apn.getString();
 	}
 	
-	public void setAPN(String value)
+	public void setAPN(String value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Service-Selection is required");
-		
+			throw new MissingAvpException("Service-Selection is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
+			
 		this.apn = new ServiceSelectionImpl(value, null, null);	
 	}
 	
@@ -100,11 +87,11 @@ public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements 
 		return uplinkNumberOfPacketsAllowed.getUnsigned();
 	}
 	
-	public void setUplinkNumberOfPacketsAllowed(Long value)
+	public void setUplinkNumberOfPacketsAllowed(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Uplink-Number-Of-Packets-Allowed is required");
-		
+			throw new MissingAvpException("Uplink-Number-Of-Packets-Allowed is required", Arrays.asList(new DiameterAvp[] { new UplinkNumberOfPacketsAllowedImpl() }));
+			
 		this.uplinkNumberOfPacketsAllowed = new UplinkNumberOfPacketsAllowedImpl(value, null, null);			
 	}
 	
@@ -116,11 +103,11 @@ public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements 
 		return numberOfAdditionalExceptionReports.getUnsigned();
 	}
 	
-	public void setNumberOfAdditionalExceptionReports(Long value)
+	public void setNumberOfAdditionalExceptionReports(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Number-Of-Additional-Exception-Reports is required");
-		
+			throw new MissingAvpException("Number-Of-Additional-Exception-Reports is required", Arrays.asList(new DiameterAvp[] { new NumberOfAdditionalExceptionReportsImpl() }));
+			
 		this.numberOfAdditionalExceptionReports = new NumberOfAdditionalExceptionReportsImpl(value, null, null);			
 	}
 	
@@ -132,11 +119,11 @@ public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements 
 		return downlinkNumberOfPacketsAllowed.getUnsigned();
 	}
 	
-	public void setDownlinkNumberOfPacketsAllowed(Long value)
+	public void setDownlinkNumberOfPacketsAllowed(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("Downlink-Number-Of-Packets-Allowed is required");
-		
+			throw new MissingAvpException("Downlink-Number-Of-Packets-Allowed is required", Arrays.asList(new DiameterAvp[] { new DownlinkNumberOfPacketsAllowedImpl() }));
+			
 		this.downlinkNumberOfPacketsAllowed = new DownlinkNumberOfPacketsAllowedImpl(value, null, null);			
 	}
 	
@@ -148,31 +135,31 @@ public class APNRateControlStatusImpl extends DiameterGroupedAvpImpl implements 
 		return apnRateControlStatusValidityTime.getLong();
 	}
 	
-	public void setAPNRateControlStatusValidityTime(Long value)
+	public void setAPNRateControlStatusValidityTime(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("APN-Rate-Control-Status-Validity-Time is required");
-		
+			throw new MissingAvpException("APN-Rate-Control-Status-Validity-Time is required", Arrays.asList(new DiameterAvp[] { new APNRateControlStatusValidityTimeImpl() }));
+			
 		this.apnRateControlStatusValidityTime = new APNRateControlStatusValidityTimeImpl(value, null, null);
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(apn==null)
-			return "Service-Selection is required";
+			return new MissingAvpException("Service-Selection is required", Arrays.asList(new DiameterAvp[] { new ServiceSelectionImpl() }));
 		
 		if(uplinkNumberOfPacketsAllowed==null)
-			return "Uplink-Number-Of-Packets-Allowed is required";
+			return new MissingAvpException("Uplink-Number-Of-Packets-Allowed is required", Arrays.asList(new DiameterAvp[] { new UplinkNumberOfPacketsAllowedImpl() }));
 		
 		if(numberOfAdditionalExceptionReports==null)
-			return "Number-Of-Additional-Exception-Reports is required";
+			return new MissingAvpException("Number-Of-Additional-Exception-Reports is required", Arrays.asList(new DiameterAvp[] { new NumberOfAdditionalExceptionReportsImpl() }));
 		
 		if(downlinkNumberOfPacketsAllowed==null)
-			return "Downlink-Number-Of-Packets-Allowed is required";
+			return new MissingAvpException("Downlink-Number-Of-Packets-Allowed is required", Arrays.asList(new DiameterAvp[] { new DownlinkNumberOfPacketsAllowedImpl() }));
 		
 		if(apnRateControlStatusValidityTime==null)
-			return "APN-Rate-Control-Status-Validity-Time is required";
+			return new MissingAvpException("APN-Rate-Control-Status-Validity-Time is required", Arrays.asList(new DiameterAvp[] { new APNRateControlStatusValidityTimeImpl() }));
 		
 		return null;
 	}

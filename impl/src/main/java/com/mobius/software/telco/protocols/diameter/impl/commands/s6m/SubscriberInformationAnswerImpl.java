@@ -3,9 +3,10 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s6m;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandImplementation;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -38,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifie
 * @author yulian oifa
 *
 */
-@DiameterCommandImplementation(applicationId = 16777310, commandCode = 8388641, request = false)
 public class SubscriberInformationAnswerImpl extends S6mAnswerImpl implements SubscriberInformationAnswer
 {
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -57,7 +57,7 @@ public class SubscriberInformationAnswerImpl extends S6mAnswerImpl implements Su
 		setExperimentalResultAllowed(false);
 	}
 	
-	public SubscriberInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState)
+	public SubscriberInformationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);

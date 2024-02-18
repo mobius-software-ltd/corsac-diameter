@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 * 	5.3.35	IP-Domain-Id AVP
 	The IP-Domain-Id AVP (AVP code 537) is of type (OctetString), and indicates the domain information which assists session binding.
  */
-@DiameterAvpDefinition(code = 537L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "IP-Domain-Id")
+@DiameterAvpDefinition(code = TgppAvpCodes.IP_DOMAIN_ID, vendorId = VendorIDs.TGPP_ID, must = false, name = "IP-Domain-Id")
 public interface IPDomainId extends DiameterOctetString
 {
 }

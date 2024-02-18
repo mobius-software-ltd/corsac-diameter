@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.commands.np;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.np.AggregatedRUCIReport;
@@ -52,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.np.AggregatedRUCI
                 *[ Supported-Features ]
                 *[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = 16777342, commandCode = 8388721, request = true, proxyable = true, name="Aggregated-RUCI-Report-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NP, commandCode = CommandCodes.AGGREGATED_RUCI_REPORT, request = true, proxyable = true, name="Aggregated-RUCI-Report-Request")
 public interface AggregatedRUCIReportRequest extends NpRequest
 {
 	List<AggregatedRUCIReport> getAggregatedRUCIReport();

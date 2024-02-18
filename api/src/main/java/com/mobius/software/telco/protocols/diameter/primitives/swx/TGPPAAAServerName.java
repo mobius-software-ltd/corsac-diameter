@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	8.2.3.24	3GPP-AAA-Server-Name
 	The 3GPP-AAA-Server-Name AVP is of type DiameterIdentity, and defines the Diameter address of the 3GPP AAA Server node.	  
  */
-@DiameterAvpDefinition(code = 318L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "3GPP-AAA-Server-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_AAA_SERVER_NAME, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-AAA-Server-Name")
 public interface TGPPAAAServerName extends DiameterIdentity
 {
 }

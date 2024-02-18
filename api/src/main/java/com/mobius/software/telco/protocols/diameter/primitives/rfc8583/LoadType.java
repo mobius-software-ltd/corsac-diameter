@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc8583;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerated;
 
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 
    PEER 1  The load report is for a peer.
  */
-@DiameterAvpDefinition(code = 651L, vendorId = -1L, must = false, name = "Load-Type")
+@DiameterAvpDefinition(code = AvpCodes.LOAD_TYPE, vendorId = -1L, must = false, name = "Load-Type")
 public interface LoadType extends DiameterEnumerated<LoadTypeEnum>
 {
 }

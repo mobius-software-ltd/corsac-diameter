@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The WLAN-Operator-Name AVP (AVP code 1307) is of type UTF8String and holds the Name of the trusted or
 	untrusted WLAN Operator, as specified in subclause 19. 8 of 3GPP TS 23.003 [224]. 
  */
-@DiameterAvpDefinition(code = 1307L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "WLAN-Operator-Name")
+@DiameterAvpDefinition(code = TgppAvpCodes.WLAN_OPERATOR_NAME, vendorId = VendorIDs.TGPP_ID, must = false, name = "WLAN-Operator-Name")
 public interface WLANOperatorName extends DiameterUTF8String
 {
 }

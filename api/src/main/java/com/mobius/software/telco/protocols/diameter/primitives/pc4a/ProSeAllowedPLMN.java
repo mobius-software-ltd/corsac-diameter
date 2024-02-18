@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 import io.netty.buffer.ByteBuf;
 
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 
 	The Authorized-Discovery-Range Information Element should only be present if the Visited-PLMN-Id is the PLMN-Id of the HPLMN; otherwise it should be absent.
  */
-@DiameterAvpDefinition(code = 3703L, vendorId = KnownVendorIDs.TGPP_ID, name = "ProSe-Allowed-PLMN")
+@DiameterAvpDefinition(code = TgppAvpCodes.PROSE_ALLOWED_PLMN, vendorId = VendorIDs.TGPP_ID, name = "ProSe-Allowed-PLMN")
 public interface ProSeAllowedPLMN extends DiameterGroupedAvp
 {
 	ByteBuf getVisitedPLMNId();

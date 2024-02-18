@@ -18,10 +18,13 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
+import java.util.Arrays;
+
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AESECommunicationPatternConfigStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AESEErrorReport;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFID;
@@ -33,7 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFReference
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 3120L, vendorId = KnownVendorIDs.TGPP_ID)
 public class AESECommunicationPatternConfigStatusImpl extends DiameterGroupedAvpImpl implements AESECommunicationPatternConfigStatus
 {
 	private SCEFReferenceID scefReferenceID;
@@ -45,12 +47,9 @@ public class AESECommunicationPatternConfigStatusImpl extends DiameterGroupedAvp
 	{
 	}
 	
-	public AESECommunicationPatternConfigStatusImpl(Long scefReferenceID)
+	public AESECommunicationPatternConfigStatusImpl(Long scefReferenceID) throws MissingAvpException
 	{
-		if(scefReferenceID==null)
-			throw new IllegalArgumentException("SCEF-Reference-ID is required");
-		
-		this.scefReferenceID = new SCEFReferenceIDImpl(scefReferenceID, null, null);						
+		setSCEFReferenceID(scefReferenceID);
 	}
 	
 	public Long getSCEFReferenceID()
@@ -61,10 +60,10 @@ public class AESECommunicationPatternConfigStatusImpl extends DiameterGroupedAvp
 		return scefReferenceID.getUnsigned();
 	}
 	
-	public void setSCEFReferenceID(Long value)
+	public void setSCEFReferenceID(Long value) throws MissingAvpException
 	{
 		if(value==null)
-			throw new IllegalArgumentException("SCEF-Reference-ID is required");
+			throw new MissingAvpException("SCEF-Reference-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFReferenceIDImpl() }));
 		
 		this.scefReferenceID = new SCEFReferenceIDImpl(value, null, null);						
 	}
@@ -112,10 +111,10 @@ public class AESECommunicationPatternConfigStatusImpl extends DiameterGroupedAvp
 	}
 	
 	@DiameterValidate
-	public String validate()
+	public DiameterException validate()
 	{
 		if(scefReferenceID==null)
-			return "SCEF-Reference-ID is required";
+			return new MissingAvpException("SCEF-Reference-ID is required", Arrays.asList(new DiameterAvp[] { new SCEFReferenceIDImpl() }));
 		
 		return null;
 	}	

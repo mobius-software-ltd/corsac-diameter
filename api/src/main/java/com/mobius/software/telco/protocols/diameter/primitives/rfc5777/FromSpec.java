@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
 import java.net.InetAddress;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -77,7 +78,7 @@ import io.netty.buffer.ByteBuf;
                  [ Use-Assigned-Address ]
                * [ AVP ]
  */
-@DiameterAvpDefinition(code = 515L, vendorId = -1L, name = "From-Spec")
+@DiameterAvpDefinition(code = AvpCodes.FROM_SPEC, vendorId = -1L, name = "From-Spec")
 public interface FromSpec extends DiameterGroupedAvp
 {
 	List<InetAddress> getIPAddress();

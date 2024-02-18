@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.t6a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	6.4.7	RANAP-Cause
 	The RANAP-Cause AVP is of type Unsigned32. It shall contain the non-transparent copy of the cause value of the RANAP cause code as specified in clause 9.2.1.4 of 3GPP TS 25.413 [11].
  */
-@DiameterAvpDefinition(code = 4303L, vendorId = KnownVendorIDs.TGPP_ID, name = "RANAP-Cause")
+@DiameterAvpDefinition(code = TgppAvpCodes.RAN_AP_CAUSE, vendorId = VendorIDs.TGPP_ID, name = "RANAP-Cause")
 public interface RANAPCause extends DiameterUnsigned32
 {
 }

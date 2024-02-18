@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.primitives.rfc5777;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 import io.netty.buffer.ByteBuf;
@@ -49,14 +51,14 @@ import io.netty.buffer.ByteBuf;
                           { EUI64-Address-Mask-Pattern }
                         * [ AVP ]
  */
-@DiameterAvpDefinition(code = 528L, vendorId = -1L, name = "EUI64-Address-Mask")
+@DiameterAvpDefinition(code = AvpCodes.EUI64_ADDRESS_MASK, vendorId = -1L, name = "EUI64-Address-Mask")
 public interface EUI64AddressMask extends DiameterGroupedAvp
 {
 	ByteBuf getEUI64Address();
 	
-	void setEUI64Address(ByteBuf value);	
+	void setEUI64Address(ByteBuf value) throws MissingAvpException;	
 	
 	ByteBuf getEUI64AddressMaskPattern();
 	
-	void setEUI64AddressMaskPattern(ByteBuf value);	
+	void setEUI64AddressMaskPattern(ByteBuf value) throws MissingAvpException;	
 }

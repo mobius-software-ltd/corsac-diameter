@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -60,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	Precedence AVP indicates higher evaluation precedence. The PCEF shall assign the lowest evaluation precedence to a
 	Routing filter containg the wild card filter. 
  */
-@DiameterAvpDefinition(code = 1010L, vendorId = KnownVendorIDs.TGPP_ID, name = "Precedence")
+@DiameterAvpDefinition(code = TgppAvpCodes.PRECEDENCE, vendorId = VendorIDs.TGPP_ID, name = "Precedence")
 public interface Precedence extends DiameterUnsigned32
 {
 }

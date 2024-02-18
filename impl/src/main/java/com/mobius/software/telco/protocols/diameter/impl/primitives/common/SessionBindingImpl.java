@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterBitmask32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SessionBinding;
 
@@ -27,7 +26,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.SessionBin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 270L, vendorId = -1L)
 public class SessionBindingImpl extends DiameterBitmask32Impl implements SessionBinding
 {
 	public SessionBindingImpl() 
@@ -43,7 +41,7 @@ public class SessionBindingImpl extends DiameterBitmask32Impl implements Session
 	@Override
 	public void setReauthBit(boolean isOn)
 	{
-		setBit(RE_AUTH_BIT, isOn);
+		setBitUnchecked(RE_AUTH_BIT, isOn);
 	}
 
 	@Override
@@ -55,7 +53,7 @@ public class SessionBindingImpl extends DiameterBitmask32Impl implements Session
 	@Override
 	public void setSTRBit(boolean isOn)
 	{
-		setBit(STR_BIT, isOn);
+		setBitUnchecked(STR_BIT, isOn);
 	}
 
 	@Override
@@ -67,7 +65,7 @@ public class SessionBindingImpl extends DiameterBitmask32Impl implements Session
 	@Override
 	public void setAccountingBit(boolean isOn)
 	{
-		setBit(ACCOUNTING_BIT, isOn);
+		setBitUnchecked(ACCOUNTING_BIT, isOn);
 	}
 
 	@Override

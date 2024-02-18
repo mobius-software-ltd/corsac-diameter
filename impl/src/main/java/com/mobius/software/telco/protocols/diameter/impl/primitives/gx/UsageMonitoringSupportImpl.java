@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpImplementation;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.UsageMonitoringSupport;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.UsageMonitoringSupportEnum;
 
@@ -29,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.UsageMonitorin
 * @author yulian oifa
 *
 */
-@DiameterAvpImplementation(code = 1070L, vendorId = KnownVendorIDs.TGPP_ID)
 public class UsageMonitoringSupportImpl extends DiameterEnumeratedImpl<UsageMonitoringSupportEnum> implements UsageMonitoringSupport
 {
 	protected UsageMonitoringSupportImpl()

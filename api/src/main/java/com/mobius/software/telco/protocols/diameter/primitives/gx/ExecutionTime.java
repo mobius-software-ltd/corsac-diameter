@@ -18,9 +18,10 @@ package com.mobius.software.telco.protocols.diameter.primitives.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
-import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 
 /**
 *
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.KnownVendorIDs;
 	The Execution-Time AVP (AVP code 2839) is of type Time. This value indicates the NTP time at which the provided
 	policy info shall take effect. The AVP is included in the Conditional-Policy-Information AVP. 
  */
-@DiameterAvpDefinition(code = 2839L, vendorId = KnownVendorIDs.TGPP_ID, must = false, name = "Execution-Time")
+@DiameterAvpDefinition(code = TgppAvpCodes.EXECUTION_TIME, vendorId = VendorIDs.TGPP_ID, must = false, name = "Execution-Time")
 public interface ExecutionTime extends DiameterTime
 {
 }
