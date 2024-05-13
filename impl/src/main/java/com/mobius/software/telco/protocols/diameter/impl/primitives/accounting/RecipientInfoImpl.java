@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DestinationInterface;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientInfo;
@@ -34,7 +35,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class RecipientInfoImpl implements RecipientInfo
+public class RecipientInfoImpl extends DiameterAvpImpl implements RecipientInfo
 {
 	private DestinationInterface destinationInterface;
 	private List<RecipientAddress> recipientAddress;

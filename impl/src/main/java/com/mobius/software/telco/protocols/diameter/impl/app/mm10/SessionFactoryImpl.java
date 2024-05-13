@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.mm10.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEvent
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777226L;
+	public static final long APPLICATION_ID=ApplicationIDs.MM10;
 	
 	private IDGenerator<?> idGenerator;
 	

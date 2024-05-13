@@ -15,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SessionPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserAuthorizationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.OriginatingRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.OriginatingRequestEnum;
@@ -182,7 +183,7 @@ public class LocationInfoRequestImpl extends CxDxRequestWithHostBase implements 
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -90,5 +90,5 @@ public class DeregistrationReasonImpl extends DiameterGroupedAvpImpl implements 
 			return new MissingAvpException("Reason-Code is required", Arrays.asList(new DiameterAvp[] { new ReasonCodeImpl() }));
 		
 		return null;
-	}	
+	}
 }

@@ -13,14 +13,15 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPAuthDataItemImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPNumberAuthItemsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerNameImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPNumberAuthItemsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPNumberAuthItems;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerName;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPNumberAuthItems;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 /*
@@ -185,25 +186,6 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()
 	{
-		/*< Session-Id >
-			 [ DRMP ]
-			 { Vendor-Specific-Application-Id }
-			 { Auth-Session-State }
-			 { Origin-Host }
-			 { Origin-Realm }
-			 { Destination-Realm }
-			 [ Destination-Host ]
-			 { User-Name }
-			 [ OC-Supported-Features ]
-			*[ Supported-Features ]
-			 { Public-Identity }
-			 { SIP-Auth-Data-Item }
-			 { SIP-Number-Auth-Items }
-			 { Server-Name }
-			*[ AVP ]
-			*[ Proxy-Info ]
-			*[ Route-Record ]*/
-		
 		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
 		result.add(sessionId);
 		result.add(drmp);
@@ -226,7 +208,7 @@ public class MultimediaAuthRequestImpl extends CxDxRequestWithHostBase implement
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

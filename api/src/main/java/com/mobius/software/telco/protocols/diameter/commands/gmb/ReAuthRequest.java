@@ -99,7 +99,7 @@ import io.netty.buffer.ByteBuf;
 	-	The Called-Station-Id AVP contains the Access Point Name (APN) for which the MBMS bearer service is defined.
 	According to 3GPP TS 23.246 [65], the MBMS-Flow-Identifier is optional, used only for broadcast services with location dependent content. For such services, several sessions with the same TMGI, but different MBMS-Flow-Identifiers, may be going on in parallel. However, at any specific location only one version of the content may be available at any point in time. Hence, the MBMS-Service-Areas of the related MBMS bearer contexts shall not overlap.
  */
-@DiameterCommandDefinition(applicationId = ApplicationIDs.GMB, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GMB, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	String getCalledStationId();

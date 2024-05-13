@@ -43,7 +43,7 @@ import io.netty.buffer.Unpooled;
 * @author yulian oifa
 *
 */
-public class DiameterOctetStringImpl implements DiameterOctetString
+public class DiameterOctetStringImpl extends DiameterAvpImpl implements DiameterOctetString
 {
 	public static ByteBuf PADDING_0=Unpooled.EMPTY_BUFFER;
 	public static ByteBuf PADDING_1=Unpooled.wrappedBuffer(new byte[] { 0x00, 0x00, 0x00 });
@@ -58,7 +58,7 @@ public class DiameterOctetStringImpl implements DiameterOctetString
 	private Integer maxLength;
 	
 	//required for parser
-	protected DiameterOctetStringImpl() 
+	public DiameterOctetStringImpl() 
 	{
 		
 	}
@@ -91,7 +91,7 @@ public class DiameterOctetStringImpl implements DiameterOctetString
 		if(value==null)
 			return 0;
 		
-		return value.readableBytes() + padding.readableBytes();
+		return value.readableBytes();
 	}
 	
 	@DiameterEncode
@@ -102,7 +102,10 @@ public class DiameterOctetStringImpl implements DiameterOctetString
 		
 		buffer.writeBytes(value);
 		if(padding.readableBytes()>0)
+		{
 			buffer.writeBytes(padding);
+			padding.setIndex(0,padding.writerIndex());			
+		}
 	}
 	
 	@DiameterDecode
@@ -111,7 +114,7 @@ public class DiameterOctetStringImpl implements DiameterOctetString
 		if(buffer.readableBytes()<length)
 			return new InvalidAvpLengthException("AVP Length is bigger then available data", Arrays.asList(new DiameterAvp[] { this }));
 		
-		value =  buffer.readBytes(length);		
+		value =  buffer.readSlice(length);		
 		this.padding = PADDINGS[value.readableBytes()%4];	
 		return null;
 	}

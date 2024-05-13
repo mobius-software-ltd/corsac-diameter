@@ -167,5 +167,5 @@ public class FlowsImpl extends DiameterGroupedAvpImpl implements Flows
 			return new MissingAvpException("Media-Component-Number is required", Arrays.asList(new DiameterAvp[] { new MediaComponentNumberImpl() }));
 		
 		return null;
-	}	
+	}
 }

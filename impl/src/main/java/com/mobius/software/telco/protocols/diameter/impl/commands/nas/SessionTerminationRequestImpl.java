@@ -9,6 +9,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAAAProtocolImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
@@ -96,7 +97,7 @@ public class SessionTerminationRequestImpl extends com.mobius.software.telco.pro
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -69,5 +69,5 @@ public class QoSCapabilityImpl extends DiameterGroupedAvpImpl implements QoSCapa
 			return new MissingAvpException("QoS-Profile-Template is required is required", Arrays.asList(new DiameterAvp[] { new QoSProfileTemplateImpl() }));
 		
 		return null;
-	}
+	}	
 }

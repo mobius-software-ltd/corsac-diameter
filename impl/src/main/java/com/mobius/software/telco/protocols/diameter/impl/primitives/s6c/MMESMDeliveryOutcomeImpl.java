@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AbsentUserDiagnosticSM;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MMESMDeliveryOutcome;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryCause;
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryCau
 * @author yulian oifa
 *
 */
-public class MMESMDeliveryOutcomeImpl implements MMESMDeliveryOutcome
+public class MMESMDeliveryOutcomeImpl extends DiameterAvpImpl implements MMESMDeliveryOutcome
 {
 	private SMDeliveryCause smDeliveryCause;
 	

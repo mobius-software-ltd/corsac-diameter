@@ -91,5 +91,5 @@ public class CoAInformationImpl extends DiameterGroupedAvpImpl implements CoAInf
 			return new MissingAvpException("CoA-IP-Address is required", Arrays.asList(new DiameterAvp[] { new CoAIPAddressImpl() }));
 		
 		return null;
-	}		  		  
+	}	  		  
 }

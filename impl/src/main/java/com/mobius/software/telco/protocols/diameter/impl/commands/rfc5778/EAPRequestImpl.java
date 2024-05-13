@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ChargeableUserIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.eap.EAPPayload;
@@ -393,7 +394,7 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 		
 		if(optionalAvps!=null)
         {
-        	for(List<DiameterAvp> curr:optionalAvps.values())
+        	for(List<DiameterUnknownAvp> curr:optionalAvps.values())
         		result.addAll(curr);
         }
 		

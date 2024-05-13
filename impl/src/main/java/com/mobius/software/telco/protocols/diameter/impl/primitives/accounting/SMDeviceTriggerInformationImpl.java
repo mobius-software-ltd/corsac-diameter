@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ApplicationPortIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.PriorityIndicationImpl;
@@ -38,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.ReferenceNumb
 * @author yulian oifa
 *
 */
-public class SMDeviceTriggerInformationImpl implements SMDeviceTriggerInformation
+public class SMDeviceTriggerInformationImpl extends DiameterAvpImpl implements SMDeviceTriggerInformation
 {
 	private MTCIWFAddress mtcIWFAddress;
 	private ReferenceNumber referenceNumber;

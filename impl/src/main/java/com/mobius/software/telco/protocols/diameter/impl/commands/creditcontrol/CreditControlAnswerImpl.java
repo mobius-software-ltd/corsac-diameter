@@ -27,6 +27,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.QoSFinalUnitIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -610,7 +611,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

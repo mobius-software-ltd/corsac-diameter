@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserN
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SIPNumberAuthItemsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.TGPPAAAServerNameImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
@@ -206,7 +207,7 @@ public class MultimediaAuthAnswerImpl extends SwxAnswerImpl implements Multimedi
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

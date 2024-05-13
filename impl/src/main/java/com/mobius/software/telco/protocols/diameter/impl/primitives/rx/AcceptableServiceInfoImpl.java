@@ -122,5 +122,5 @@ public class AcceptableServiceInfoImpl extends DiameterGroupedAvpImpl implements
 			this.extendedMaxRequestedBWUL = null;
 		else
 			this.extendedMaxRequestedBWUL = new ExtendedMaxRequestedBWULImpl(value, null, null);
-	}	
+	}
 }

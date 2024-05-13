@@ -63,5 +63,5 @@ public class DefaultEPSBearerQoSImpl extends DiameterGroupedAvpImpl implements D
 	public void setAllocationRetentionPriority(AllocationRetentionPriority value)
 	{
 		this.allocationRetentionPriority = value;
-	}
+	}	
 }

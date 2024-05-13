@@ -11,6 +11,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.LCSReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSReferenceNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.slg.LRAFlags;
@@ -147,7 +148,7 @@ public class LocationReportAnswerImpl extends SlgAnswerImpl implements LocationR
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

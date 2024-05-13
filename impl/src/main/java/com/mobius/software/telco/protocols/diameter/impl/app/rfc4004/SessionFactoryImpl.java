@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc4004;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.rfc4004.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPRequest;
@@ -34,7 +35,7 @@ import io.netty.buffer.ByteBuf;
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=2L;
+	public static final long APPLICATION_ID=ApplicationIDs.MOBILE_IPV4;
 	
 	private IDGenerator<?> idGenerator;
 	

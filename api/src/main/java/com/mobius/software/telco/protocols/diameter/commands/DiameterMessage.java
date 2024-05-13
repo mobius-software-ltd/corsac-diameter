@@ -34,11 +34,15 @@ public interface DiameterMessage extends DiameterGroupedAvp
 {
 	public Boolean getIsRetransmit();
 	
+	public Boolean getIsProxyable();
+	
 	public Long getHopByHopIdentifier();
 	
 	public Long getEndToEndIdentifier();
 	
 	void setIsRetransmit(Boolean value);
+	
+	void setIsProxyable(Boolean value);
 	
 	void setHopByHopIdentifier(Long value);
 	

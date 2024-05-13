@@ -23,6 +23,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ULRFlags
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATType;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RATTypeEnum;
@@ -446,7 +447,7 @@ public class UpdateLocationRequestImpl extends S6aRequestImpl implements UpdateL
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

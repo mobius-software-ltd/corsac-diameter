@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.BucketDepth;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.MaximumPacketSize;
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5624.TokenRate
 *
 */
 
-public class TMOD1Impl implements TMOD1
+public class TMOD1Impl extends DiameterAvpImpl implements TMOD1
 {
 	private TokenRate tokenRate;
 	private BucketDepth bucketDepth;

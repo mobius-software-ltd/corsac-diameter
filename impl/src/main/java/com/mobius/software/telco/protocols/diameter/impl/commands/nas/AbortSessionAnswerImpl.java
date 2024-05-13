@@ -10,6 +10,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.OriginAAAProtocolImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.StateImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocol;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.OriginAAAProtocolEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.State;
@@ -118,7 +119,7 @@ public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
 
 /*
@@ -48,11 +48,11 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	void setErrorReportingHost(String value) throws AvpNotSupportedException;
 
-	public Map<DiameterAvpKey,List<DiameterAvp>> getFailedAvp();
+	public Map<DiameterAvpKey,List<DiameterUnknownAvp>> getFailedAvp();
 	
-	void addFailedAvp(DiameterAvpKey avpKey, DiameterAvp failedAvp);
+	void addFailedAvp(DiameterAvpKey avpKey, DiameterUnknownAvp failedAvp);
 	
-	void setFailedAvp(Map<DiameterAvpKey,List<DiameterAvp>> failedAvp);
+	void setFailedAvp(Map<DiameterAvpKey,List<DiameterUnknownAvp>> failedAvp);
 	
 	public ExperimentalResult getExperimentalResult() throws AvpNotSupportedException;
 	

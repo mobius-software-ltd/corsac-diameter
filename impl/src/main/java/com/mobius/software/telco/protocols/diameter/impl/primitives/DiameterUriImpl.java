@@ -43,7 +43,7 @@ public class DiameterUriImpl extends DiameterAsciiStringImpl implements Diameter
 	private DiameterProtocol protocol;
 	
 	//required for parser
-	protected DiameterUriImpl() 
+	public DiameterUriImpl() 
 	{
 		super();
 	}

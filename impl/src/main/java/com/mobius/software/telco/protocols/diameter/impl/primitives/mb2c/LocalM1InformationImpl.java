@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mb2c;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.CommonTunnelEndpointIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.LocalM1Information;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSENBIPMulticastAddress;
@@ -34,7 +35,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class LocalM1InformationImpl implements LocalM1Information
+public class LocalM1InformationImpl extends DiameterAvpImpl implements LocalM1Information
 {
 	private MBMSENBIPMulticastAddress mbmsENBIPMulticastAddress;
 	

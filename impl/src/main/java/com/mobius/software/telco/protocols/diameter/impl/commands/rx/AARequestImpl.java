@@ -33,6 +33,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceIn
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ServiceURNImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CallingPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -762,7 +763,7 @@ public class AARequestImpl extends RxRequestImpl implements AARequest
       		
       	if(optionalAvps!=null)
       	{
-      		for(List<DiameterAvp> curr:optionalAvps.values())
+      		for(List<DiameterUnknownAvp> curr:optionalAvps.values())
       			result.addAll(curr);
       	}
     		 

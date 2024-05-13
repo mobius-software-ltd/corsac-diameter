@@ -18,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.TraceRef
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.SCEFIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ContextIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
@@ -301,7 +302,7 @@ public class DeleteSubscriberDataRequestImpl extends S6aRequestImpl implements D
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

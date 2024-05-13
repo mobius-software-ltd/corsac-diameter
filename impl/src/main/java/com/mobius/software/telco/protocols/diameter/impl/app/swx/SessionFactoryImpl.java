@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.swx;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.swx.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.swx.MultimediaAuthRequest;
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerAssign
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777265L;
+	public static final long APPLICATION_ID=ApplicationIDs.SWX;
 	
 	private IDGenerator<?> idGenerator;
 	

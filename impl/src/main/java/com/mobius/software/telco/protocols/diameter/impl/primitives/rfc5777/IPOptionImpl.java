@@ -112,5 +112,5 @@ public class IPOptionImpl extends DiameterGroupedAvpImpl implements IPOption
 			return new MissingAvpException("IP-Option-Type is required", Arrays.asList(new DiameterAvp[] { new IPOptionTypeImpl() }));
 		
 		return null;
-	}	
+	}
 }

@@ -12,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.AbsentUs
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.RequestedRetransmissionTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AbsentUserDiagnosticSM;
@@ -190,7 +191,7 @@ public class MTForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MT
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

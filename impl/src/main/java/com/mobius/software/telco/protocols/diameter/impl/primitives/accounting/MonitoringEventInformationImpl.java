@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.AccuracyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.MONTELocationTypeImpl;
@@ -57,7 +58,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.t6a.NumberOfUEPer
 * @author yulian oifa
 *
 */
-public class MonitoringEventInformationImpl implements MonitoringEventInformation
+public class MonitoringEventInformationImpl extends DiameterAvpImpl implements MonitoringEventInformation
 {
 	private MonitoringEventFunctionality monitoringEventFunctionality;
 	private EventTimestamp eventTimestamp;

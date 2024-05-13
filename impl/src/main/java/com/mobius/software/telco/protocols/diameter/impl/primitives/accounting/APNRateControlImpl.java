@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControlDownlink;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControlUplink;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRat
 * @author yulian oifa
 *
 */
-public class APNRateControlImpl implements APNRateControl
+public class APNRateControlImpl extends DiameterAvpImpl implements APNRateControl
 {
 	private APNRateControlUplink apnRateControlUplink;
 	private APNRateControlDownlink apnRateControlDownlink;

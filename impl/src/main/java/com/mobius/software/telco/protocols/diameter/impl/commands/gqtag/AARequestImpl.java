@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.Overbooki
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ReservationPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ServiceClassImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.GloballyUniqueAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.AuthorizationPackageId;
@@ -262,7 +263,7 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
       		
       	if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
       	

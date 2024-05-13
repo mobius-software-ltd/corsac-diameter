@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChangeTime;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LocationInfo;
@@ -32,7 +33,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class LocationInfoImpl implements LocationInfo
+public class LocationInfoImpl extends DiameterAvpImpl implements LocationInfo
 {
 	private TGPPUserLocationInfo tgppUserLocationInfo;
 	private ChangeTime changeTime;

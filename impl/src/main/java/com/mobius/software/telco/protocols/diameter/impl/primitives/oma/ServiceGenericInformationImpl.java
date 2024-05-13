@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.ApplicationServerId;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.ApplicationServiceType;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.ApplicationServiceTypeEnum;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGeneri
 * @author yulian oifa
 *
 */
-public class ServiceGenericInformationImpl implements ServiceGenericInformation
+public class ServiceGenericInformationImpl extends DiameterAvpImpl implements ServiceGenericInformation
 {
 	private ApplicationServerId applicationServerID;
 	private ApplicationServiceType applicationServiceType;

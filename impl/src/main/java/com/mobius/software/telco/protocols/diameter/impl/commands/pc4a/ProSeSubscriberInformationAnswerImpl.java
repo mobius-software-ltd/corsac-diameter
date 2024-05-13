@@ -11,6 +11,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeSubscriptionData;
@@ -210,7 +211,7 @@ public class ProSeSubscriberInformationAnswerImpl extends Pc4aAnswerImpl impleme
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

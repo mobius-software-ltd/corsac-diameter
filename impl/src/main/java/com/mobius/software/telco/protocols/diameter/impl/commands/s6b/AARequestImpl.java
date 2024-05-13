@@ -18,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.Serv
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.MaximumWaitTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.OriginationTimeStampImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -320,7 +321,7 @@ public class AARequestImpl extends S6bRequestImpl implements AARequest
       	
       	if(optionalAvps!=null)
       	{
-      		for(List<DiameterAvp> curr:optionalAvps.values())
+      		for(List<DiameterUnknownAvp> curr:optionalAvps.values())
       			result.addAll(curr);
       	}
     		 

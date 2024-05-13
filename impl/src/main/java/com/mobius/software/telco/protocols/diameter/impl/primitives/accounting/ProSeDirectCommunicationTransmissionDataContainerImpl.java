@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.AccountingOutputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.VisitedPLMNIdImpl;
@@ -44,7 +45,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class ProSeDirectCommunicationTransmissionDataContainerImpl implements ProSeDirectCommunicationTransmissionDataContainer
+public class ProSeDirectCommunicationTransmissionDataContainerImpl extends DiameterAvpImpl implements ProSeDirectCommunicationTransmissionDataContainer
 {
 	private LocalSequenceNumber localSequenceNumber;
 	private CoverageStatus coverageStatus;

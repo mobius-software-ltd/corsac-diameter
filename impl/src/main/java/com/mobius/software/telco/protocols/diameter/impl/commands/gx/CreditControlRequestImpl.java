@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gx.CreditControlRequest;
@@ -41,6 +42,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AccessAva
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerOperationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerUsageImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.DefaultAccessImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.HeNBLocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.IPCANTypeImpl;
@@ -69,6 +71,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.MaximumW
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6b.OriginationTimeStampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlag;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagExtension;
@@ -114,6 +117,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerUsageEnu
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleReport;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CoAInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultAccess;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultQoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
@@ -325,7 +329,7 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	
 	private NBIFOMMode nbifomMode;
 	
-	private IPCANType defaultAccess;
+	private DefaultAccess defaultAccess;
 	
 	private OriginationTimeStamp originationTimeStamp;
 	
@@ -360,7 +364,7 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	
 	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, 16777238L);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, Long.valueOf(ApplicationIDs.GX));
 		
 		setCcRequestType(ccRequestType);
 		
@@ -1450,7 +1454,7 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 		if(value==null)
 			this.defaultAccess = null;
 		else
-			this.defaultAccess = new IPCANTypeImpl(value, null, null);
+			this.defaultAccess = new DefaultAccessImpl(value, null, null);
 	}
 	
 	@Override
@@ -1822,7 +1826,7 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

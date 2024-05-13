@@ -24,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
  */
 
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceParameterInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ServiceParameterType;
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class ServiceParameterInfoImpl implements ServiceParameterInfo
+public class ServiceParameterInfoImpl extends DiameterAvpImpl implements ServiceParameterInfo
 {
 	private ServiceParameterType serviceParameterType;
 	

@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPDTInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.IMSInformation;
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGeneri
 * @author yulian oifa
 *
 */
-public class ServiceInformationImpl implements ServiceInformation
+public class ServiceInformationImpl extends DiameterAvpImpl implements ServiceInformation
 {
 	private List<SubscriptionId> subscriptionId;
 	private AoCInformation aocInformation;

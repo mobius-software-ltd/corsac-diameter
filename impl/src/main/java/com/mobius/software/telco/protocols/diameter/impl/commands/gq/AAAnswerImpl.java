@@ -11,6 +11,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.AuthorizationTokenImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.AuthorizationToken;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AccessNetworkChargingAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AccessNetworkChargingIdentifier;
@@ -134,7 +135,7 @@ public class AAAnswerImpl extends com.mobius.software.telco.protocols.diameter.i
 
         if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

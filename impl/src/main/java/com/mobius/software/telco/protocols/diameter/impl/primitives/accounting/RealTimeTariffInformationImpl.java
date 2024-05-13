@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RealTimeTariffInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TariffInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TariffXML;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Tariff
 * @author yulian oifa
 *
 */
-public class RealTimeTariffInformationImpl implements RealTimeTariffInformation
+public class RealTimeTariffInformationImpl extends DiameterAvpImpl implements RealTimeTariffInformation
 {
 	private TariffInformation tariffInformation;
 	private TariffXML tariffXML;

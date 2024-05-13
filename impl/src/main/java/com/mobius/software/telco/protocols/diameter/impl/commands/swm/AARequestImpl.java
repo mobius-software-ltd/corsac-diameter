@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.UELocalIPAddress;
@@ -154,7 +155,7 @@ public class AARequestImpl extends SwmRequestImpl implements AARequest
 		
 		if(optionalAvps!=null)
         {
-        	for(List<DiameterAvp> curr:optionalAvps.values())
+        	for(List<DiameterUnknownAvp> curr:optionalAvps.values())
         		result.addAll(curr);
         }
 		

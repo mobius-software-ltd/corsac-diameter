@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcUnitTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChargeReasonCode;
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Uni
 * @author yulian oifa
 *
 */
-public class RateElementImpl implements RateElement
+public class RateElementImpl extends DiameterAvpImpl implements RateElement
 {
 	private CcUnitType ccUnitType;
 	private ChargeReasonCode chargeReasonCode;

@@ -90,5 +90,5 @@ public class TCPFlagsImpl extends DiameterGroupedAvpImpl implements TCPFlags
 			return new MissingAvpException("TCP-Flag-Type is required is required", Arrays.asList(new DiameterAvp[] { new TCPFlagTypeImpl() }));
 		
 		return null;
-	}	
+	}
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AdditionalContentInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AdditionalTypeInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ContentSize;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TypeNu
 * @author yulian oifa
 *
 */
-public class AdditionalContentInformationImpl implements AdditionalContentInformation
+public class AdditionalContentInformationImpl extends DiameterAvpImpl implements AdditionalContentInformation
 {
 	private TypeNumber typeNumber;
 	private AdditionalTypeInformation additionalTypeInformation;

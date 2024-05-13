@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.SumBalanceInfo;
 
 /**
@@ -25,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class SumBalanceInfoImpl implements SumBalanceInfo
+public class SumBalanceInfoImpl extends DiameterGroupedAvpImpl implements SumBalanceInfo
 {
 
 	public SumBalanceInfoImpl()

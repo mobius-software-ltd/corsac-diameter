@@ -10,6 +10,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.ResetIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UserIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.ResetID;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UserId;
 
@@ -130,7 +131,7 @@ public class ResetRequestImpl extends Pc4aRequestImpl implements ResetRequest
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

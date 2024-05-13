@@ -8,6 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.t6a.ConfigurationIn
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfigStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventReport;
@@ -109,7 +110,7 @@ public class ConfigurationInformationAnswerImpl extends T6aAnswerImpl implements
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.IMInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.NumberOfMessagesSuccessfullyExploded;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.NumberOfMessagesSuccessfullySent;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.TotalNumberOf
 * @author yulian oifa
 *
 */
-public class IMInformationImpl implements IMInformation
+public class IMInformationImpl extends DiameterAvpImpl implements IMInformation
 {
 	private TotalNumberOfMessagesSent totalNumberOfMessagesSent;
 	private TotalNumberOfMessagesExploded totalNumberOfMessagesExploded;

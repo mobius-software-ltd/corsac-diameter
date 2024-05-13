@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s9atag;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.s9atag.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s9atag.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777320L;
+	public static final long APPLICATION_ID=ApplicationIDs.S9ATAG;
 	
 	private IDGenerator<?> idGenerator;
 	

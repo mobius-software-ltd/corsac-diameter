@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc6;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.pc6.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAlertRequest;
@@ -54,7 +55,7 @@ import io.netty.buffer.ByteBuf;
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777340L;
+	public static final long APPLICATION_ID=ApplicationIDs.PC6;
 	
 	private IDGenerator<?> idGenerator;
 	

@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ProSeSourceIPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ProSeUEID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TransmitterInfo;
@@ -31,7 +32,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class TransmitterInfoImpl implements TransmitterInfo
+public class TransmitterInfoImpl extends DiameterAvpImpl implements TransmitterInfo
 {
 	private ProSeSourceIPAddress proSeSourceIPAddress;
 	private ProSeUEID proSeUEID;

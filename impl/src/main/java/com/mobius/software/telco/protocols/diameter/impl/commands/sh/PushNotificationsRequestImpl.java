@@ -12,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UserDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserData;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
@@ -107,7 +108,7 @@ public class PushNotificationsRequestImpl extends ShRequestImpl implements PushN
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -78,5 +78,5 @@ public class PortRangeImpl extends DiameterGroupedAvpImpl implements PortRange
 			this.portEnd = null;
 		else
 			this.portEnd = new PortEndImpl(value, null, null);
-	}
+	}	
 }

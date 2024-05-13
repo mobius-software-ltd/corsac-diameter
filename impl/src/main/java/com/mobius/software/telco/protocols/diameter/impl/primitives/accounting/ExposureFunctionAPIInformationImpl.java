@@ -22,6 +22,7 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APIContent;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APIDirection;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APIDirectionEnum;
@@ -44,7 +45,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class ExposureFunctionAPIInformationImpl implements ExposureFunctionAPIInformation
+public class ExposureFunctionAPIInformationImpl extends DiameterAvpImpl implements ExposureFunctionAPIInformation
 {
 	private List<SupportedFeatures> supportedFeatures;
 	private APIContent apiContent;

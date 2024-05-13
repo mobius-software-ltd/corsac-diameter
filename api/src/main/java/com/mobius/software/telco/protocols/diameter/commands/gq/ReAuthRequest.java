@@ -61,7 +61,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.SpecificAction
 				*[ AVP ]
 
  */
-@DiameterCommandDefinition(applicationId = ApplicationIDs.GQ, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GQ, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	List<SpecificActionEnum> getSpecificAction();

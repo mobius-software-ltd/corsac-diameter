@@ -8,6 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.swx.PushProfileAnsw
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.LocalTimeZone;
 import com.mobius.software.telco.protocols.diameter.primitives.sta.AccessNetworkInfo;
@@ -98,7 +99,7 @@ public class PushProfileAnswerImpl extends SwxAnswerImpl implements PushProfileA
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

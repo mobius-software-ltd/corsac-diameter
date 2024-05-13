@@ -244,5 +244,5 @@ public class ClassifierImpl extends DiameterGroupedAvpImpl implements Classifier
 			return new MissingAvpException("Classifier-ID is required", Arrays.asList(new DiameterAvp[] { new ClassifierIDImpl() }));
 		
 		return null;
-	}
+	}	
 }

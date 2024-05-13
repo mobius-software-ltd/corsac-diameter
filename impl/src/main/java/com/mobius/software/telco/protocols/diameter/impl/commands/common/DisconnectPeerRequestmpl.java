@@ -12,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DisconnectCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 
@@ -100,7 +101,7 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPNumberAut
 */
 public class SIPNumberAuthItemsImpl extends DiameterUnsigned32Impl implements SIPNumberAuthItems
 {
-	protected SIPNumberAuthItemsImpl()
+	public SIPNumberAuthItemsImpl()
 	{
 		super();
 	}

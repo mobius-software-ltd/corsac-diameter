@@ -95,5 +95,5 @@ public class QoSProfileTemplateImpl extends DiameterGroupedAvpImpl implements Qo
 			return new MissingAvpException("QoS-Profile-Id is required is required", Arrays.asList(new DiameterAvp[] { new QoSProfileIdImpl() }));
 		
 		return null;
-	}
+	}	
 }

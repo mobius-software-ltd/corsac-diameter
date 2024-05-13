@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.s7a.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationRequest;
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubsc
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=8388642L;
+	public static final long APPLICATION_ID=ApplicationIDs.S7A;
 	
 	private IDGenerator<?> idGenerator;
 	

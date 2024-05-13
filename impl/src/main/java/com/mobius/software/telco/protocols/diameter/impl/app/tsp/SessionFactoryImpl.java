@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.tsp;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.tsp.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationRequest;
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777309L;
+	public static final long APPLICATION_ID=ApplicationIDs.TSP;
 	
 	private IDGenerator<?> idGenerator;
 	

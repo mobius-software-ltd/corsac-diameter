@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ApplicationProvidedCalledPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ApplicationServer;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ApplicationServerInformation;
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Status
 * @author yulian oifa
 *
 */
-public class ApplicationServerInformationImpl implements ApplicationServerInformation
+public class ApplicationServerInformationImpl extends DiameterAvpImpl implements ApplicationServerInformation
 {
 	private ApplicationServer applicationServer;
 	private List<ApplicationProvidedCalledPartyAddress> applicationProvidedCalledPartyAddress;

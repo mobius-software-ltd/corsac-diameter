@@ -24,6 +24,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.TCPSourcePortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UDPSourcePortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIPAddressImpl;
@@ -46,7 +47,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class UWANUserLocationInfoImpl implements UWANUserLocationInfo
+public class UWANUserLocationInfoImpl extends DiameterAvpImpl implements UWANUserLocationInfo
 {
 	private UELocalIPAddress ueLocalIPAddress;
 	private UDPSourcePort udpSourcePort;

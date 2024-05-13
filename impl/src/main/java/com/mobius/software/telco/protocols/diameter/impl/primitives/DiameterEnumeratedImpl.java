@@ -31,7 +31,7 @@ public class DiameterEnumeratedImpl<T extends Enum<T> & IntegerEnum> extends Dia
 	private T value;
 	
 	//required for parser
-	protected DiameterEnumeratedImpl() 
+	public DiameterEnumeratedImpl() 
 	{
 		super();
 	}

@@ -12,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.Validity
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeCommunicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ValidityTimeMonitorImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.AuthorizedDiscoveryRange;
 import com.mobius.software.telco.protocols.diameter.primitives.pc4a.ProSeDirectAllowed;
@@ -179,7 +180,7 @@ public class ProSeAuthorizationAnswerImpl extends Pc6AnswerImpl implements ProSe
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

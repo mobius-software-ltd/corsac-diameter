@@ -25,6 +25,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.BMSCAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.BMSCPort;
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.mb2c.LocalMB2UInf
 * @author yulian oifa
 *
 */
-public class LocalMB2UInformationImpl implements LocalMB2UInformation
+public class LocalMB2UInformationImpl extends DiameterAvpImpl implements LocalMB2UInformation
 {
 	private List<BMSCAddress> bmscAddress;
 	

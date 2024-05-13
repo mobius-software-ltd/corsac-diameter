@@ -22,6 +22,7 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.OriginAppLayerUserIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeFunctionIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.TargetAppLayerUserIdImpl;
@@ -96,7 +97,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class ProSeInformationImpl implements ProSeInformation
+public class ProSeInformationImpl extends DiameterAvpImpl implements ProSeInformation
 {
 	private List<SupportedFeatures> supportedFeatures;
  	private AnnouncingUEHPLMNIdentifier announcingUEHPLMNIdentifier;

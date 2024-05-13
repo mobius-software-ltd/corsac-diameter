@@ -12,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AbortCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCause;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum;
 
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum
 */
 public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestmpl implements AbortSessionRequest
 {
-	private AbortCause abortCause;
+	protected AbortCause abortCause;
 	
 	protected AbortSessionRequestImpl() 
 	{
@@ -105,7 +106,7 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

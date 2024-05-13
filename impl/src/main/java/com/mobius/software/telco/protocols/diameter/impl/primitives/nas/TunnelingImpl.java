@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelAssignmentId;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelClientAuthId;
@@ -45,7 +46,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class TunnelingImpl implements Tunneling
+public class TunnelingImpl extends DiameterAvpImpl implements Tunneling
 {
 	private TunnelType tunnelType;
 	

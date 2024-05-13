@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AbsentUserDiagnosticSM;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryCause;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryCauseEnum;
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSF3GPPSMDel
 * @author yulian oifa
 *
 */
-public class SMSF3GPPSMDeliveryOutcomeImpl implements SMSF3GPPSMDeliveryOutcome
+public class SMSF3GPPSMDeliveryOutcomeImpl extends DiameterAvpImpl implements SMSF3GPPSMDeliveryOutcome
 {
 	private SMDeliveryCause smDeliveryCause;
 	

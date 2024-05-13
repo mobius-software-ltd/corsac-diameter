@@ -184,5 +184,5 @@ public class MediaSubComponentImpl extends DiameterGroupedAvpImpl implements Med
 			return new MissingAvpException("Flow-Number is required", Arrays.asList(new DiameterAvp[] { new FlowNumberImpl() }));
 		
 		return null;
-	}	
+	}
 }

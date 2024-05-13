@@ -24,6 +24,7 @@ import java.util.Date;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.TariffTimeChangeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CurrentTariff;
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Tar
 * @author yulian oifa
 *
 */
-public class TariffInformationImpl implements TariffInformation
+public class TariffInformationImpl extends DiameterAvpImpl implements TariffInformation
 {
 	private CurrentTariff currentTariff;
 	private TariffTimeChange tariffTimeChange;

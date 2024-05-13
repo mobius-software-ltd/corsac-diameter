@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gi;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.gi.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AARequest;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AccountingRequest;
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=1L;
+	public static final long APPLICATION_ID=ApplicationIDs.NASREQ;
 	
 	private IDGenerator<?> idGenerator;
 	

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AddressData;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AddressDomain;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AddressType;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Recipi
 * @author yulian oifa
 *
 */
-public class RecipientReceivedAddressImpl implements RecipientReceivedAddress
+public class RecipientReceivedAddressImpl extends DiameterAvpImpl implements RecipientReceivedAddress
 {
 	private AddressType addressType;
 	private AddressData addressData;

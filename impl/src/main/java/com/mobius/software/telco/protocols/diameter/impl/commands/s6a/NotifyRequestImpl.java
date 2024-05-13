@@ -16,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.Homogene
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UESRVCCCapabilityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MaximumUEAvailabilityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.VisitedNetworkIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6AgentInfo;
@@ -331,7 +332,7 @@ public class NotifyRequestImpl extends S6aRequestImpl implements NotifyRequest
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

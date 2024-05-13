@@ -11,6 +11,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.CalledSt
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RUCIActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.ReportingRestrictionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.CalledStationId;
@@ -190,7 +191,7 @@ public class ModifyUeContextRequestImpl extends NpRequestImpl implements ModifyU
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

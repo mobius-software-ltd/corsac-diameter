@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMSIMCCMNCImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AddressDomain;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DomainName;
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPIMSIMCCMNC
 * @author yulian oifa
 *
 */
-public class AddressDomainImpl implements AddressDomain
+public class AddressDomainImpl extends DiameterAvpImpl implements AddressDomain
 {
 	private DomainName domainName;
 	private TGPPIMSIMCCMNC tgppIMSIMCCMNC;

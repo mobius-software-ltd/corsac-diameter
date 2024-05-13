@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPRATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
@@ -59,7 +60,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class TrafficDataVolumesImpl implements TrafficDataVolumes
+public class TrafficDataVolumesImpl extends DiameterAvpImpl implements TrafficDataVolumes
 {
     private QoSInformation qosInformation;
 	private AccountingInputOctets accountingInputOctets;

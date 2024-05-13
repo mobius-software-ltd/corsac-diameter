@@ -13,9 +13,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.GroupReportingGuardTimerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
-import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AESECommunicationPattern;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.AdditionalIdentifiers;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.CIRFlags;
@@ -23,6 +23,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.EnhancedCover
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportingGuardTimer;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringEventConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SuggestedNetworkConfiguration;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.UserIdentifier;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -248,7 +249,7 @@ public class ConfigurationInformationRequestImpl extends S6tRequestImpl implemen
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

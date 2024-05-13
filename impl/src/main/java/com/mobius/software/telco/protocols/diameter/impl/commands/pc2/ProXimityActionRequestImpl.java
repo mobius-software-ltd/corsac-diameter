@@ -16,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.ProSeApp
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingEPUIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.TargetRPAUIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.AllowedSuffixesNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ApplicationData;
@@ -260,7 +261,7 @@ public class ProXimityActionRequestImpl extends Pc2RequestImpl implements ProXim
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

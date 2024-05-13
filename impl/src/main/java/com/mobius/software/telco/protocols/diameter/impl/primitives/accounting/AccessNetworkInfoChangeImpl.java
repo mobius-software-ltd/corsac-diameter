@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInfoChange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CellularNetworkInformation;
@@ -34,7 +35,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AccessNetworkInfoChangeImpl implements AccessNetworkInfoChange
+public class AccessNetworkInfoChangeImpl extends DiameterAvpImpl implements AccessNetworkInfoChange
 {
 	private List<AccessNetworkInformation> accessNetworkInformation;
 	private CellularNetworkInformation cellularNetworkInformation;

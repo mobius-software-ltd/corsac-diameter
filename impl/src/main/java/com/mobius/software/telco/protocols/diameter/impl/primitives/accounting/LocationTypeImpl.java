@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DeferredLocationEventType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LocationEstimateType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LocationEstimateTypeEnum;
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Locati
 * @author yulian oifa
 *
 */
-public class LocationTypeImpl implements LocationType
+public class LocationTypeImpl extends DiameterAvpImpl implements LocationType
 {
 	private LocationEstimateType locationEstimateType;
 	private DeferredLocationEventType deferredLocationEventType;

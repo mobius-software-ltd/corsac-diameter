@@ -13,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddr
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.LMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.PPRAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.MSISDN;
 import com.mobius.software.telco.protocols.diameter.primitives.slh.AdditionalServingNode;
@@ -214,7 +215,7 @@ public class LCSRoutingInfoAnswerImpl extends SlhAnswerImpl implements LCSRoutin
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

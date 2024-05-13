@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.Trigger;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TriggerType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TriggerTypeEnum;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Trigge
 * @author yulian oifa
 *
 */
-public class TriggerImpl implements Trigger
+public class TriggerImpl extends DiameterAvpImpl implements Trigger
 {
 	private List<TriggerType> triggerType;
 	

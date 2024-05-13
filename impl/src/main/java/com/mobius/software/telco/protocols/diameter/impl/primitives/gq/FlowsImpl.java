@@ -25,6 +25,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.FlowNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MediaComponentNumberImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.MediaComponent
 * @author yulian oifa
 *
 */
-public class FlowsImpl implements Flows
+public class FlowsImpl extends DiameterAvpImpl implements Flows
 {
 	private MediaComponentNumber mediaComponentNumber;
 	

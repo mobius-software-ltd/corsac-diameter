@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.NextBillDate;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.POSAccountNotify;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.POSMaxCredit;
@@ -31,7 +32,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class POSAccountNotifyImpl implements POSAccountNotify
+public class POSAccountNotifyImpl extends DiameterAvpImpl implements POSAccountNotify
 {
 	private POSNotifyMode posNotifyMode;
 	

@@ -24,6 +24,7 @@ import java.util.Date;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CurrencyCodeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CurrencyCode;
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class BalanceInfoImpl implements BalanceInfo 
+public class BalanceInfoImpl extends DiameterAvpImpl implements BalanceInfo 
 {
 	private PaymentType paymentType;
 	

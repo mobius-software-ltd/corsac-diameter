@@ -13,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.DiscoveryAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.DiscoveryEntryIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.DiscoveryAuthRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.DiscoveryEntryID;
@@ -123,7 +124,7 @@ public class ProSeDiscoveryRequestImpl extends Pc6RequestImpl implements ProSeDi
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

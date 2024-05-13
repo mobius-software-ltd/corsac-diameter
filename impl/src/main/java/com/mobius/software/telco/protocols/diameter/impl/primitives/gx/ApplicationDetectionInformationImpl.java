@@ -103,5 +103,5 @@ public class ApplicationDetectionInformationImpl extends DiameterGroupedAvpImpl 
 			return new MissingAvpException("TDF-Application-Identifier is required", Arrays.asList(new DiameterAvp[] { new TDFApplicationIdentifierImpl() }));
 		
 		return null;
-	}		  
+	}
 }

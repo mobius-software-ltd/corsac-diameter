@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.AccountingInputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.AccountingOutputOctetsImpl;
@@ -38,7 +39,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class RANSecondaryRATUsageReportImpl implements RANSecondaryRATUsageReport
+public class RANSecondaryRATUsageReportImpl extends DiameterAvpImpl implements RANSecondaryRATUsageReport
 {
 	private SecondaryRATType secondaryRATType;
 	private RANStartTimestamp ranStartTimestamp;

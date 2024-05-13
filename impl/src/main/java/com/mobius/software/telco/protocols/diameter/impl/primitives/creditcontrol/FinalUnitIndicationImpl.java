@@ -25,6 +25,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FilterIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitAction;
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FilterId;
 * @author yulian oifa
 *
 */
-public class FinalUnitIndicationImpl implements FinalUnitIndication
+public class FinalUnitIndicationImpl extends DiameterAvpImpl implements FinalUnitIndication
 {
 	private FinalUnitAction finalUnitAction;
 	

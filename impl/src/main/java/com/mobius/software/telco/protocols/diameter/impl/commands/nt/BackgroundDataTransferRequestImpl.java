@@ -20,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.TransferP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nt.TransferRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.ApplicationServiceProviderIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcInputOctets;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcOutputOctets;
@@ -324,7 +325,7 @@ public class BackgroundDataTransferRequestImpl extends NtRequestImpl implements 
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

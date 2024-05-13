@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.np;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.np.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportRequest;
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777342L;
+	public static final long APPLICATION_ID=ApplicationIDs.NP;
 	
 	private IDGenerator<?> idGenerator;
 	

@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.PortNumber;
@@ -36,7 +37,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class V6TransportAddressImpl implements V6TransportAddress
+public class V6TransportAddressImpl extends DiameterAvpImpl implements V6TransportAddress
 {
 	private FramedIPv6Prefix framedIPv6Prefix;
 	

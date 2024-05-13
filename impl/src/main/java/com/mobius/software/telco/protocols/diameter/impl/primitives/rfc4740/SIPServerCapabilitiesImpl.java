@@ -115,5 +115,5 @@ public class SIPServerCapabilitiesImpl extends DiameterGroupedAvpImpl implements
 			for(String curr: value)
 				this.sipServerURI.add(new SIPServerURIImpl(curr, null, null));
 		}
-	}
+	}	
 }

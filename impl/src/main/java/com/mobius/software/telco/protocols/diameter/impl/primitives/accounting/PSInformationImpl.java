@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingCharacteristicsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPGGSNMCCMNCImpl;
@@ -145,7 +146,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class PSInformationImpl implements PSInformation
+public class PSInformationImpl extends DiameterAvpImpl implements PSInformation
 {
 	private List<SupportedFeatures> supportedFeatures;
  	private TGPPChargingId tgppChargingId;

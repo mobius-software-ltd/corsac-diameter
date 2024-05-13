@@ -112,5 +112,5 @@ public class TCPOptionImpl extends DiameterGroupedAvpImpl implements TCPOption
 			return new MissingAvpException("TCP-Option-Type is required is required", Arrays.asList(new DiameterAvp[] { new TCPOptionTypeImpl() }));
 		
 		return null;
-	}		
+	}
 }

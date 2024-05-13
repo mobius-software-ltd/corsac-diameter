@@ -106,7 +106,7 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setIPAddressRange(List<IPAddressRange> value)
 	{
-		
+		this.ipAddressRange = value;
 	}
 	
 	public List<IPAddressMask> getIPAddressMask()
@@ -116,7 +116,7 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setIPAddressMask(List<IPAddressMask> value)
 	{
-		
+		this.ipAddressMask = value;
 	}
 	
 	public List<ByteBuf> getMACAddress()
@@ -133,7 +133,14 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setMACAddress(List<ByteBuf> value)
 	{
-		
+		if(value==null || value.size()==0)
+			this.macAddress = null;
+		else
+		{
+			this.macAddress = new ArrayList<MACAddress>();
+			for(ByteBuf curr:value)
+				this.macAddress.add(new MACAddressImpl(curr, null, null));
+		}
 	}
 	
 	public List<MACAddressMask> getMACAddressMask()
@@ -143,7 +150,7 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setMACAddressMask(List<MACAddressMask> value)
 	{
-		
+		this.macAddressMask = value;
 	}
 	
 	public List<ByteBuf> getEUI64Address()
@@ -160,7 +167,14 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setEUI64Address(List<ByteBuf> value)
 	{
-		
+		if(value==null || value.size()==0)
+			this.eui64Address = null;
+		else
+		{
+			this.eui64Address = new ArrayList<EUI64Address>();
+			for(ByteBuf curr:value)
+				this.eui64Address.add(new EUI64AddressImpl(curr, null, null));
+		}
 	}
 	
 	public List<EUI64AddressMask> getEUI64AddressMask()
@@ -170,7 +184,7 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setEUI64AddressMask(List<EUI64AddressMask> value)
 	{
-		
+		this.eui64AddressMask = value;
 	}
 	
 	public List<Integer> getPort()
@@ -187,7 +201,14 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setPort(List<Integer> value)
 	{
-		
+		if(value==null || value.size()==0)
+			this.port = null;
+		else
+		{
+			this.port = new ArrayList<Port>();
+			for(Integer curr:value)
+				this.port.add(new PortImpl(curr, null, null));
+		}
 	}
 
 	public List<PortRange> getPortRange()
@@ -197,7 +218,7 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setPortRange(List<PortRange> value)
 	{
-		
+		this.portRange = value;
 	}
 	
 	public NegatedEnum getNegated()
@@ -210,7 +231,10 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setNegated(NegatedEnum value)
 	{
-		
+		if(value == null)
+			this.negated = null;
+		else
+			this.negated = new NegatedImpl(value, null, null);			
 	}
 	
 	public UseAssignedAddressEnum getUseAssignedAddress()
@@ -220,6 +244,9 @@ public class FromSpecImpl extends DiameterGroupedAvpImpl implements FromSpec
 	
 	public void setUseAssignedAddress(UseAssignedAddressEnum value)
 	{
-		
+		if(value == null)
+			this.useAssignedAddress = null;
+		else
+			this.useAssignedAddress = new UseAssignedAddressImpl(value, null, null);			
 	}
 }

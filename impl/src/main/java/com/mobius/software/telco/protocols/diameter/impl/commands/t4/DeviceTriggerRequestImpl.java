@@ -20,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.PayloadI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.PriorityIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ValidityTime;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AdditionalServingNode;
@@ -330,7 +331,7 @@ public class DeviceTriggerRequestImpl extends T4RequestImpl implements DeviceTri
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

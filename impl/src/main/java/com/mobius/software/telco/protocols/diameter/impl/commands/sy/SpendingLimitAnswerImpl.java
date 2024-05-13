@@ -8,6 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitAns
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
@@ -129,7 +130,7 @@ public class SpendingLimitAnswerImpl extends SyAnswerImpl implements SpendingLim
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

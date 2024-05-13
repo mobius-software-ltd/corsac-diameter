@@ -36,6 +36,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPM
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.MIPTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
@@ -646,7 +647,7 @@ public class MIP6RequestImpl extends com.mobius.software.telco.protocols.diamete
 		
 		if(optionalAvps!=null)
         {
-        	for(List<DiameterAvp> curr:optionalAvps.values())
+        	for(List<DiameterUnknownAvp> curr:optionalAvps.values())
         		result.addAll(curr);
         }
 		

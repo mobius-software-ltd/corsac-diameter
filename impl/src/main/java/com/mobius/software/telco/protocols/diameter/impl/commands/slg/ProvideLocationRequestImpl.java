@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.Supporte
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slg.VelocityRequestedImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.GMLCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -551,7 +552,7 @@ public class ProvideLocationRequestImpl extends SlgRequestImpl implements Provid
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

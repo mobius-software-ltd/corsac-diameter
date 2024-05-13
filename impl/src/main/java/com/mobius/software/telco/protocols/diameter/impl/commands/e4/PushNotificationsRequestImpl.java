@@ -13,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.IPConnect
 import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.InitialGateSettingIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.e4.QoSProfileIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PhysicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -232,7 +233,7 @@ public class PushNotificationsRequestImpl extends E4RequestImpl implements PushN
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.primitives;
 
 import java.util.List;
 import java.util.Map;
+
+import io.netty.buffer.ByteBuf;
 /**
 *
 * @author yulian oifa
@@ -27,11 +29,14 @@ import java.util.Map;
 */
 public interface DiameterGroupedAvp extends DiameterAvp 
 {
-	Map<DiameterAvpKey,List<DiameterAvp>> getOptionalAvps();
+	Map<DiameterAvpKey,List<DiameterUnknownAvp>> getOptionalAvps();
 	
-	List<DiameterAvp> getOptionalAvps(DiameterAvpKey avpKey);
+	List<DiameterUnknownAvp> getOptionalAvps(DiameterAvpKey avpKey);
 	
-	void addOptionalAvp(DiameterAvpKey avpKey,DiameterAvp avp);
+	void addOptionalAvp(DiameterAvpKey avpKey,DiameterUnknownAvp avp);
 	
-	void setOptionalAvps(Map<DiameterAvpKey,List<DiameterAvp>> avps);
+	//add unparsed AVP when parsing
+	void addOptionalAvp(DiameterAvpKey avpKey,ByteBuf avpData, Boolean isProtected);
+	
+	void setOptionalAvps(Map<DiameterAvpKey,List<DiameterUnknownAvp>> avps);
 }

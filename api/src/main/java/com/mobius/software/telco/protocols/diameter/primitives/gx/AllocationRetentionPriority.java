@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
  * 	7.3.40	Allocation-Retention-Priority
-	The Allocation-Retention-Priorit AVP is of typeGrouped and is defined in 3GPP TS 29.212 [10]. It shall indicate the Priority of Allocation and Retention for the corresponding APN configuration.
+	The Allocation-Retention-Priorit AVP is of type Grouped and is defined in 3GPP TS 29.212 [10]. It shall indicate the Priority of Allocation and Retention for the corresponding APN configuration.
 	AVP format
  	
  	Allocation-Retention-Priority ::= <AVP header: 1034 10415>

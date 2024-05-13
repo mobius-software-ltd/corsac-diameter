@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSAPN;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientDialedByMS;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientExternalID;
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSReq
 * @author yulian oifa
 *
 */
-public class LCSClientIDImpl implements LCSClientID
+public class LCSClientIDImpl extends DiameterAvpImpl implements LCSClientID
 {
 	private LCSClientType lcsClientType;
 	private LCSClientExternalID lcsClientExternalID;

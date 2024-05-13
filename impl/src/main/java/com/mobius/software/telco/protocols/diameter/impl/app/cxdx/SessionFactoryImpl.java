@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.cxdx;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoRequest;
@@ -47,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserDataAlre
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777216L;
+	public static final long APPLICATION_ID=ApplicationIDs.CX_DX;
 	
 	private IDGenerator<?> idGenerator;
 	

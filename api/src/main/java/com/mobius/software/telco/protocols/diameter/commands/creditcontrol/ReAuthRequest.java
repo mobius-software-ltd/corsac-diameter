@@ -31,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 
 /*
  */
-@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	Long getCCSubSessionId() throws AvpNotSupportedException;

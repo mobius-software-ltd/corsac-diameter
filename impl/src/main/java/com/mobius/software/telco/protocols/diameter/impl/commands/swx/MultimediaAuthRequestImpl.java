@@ -19,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTruste
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.SIPAuthDataItemImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.VisitedNetworkIdentifier;
@@ -291,7 +292,7 @@ public class MultimediaAuthRequestImpl extends SwxRequestImpl implements Multime
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}				
 		

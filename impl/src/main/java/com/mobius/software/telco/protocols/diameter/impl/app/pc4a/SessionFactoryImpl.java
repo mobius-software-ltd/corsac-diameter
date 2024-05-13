@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc4a;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.pc4a.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeInitialLocationInformationRequest;
@@ -41,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777336L;
+	public static final long APPLICATION_ID=ApplicationIDs.PC4A;
 	
 	private IDGenerator<?> idGenerator;
 	

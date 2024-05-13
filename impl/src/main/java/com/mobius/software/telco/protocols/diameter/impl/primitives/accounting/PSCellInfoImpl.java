@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NrCgi;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PSCellInfo;
 
@@ -26,7 +27,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.PSCell
 * @author yulian oifa
 *
 */
-public class PSCellInfoImpl implements PSCellInfo
+public class PSCellInfoImpl extends DiameterAvpImpl implements PSCellInfo
 {
 	private NrCgi nrCgi;
 	

@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ResultCodeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
@@ -64,7 +65,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class TgppMultipleServicesCreditControlImpl implements TGPPMultipleServicesCreditControl
+public class TgppMultipleServicesCreditControlImpl extends DiameterAvpImpl implements TGPPMultipleServicesCreditControl
 {
 	private GrantedServiceUnit grantedServiceUnit;
 	

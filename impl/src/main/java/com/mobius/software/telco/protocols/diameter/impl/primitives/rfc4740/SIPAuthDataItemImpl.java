@@ -129,5 +129,5 @@ public class SIPAuthDataItemImpl extends DiameterGroupedAvpImpl implements SIPAu
 			return new MissingAvpException("SIP-Authentication-Scheme is required is required", Arrays.asList(new DiameterAvp[] { new SIPAuthenticationSchemeImpl() }));
 		
 		return null;
-	}	
+	}
 }

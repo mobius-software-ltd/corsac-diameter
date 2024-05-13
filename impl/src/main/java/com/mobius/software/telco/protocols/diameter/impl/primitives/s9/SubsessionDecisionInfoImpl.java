@@ -33,6 +33,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Exper
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ResultCodeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.ANGWAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerControlModeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.DefaultAccessImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.IPCANTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.NBIFOMModeImpl;
@@ -52,6 +53,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerControlM
 import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerControlModeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleRemove;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultAccess;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTrigger;
@@ -123,7 +125,7 @@ public class SubsessionDecisionInfoImpl extends DiameterGroupedAvpImpl implement
 	
 	private RevalidationTime revalidationTime;
 	
-	private IPCANType defaultAccess;
+	private DefaultAccess defaultAccess;
 	
 	private NBIFOMMode nbifomMode;
 	
@@ -438,7 +440,7 @@ public class SubsessionDecisionInfoImpl extends DiameterGroupedAvpImpl implement
 		if(value==null)
 			this.defaultAccess = null;
 		else
-			this.defaultAccess = new IPCANTypeImpl(value, null, null);
+			this.defaultAccess = new DefaultAccessImpl(value, null, null);
 	}
 	
 	@Override

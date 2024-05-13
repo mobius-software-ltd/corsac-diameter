@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AssociatedPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CUGInformation;
@@ -42,7 +43,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class SupplementaryServiceImpl implements SupplementaryService
+public class SupplementaryServiceImpl extends DiameterAvpImpl implements SupplementaryService
 {
 	private MMTelSServiceType mmtelSServiceType;
 	private ServiceMode serviceMode;

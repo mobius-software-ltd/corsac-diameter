@@ -19,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerControlModeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerUsageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.CSGInformationReportingImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.DefaultAccessImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.IPCANTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.NBIFOMModeImpl;
@@ -31,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.Revalidat
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.SessionReleaseCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -48,6 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.CSGInformation
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleInstall;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleRemove;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ConditionalPolicyInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultAccess;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultQoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
@@ -163,7 +166,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 	
 	private NBIFOMMode nbifomMode;
 	
-	private IPCANType defaultAccess;
+	private DefaultAccess defaultAccess;
 	
 	private RANRuleSupport ranRuleSupport;
 	
@@ -656,7 +659,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 		if(value==null)
 			this.defaultAccess = null;
 		else
-			this.defaultAccess = new IPCANTypeImpl(value, null, null);
+			this.defaultAccess = new DefaultAccessImpl(value, null, null);
 	}
 	
 	@Override
@@ -894,7 +897,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

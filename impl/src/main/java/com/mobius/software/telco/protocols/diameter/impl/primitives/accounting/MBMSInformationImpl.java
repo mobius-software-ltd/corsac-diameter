@@ -22,6 +22,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.CNIPMulticastDistributionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMS2G3GIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gmb.MBMSServiceAreaImpl;
@@ -63,7 +64,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class MBMSInformationImpl implements MBMSInformation
+public class MBMSInformationImpl extends DiameterAvpImpl implements MBMSInformation
 {
 	private TMGI tmgi;
 	private MBMSServiceType mbmsServiceType;

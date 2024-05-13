@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SCSASAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SCSAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SCSRealm;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SCSRea
 * @author yulian oifa
 *
 */
-public class SCSASAddressImpl implements SCSASAddress
+public class SCSASAddressImpl extends DiameterAvpImpl implements SCSASAddress
 {
 	private SCSRealm scsRealm;
 	private SCSAddress scsAddress;

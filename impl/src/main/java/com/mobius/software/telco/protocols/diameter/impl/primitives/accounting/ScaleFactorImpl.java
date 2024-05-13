@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ExponentImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValueDigitsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Val
 * @author yulian oifa
 *
 */
-public class ScaleFactorImpl implements ScaleFactor
+public class ScaleFactorImpl extends DiameterAvpImpl implements ScaleFactor
 {
 	private ValueDigits valueDigits;
 	private Exponent exponent;

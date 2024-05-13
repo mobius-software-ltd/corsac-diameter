@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.eap;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.eap.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -31,7 +32,7 @@ import io.netty.buffer.ByteBuf;
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=5L;
+	public static final long APPLICATION_ID=ApplicationIDs.EAP;
 	
 	private IDGenerator<?> idGenerator;
 	

@@ -30,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 
 /*
  */
-@DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.ABORT_SESSION, request = false, proxyable = true, name="Abort-Session-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.ABORT_SESSION, request = true, proxyable = true, name="Abort-Session-Request")
 public interface AbortSessionRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest
 {
 		

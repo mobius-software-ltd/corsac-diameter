@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LCSFormatIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LCSNameStringImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSFormatIndicator;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.LCSEPSClientN
 * @author yulian oifa
 *
 */
-public class LCSEPSClientNameImpl implements LCSEPSClientName
+public class LCSEPSClientNameImpl extends DiameterAvpImpl implements LCSEPSClientName
 {
 	private LCSNameString lcsNameString;
 	

@@ -341,5 +341,5 @@ public class SIPAuthorizationImpl extends DiameterGroupedAvpImpl implements SIPA
 			return new MissingAvpException("Digest-Response is required is required", Arrays.asList(new DiameterAvp[] { new DigestResponseImpl() }));
 		
 		return null;
-	}	
+	}		
 }

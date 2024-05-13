@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ContentDisposition;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ContentLength;
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Origin
 * @author yulian oifa
 *
 */
-public class MessageBodyImpl implements MessageBody
+public class MessageBodyImpl extends DiameterAvpImpl implements MessageBody
 {
 	private ContentType contentType;
 	private ContentLength contentLength;

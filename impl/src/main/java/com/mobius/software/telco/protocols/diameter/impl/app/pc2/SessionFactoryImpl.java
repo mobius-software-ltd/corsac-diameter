@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc2;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.pc2.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationRequest;
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestT
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777350L;
+	public static final long APPLICATION_ID=ApplicationIDs.PC2;
 	
 	private IDGenerator<?> idGenerator;
 	

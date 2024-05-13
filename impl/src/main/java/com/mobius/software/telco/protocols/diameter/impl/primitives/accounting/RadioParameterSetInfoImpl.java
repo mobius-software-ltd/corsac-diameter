@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChangeTime;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RadioParameterSetInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RadioParameterSetValues;
@@ -31,7 +32,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class RadioParameterSetInfoImpl implements RadioParameterSetInfo
+public class RadioParameterSetInfoImpl extends DiameterAvpImpl implements RadioParameterSetInfo
 {
 	private RadioParameterSetValues radioParameterSetValues;
 	private ChangeTime changeTime;

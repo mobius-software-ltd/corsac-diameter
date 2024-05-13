@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AccountBalanceChange;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AccountChangeInfo;
@@ -40,7 +41,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AccountChangeInfoImpl implements AccountChangeInfo 
+public class AccountChangeInfoImpl extends DiameterAvpImpl implements AccountChangeInfo 
 {
 	private AccountID accountID;
 	

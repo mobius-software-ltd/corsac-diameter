@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPCause;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPGroup;
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.NGAPValue;
 * @author yulian oifa
 *
 */
-public class NGAPCauseImpl implements NGAPCause
+public class NGAPCauseImpl extends DiameterAvpImpl implements NGAPCause
 {
 	private NGAPGroup ngapGroup;
 	

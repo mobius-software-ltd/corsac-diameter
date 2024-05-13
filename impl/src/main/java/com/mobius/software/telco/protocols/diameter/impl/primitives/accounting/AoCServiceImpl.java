@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCService;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCServiceObligatoryType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCServiceObligatoryTypeEnum;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCSer
 * @author yulian oifa
 *
 */
-public class AoCServiceImpl implements AoCService
+public class AoCServiceImpl extends DiameterAvpImpl implements AoCService
 {
 	private AoCServiceObligatoryType aocServiceObligatoryType;
 	private AoCServiceType aocServiceType;

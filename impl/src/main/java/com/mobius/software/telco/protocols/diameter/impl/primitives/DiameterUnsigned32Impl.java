@@ -42,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class DiameterUnsigned32Impl implements DiameterUnsigned32
+public class DiameterUnsigned32Impl extends DiameterAvpImpl implements DiameterUnsigned32
 {
 	private Long value;
 	private Long minValue;
 	private Long maxValue;
 	
 	//required for parser
-	protected DiameterUnsigned32Impl() 
+	public DiameterUnsigned32Impl() 
 	{
 		
 	}

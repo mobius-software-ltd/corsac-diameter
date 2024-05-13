@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.e4;
 
 import java.net.Inet4Address;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AddressRealm;
@@ -34,7 +35,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class GloballyUniqueAddressImpl implements GloballyUniqueAddress
+public class GloballyUniqueAddressImpl extends DiameterAvpImpl implements GloballyUniqueAddress
 {
 	private FramedIPAddress frameIPAddress;
 	

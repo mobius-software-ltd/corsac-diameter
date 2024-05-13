@@ -95,6 +95,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.ServiceT
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4818.DelegatedIPv6PrefixImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
@@ -2122,7 +2123,7 @@ public class AccountingRequestImpl extends com.mobius.software.telco.protocols.d
       	result.add(tgppUESourcePort);
       	if(optionalAvps!=null)
       	{
-      		for(List<DiameterAvp> curr:optionalAvps.values())
+      		for(List<DiameterUnknownAvp> curr:optionalAvps.values())
       			result.addAll(curr);
       	}
     		 

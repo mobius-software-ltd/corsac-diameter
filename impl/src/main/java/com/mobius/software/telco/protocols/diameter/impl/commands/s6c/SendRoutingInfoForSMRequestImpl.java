@@ -13,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMRPSMEA
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryNotIntended;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryNotIntendedEnum;
@@ -217,7 +218,7 @@ public class SendRoutingInfoForSMRequestImpl extends S6cRequestImpl implements S
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

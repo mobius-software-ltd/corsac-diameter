@@ -16,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Faile
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ResultCodeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorMessage;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorReportingHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
@@ -88,6 +89,18 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	@Override
 	public Boolean getIsError() 
 	{
+		if(isError==null && resultCode!=null)
+		{
+			try
+			{
+				setResultCode(getResultCode());
+			}
+			catch(MissingAvpException ex)
+			{
+				
+			}
+		}
+		
 		return isError;
 	}
 	
@@ -115,7 +128,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public Map<DiameterAvpKey, List<DiameterAvp>> getOptionalAvps() 
+	public Map<DiameterAvpKey, List<DiameterUnknownAvp>> getOptionalAvps() 
 	{
 		return optionalAvps;
 	}
@@ -163,7 +176,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 
 	@Override
-	public Map<DiameterAvpKey,List<DiameterAvp>> getFailedAvp()
+	public Map<DiameterAvpKey,List<DiameterUnknownAvp>> getFailedAvp()
 	{
 		if(failedAvp==null)
 			return null;
@@ -172,7 +185,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void setFailedAvp(Map<DiameterAvpKey,List<DiameterAvp>> failedAvp)
+	public void setFailedAvp(Map<DiameterAvpKey,List<DiameterUnknownAvp>> failedAvp)
 	{
 		if(this.failedAvp==null)
 			this.failedAvp = new FailedAvpImpl();
@@ -181,7 +194,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void addFailedAvp(DiameterAvpKey avpKey, DiameterAvp failedAvp)
+	public void addFailedAvp(DiameterAvpKey avpKey, DiameterUnknownAvp failedAvp)
 	{
 		if(this.failedAvp==null)
 			this.failedAvp = new FailedAvpImpl();

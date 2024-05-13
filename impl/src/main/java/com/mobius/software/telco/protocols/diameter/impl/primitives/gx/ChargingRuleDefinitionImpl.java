@@ -640,5 +640,5 @@ public class ChargingRuleDefinitionImpl extends DiameterGroupedAvpImpl implement
 			return new MissingAvpException("Charging-Rule-Name is required", Arrays.asList(new DiameterAvp[] { new ChargingRuleNameImpl() }));
 		
 		return null;
-	}		  
+	} 		  
 }

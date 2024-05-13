@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.Status;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.StatusCode;
 import com.mobius.software.telco.protocols.diameter.primitives.mm10.StatusText;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.StatusText;
 * @author yulian oifa
 *
 */
-public class StatusImpl implements Status
+public class StatusImpl extends DiameterAvpImpl implements Status
 {
 	private StatusCode statusCode;
 	private StatusText statusText;

@@ -24,6 +24,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncementIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AnnouncementInformation;
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Variab
 * @author yulian oifa
 *
 */
-public class AnnouncementInformationImpl implements AnnouncementInformation
+public class AnnouncementInformationImpl extends DiameterAvpImpl implements AnnouncementInformation
 {
 	private AnnouncementIdentifier announcementIdentifier;
 	private List<VariablePart> variablePart;

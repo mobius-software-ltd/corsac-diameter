@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.NASPortTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.AccessNetworkType;
@@ -36,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEn
 * @author yulian oifa
 *
 */
-public class AccessNetworkTypeImpl implements AccessNetworkType
+public class AccessNetworkTypeImpl extends DiameterAvpImpl implements AccessNetworkType
 {
 	private NASPortType nasPortType;
 	

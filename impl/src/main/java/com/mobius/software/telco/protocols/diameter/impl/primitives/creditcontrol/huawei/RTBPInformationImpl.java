@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CDRBeginTime;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CDRChargeMode;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CDRDuration;
@@ -44,7 +45,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class RTBPInformationImpl implements RTBPInformation
+public class RTBPInformationImpl extends DiameterAvpImpl implements RTBPInformation
 {
 	private SPId spId;
 	

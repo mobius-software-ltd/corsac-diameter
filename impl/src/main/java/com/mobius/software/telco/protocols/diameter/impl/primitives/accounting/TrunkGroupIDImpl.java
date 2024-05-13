@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.IncomingTrunkGroupID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OutgoingTrunkGroupID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TrunkGroupID;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TrunkG
 * @author yulian oifa
 *
 */
-public class TrunkGroupIDImpl implements TrunkGroupID
+public class TrunkGroupIDImpl extends DiameterAvpImpl implements TrunkGroupID
 {
 	private IncomingTrunkGroupID incomingTrunkGroupID;
 	private OutgoingTrunkGroupID outgoingTrunkGroupID;

@@ -17,6 +17,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPCharg
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UserLocationInfoTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIReplacementImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -302,7 +303,7 @@ public class AAAnswerImpl extends SwmAnswerWithIdImpl implements AAAnswer
         
         if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

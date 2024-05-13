@@ -42,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class DiameterInteger32Impl implements DiameterInteger32
+public class DiameterInteger32Impl extends DiameterAvpImpl implements DiameterInteger32
 {
 	private Integer value;
 	private Integer minValue;
 	private Integer maxValue;
 	
 	//required for parser
-	protected DiameterInteger32Impl() 
+	public DiameterInteger32Impl() 
 	{
 		
 	}

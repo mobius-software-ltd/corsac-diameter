@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingInputList;
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingOutputL
 * @author yulian oifa
 *
 */
-public class BindingInformationImpl implements BindingInformation
+public class BindingInformationImpl extends DiameterAvpImpl implements BindingInformation
 {
 	private BindingInputList bindingInputList;
 	

@@ -18,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.Deliver
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ReadReplyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.SenderVisibilityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
@@ -265,7 +266,7 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

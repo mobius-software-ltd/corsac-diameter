@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.mb2c;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777335L;
+	public static final long APPLICATION_ID=ApplicationIDs.MB2C;
 	
 	private IDGenerator<?> idGenerator;
 	

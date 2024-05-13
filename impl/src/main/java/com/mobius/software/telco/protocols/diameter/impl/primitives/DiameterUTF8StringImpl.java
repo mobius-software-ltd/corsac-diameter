@@ -37,7 +37,7 @@ public class DiameterUTF8StringImpl extends DiameterOctetStringImpl implements D
 	private String value;
 	
 	//required for parser
-	protected DiameterUTF8StringImpl() 
+	public DiameterUTF8StringImpl() 
 	{
 		super();
 	}

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CommunityInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.MemberScreenClass;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.SCalledGroupNumber;
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class CommunityInformationImpl implements CommunityInformation
+public class CommunityInformationImpl extends DiameterAvpImpl implements CommunityInformation
 {
 	private SCallerNumberType sCallerNumberType;
 	

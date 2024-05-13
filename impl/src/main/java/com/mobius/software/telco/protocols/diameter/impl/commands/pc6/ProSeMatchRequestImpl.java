@@ -12,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.MatchRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.MatchRequest;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.PMRFlags;
@@ -116,7 +117,7 @@ public class ProSeMatchRequestImpl extends Pc6RequestImpl implements ProSeMatchR
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

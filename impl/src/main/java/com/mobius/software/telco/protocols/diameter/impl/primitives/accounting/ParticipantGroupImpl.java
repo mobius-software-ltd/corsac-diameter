@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CalledPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ParticipantAccessPriority;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ParticipantAccessPriorityEnum;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserPa
 * @author yulian oifa
 *
 */
-public class ParticipantGroupImpl implements ParticipantGroup
+public class ParticipantGroupImpl extends DiameterAvpImpl implements ParticipantGroup
 {
 	private CalledPartyAddress calledPartyAddress;
 	private ParticipantAccessPriority participantAccessPriority;

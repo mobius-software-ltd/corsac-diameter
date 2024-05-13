@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificData;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificType;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Servic
 * @author yulian oifa
 *
 */
-public class ServiceSpecificInfoImpl implements ServiceSpecificInfo
+public class ServiceSpecificInfoImpl extends DiameterAvpImpl implements ServiceSpecificInfo
 {
 	private ServiceSpecificData serviceSpecificData;
 	private ServiceSpecificType serviceSpecificType;

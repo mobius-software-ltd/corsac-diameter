@@ -10,6 +10,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMDeliveryFailureCause;
@@ -131,7 +132,7 @@ public class MOForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MO
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -33,6 +33,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.NIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTrustedImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
@@ -709,7 +710,7 @@ public class ReAuthRequestImpl extends RxRequestImpl implements ReAuthRequest
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

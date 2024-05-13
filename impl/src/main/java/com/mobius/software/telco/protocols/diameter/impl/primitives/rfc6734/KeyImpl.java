@@ -164,5 +164,5 @@ public class KeyImpl extends DiameterGroupedAvpImpl implements Key
 			return new MissingAvpException("Keying-Material is required", Arrays.asList(new DiameterAvp[] { new KeyingMaterialImpl() }));
 		
 		return null;
-	}
+	}	
 }

@@ -22,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.Requested
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ServiceIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ServingNodeIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerName;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SessionPriority;
@@ -423,7 +424,7 @@ public class UserDataRequestImpl extends ShRequestImpl implements UserDataReques
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPAnswerTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPOfferTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPTimeStamps;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SDPTim
 * @author yulian oifa
 *
 */
-public class SDPTimeStampsImpl implements SDPTimeStamps
+public class SDPTimeStampsImpl extends DiameterAvpImpl implements SDPTimeStamps
 {
 	private SDPOfferTimestamp sdpOfferTimestamp;
 	private SDPAnswerTimestamp sdpAnswerTimestamp;

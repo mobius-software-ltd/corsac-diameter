@@ -15,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.MaximumU
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MaximumUEAvailabilityTime;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMSGMSCAlertEvent;
@@ -198,7 +199,7 @@ public class AlertServiceCentreRequestImpl extends S6cRequestImpl implements Ale
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

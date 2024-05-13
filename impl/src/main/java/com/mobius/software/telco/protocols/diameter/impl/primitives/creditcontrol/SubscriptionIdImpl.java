@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdData;
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Sub
 * @author yulian oifa
 *
 */
-public class SubscriptionIdImpl implements SubscriptionId 
+public class SubscriptionIdImpl extends DiameterAvpImpl implements SubscriptionId 
 {
 	private SubscriptionIdType subscriptionIdType;
 	

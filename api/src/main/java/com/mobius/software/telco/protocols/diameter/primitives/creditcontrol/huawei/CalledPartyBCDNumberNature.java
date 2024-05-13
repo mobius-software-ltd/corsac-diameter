@@ -51,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned3
 	    - 5: number specified by a network (in a national service)
 	    - 6: dedicated short number
  */
-@DiameterAvpDefinition(code = HuaweiAvpCodes.CALLED_PARTY_BCD_NUMBER, vendorId = VendorIDs.HUAWEI_ID, name = "Called-Party-BCDNumber-Nature")
+@DiameterAvpDefinition(code = HuaweiAvpCodes.CALLED_PARTY_BCD_NUMBER_NATURE, vendorId = VendorIDs.HUAWEI_ID, name = "Called-Party-BCDNumber-Nature")
 public interface CalledPartyBCDNumberNature extends DiameterUnsigned32
 {
 }

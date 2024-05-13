@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SIPRequestTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SIPRequestTimestampFraction;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SIPResponseTimestamp;
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeSt
 * @author yulian oifa
 *
 */
-public class TimeStampsImpl implements TimeStamps
+public class TimeStampsImpl extends DiameterAvpImpl implements TimeStamps
 {
 	private SIPRequestTimestamp sipRequestTimestamp;
 	private SIPResponseTimestamp sipResponseTimestamp;

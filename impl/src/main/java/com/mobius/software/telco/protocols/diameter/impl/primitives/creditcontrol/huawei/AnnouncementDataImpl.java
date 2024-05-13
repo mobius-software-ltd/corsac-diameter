@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.AnnouncementData;
 
 /**
@@ -25,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class AnnouncementDataImpl implements AnnouncementData
+public class AnnouncementDataImpl extends DiameterGroupedAvpImpl implements AnnouncementData
 {
 	public AnnouncementDataImpl()
 	{

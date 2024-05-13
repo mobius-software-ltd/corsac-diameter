@@ -46,5 +46,5 @@ public class RoutingRuleInstallImpl extends DiameterGroupedAvpImpl implements Ro
 	public void setRoutingRuleDefinition(List<RoutingRuleDefinition> value)
 	{
 		this.routingRuleDefinition = value;
-	}
+	}	
 }

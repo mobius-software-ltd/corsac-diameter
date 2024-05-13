@@ -64,7 +64,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 	private List<DiameterRuleIcmpType> icmpTypes;
 	
 	//required for parser
-	protected DiameterIpFilterRuleImpl() 
+	public DiameterIpFilterRuleImpl() 
 	{
 		super();
 	}
@@ -82,8 +82,7 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 
 	public DiameterIpFilterRuleImpl(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
-		super(minLength,maxLength);
-		value=buildRule(action,direction,protocol,from,fromPorts,to,toPorts,options,ipOptions,negativeIpOptions,tcpOptions,negativeTcpOptions,tcpFlags,negativeTcpFlags,icmpTypes);
+		super(buildRule(action,direction,protocol,from,fromPorts,to,toPorts,options,ipOptions,negativeIpOptions,tcpOptions,negativeTcpOptions,tcpFlags,negativeTcpFlags,icmpTypes),minLength,maxLength);
 		this.action=action;
 		this.direction=direction;
 		this.protocol=protocol;
@@ -481,29 +480,29 @@ public class DiameterIpFilterRuleImpl extends DiameterAsciiStringImpl implements
 		}
 	}
 	
-	public String buildRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
+	public static String buildRule(DiameterIpAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,List<DiameterRuleOption> options,List<DiameterRuleIpOption> ipOptions,List<DiameterRuleIpOption> negativeIpOptions,List<DiameterRuleTcpOption> tcpOptions,List<DiameterRuleTcpOption> negativeTcpOptions,List<DiameterRuleTcpFlag> tcpFlags,List<DiameterRuleTcpFlag> negativeTcpFlags,List<DiameterRuleIcmpType> icmpTypes) throws InvalidAvpValueException
 	{
 		if(action==null)
-			throw new InvalidAvpValueException("action can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("action can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(direction==null)
-			throw new InvalidAvpValueException("direction can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("direction can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(protocol==null)
-			throw new InvalidAvpValueException("protocol can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("protocol can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(from==null)
-			throw new InvalidAvpValueException("src can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("src can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(to==null)
-			throw new InvalidAvpValueException("dst can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("dst can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(options!=null && options.size()>0)
 		{
 			for(int i=0;i<options.size();i++)
 			{
 				if(options.get(i)==DiameterRuleOption.IP_OPTS || options.get(i)==DiameterRuleOption.TCP_OPTS || options.get(i)==DiameterRuleOption.TCP_FLAGS || options.get(i)==DiameterRuleOption.ICMP_TYPES)
-					throw new InvalidAvpValueException("illegal option " + options.get(i), Arrays.asList(new DiameterAvp[] { this }));				
+					throw new InvalidAvpValueException("illegal option " + options.get(i), Arrays.asList(new DiameterAvp[] { }));				
 			}
 		}
 		

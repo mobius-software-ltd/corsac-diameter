@@ -30,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 
 /*
  */
-@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.NASREQ, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 }

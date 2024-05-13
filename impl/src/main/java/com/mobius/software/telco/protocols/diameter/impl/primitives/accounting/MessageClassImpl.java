@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ClassIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ClassIdentifierEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.MessageClass;
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TokenT
 * @author yulian oifa
 *
 */
-public class MessageClassImpl implements MessageClass
+public class MessageClassImpl extends DiameterAvpImpl implements MessageClass
 {
 	private ClassIdentifier classIdentifier;
 	private TokenText tokenText;

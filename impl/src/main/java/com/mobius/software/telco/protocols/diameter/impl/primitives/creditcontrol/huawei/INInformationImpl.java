@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.*;
 
@@ -31,7 +32,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class INInformationImpl implements INInformation
+public class INInformationImpl extends DiameterAvpImpl implements INInformation
 {
 	private ActiveFlag activeFlag;
 	

@@ -16,6 +16,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.AbsentSub
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.SMDeliveryOutcomeT4Impl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMRPSMEA;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
@@ -203,7 +204,7 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

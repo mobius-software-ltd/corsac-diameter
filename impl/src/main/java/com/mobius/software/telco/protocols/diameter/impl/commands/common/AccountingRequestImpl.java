@@ -24,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Event
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequired;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordNumber;
@@ -424,7 +425,7 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

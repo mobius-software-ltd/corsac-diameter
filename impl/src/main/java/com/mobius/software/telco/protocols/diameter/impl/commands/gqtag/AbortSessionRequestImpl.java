@@ -1,18 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.gqtag;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AbortCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCause;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum;
 
 /*
@@ -41,8 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum
 */
 public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.gq.AbortSessionRequestImpl implements AbortSessionRequest
 {
-	private AbortCause abortCause;
-	
 	protected AbortSessionRequestImpl() 
 	{
 		super();
@@ -53,33 +47,6 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, abortCause);
 		setUsernameAllowed(false);				
-	}
-
-	@Override
-	public AbortCauseEnum getAbortCause() 
-	{
-		if(abortCause == null)
-			return null;
-		
-		return abortCause.getEnumerated(AbortCauseEnum.class);
-	}
-
-	@Override
-	public void setAbortCause(AbortCauseEnum value) throws MissingAvpException 
-	{
-		if(value == null)
-			throw new MissingAvpException("Abort-Cause is required", Arrays.asList(new DiameterAvp[] { new AbortCauseImpl()}));
-		
-		this.abortCause = new AbortCauseImpl(value, null, null);
-	}
-	
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(abortCause==null)
-			return new MissingAvpException("Abort-Cause is required", Arrays.asList(new DiameterAvp[] { new AbortCauseImpl()}));
-		
-		return super.validate();
 	}
 	
 	@DiameterOrder
@@ -103,7 +70,7 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

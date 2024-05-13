@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s13;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.s13.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777252L;
+	public static final long APPLICATION_ID=ApplicationIDs.S13;
 	
 	private IDGenerator<?> idGenerator;
 	

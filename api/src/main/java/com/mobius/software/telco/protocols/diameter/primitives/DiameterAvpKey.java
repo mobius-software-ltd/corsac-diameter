@@ -26,18 +26,16 @@ public class DiameterAvpKey
 {
 	private Long vendorID;
 	private Long avpID;
-	private Boolean isMust;
 	
-	public DiameterAvpKey(Long avpID, Boolean isMust) 
+	public DiameterAvpKey(Long avpID) 
 	{
 		this.avpID = avpID;
 	}
 
-	public DiameterAvpKey(Long vendorID, Long avpID, Boolean isMust) 
+	public DiameterAvpKey(Long vendorID, Long avpID) 
 	{
 		this.vendorID = vendorID;
 		this.avpID = avpID;
-		this.isMust = isMust;
 	}
 
 	public Long getVendorID() 
@@ -60,16 +58,6 @@ public class DiameterAvpKey
 		this.avpID = avpID;
 	}
 
-	public Boolean getIsMust()
-	{
-		return isMust;
-	}
-
-	public void setIsMust(Boolean isMust)
-	{
-		this.isMust = isMust;
-	}
-
 	@Override
 	public int hashCode() 
 	{
@@ -77,7 +65,6 @@ public class DiameterAvpKey
 		int result = 1;
 		result = prime * result + ((avpID == null) ? 0 : avpID.hashCode());
 		result = prime * result + ((vendorID == null) ? 0 : vendorID.hashCode());
-		result = prime * result + ((isMust == null) ? 0 : isMust.hashCode());
 		return result;
 	}
 
@@ -102,20 +89,12 @@ public class DiameterAvpKey
 		else if (!avpID.equals(other.avpID))
 			return false;
 		
-		if (vendorID == null) 
+		if (vendorID == null || vendorID.equals(-1L)) 
 		{
-			if (other.vendorID != null)
+			if (other.vendorID != null && !other.vendorID.equals(-1L))
 				return false;
-		} 
+		}
 		else if (!vendorID.equals(other.vendorID))
-			return false;
-		
-		if (isMust == null) 
-		{
-			if (other.isMust != null)
-				return false;
-		} 
-		else if (!isMust.equals(other.isMust))
 			return false;
 		
 		return true;

@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PSAppendFreeFormatData;
@@ -38,7 +39,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class PSFurnishChargingInformationImpl implements PSFurnishChargingInformation
+public class PSFurnishChargingInformationImpl extends DiameterAvpImpl implements PSFurnishChargingInformation
 {
 	private TGPPChargingId tgppChargingId;
 	private PSFreeFormatData psFreeFormatData;

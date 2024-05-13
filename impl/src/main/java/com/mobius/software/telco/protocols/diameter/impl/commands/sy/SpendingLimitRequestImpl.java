@@ -15,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.P
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sy.PolicyCounterIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sy.SLRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.PhysicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
@@ -224,7 +225,7 @@ public class SpendingLimitRequestImpl extends SyRequestImpl implements SpendingL
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

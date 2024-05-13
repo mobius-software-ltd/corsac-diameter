@@ -15,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSubSessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RatingGroup;
@@ -224,7 +225,7 @@ public class ReAuthAnswerImpl extends com.mobius.software.telco.protocols.diamet
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

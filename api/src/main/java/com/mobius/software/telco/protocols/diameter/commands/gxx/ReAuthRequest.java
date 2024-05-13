@@ -67,7 +67,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 				*[ Route-Record ]
 				*[ AVP ]
  */
-@DiameterCommandDefinition(applicationId = ApplicationIDs.GXX, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.GXX, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends AuthenticationRequest
 {
 	DRMPEnum getDRMP();

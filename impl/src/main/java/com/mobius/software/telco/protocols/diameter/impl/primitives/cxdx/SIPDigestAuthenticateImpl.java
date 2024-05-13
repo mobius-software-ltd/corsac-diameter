@@ -169,5 +169,5 @@ public class SIPDigestAuthenticateImpl extends DiameterGroupedAvpImpl implements
 			return new MissingAvpException("Digest-Realm is required is required", Arrays.asList(new DiameterAvp[] { new DigestRealmImpl() }));
 		
 		return null;
-	}	
+	}
 }

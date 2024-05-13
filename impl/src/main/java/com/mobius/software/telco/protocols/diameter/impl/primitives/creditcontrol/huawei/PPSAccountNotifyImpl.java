@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.PPSAccountNotify;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.PPSMaxCredit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.PPSNotifyMode;
@@ -31,7 +32,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class PPSAccountNotifyImpl implements PPSAccountNotify
+public class PPSAccountNotifyImpl extends DiameterAvpImpl implements PPSAccountNotify
 {
 	private PPSNotifyMode ppsNotifyMode;
 	

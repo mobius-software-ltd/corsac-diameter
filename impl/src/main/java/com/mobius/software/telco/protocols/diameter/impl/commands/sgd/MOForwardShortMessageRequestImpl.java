@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIden
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.EPSLocationInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
@@ -216,7 +217,7 @@ public class MOForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

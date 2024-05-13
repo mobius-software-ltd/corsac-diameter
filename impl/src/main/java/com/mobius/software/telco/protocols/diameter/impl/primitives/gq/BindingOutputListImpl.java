@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.BindingOutputList;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.V4TransportAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.V6TransportAddress;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.V6TransportAdd
 * @author yulian oifa
 *
 */
-public class BindingOutputListImpl implements BindingOutputList
+public class BindingOutputListImpl extends DiameterAvpImpl implements BindingOutputList
 {
 	private List<V6TransportAddress> v6TransportAddress;
 	

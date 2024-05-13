@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ISUPCause;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ISUPCauseDiagnostics;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ISUPCauseLocation;
@@ -30,7 +31,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class ISUPCauseImpl implements ISUPCause
+public class ISUPCauseImpl extends DiameterAvpImpl implements ISUPCause
 {
 	private ISUPCauseLocation isupCauseLocation;
 	private ISUPCauseValue isupCauseValue;

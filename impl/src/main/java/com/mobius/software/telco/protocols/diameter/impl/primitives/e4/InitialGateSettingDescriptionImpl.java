@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.e4;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.InitialGateSettingDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.MaximumAllowedBandwidthDL;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.MaximumAllowedBandwidthUL;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASFilterRule
 * @author yulian oifa
 *
 */
-public class InitialGateSettingDescriptionImpl implements InitialGateSettingDescription
+public class InitialGateSettingDescriptionImpl extends DiameterAvpImpl implements InitialGateSettingDescription
 {
 	private List<NASFilterRule> nasFilterRule;
 	

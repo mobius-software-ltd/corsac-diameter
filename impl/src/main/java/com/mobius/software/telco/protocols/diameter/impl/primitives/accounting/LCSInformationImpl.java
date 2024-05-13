@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMSIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientID;
@@ -35,7 +36,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class LCSInformationImpl implements LCSInformation
+public class LCSInformationImpl extends DiameterAvpImpl implements LCSInformation
 {
 	private LCSClientID lcsClientID;
 	private LocationType locationType;

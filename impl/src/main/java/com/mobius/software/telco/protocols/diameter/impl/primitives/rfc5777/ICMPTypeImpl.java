@@ -120,5 +120,5 @@ public class ICMPTypeImpl extends DiameterGroupedAvpImpl implements ICMPType
 			return new MissingAvpException("ICMP-Type-Number is required", Arrays.asList(new DiameterAvp[] { new ICMPTypeNumberImpl() }));
 		
 		return null;
-	}			
+	}	
 }

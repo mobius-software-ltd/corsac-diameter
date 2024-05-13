@@ -24,6 +24,7 @@ import java.util.Date;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcInputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcOutputOctetsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcServiceSpecificUnitsImpl;
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcT
 * @author yulian oifa
 *
 */
-public class EnvelopeImpl implements Envelope
+public class EnvelopeImpl extends DiameterAvpImpl implements Envelope
 {
 	private EnvelopeStartTime envelopeStartTime;
 	private EnvelopeEndTime envelopeEndTime;

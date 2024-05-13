@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sd;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.sd.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777303L;
+	public static final long APPLICATION_ID=ApplicationIDs.SD;
 	
 	private IDGenerator<?> idGenerator;
 	

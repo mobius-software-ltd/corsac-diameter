@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControlDownlink;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateControlMaxMessageSize;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateControlMaxRate;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateCo
 * @author yulian oifa
 *
 */
-public class APNRateControlDownlinkImpl implements APNRateControlDownlink
+public class APNRateControlDownlinkImpl extends DiameterAvpImpl implements APNRateControlDownlink
 {
 	private RateControlTimeUnit rateControlTimeUnit;
 	private RateControlMaxRate rateControlMaxRate;

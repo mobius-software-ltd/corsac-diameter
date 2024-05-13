@@ -108,7 +108,7 @@ import io.netty.buffer.ByteBuf;
 		-	the MBMS-StartStop-Indication AVP set to the value "heartbeat";
 		-	the Restart-Counter AVP set to the local restart counter of the sender. 
  */
-@DiameterCommandDefinition(applicationId = ApplicationIDs.SGMB, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.SGMB, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
 public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	String getCalledStationId();

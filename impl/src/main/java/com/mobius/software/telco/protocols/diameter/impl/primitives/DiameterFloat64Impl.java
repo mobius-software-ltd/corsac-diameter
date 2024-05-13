@@ -42,14 +42,14 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class DiameterFloat64Impl implements DiameterFloat64
+public class DiameterFloat64Impl extends DiameterAvpImpl implements DiameterFloat64
 {
 	private Double value;
 	private Double minValue;
 	private Double maxValue;
 	
 	//required for parser
-	protected DiameterFloat64Impl() 
+	public DiameterFloat64Impl() 
 	{
 		
 	}

@@ -46,6 +46,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.AccessAva
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerOperationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.BearerUsageImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.DefaultAccessImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.EventTriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.HeNBLocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.IPCANTypeImpl;
@@ -93,6 +94,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.BearerUsageEnu
 import com.mobius.software.telco.protocols.diameter.primitives.gx.ChargingRuleReport;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CoAInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.CreditManagementStatus;
+import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultAccess;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.DefaultEPSBearerQoS;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTrigger;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventTriggerEnum;
@@ -213,7 +215,7 @@ public class SubsessionEnforcementInfoImpl extends DiameterGroupedAvpImpl implem
 	
 	private DefaultEPSBearerQoS defaultEPSBearerQoS;
 	
-	private IPCANType defaultAccess;
+	private DefaultAccess defaultAccess;
 	
 	private NBIFOMMode nbifomMode;
 	
@@ -830,7 +832,7 @@ public class SubsessionEnforcementInfoImpl extends DiameterGroupedAvpImpl implem
 		if(value==null)
 			this.defaultAccess = null;
 		else
-			this.defaultAccess = new IPCANTypeImpl(value, null, null);
+			this.defaultAccess = new DefaultAccessImpl(value, null, null);
 	}
 	
 	@Override

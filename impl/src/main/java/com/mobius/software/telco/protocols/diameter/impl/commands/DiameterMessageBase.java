@@ -19,6 +19,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Sessi
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginHost;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginRealm;
 import com.mobius.software.telco.protocols.diameter.primitives.common.OriginStateId;
@@ -53,6 +54,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl implements DiameterMessage
 {
 	private Boolean isRetransmit;
+	private Boolean isProxyable;
 	private Long hopByHopIdentifier;
 	private Long endToEndIdentifier;
 	
@@ -107,25 +109,25 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 	
 	@Override
-	public Map<DiameterAvpKey, List<DiameterAvp>> getOptionalAvps() 
+	public Map<DiameterAvpKey, List<DiameterUnknownAvp>> getOptionalAvps() 
 	{
 		return optionalAvps;
 	}
 
 	@Override
-	public List<DiameterAvp> getOptionalAvps(DiameterAvpKey avpKey) 
+	public List<DiameterUnknownAvp> getOptionalAvps(DiameterAvpKey avpKey) 
 	{
 		return optionalAvps.get(avpKey);
 	}
 
 	@Override
-	public void addOptionalAvp(DiameterAvpKey avpKey, DiameterAvp avp) 
+	public void addOptionalAvp(DiameterAvpKey avpKey, DiameterUnknownAvp avp) 
 	{
-		List<DiameterAvp> currList = optionalAvps.get(avpKey);
+		List<DiameterUnknownAvp> currList = optionalAvps.get(avpKey);
 		if(currList==null)
 		{
-			currList=new ArrayList<DiameterAvp>();
-			List<DiameterAvp> oldAvps=optionalAvps.putIfAbsent(avpKey, currList);
+			currList=new ArrayList<DiameterUnknownAvp>();
+			List<DiameterUnknownAvp> oldAvps=optionalAvps.putIfAbsent(avpKey, currList);
 			if(oldAvps!=null)
 				currList = oldAvps;
 		}
@@ -137,6 +139,12 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	public Boolean getIsRetransmit() 
 	{
 		return isRetransmit;
+	}
+
+	@Override
+	public Boolean getIsProxyable() 
+	{
+		return isProxyable;
 	}
 
 	@Override
@@ -155,6 +163,12 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	public void setIsRetransmit(Boolean value) 
 	{
 		this.isRetransmit = value;
+	}
+
+	@Override
+	public void setIsProxyable(Boolean value) 
+	{
+		this.isProxyable = value;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.AoCRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
@@ -178,7 +179,7 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -45,7 +45,7 @@ public class DiameterAddressImpl extends DiameterOctetStringImpl implements Diam
 	private DiameterAddressTypeEnum addressType;
 	
 	//required for parser
-	protected DiameterAddressImpl() 
+	public DiameterAddressImpl() 
 	{
 		super();
 	}

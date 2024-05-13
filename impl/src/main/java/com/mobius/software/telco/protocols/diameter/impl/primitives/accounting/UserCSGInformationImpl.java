@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CSGIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CSGAccessMode;
@@ -37,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.CSGId;
 * @author yulian oifa
 *
 */
-public class UserCSGInformationImpl implements UserCSGInformation
+public class UserCSGInformationImpl extends DiameterAvpImpl implements UserCSGInformation
 {
 	private CSGId csgId;
 	private CSGAccessMode csgAccessMode; 

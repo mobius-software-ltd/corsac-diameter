@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCCostInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCSubscriptionInformation;
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Tariff
 * @author yulian oifa
 *
 */
-public class AoCInformationImpl implements AoCInformation
+public class AoCInformationImpl extends DiameterAvpImpl implements AoCInformation
 {
 	private AoCCostInformation aocCostInformation;
 	private TariffInformation tariffInformation;

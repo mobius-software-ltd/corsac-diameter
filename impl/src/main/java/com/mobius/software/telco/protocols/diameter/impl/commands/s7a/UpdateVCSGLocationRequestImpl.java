@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumb
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UVRFlagsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.MSISDNImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SGSNNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
@@ -152,7 +153,7 @@ public class UpdateVCSGLocationRequestImpl extends S7aRequestImpl implements Upd
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

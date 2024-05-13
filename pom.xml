@@ -30,6 +30,7 @@
 
 	<modules>
 		<module>api</module>
+		<module>validator</module>
 		<module>impl</module>
 	</modules>
 

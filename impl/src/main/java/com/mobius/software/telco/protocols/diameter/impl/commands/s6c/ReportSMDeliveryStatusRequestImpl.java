@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMDelive
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.RDRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.SMDeliveryOutcome;
@@ -184,7 +185,7 @@ public class ReportSMDeliveryStatusRequestImpl extends S6cRequestImpl implements
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -20,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Produ
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SupportedVendorIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.FirmwareRevision;
@@ -359,7 +360,7 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

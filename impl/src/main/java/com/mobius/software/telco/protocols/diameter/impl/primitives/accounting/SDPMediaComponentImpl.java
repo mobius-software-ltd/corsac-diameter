@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPChargingIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AccessNetworkChargingIdentifierValueImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.IPRealmDefaultIndication;
@@ -47,7 +48,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class SDPMediaComponentImpl implements SDPMediaComponent
+public class SDPMediaComponentImpl extends DiameterAvpImpl implements SDPMediaComponent
 {
 	private SDPMediaName sdpMediaName;
 	private List<SDPMediaDescription> sdpMediaDescription;

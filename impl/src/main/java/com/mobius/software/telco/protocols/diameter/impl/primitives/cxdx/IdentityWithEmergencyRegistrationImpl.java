@@ -95,5 +95,5 @@ public class IdentityWithEmergencyRegistrationImpl extends DiameterGroupedAvpImp
 			return new MissingAvpException("Public-Identity is required", Arrays.asList(new DiameterAvp[] { new PublicIdentityImpl() }));
 		
 		return null;
-	}	
+	}
 }

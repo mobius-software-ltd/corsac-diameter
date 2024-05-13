@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BaseTimeInterval;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQuotaMechanism;
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQu
 * @author yulian oifa
 *
 */
-public class TimeQuotaMechanismImpl implements TimeQuotaMechanism
+public class TimeQuotaMechanismImpl extends DiameterAvpImpl implements TimeQuotaMechanism
 {
 	private TimeQuotaType timeQuotaType;
 	private BaseTimeInterval baseTimeInterval;

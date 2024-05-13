@@ -15,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicI
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserAuthorizationTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.VisitedNetworkIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.PublicIdentity;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UARFlags;
@@ -192,7 +193,7 @@ public class UserAuthorizationRequestImpl extends CxDxRequestWithHostBase implem
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

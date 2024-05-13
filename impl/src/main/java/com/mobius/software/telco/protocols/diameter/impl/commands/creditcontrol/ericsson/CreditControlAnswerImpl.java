@@ -22,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ValidityTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ericsson.ResultCodeExtensionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQuotaThreshold;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UnitQuotaThreshold;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VolumeQuotaThreshold;
@@ -381,7 +382,7 @@ public class CreditControlAnswerImpl extends AuthenticationAnswerImpl implements
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

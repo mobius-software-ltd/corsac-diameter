@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc4740;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.rfc4740.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.MultimediaAuthRequest;
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=6L;
+	public static final long APPLICATION_ID=ApplicationIDs.SIP_APPLICATION;
 	
 	private IDGenerator<?> idGenerator;
 	

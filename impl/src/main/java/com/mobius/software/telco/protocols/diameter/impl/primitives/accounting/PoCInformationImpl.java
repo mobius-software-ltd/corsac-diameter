@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChargedParty;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NumberOfParticipants;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ParticipantGroup;
@@ -45,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBu
 * @author yulian oifa
 *
 */
-public class PoCInformationImpl implements PoCInformation
+public class PoCInformationImpl extends DiameterAvpImpl implements PoCInformation
 {
 	private PoCServerRole pocServerRole;
 	private PoCSessionType pocSessionType;

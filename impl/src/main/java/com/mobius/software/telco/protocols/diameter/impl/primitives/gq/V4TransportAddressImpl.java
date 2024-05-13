@@ -24,6 +24,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nas.FramedIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.PortNumber;
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.FramedIPAddre
 * @author yulian oifa
 *
 */
-public class V4TransportAddressImpl implements V4TransportAddress
+public class V4TransportAddressImpl extends DiameterAvpImpl implements V4TransportAddress
 {
 	private FramedIPAddress framedIPAddress;
 	

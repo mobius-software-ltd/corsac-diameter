@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.APNRateControlUplink;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AdditionalExceptionReports;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AdditionalExceptionReportsEnum;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateCo
 * @author yulian oifa
 *
 */
-public class APNRateControlUplinkImpl implements APNRateControlUplink
+public class APNRateControlUplinkImpl extends DiameterAvpImpl implements APNRateControlUplink
 {
 	private AdditionalExceptionReports additionalExceptionReports;
 	private RateControlTimeUnit rateControlTimeUnit;

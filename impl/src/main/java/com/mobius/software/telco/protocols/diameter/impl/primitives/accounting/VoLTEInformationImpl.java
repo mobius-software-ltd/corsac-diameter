@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CallingPartyAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VoLTEInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformation;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.CalleeInformat
 * @author yulian oifa
 *
 */
-public class VoLTEInformationImpl implements VoLTEInformation
+public class VoLTEInformationImpl extends DiameterAvpImpl implements VoLTEInformation
 {
 	private CallingPartyAddress callingPartyAddress;
 	private CalleeInformation calleeInformation;

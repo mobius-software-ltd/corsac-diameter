@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumUnitValue;
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class CumMoneyImpl implements CumMoney
+public class CumMoneyImpl extends DiameterAvpImpl implements CumMoney
 {
 	private CumUnitValue cumUnitValue;
 	

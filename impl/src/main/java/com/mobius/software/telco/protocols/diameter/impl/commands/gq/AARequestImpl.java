@@ -11,6 +11,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFChargin
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SIPForkingIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.FlowGrouping;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.MediaComponentDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AFChargingIdentifier;
@@ -183,7 +184,7 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
       		
       	if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
       	

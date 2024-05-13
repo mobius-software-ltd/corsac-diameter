@@ -18,7 +18,16 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.FailedAvp;
 
 /**
@@ -28,8 +37,62 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.FailedAvp;
 */
 public class FailedAvpImpl extends DiameterGroupedAvpImpl implements FailedAvp
 {
+	public Map<DiameterAvpKey,List<DiameterAvp>> knownAvps=new ConcurrentHashMap<DiameterAvpKey,List<DiameterAvp>>();
+	
 	public FailedAvpImpl() 
 	{
 		super();
+	}
+	
+	@Override
+	public Map<DiameterAvpKey, List<DiameterAvp>> getKnownAvps() 
+	{
+		return knownAvps;
+	}
+
+	@Override
+	public List<DiameterAvp> getKnownAvps(DiameterAvpKey avpKey) 
+	{
+		return knownAvps.get(avpKey);
+	}
+
+	@Override
+	public void addKnownAvp(DiameterAvpKey avpKey, DiameterAvp avp) 
+	{
+		List<DiameterAvp> currList = knownAvps.get(avpKey);
+		if(currList==null)
+		{
+			currList=new ArrayList<DiameterAvp>();
+			List<DiameterAvp> oldAvps=knownAvps.putIfAbsent(avpKey, currList);
+			if(oldAvps!=null)
+				currList = oldAvps;
+		}
+		
+		currList.add(avp);
+	}
+	
+	@Override
+	public void setKnownAvps(Map<DiameterAvpKey,List<DiameterAvp>> avps)
+	{
+		this.knownAvps = avps;
+	}
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		if(knownAvps!=null)
+		{
+			for(List<DiameterAvp> curr:knownAvps.values())
+				result.addAll(curr);
+		}
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

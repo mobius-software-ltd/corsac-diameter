@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSDataCodingScheme;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSRequestorID;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSRequestorIDString;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSReq
 * @author yulian oifa
 *
 */
-public class LCSRequestorIDImpl implements LCSRequestorID
+public class LCSRequestorIDImpl extends DiameterAvpImpl implements LCSRequestorID
 {
 	private LCSDataCodingScheme lcsDataCodingScheme;
 	private LCSRequestorIDString lcsRequestorIDString;

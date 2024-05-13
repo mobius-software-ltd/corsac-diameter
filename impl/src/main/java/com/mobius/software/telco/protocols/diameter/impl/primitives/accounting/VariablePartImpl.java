@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VariablePart;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VariablePartOrder;
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Variab
 * @author yulian oifa
 *
 */
-public class VariablePartImpl implements VariablePart
+public class VariablePartImpl extends DiameterAvpImpl implements VariablePart
 {
 	private VariablePartOrder variablePartOrder;
 	private VariablePartType variablePartType;

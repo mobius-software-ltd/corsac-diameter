@@ -1,6 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.rx;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.GLIIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.HFCNodeIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.LineType;
@@ -92,5 +98,22 @@ public class WirelineUserLocationInfoImpl extends DiameterGroupedAvpImpl impleme
 			this.lineType = null;
 		else
 			this.lineType = new LineTypeImpl(value, null, null);	
+	}														
+	
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(hfcNodeIdentifier);
+		result.add(gliIdentifier);
+		result.add(lineType);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

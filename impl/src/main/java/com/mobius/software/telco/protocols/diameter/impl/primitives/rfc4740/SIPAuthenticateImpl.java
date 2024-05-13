@@ -241,5 +241,5 @@ public class SIPAuthenticateImpl extends DiameterGroupedAvpImpl implements SIPAu
 			return new MissingAvpException("Digest-Realm is required is required", Arrays.asList(new DiameterAvp[] { new DigestRealmImpl() }));
 		
 		return null;
-	}	
+	}
 }

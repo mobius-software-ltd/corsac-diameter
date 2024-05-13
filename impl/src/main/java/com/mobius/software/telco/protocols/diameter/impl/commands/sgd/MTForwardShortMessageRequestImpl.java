@@ -20,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMDelive
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMRPUIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.SMSGMSCAddressImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.MMENumberForMTSMS;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.SGSNNumber;
@@ -304,7 +305,7 @@ public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

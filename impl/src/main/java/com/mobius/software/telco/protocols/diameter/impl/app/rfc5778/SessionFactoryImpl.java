@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.rfc5778.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778.MIP6Request;
@@ -38,7 +39,7 @@ import io.netty.buffer.ByteBuf;
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=8L;
+	public static final long APPLICATION_ID=ApplicationIDs.MIP6A;
 	
 	private IDGenerator<?> idGenerator;
 

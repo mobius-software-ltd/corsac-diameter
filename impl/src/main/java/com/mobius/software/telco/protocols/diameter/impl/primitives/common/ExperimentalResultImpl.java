@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResult;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ExperimentalResultCode;
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorId;
 * @author yulian oifa
 *
 */
-public class ExperimentalResultImpl implements ExperimentalResult
+public class ExperimentalResultImpl extends DiameterAvpImpl implements ExperimentalResult
 {
 	private VendorId vendorId;
 	

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.IBrandID;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.IFirstCallFlag;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.ILanguageType;
@@ -33,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class UserBasicInfoImpl implements UserBasicInfo
+public class UserBasicInfoImpl extends DiameterAvpImpl implements UserBasicInfo
 {
 	private ISubCOSID iSubCOSID;
 	

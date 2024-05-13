@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ServedU
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.ServiceKeyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.mm10.TriggerEventImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
@@ -378,7 +379,7 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

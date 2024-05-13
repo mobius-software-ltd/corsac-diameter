@@ -24,6 +24,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AFChargingIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AFCorrelationInformation;
@@ -37,7 +38,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AFCorrelationInformationImpl implements AFCorrelationInformation
+public class AFCorrelationInformationImpl extends DiameterAvpImpl implements AFCorrelationInformation
 {
 	private AFChargingIdentifier afChargingIdentifier;
 	private List<Flows> flows;

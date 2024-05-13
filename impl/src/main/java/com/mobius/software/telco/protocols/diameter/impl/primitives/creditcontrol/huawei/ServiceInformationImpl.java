@@ -1,4 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.huawei;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CPDTInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSInformation;
 
@@ -43,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGeneri
 * @author yulian oifa
 *
 */
-public class ServiceInformationImpl implements ServiceInformation
+public class ServiceInformationImpl extends DiameterAvpImpl implements ServiceInformation
 {
 	private PSInformation psInformation;
 	

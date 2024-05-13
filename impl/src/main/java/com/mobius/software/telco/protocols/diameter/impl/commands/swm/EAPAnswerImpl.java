@@ -23,6 +23,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.APNOIRep
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.CoreNetworkRestrictionsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.UEUsageTypeImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
@@ -501,7 +502,7 @@ public class EAPAnswerImpl extends SwmAnswerWithIdImpl implements EAPAnswer
         
         if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		return result;

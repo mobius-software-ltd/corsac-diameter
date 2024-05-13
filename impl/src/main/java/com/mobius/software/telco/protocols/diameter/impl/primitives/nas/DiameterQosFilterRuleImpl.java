@@ -59,7 +59,7 @@ public class DiameterQosFilterRuleImpl extends DiameterAsciiStringImpl implement
 	private String colorOver;
 	
 	//required for parser
-	protected DiameterQosFilterRuleImpl() 
+	public DiameterQosFilterRuleImpl() 
 	{
 		super();
 	}
@@ -77,8 +77,7 @@ public class DiameterQosFilterRuleImpl extends DiameterAsciiStringImpl implement
 
 	public DiameterQosFilterRuleImpl(DiameterQosAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,String dscpColor,Long meteringRate,String colorUnder,String colorOver,Integer minLength,Integer maxLength) throws InvalidAvpValueException 
 	{
-		super(minLength,maxLength);
-		value = buildRule(action,direction,protocol,from,fromPorts,to,toPorts,dscpColor,meteringRate,colorUnder,colorOver);
+		super(buildRule(action,direction,protocol,from,fromPorts,to,toPorts,dscpColor,meteringRate,colorUnder,colorOver), minLength,maxLength);
 		this.action=action;
 		this.direction=direction;
 		this.protocol=protocol;
@@ -334,22 +333,22 @@ public class DiameterQosFilterRuleImpl extends DiameterAsciiStringImpl implement
 		}
 	}
 	
-	public String buildRule(DiameterQosAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,String dscpColor,Long meteringRate,String colorUnder,String colorOver) throws InvalidAvpValueException
+	public static String buildRule(DiameterQosAction action,DiameterRuleDirection direction,InternetProtocol protocol,DiameterRuleAddress from,List<DiameterRulePorts> fromPorts,DiameterRuleAddress to,List<DiameterRulePorts> toPorts,String dscpColor,Long meteringRate,String colorUnder,String colorOver) throws InvalidAvpValueException
 	{
 		if(action==null)
-			throw new InvalidAvpValueException("action can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("action can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(direction==null)
-			throw new InvalidAvpValueException("direction can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("direction can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(protocol==null)
-			throw new InvalidAvpValueException("protocol can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("protocol can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(from==null)
-			throw new InvalidAvpValueException("src can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("src can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		if(to==null)
-			throw new InvalidAvpValueException("dst can not be null", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("dst can not be null", Arrays.asList(new DiameterAvp[] { }));
 		
 		Integer meterOptions=0;
 		if(meteringRate!=null)
@@ -362,7 +361,7 @@ public class DiameterQosFilterRuleImpl extends DiameterAsciiStringImpl implement
 			meterOptions++;
 		
 		if(meterOptions>0 && meterOptions!=3)
-			throw new InvalidAvpValueException("metering requires all parameters set: rate,color under and color over", Arrays.asList(new DiameterAvp[] { this }));
+			throw new InvalidAvpValueException("metering requires all parameters set: rate,color under and color over", Arrays.asList(new DiameterAvp[] { }));
 		
 		StringBuilder sb=new StringBuilder();
 		sb.append(action.getValue());

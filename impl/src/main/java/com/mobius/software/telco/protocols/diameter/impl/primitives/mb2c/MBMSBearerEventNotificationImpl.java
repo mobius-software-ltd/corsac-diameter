@@ -149,5 +149,5 @@ public class MBMSBearerEventNotificationImpl extends DiameterGroupedAvpImpl impl
 			return new MissingAvpException("MBMS‑Bearer‑Event is required", Arrays.asList(new DiameterAvp[] { new MBMSBearerEventImpl() }));
 		
 		return null;
-	}	
+	}
 }

@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.net.InetAddress;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NNIInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NNIType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NNITypeEnum;
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Sessio
 * @author yulian oifa
 *
 */
-public class NNIInformationImpl implements NNIInformation
+public class NNIInformationImpl extends DiameterAvpImpl implements NNIInformation
 {
 	private SessionDirection sessionDirection;
 	private NNIType nniType;

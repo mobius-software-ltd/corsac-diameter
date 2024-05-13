@@ -24,6 +24,7 @@ import java.util.Date;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NumberOfParticipants;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.NumberOfReceivedTalkBursts;
@@ -42,7 +43,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBu
 * @author yulian oifa
 *
 */
-public class TalkBurstExchangeImpl implements TalkBurstExchange
+public class TalkBurstExchangeImpl extends DiameterAvpImpl implements TalkBurstExchange
 {
 	private PoCChangeTime pocChangeTime;
 	private NumberOfTalkBursts numberOfTalkBursts;

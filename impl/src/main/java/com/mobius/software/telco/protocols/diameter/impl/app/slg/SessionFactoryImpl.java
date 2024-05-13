@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.slg;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.slg.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportRequest;
@@ -39,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.SLgLocationTy
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777255L;
+	public static final long APPLICATION_ID=ApplicationIDs.SLG;
 	
 	private IDGenerator<?> idGenerator;
 	

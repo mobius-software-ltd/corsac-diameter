@@ -492,5 +492,5 @@ public class M2MInformationImpl extends DiameterGroupedAvpImpl implements M2MInf
 			this.nodeId = null;
 		else
 			this.nodeId = new NodeIdImpl(value, null, null);
-	}		  
+	}
 }

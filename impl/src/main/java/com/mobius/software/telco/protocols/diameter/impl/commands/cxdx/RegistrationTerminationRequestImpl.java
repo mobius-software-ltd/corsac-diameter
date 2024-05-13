@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserN
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.DeregistrationReasonImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.PublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.AssociatedIdentities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
@@ -172,7 +173,7 @@ public class RegistrationTerminationRequestImpl extends CxDxRequestImpl implemen
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

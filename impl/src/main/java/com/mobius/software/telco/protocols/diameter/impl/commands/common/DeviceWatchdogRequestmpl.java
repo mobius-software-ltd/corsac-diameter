@@ -8,6 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatch
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 */
 public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements DeviceWatchdogRequest
 {
-	protected DeviceWatchdogRequestmpl() 
+	public DeviceWatchdogRequestmpl() 
 	{
 		super();
 		setSessionIdAllowed(false);
@@ -61,7 +62,7 @@ public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements Dev
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

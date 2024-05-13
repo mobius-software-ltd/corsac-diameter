@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.gq;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.FlowGrouping;
 import com.mobius.software.telco.protocols.diameter.primitives.gq.Flows;
 
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.Flows;
 * @author yulian oifa
 *
 */
-public class FlowGroupingImpl implements FlowGrouping
+public class FlowGroupingImpl extends DiameterAvpImpl implements FlowGrouping
 {
 	private List<Flows> flows;
 	

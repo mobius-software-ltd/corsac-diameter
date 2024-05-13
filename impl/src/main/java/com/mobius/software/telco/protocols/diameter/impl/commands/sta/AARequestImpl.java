@@ -13,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6FeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6FeatureVector;
@@ -169,7 +170,7 @@ public class AARequestImpl extends StaRequestImpl implements AARequest
 		
 		if(optionalAvps!=null)
         {
-        	for(List<DiameterAvp> curr:optionalAvps.values())
+        	for(List<DiameterUnknownAvp> curr:optionalAvps.values())
         		result.addAll(curr);
         }
 		

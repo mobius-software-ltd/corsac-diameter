@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumUnitValue;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CumValueDigits;
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 * @author yulian oifa
 *
 */
-public class CumUnitValueImpl implements CumUnitValue
+public class CumUnitValueImpl extends DiameterAvpImpl implements CumUnitValue
 {
 	private CumValueDigits cumValueDigits;
 	
@@ -46,7 +47,6 @@ public class CumUnitValueImpl implements CumUnitValue
 		setCumValueDigits(cumValueDigits);
 	}
 	
-	@DiameterValidate
 	public Long getCumValueDigits()
 	{
 		if(cumValueDigits == null)
@@ -55,7 +55,6 @@ public class CumUnitValueImpl implements CumUnitValue
 		return cumValueDigits.getLong();
 	}
 	
-	@DiameterValidate
 	public void setCumValueDigits(Long value) throws MissingAvpException
 	{
 		if(value==null)

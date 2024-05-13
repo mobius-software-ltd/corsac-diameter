@@ -96,5 +96,5 @@ public class MACAddressMaskImpl extends DiameterGroupedAvpImpl implements MACAdd
 			return new MissingAvpException("MAC-Address-Mask-Pattern is required", Arrays.asList(new DiameterAvp[] { new MACAddressMaskPatternImpl() }));
 		
 		return null;
-	}
+	}	
 }

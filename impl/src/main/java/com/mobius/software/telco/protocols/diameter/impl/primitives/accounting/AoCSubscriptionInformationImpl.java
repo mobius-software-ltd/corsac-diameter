@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCFormat;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCFormatEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCService;
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Prefer
 * @author yulian oifa
 *
 */
-public class AoCSubscriptionInformationImpl implements AoCSubscriptionInformation
+public class AoCSubscriptionInformationImpl extends DiameterAvpImpl implements AoCSubscriptionInformation
 {
 	private List<AoCService> aocService;
 	private AoCFormat aocFormat;

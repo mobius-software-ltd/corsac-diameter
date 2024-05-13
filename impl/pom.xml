@@ -17,6 +17,11 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>diameter-api</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>validator</artifactId>
+			<version>${project.version}</version>
 		</dependency>				
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

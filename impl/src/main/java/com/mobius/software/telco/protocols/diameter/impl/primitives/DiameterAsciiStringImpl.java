@@ -34,7 +34,7 @@ import io.netty.buffer.Unpooled;
 public class DiameterAsciiStringImpl extends DiameterOctetStringImpl implements DiameterAsciiString
 {
 	public static final Charset ENCODING=Charset.forName("iso-8859-1");
-	protected String value;
+	private String value;
 	
 	//required for parser
 	protected DiameterAsciiStringImpl() 
@@ -52,7 +52,7 @@ public class DiameterAsciiStringImpl extends DiameterOctetStringImpl implements 
 		super(Unpooled.wrappedBuffer(value.getBytes()),minLength,maxLength);	
 		this.value = value;
 	}
-		
+	
 	public String getString() 
 	{
 		return value;

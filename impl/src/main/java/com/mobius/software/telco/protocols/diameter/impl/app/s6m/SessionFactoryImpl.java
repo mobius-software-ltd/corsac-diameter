@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s6m;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.s6m.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -31,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifie
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777310L;
+	public static final long APPLICATION_ID=ApplicationIDs.S6M;
 	
 	private IDGenerator<?> idGenerator;
 	

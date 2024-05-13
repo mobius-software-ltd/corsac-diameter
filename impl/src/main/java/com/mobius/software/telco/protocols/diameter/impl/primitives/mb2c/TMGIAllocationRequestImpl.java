@@ -102,5 +102,5 @@ public class TMGIAllocationRequestImpl extends DiameterGroupedAvpImpl implements
 			return new MissingAvpException("TMGI‑Number is required is required", Arrays.asList(new DiameterAvp[] { new TMGINumberImpl() }));
 		
 		return null;
-	}		
+	}	
 }

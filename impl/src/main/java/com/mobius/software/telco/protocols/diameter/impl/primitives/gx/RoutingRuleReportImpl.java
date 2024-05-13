@@ -101,5 +101,5 @@ public class RoutingRuleReportImpl extends DiameterGroupedAvpImpl implements Rou
 			this.routingRuleFailureCode = null;
 		else
 			this.routingRuleFailureCode = new RoutingRuleFailureCodeImpl(value, null, null);			
-	}
+	}	
 }

@@ -90,5 +90,5 @@ public class SIPDeregistrationReasonImpl extends DiameterGroupedAvpImpl implemen
 			return new MissingAvpException("SIP-Reason-Code is required is required", Arrays.asList(new DiameterAvp[] { new SIPReasonCodeImpl() }));
 		
 		return null;
-	}				
+	}		
 }

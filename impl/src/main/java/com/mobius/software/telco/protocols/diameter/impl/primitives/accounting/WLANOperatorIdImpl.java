@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANOperatorId;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANOperatorName;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANPLMNId;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANPL
 * @author yulian oifa
 *
 */
-public class WLANOperatorIdImpl implements WLANOperatorId
+public class WLANOperatorIdImpl extends DiameterAvpImpl implements WLANOperatorId
 {
 	private WLANPLMNId wlanPLMNId;
 	private WLANOperatorName wlanOperatorName;

@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.L
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.AbortCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.SpecificActionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LogicalAccessID;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.e4.GloballyUniqueAddress;
@@ -216,7 +217,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

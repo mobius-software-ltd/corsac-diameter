@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 
 import java.util.Date;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BasicServiceCode;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BearerCapability;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ForwardingPending;
@@ -42,7 +43,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class VCSInformationImpl implements VCSInformation
+public class VCSInformationImpl extends DiameterAvpImpl implements VCSInformation
 {
 	private BearerCapability bearerCapability;
 	private NetworkCallReferenceNumber networkCallReferenceNumber;

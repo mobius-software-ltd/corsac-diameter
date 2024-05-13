@@ -11,6 +11,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.MTCErrorD
 import com.mobius.software.telco.protocols.diameter.impl.primitives.t4.TriggerActionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.OldReferenceNumberImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.MTCErrorDiagnostic;
 import com.mobius.software.telco.protocols.diameter.primitives.t4.MTCErrorDiagnosticEnum;
@@ -137,7 +138,7 @@ public class DeviceTriggerAnswerImpl extends T4AnswerImpl implements DeviceTrigg
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

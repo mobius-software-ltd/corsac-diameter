@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DestinationInterface;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.InterfaceId;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.InterfacePort;
@@ -30,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Interf
 * @author yulian oifa
 *
 */
-public class DestinationInterfaceImpl implements DestinationInterface
+public class DestinationInterfaceImpl extends DiameterAvpImpl implements DestinationInterface
 {
 	private InterfaceId interfaceId;
 	private InterfaceText interfaceText;

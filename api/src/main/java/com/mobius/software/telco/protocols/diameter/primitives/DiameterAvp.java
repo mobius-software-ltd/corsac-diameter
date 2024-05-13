@@ -25,5 +25,13 @@ package com.mobius.software.telco.protocols.diameter.primitives;
 
 public interface DiameterAvp 
 {
+	//customizable fields for AVP Header. In case set will override the AVP Annotation
 	
+	public Boolean getIsProtected();
+	
+	public void setProtected(Boolean value);
+	
+	public Boolean getIsMust();
+	
+	public void setIsMust(Boolean value);
 }

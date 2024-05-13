@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.RANNASReleaseCauseImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EnhancedDiagnostics;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.RANNASReleaseCause;
@@ -32,7 +33,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class EnhancedDiagnosticsImpl implements EnhancedDiagnostics
+public class EnhancedDiagnosticsImpl extends DiameterAvpImpl implements EnhancedDiagnostics
 {
 	private List<RANNASReleaseCause> ranNASReleaseCause;
 	

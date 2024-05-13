@@ -202,5 +202,5 @@ public class QoSRuleDefinitionImpl extends DiameterGroupedAvpImpl implements QoS
 			return new MissingAvpException("QoS-Rule-Name is required is required", Arrays.asList(new DiameterAvp[] { new QoSRuleNameImpl() }));
 		
 		return null;
-	}		  
+	}	  
 }

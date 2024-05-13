@@ -24,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
@@ -35,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
-public class VendorSpecificApplicationIdImpl implements VendorSpecificApplicationId
+public class VendorSpecificApplicationIdImpl extends DiameterAvpImpl implements VendorSpecificApplicationId
 {
 	private VendorId vendorId;
 	

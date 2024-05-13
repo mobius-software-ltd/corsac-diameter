@@ -8,6 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.Sessi
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 
 /*
@@ -68,6 +69,12 @@ public class SessionTerminationRequestImpl extends com.mobius.software.telco.pro
 		
 		if(routeRecords!=null)
 			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
 		
 		return result;
 	}

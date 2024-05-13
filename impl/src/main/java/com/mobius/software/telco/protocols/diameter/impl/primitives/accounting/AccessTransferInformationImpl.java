@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessTransferInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessTransferType;
@@ -42,7 +43,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AccessTransferInformationImpl implements AccessTransferInformation
+public class AccessTransferInformationImpl extends DiameterAvpImpl implements AccessTransferInformation
 {
 	private AccessTransferType accessTransferType;
 	private List<AccessNetworkInformation> accessNetworkInformation; 

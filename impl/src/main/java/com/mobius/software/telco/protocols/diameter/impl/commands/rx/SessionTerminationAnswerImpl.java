@@ -22,6 +22,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UELocalIP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UserLocationInfoTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.NIDImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPSGSNMCCMNC;
@@ -441,7 +442,7 @@ public class SessionTerminationAnswerImpl extends RxAnswerImpl implements Sessio
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

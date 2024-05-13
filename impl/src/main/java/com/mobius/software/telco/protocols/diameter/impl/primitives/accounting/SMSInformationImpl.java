@@ -22,6 +22,7 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.ApplicationPortIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ClientAddress;
@@ -61,7 +62,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class SMSInformationImpl implements SMSInformation
+public class SMSInformationImpl extends DiameterAvpImpl implements SMSInformation
 {
 	private SMSNode smsNode;
 	private ClientAddress clientAddress;

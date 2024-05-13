@@ -24,6 +24,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AccessNetworkChargingIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.AccessNetworkChargingIdentifierValue;
@@ -36,7 +37,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AccessNetworkChargingIdentifierImpl implements AccessNetworkChargingIdentifier
+public class AccessNetworkChargingIdentifierImpl extends DiameterAvpImpl implements AccessNetworkChargingIdentifier
 {
 	private AccessNetworkChargingIdentifierValue accessNetworkChargingIdentifierValue;
 	private List<Flows> flows;

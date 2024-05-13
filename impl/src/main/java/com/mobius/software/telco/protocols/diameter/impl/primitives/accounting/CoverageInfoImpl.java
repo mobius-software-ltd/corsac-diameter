@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ChangeTime;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CoverageInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.CoverageStatus;
@@ -32,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Locati
 * @author yulian oifa
 *
 */
-public class CoverageInfoImpl implements CoverageInfo
+public class CoverageInfoImpl extends DiameterAvpImpl implements CoverageInfo
 {
 	private CoverageStatus coverageStatus;
 	private ChangeTime changeTime;

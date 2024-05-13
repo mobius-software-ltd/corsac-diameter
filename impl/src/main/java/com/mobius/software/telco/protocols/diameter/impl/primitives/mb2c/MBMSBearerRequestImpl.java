@@ -272,5 +272,5 @@ public class MBMSBearerRequestImpl extends DiameterGroupedAvpImpl implements MBM
 			return new MissingAvpException("MBMS-StartStop-Indication is required", Arrays.asList(new DiameterAvp[] { new MBMSStartStopIndicationImpl() }));
 		
 		return null;
-	}	
+	}
 }

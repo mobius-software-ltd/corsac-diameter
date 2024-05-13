@@ -12,6 +12,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.np.Congestio
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.CongestionLevelValueImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.np.RCAFIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -211,7 +212,7 @@ public class NonAggregatedRUCIReportRequestImpl extends NpRequestImpl implements
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

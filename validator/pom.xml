@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>jar</packaging>
+
+	<parent>
+		<artifactId>diameter-parent</artifactId>
+		<groupId>com.mobius-software.protocols.diameter</groupId>
+		<version>2.1.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>validator</artifactId>
+	<name>Corsac Diameter :: Validator :: ${project.artifactId}</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.mobius-software.protocols.diameter</groupId>
+			<artifactId>diameter-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j2.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${netty.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.testing.compile</groupId>
+			<artifactId>compile-testing</artifactId>
+			<version>0.15</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!--  -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>compile</phase>
+						<configuration>
+							<compilerArgument>-proc:none</compilerArgument>
+							<includes>
+								<include>com/mobius/software/telco/protocols/diameter/DiameterTagAnnotationProcessor.java</include>
+								<include>com/mobius/software/telco/protocols/diameter/annotations/DiameterAvpDefinition.java</include>
+								<include>com/mobius/software/telco/protocols/diameter/annotations/DiameterCommandDefinition.java</include>
+								<include>com/mobius/software/telco/protocols/diameter/annotations/DiameterDecode.java</include>
+								<include>com/mobius/software/telco/protocols/diameter/annotations/DiameterEncode.java</include>
+								<include>com/mobius/software/telco/protocols/diameter/annotations/DiameterLength.java</include>
+								<include>com/mobius/software/telco/protocols/diameter/annotations/DiameterOrder.java</include>								
+								<include>com/mobius/software/telco/protocols/diameter/annotations/DiameterValidate.java</include>
+							</includes>
+						</configuration>
+					</execution>						
+					<execution>
+						<id>compiler-project</id>	
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>			
+		</plugins>
+		<finalName>async-validator-${project.version}</finalName>
+	</build>
+
+</project>

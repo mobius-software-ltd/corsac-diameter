@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gqtag;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.gqtag.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AARequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -28,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.impl.commands.gqtag.AAReques
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777222L;
+	public static final long APPLICATION_ID=ApplicationIDs.GQ;
 	
 	private IDGenerator<?> idGenerator;
 	

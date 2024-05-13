@@ -8,6 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.gmb.AbortSessionReq
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -67,7 +68,7 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

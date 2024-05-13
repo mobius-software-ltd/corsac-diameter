@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
+
+import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -33,43 +35,60 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 * @author yulian oifa
 *
 */
-public abstract class DiameterGroupedAvpImpl implements DiameterGroupedAvp
+public abstract class DiameterGroupedAvpImpl extends DiameterAvpImpl implements DiameterGroupedAvp
 {
-	public Map<DiameterAvpKey,List<DiameterAvp>> optionalAvps=new ConcurrentHashMap<DiameterAvpKey,List<DiameterAvp>>();
+	public Map<DiameterAvpKey,List<DiameterUnknownAvp>> optionalAvps=new ConcurrentHashMap<DiameterAvpKey,List<DiameterUnknownAvp>>();
 	
 	protected DiameterGroupedAvpImpl() 
 	{
 	}
 	
 	@Override
-	public Map<DiameterAvpKey, List<DiameterAvp>> getOptionalAvps() 
+	public Map<DiameterAvpKey, List<DiameterUnknownAvp>> getOptionalAvps() 
 	{
 		return optionalAvps;
 	}
 
 	@Override
-	public List<DiameterAvp> getOptionalAvps(DiameterAvpKey avpKey) 
+	public List<DiameterUnknownAvp> getOptionalAvps(DiameterAvpKey avpKey) 
 	{
 		return optionalAvps.get(avpKey);
 	}
 
 	@Override
-	public void addOptionalAvp(DiameterAvpKey avpKey, DiameterAvp avp) 
+	public void addOptionalAvp(DiameterAvpKey avpKey, DiameterUnknownAvp avp) 
 	{
-		List<DiameterAvp> currList = optionalAvps.get(avpKey);
+		List<DiameterUnknownAvp> currList = optionalAvps.get(avpKey);
 		if(currList==null)
 		{
-			currList=new ArrayList<DiameterAvp>();
-			List<DiameterAvp> oldAvps=optionalAvps.putIfAbsent(avpKey, currList);
+			currList=new ArrayList<DiameterUnknownAvp>();
+			List<DiameterUnknownAvp> oldAvps=optionalAvps.putIfAbsent(avpKey, currList);
 			if(oldAvps!=null)
 				currList = oldAvps;
 		}
 		
 		currList.add(avp);
 	}
+
+	@Override
+	public void addOptionalAvp(DiameterAvpKey avpKey, ByteBuf avpData, Boolean isProtected) 
+	{
+		List<DiameterUnknownAvp> currList = optionalAvps.get(avpKey);
+		if(currList==null)
+		{
+			currList=new ArrayList<DiameterUnknownAvp>();
+			List<DiameterUnknownAvp> oldAvps=optionalAvps.putIfAbsent(avpKey, currList);
+			if(oldAvps!=null)
+				currList = oldAvps;
+		}
+		
+		DiameterUnknownAvpImpl octetStringAvp=new DiameterUnknownAvpImpl(avpKey.getVendorID(),avpKey.getAvpID(),avpData);
+		octetStringAvp.setProtected(isProtected);
+		currList.add(octetStringAvp);
+	}
 	
 	@Override
-	public void setOptionalAvps(Map<DiameterAvpKey,List<DiameterAvp>> avps)
+	public void setOptionalAvps(Map<DiameterAvpKey,List<DiameterUnknownAvp>> avps)
 	{
 		this.optionalAvps = avps;
 	}

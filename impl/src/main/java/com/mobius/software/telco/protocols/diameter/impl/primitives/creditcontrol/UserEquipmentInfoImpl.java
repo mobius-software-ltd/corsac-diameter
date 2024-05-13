@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfoType;
@@ -36,7 +37,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class UserEquipmentInfoImpl implements UserEquipmentInfo 
+public class UserEquipmentInfoImpl extends DiameterAvpImpl implements UserEquipmentInfo 
 {
 	private UserEquipmentInfoType userEquipmentInfoType;
 	

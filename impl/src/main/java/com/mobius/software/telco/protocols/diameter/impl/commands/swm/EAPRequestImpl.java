@@ -20,6 +20,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5778.ServiceSelectionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.swx.AAAFailureIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -352,7 +353,7 @@ public class EAPRequestImpl extends SwmRequestImpl implements EAPRequest
 
 		if(optionalAvps!=null)
         {
-        	for(List<DiameterAvp> curr:optionalAvps.values())
+        	for(List<DiameterUnknownAvp> curr:optionalAvps.values())
         		result.addAll(curr);
         }
 		

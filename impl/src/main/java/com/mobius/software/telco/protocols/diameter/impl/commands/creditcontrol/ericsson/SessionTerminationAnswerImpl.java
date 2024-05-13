@@ -8,6 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.erics
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -69,6 +70,12 @@ public class SessionTerminationAnswerImpl extends com.mobius.software.telco.prot
 		
 		if(proxyInfo!=null)
 			result.addAll(proxyInfo);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
 		
 		return result;
 	}

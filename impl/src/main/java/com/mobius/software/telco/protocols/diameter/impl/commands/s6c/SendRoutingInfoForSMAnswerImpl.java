@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMSF3GPP
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6c.SMSFNon3GPPAbsentUserDiagnosticSMImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.slh.LMSIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.AdditionalServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6c.MMEAbsentUserDiagnosticSM;
@@ -304,7 +305,7 @@ public class SendRoutingInfoForSMAnswerImpl extends S6cAnswerImpl implements Sen
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

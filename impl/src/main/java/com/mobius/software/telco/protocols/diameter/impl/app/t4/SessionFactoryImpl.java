@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.t4;
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.t4.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportRequest;
@@ -39,7 +40,7 @@ import io.netty.buffer.ByteBuf;
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=16777311L;
+	public static final long APPLICATION_ID=ApplicationIDs.T4;
 	
 	private IDGenerator<?> idGenerator;
 	

@@ -18,8 +18,13 @@ package com.mobius.software.telco.protocols.diameter.primitives.common;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+import java.util.Map;
+
 import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
 /**
@@ -74,5 +79,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 @DiameterAvpDefinition(code = AvpCodes.FAILED_AVP, vendorId = -1L, name = "Failed-Avp")
 public interface FailedAvp extends DiameterGroupedAvp
 {
-
+	Map<DiameterAvpKey,List<DiameterAvp>> getKnownAvps();
+	
+	List<DiameterAvp> getKnownAvps(DiameterAvpKey avpKey);
+	
+	void addKnownAvp(DiameterAvpKey avpKey,DiameterAvp avp);
+	
+	void setKnownAvps(Map<DiameterAvpKey,List<DiameterAvp>> avps);
 }

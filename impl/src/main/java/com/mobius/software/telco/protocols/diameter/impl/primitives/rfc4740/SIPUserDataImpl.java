@@ -96,5 +96,5 @@ public class SIPUserDataImpl extends DiameterGroupedAvpImpl implements SIPUserDa
 			return new MissingAvpException("SIP-User-Data-Contents is required is required", Arrays.asList(new DiameterAvp[] { new SIPUserDataContentsImpl() }));
 		
 		return null;
-	}				
+	}		
 }

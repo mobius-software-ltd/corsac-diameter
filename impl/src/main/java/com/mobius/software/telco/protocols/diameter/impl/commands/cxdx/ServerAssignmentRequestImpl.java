@@ -18,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.Session
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.UserDataAlreadyAvailableImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.FailedPCSCF;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.MultipleRegistrationIndication;
@@ -314,7 +315,7 @@ public class ServerAssignmentRequestImpl extends CxDxRequestWithHostBase impleme
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RatingGroupImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPRATTypeImpl;
@@ -79,7 +80,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class ServiceDataContainerImpl implements ServiceDataContainer
+public class ServiceDataContainerImpl extends DiameterAvpImpl implements ServiceDataContainer
 {
    	private AFCorrelationInformation afCorrelationInformation;
 	private ChargingRuleBaseName chargingRuleBaseName;

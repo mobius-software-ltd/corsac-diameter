@@ -36,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 	Title represents an E.164 number. The Address Type discriminator in RFC 6733 [401] is set to value 8, E.164, and the
 	address information is UTF8 encoded.
  */
-@DiameterAvpDefinition(code = TgppAvpCodes.ORIGINATOR_RECEIVED_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Originator-SCCP-Address")
+@DiameterAvpDefinition(code = TgppAvpCodes.ORIGINATOR_SCCP_ADDRESS, vendorId = VendorIDs.TGPP_ID, name = "Originator-SCCP-Address")
 public interface OriginatorSCCPAddress extends DiameterAddress
 {
 }

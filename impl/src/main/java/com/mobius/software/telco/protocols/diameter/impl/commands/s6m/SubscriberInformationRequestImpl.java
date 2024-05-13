@@ -15,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.SIRFlags
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ServiceIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.SCSIdentity;
@@ -213,7 +214,7 @@ public class SubscriberInformationRequestImpl extends S6mRequestImpl implements 
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

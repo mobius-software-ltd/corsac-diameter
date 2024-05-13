@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.e4;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gq.ReservationPriorityImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rx.MediaTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.TrafficProfileImpl;
@@ -40,7 +41,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.TrafficProfil
 * @author yulian oifa
 *
 */
-public class QoSProfileDescriptionImpl implements QoSProfileDescription
+public class QoSProfileDescriptionImpl extends DiameterAvpImpl implements QoSProfileDescription
 {
 	private List<ApplicationClassID> applicationClassID;
 	

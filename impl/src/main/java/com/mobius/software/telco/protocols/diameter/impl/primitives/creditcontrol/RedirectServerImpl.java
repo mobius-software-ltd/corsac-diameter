@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressTypeEnum;
@@ -34,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Red
 * @author yulian oifa
 *
 */
-public class RedirectServerImpl implements RedirectServer
+public class RedirectServerImpl extends DiameterAvpImpl implements RedirectServer
 {
 	private RedirectAddressType redirectAddressType;
 	

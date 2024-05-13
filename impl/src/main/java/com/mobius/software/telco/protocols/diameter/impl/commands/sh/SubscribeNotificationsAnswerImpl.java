@@ -13,6 +13,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.Wildcar
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.ExpiryTimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sh.UserDataImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.WildcardedIMPU;
@@ -198,7 +199,7 @@ public class SubscribeNotificationsAnswerImpl extends ShAnswerImpl implements Su
 		
 		if(optionalAvps!=null)
 		{
-			for(List<DiameterAvp> curr:optionalAvps.values())
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
 				result.addAll(curr);
 		}
 		

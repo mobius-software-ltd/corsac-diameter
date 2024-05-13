@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.huaw
 
 import org.restcomm.cluster.IDGenerator;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -29,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=4L;
+	public static final long APPLICATION_ID=ApplicationIDs.CREDIT_CONTROL;
 	
 	private IDGenerator<?> idGenerator;
 	

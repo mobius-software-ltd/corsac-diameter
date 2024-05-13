@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.accounting;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BasicServiceCode;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.BearerService;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.Teleservice;
@@ -29,7 +30,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class BasicServiceCodeImpl implements BasicServiceCode
+public class BasicServiceCodeImpl extends DiameterAvpImpl implements BasicServiceCode
 {
 	private BearerService bearerService;
 	private Teleservice teleservice;

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.oma;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.ContentID;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.ContentProviderID;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformation;
@@ -27,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformatio
 * @author yulian oifa
 *
 */
-public class DCDInformationImpl implements DCDInformation
+public class DCDInformationImpl extends DiameterAvpImpl implements DCDInformation
 {
 	private ContentID contentID;
 	private ContentProviderID contentProviderID;

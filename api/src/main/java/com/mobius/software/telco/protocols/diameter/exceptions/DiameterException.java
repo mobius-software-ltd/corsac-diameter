@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.exceptions;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
@@ -35,6 +36,9 @@ public class DiameterException extends Exception
 
 	private Long vendorID;
 	private Long errorCode;
+	private Long applicationID;
+	private Integer commandCode;
+	private DiameterMessage partialMessage;
 	private List<DiameterAvp> failedAVPs;
 	
 	public DiameterException(String message, Long vendorID, Long errorCode, List<DiameterAvp>failedAVPs) 
@@ -58,5 +62,35 @@ public class DiameterException extends Exception
 	public List<DiameterAvp> getFailedAVPs()
 	{
 		return failedAVPs;
-	}	
+	}
+
+	public DiameterMessage getPartialMessage()
+	{
+		return partialMessage;
+	}
+
+	public void setPartialMessage(DiameterMessage partialMessage)
+	{
+		this.partialMessage = partialMessage;
+	}
+
+	public Long getApplicationID()
+	{
+		return applicationID;
+	}
+
+	public void setApplicationID(Long applicationID)
+	{
+		this.applicationID = applicationID;
+	}
+
+	public Integer getCommandCode()
+	{
+		return commandCode;
+	}
+
+	public void setCommandCode(Integer commandCode)
+	{
+		this.commandCode = commandCode;
+	}		
 }

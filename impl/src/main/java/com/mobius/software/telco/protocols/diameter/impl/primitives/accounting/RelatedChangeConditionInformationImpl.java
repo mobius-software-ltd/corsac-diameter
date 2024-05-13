@@ -22,6 +22,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPRATTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.PresenceReportingAreaStatusImpl;
@@ -43,7 +44,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class RelatedChangeConditionInformationImpl implements RelatedChangeConditionInformation
+public class RelatedChangeConditionInformationImpl extends DiameterAvpImpl implements RelatedChangeConditionInformation
 {
 	private SGSNAddress sgsnAddress; 
 	private List<ChangeCondition> changeCondition;
