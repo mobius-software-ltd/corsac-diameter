@@ -54,6 +54,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 	The Experimental-Result AVP contains an Experimental-Result-Code AVP and will signal to the Diameter server that the IP-CAN bearer (e.g. PDP context) has been succesfully terminated as requested. See subclause 16a.6 for the description of the Experimental-Result-Code AVP.
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.ABORT_SESSION, request = false, proxyable = true, name="Abort-Session-Answer")
-public interface AbortSessionAnswer extends RxAnswer
+public interface AbortSessionAnswer extends RxAnswer,com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer
 {	
 }

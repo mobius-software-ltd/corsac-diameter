@@ -93,7 +93,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.TraceData;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TraceDepthEnum;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException

@@ -18,44 +18,52 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.app.gi.ClientListener;
+import com.mobius.software.telco.protocols.diameter.app.gi.GiAccClientSession;
+import com.mobius.software.telco.protocols.diameter.app.gi.GiAccServerSession;
+import com.mobius.software.telco.protocols.diameter.app.gi.GiAuthClientSession;
+import com.mobius.software.telco.protocols.diameter.app.gi.GiAuthServerSession;
+import com.mobius.software.telco.protocols.diameter.app.gi.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.gi.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AARequest;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.gi.AARequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.gi.AccountingRequestImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=ApplicationIDs.NASREQ;
+	private DiameterProvider<ClientListener,ServerListener,?, ?, ?> provider;
 	
-	private IDGenerator<?> idGenerator;
-	
-	private Long applicationId = APPLICATION_ID;
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator)
+	public SessionFactoryImpl(DiameterProvider<ClientListener,ServerListener,?, ?, ?> provider)
 	{
-		this.idGenerator = idGenerator;
+		this.provider = provider;
 	}
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+
+	@Override
+	public GiAccClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		this.idGenerator = idGenerator;
-		this.applicationId = applicationId;
+		return new GiAccClientSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
+
+	@Override
+	public GiAccServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new AARequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId);
-	}		
-	
-	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
+		return new GiAccServerSessionImpl(request.getSessionId(), provider);
+	}
+
+	@Override
+	public GiAuthClientSession createClientSession(AARequest request) throws AvpNotSupportedException
 	{
-		return new AccountingRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), accountingRecordType, accountingRecordNumber, applicationId);
+		return new GiAuthClientSessionImpl(request.getSessionId(),provider);
+	}
+
+	@Override
+	public GiAuthServerSession createServerSession(AARequest request) throws AvpNotSupportedException
+	{
+		return new GiAuthServerSessionImpl(request.getSessionId(),provider);
 	}
 }

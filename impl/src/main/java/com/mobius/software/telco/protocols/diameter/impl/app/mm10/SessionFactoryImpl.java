@@ -18,51 +18,37 @@ package com.mobius.software.telco.protocols.diameter.impl.app.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
-import java.util.List;
-
-import org.restcomm.cluster.IDGenerator;
-
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
-import com.mobius.software.telco.protocols.diameter.VendorIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.app.mm10.ClientListener;
+import com.mobius.software.telco.protocols.diameter.app.mm10.MM10ClientSession;
+import com.mobius.software.telco.protocols.diameter.app.mm10.MM10ServerSession;
+import com.mobius.software.telco.protocols.diameter.app.mm10.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.mm10.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.mm10.MessageProcessRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
-import com.mobius.software.telco.protocols.diameter.primitives.mm10.InitialRecipientAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.mm10.OriginatingInterfaceEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.mm10.ServedUserIdentity;
-import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEventEnum;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=ApplicationIDs.MM10;
+	private DiameterProvider<ClientListener,ServerListener,?, ?, ?> provider;
 	
-	private IDGenerator<?> idGenerator;
-	
-	private Long applicationId = APPLICATION_ID;
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator)
+	public SessionFactoryImpl(DiameterProvider<ClientListener,ServerListener,?, ?, ?> provider)
 	{
-		this.idGenerator = idGenerator;
+		this.provider = provider;
 	}
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+
+	@Override
+	public MM10ClientSession createClientSession(MessageProcessRequest request) throws AvpNotSupportedException
 	{
-		this.idGenerator = idGenerator;
-		this.applicationId = applicationId;
+		return new MM10ClientSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public MessageProcessRequest createMessageProcessRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+
+	@Override
+	public MM10ServerSession createServerSession(MessageProcessRequest request) throws AvpNotSupportedException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		MessageProcessRequest request = new MessageProcessRequestImpl(originHost,originRealm,destinationHost,destinationRealm,false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED,eventTimestamp, triggerEvent, servedUserIdentity,initialRecipientAddress,originatingInterface);
-		request.setVendorSpecificApplicationId(appId);
-		return request;
-	}	
+		return new MM10ServerSessionImpl(request.getSessionId(), provider);
+	}
 }

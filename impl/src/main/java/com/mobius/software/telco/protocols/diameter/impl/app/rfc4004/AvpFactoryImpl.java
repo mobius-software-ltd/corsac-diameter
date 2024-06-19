@@ -45,7 +45,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPOrigin
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPReplayModeEnum;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public MIPMNAAAAuth getMIPMNAAAAuth(Long mipMNAAASPI,Long mipAuthInputDataLength,Long mipAuthenticatorLength,Long mipAuthenticatorOffset) throws MissingAvpException

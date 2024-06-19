@@ -93,7 +93,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.SponsoredConne
 import com.mobius.software.telco.protocols.diameter.primitives.rx.WirelineUserLocationInfo;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public Load getLoad()

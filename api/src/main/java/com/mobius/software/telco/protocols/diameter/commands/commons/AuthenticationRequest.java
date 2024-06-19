@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
 *
@@ -38,4 +39,6 @@ public abstract interface AuthenticationRequest extends DiameterRequest
 	public List<String> getRouteRecords();
 	
 	void setRouteRecords(List<String> value);
+	
+	AuthSessionStateEnum getAuthSessionState();	
 }

@@ -191,7 +191,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.WLANLinkLayer
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ServingNode;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public ServiceInformation getServiceInformation()

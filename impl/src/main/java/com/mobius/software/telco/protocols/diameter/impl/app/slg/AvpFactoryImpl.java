@@ -76,7 +76,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.slh.LCSCapabiliti
 import com.mobius.software.telco.protocols.diameter.primitives.slh.ServingNode;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException

@@ -25,24 +25,30 @@ import com.mobius.software.telco.protocols.diameter.commands.cxdx.RegistrationTe
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.UserAuthorizationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerAssignmentTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserDataAlreadyAvailableEnum;
 
 public interface SessionFactory
 {
-	public LocationInfoRequest createLocationInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String publicIdentity) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	public CxDxLocationInfoClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException;	
 	
-	public MultimediaAuthRequest createMultimediaAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String username, String publicIdentity,Long sipNumberAuthItems,SIPAuthDataItem sIPAuthDataItem, String serverName) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	public CxDxLocationInfoServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException;	
 	
-	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String username) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;			
+	public CxDxMultimediaAuthClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException;	
 	
-	public RegistrationTerminationRequest createRegistrationTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String username, DeregistrationReason deregistrationReason) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
+	public CxDxMultimediaAuthServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException;	
 	
-	public ServerAssignmentRequest createServerAssignmentRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String serverName, ServerAssignmentTypeEnum serverAssignmentType,UserDataAlreadyAvailableEnum userDataAlreadyAvailable) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
+	public CxDxPushProfileClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException;	
 	
-	public UserAuthorizationRequest createUserAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
+	public CxDxPushProfileServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException;	
+	
+	public CxDxRegistrationTerminationClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException;	
+	
+	public CxDxRegistrationTerminationServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException;	
+	
+	public CxDxServerAssignmentClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException;	
+	
+	public CxDxServerAssignmentServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException;	
+	
+	public CxDxUserAuthorizationClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException;	
+	
+	public CxDxUserAuthorizationServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException;
 }

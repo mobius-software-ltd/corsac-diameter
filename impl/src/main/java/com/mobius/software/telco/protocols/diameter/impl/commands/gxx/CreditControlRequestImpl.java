@@ -3,7 +3,6 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.gxx;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +14,8 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPP2BSIDImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPMSTimeZoneImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPSGSNMCCMNCImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPUserLocationInfoImpl;
@@ -47,8 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPP2B
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UserCSGInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UserEquipmentInfo;
@@ -115,13 +109,9 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase implements CreditControlRequest
+public class CreditControlRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.CreditControlRequestImpl implements CreditControlRequest
 {
 	private DRMP drmp;
-	
-	private CcRequestType ccRequestType;
-	
-	private CcRequestNumber ccRequestNumber;
 	
 	private OCSupportedFeatures ocSupportedFeatures;
 	
@@ -196,20 +186,12 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	
 	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, Long.valueOf(ApplicationIDs.GXX));
-		
-		setCcRequestType(ccRequestType);
-		
-		setCcRequestNumber(ccRequestNumber);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, Long.valueOf(ApplicationIDs.GXX), ccRequestType, ccRequestNumber);
 	}
 
 	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
-		
-		setCcRequestType(ccRequestType);
-		
-		setCcRequestNumber(ccRequestNumber);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
 	}
 
 	@Override
@@ -228,42 +210,6 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 			this.drmp = null;
 		else
 			this.drmp = new DRMPImpl(value, null, null);
-	}
-	
-	@Override
-	public CcRequestTypeEnum getCcRequestType() 
-	{
-		if(ccRequestType==null)
-			return null;
-		
-		return ccRequestType.getEnumerated(CcRequestTypeEnum.class);
-	}
-
-	@Override
-	public void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
-		
-		this.ccRequestType = new CcRequestTypeImpl(value, null, null);		
-	}
-
-	@Override
-	public Long getCcRequestNumber() 
-	{
-		if(ccRequestNumber==null)
-			return null;
-		
-		return ccRequestNumber.getUnsigned();
-	}
-
-	@Override
-	public void setCcRequestNumber(Long value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));	
-		
-		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
 
 	@Override
@@ -822,12 +768,6 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(ccRequestType==null)
-			return new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
-		
-		if(ccRequestNumber==null)
-			return new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));
-		
 		if(anGWAddress!=null && anGWAddress.size()>2)
 		{
 			List<DiameterAvp> failedAvps=new ArrayList<DiameterAvp>();

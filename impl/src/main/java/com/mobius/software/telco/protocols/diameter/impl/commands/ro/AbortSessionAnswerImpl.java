@@ -1,6 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.ro;
 
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 

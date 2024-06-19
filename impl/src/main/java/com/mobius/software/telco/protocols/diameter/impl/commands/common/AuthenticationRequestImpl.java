@@ -14,6 +14,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthA
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 
 /*
@@ -105,6 +106,12 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 		
 		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
 	}	
+	
+	@Override
+	public AuthSessionStateEnum getAuthSessionState()
+	{
+		return null;
+	}
 	
 	@DiameterValidate
 	public DiameterException validate()

@@ -38,7 +38,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PendingPolicyCounterInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.sy.PolicyCounterStatusReport;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public Load getLoad()

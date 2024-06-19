@@ -35,6 +35,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.sta.ANTruste
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DiameterClass;
+import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPMSTimeZone;
 import com.mobius.software.telco.protocols.diameter.primitives.gi.TGPPSGSNMCCMNC;
@@ -157,6 +158,17 @@ public class ReAuthRequestImpl extends RxRequestImpl implements ReAuthRequest
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
 		
 		setSpecificAction(specificAction);
+	}
+	
+	@Override
+	public ReAuthRequestTypeEnum getReAuthRequestType()
+	{
+		return null;		
+	}
+	
+	@Override
+	public void setReAuthRequestType(ReAuthRequestTypeEnum value)
+	{
 	}
 	
 	@Override

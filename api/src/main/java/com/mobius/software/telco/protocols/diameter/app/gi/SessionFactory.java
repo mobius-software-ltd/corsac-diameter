@@ -18,15 +18,17 @@ package com.mobius.software.telco.protocols.diameter.app.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.gi.AARequest;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.commands.gi.AARequest;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
 
 public interface SessionFactory
 {
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;		
+	public GiAccClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException;	
 	
-	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException;
+	public GiAccServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException;	
+	
+	public GiAuthClientSession createClientSession(AARequest request) throws AvpNotSupportedException;	
+	
+	public GiAuthServerSession createServerSession(AARequest request) throws AvpNotSupportedException;
 }

@@ -47,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 			*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SWM, commandCode = CommandCodes.ABORT_SESSION, request = true, proxyable = true, name="Abort-Session-Request")
-public interface AbortSessionRequest extends SwmRequest
+public interface AbortSessionRequest extends SwmRequest,com.mobius.software.telco.protocols.diameter.commands.sta.AbortSessionRequest
 {
 	public AuthSessionStateEnum getAuthSessionState();
 	

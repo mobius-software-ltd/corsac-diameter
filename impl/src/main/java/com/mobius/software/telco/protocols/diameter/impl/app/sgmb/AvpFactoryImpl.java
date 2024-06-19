@@ -34,7 +34,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.LocalM1Information;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.DiagnosticInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.sgmb.MBMSFlags;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException

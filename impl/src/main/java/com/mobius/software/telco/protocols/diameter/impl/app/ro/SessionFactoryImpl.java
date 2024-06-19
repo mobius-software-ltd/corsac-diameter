@@ -18,37 +18,44 @@ package com.mobius.software.telco.protocols.diameter.impl.app.ro;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ro.RoClientSession;
+import com.mobius.software.telco.protocols.diameter.app.ro.RoServerSession;
 import com.mobius.software.telco.protocols.diameter.app.ro.SessionFactory;
+import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.ro.CreditControlRequestImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=ApplicationIDs.CREDIT_CONTROL;
+	private DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider;
 	
-	private IDGenerator<?> idGenerator;
-	
-	private Long applicationId = APPLICATION_ID;
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator)
+	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider)
 	{
-		this.idGenerator = idGenerator;
+		this.provider = provider;
 	}
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+
+	@Override
+	public RoClientSession createClientSession(CreditControlRequest request) throws AvpNotSupportedException
 	{
-		this.idGenerator = idGenerator;
-		this.applicationId = applicationId;
+		return new RoClientSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+
+	@Override
+	public RoServerSession createServerSession(CreditControlRequest request) throws AvpNotSupportedException
 	{
-		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, serviceContextId, ccRequestType, ccRequestNumber);
-	}	
+		return new RoServerSessionImpl(request.getSessionId(), provider);
+	}
 }

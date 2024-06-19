@@ -26,7 +26,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.DynamicAddressFlagEnum;
@@ -181,7 +180,7 @@ import io.netty.buffer.ByteBuf;
 	NOTE:	Multiple instances of the Subscription-Id AVP in the CCR command correspond to multiple types of identifier for the same subscriber, for example IMSI and MSISDN.
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.GX, commandCode = CommandCodes.CREDIT_CONTROL, request = true, proxyable = true, name="Credit-Control-Request")
-public interface CreditControlRequest extends AuthenticationRequest
+public interface CreditControlRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest
 {
 	DRMPEnum getDRMP();
 	

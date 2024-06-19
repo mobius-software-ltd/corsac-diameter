@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.commands.gq;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 
 /**
 *
@@ -51,6 +50,6 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.Authenticat
 				 [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.GQ, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
-public interface SessionTerminationAnswer extends AuthenticationAnswer
+public interface SessionTerminationAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer
 {
 }

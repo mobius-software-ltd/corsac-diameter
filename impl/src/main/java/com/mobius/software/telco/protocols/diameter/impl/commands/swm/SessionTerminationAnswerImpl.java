@@ -13,6 +13,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
+import io.netty.buffer.ByteBuf;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -88,6 +90,17 @@ public class SessionTerminationAnswerImpl extends SwmAnswerImpl implements Sessi
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
+	}
+	
+	@Override
+	public List<ByteBuf> getDiameterClass()
+	{
+		return null;
+	}
+	 
+	@Override
+	public void setDiameterClass(List<ByteBuf> value)
+	{
 	}
 	
 	@DiameterOrder

@@ -79,7 +79,7 @@ import io.netty.buffer.ByteBuf;
 				*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
-public interface SessionTerminationAnswer extends RxAnswer
+public interface SessionTerminationAnswer extends RxAnswer,com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer
 {
 	SponsoredConnectivityData getSponsoredConnectivityData();
 	

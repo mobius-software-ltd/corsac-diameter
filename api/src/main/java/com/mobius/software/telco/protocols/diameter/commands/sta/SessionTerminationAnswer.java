@@ -63,7 +63,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 			*[ AVP ]			
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.STA, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
-public interface SessionTerminationAnswer extends StaAnswer
+public interface SessionTerminationAnswer extends StaAnswer,com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer
 {
 	public OCSupportedFeatures getOCSupportedFeatures();
 	 

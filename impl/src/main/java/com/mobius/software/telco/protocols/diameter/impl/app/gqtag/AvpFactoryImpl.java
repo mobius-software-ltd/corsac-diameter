@@ -58,7 +58,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.gq.V6TransportAdd
 import com.mobius.software.telco.protocols.diameter.primitives.rx.FlowDescription;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public Flows getFlows(Long mediaComponentNumber) throws MissingAvpException

@@ -61,7 +61,7 @@ import io.netty.buffer.ByteBuf;
 				*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
-public interface ReAuthAnswer extends RxAnswer
+public interface ReAuthAnswer extends RxAnswer,com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
 	public List<MediaComponentDescription> getMediaComponentDescription();
 	

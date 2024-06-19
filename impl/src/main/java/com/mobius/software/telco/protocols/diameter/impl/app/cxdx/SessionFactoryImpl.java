@@ -18,10 +18,21 @@ package com.mobius.software.telco.protocols.diameter.impl.app.cxdx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
-import com.mobius.software.telco.protocols.diameter.VendorIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxLocationInfoClientSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxLocationInfoServerSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxMultimediaAuthClientSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxMultimediaAuthServerSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxPushProfileClientSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxPushProfileServerSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxRegistrationTerminationClientSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxRegistrationTerminationServerSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxServerAssignmentClientSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxServerAssignmentServerSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxUserAuthorizationClientSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxUserAuthorizationServerSession;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.MultimediaAuthRequest;
@@ -30,86 +41,90 @@ import com.mobius.software.telco.protocols.diameter.commands.cxdx.RegistrationTe
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.UserAuthorizationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.LocationInfoRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.MultimediaAuthRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.PushProfileRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.RegistrationTerminationRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.ServerAssignmentRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.UserAuthorizationRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.DeregistrationReason;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SIPAuthDataItem;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerAssignmentTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.cxdx.UserDataAlreadyAvailableEnum;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=ApplicationIDs.CX_DX;
+	//since we have multiple requests/
+	private DiameterProvider<? extends ClientAuthStatelessListener, ? extends ServerAuthStatelessListener,?, ?, ?> provider;
 	
-	private IDGenerator<?> idGenerator;
-	
-	private Long applicationId = APPLICATION_ID;
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator)
+	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener, ? extends ServerAuthStatelessListener,?, ?, ?> provider)
 	{
-		this.idGenerator = idGenerator;
+		this.provider = provider;
 	}
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+
+	@Override
+	public CxDxLocationInfoClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
-		this.idGenerator = idGenerator;
-		this.applicationId = applicationId;
+		return new CxDxLocationInfoClientSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public LocationInfoRequest createLocationInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String publicIdentity) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+
+	@Override
+	public CxDxLocationInfoServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		LocationInfoRequest request = new LocationInfoRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, publicIdentity);
-		request.setVendorSpecificApplicationId(appId);
-		return request;
+		return new CxDxLocationInfoServerSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public MultimediaAuthRequest createMultimediaAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String username, String publicIdentity,Long sipNumberAuthItems,SIPAuthDataItem sIPAuthDataItem, String serverName) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
+
+	@Override
+	public CxDxMultimediaAuthClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		MultimediaAuthRequest request = new MultimediaAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, publicIdentity, sipNumberAuthItems, sIPAuthDataItem, serverName);
-		request.setVendorSpecificApplicationId(appId);
-		return request;
+		return new CxDxMultimediaAuthClientSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String username) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
+
+	@Override
+	public CxDxMultimediaAuthServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		PushProfileRequest request = new PushProfileRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username);
-		request.setVendorSpecificApplicationId(appId);
-		return request;
-	}			
-	
-	public RegistrationTerminationRequest createRegistrationTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String username, DeregistrationReason deregistrationReason) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
-	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		RegistrationTerminationRequest request = new RegistrationTerminationRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, deregistrationReason);
-		request.setVendorSpecificApplicationId(appId);
-		return request;
+		return new CxDxMultimediaAuthServerSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public ServerAssignmentRequest createServerAssignmentRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String serverName, ServerAssignmentTypeEnum serverAssignmentType,UserDataAlreadyAvailableEnum userDataAlreadyAvailable) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+
+	@Override
+	public CxDxPushProfileClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ServerAssignmentRequest request = new ServerAssignmentRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, serverName, serverAssignmentType, userDataAlreadyAvailable);
-		request.setVendorSpecificApplicationId(appId);
-		return request;
+		return new CxDxPushProfileClientSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public UserAuthorizationRequest createUserAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+
+	@Override
+	public CxDxPushProfileServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		UserAuthorizationRequest request = new UserAuthorizationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
-		request.setVendorSpecificApplicationId(appId);
-		return request;
+		return new CxDxPushProfileServerSessionImpl(request.getSessionId(), provider);
+	}
+
+	@Override
+	public CxDxRegistrationTerminationClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
+	{
+		return new CxDxRegistrationTerminationClientSessionImpl(request.getSessionId(), provider);
+	}
+
+	@Override
+	public CxDxRegistrationTerminationServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
+	{
+		return new CxDxRegistrationTerminationServerSessionImpl(request.getSessionId(), provider);
+	}
+
+	@Override
+	public CxDxServerAssignmentClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException
+	{
+		return new CxDxServerAssignmentClientSessionImpl(request.getSessionId(), provider);
+	}
+
+	@Override
+	public CxDxServerAssignmentServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException
+	{
+		return new CxDxServerAssignmentServerSessionImpl(request.getSessionId(), provider);
+	}
+
+	@Override
+	public CxDxUserAuthorizationClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException
+	{
+		return new CxDxUserAuthorizationClientSessionImpl(request.getSessionId(), provider);
+	}
+
+	@Override
+	public CxDxUserAuthorizationServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException
+	{
+		return new CxDxUserAuthorizationServerSessionImpl(request.getSessionId(), provider);
 	}
 }

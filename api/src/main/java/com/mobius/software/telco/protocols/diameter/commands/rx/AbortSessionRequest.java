@@ -51,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum
 				*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.ABORT_SESSION, request = true, proxyable = true, name="Abort-Session-Request")
-public interface AbortSessionRequest extends RxRequest
+public interface AbortSessionRequest extends RxRequest,com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest
 {
 	AbortCauseEnum getAbortCause();
 	

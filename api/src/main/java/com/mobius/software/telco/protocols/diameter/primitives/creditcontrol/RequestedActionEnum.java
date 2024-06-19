@@ -70,7 +70,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
  */
 public enum RequestedActionEnum implements IntegerEnum
 {
-	REFUND_ACCOUNT(1),CHECK_BALANCE(2),PRICE_ENQUIRY(3);
+	DIRECT_DEBITING(0),REFUND_ACCOUNT(1),CHECK_BALANCE(2),PRICE_ENQUIRY(3);
 
 	private static final Map<Integer, RequestedActionEnum> intToTypeMap = new HashMap<Integer, RequestedActionEnum>();
 	static 

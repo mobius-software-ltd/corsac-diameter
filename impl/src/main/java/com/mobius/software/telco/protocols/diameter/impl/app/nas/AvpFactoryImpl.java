@@ -47,7 +47,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelTypeEnu
 import com.mobius.software.telco.protocols.diameter.primitives.nas.Tunneling;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public CHAPAuth getCHAPAuth(CHAPAlgorithmEnum chapAlgorithm, ByteBuf chapIdent) throws MissingAvpException

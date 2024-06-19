@@ -47,7 +47,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.ServingNode;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.T4Data;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.T4Parameters;
 import com.mobius.software.telco.protocols.diameter.primitives.s6m.UserIdentifier;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public Load getLoad()

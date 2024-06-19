@@ -42,19 +42,11 @@
 			<groupId>com.mobius-software.cluster</groupId>
 			<artifactId>cache-core</artifactId>
 			<version>${cluster.version}</version>
-			<!--<scope>provided</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>com.mobius-software.cluster</groupId>
-			<artifactId>cache-spi</artifactId>
-			<version>${cluster.version}</version>
-			<!--<scope>provided</scope>-->
-		</dependency>
-        <dependency>
-			<groupId>com.mobius-software.cluster</groupId>
 			<artifactId>timers</artifactId>
 			<version>${cluster.version}</version>
-			<!--<scope>provided</scope>-->
 		</dependency>	
 		<dependency>
 		    <groupId>org.mobicents.diameter</groupId>
@@ -72,7 +64,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<scope>provided</scope>
 		</dependency>	
 	</dependencies>
 
