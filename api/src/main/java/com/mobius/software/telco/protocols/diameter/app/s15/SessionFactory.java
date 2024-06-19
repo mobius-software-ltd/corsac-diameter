@@ -1,4 +1,10 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
+package com.mobius.software.telco.protocols.diameter.app.s15;
+
+import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,28 +24,8 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
-
-/**
-*
-* @author yulian oifa
-*
-*/
-public class ExternalIdentifierImpl extends DiameterUTF8StringImpl implements ExternalIdentifier
+public interface SessionFactory
 {
-	public ExternalIdentifierImpl()
-	{
-		super();
-	}
-
-	protected ExternalIdentifierImpl(Integer minLength, Integer maxLength)
-	{
-		super(minLength, maxLength);
-	}
-
-	public ExternalIdentifierImpl(String value, Integer minLength, Integer maxLength)
-	{
-		super(value, minLength, maxLength);
-	}
+	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)throws MissingAvpException, AvpNotSupportedException;;
 }
+

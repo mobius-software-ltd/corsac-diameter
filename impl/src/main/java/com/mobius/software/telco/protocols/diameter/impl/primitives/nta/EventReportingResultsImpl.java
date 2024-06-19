@@ -1,4 +1,5 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
+package com.mobius.software.telco.protocols.diameter.impl.primitives.nta;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,28 +19,24 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.EventReportingResults;
 
-/**
-*
-* @author yulian oifa
-*
-*/
-public class ExternalIdentifierImpl extends DiameterUTF8StringImpl implements ExternalIdentifier
+public class  EventReportingResultsImpl extends DiameterUnsigned32Impl implements EventReportingResults
 {
-	public ExternalIdentifierImpl()
+	public EventReportingResultsImpl()
 	{
 		super();
 	}
 
-	protected ExternalIdentifierImpl(Integer minLength, Integer maxLength)
+	protected EventReportingResultsImpl(Long minLength, Long maxLength)
 	{
 		super(minLength, maxLength);
 	}
 
-	public ExternalIdentifierImpl(String value, Integer minLength, Integer maxLength)
+	public EventReportingResultsImpl(Long value, Long minLength, Long maxLength)
 	{
 		super(value, minLength, maxLength);
 	}
 }
+

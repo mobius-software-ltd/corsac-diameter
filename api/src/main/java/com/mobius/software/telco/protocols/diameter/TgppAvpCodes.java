@@ -1046,10 +1046,15 @@ public class TgppAvpCodes
 	public static final long HE_NB_LOCAL_IP_ADDRESS = 2804L;
 	public static final long UE_LOCAL_IP_ADDRESS = 2805L;
 	public static final long UDP_SOURCE_PORT = 2806L;
+	public static final long CS_SERVICE_QOS_REQUEST_INDENTIFIER = 2807L;
+	public static final long CS_SERVICE_QOS_REQUEST_OPERATION = 2808L;
 	public static final long MUTE_NOTIFICATION = 2809L;
 	public static final long MONITORING_TIME = 2810L;
 	public static final long AN_GW_STATUS = 2811L;
 	public static final long USER_LOCATION_INFO_TIME = 2812L;
+	public static final long CS_SERVICE_RESOURCE_REPORT = 2813L;
+	public static final long CS_SERVICE_RESOURCE_FAILURE_CAUSE = 2814L;
+	public static final long CS_SERVICE_RESOURCE_RESULT_OPERATION = 2815L;
 	public static final long DEFAULT_QOS_INFORMATION = 2816L;
 	public static final long DEFAULT_QOS_NAME = 2817L;
 	public static final long CONDITIONAL_APN_AGGREGATE_MAX_BITRATE = 2818L;
@@ -1521,6 +1526,13 @@ public class TgppAvpCodes
 	public static final long TRANSFER_POLICY = 4207L;
 	public static final long TRANSFER_POLICY_ID = 4208L;
 	public static final long NUMBER_OF_UES = 4209L;
+	public static final long ACCESS_NETWORK_REPORTS = 4210L;
+	public static final long EVENT_CONFIGURATION = 4211L;
+	public static final long EVENT_CONFIGURATION_STATE = 4212L;
+	public static final long EVENT_CONFIGURATION_STATUS = 4213L;
+	public static final long EVENT_REPORTING_RESULTS = 4214L;
+	public static final long EVENT_REPORTS = 4215L;
+	public static final long EXTENDED_SCEF_REFERENCE_ID = 4216L;
 	
 	public static final long COMMUNICATION_FAILURE_IFORMATION = 4300L;
 	public static final long CAUSE_TYPE = 4301L;

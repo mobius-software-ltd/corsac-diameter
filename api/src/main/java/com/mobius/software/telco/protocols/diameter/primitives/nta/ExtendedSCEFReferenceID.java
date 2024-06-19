@@ -1,4 +1,5 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
+package com.mobius.software.telco.protocols.diameter.primitives.nta;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,28 +19,19 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
+import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
+import com.mobius.software.telco.protocols.diameter.VendorIDs;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned64;
 
-/**
-*
-* @author yulian oifa
-*
-*/
-public class ExternalIdentifierImpl extends DiameterUTF8StringImpl implements ExternalIdentifier
+/* 
+ * A.6.3.8	Extended-SCEF-Reference-ID
+ * The Extended-SCEF-Reference-ID AVP (AVP code 4216) is of type Unsigned64 
+ * and it shall contain the identifier provided by the SCEF.
+ */
+
+@DiameterAvpDefinition(code = TgppAvpCodes.EXTENDED_SCEF_REFERENCE_ID, vendorId = VendorIDs.TGPP_ID, name = "Extended-SCEF-Reference-ID")
+public interface ExtendedSCEFReferenceID extends DiameterUnsigned64
 {
-	public ExternalIdentifierImpl()
-	{
-		super();
-	}
 
-	protected ExternalIdentifierImpl(Integer minLength, Integer maxLength)
-	{
-		super(minLength, maxLength);
-	}
-
-	public ExternalIdentifierImpl(String value, Integer minLength, Integer maxLength)
-	{
-		super(value, minLength, maxLength);
-	}
 }

@@ -1,4 +1,5 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
+package com.mobius.software.telco.protocols.diameter.impl.primitives.nta;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,27 +19,23 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
 
-/**
-*
-* @author yulian oifa
-*
-*/
-public class ExternalIdentifierImpl extends DiameterUTF8StringImpl implements ExternalIdentifier
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned64Impl;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.ExtendedSCEFReferenceID;
+
+public class ExtendedSCEFReferenceIDImpl extends DiameterUnsigned64Impl implements ExtendedSCEFReferenceID
 {
-	public ExternalIdentifierImpl()
+	public ExtendedSCEFReferenceIDImpl()
 	{
 		super();
 	}
 
-	protected ExternalIdentifierImpl(Integer minLength, Integer maxLength)
+	protected ExtendedSCEFReferenceIDImpl(Long minLength, Long maxLength)
 	{
 		super(minLength, maxLength);
 	}
 
-	public ExternalIdentifierImpl(String value, Integer minLength, Integer maxLength)
+	public ExtendedSCEFReferenceIDImpl(Long value, Long minLength, Long maxLength)
 	{
 		super(value, minLength, maxLength);
 	}

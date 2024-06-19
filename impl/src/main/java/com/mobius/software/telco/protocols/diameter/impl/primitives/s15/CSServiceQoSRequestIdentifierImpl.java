@@ -1,4 +1,5 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
+package com.mobius.software.telco.protocols.diameter.impl.primitives.s15;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,28 +19,26 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.s6m;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterOctetStringImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceQoSRequestIdentifier;
 
-/**
-*
-* @author yulian oifa
-*
-*/
-public class ExternalIdentifierImpl extends DiameterUTF8StringImpl implements ExternalIdentifier
+import io.netty.buffer.ByteBuf;
+
+public class CSServiceQoSRequestIdentifierImpl extends DiameterOctetStringImpl implements CSServiceQoSRequestIdentifier
 {
-	public ExternalIdentifierImpl()
+	protected CSServiceQoSRequestIdentifierImpl()
 	{
 		super();
 	}
-
-	protected ExternalIdentifierImpl(Integer minLength, Integer maxLength)
+	
+	protected CSServiceQoSRequestIdentifierImpl(Integer minLength, Integer maxLength)
 	{
 		super(minLength, maxLength);
 	}
-
-	public ExternalIdentifierImpl(String value, Integer minLength, Integer maxLength)
+	
+	protected CSServiceQoSRequestIdentifierImpl(ByteBuf value, Integer minLength, Integer maxLength)
 	{
 		super(value, minLength, maxLength);
 	}
+	
 }
