@@ -42,7 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.nas.NASFilterRule
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelMediumTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.TunnelTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.Tunneling;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public Tunneling getTunneling(TunnelTypeEnum tunnelType, TunnelMediumTypeEnum tunnelMediumType,String tunnelClientEndpoint,String tunnelServerEndpoint) throws MissingAvpException

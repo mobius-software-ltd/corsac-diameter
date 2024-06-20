@@ -17,6 +17,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
+import io.netty.buffer.ByteBuf;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -87,6 +89,17 @@ public class SessionTerminationRequestImpl extends SwmRequestImpl implements Ses
 	public void setOCSupportedFeatures(OCSupportedFeatures value)
 	{
 		this.ocSupportedFeatures = value;
+	}
+	
+	@Override
+	public List<ByteBuf> getDiameterClass()
+	{
+		return null;
+	}
+	 
+	@Override
+	public void setDiameterClass(List<ByteBuf> value)
+	{
 	}
 	
 	@DiameterValidate

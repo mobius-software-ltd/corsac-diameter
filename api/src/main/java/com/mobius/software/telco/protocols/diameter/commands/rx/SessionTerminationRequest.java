@@ -57,7 +57,7 @@ import io.netty.buffer.ByteBuf;
 				*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="Session-Termination-Request")
-public interface SessionTerminationRequest extends RxRequest
+public interface SessionTerminationRequest extends RxRequest,com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest
 {
 	TerminationCauseEnum getTerminationCause();
 

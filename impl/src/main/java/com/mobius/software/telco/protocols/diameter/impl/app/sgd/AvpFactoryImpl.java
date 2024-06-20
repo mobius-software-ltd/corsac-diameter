@@ -56,7 +56,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMDeliveryFai
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMEnumeratedDeliveryFailureCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.SMSMICorrelationID;
 import com.mobius.software.telco.protocols.diameter.primitives.sgd.TFRFlags;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException

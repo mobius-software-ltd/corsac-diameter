@@ -23,7 +23,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -64,7 +63,7 @@ import io.netty.buffer.ByteBuf;
 
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.ST, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="Session-Termination-Answer")
-public interface SessionTerminationAnswer extends AuthenticationAnswer
+public interface SessionTerminationAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer
 {
 	public DRMPEnum getDRMP();
 	 

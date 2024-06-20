@@ -45,7 +45,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc4a.UPRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public Load getLoad()

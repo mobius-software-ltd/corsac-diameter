@@ -18,37 +18,38 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rf;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.app.ClientAccListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerAccListener;
+import com.mobius.software.telco.protocols.diameter.app.rf.RfClientSession;
+import com.mobius.software.telco.protocols.diameter.app.rf.RfServerSession;
 import com.mobius.software.telco.protocols.diameter.app.rf.SessionFactory;
+import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.rf.AccountingRequestImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class SessionFactoryImpl implements SessionFactory
 {
-	public static final long APPLICATION_ID=ApplicationIDs.ACCOUNTING;
+	private DiameterProvider<? extends ClientAccListener<AccountingAnswer>, ? extends ServerAccListener<AccountingRequest>,?, ?, ?> provider;
 	
-	private IDGenerator<?> idGenerator;
-	
-	private Long applicationId = APPLICATION_ID;
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator)
+	public SessionFactoryImpl(DiameterProvider<? extends ClientAccListener<AccountingAnswer>, ? extends ServerAccListener<AccountingRequest>,?, ?, ?> provider)
 	{
-		this.idGenerator = idGenerator;
+		this.provider = provider;
 	}
-	
-	public SessionFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+
+	@Override
+	public RfClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		this.idGenerator = idGenerator;
-		this.applicationId = applicationId;
+		return new RfClientSessionImpl(request.getSessionId(), provider);
 	}
-	
-	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
+
+	@Override
+	public RfServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new AccountingRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, accountingRecordType, accountingRecordNumber);
+		return new RfServerSessionImpl(request.getSessionId(), provider);
 	}
 }

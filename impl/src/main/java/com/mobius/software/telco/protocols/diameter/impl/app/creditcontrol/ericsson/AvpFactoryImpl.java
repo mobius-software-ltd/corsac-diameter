@@ -70,8 +70,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.eri
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.ericsson.OtherPartyIdTypeEnum;
 
 import io.netty.buffer.ByteBuf;
-
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public ServiceParameterInfo getServiceParameterInfo(Long serviceParameterType,ByteBuf serviceParameterValue) throws MissingAvpException

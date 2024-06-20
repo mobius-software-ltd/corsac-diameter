@@ -73,7 +73,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public SubscriptionId getSubscriptionId(SubscriptionIdTypeEnum subscriptionIdType,String subscriptionIdData) throws MissingAvpException

@@ -44,7 +44,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.e4.InitialGateSet
 import com.mobius.software.telco.protocols.diameter.primitives.e4.QoSProfileDescription;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.nas.NASPortTypeEnum;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public GloballyUniqueAddress getGloballyUniqueAddress()

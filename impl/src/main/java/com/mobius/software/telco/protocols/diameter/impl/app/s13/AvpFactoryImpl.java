@@ -21,7 +21,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s13;
 import com.mobius.software.telco.protocols.diameter.app.s13.AvpFactory;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.TerminalInformationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.TerminalInformation;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public TerminalInformation getTerminalInformation()

@@ -48,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
 			*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SWM, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
-public interface ReAuthRequest extends SwmRequest
+public interface ReAuthRequest extends SwmRequest,com.mobius.software.telco.protocols.diameter.commands.sta.ReAuthRequest
 {	
 	public ReAuthRequestTypeEnum getReAuthRequestType();
 	

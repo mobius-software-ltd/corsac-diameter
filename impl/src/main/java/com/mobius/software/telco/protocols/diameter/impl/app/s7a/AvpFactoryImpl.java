@@ -30,7 +30,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.DSRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVAFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.UVRFlags;
 import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubscriptionData;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException

@@ -378,23 +378,60 @@ public class LoadingTest
 	}
 	
 	@Test
-	public void testRfc5778() throws DiameterException
+	public void testRfc5778a() throws DiameterException
 	{		
 		DiameterParser diameterParser=new DiameterParser();
 		
 		//make sure classes are loaded
-		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778.MIP6RequestImpl.class;
+		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778a.MIP6RequestImpl.class;
 		Class<?> avpClass = AcctApplicationIdImpl.class;
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
 		diameterParser.registerAvps(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778"));		
+		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778a"));		
+	}
+	
+	@Test
+	public void testRfc5778i() throws DiameterException
+	{		
+		DiameterParser diameterParser=new DiameterParser();
+		
+		//make sure classes are loaded
+		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778i.EAPRequestImpl.class;
+		Class<?> avpClass = AcctApplicationIdImpl.class;
+		assertNotNull(clazz);
+		assertNotNull(avpClass);
+		
+		diameterParser.registerAvps(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778i"));		
 	}
 	
 	@Test
 	public void testRo() throws DiameterException
-	{		
+	{
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		DiameterParser diameterParser=new DiameterParser();
 		
 		//make sure classes are loaded

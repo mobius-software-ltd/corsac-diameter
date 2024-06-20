@@ -27,7 +27,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl implements AvpFactory
 {
 	public ProxyInfo getProxyInfo(String proxyHost,ByteBuf proxyState) throws MissingAvpException

@@ -50,7 +50,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6b.RARFlags;
 			*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.S6B, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
-public interface ReAuthRequest extends S6bRequest
+public interface ReAuthRequest extends S6bRequest,com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {	
 	public ReAuthRequestTypeEnum getReAuthRequestType();
 	

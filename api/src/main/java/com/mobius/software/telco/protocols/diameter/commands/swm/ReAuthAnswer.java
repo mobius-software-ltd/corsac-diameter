@@ -43,6 +43,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 			*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SWM, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
-public interface ReAuthAnswer extends SwmAnswer
+public interface ReAuthAnswer extends SwmAnswer,com.mobius.software.telco.protocols.diameter.commands.sta.ReAuthAnswer
 {	
 }

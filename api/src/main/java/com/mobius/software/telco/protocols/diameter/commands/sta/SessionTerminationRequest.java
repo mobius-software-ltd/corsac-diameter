@@ -67,7 +67,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 				*[ AVP ]				
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.STA, commandCode = CommandCodes.SESSION_TERMINATION, request = true, proxyable = true, name="Session-Termination-Request")
-public interface SessionTerminationRequest extends StaRequest
+public interface SessionTerminationRequest extends StaRequest,com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest
 {
 	TerminationCauseEnum getTerminationCause();
 	

@@ -25,7 +25,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -79,7 +78,7 @@ import io.netty.buffer.ByteBuf;
 	NOTE 1:	For the Solicited application reporting, only CC-Request-Type equal to UPDATE_REQUEST and TERMINATION_REQUEST are used.
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SD, commandCode = CommandCodes.CREDIT_CONTROL, request = true, proxyable = true, name="Credit-Control-Request")
-public interface CreditControlRequest extends AuthenticationRequest
+public interface CreditControlRequest  extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest
 {
 	DRMPEnum getDRMP();
 	

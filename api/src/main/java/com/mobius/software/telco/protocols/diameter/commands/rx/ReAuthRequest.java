@@ -95,7 +95,7 @@ import io.netty.buffer.ByteBuf;
 				*[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.RX, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
-public interface ReAuthRequest extends RxRequest
+public interface ReAuthRequest extends RxRequest,com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	public List<SpecificActionEnum> getSpecificAction();
 	

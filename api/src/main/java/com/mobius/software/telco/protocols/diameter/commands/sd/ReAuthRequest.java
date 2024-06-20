@@ -74,7 +74,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sd.ADCRuleRemove;
 				*[ AVP]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SD, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
-public interface ReAuthRequest extends AuthenticationRequest
+public interface ReAuthRequest extends AuthenticationRequest,com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 	DRMPEnum getDRMP();
 	

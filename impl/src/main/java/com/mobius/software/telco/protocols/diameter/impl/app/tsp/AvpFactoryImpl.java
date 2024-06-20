@@ -31,7 +31,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeviceNotific
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.TriggerData;
 
 import io.netty.buffer.ByteBuf;
-
+/**
+*
+* @author yulian oifa
+*
+*/
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
 	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList) throws MissingAvpException
