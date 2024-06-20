@@ -105,7 +105,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestmpl implements ReAuthRequest
+public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestImpl implements ReAuthRequest
 {
 	private CalledStationId calledStationId;
 	
