@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
 * @author yulian oifa
 *
 */
-public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestmpl implements ReAuthRequest
+public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestImpl implements ReAuthRequest
 {
 	protected ReAuthRequestImpl() 
 	{

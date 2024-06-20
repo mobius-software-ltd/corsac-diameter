@@ -46,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Ser
 * @author yulian oifa
 *
 */
-public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestmpl implements ReAuthRequest
+public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestImpl implements ReAuthRequest
 {
 	protected CcSubSessionId ccSubSessionId;
 	

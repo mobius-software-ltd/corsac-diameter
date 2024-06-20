@@ -42,15 +42,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-public class ReAuthRequestmpl extends AuthenticationRequestWithHostBase implements ReAuthRequest
+public class ReAuthRequestImpl extends AuthenticationRequestWithHostBase implements ReAuthRequest
 {
 	protected ReAuthRequestType reAuthRequestType;
 	
-	protected ReAuthRequestmpl() 
+	protected ReAuthRequestImpl() 
 	{
 	}
 		
-	public ReAuthRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
+	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID, authApplicationID);
 		
