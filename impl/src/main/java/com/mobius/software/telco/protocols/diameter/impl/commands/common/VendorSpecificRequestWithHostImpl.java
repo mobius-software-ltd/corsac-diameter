@@ -33,15 +33,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 * @author yulian oifa
 *
 */
-public abstract class VendorSpecificRequestWithHostBase extends VendorSpecificRequestmpl
+public abstract class VendorSpecificRequestWithHostImpl extends VendorSpecificRequestmpl
 {
-	protected VendorSpecificRequestWithHostBase()
+	protected VendorSpecificRequestWithHostImpl()
 	{
 		super();
 		setDestinationHostAllowed(true);		
 	}
 	
-	public VendorSpecificRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID) throws AvpNotSupportedException, MissingAvpException
+	public VendorSpecificRequestWithHostImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID) throws AvpNotSupportedException, MissingAvpException
 	{	
 		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID);
 		setDestinationHostAllowed(true);

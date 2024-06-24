@@ -34,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 
 public interface MessageFactory
 {
-	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException;
+	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationRealm, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException;
 	
 	public CreditControlAnswer createCreditControlAnswer(CreditControlRequest answer,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	

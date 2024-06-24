@@ -10,7 +10,7 @@ import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminati
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DiameterClassImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
@@ -49,7 +49,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class SessionTerminationRequestImpl extends AuthenticationRequestWithHostBase implements SessionTerminationRequest
+public class SessionTerminationRequestImpl extends AuthenticationRequestWithHostImpl implements SessionTerminationRequest
 {
 	private DRMP drmp;
 	

@@ -3,7 +3,7 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.swd;
 import com.mobius.software.telco.protocols.diameter.commands.swd.SwdRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 * @author yulian oifa
 *
 */
-public abstract class SwdRequestImpl extends AuthenticationRequestWithHostBase implements SwdRequest
+public abstract class SwdRequestImpl extends AuthenticationRequestWithHostImpl implements SwdRequest
 {
 	protected DRMP drmp;
 	

@@ -33,15 +33,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 * @author yulian oifa
 *
 */
-public abstract class AuthenticationRequestWithHostBase extends AuthenticationRequestImpl
+public abstract class AuthenticationRequestWithHostImpl extends AuthenticationRequestImpl
 {
-	protected AuthenticationRequestWithHostBase()
+	protected AuthenticationRequestWithHostImpl()
 	{
 		super();
 		setDestinationHostAllowed(true);		
 	}
 	
-	public AuthenticationRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	public AuthenticationRequestWithHostImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{	
 		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID, authApplicationId);
 		setDestinationHostAllowed(true);

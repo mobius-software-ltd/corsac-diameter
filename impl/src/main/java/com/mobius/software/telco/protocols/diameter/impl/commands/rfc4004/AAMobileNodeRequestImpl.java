@@ -64,7 +64,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements AAMobileNodeRequest
+public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements AAMobileNodeRequest
 {
 	private MIPRegRequest mipRegRequest;
 	

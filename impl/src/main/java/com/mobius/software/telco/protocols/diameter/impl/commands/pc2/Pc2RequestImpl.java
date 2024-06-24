@@ -8,7 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc2.ProSeRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.pc6.RequestingRPAUIDImpl;
@@ -44,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc6.RequestingRPA
 * @author yulian oifa
 *
 */
-public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostBase implements Pc2Request
+public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostImpl implements Pc2Request
 {
 	protected AuthSessionState authSessionState;
 	

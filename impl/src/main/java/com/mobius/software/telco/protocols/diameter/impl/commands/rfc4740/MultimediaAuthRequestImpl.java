@@ -49,7 +49,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServer
 * @author yulian oifa
 *
 */
-public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements MultimediaAuthRequest
+public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements MultimediaAuthRequest
 {
 	private AuthSessionState authSessionState;
 	

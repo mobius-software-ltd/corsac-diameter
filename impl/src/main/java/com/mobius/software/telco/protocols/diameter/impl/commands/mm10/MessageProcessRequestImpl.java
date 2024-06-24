@@ -11,7 +11,7 @@ import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcess
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestWithHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.EventTimestampImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gi.TGPPIMSIImpl;
@@ -69,7 +69,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.mm10.TriggerEvent
 * @author yulian oifa
 *
 */
-public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostBase implements MessageProcessRequest
+public class MessageProcessRequestImpl extends VendorSpecificRequestWithHostImpl implements MessageProcessRequest
 {
 	protected AuthSessionState authSessionState;
 	

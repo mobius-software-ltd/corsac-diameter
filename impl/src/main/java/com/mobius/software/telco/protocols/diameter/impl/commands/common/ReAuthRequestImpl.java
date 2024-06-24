@@ -42,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-public class ReAuthRequestImpl extends AuthenticationRequestWithHostBase implements ReAuthRequest
+public class ReAuthRequestImpl extends AuthenticationRequestWithHostImpl implements ReAuthRequest
 {
 	protected ReAuthRequestType reAuthRequestType;
 	

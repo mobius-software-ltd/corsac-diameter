@@ -44,7 +44,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPDeregi
 * @author yulian oifa
 *
 */
-public class RegistrationTerminationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements RegistrationTerminationRequest
+public class RegistrationTerminationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements RegistrationTerminationRequest
 {
 	private AuthSessionState authSessionState;
 	

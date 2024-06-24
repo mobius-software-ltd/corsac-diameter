@@ -11,7 +11,7 @@ import com.mobius.software.telco.protocols.diameter.commands.s9a.TriggerEstablis
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.HeNBLocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UDPSourcePortImpl;
@@ -57,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s9a.PCRFAddress;
 * @author yulian oifa
 *
 */
-public class TriggerEstablishmentRequestImpl extends AuthenticationRequestWithHostBase implements TriggerEstablishmentRequest
+public class TriggerEstablishmentRequestImpl extends AuthenticationRequestWithHostImpl implements TriggerEstablishmentRequest
 {
 	private DRMP drmp;
 	
