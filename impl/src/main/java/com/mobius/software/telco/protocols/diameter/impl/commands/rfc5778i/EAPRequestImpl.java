@@ -68,7 +68,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements EAPRequest
+public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements EAPRequest
 {
 	private AuthRequestType authRequestType;
 	

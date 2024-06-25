@@ -52,7 +52,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
 * @author yulian oifa
 *
 */
-public class ServerAssignmentRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements ServerAssignmentRequest
+public class ServerAssignmentRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements ServerAssignmentRequest
 {
 	private AuthSessionState authSessionState;
 	

@@ -57,9 +57,9 @@ public class MessageFactoryImpl implements MesssageFactory
 		this.applicationId = applicationId;
 	}
 	
-	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationRealm,CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, ccRequestType, ccRequestNumber);
+		return new CreditControlRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, ccRequestType, ccRequestNumber);
 	}	
 	
 	public TDFSessionRequest createTDFSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException

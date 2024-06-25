@@ -36,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-public class AbortSessionRequestmpl extends AuthenticationRequestWithHostBase implements AbortSessionRequest
+public class AbortSessionRequestmpl extends AuthenticationRequestWithHostImpl implements AbortSessionRequest
 {
 	protected AbortSessionRequestmpl() 
 	{

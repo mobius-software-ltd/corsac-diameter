@@ -61,7 +61,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements HomeAgentMIPRequest
+public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements HomeAgentMIPRequest
 {
 	private AuthorizationLifetime authorizationLifetime;
 	

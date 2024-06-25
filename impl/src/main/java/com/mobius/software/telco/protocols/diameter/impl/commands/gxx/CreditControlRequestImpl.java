@@ -184,14 +184,14 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		super();
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, Long.valueOf(ApplicationIDs.GXX), ccRequestType, ccRequestNumber);
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, Long.valueOf(ApplicationIDs.GXX), ccRequestType, ccRequestNumber);
 	}
 
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
 	}
 
 	@Override

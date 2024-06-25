@@ -39,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Req
 * @author yulian oifa
 *
 */
-public abstract class CreditControlRequestImpl extends AuthenticationRequestWithHostBase implements CreditControlRequest
+public abstract class CreditControlRequestImpl extends AuthenticationRequestImpl implements CreditControlRequest
 {
 	protected CcRequestType ccRequestType;
 	
@@ -50,13 +50,15 @@ public abstract class CreditControlRequestImpl extends AuthenticationRequestWith
 		super();
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws AvpNotSupportedException, MissingAvpException
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessonID, authApplicationId);
 		
 		setCcRequestType(ccRequestType);
 		
-		setCcRequestNumber(ccRequestNumber);		
+		setCcRequestNumber(ccRequestNumber);
+		
+		setDestinationHostAllowed(true);
 	}
 
 	@Override

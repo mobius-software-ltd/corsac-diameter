@@ -3,7 +3,7 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.rx;
 import com.mobius.software.telco.protocols.diameter.commands.rx.RxRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -33,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 * @author yulian oifa
 *
 */
-public abstract class RxRequestImpl extends AuthenticationRequestWithHostBase implements RxRequest
+public abstract class RxRequestImpl extends AuthenticationRequestWithHostImpl implements RxRequest
 {
 	protected DRMP drmp;
 	

@@ -42,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 * @author yulian oifa
 *
 */
-public class LocationInfoRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements LocationInfoRequest
+public class LocationInfoRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements LocationInfoRequest
 {
 	private AuthSessionState authSessionState;
 	

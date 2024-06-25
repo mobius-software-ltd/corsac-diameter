@@ -47,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPVisite
 * @author yulian oifa
 *
 */
-public class UserAuthorizationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase implements UserAuthorizationRequest
+public class UserAuthorizationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements UserAuthorizationRequest
 {
 	private AuthSessionState authSessionState;
 	
