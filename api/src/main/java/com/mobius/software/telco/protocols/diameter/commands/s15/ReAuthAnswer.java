@@ -63,4 +63,5 @@ public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diamet
 	
 	void setOCOLR(OCOLR value);
 	
+	
 }

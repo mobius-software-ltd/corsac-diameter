@@ -1,10 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.app.s15;
-
-import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
-
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -24,8 +18,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+
 public interface SessionFactory
 {
-	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, CcRequestTypeEnum ccRequestType, Long ccRequestNumber)throws MissingAvpException, AvpNotSupportedException;;
+	public S15ClientSession createClientSession(CreditControlRequest request) throws DiameterException;	
+	
+	public S15ServerSession createServerSession(CreditControlRequest request) throws DiameterException;		
 }
-

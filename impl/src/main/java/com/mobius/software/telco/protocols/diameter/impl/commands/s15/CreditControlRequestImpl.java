@@ -1,9 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s15;
 
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -23,12 +19,15 @@ import java.util.Arrays;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostBase;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.HeNBLocalIPAddressImpl;
@@ -49,11 +48,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceQoSRequestIdentifier;
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceQoSRequestOperation;
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceQoSRequestOperationEnum;
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 
-public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase implements CreditControlRequest
+public class CreditControlRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.CreditControlRequestImpl implements CreditControlRequest
 {
 
 	private DRMP drmp;
@@ -77,25 +75,16 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 	protected CreditControlRequestImpl() 
 	{
 		super();
+		
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
-	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, Long.valueOf(ApplicationIDs.GX));
-		
-		setCcRequestType(ccRequestType);
-		
-		setCcRequestNumber(ccRequestNumber);
-	}
-
 	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
 		
-		setCcRequestType(ccRequestType);
 		
-		setCcRequestNumber(ccRequestNumber);
 	}
+	
 
 	@Override
 	public DRMPEnum getDRMP() 
@@ -291,7 +280,6 @@ public class CreditControlRequestImpl extends AuthenticationRequestWithHostBase 
 		return result;
 	
 	}
-	
 }
-	
+
 

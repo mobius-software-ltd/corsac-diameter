@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.app.s15;
+package com.mobius.software.telco.protocols.diameter.app.nta;
 
 /*
  * Mobius Software LTD
@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.app.s15;
 
 import java.net.InetAddress;
 import java.util.Date;
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AccessNetworkInfoChange;
@@ -99,33 +101,40 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.VCSInf
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANOperatorId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerCapabilities;
-import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.EventConfigurationStatus;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.EventReports;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.IMInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGenericInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.WLANLinkLayerId;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
-import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceResourceReport;
+import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportingGuardTimer;
 import com.mobius.software.telco.protocols.diameter.primitives.t6a.ServingNode;
 
 import io.netty.buffer.ByteBuf;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
-
-	public Load getLoad();
+	public EventReports getEventReports();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
+	public EventConfigurationStatus getEventConfigurationStatus();
+	
+	public SupportedFeatures getSupportedFeatures(Long vendorId, Long featureListID, Long featureList);
+	
+	public GroupReportingGuardTimer getGroupReportingGuardTimer();
+	
+	public ExternalIdentifier  getExternalIdentifier() throws MissingAvpException;
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
-	public QoSInformation getQoSInformation();
+	public OCOLR getOCOLR();
 	
-	public CSServiceResourceReport getCSServiceResourceReport();
+	public Load getLoad();
 	
-//ServiceInformation - standard
+	//ServiceInformation - standard
 	
 	public AoCInformation getAoCInformation();
 					
@@ -303,5 +312,3 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 			
 	public NIDDSubmission getNIDDSubmission();
 }
-	
-

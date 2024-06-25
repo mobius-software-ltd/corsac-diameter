@@ -53,14 +53,14 @@ public class EventConfigurationRequestImpl extends NtaRequestImpl implements Eve
 	protected EventConfigurationRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);	
+			
 	}
 		
 	protected EventConfigurationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationRealm, sessonID, isRetransmit, sessonID, authSessionState);	
 		
-		setAuthSessionState(authSessionState);
+		
 		
 		
 	}

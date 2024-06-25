@@ -1,4 +1,10 @@
-package com.mobius.software.telco.protocols.diameter.app.ro;
+package com.mobius.software.telco.protocols.diameter.app.s15;
+
+import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.commands.s15.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s15.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s15.SessionTerminationRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -17,16 +23,11 @@ package com.mobius.software.telco.protocols.diameter.app.ro;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthSession;
-import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationAnswer;
 /**
 *
 * @author yulian oifa
 *
 */
-public interface RoServerSession extends ServerAuthSession<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>
+public interface ServerListener extends ServerAuthListener<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
 {
 }

@@ -22,8 +22,6 @@ package com.mobius.software.telco.protocols.diameter.commands.s15;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceResourceReport;
@@ -56,10 +54,6 @@ public interface ReAuthRequest extends com.mobius.software.telco.protocols.diame
 	DRMPEnum getDRMP();
 	
 	void setDRMP(DRMPEnum value);
-	
-	ReAuthRequestTypeEnum getReAuthRequestType();
-	
-	void setReAuthRequestType(ReAuthRequestTypeEnum value) throws MissingAvpException;
 
 	OCSupportedFeatures getOCSupportedFeatures();
 	

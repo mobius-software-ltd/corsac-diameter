@@ -36,10 +36,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequ
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.rx.SpecificActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceResourceReport;
 
-public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestmpl implements ReAuthRequest
+public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestImpl implements ReAuthRequest
 {
 	private DRMP drmp;
 	
@@ -55,7 +54,7 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 		super();
 	}
 		
-	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType,List<SpecificActionEnum> specificAction) throws MissingAvpException, AvpNotSupportedException
+	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, reAuthRequestType);
 		

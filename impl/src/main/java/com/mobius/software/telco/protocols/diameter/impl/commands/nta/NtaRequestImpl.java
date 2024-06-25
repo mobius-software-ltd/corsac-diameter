@@ -59,6 +59,7 @@ public abstract class NtaRequestImpl extends DiameterRequestWithSessionAndRealmB
 	{
 		super(originHost, originRealm, destinationRealm, sessonID, isRetransmit, sessonID);	
 		
+		setDestinationHostAllowed(true);
 		setAuthSessionState(authSessionState);
 	}
 	

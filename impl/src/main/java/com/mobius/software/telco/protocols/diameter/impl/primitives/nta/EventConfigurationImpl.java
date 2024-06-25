@@ -20,6 +20,10 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.nta;
  */
 
 import java.util.Arrays;
+
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.MonitoringTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.SCEFIDImpl;
@@ -30,10 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.LocationInfor
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringType;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.MonitoringTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.s6t.SCEFID;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.nta.ExtendedSCEFReferenceIDImpl;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public class EventConfigurationImpl extends DiameterGroupedAvpImpl implements EventConfiguration
 {

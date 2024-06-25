@@ -49,7 +49,7 @@ public class EventConfigurationAnswerImpl extends NtaAnswerImpl implements Event
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		
-		setAuthSessionState(authSessionState);
+		
 	}
 	
 	@Override

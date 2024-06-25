@@ -41,7 +41,7 @@ public class EventReportingAnswerImpl extends NtaAnswerImpl implements EventRepo
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		
-		setAuthSessionState(authSessionState);
+		
 	}
 	
 	@DiameterOrder

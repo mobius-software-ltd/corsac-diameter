@@ -1,6 +1,7 @@
-package com.mobius.software.telco.protocols.diameter.app.ro;
+package com.mobius.software.telco.protocols.diameter.app.nta;
+
 /*
- * Mobius Software LTD, Open Source Cloud Communications
+ * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
  * by the @authors tag.
  *
@@ -17,16 +18,10 @@ package com.mobius.software.telco.protocols.diameter.app.ro;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthSession;
-import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationAnswer;
-/**
-*
-* @author yulian oifa
-*
-*/
-public interface RoServerSession extends ServerAuthSession<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>
+
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthSessionStateless;
+import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingRequest;
+
+public interface NtaEventReportingClientSession extends ClientAuthSessionStateless<EventReportingRequest>
 {
 }

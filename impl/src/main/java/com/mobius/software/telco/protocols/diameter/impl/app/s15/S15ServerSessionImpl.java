@@ -1,4 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.s15;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -17,13 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s15;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
+import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
-import com.mobius.software.telco.protocols.diameter.app.s15.S15ClientSession;
-import com.mobius.software.telco.protocols.diameter.app.s15.S15ServerSession;
-import com.mobius.software.telco.protocols.diameter.app.s15.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s15.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s15.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlAnswer;
@@ -32,26 +29,13 @@ import com.mobius.software.telco.protocols.diameter.commands.s15.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s15.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s15.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s15.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionImpl;
 
-public class SessionFactoryImpl implements SessionFactory
+public class S15ServerSessionImpl extends ServerAuthSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements com.mobius.software.telco.protocols.diameter.app.s15.S15ServerSession
 {
-	private DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider;
-	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider)
+	public S15ServerSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
 	{
-		this.provider = provider;
+		super(sessionID, provider);
 	}
 
-	@Override
-	public S15ClientSession createClientSession(CreditControlRequest request) throws AvpNotSupportedException
-	{
-		return new S15ClientSessionImpl(request.getSessionId(), provider);
-	}
-
-	@Override
-	public S15ServerSession createServerSession(CreditControlRequest request) throws AvpNotSupportedException
-	{
-		return new S15ServerSessionImpl(request.getSessionId(), provider);
-	}
 }

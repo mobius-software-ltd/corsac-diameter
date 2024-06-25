@@ -24,9 +24,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
@@ -60,20 +57,12 @@ Message Format:
 */
 
 @DiameterCommandDefinition(applicationId = ApplicationIDs.S15, commandCode = CommandCodes.CREDIT_CONTROL, request = true, proxyable = true, name="Credit-Control-Request")
-public interface CreditControlRequest extends AuthenticationRequest
+public interface CreditControlRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest
 {
     DRMPEnum getDRMP();
 	
 	void setDRMP(DRMPEnum value);
 	
-    CcRequestTypeEnum getCcRequestType();
-	
-	void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException;
-	
-	Long getCcRequestNumber();
-	
-	void setCcRequestNumber(Long value) throws MissingAvpException;
-
 	OCSupportedFeatures getOCSupportedFeatures();
 	
 	void setOCSupportedFeatures(OCSupportedFeatures value);
