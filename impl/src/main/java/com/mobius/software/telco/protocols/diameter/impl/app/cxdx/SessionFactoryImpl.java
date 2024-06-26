@@ -59,72 +59,72 @@ public class SessionFactoryImpl implements SessionFactory
 	@Override
 	public CxDxLocationInfoClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxLocationInfoClientSessionImpl(request.getSessionId(), provider);
+		return new CxDxLocationInfoClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public CxDxLocationInfoServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxLocationInfoServerSessionImpl(request.getSessionId(), provider);
+		return new CxDxLocationInfoServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
 	public CxDxMultimediaAuthClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxMultimediaAuthClientSessionImpl(request.getSessionId(), provider);
+		return new CxDxMultimediaAuthClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public CxDxMultimediaAuthServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxMultimediaAuthServerSessionImpl(request.getSessionId(), provider);
+		return new CxDxMultimediaAuthServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
 	public CxDxPushProfileClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxPushProfileClientSessionImpl(request.getSessionId(), provider);
+		return new CxDxPushProfileClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public CxDxPushProfileServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxPushProfileServerSessionImpl(request.getSessionId(), provider);
+		return new CxDxPushProfileServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
 	public CxDxRegistrationTerminationClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxRegistrationTerminationClientSessionImpl(request.getSessionId(), provider);
+		return new CxDxRegistrationTerminationClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public CxDxRegistrationTerminationServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxRegistrationTerminationServerSessionImpl(request.getSessionId(), provider);
+		return new CxDxRegistrationTerminationServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
 	public CxDxServerAssignmentClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxServerAssignmentClientSessionImpl(request.getSessionId(), provider);
+		return new CxDxServerAssignmentClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public CxDxServerAssignmentServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxServerAssignmentServerSessionImpl(request.getSessionId(), provider);
+		return new CxDxServerAssignmentServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
 	public CxDxUserAuthorizationClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxUserAuthorizationClientSessionImpl(request.getSessionId(), provider);
+		return new CxDxUserAuthorizationClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public CxDxUserAuthorizationServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxUserAuthorizationServerSessionImpl(request.getSessionId(), provider);
+		return new CxDxUserAuthorizationServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 }

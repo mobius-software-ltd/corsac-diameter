@@ -44,9 +44,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	
 	private DiameterProvider<? extends ClientAccListener<A1>, ?, ?, ?, ?> provider;
 	
-	public ClientAccSessionImpl(String sessionID, DiameterProvider<? extends ClientAccListener<A1>, ?, ?, ?, ?> provider)
+	public ClientAccSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<A1>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -60,7 +60,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			requestSent(request, new CallbackWrapper(callback));
 		}
 		
-		provider.getStack().sendMessageToNetwork(request, callback);			
+		provider.getStack().sendRequestToNetwork(request, callback);			
 	}
 	
 	@Override

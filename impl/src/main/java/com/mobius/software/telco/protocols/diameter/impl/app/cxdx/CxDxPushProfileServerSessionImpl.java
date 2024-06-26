@@ -30,8 +30,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 */
 public class CxDxPushProfileServerSessionImpl extends ServerAuthSessionStatelessImpl<PushProfileRequest, PushProfileAnswer> implements CxDxPushProfileServerSession
 {
-	public CxDxPushProfileServerSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
+	public CxDxPushProfileServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

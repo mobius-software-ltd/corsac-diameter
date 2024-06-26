@@ -42,11 +42,14 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	private ClusteredID<?> idleTimerID;
 	private ClusteredID<?> sendTimerID;
 	private SessionStateEnum state;
+	private String remoteHost,remoteRealm;
 	private DiameterRequest lastSentRequest;
 	
-	public DiameterSessionImpl(String sessionID, DiameterProvider<?, ?, ?, ?, ?> provider)
+	public DiameterSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
 		this.sessionID = sessionID;
+		this.remoteHost = remoteHost;
+		this.remoteRealm = remoteRealm;
 		this.provider = provider;
 	}
 	
@@ -160,6 +163,26 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	protected void setSessionState(SessionStateEnum state)
 	{
 		this.state = state;
+	}
+
+	public String getRemoteHost()
+	{
+		return remoteHost;
+	}
+
+	public void setRemoteHost(String remoteHost)
+	{
+		this.remoteHost = remoteHost;
+	}
+
+	public String getRemoteRealm()
+	{
+		return remoteRealm;
+	}
+
+	public void setRemoteRealm(String remoteRealm)
+	{
+		this.remoteRealm = remoteRealm;
 	}
 
 	@Override

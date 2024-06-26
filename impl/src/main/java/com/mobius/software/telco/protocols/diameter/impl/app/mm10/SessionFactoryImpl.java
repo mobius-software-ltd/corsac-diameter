@@ -43,12 +43,12 @@ public class SessionFactoryImpl implements SessionFactory
 	@Override
 	public MM10ClientSession createClientSession(MessageProcessRequest request) throws AvpNotSupportedException
 	{
-		return new MM10ClientSessionImpl(request.getSessionId(), provider);
+		return new MM10ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public MM10ServerSession createServerSession(MessageProcessRequest request) throws AvpNotSupportedException
 	{
-		return new MM10ServerSessionImpl(request.getSessionId(), provider);
+		return new MM10ServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 }

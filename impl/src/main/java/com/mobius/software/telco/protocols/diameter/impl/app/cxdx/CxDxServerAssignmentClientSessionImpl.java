@@ -30,8 +30,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionSt
 */
 public class CxDxServerAssignmentClientSessionImpl extends ClientAuthSessionStatelessImpl<ServerAssignmentRequest, ServerAssignmentAnswer> implements CxDxServerAssignmentClientSession
 {
-	public CxDxServerAssignmentClientSessionImpl(String sessionID, DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider)
+	public CxDxServerAssignmentClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

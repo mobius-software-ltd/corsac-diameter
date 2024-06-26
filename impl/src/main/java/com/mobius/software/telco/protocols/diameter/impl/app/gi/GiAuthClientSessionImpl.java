@@ -36,8 +36,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionIm
 */
 public class GiAuthClientSessionImpl extends ClientAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements GiAuthClientSession
 {
-	public GiAuthClientSessionImpl(String sessionID, DiameterProvider<? extends ClientAuthListener<AAAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
+	public GiAuthClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<AAAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

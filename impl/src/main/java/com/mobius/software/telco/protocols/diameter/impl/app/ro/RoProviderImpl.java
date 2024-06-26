@@ -48,7 +48,7 @@ public class RoProviderImpl extends DiameterProviderImpl<ClientListener, ServerL
 		try
 		{
 			if(message instanceof CreditControlRequest)
-				return new RoServerSessionImpl(message.getSessionId(), this);
+				return new RoServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)
 		{			

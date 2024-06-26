@@ -51,9 +51,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	private DiameterProvider<? extends ClientAuthListener<A1,R2,R3,A4>, ?, ?, ?, ?> provider;
 	private RetransmissionCallback retransmissionCallback=new RetransmissionCallback();
 	
-	public ClientCCSessionImpl(String sessionID, DiameterProvider<? extends ClientAuthListener<A1,R2,R3,A4>, ?, ?, ?, ?> provider)
+	public ClientCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<A1,R2,R3,A4>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -67,14 +67,14 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			requestSent(request, callback);
 		}
 		
-		provider.getStack().sendMessageToNetwork(request, callback);			
+		provider.getStack().sendRequestToNetwork(request, callback);			
 	}
 
 	@Override
 	public void sendReauthAnswer(A2 answer, AsyncCallback callback)
 	{
 		answerSent(answer, callback, null);
-		provider.getStack().sendMessageToNetwork(answer, callback);	
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		setSessionState(SessionStateEnum.DISCONNECTED);
 		setLastSentRequest(request);	
 		requestSent(request, callback);
-		provider.getStack().sendMessageToNetwork(request, callback);	
+		provider.getStack().sendRequestToNetwork(request, callback);	
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			setSessionState(SessionStateEnum.DISCONNECTED);
 		
 		answerSent(answer, callback, null);
-		provider.getStack().sendMessageToNetwork(answer, callback);	
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
 	}
 	
 	@Override

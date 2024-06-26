@@ -51,5 +51,7 @@ public interface DiameterStack
 	
 	String getLocalRealm();
 	
-	void sendMessageToNetwork(DiameterMessage message,AsyncCallback callback);
+	void sendRequestToNetwork(DiameterMessage message,AsyncCallback callback);
+	
+	void sendAnswerToNetwork(DiameterMessage message,String destinationHost,String destinationRealm,AsyncCallback callback);
 }

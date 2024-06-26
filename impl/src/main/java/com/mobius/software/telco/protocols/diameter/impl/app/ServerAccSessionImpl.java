@@ -40,9 +40,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends AccountingAnswer> extends DiameterSessionImpl implements ServerAccSession<A1>
 {
 	private DiameterProvider<?, ? extends ServerAccListener<R1>, ?, ?, ?> provider;
-	public ServerAccSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAccListener<R1>, ?, ?, ?> provider)
+	public ServerAccSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAccListener<R1>, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -74,7 +74,7 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			answerSent(answer, callback, newTime);
 		}
 		
-		provider.getStack().sendMessageToNetwork(answer, callback);			
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
 	}
 	
 	@Override

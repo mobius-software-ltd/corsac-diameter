@@ -30,8 +30,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 */
 public class CxDxMultimediaAuthServerSessionImpl extends ServerAuthSessionStatelessImpl<MultimediaAuthRequest, MultimediaAuthAnswer> implements CxDxMultimediaAuthServerSession
 {
-	public CxDxMultimediaAuthServerSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
+	public CxDxMultimediaAuthServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

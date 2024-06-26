@@ -47,9 +47,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends CreditControlAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerCCSession<A1,R2,R3,A4>
 {
 	private DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider;
-	public ServerCCSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider)
+	public ServerCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -88,7 +88,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			answerSent(answer, callback, newTime);
 		}
 		
-		provider.getStack().sendMessageToNetwork(answer, callback);			
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		setSessionState(SessionStateEnum.PENDING);
 		setLastSentRequest(request);
 		requestSent(request, callback);
-		provider.getStack().sendMessageToNetwork(request, callback);	
+		provider.getStack().sendRequestToNetwork(request, callback);	
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	{
 		setSessionState(SessionStateEnum.IDLE);
 		terminate();
-		provider.getStack().sendMessageToNetwork(answer, callback);	
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	{
 		setSessionState(SessionStateEnum.DISCONNECTED);
 		requestSent(request, callback);
-		provider.getStack().sendMessageToNetwork(request, callback);	
+		provider.getStack().sendRequestToNetwork(request, callback);	
 	}
 	
 	@Override
