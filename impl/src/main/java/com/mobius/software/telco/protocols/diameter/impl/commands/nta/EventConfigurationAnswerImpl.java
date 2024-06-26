@@ -40,12 +40,12 @@ public class EventConfigurationAnswerImpl extends NtaAnswerImpl implements Event
 	
 	protected List<SupportedFeatures> supportedFeatures;
 	
-	protected EventConfigurationAnswerImpl() 
+	public EventConfigurationAnswerImpl() 
 	{
 		super();
 	}
 	
-	protected EventConfigurationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public EventConfigurationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		

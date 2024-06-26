@@ -37,7 +37,7 @@ public class EventReportingAnswerImpl extends NtaAnswerImpl implements EventRepo
 		super();
 	}
 	
-	protected EventReportingAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public EventReportingAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		

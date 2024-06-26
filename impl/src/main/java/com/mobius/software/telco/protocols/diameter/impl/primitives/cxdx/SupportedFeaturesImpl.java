@@ -44,7 +44,7 @@ public class SupportedFeaturesImpl extends DiameterGroupedAvpImpl implements Sup
 	
 	private FeatureList featureList;
 	
-	protected SupportedFeaturesImpl() 
+	public SupportedFeaturesImpl() 
 	{
 		super();
 	}

@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportin
 */
 public class GroupReportingGuardTimerImpl extends DiameterUnsigned32Impl implements GroupReportingGuardTimer
 {
-	protected GroupReportingGuardTimerImpl()
+	public GroupReportingGuardTimerImpl()
 	{
 		super();
 	}

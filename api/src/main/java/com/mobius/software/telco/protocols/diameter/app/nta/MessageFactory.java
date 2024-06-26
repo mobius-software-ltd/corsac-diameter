@@ -5,7 +5,6 @@ import com.mobius.software.telco.protocols.diameter.commands.nta.EventConfigurat
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 /*
@@ -29,16 +28,16 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 
 public interface MessageFactory
 {
-	public EventConfigurationRequest createEventConfigurationRequest(String originHost,String originRealm,String destinationHost) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	public EventConfigurationRequest createEventConfigurationRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
 	
-	public EventConfigurationAnswer createLocationInfoAnswer(EventConfigurationRequest request,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	public EventConfigurationAnswer createLocationInfoAnswer(EventConfigurationRequest request,Long resultCode) throws  MissingAvpException, AvpNotSupportedException;	
 	
-	public EventConfigurationAnswer createLocationInfoAnswer(String originHost,String originRealm,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
+	public EventConfigurationAnswer createLocationInfoAnswer(String originHost,String originRealm,Long resultCode, String sessionID) throws  MissingAvpException, AvpNotSupportedException;
 	
-	public EventReportingRequest createEventReportingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	public EventReportingRequest createEventReportingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws  MissingAvpException, AvpNotSupportedException;	
 	
-	public EventReportingAnswer createEventReportingAnswer(EventReportingRequest request,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	public EventReportingAnswer createEventReportingAnswer(EventReportingRequest request,Long resultCode) throws  MissingAvpException, AvpNotSupportedException;	
 	
-	public EventReportingAnswer createEventReportingAnswer(String originHost,String originRealm,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	public EventReportingAnswer createEventReportingAnswer(String originHost,String originRealm,Long resultCode, String sessionID) throws  MissingAvpException, AvpNotSupportedException;	
 	
 }

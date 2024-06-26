@@ -47,7 +47,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 
 public class MessageFactoryImpl implements MessageFactory
 {
-	public static final long APPLICATION_ID=ApplicationIDs.CREDIT_CONTROL;
+	public static final long APPLICATION_ID=ApplicationIDs.S15;
 	
 	private IDGenerator<?> idGenerator;
 	

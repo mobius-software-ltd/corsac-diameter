@@ -104,7 +104,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformatio
 import com.mobius.software.telco.protocols.diameter.primitives.oma.IMInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.ServiceGenericInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.pc6.WLANLinkLayerId;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCReportTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceResourceReport;
@@ -117,7 +116,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 
 	public Load getLoad();
 	
-	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
+	public OCOLR getOCOLR();
 	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	

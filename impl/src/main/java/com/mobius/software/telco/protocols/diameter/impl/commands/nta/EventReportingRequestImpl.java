@@ -36,16 +36,16 @@ public class EventReportingRequestImpl extends NtaRequestImpl implements EventRe
 {
 	protected EventReports eventReports;
 	
-	protected  EventReportingRequestImpl() 
+	public  EventReportingRequestImpl() 
 	{
 		super();
 		
 		setDestinationHostAllowed(true);
 	}
 		
-	protected EventReportingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public EventReportingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, sessonID, isRetransmit, sessonID, authSessionState);	
+		super(originHost, originRealm, null, destinationRealm, isRetransmit, sessonID, authSessionState);	
 		
 		setDestinationHostAllowed(true);
     }

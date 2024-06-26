@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.app.nta;
+package com.mobius.software.telco.protocols.diameter.impl.app.nta;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,22 +18,17 @@ package com.mobius.software.telco.protocols.diameter.app.nta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-
-
-import com.mobius.software.telco.protocols.diameter.commands.nta.EventConfigurationRequest;
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.app.nta.NtaEventReportingClientSession;
+import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionStatelessImpl;
 
-
-
-public interface SessionFactory
+public class NtaEventReportingClientSessionImpl extends ClientAuthSessionStatelessImpl<EventReportingRequest,EventReportingAnswer> implements NtaEventReportingClientSession
 {
-	public NtaEventConfigurationClientSession createClientSession(EventConfigurationRequest request) throws AvpNotSupportedException;	
-	
-	public NtaEventConfigurationServerSession createServerSession(EventConfigurationRequest  request) throws AvpNotSupportedException;	
-	
-	public NtaEventReportingClientSession createClientSession(EventReportingRequest request) throws AvpNotSupportedException;
-	
-	public NtaEventReportingServerSession createServerSession(EventReportingRequest request) throws AvpNotSupportedException;
-
+	public NtaEventReportingClientSessionImpl(String sessionID, DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider)
+	{
+		super(sessionID, provider);
+	}
 }

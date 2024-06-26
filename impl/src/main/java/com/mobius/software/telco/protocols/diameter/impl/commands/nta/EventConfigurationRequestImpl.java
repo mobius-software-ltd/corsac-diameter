@@ -50,17 +50,15 @@ public class EventConfigurationRequestImpl extends NtaRequestImpl implements Eve
 	
 	protected List<SupportedFeatures> supportedFeatures;
 	
-	protected EventConfigurationRequestImpl() 
+	public EventConfigurationRequestImpl() 
 	{
 		super();
 			
 	}
 		
-	protected EventConfigurationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public EventConfigurationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, sessonID, isRetransmit, sessonID, authSessionState);	
-		
-		
+		super(originHost, originRealm, null, destinationRealm,  isRetransmit, sessonID, authSessionState);	
 		
 		
 	}
