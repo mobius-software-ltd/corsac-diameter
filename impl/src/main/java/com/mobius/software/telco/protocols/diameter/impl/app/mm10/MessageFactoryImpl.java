@@ -72,14 +72,20 @@ public class MessageFactoryImpl implements MessageFactory
 		return request;
 	}	
 	
-	public MessageProcessAnswer createMessageProcessAnswer(MessageProcessRequest request,Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public MessageProcessAnswer createMessageProcessAnswer(MessageProcessRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new MessageProcessAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		MessageProcessAnswerImpl result = new MessageProcessAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
-	public MessageProcessAnswer createMessageProcessAnswer(String originHost, String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	public MessageProcessAnswer createMessageProcessAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new MessageProcessAnswerImpl(originHost,originRealm, false, resultCode, sessionID,AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		MessageProcessAnswerImpl result = new MessageProcessAnswerImpl(originHost,originRealm, false, resultCode, sessionID,AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

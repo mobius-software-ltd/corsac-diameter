@@ -80,16 +80,22 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public AAAnswer createAAAnswer(AARequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public AAAnswer createAAAnswer(AARequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AAAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, request.getAuthRequestType());
+		AAAnswer result = new AAAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, request.getAuthRequestType());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
-	public AAAnswer createAAAnswer(String originHost, String originRealm, Long resultCode, String sessionID, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
+	public AAAnswer createAAAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AAAnswerImpl(originHost, originRealm, false, resultCode, sessionID, authApplicationId, authRequestType);
-	}		
+		AAAnswer result = new AAAnswerImpl(originHost, originRealm, false, resultCode, sessionID, authApplicationId, authRequestType);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
@@ -97,15 +103,21 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public AccountingAnswer createAccountingAnswer(AccountingRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public AccountingAnswer createAccountingAnswer(AccountingRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AccountingAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), request.getAccountingRecordType(), request.getAccountingRecordNumber(), accApplicationId);
+		AccountingAnswerImpl result = new AccountingAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), request.getAccountingRecordType(), request.getAccountingRecordNumber(), accApplicationId);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
-	public AccountingAnswer createAccountingAnswer(String originHost,String originRealm, Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
+	public AccountingAnswer createAccountingAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AccountingAnswerImpl(originHost, originRealm, false, resultCode, sessionID, accountingRecordType, accountingRecordNumber, accApplicationId);
+		AccountingAnswer result = new AccountingAnswerImpl(originHost, originRealm, false, resultCode, sessionID, accountingRecordType, accountingRecordNumber, accApplicationId);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
@@ -121,15 +133,21 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ReAuthAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		ReAuthAnswer result = new ReAuthAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
-	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ReAuthAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		ReAuthAnswer result = new ReAuthAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
@@ -145,15 +163,21 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AbortSessionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		AbortSessionAnswer result = new AbortSessionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
-	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AbortSessionAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		AbortSessionAnswer result = new AbortSessionAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
@@ -169,14 +193,20 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new SessionTerminationAnswerImpl(request.getOriginHost(), request.getOriginRealm(), false, resultCode, request.getSessionId());
+		SessionTerminationAnswerImpl result = new SessionTerminationAnswerImpl(request.getOriginHost(), request.getOriginRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
-	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new SessionTerminationAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		SessionTerminationAnswerImpl result = new SessionTerminationAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

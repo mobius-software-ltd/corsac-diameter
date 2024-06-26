@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -417,6 +418,12 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	@DiameterValidate
 	public DiameterException validate()
 	{
+		if(hopByHopIdentifier==null)
+			return new DiameterException("Hop by hop identifier not set", null, ResultCodes.DIAMETER_INVALID_HDR_BITS, null);
+		
+		if(endToEndIdentifier==null)
+			return new DiameterException("End to end identifier not set", null, ResultCodes.DIAMETER_INVALID_HDR_BITS, null);
+		
 		if(originHost==null)
 			return new MissingAvpException("Origin-Host is required", Arrays.asList(new DiameterAvp[] { new OriginHostImpl() }));
 		
