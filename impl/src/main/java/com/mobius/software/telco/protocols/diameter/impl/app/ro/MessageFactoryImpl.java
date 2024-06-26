@@ -22,9 +22,9 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.ro.MessageFactory;
-import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
@@ -103,6 +103,12 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new ReAuthAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+	}
+	
+	@Override
 	public AbortSessionRequest createAbortSessionRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AbortSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId);
@@ -121,6 +127,12 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new AbortSessionAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+	}
+
+	@Override
 	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
 		return  new SessionTerminationRequestImpl(originHost, originRealm, destinationRealm, false, sessionID, applicationId, terminationCause);
@@ -136,5 +148,11 @@ public class MessageFactoryImpl implements MessageFactory
 	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new SessionTerminationAnswerImpl(request.getOriginHost(), request.getOriginRealm(), false, resultCode, request.getSessionId());
+	}
+
+	@Override
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new SessionTerminationAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
 	}
 }
