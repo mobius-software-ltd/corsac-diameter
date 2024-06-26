@@ -46,15 +46,21 @@ public interface MessageFactory
 	
 	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request,Long resultCode) throws MissingAvpException, AvpNotSupportedException;		
 	
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
+	
 	public AbortSessionRequest createAbortSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID) throws MissingAvpException, AvpNotSupportedException;
 	
 	public AbortSessionRequest createAbortSessionRequest(CreditControlRequest request) throws MissingAvpException, AvpNotSupportedException;
 	
 	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
+	
 	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationRealm,String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	
 	public SessionTerminationRequest creatSessionTerminationRequest(CreditControlRequest request,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	
 	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
 }

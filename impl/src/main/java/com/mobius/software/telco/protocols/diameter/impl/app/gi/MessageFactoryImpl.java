@@ -127,6 +127,12 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new ReAuthAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+	}
+
+	@Override
 	public AbortSessionRequest createAbortSessionRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AbortSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, authApplicationId);
@@ -145,6 +151,12 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new AbortSessionAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+	}
+
+	@Override
 	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
 		return  new SessionTerminationRequestImpl(originHost, originRealm, destinationRealm, false, sessionID, authApplicationId, terminationCause);
@@ -160,5 +172,11 @@ public class MessageFactoryImpl implements MessageFactory
 	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new SessionTerminationAnswerImpl(request.getOriginHost(), request.getOriginRealm(), false, resultCode, request.getSessionId());
+	}
+
+	@Override
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new SessionTerminationAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
 	}
 }
