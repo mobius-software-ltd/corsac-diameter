@@ -28,16 +28,16 @@ import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.ServerCCSessionImpl;
 /**
 *
 * @author yulian oifa
 *
 */
-public class RoServerSessionImpl extends ServerAuthSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements RoServerSession
+public class RoServerSessionImpl extends ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements RoServerSession
 {
-	public RoServerSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
+	public RoServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

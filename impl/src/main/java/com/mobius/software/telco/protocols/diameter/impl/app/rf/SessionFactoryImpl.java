@@ -44,12 +44,12 @@ public class SessionFactoryImpl implements SessionFactory
 	@Override
 	public RfClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new RfClientSessionImpl(request.getSessionId(), provider);
+		return new RfClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public RfServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new RfServerSessionImpl(request.getSessionId(), provider);
+		return new RfServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 }

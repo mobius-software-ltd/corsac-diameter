@@ -48,7 +48,7 @@ public class MM10ProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 		try
 		{
 			if(message instanceof MessageProcessRequest)
-				return new MM10ServerSessionImpl(message.getSessionId(), this);
+				return new MM10ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)
 		{			

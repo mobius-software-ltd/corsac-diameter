@@ -30,8 +30,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAccSessionImp
 */
 public class GiAccClientSessionImpl extends ClientAccSessionImpl<AccountingRequest, AccountingAnswer> implements GiAccClientSession
 {
-	public GiAccClientSessionImpl(String sessionID, DiameterProvider<? extends ClientAccListener<AccountingAnswer>, ?, ?, ?, ?> provider)
+	public GiAccClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<AccountingAnswer>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

@@ -48,7 +48,7 @@ public class RfProviderImpl extends DiameterProviderImpl<ClientListener, ServerL
 		try
 		{
 			if(message instanceof AccountingRequest)
-				return new RfServerSessionImpl(message.getSessionId(), this);
+				return new RfServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)
 		{			

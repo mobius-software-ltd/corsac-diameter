@@ -46,24 +46,24 @@ public class SessionFactoryImpl implements SessionFactory
 	@Override
 	public GiAccClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new GiAccClientSessionImpl(request.getSessionId(), provider);
+		return new GiAccClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public GiAccServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new GiAccServerSessionImpl(request.getSessionId(), provider);
+		return new GiAccServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
 	public GiAuthClientSession createClientSession(AARequest request) throws AvpNotSupportedException
 	{
-		return new GiAuthClientSessionImpl(request.getSessionId(),provider);
+		return new GiAuthClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
 	public GiAuthServerSession createServerSession(AARequest request) throws AvpNotSupportedException
 	{
-		return new GiAuthServerSessionImpl(request.getSessionId(),provider);
+		return new GiAuthServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 }

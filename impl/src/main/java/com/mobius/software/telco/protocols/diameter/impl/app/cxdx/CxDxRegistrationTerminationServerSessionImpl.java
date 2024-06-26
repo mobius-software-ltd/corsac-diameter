@@ -30,8 +30,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 */
 public class CxDxRegistrationTerminationServerSessionImpl extends ServerAuthSessionStatelessImpl<RegistrationTerminationRequest, RegistrationTerminationAnswer> implements CxDxRegistrationTerminationServerSession
 {
-	public CxDxRegistrationTerminationServerSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
+	public CxDxRegistrationTerminationServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

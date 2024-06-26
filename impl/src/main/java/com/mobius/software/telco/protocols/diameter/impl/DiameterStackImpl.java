@@ -228,9 +228,15 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public void sendMessageToNetwork(DiameterMessage message, AsyncCallback callback)
+	public void sendRequestToNetwork(DiameterMessage message, AsyncCallback callback)
 	{
 		// TODO Send to network layer when layer implemented	
+	}
+
+	@Override
+	public void sendAnswerToNetwork(DiameterMessage message, String destinationHost, String destinationRealm, AsyncCallback callback)
+	{
+		// TODO Auto-generated method stub		
 	}
 
 	@Override

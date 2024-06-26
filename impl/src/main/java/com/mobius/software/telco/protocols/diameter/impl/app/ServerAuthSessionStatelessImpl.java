@@ -36,9 +36,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends DiameterSessionImpl implements ServerAuthSessionStateless<A1>
 {
 	private DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider;
-	public ServerAuthSessionStatelessImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
+	public ServerAuthSessionStatelessImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -46,7 +46,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	public void sendInitialAnswer(A1 answer, AsyncCallback callback)
 	{
 		answerSent(answer, callback, null);
-		provider.getStack().sendMessageToNetwork(answer, callback);			
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
 	}
 	
 	@Override

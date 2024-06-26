@@ -50,12 +50,12 @@ public class SessionFactoryImpl implements SessionFactory
 	@Override
 	public RoClientSession createClientSession(CreditControlRequest request) throws AvpNotSupportedException
 	{
-		return new RoClientSessionImpl(request.getSessionId(), provider);
+		return new RoClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public RoServerSession createServerSession(CreditControlRequest request) throws AvpNotSupportedException
 	{
-		return new RoServerSessionImpl(request.getSessionId(), provider);
+		return new RoServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 }

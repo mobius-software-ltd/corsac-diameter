@@ -43,9 +43,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerAuthSession<A1,R2,R3,A4>
 {
 	private DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider;
-	public ServerAuthSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider)
+	public ServerAuthSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -63,7 +63,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			answerSent(answer, callback, null);
 		}
 		
-		provider.getStack().sendMessageToNetwork(answer, callback);			
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		setSessionState(SessionStateEnum.PENDING);
 		setLastSentRequest(request);
 		requestSent(request, callback);
-		provider.getStack().sendMessageToNetwork(request, callback);	
+		provider.getStack().sendRequestToNetwork(request, callback);	
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	{
 		setSessionState(SessionStateEnum.IDLE);
 		terminate();
-		provider.getStack().sendMessageToNetwork(answer, callback);	
+		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	{
 		setSessionState(SessionStateEnum.DISCONNECTED);
 		requestSent(request, callback);
-		provider.getStack().sendMessageToNetwork(request, callback);	
+		provider.getStack().sendRequestToNetwork(request, callback);	
 	}
 	
 	@Override
