@@ -28,7 +28,7 @@ public interface MessageFactory
 {
 	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException;
 	
-	public AccountingAnswer createAccountingAnswer(String originHost,String originRealm,Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException;
+	public AccountingAnswer createAccountingAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException;
 
-	public AccountingAnswer createAccountingAnswer(AccountingRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	public AccountingAnswer createAccountingAnswer(AccountingRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 }

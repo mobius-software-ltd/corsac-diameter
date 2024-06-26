@@ -35,7 +35,7 @@ public interface MessageFactory
 {
 	public MessageProcessRequest createMessageProcessRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
 	
-	public MessageProcessAnswer createMessageProcessAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	public MessageProcessAnswer createMessageProcessAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
 
-	public MessageProcessAnswer createMessageProcessAnswer(MessageProcessRequest request,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	public MessageProcessAnswer createMessageProcessAnswer(MessageProcessRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 }
