@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.nta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -23,9 +24,12 @@ import java.util.List;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DestinationHostImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -45,10 +49,19 @@ public class EventReportingRequestImpl extends NtaRequestImpl implements EventRe
 		
 	public EventReportingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, null, destinationRealm, isRetransmit, sessonID, authSessionState);	
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessonID, authSessionState);	
 		
-		setDestinationHostAllowed(true);
+		setDestinationHost(destinationHost);
     }
+	
+	@Override
+	public void setDestinationHost(String value) throws AvpNotSupportedException, MissingAvpException 
+	{
+		if(value==null)
+			throw new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl()}));;
+		
+		this.destinationHost = new DestinationHostImpl(value, null, null);
+	}
 	
 	@Override
 	public EventReports getEventReports()
@@ -60,6 +73,15 @@ public class EventReportingRequestImpl extends NtaRequestImpl implements EventRe
 	public void setEventReports(EventReports value)
 	{
 		this.eventReports = value;
+	}
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(destinationHost==null)
+			return new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl()}));
+					
+		return super.validate();
 	}
 	
 	@DiameterOrder

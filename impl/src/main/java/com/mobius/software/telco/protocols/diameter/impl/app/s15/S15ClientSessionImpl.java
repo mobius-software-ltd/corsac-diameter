@@ -32,8 +32,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl
 
 public class S15ClientSessionImpl extends ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements S15ClientSession
 {
-	public S15ClientSessionImpl(String sessionID, DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
+	public S15ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID,remoteHost, remoteRealm, provider);
 	}
 }

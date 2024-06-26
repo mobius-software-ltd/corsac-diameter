@@ -21,23 +21,16 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.s15;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestNumberImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.HeNBLocalIPAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.gx.UDPSourcePortImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s15.CSServiceQoSRequestOperationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestNumber;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.HeNBLocalIPAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.QoSInformation;
@@ -49,16 +42,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceQoSR
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceQoSRequestOperation;
 import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceQoSRequestOperationEnum;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 
 public class CreditControlRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.CreditControlRequestImpl implements CreditControlRequest
 {
 
 	private DRMP drmp;
-	
-	private CcRequestType ccRequestType;
-	
-	private CcRequestNumber ccRequestNumber;
 	
 	private OCSupportedFeatures ocSupportedFeatures;
 	
@@ -78,11 +66,9 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
-		
-		
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
 	}
 	
 
@@ -102,42 +88,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 			this.drmp = null;
 		else
 			this.drmp = new DRMPImpl(value, null, null);
-	}
-	
-	@Override
-	public CcRequestTypeEnum getCcRequestType() 
-	{
-		if(ccRequestType==null)
-			return null;
-		
-		return ccRequestType.getEnumerated(CcRequestTypeEnum.class);
-	}
-
-	@Override
-	public void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
-		
-		this.ccRequestType = new CcRequestTypeImpl(value, null, null);		
-	}
-
-	@Override
-	public Long getCcRequestNumber() 
-	{
-		if(ccRequestNumber==null)
-			return null;
-		
-		return ccRequestNumber.getUnsigned();
-	}
-	
-	@Override
-	public void setCcRequestNumber(Long value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));	
-		
-		this.ccRequestNumber = new CcRequestNumberImpl(value, null, null);
 	}
 	
 	@Override
@@ -230,17 +180,7 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		else
 			this.udpSourcePort = new UDPSourcePortImpl(value, null, null);			
 	}
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(ccRequestType==null)
-			return new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new CcRequestTypeImpl() }));
-		
-		if(ccRequestNumber==null)
-			return new MissingAvpException("CC-Request-Number is required", Arrays.asList(new DiameterAvp[] { new CcRequestNumberImpl() }));
-		
-		return super.validate();
-	}
+	
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()
 	{

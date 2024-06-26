@@ -1,9 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.s15;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -23,15 +19,15 @@ import java.util.List;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
+import java.util.List;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.s15.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -41,8 +37,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.s15.CSServiceReso
 public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.ReAuthRequestImpl implements ReAuthRequest
 {
 	private DRMP drmp;
-	
-	private ReAuthRequestType reAuthRequestType;
 	
 	private OCSupportedFeatures ocSupportedFeatures;
 	
@@ -77,24 +71,6 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 			this.drmp = null;
 		else
 			this.drmp = new DRMPImpl(value, null, null);
-	}
-	
-	@Override
-	public ReAuthRequestTypeEnum getReAuthRequestType() 
-	{
-		if(reAuthRequestType==null)
-			return null;
-		
-		return reAuthRequestType.getEnumerated(ReAuthRequestTypeEnum.class);
-	}
-
-	@Override
-	public void setReAuthRequestType(ReAuthRequestTypeEnum value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("CC-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ReAuthRequestTypeImpl() }));
-			
-		this.reAuthRequestType = new ReAuthRequestTypeImpl(value, null, null);	
 	}
 	
 	@Override

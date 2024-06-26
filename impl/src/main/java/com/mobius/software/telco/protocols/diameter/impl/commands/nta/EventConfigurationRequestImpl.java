@@ -56,11 +56,9 @@ public class EventConfigurationRequestImpl extends NtaRequestImpl implements Eve
 			
 	}
 		
-	public EventConfigurationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public EventConfigurationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState, String externalIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, null, destinationRealm,  isRetransmit, sessonID, authSessionState);	
-		
-		
+		super(originHost, originRealm, destinationRealm,  isRetransmit, sessonID, authSessionState);		
 	}
 	
 	@Override
@@ -77,10 +75,10 @@ public class EventConfigurationRequestImpl extends NtaRequestImpl implements Eve
 	}
 
 	@Override
-	public void setExternalIdentifier(List<String> value) 
+	public void setExternalIdentifier(List<String> value) throws MissingAvpException 
 	{
 		if(value == null || value.size()==0)
-			this.externalIdentifier = null;
+			throw new MissingAvpException("External-Identifier is required", Arrays.asList(new DiameterAvp[] { new ExternalIdentifierImpl() }));
 		else
 		{
 			this.externalIdentifier = new ArrayList<ExternalIdentifier>();
@@ -136,7 +134,7 @@ public class EventConfigurationRequestImpl extends NtaRequestImpl implements Eve
 	public DiameterException validate()
 	{
 		if(externalIdentifier==null)
-			return new MissingAvpException("External-Identifieris required", Arrays.asList(new DiameterAvp[] { new ExternalIdentifierImpl() }));
+			return new MissingAvpException("External-Identifier is required", Arrays.asList(new DiameterAvp[] { new ExternalIdentifierImpl() }));
 		
 		return super.validate();
 	}

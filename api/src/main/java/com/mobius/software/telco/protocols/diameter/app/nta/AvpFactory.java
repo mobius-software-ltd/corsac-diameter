@@ -19,16 +19,16 @@ package com.mobius.software.telco.protocols.diameter.app.nta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCSpecificReduction;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.AccessNetworkReports;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.EventConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.nta.EventConfigurationStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.nta.EventReports;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
-import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportingGuardTimer;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.LocationInformationConfiguration;
 
 public interface AvpFactory extends com.mobius.software.telco.protocols.diameter.app.commons.AvpFactory
 {
@@ -38,14 +38,17 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public SupportedFeatures getSupportedFeatures();
 	
-	public GroupReportingGuardTimer getGroupReportingGuardTimer();
-	
-	public ExternalIdentifier  getExternalIdentifier() throws MissingAvpException;
-	
 	public OCSupportedFeatures getOCSupportedFeatures();
 	
 	public OCOLR getOCOLR();
 	
 	public Load getLoad();
 	
+	public AccessNetworkReports getAccessNetworkReports();
+	
+	public TGPPOCSpecificReduction getTGPPOCSpecificReduction();
+	
+	public EventConfiguration getEventConfiguration();
+	
+	public LocationInformationConfiguration getLocationInformationConfiguration();
 }

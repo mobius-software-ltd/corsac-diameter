@@ -39,7 +39,8 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	private IDGenerator<?> idGenerator;
 	
-	private Long applicationId = APPLICATION_ID;
+	//
+	//private Long applicationId = APPLICATION_ID;
 	
 	public MessageFactoryImpl(IDGenerator<?> idGenerator)
 	{
@@ -49,13 +50,13 @@ public class MessageFactoryImpl implements MessageFactory
 	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
 	{
 		this.idGenerator = idGenerator;
-		this.applicationId = applicationId;
+		//this.applicationId = applicationId;
 	}
 
 	@Override
-	public EventConfigurationRequest createEventConfigurationRequest(String originHost, String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
+	public EventConfigurationRequest createEventConfigurationRequest(String originHost, String originRealm,String destinationRealm,String externalIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EventConfigurationRequestImpl(originHost,originRealm, null, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		return new EventConfigurationRequestImpl(originHost,originRealm, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, externalIdentifier);
 	}
 
 	@Override

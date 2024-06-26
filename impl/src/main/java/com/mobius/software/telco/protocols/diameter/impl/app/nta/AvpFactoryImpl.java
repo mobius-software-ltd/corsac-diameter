@@ -20,23 +20,26 @@ package com.mobius.software.telco.protocols.diameter.impl.app.nta;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.nta.AvpFactory;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.OCOLRImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPPOCSpecificReductionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.nta.AccessNetworkReportsImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.nta.EventConfigurationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nta.EventConfigurationStatusImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nta.EventReportsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7683.OCSupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc8583.LoadImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.ExternalIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.GroupReportingGuardTimerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s6t.LocationInformationConfigurationImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCSpecificReduction;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.AccessNetworkReports;
+import com.mobius.software.telco.protocols.diameter.primitives.nta.EventConfiguration;
 import com.mobius.software.telco.protocols.diameter.primitives.nta.EventConfigurationStatus;
 import com.mobius.software.telco.protocols.diameter.primitives.nta.EventReports;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
-import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdentifier;
-import com.mobius.software.telco.protocols.diameter.primitives.s6t.GroupReportingGuardTimer;
+import com.mobius.software.telco.protocols.diameter.primitives.s6t.LocationInformationConfiguration;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
@@ -58,19 +61,7 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 	{
 		return new SupportedFeaturesImpl();
 	}
-
-	@Override
-	public GroupReportingGuardTimer getGroupReportingGuardTimer() 
-	{
-	    return new  GroupReportingGuardTimerImpl();
-	}
-
-	@Override
-	public ExternalIdentifier getExternalIdentifier() throws MissingAvpException 
-	{
-		return new ExternalIdentifierImpl();
-	}
-
+	
 	@Override
 	public OCSupportedFeatures getOCSupportedFeatures() 
 	{
@@ -89,4 +80,27 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new LoadImpl();
 	}
 	
+	@Override
+	public AccessNetworkReports getAccessNetworkReports()
+	{
+		return new AccessNetworkReportsImpl();
+	}
+	
+	@Override
+	public TGPPOCSpecificReduction getTGPPOCSpecificReduction()
+	{
+		return new TGPPOCSpecificReductionImpl();
+	}
+	
+	@Override
+	public EventConfiguration getEventConfiguration()
+	{
+		return new EventConfigurationImpl(); 
+	}
+	
+	@Override
+	public LocationInformationConfiguration getLocationInformationConfiguration()
+	{
+		return new LocationInformationConfigurationImpl();
+	}
 }

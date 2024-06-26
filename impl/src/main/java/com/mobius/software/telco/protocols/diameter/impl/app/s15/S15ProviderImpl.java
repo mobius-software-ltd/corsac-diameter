@@ -44,7 +44,7 @@ public class S15ProviderImpl extends DiameterProviderImpl<ClientListener, Server
 		try
 		{
 			if(message instanceof CreditControlRequest)
-				return new S15ServerSessionImpl(message.getSessionId(), this);
+				return new S15ServerSessionImpl(message.getSessionId(),message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)
 		{			

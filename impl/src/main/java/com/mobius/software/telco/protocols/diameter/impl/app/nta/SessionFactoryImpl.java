@@ -29,7 +29,6 @@ import com.mobius.software.telco.protocols.diameter.app.nta.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventConfigurationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.primitives.nta.EventConfiguration;
 
 public class SessionFactoryImpl implements SessionFactory
 {
@@ -43,24 +42,24 @@ public class SessionFactoryImpl implements SessionFactory
 	@Override
 	public NtaEventConfigurationClientSession createClientSession(EventConfigurationRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventConfigurationClientSessionImpl(request.getSessionId(), provider);
+		return new NtaEventConfigurationClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 	
 	@Override
 	public NtaEventConfigurationServerSession createServerSession(EventConfigurationRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventConfigurationServerSessionImpl(request.getSessionId(), provider);
+		return new NtaEventConfigurationServerSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 	
 	@Override
 	public NtaEventReportingClientSession createClientSession(EventReportingRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventReportingClientSessionImpl(request.getSessionId(), provider);
+		return new NtaEventReportingClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 	
 	@Override
 	public NtaEventReportingServerSession createServerSession(EventReportingRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventReportingServerSessionImpl(request.getSessionId(), provider);
+		return new NtaEventReportingServerSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 }

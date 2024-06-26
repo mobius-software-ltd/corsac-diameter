@@ -52,14 +52,12 @@ public abstract class NtaRequestImpl extends DiameterRequestWithSessionAndRealmB
 	protected NtaRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);	
 	}
 		
-	public NtaRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public NtaRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, null, destinationRealm, isRetransmit, sessonID);	
 		
-		setDestinationHostAllowed(true);
 		setAuthSessionState(authSessionState);
 	}
 	

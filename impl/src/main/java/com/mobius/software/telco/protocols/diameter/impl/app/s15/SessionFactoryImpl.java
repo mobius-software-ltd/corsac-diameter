@@ -46,12 +46,12 @@ public class SessionFactoryImpl implements SessionFactory
 	@Override
 	public S15ClientSession createClientSession(CreditControlRequest request) throws AvpNotSupportedException
 	{
-		return new S15ClientSessionImpl(request.getSessionId(), provider);
+		return new S15ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
 	public S15ServerSession createServerSession(CreditControlRequest request) throws AvpNotSupportedException
 	{
-		return new S15ServerSessionImpl(request.getSessionId(), provider);
+		return new S15ServerSessionImpl(request.getSessionId(),request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 }

@@ -48,8 +48,6 @@ public class EventConfigurationAnswerImpl extends NtaAnswerImpl implements Event
 	public EventConfigurationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		
-		
 	}
 	
 	@Override

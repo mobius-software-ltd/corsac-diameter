@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s15;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
 import com.mobius.software.telco.protocols.diameter.commands.s15.AbortSessionAnswer;
@@ -33,9 +33,9 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionIm
 
 public class S15ServerSessionImpl extends ServerAuthSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements com.mobius.software.telco.protocols.diameter.app.s15.S15ServerSession
 {
-	public S15ServerSessionImpl(String sessionID, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
+	public S15ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID,remoteHost, remoteRealm, provider);
 	}
 
 }

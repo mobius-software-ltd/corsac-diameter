@@ -27,8 +27,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionSt
 
 public class NtaEventConfigurationClientSessionImpl extends ClientAuthSessionStatelessImpl<EventConfigurationRequest,EventConfigurationAnswer> implements NtaEventConfigurationClientSession
 {
-	public NtaEventConfigurationClientSessionImpl(String sessionID, DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider)
+	public NtaEventConfigurationClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }
