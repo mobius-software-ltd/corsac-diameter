@@ -99,7 +99,13 @@ public class MessageFactoryImpl implements MessageFactory
 	{
 		return new ReAuthAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
 	}
-
+	
+	@Override
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new ReAuthAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+	}
+	
 	@Override
 	public AbortSessionRequest createAbortSessionRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
@@ -116,6 +122,12 @@ public class MessageFactoryImpl implements MessageFactory
 	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AbortSessionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+	}
+	
+	@Override
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new AbortSessionAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
 	}
 
 	@Override
@@ -134,6 +146,12 @@ public class MessageFactoryImpl implements MessageFactory
 	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new SessionTerminationAnswerImpl(request.getOriginHost(), request.getOriginRealm(), false, resultCode, request.getSessionId());
+	}
+	
+	@Override
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new SessionTerminationAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
 	}
 
 }

@@ -13,6 +13,8 @@ import com.mobius.software.telco.protocols.diameter.impl.commands.eap.EAPRequest
 import com.mobius.software.telco.protocols.diameter.impl.commands.gi.AccountingRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gmb.AARequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.nta.EventReportsImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.s15.CSServiceQoSRequestIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 
 public class LoadingTest
@@ -288,6 +290,21 @@ public class LoadingTest
 	}
 	
 	@Test
+	public void testNta() throws DiameterException
+	{		
+		DiameterParser diameterParser=new DiameterParser();
+		
+		//make sure classes are loaded
+		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.nta.EventReportingRequestImpl.class;
+		Class<?> avpClass = EventReportsImpl.class;
+		assertNotNull(clazz);
+		assertNotNull(avpClass);
+		
+		diameterParser.registerAvps(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.nta"));		
+	}
+	
+	@Test
 	public void testPC2() throws DiameterException
 	{		
 		DiameterParser diameterParser=new DiameterParser();
@@ -472,6 +489,21 @@ public class LoadingTest
 		
 		diameterParser.registerAvps(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s13"));		
+	}
+	
+	@Test
+	public void testS15() throws DiameterException
+	{		
+		DiameterParser diameterParser=new DiameterParser();
+		
+		//make sure classes are loaded
+		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s15.CreditControlAnswerImpl.class;
+		Class<?> avpClass = CSServiceQoSRequestIdentifierImpl.class;
+		assertNotNull(clazz);
+		assertNotNull(avpClass);
+		
+		diameterParser.registerAvps(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s15"));		
 	}
 	
 	@Test
