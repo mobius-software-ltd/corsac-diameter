@@ -57,18 +57,25 @@ public class MessageFactoryImpl implements MessageFactory
 	public EventConfigurationRequest createEventConfigurationRequest(String originHost, String originRealm,String destinationRealm,String externalIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new EventConfigurationRequestImpl(originHost,originRealm, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, externalIdentifier);
+		
+	}
+	
+    @Override
+	public EventConfigurationAnswer createEventConfigurationAnswer(EventConfigurationRequest request,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException 
+	{
+		 EventConfigurationAnswerImpl result = new EventConfigurationAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		 result.setHopByHopIdentifier(hopByHopIdentifier);
+		 result.setEndToEndIdentifier(endToEndIdentifier);
+		 return result;
 	}
 
 	@Override
-	public EventConfigurationAnswer createLocationInfoAnswer(EventConfigurationRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException 
+	public EventConfigurationAnswer createEventConfigurationAnswer(String originHost, String originRealm,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EventConfigurationAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
-	}
-
-	@Override
-	public EventConfigurationAnswer createLocationInfoAnswer(String originHost, String originRealm, Long resultCode,String sessionID) throws MissingAvpException, AvpNotSupportedException
-	{
-		return new EventConfigurationAnswerImpl(originHost,originRealm, false, resultCode, sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		EventConfigurationAnswerImpl result = new EventConfigurationAnswerImpl(originHost,originRealm, false, resultCode, sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
@@ -78,14 +85,20 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public EventReportingAnswer createEventReportingAnswer(EventReportingRequest request, Long resultCode) throws MissingAvpException, AvpNotSupportedException 
+	public EventReportingAnswer createEventReportingAnswer(EventReportingRequest request,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException 
 	{
-		return new EventReportingAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		EventReportingAnswerImpl result = new EventReportingAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 
 	@Override
-	public EventReportingAnswer createEventReportingAnswer(String originHost, String originRealm, Long resultCode,String sessionID) throws MissingAvpException, AvpNotSupportedException 
+	public EventReportingAnswer createEventReportingAnswer(String originHost, String originRealm,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,String sessionID) throws MissingAvpException, AvpNotSupportedException 
 	{
-		return new EventReportingAnswerImpl(originHost,originRealm, false, resultCode, sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		EventReportingAnswerImpl result = new EventReportingAnswerImpl(originHost,originRealm, false, resultCode, sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

@@ -30,14 +30,14 @@ public interface MessageFactory
 {
 	public EventConfigurationRequest createEventConfigurationRequest(String originHost,String originRealm,String destinationRealm,String externalIdentifier) throws MissingAvpException, AvpNotSupportedException;	
 	
-	public EventConfigurationAnswer createLocationInfoAnswer(EventConfigurationRequest request,Long resultCode) throws  MissingAvpException, AvpNotSupportedException;	
+	public EventConfigurationAnswer createEventConfigurationAnswer(EventConfigurationRequest request,Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws  MissingAvpException, AvpNotSupportedException;	
 	
-	public EventConfigurationAnswer createLocationInfoAnswer(String originHost,String originRealm,Long resultCode, String sessionID) throws  MissingAvpException, AvpNotSupportedException;
+	public EventConfigurationAnswer createEventConfigurationAnswer(String originHost,String originRealm,Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws  MissingAvpException, AvpNotSupportedException;
 	
 	public EventReportingRequest createEventReportingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws  MissingAvpException, AvpNotSupportedException;	
 	
-	public EventReportingAnswer createEventReportingAnswer(EventReportingRequest request,Long resultCode) throws  MissingAvpException, AvpNotSupportedException;	
+	public EventReportingAnswer createEventReportingAnswer(EventReportingRequest request,Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws  MissingAvpException, AvpNotSupportedException;	
 	
-	public EventReportingAnswer createEventReportingAnswer(String originHost,String originRealm,Long resultCode, String sessionID) throws  MissingAvpException, AvpNotSupportedException;	
+	public EventReportingAnswer createEventReportingAnswer(String originHost,String originRealm,Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws  MissingAvpException, AvpNotSupportedException;	
 	
 }
