@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6m.ExternalIdent
 */
 public class ExternalIdentifierImpl extends DiameterUTF8StringImpl implements ExternalIdentifier
 {
-	protected ExternalIdentifierImpl()
+	public ExternalIdentifierImpl()
 	{
 		super();
 	}

@@ -64,6 +64,7 @@ public class ApplicationIDs
 	public static final int T4 = 16777311;
 	public static final int S6C = 16777312;
 	public static final int SGD = 16777313;
+	public static final int S15 = 16777318;
 	public static final int S9A = 16777319;
 	public static final int S9ATAG = 16777320;
 	public static final int PC4A = 16777336;
@@ -74,5 +75,6 @@ public class ApplicationIDs
 	public static final int NT = 16777348;
 	public static final int ST = 16777349;
 	public static final int PC2 = 16777350;
+	public static final int NTA = 16777358;
 	
 }

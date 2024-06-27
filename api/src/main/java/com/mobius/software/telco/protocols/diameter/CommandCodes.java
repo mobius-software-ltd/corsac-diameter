@@ -106,4 +106,6 @@ public class CommandCodes
 	public static final int CONNECTION_MANAGEMENT = 8388732;
 	public static final int MO_DATA = 8388733;
 	public static final int MT_DATA = 8388734;
+	public static final int EVENT_CONFIGURATION = 8388735;
+	public static final int EVENT_REPORTING = 8388736;
 }

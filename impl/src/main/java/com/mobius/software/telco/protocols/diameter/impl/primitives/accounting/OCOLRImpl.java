@@ -55,7 +55,7 @@ public class OCOLRImpl extends DiameterGroupedAvpImpl implements OCOLR
 	
 	private List<TGPPOCSpecificReduction> tgppOCSpecificReduction;
 	
-	protected OCOLRImpl() 
+	public OCOLRImpl() 
 	{
 		super();
 	}

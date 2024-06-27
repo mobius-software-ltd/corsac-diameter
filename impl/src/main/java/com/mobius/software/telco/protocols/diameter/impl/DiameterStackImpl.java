@@ -33,8 +33,10 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mm10.MM10ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.nta.NtaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl;
 
 /**
 *
@@ -170,6 +172,14 @@ public class DiameterStackImpl implements DiameterStack
 				break;
 			case ApplicationIDs.S13:
 				break;
+			case ApplicationIDs.S15:
+				S15ProviderImpl s15Provider=new S15ProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), s15Provider);
+				else
+					registeredProviders.put(applicationID, s15Provider);
+				
+				return s15Provider;	
 			case ApplicationIDs.SLG:
 				break;
 			case ApplicationIDs.SWM:
@@ -218,6 +228,14 @@ public class DiameterStackImpl implements DiameterStack
 				break;
 			case ApplicationIDs.NT:
 				break;
+			case ApplicationIDs.NTA:
+				NtaProviderImpl ntaProvider=new NtaProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), ntaProvider);
+				else
+					registeredProviders.put(applicationID, ntaProvider);
+				
+				return ntaProvider;	
 			case ApplicationIDs.ST:
 				break;
 			case ApplicationIDs.PC2:
