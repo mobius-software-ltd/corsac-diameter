@@ -61,12 +61,39 @@ import io.netty.buffer.Unpooled;
 */
 public class DiameterParser
 {
+	private static ConcurrentHashMap<Class<?>,DiameterAvpDefinition> avpDefsMap = new ConcurrentHashMap<Class<?>, DiameterAvpDefinition>();
+	private static ConcurrentHashMap<Class<?>,DiameterCommandDefinition> commandDefsMap = new ConcurrentHashMap<Class<?>, DiameterCommandDefinition>();
+	
 	public static FolderFilter folderFilter = new FolderFilter();
 	
 	private ConcurrentHashMap<Long,ConcurrentHashMap<CommandIdentifier,CommandData>> interfacesMapping = new ConcurrentHashMap<Long,ConcurrentHashMap<CommandIdentifier,CommandData>>();
-	private ConcurrentHashMap<Class<?>,AvpData> avpsMap = new ConcurrentHashMap<Class<?>, AvpData>();
 	private ConcurrentHashMap<Class<?>,Class<?>> avpImplementationsMap = new ConcurrentHashMap<Class<?>, Class<?>>();
+	private ConcurrentHashMap<Class<?>,AvpData> avpsMap = new ConcurrentHashMap<Class<?>, AvpData>();
 	private ConcurrentHashMap<Class<?>,CommandData> commandsMap = new ConcurrentHashMap<Class<?>, CommandData>();
+	
+	public DiameterParser(List<Class<?>> errorClasses,Package avpPackage) throws DiameterException
+	{
+		registerAvps(avpPackage);
+		for(Class<?> clazz: errorClasses)
+		{
+			Method[] methods=clazz.getMethods();
+			Method validateMethod = null, orderMethod = null;
+			for(Method method:methods) 
+			{
+				DiameterValidate validateMethodAnnotation=method.getAnnotation(DiameterValidate.class);
+				if(validateMethodAnnotation!=null && validateMethod==null)
+					validateMethod = method;
+					
+				DiameterOrder orderMethodAnnotation=method.getAnnotation(DiameterOrder.class);
+				if(orderMethodAnnotation!=null && orderMethod==null)
+					orderMethod = method;
+			}
+			
+			CommandData newCommand = new CommandData(clazz, 0, 0L, validateMethod, orderMethod, false, true);
+			commandsMap.put(clazz, newCommand);
+			buildAvpList(newCommand, 0L, false, 0, clazz);	
+		}
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ByteBuf encode(DiameterMessage message) throws DiameterException
@@ -791,6 +818,7 @@ public class DiameterParser
 				exception.setCommandCode(commandCode);			
 			}
 			
+			exception.setPartialMessage(diameterMessage);
 			throw exception;
 		}
 		
@@ -814,7 +842,15 @@ public class DiameterParser
 				if(messageLength>20)
 					message.skipBytes(messageLength-20);
 				
-				throw new DiameterException("The message has error bit flag together with request flag", null , ResultCodes.DIAMETER_INVALID_BIT_IN_HEADER, null);
+				DiameterException exception = new DiameterException("The message has error bit flag together with request flag", null , ResultCodes.DIAMETER_INVALID_BIT_IN_HEADER, null);
+				if(isRequest)
+				{
+					exception.setApplicationID(applicationID);
+					exception.setCommandCode(commandCode);			
+				}
+				
+				exception.setPartialMessage(diameterMessage);
+				throw exception;
 			}
 		}
 		
@@ -829,6 +865,13 @@ public class DiameterParser
 			//lets skip remaining bytes for message if error occured
 			message.resetReaderIndex();
 			message.skipBytes(messageLength - 20);
+			if(isRequest)
+			{
+				ex.setApplicationID(applicationID);
+				ex.setCommandCode(commandCode);			
+			}
+			
+			ex.setPartialMessage(diameterMessage);
 			throw ex;
 		}
 		
@@ -847,14 +890,32 @@ public class DiameterParser
 				}
 				catch(IllegalAccessException ex)
 				{
-					throw new DiameterException("The message can not be vallidated", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+					DiameterException exception = new DiameterException("The message can not be vallidated", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+					exception.setPartialMessage(diameterMessage);
+					if(isRequest)
+					{
+						exception.setApplicationID(applicationID);
+						exception.setCommandCode(commandCode);			
+					}
+					
+					throw exception;
 				}
 				catch(InvocationTargetException ex)
 				{
+					DiameterException exception;
 					if(ex.getTargetException()!=null && ex.getTargetException() instanceof DiameterException)
-						throw (DiameterException)ex.getTargetException();
+						exception = (DiameterException)ex.getTargetException();
+					else
+						exception = new DiameterException("The message can not be validated", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
 					
-					throw new DiameterException("The message can not be validated", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+					exception.setPartialMessage(diameterMessage);
+					if(isRequest)
+					{
+						exception.setApplicationID(applicationID);
+						exception.setCommandCode(commandCode);			
+					}
+					
+					throw exception;
 				}
 			}
 		}
@@ -1289,7 +1350,10 @@ public class DiameterParser
 	
 	public static DiameterAvpDefinition getAvpDefinition(Class<?> clazz)
 	{
-		DiameterAvpDefinition avpDefition = null;
+		DiameterAvpDefinition avpDefition = avpDefsMap.get(clazz);
+		if(avpDefition!=null)
+			return avpDefition;
+		
 		List<Class<?>> allInterfaces=getAllInterfaces(clazz);
 		for(Class<?> currInterface:allInterfaces)
 		{
@@ -1300,6 +1364,7 @@ public class DiameterParser
 			}
 		}
 		
+		avpDefsMap.put(clazz, avpDefition);
 		return avpDefition;
 	}
 	
@@ -1321,7 +1386,10 @@ public class DiameterParser
 	
 	public static DiameterCommandDefinition getCommandDefinition(Class<?> clazz)
 	{
-		DiameterCommandDefinition commandDefition = null;
+		DiameterCommandDefinition commandDefition = commandDefsMap.get(clazz);
+		if(commandDefition!=null)
+			return commandDefition;
+		
 		List<Class<?>> allInterfaces=getAllInterfaces(clazz);
 		for(Class<?> currInterface:allInterfaces)
 		{
@@ -1332,6 +1400,7 @@ public class DiameterParser
 			}
 		}
 		
+		commandDefsMap.put(clazz, commandDefition);
 		return commandDefition;
 	}
 	

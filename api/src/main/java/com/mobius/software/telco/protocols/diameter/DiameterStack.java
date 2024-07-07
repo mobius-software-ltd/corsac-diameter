@@ -21,7 +21,8 @@ package com.mobius.software.telco.protocols.diameter;
 import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.common.dal.timers.WorkerPool;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 
 /**
 *
@@ -47,11 +48,19 @@ public interface DiameterStack
 	
 	String generateNewSessionID();
 	
-	String getLocalHost();
+	void sendRequestToNetwork(DiameterRequest message,AsyncCallback callback);
 	
-	String getLocalRealm();
+	void sendAnswerToNetwork(DiameterAnswer message,String destinationHost,String destinationRealm,AsyncCallback callback);
 	
-	void sendRequestToNetwork(DiameterMessage message,AsyncCallback callback);
+	NetworkManager getNetworkManager();
 	
-	void sendAnswerToNetwork(DiameterMessage message,String destinationHost,String destinationRealm,AsyncCallback callback);
+	Long getOriginalStateId();
+	
+	Long getNextHopByHopIdentifier();
+	
+	String getProductName();
+	
+	Long  getVendorID();
+	
+	Long getFirmwareRevision();
 }

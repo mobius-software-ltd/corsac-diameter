@@ -199,5 +199,5 @@ public class MODataRequestImpl extends T6aRequestImpl implements MODataRequest
 		}
 		
 		return result;
-	}		
+	}
 }

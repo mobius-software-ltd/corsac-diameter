@@ -18,18 +18,23 @@ package com.mobius.software.telco.protocols.diameter.impl;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.restcomm.cluster.ClusteredID;
 import org.restcomm.cluster.IDGenerator;
+import org.restcomm.protocols.api.Management;
+import org.restcomm.protocols.sctp.SctpManagementImpl;
 
 import com.mobius.software.common.dal.timers.WorkerPool;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.NetworkManager;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mm10.MM10ProviderImpl;
@@ -58,16 +63,29 @@ public class DiameterStackImpl implements DiameterStack
 	private IDGenerator<?> idGenerator;
 	
 	private AtomicLong sessionCounter=new AtomicLong();
-	private String localHost,localRealm;
+	private String localHost;
 	
 	private ClusteredID<?> stackID;
 	
-	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,String localHost,String localRealm)
+	private NetworkManager networkManager;
+	private Management management;
+	
+	private String productName;
+	private Long vendorId;
+	private AtomicLong hopByHopCounter=new AtomicLong(System.currentTimeMillis());
+	private Long originalStateId = hopByHopCounter.get();
+	private Long firmwareRevision;
+	
+	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision) throws IOException
 	{
 		this.idGenerator = idGenerator;
 		this.workerPool = workerPool;
 		this.localHost = localHost;
-		this.localRealm = localRealm;
+		this.management =new SctpManagementImpl(productName, workerThreads, workerThreads, workerThreads);
+		this.productName = productName;
+		this.vendorId = vendorId;
+		this.firmwareRevision = firmwareRevision;
+		this.networkManager = new NetworkManagerImpl(this, management);
 		this.stackID = idGenerator.generateID();
 	}
 	
@@ -246,15 +264,15 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public void sendRequestToNetwork(DiameterMessage message, AsyncCallback callback)
+	public void sendRequestToNetwork(DiameterRequest message, AsyncCallback callback)
 	{
-		// TODO Send to network layer when layer implemented	
+		networkManager.sendRequest(message, callback);
 	}
 
 	@Override
-	public void sendAnswerToNetwork(DiameterMessage message, String destinationHost, String destinationRealm, AsyncCallback callback)
+	public void sendAnswerToNetwork(DiameterAnswer message, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
-		// TODO Auto-generated method stub		
+		networkManager.sendAnswer(message, destinationHost, destinationRealm, callback);	
 	}
 
 	@Override
@@ -300,18 +318,6 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public String getLocalHost()
-	{
-		return this.localHost;
-	}
-
-	@Override
-	public String getLocalRealm()
-	{
-		return this.localRealm;
-	}
-
-	@Override
 	public String generateNewSessionID()
 	{
 		Long currNumber=sessionCounter.incrementAndGet();
@@ -324,5 +330,41 @@ public class DiameterStackImpl implements DiameterStack
 		sb.append(";");
 		sb.append(stackID.getValue());
 		return sb.toString();
+	}
+
+	@Override
+	public NetworkManager getNetworkManager()
+	{
+		return networkManager;
+	}
+
+	@Override
+	public Long getOriginalStateId()
+	{
+		return originalStateId;
+	}
+
+	@Override
+	public Long getNextHopByHopIdentifier()
+	{
+		return hopByHopCounter.incrementAndGet();
+	}
+
+	@Override
+	public String getProductName()
+	{
+		return productName;
+	}
+
+	@Override
+	public Long getVendorID()
+	{
+		return vendorId;
+	}
+
+	@Override
+	public Long getFirmwareRevision()
+	{
+		return firmwareRevision;
 	}
 }

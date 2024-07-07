@@ -249,7 +249,7 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	}
 
 	@Override
-	public void onRequest(DiameterMessage message, AsyncCallback callback)
+	public void onMessage(DiameterMessage message, AsyncCallback callback)
 	{
 		String sessionID = null;
 		try
