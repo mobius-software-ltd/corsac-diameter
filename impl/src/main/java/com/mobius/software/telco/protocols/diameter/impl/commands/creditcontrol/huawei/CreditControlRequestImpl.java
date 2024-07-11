@@ -134,14 +134,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		this.serviceContextId = new ServiceContextIdImpl(value, null, null);		
 	}
 
-	@Override
-	public Long getAuthApplicationId() 
-	{
-		if(authApplicationId==null)
-			return null;
-		
-		return authApplicationId.getUnsigned();
-	}
 
 	@Override
 	public Long getCcSubSessionId()

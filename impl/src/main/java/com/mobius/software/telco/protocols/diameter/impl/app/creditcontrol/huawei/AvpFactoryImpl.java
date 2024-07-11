@@ -271,7 +271,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AvpFactory extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.AvpFactory
+public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.AvpFactory
 {
 	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue) throws MissingAvpException
 	{
