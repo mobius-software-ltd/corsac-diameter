@@ -43,7 +43,7 @@ public class UserEquipmentInfoImpl extends DiameterAvpImpl implements UserEquipm
 	
 	private UserEquipmentInfoValue userEquipmentInfoValue;
 	
-	protected UserEquipmentInfoImpl()
+	public UserEquipmentInfoImpl()
 	{
 		
 	}

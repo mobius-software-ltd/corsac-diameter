@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Fin
 */
 public class FinalUnitActionImpl extends DiameterEnumeratedImpl<FinalUnitActionEnum> implements FinalUnitAction
 {
-	protected FinalUnitActionImpl() 
+	public FinalUnitActionImpl() 
 	{
 		super();
 	}
