@@ -36,14 +36,14 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-public class AbortSessionRequestmpl extends AuthenticationRequestWithHostImpl implements AbortSessionRequest
+public class AbortSessionRequestImpl extends AuthenticationRequestWithHostImpl implements AbortSessionRequest
 {
-	protected AbortSessionRequestmpl() 
+	protected AbortSessionRequestImpl() 
 	{
 		super();
 	}
 		
-	public AbortSessionRequestmpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessonID, authApplicationId);		
 	}

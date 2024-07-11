@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.ro;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
 /**
 *
@@ -31,7 +32,23 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 /*
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.REAUTH, request = false, proxyable = true, name="Re-Auth-Answer")
-public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthAnswer
+public interface ReAuthAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
 {
+
+	Long getCCSubSessionId() throws AvpNotSupportedException;
+	
+	void setCCSubSessionId(Long value) throws AvpNotSupportedException;
+	
+	Long getGSUPoolIdentifier() throws AvpNotSupportedException;
+	
+	void setGSUPoolIdentifier(Long value) throws AvpNotSupportedException;
+	
+	Long getServiceIdentifier() throws AvpNotSupportedException;
+	
+	void setServiceIdentifier(Long value) throws AvpNotSupportedException;
+	
+	Long getRatingGroup() throws AvpNotSupportedException;
+	
+	void setRatingGroup(Long value) throws AvpNotSupportedException;	
 		
 }

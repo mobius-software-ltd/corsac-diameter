@@ -23,7 +23,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.AbortSessionRequestImpl implements AbortSessionRequest
+public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestImpl implements AbortSessionRequest
 {
 	protected AbortSessionRequestImpl() 
 	{
@@ -34,4 +34,7 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
 	}
+	
+	
+
 }

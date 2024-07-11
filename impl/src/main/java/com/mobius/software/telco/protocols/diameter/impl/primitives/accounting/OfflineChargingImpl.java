@@ -25,8 +25,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.Envelo
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.EnvelopeReportingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OfflineCharging;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.QuotaConsumptionTime;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeQuotaMechanism;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 
 /**
 *
@@ -38,7 +38,7 @@ public class OfflineChargingImpl extends DiameterGroupedAvpImpl implements Offli
 	private QuotaConsumptionTime quotaConsumptionTime;
 	private TimeQuotaMechanism timeQuotaMechanism;
 	private EnvelopeReporting envelopeReporting;
-	private List<MultipleServicesCreditControl> multipleServicesCreditControl;	
+	private List<TGPPMultipleServicesCreditControl> multipleServicesCreditControl;	
 		
 	public OfflineChargingImpl()
 	{
@@ -87,12 +87,12 @@ public class OfflineChargingImpl extends DiameterGroupedAvpImpl implements Offli
 			this.envelopeReporting = new EnvelopeReportingImpl(value, null, null);			
 	}
 	
-	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl()
+	public List<TGPPMultipleServicesCreditControl> getMultipleServicesCreditControl()
 	{
 		return multipleServicesCreditControl;
 	}
 	
-	public void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value)
+	public void setMultipleServicesCreditControl(List<TGPPMultipleServicesCreditControl> value)
 	{
 		this.multipleServicesCreditControl = value;
 	}

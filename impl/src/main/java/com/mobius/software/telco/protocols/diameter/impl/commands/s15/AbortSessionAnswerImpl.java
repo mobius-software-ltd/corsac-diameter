@@ -23,7 +23,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.AbortSessionAnswerImpl implements AbortSessionAnswer
+public class AbortSessionAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionAnswerImpl implements AbortSessionAnswer
 {
 	protected AbortSessionAnswerImpl() 
 	{

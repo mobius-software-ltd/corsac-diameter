@@ -18,13 +18,19 @@ package com.mobius.software.telco.protocols.diameter.commands.ro;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.List;
+
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBalanceIndicationEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RemainingBalance;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 /**
@@ -65,8 +71,20 @@ The CCA message format is defined according to RFC 4006 [402] as follows:
                 *[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.CREDIT_CONTROL, request = false, proxyable = true, name="Credit-Control-Answer")
-public interface CreditControlAnswer extends com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer
+public interface CreditControlAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlAnswer
 {
+	public CcSessionFailoverEnum getCcSessionFailover();
+	
+	void setCcSessionFailover(CcSessionFailoverEnum value);
+
+	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
+	
+	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
+	
+	public CostInformation getCostInformation();
+	
+	void setCostInformation(CostInformation value);
+	
 	LowBalanceIndicationEnum getLowBalanceIndication();
 	
 	void setLowBalanceIndication(LowBalanceIndicationEnum value);
@@ -74,7 +92,7 @@ public interface CreditControlAnswer extends com.mobius.software.telco.protocols
 	RemainingBalance getRemainingBalance();
 	
 	void setRemainingBalance(RemainingBalance value);
-	
+
 	OCSupportedFeatures getOCSupportedFeatures();
 	
 	void setOCSupportedFeatures(OCSupportedFeatures value);
@@ -82,6 +100,10 @@ public interface CreditControlAnswer extends com.mobius.software.telco.protocols
 	OCOLR getOCOLR();
 	
 	void setOCOLR(OCOLR value);
+	
+	public List<String> getRouteRecords() throws AvpNotSupportedException;
+	
+	public void setRouteRecords(List<String> value) throws AvpNotSupportedException;
 	
 	ServiceInformation getServiceInformation();
 	

@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.primitives.gi;
+package com.mobius.software.telco.protocols.diameter.app.creditcontrol;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,25 +18,12 @@ package com.mobius.software.telco.protocols.diameter.primitives.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
-import com.mobius.software.telco.protocols.diameter.VendorIDs;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 
-/**
-*
-* @author yulian oifa
-*
-*/
-
-/*
-	11 - 3GPP-Session-Stop-Indicator
-	3GPP Type: 11
-	Length: 3
-	Value is set to all 1.
-	3GPP-Session Stop Indicator value: Bit String type.  
- */
-@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_SESSION_STOP_INDICATOR, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-Session-Stop-Indicator")
-public interface TGPPSessionStopIndicator extends DiameterOctetString
+public interface SessionFactory
 {
+	public CreditControlClientSession createClientSession(CreditControlRequest request) throws DiameterException;
+
+	public CreditControlServerSession createServerSession(CreditControlRequest request) throws DiameterException;
 }

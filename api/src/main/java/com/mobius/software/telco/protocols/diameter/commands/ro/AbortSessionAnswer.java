@@ -31,7 +31,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 /*
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.ABORT_SESSION, request = false, proxyable = true, name="Abort-Session-Answer")
-public interface AbortSessionAnswer extends com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionAnswer
+public interface AbortSessionAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer
 {
 		
 }

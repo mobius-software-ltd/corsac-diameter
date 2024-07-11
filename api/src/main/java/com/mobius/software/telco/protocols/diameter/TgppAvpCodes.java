@@ -30,7 +30,7 @@ public class TgppAvpCodes
 	public static final long TGPP_IMSI_MCC_MNC = 8L;
 	public static final long TGPP_GGSN_MCC_MNC = 9L;
 	public static final long TGPP_NSAPI = 10L;
-	public static final long TGPP_SELECTION_STOP_INDICATOR = 11L;
+	public static final long TGPP_SESSION_STOP_INDICATOR = 11L;
 	public static final long TGPP_SELECTION_MODE = 12L;
 	public static final long TGPP_CHARGING_CHARACTERISTICS = 13L;
 	public static final long TGPP_CG_IPV6_ADDRESS = 14L;

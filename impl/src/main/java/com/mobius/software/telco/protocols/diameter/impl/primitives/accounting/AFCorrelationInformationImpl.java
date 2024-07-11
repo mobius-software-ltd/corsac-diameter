@@ -43,7 +43,7 @@ public class AFCorrelationInformationImpl extends DiameterAvpImpl implements AFC
 	private AFChargingIdentifier afChargingIdentifier;
 	private List<Flows> flows;
 		
-	protected AFCorrelationInformationImpl() 
+	public AFCorrelationInformationImpl() 
 	{
 	}
 	

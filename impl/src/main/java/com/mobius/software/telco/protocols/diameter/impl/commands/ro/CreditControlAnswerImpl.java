@@ -8,6 +8,9 @@ import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAns
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LowBalanceIndicationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSessionFailoverImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CreditControlFailureHandlingImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBalanceIndication;
@@ -15,7 +18,16 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBal
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RemainingBalance;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailover;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandling;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandlingEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandling;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandlingEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 /*
@@ -42,70 +54,85 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupport
 * @author yulian oifa
 *
 */
-public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.CreditControlAnswerImpl implements CreditControlAnswer
+public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.CreditControlAnswerImpl implements CreditControlAnswer
 {
+	protected CcSessionFailover ccSessionFailover;
+	
+	protected List<MultipleServicesCreditControl> multipleServicesCreditControl;
+	
+	protected CostInformation costInformation;
+	
 	private LowBalanceIndication lowBalanceIndication;
 	
 	private RemainingBalance remainingBalance;
 	
+	protected CreditControlFailureHandling creditControlFailureHandling;
+	
+	protected DirectDebitingFailureHandling directDebitingFailureHandling;
+	
 	private OCSupportedFeatures ocSupportedFeatures;
 	
 	private OCOLR ocOLR;
+	
+	protected List<RouteRecord> routeRecords;
 	
 	private ServiceInformation serviceInformation;
 	
 	protected CreditControlAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowedAllowed(false);
-		
-		setCCSubSessionIdAllowed(false);
-		setAcctMultiSessionIdAllowed(false);
-		setEventTimestampAllowed(false);
-		setGrantedServiceUnitAllowed(false);	
-		setFinalUnitIndicationAllowed(false);
-		setQosFinalUnitIndicationAllowedAllowed(false);
-		setCheckBalanceResultAllowed(false);
-		setValidityTimeAllowed(false);
-		
 		setUsernameAllowed(false);
 	}
 	
-	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
-	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, ccRequestType, ccRequestNumber);
-		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(false);
-		
-		setCCSubSessionIdAllowed(false);
-		setAcctMultiSessionIdAllowed(false);
-		setEventTimestampAllowed(false);
-		setGrantedServiceUnitAllowed(false);	
-		setFinalUnitIndicationAllowed(false);
-		setQosFinalUnitIndicationAllowedAllowed(false);
-		setCheckBalanceResultAllowed(false);
-		setValidityTimeAllowed(false);
-		
-		setUsernameAllowed(false);
-	}
-	
-	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowedAllowed(false);
-		
-		setCCSubSessionIdAllowed(false);
-		setAcctMultiSessionIdAllowed(false);
-		setEventTimestampAllowed(false);
-		setGrantedServiceUnitAllowed(false);	
-		setFinalUnitIndicationAllowed(false);
-		setQosFinalUnitIndicationAllowedAllowed(false);
-		setCheckBalanceResultAllowed(false);
-		setValidityTimeAllowed(false);
-		
 		setUsernameAllowed(false);
+	}
+	
+	@Override
+	public CcSessionFailoverEnum getCcSessionFailover() 
+	{
+		if(ccSessionFailover==null)
+			return null;
+		
+		return ccSessionFailover.getEnumerated(CcSessionFailoverEnum.class);
+	}
+
+	@Override
+	public void setCcSessionFailover(CcSessionFailoverEnum value) 
+	{
+		if(value==null)
+			this.ccSessionFailover = null;
+		else
+			this.ccSessionFailover = new CcSessionFailoverImpl(value, null, null);
+	}
+	
+
+	@Override
+	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl() 
+	{
+		return multipleServicesCreditControl;
+	}
+
+	@Override
+	public void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value) 
+	{
+		this.multipleServicesCreditControl = value;
+	}
+	
+	@Override
+	public CostInformation getCostInformation() 
+	{
+		return costInformation;
+	}
+
+	@Override
+	public void setCostInformation(CostInformation value) 
+	{
+		this.costInformation = value;
 	}
 	
 	public LowBalanceIndicationEnum getLowBalanceIndication()
@@ -132,6 +159,34 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	public void setRemainingBalance(RemainingBalance value)
 	{
 		this.remainingBalance = value;
+	}
+
+	@Override
+	public CreditControlFailureHandlingEnum getCreditControlFailureHandling() 
+	{
+		if(creditControlFailureHandling==null)
+			return null;
+		
+		return creditControlFailureHandling.getEnumerated(CreditControlFailureHandlingEnum.class);
+	}
+
+	
+	
+	public void setCreditControlFailureHandling(CreditControlFailureHandlingEnum value) 
+	{
+		if(value==null)
+			this.creditControlFailureHandling = null;
+		else
+			this.creditControlFailureHandling = new CreditControlFailureHandlingImpl(value, null, null);
+	}
+	
+	@Override
+	public DirectDebitingFailureHandlingEnum getDirectDebitingFailureHandling() 
+	{
+		if(directDebitingFailureHandling==null)
+			return null;
+		
+		return directDebitingFailureHandling.getEnumerated(DirectDebitingFailureHandlingEnum.class);
 	}
 	
 	public OCSupportedFeatures getOCSupportedFeatures()
@@ -163,6 +218,35 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	{
 		this.serviceInformation = value;
 	}
+	
+	
+	@Override
+	public List<String> getRouteRecords()
+	{
+		if(this.routeRecords==null)
+			return null;
+		else
+		{
+			List<String> result = new ArrayList<String>();
+			for(RouteRecord curr:routeRecords)
+				result.add(curr.getIdentity());
+			
+			return result;
+		}
+	}
+
+	@Override
+	public void setRouteRecords(List<String> value)
+	{
+		if(value == null || value.size()==0)
+			this.routeRecords = null;
+		else
+		{
+			this.routeRecords = new ArrayList<RouteRecord>();
+			for(String curr:value)
+				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
+		}
+	}		
 	
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()
@@ -213,4 +297,9 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 		
 		return result;
 	}
+
+	
+
+
+	
 }
