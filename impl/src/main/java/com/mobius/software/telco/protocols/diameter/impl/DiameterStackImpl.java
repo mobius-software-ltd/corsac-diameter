@@ -18,14 +18,11 @@ package com.mobius.software.telco.protocols.diameter.impl;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.restcomm.cluster.ClusteredID;
 import org.restcomm.cluster.IDGenerator;
-import org.restcomm.protocols.api.Management;
-import org.restcomm.protocols.sctp.SctpManagementImpl;
 
 import com.mobius.software.common.dal.timers.WorkerPool;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
@@ -50,13 +47,13 @@ import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl
 */
 public class DiameterStackImpl implements DiameterStack
 {
-	public static final Long DEFAULT_SEND_TIMEOUT = 60000L;
+	public static final Long DEFAULT_RESPONSE_TIMEOUT = 60000L;
 	public static final Long DEFAULT_IDLE_TIMEOUT = 120000L;
 	
 	private ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>> registeredProviders=new ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>>();
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
 	
-	private Long sendTimeout = DEFAULT_SEND_TIMEOUT;
+	private Long responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
 	private Long idleTimeout = DEFAULT_IDLE_TIMEOUT;
 	
 	private WorkerPool workerPool;
@@ -68,7 +65,6 @@ public class DiameterStackImpl implements DiameterStack
 	private ClusteredID<?> stackID;
 	
 	private NetworkManager networkManager;
-	private Management management;
 	
 	private String productName;
 	private Long vendorId;
@@ -76,16 +72,19 @@ public class DiameterStackImpl implements DiameterStack
 	private Long originalStateId = hopByHopCounter.get();
 	private Long firmwareRevision;
 	
-	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision) throws IOException
+	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout) throws Exception
 	{
 		this.idGenerator = idGenerator;
 		this.workerPool = workerPool;
 		this.localHost = localHost;
-		this.management =new SctpManagementImpl(productName, workerThreads, workerThreads, workerThreads);
 		this.productName = productName;
 		this.vendorId = vendorId;
 		this.firmwareRevision = firmwareRevision;
-		this.networkManager = new NetworkManagerImpl(this, management);
+		
+		if(responseTimeout !=null)
+			this.responseTimeout = responseTimeout;
+		
+		this.networkManager = new NetworkManagerImpl(this, workerThreads, idleTimeout, this.responseTimeout, reconnectTimeout);
 		this.stackID = idGenerator.generateID();
 	}
 	
@@ -282,18 +281,9 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Long getSendTimeout()
+	public Long getResponseTimeout()
 	{
-		return sendTimeout;
-	}
-
-	@Override
-	public void setSendTimeout(Long value)
-	{
-		if(value==null)
-			sendTimeout = DEFAULT_SEND_TIMEOUT;
-		else
-			sendTimeout = value;
+		return responseTimeout;
 	}
 
 	@Override
@@ -366,5 +356,11 @@ public class DiameterStackImpl implements DiameterStack
 	public Long getFirmwareRevision()
 	{
 		return firmwareRevision;
+	}
+
+	@Override
+	public void stop()
+	{
+		networkManager.stop();
 	}
 }

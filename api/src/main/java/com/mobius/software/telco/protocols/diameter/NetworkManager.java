@@ -41,9 +41,17 @@ public interface NetworkManager
 	
 	void startLink(String linkId) throws DiameterException;
 	
-	void stopLink(String linkId) throws DiameterException;
+	void stopLink(String linkId, AsyncCallback callback) throws DiameterException;
+	
+	DiameterLink getLink(String linkId);
 	
 	void registerApplication(String linkId, List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package packageName) throws DiameterException;
+	
+	void stop();
+	
+	void addNetworkListener(String listenerId,NetworkListener listener);
+	
+	void removeNetworkListener(String listenerId);
 	
 	void sendMessage(String linkId,DiameterMessage message,AsyncCallback callback) throws DiameterException;
 	

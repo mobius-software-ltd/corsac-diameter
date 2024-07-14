@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.logging.log4j.LogManager;
@@ -36,11 +38,10 @@ import org.restcomm.protocols.api.Management;
 import org.restcomm.protocols.api.PayloadData;
 import org.restcomm.protocols.api.Server;
 
-import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
-import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
+import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.PeerStateEnum;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
@@ -49,7 +50,6 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
-import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogRequest;
@@ -63,8 +63,13 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.DeviceWatchdogAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.DeviceWatchdogRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.DisconnectPeerAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.DisconnectPeerRequestmpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
+import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
 import io.netty.buffer.ByteBuf;
@@ -101,9 +106,9 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	private List<Long> authApplicationIds = new ArrayList<Long>();
 	private List<Long> acctApplicationIds = new ArrayList<Long>();
 	
-	private List<VendorSpecificApplicationId> remoteApplicationIds=null;
-	private List<Long> remoteAuthApplicationIds=null;
-	private List<Long> remoteAcctApplicationIds=null;
+	private AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds=new AtomicReference<List<VendorSpecificApplicationId>>();
+	private AtomicReference<List<Long>> remoteAuthApplicationIds=new AtomicReference<List<Long>>();
+	private AtomicReference<List<Long>> remoteAcctApplicationIds=new AtomicReference<List<Long>>();
 	
 	private ConcurrentHashMap<Long,Package> authApplicationPackages = new ConcurrentHashMap<Long,Package>();
 	private ConcurrentHashMap<Long,Package> acctApplicationPackages = new ConcurrentHashMap<Long,Package>();
@@ -111,8 +116,21 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	private DiameterStack stack;
 	private Boolean rejectUnmandatoryAvps;
 	
-	public DiameterLinkImpl(DiameterStack stack, Management management, String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps) throws DiameterException
+	private Long inactivityTimeout;
+	private Long reconnectTimeout;
+	private InactivityTimer inactivityTimer;
+	private DisconnectTimer disconnectTimer;
+	private ReconnectTimer reconnectTimer;
+	
+	private AtomicLong lastActivity=new AtomicLong(System.currentTimeMillis());
+	private AtomicBoolean waitingForDWA=new AtomicBoolean(false);
+	
+	private ConcurrentHashMap<String, NetworkListener> genericListeners;
+	
+	public DiameterLinkImpl(DiameterStack stack, Management management, ConcurrentHashMap<String, NetworkListener> genericListeners, String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps, Long inactivityTimeout, Long responseTimeout, Long reconnectTimeout) throws DiameterException
 	{
+		this.genericListeners = genericListeners;
+		
 		if(remoteAddress==null)
 			throw new DiameterException("The remote address can not be null", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 		
@@ -183,6 +201,8 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			}
 		}
 		
+		association.setAssociationListener(this);
+
 		//registering common
 		@SuppressWarnings("unused")
 		Class<?> clazz = CapabilitiesExchangeRequestmpl.class;
@@ -193,6 +213,13 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		
 		this.stack = stack;
 		this.rejectUnmandatoryAvps = rejectUnmandatoryAvps;
+		
+		this.inactivityTimeout = inactivityTimeout;
+		this.reconnectTimeout = reconnectTimeout;
+		
+		this.inactivityTimer = new InactivityTimer(this, lastActivity, waitingForDWA, inactivityTimeout, responseTimeout);
+		this.disconnectTimer = new DisconnectTimer(this);
+		this.reconnectTimer = new ReconnectTimer(this);
 	}
 
 	@Override
@@ -317,6 +344,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	{
 		logger.info("Association ," + association + " shutdown");
 		peerState.set(PeerStateEnum.IDLE);
+		inactivityTimer.stop();
 	}
 
 	@Override
@@ -324,6 +352,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	{
 		logger.info("Association ," + association + " communication lost");
 		peerState.set(PeerStateEnum.IDLE);
+		inactivityTimer.stop();
 	}
 
 	@Override
@@ -331,6 +360,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	{
 		logger.info("Association ," + association + " communication restart");
 		peerState.set(PeerStateEnum.IDLE);
+		inactivityTimer.stop();
 	}
 
 	@Override
@@ -357,9 +387,10 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		if(message instanceof AccountingRequest || message instanceof AccountingAnswer)
 		{
 			Boolean found=false;
-			if(remoteAcctApplicationIds!=null)
+			List<Long> remoteIds = remoteAcctApplicationIds.get();
+			if(remoteIds!=null)
 			{
-				for(Long currApplicationId:remoteAcctApplicationIds)
+				for(Long currApplicationId:remoteIds)
 				{
 					if(currApplicationId.equals(commandDefintion.applicationId()))
 					{
@@ -383,9 +414,10 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				appId = ((VendorSpecificAnswer)message).getVendorSpecificApplicationId();
 			
 			Boolean found=false;
-			if(remoteApplicationIds!=null && appId!=null)
+			List<VendorSpecificApplicationId> remoteIds = remoteApplicationIds.get();
+			if(remoteIds!=null && appId!=null)
 			{
-				for(VendorSpecificApplicationId currApplicationId:remoteApplicationIds)
+				for(VendorSpecificApplicationId currApplicationId:remoteIds)
 				{
 					if(sameVendorSpecificApplicationId(appId, currApplicationId))
 					{
@@ -404,9 +436,10 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			if(appId.getAcctApplicationId()!=null)
 			{
 				found=false;
+				List<Long> remoteAcctIds = remoteAcctApplicationIds.get();
 				if(remoteAcctApplicationIds!=null)
 				{
-					for(Long currApplicationId:remoteAcctApplicationIds)
+					for(Long currApplicationId:remoteAcctIds)
 					{
 						if(currApplicationId.equals(appId.getAcctApplicationId()))
 						{
@@ -425,9 +458,10 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			if(appId.getAuthApplicationId()!=null)
 			{
 				found=false;
-				if(remoteAuthApplicationIds!=null)
+				List<Long> remoteAuthIds = remoteAuthApplicationIds.get();
+				if(remoteAuthIds!=null)
 				{
-					for(Long currApplicationId:remoteAuthApplicationIds)
+					for(Long currApplicationId:remoteAuthIds)
 					{
 						if(currApplicationId.equals(appId.getAuthApplicationId()))
 						{
@@ -446,9 +480,10 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		else
 		{
 			Boolean found=false;
-			if(remoteAuthApplicationIds!=null)
+			List<Long> remoteIds = remoteAuthApplicationIds.get();
+			if(remoteIds!=null)
 			{
-				for(Long currApplicationId:remoteAuthApplicationIds)
+				for(Long currApplicationId:remoteIds)
 				{
 					if(currApplicationId.equals(commandDefintion.applicationId()))
 					{
@@ -532,6 +567,8 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		try
 		{
 			association.send(payloadData);
+			lastActivity.set(System.currentTimeMillis());
+			callback.onSuccess();
 		}
 		catch(Exception ex)
 		{
@@ -550,7 +587,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			try
 			{
 				DiameterMessage message = parser.decode(buffer, rejectUnmandatoryAvps);
-				stack.getWorkerPool().getQueue().offerLast(new MessageProcessingTask(message));
+				stack.getWorkerPool().getQueue().offerLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
 			}
 			catch(DiameterException ex)
 			{
@@ -604,7 +641,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		parser.registerApplication(packageName);
 	}
 
-	private Boolean sameVendorSpecificApplicationId(VendorSpecificApplicationId oldId, VendorSpecificApplicationId applicationId)
+	public static Boolean sameVendorSpecificApplicationId(VendorSpecificApplicationId oldId, VendorSpecificApplicationId applicationId)
 	{
 		Boolean sameInterface = true;
 		if(oldId.getVendorId()==null)
@@ -692,7 +729,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		acctApplicationIds.add(applicationId);
 	}
 	
-	private void sendCER()
+	public void sendCER()
 	{
 		List<InetAddress> addresses = Arrays.asList(new InetAddress[] { localAddress });
 		CapabilitiesExchangeRequest cer = null;
@@ -775,20 +812,20 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			if(vendorsToSend.size()>0)
 				cer.setSupportedVendorIds(vendorsToSend);
 			
-			peerState.set(PeerStateEnum.CER_SENT);
+			peerState.set(PeerStateEnum.CER_SENT);			
 			sendMessageInternally(cer, new AsyncCallback()
 			{
 				@Override
 				public void onSuccess()
-				{									
-					//waiting for CEA
+				{						
 				}
 				
 				@Override
 				public void onError(DiameterException ex)
 				{
-					logger.warn("An error occured while sending CER to " + association + " " + ex.getMessage(),ex);
+					logger.warn("An error occured while sending CER to " + association + " " + ex.getMessage(),ex);					
 					peerState.set(PeerStateEnum.IDLE);
+					resetReconnectTimer();
 				}
 			});
 		}
@@ -798,8 +835,151 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		}
 	}
 	
-	private void sendError(DiameterException ex) throws MissingAvpException, AvpNotSupportedException
+	public void sendDWR()
 	{
+		DeviceWatchdogRequest dwr = null;
+		try
+		{
+			dwr = new DeviceWatchdogRequestImpl(localHost, localRealm, false);
+			Long hopIdentifier = stack.getNextHopByHopIdentifier();
+			dwr.setHopByHopIdentifier(hopIdentifier);
+			dwr.setEndToEndIdentifier(hopIdentifier);
+			dwr.setOriginStateId(stack.getOriginalStateId());
+			
+			sendMessageInternally(dwr, new AsyncCallback()
+			{
+				@Override
+				public void onSuccess()
+				{									
+					//waiting for DWA
+				}
+				
+				@Override
+				public void onError(DiameterException ex)
+				{
+					logger.warn("An error occured while sending DWR to " + association + " " + ex.getMessage(),ex);
+					peerState.set(PeerStateEnum.IDLE);
+					resetReconnectTimer();
+				}
+			});
+		}
+		catch(Exception ex)
+		{
+			logger.warn("An error occured while sending DWR to " + association + " " + ex.getMessage(),ex);
+		}
+	}
+	
+	public void sendDWA(long resultCode)
+	{
+		DeviceWatchdogAnswer dwa = null;
+		try
+		{
+			dwa = new DeviceWatchdogAnswerImpl(localHost, localRealm, false, resultCode);
+			Long hopIdentifier = stack.getNextHopByHopIdentifier();
+			dwa.setHopByHopIdentifier(hopIdentifier);
+			dwa.setEndToEndIdentifier(hopIdentifier);
+			dwa.setOriginStateId(stack.getOriginalStateId());
+			
+			sendMessageInternally(dwa, new AsyncCallback()
+			{
+				@Override
+				public void onSuccess()
+				{									
+					//waiting for DWA
+				}
+				
+				@Override
+				public void onError(DiameterException ex)
+				{
+					logger.warn("An error occured while sending DWA to " + association + " " + ex.getMessage(),ex);
+					peerState.set(PeerStateEnum.IDLE);
+					resetReconnectTimer();
+				}
+			});
+		}
+		catch(Exception ex)
+		{
+			logger.warn("An error occured while sending DWA to " + association + " " + ex.getMessage(),ex);
+		}
+	}
+	
+	public void sendDPA(long resultCode)
+	{
+		DisconnectPeerAnswer dpa = null;
+		try
+		{
+			dpa = new DisconnectPeerAnswerImpl(localHost, localRealm, false, resultCode);
+			Long hopIdentifier = stack.getNextHopByHopIdentifier();
+			dpa.setHopByHopIdentifier(hopIdentifier);
+			dpa.setEndToEndIdentifier(hopIdentifier);
+			dpa.setOriginStateId(stack.getOriginalStateId());
+				
+			sendMessageInternally(dpa, new AsyncCallback()
+			{
+				@Override
+				public void onSuccess()
+				{									
+					//waiting for DWA
+				}
+				
+				@Override
+				public void onError(DiameterException ex)
+				{
+					logger.warn("An error occured while sending DPA to " + association + " " + ex.getMessage(),ex);
+					peerState.set(PeerStateEnum.IDLE);
+					resetReconnectTimer();
+				}
+			});
+		}
+		catch(Exception ex)
+		{
+			logger.warn("An error occured while sending DPA to " + association + " " + ex.getMessage(),ex);
+		}
+	}
+	
+	public void sendDPR(DisconnectCauseEnum cause, AsyncCallback callback)
+	{
+		DisconnectPeerRequest dpr = null;
+		try
+		{
+			dpr = new DisconnectPeerRequestmpl(localHost, localRealm, false, cause);
+			Long hopIdentifier = stack.getNextHopByHopIdentifier();
+			dpr.setEndToEndIdentifier(hopIdentifier);
+			dpr.setHopByHopIdentifier(hopIdentifier);
+			peerState.set(PeerStateEnum.DPR_SENT);
+			
+			sendMessageInternally(dpr, new AsyncCallback()
+			{
+				@Override
+				public void onSuccess()
+				{									
+					disconnectTimer.startTimer(inactivityTimeout, callback);
+					stack.getWorkerPool().getPeriodicQueue().store(disconnectTimer.getRealTimestamp(), disconnectTimer);	
+				}
+				
+				@Override
+				public void onError(DiameterException ex)
+				{
+					logger.warn("An error occured while sending DPR to " + association + " " + ex.getMessage(),ex);
+					peerState.set(PeerStateEnum.IDLE);
+					inactivityTimer.stop();
+					
+					if(callback!=null)
+						callback.onError(ex);
+				}
+			});
+		}
+		catch(Exception ex)
+		{
+			logger.warn("An error occured while sending CER to " + association + " " + ex.getMessage(),ex);
+		}
+	}
+	
+	public void sendError(DiameterException ex) throws MissingAvpException, AvpNotSupportedException
+	{
+		if(ex.getPartialMessage()==null)
+			return;
+		
 		DiameterErrorAnswer answer;
 		String sessionId = null;
 		try
@@ -836,311 +1016,62 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			}
 		});
 	}
-	
-	private class MessageProcessingTask implements Task
+
+	@Override
+	public PeerStateEnum getPeerState()
 	{
-		private DiameterMessage message;
-		private Long startTime = System.currentTimeMillis();
+		return peerState.get(); 
+	}
+
+	@Override
+	public void setPeerState(PeerStateEnum peerState)
+	{
+		this.peerState.set(peerState);
+	}
+
+	@Override
+	public Package getPackage(Long applicationID, Boolean isAuth)
+	{
+		if(isAuth!=null && isAuth)
+			return authApplicationPackages.get(applicationID);
 		
-		public MessageProcessingTask(DiameterMessage message)
-		{
-			this.message = message;
-		}
+		return acctApplicationPackages.get(applicationID);
+	}
 
-		@Override
-		public void execute()
-		{
-			if(message instanceof CapabilitiesExchangeRequest)
-			{
-				switch(peerState.get())
-				{
-					case OPEN:
-					case IDLE:
-						CapabilitiesExchangeRequest request = (CapabilitiesExchangeRequest)message;
-						List<Long> matchedAuthApplicationIds = new ArrayList<Long>();
-						List<Long> matchedAcctApplicationIds = new ArrayList<Long>();
-						List<VendorSpecificApplicationId> matchedVendorSpecificApplicationIds = new ArrayList<VendorSpecificApplicationId>();
-						
-						List<Long> realAuthApplicationIds = request.getAuthApplicationIds();
-						List<Long> realAcctApplicationIds = request.getAuthApplicationIds();
-						List<VendorSpecificApplicationId> realVendorSpecificApplicationIds = request.getVendorSpecificApplicationIds();
-						
-						if(realAuthApplicationIds!=null)
-						{
-							for(Long currApplicationId:realAuthApplicationIds)
-							{
-								for(Long localApplicationId: authApplicationIds)
-								{
-									if(currApplicationId.equals(localApplicationId))
-									{
-										matchedAuthApplicationIds.add(currApplicationId);
-										break;
-									}
-								}
-							}				
-						}
-						
-						if(realAcctApplicationIds!=null)
-						{
-							for(Long currApplicationId:realAcctApplicationIds)
-							{
-								for(Long localApplicationId: acctApplicationIds)
-								{
-									if(currApplicationId.equals(localApplicationId))
-									{
-										matchedAcctApplicationIds.add(currApplicationId);
-										break;
-									}
-								}
-							}				
-						}
-						
-						if(realVendorSpecificApplicationIds!=null)
-						{
-							for(VendorSpecificApplicationId currApplicationId:realVendorSpecificApplicationIds)
-							{
-								for(VendorSpecificApplicationId localApplicationId: applicationIds)
-								{
-									if(sameVendorSpecificApplicationId(localApplicationId, currApplicationId))
-									{
-										matchedVendorSpecificApplicationIds.add(currApplicationId);
-										break;
-									}
-								}
-							}				
-						}
-						
-						if(matchedAuthApplicationIds.size() == 0 && matchedAcctApplicationIds.size() == 0 && matchedVendorSpecificApplicationIds.size() == 0)
-						{
-							try
-							{
-								sendError(new DiameterException("No common applications found", null, ResultCodes.DIAMETER_NO_COMMON_APPLICATION, null));
-							}
-							catch(DiameterException ex2)
-							{
-								logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-							}
-						}
-						else
-						{
-							remoteAcctApplicationIds = matchedAcctApplicationIds;
-							remoteAuthApplicationIds = matchedAuthApplicationIds;
-							remoteApplicationIds = matchedVendorSpecificApplicationIds;
-							peerState.set(PeerStateEnum.OPEN);
-						}
-						break;
-					case CER_SENT:
-					case DPR_SENT:
-					default:
-						try
-						{
-							sendError(new DiameterException("Invalid state for peer while handling CER , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-						}
-						catch(DiameterException ex2)
-						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-						}
-						break;
-				
-				}
-			}
-			else if(message instanceof CapabilitiesExchangeAnswer)
-			{
-				switch(peerState.get())
-				{
-					case CER_SENT:
-						CapabilitiesExchangeAnswer answer = (CapabilitiesExchangeAnswer)message;
-						if(answer.getIsError()!=null && answer.getIsError())
-						{
-							peerState.set(PeerStateEnum.IDLE);
-							logger.warn("CER Failed with error " + answer.getResultCode() + " from " + association);
-						}
-						else
-						{
-							peerState.set(PeerStateEnum.OPEN);
-							logger.warn("Peer is up for " + association);
-							remoteAcctApplicationIds = answer.getAcctApplicationIds();
-							remoteAuthApplicationIds = answer.getAuthApplicationIds();
-							remoteApplicationIds = answer.getVendorSpecificApplicationIds();
-						}
-						break;
-					case OPEN:
-					case DPR_SENT:
-					case IDLE:
-					default:
-						try
-						{
-							sendError(new DiameterException("Invalid state for peer while handling CEA , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-						}
-						catch(DiameterException ex2)
-						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-						}
-						break;
-				
-				}
-			}
-			else if(message instanceof DeviceWatchdogRequest)
-			{
-				switch(peerState.get())
-				{
-					case OPEN:
-						//TODO:send DWA + Update the timer
-						break;
-					case CER_SENT:
-					case DPR_SENT:
-					case IDLE:
-					default:
-						try
-						{
-							sendError(new DiameterException("Invalid state for peer while handling DWR , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-						}
-						catch(DiameterException ex2)
-						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-						}
-						break;
-				
-				}
-			}
-			else if(message instanceof DeviceWatchdogAnswer)
-			{
-				switch(peerState.get())
-				{
-					case OPEN:
-						//TODO: Update the timer
-						break;
-					case CER_SENT:
-					case DPR_SENT:
-					case IDLE:
-					default:
-						try
-						{
-							sendError(new DiameterException("Invalid state for peer while handling DWA , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-						}
-						catch(DiameterException ex2)
-						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-						}
-						break;				
-				}
-			}
-			else if(message instanceof DisconnectPeerRequest)
-			{
-				switch(peerState.get())
-				{
-					case OPEN:
-						//TODO: send DPA
-						break;
-					case CER_SENT:
-					case DPR_SENT:
-					case IDLE:
-					default:
-						try
-						{
-							sendError(new DiameterException("Invalid state for peer while handling DPR , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-						}
-						catch(DiameterException ex2)
-						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-						}
-						break;				
-				}
-			}
-			else if(message instanceof DisconnectPeerAnswer)
-			{
-				switch(peerState.get())
-				{
-					case OPEN:
-						//TODO: disconnect completely + notify listener , so will be able to stop
-						break;
-					case CER_SENT:
-					case DPR_SENT:
-					case IDLE:
-					default:
-						try
-						{
-							sendError(new DiameterException("Invalid state for peer while handling DPA , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-						}
-						catch(DiameterException ex2)
-						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-						}
-						break;				
-				}
-			}
-			else
-			{
-				DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
-				if(commandDef==null)
-				{
-					//should not happen , just in case 
-					logger.warn("Can find the command definition for " + message.getClass());
-					return;
-				}
-				
-				Package packageName;
-				if((message instanceof AccountingRequest) || (message instanceof AccountingAnswer))
-					packageName = acctApplicationPackages.get(commandDef.applicationId());
-				else 
-					packageName = authApplicationPackages.get(commandDef.applicationId());
-				
-				if(packageName == null)
-				{
-					try
-					{
-						sendError(new DiameterException("Application has not been found locally", null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-					}
-					catch(DiameterException ex2)
-					{
-						logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-					}
-				}
-				
-				DiameterProvider<?, ?, ?, ?, ?> provider = stack.getProvider(commandDef.applicationId(), packageName);
-				if(provider == null)
-				{
-					try
-					{
-						sendError(new DiameterException("Application has not been found locally", null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-					}
-					catch(DiameterException ex2)
-					{
-						logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-					}
-				}	
-				
-				provider.onMessage(message, new AsyncCallback()
-				{
-					@Override
-					public void onSuccess()
-					{
-						
-					}
-					
-					@Override
-					public void onError(DiameterException ex)
-					{
-						if(ex.getPartialMessage()==null)
-							ex.setPartialMessage(message);
-						
-						try
-						{
-							sendError(ex);
-						}
-						catch(DiameterException ex2)
-						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-						}
-					}
-				});
-			} 			
-		}
+	@Override
+	public List<Long> getAuthApplicationIds()
+	{
+		return authApplicationIds;
+	}
 
-		@Override
-		public long getStartTime()
-		{
-			return startTime;
-		}
-	}		
+	@Override
+	public List<Long> getAcctApplicationIds()
+	{
+		return acctApplicationIds;
+	}
+
+	@Override
+	public List<VendorSpecificApplicationId> getVendorSpecificApplicationIds()
+	{
+		return applicationIds;
+	}
+
+	@Override
+	public void resetInactivityTimer()
+	{
+		stack.getWorkerPool().getPeriodicQueue().store(inactivityTimer.getRealTimestamp(), inactivityTimer);		
+	}
+	
+	@Override
+	public void resetReconnectTimer()
+	{
+		reconnectTimer.startTimer(reconnectTimeout, null);
+		stack.getWorkerPool().getPeriodicQueue().store(reconnectTimer.getRealTimestamp(), reconnectTimer);		
+	}	
+	
+	@Override
+	public void disconnectOperationCompleted()
+	{
+		disconnectTimer.execute();	
+	}
 }

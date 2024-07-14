@@ -38,9 +38,7 @@ public interface DiameterStack
 	
 	IDGenerator<?> getIDGenerator();
 	
-	Long getSendTimeout();
-	
-	void setSendTimeout(Long value);
+	Long getResponseTimeout();
 	
 	Long getIdleTimeout();
 	
@@ -63,4 +61,6 @@ public interface DiameterStack
 	Long  getVendorID();
 	
 	Long getFirmwareRevision();
+	
+	void stop();
 }

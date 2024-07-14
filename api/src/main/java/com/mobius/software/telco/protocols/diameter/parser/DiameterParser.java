@@ -1350,22 +1350,24 @@ public class DiameterParser
 	
 	public static DiameterAvpDefinition getAvpDefinition(Class<?> clazz)
 	{
-		DiameterAvpDefinition avpDefition = avpDefsMap.get(clazz);
-		if(avpDefition!=null)
-			return avpDefition;
+		DiameterAvpDefinition avpDefinition = avpDefsMap.get(clazz);
+		if(avpDefinition!=null)
+			return avpDefinition;
 		
 		List<Class<?>> allInterfaces=getAllInterfaces(clazz);
 		for(Class<?> currInterface:allInterfaces)
 		{
 			if(currInterface.isAnnotationPresent(DiameterAvpDefinition.class))
 			{
-				avpDefition = currInterface.getAnnotation(DiameterAvpDefinition.class);
+				avpDefinition = currInterface.getAnnotation(DiameterAvpDefinition.class);
 				break;
 			}
 		}
 		
-		avpDefsMap.put(clazz, avpDefition);
-		return avpDefition;
+		if(avpDefinition!=null)
+			avpDefsMap.put(clazz, avpDefinition);
+		
+		return avpDefinition;
 	}
 	
 	public static Class<?> getAvpDefinitionClass(Class<?> clazz)
@@ -1400,7 +1402,9 @@ public class DiameterParser
 			}
 		}
 		
-		commandDefsMap.put(clazz, commandDefition);
+		if(commandDefition!=null)
+			commandDefsMap.put(clazz, commandDefition);
+		
 		return commandDefition;
 	}
 	

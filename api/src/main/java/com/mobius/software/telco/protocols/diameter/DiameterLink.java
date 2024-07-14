@@ -4,7 +4,10 @@ import java.net.InetAddress;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
 /*
@@ -65,5 +68,36 @@ public interface DiameterLink
 	
 	public void start() throws DiameterException;
 	
-	void registerApplication(List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package packageName) throws DiameterException;	
+	void registerApplication(List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package packageName) throws DiameterException;
+	
+	List<Long> getAuthApplicationIds();
+	
+	List<Long> getAcctApplicationIds();
+	
+	List<VendorSpecificApplicationId> getVendorSpecificApplicationIds();
+	
+	Package getPackage(Long applicationID, Boolean isAuth);
+	
+	PeerStateEnum getPeerState();
+	
+	void setPeerState(PeerStateEnum peerState);
+	
+	void sendError(DiameterException ex) throws MissingAvpException, AvpNotSupportedException;	
+	
+	void sendCER();
+	
+	void sendDWR();
+	
+	void sendDWA(long resultCode);
+	
+	void sendDPR(DisconnectCauseEnum cause, AsyncCallback callback);
+	
+	void sendDPA(long resultCode);
+	
+	void resetInactivityTimer();
+	
+	void resetReconnectTimer();
+	
+	//used to notify that disconnect has been succesfully completed
+	void disconnectOperationCompleted();
 }
