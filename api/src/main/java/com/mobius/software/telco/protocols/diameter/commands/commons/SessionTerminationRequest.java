@@ -68,7 +68,5 @@ public interface SessionTerminationRequest extends AuthenticationRequest
 	
 	void setDiameterClass(List<ByteBuf> value);		
 	
-	public Long getAuthApplicationId();
 	
-	void setAuthApplicationId(Long value) throws MissingAvpException;
 }
