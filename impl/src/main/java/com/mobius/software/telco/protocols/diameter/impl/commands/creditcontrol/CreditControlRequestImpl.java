@@ -18,13 +18,8 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CcSubSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.MultipleServicesIndicatorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedActionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedServiceUnitImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceContextIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceIdentifierImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.ServiceParameterInfoImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdExtensionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UsedServiceUnitImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UserEquipmentInfoExtensionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
@@ -111,14 +106,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 
 	protected UserEquipmentInfoExtension userEquipmentInfoExtension;
 	
-	private boolean ccSubSessionIdAllowed = true;
-	private boolean acctMultiSessionIdAllowed = true;
-	private boolean subscriptionIdExtensionAllowed = true;
-	private boolean serviceIdentifierAllowed = true;
-	private boolean requestedServiceUnitAllowed = true;
-	private boolean usedServiceUnitAllowed = true;
-	private boolean serviceParameterInfoAllowed = true;
-	private boolean userEquipmentInfoExtensionAllowed = true;
 	
 	protected CreditControlRequestImpl() 
 	{
@@ -140,45 +127,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		setServiceContextId(serviceContextId);
 	}
 
-	protected void setCCSubSessionIdAllowed(boolean allowed) 
-	{
-		this.ccSubSessionIdAllowed = allowed;
-	}
-	
-	protected void setAcctMultiSessionIdAllowed(boolean allowed) 
-	{
-		this.acctMultiSessionIdAllowed = allowed;
-	}
-	
-	protected void setSubscriptionIdExtensionAllowed(boolean allowed) 
-	{
-		this.subscriptionIdExtensionAllowed = allowed;
-	}
-	
-	protected void setServiceIdentifierAllowed(boolean allowed) 
-	{
-		this.serviceIdentifierAllowed = allowed;
-	}
-	
-	protected void setRequestedServiceUnitAllowed(boolean allowed) 
-	{
-		this.requestedServiceUnitAllowed = allowed;
-	}
-	
-	protected void setUsedServiceUnitAllowed(boolean allowed) 
-	{
-		this.usedServiceUnitAllowed = allowed;
-	}
-	
-	protected void setServiceParameterInfoAllowed(boolean allowed) 
-	{
-		this.serviceParameterInfoAllowed = allowed;
-	}
-	
-	protected void setUserEquipmentInfoExtensionAllowed(boolean allowed) 
-	{
-		this.userEquipmentInfoExtensionAllowed = allowed;
-	}
 	
 	@Override
 	public String getServiceContextId() 
@@ -210,8 +158,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	@Override
 	public Long getCcSubSessionId() throws AvpNotSupportedException
 	{
-		if(!ccSubSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl() } ));
 		
 		if(this.ccSubSessionId==null)
 			return null;
@@ -222,8 +168,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	@Override
 	public void setCcSubSessionId(Long value) throws AvpNotSupportedException
 	{
-		if(!ccSubSessionIdAllowed && value!=null)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new CcSubSessionIdImpl(value, null, null) } ));
 		
 		if(value == null)
 			this.ccSubSessionId = null;
@@ -234,9 +178,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	@Override
 	public String getAcctMultiSessionId() throws AvpNotSupportedException
 	{
-		if(!acctMultiSessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl() } ));
-		
 		if(this.acctMultiSessionId == null)
 			return null;
 		
@@ -246,9 +187,7 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	@Override
 	public void setAcctMultiSessionId(String value) throws AvpNotSupportedException
 	{
-		if(!acctMultiSessionIdAllowed && value!=null)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AcctMultiSessionIdImpl(value, null, null) } ));
-		
+	
 		if(value == null)
 			this.acctMultiSessionId = null;
 		else
@@ -285,30 +224,18 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 
 	public List<SubscriptionIdExtension> getSubscriptionIdExtension() throws AvpNotSupportedException
 	{
-		if(!subscriptionIdExtensionAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new SubscriptionIdExtensionImpl() } ));
 		
 		return subscriptionIdExtension;
 	}
 
 	public void setSubscriptionIdExtension(List<SubscriptionIdExtension> value) throws AvpNotSupportedException
 	{
-		if(!subscriptionIdExtensionAllowed && value!=null && value.size()>0)
-		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(SubscriptionIdExtension curr:value)
-				avps.add(curr);
-			
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
-		}
 		
 		this.subscriptionIdExtension = value;
 	}
 
 	public Long getServiceIdentifier() throws AvpNotSupportedException
 	{
-		if(!serviceIdentifierAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceIdentifierImpl() } ));
 		
 		if(serviceIdentifier == null)
 			return null;
@@ -318,8 +245,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 
 	public void setServiceIdentifier(Long value) throws AvpNotSupportedException
 	{
-		if(!serviceIdentifierAllowed && value!=null)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceIdentifierImpl(value, null, null) } ));
 		
 		if(value == null)
 			this.serviceIdentifier = null;
@@ -345,16 +270,12 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 
 	public RequestedServiceUnit getRequestedServiceUnit() throws AvpNotSupportedException 
 	{
-		if(!requestedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RequestedServiceUnitImpl() } ));
 		
 		return requestedServiceUnit;
 	}
 
 	public void setRequestedServiceUnit(RequestedServiceUnit value) throws AvpNotSupportedException
 	{
-		if(!requestedServiceUnitAllowed && value!=null)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value } ));
 		
 		this.requestedServiceUnit = value;
 	}
@@ -375,27 +296,18 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 			this.requestedAction = new RequestedActionImpl(value, null, null);
 	}
 
-	public List<UsedServiceUnit> getUsedServiceUnit() throws AvpNotSupportedException 
+	@Override
+	public List<UsedServiceUnit> getUsedServiceUnit() 
 	{
-		if(!usedServiceUnitAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UsedServiceUnitImpl() } ));
-		
 		return usedServiceUnit;
 	}
 
-	public void setUsedServiceUnit(List<UsedServiceUnit> value) throws AvpNotSupportedException
+	@Override
+	public void setUsedServiceUnit(List<UsedServiceUnit> value) 
 	{
-		if(!usedServiceUnitAllowed && value!=null && value.size()>0)
-		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(UsedServiceUnit curr:value)
-				avps.add(curr);
-			
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", avps );
-		}
-		
 		this.usedServiceUnit = value;
 	}
+
 
 	public MultipleServicesIndicatorEnum getMultipleServicesIndicator() 
 	{
@@ -423,28 +335,19 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		this.multipleServicesCreditControl = value;
 	}
 
-	public List<ServiceParameterInfo> getServiceParameterInfo() throws AvpNotSupportedException
+	@Override
+	public List<ServiceParameterInfo> getServiceParameterInfo()
 	{
-		if(!serviceParameterInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ServiceParameterInfoImpl() } ));
-		
 		return serviceParameterInfo;
 	}
 
-	public void setServiceParameterInfo(List<ServiceParameterInfo> value) throws AvpNotSupportedException
+	@Override
+	public void setServiceParameterInfo(List<ServiceParameterInfo> value)
 	{
-		if(!serviceParameterInfoAllowed && value!=null && value.size()>0)
-		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(ServiceParameterInfo curr:value)
-				avps.add(curr);
-			
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
-		}
-		
 		this.serviceParameterInfo = value;
 	}
-
+		
+	
 	public ByteBuf getCcCorrelationId() 
 	{
 		if(this.ccCorrelationId == null)
@@ -473,16 +376,12 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 
 	public UserEquipmentInfoExtension getUserEquipmentInfoExtension() throws AvpNotSupportedException
 	{
-		if(!userEquipmentInfoExtensionAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UserEquipmentInfoExtensionImpl() } ));
 		
 		return userEquipmentInfoExtension;
 	}
 
 	public void setUserEquipmentInfoExtension(UserEquipmentInfoExtension value) throws AvpNotSupportedException
 	{
-		if(!userEquipmentInfoExtensionAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { value } ));
 		
 		this.userEquipmentInfoExtension = value;
 	}
@@ -492,48 +391,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	{
 		if(serviceContextId==null)
 			return new MissingAvpException("Service-Context-Id is required",Arrays.asList(new DiameterAvp[] { new ServiceContextIdImpl() } ));
-		
-		if(!ccSubSessionIdAllowed && ccSubSessionId!=null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { ccSubSessionId } ));
-		
-		if(!acctMultiSessionIdAllowed && acctMultiSessionId!=null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { acctMultiSessionId } ));
-		
-		if(!subscriptionIdExtensionAllowed && subscriptionIdExtension!=null && subscriptionIdExtension.size()>0)
-		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(SubscriptionIdExtension curr:subscriptionIdExtension)
-				avps.add(curr);
-			
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
-		}
-		
-		if(!serviceIdentifierAllowed && serviceIdentifier!=null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { serviceIdentifier } ));
-		
-		if(!requestedServiceUnitAllowed && requestedServiceUnit!=null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { requestedServiceUnit } ));
-		
-		if(!usedServiceUnitAllowed && usedServiceUnit!=null && usedServiceUnit.size()>0)
-		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(UsedServiceUnit curr:usedServiceUnit)
-				avps.add(curr);
-			
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps );
-		}
-		
-		if(!serviceParameterInfoAllowed && serviceParameterInfo!=null && serviceParameterInfo.size()>0)
-		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(ServiceParameterInfo curr:serviceParameterInfo)
-				avps.add(curr);
-			
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
-		}
-		
-		if(!userEquipmentInfoExtensionAllowed && userEquipmentInfoExtension!=null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { userEquipmentInfoExtension } ));
 		
 		return super.validate();
 	}

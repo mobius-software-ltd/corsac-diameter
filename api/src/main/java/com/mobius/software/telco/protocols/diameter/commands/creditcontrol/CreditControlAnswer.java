@@ -25,13 +25,9 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CheckBalanceResultEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandlingEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandlingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
@@ -86,14 +82,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoS
 @DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.CREDIT_CONTROL, request = false, proxyable = true, name="Credit-Control-Answer")
 public interface CreditControlAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlAnswer
 {
-    CcRequestTypeEnum getCcRequestType();
-	
-	void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException;
-	
-	Long getCcRequestNumber();
-	
-	void setCcRequestNumber(Long value) throws MissingAvpException;
-	
 	public CcSessionFailoverEnum getCcSessionFailover();
 	
 	void setCcSessionFailover(CcSessionFailoverEnum value);
@@ -133,14 +121,6 @@ public interface CreditControlAnswer extends com.mobius.software.telco.protocols
 	public CheckBalanceResultEnum getCheckBalanceResult() throws AvpNotSupportedException;
 	
 	void setCheckBalanceResult(CheckBalanceResultEnum value) throws AvpNotSupportedException;
-	
-	public CreditControlFailureHandlingEnum getCreditControlFailureHandling();
-	
-	void setCreditControlFailureHandling(CreditControlFailureHandlingEnum value);
-	
-	public DirectDebitingFailureHandlingEnum getDirectDebitingFailureHandling();
-	
-	void setDirectDebitingFailureHandling(DirectDebitingFailureHandlingEnum value);
 	
 	public Long getValidityTime() throws AvpNotSupportedException;
 	

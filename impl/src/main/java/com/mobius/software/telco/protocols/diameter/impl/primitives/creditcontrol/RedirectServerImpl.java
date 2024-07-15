@@ -41,7 +41,7 @@ public class RedirectServerImpl extends DiameterAvpImpl implements RedirectServe
 	
 	private RedirectServerAddress redirectServerAddress;
 	
-	protected RedirectServerImpl()
+	public RedirectServerImpl()
 	{
 		
 	}

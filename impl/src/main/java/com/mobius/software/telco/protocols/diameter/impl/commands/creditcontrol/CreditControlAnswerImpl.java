@@ -374,7 +374,8 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 		return creditControlFailureHandling.getEnumerated(CreditControlFailureHandlingEnum.class);
 	}
 
-	@Override
+	
+	
 	public void setCreditControlFailureHandling(CreditControlFailureHandlingEnum value) 
 	{
 		if(value==null)
@@ -392,7 +393,7 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 		return directDebitingFailureHandling.getEnumerated(DirectDebitingFailureHandlingEnum.class);
 	}
 
-	@Override
+	
 	public void setDirectDebitingFailureHandling(DirectDebitingFailureHandlingEnum value) 
 	{
 		if(value==null)
