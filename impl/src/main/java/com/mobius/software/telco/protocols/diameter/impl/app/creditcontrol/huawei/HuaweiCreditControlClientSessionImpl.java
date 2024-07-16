@@ -17,13 +17,9 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.huaw
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
-import com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.HuaweiCreditControlClientSession;
-import com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.HuaweiCreditControlServerSession;
-import com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.SessionFactory;
+import com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.HuaweiClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlAnswer;
@@ -32,26 +28,12 @@ import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawe
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl;
 
-public class SessionFactoryImpl implements SessionFactory
+public class HuaweiClientSessionImpl extends ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements HuaweiClientSession
 {
-	private DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider;
-	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider)
+	public HuaweiClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
-		this.provider = provider;
-	}
-
-	@Override
-	public HuaweiCreditControlClientSession createClientSession(CreditControlRequest request) throws AvpNotSupportedException
-	{
-		return new HuaweiCreditControlClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
-	}
-
-	@Override
-	public HuaweiCreditControlServerSession createServerSession(CreditControlRequest request) throws AvpNotSupportedException
-	{
-		return new HuaweiCreditControlServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

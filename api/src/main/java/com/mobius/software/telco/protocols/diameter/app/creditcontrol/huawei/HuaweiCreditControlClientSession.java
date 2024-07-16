@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei;
+
 /*
- * Mobius Software LTD
+ * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
  * by the @authors tag.
  *
@@ -18,13 +19,12 @@ package com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-
+import com.mobius.software.telco.protocols.diameter.app.ClientCCSession;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.SessionTerminationRequest;
 
-public interface SessionFactory
+public interface HuaweiClientSession extends ClientCCSession<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>
 {
-	public HuaweiCreditControlClientSession createClientSession(CreditControlRequest request) throws DiameterException;
-
-	public HuaweiCreditControlServerSession createServerSession(CreditControlRequest request) throws DiameterException;
 }
