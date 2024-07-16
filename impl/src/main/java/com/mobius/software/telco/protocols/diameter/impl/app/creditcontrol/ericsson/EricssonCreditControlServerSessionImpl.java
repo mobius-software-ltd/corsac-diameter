@@ -17,13 +17,9 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.eric
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
-import com.mobius.software.telco.protocols.diameter.app.creditcontrol.ericsson.EricssonCreditControlClientSession;
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.ericsson.EricssonCreditControlServerSession;
-import com.mobius.software.telco.protocols.diameter.app.creditcontrol.ericsson.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlAnswer;
@@ -32,26 +28,12 @@ import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.erics
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.impl.app.ServerCCSessionImpl;
 
-public class SessionFactoryImpl implements SessionFactory
+public class EricssonCreditControlServerSessionImpl extends ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements EricssonCreditControlServerSession
 {
-	private DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider;
-	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider)
+	public EricssonCreditControlServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
 	{
-		this.provider = provider;
-	}
-
-	@Override
-	public EricssonCreditControlClientSession createClientSession(CreditControlRequest request) throws AvpNotSupportedException
-	{
-		return new EricssonCreditControlClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
-	}
-
-	@Override
-	public EricssonCreditControlServerSession createServerSession(CreditControlRequest request) throws AvpNotSupportedException
-	{
-		return new EricssonCreditControlServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		super(sessionID, remoteHost, remoteRealm, provider);
 	}
 }

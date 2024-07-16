@@ -23,7 +23,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 
 public interface SessionFactory
 {
-	public EricssonClientSession createClientSession(CreditControlRequest request) throws DiameterException;
+	public EricssonCreditControlClientSession createClientSession(CreditControlRequest request) throws DiameterException;
 
-	public EricssonServerSession createServerSession(CreditControlRequest request) throws DiameterException;
+	public EricssonCreditControlServerSession createServerSession(CreditControlRequest request) throws DiameterException;
 }
