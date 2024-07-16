@@ -209,7 +209,7 @@ public class LoadingTest
 	@Test
 	public void testGy() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser();
+		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gy.CreditControlRequestImpl.class;
@@ -217,7 +217,6 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerAvps(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gy"));		
 	}
 	

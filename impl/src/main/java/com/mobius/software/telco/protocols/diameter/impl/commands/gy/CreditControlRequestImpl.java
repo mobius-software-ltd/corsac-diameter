@@ -18,7 +18,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
@@ -64,8 +63,6 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	protected List<TGPPMultipleServicesCreditControl> tgppMultipleServicesCreditControl;
 	
 	protected UserEquipmentInfo userEquipmentInfo;
-	
-	protected List<RouteRecord> routeRecords;
 	
 	protected ServiceInformation serviceInformation;
 	
