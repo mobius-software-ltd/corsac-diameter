@@ -31,7 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Fin
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectServer;
 import com.mobius.software.telco.protocols.diameter.primitives.gy.FinalUnitIndication;
 
-
 public class FinalUnitIndicationImpl extends DiameterAvpImpl implements FinalUnitIndication
 {
 	private FinalUnitAction finalUnitAction;
