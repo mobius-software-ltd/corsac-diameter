@@ -32,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.gy.GyProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mm10.MM10ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.nta.NtaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
@@ -125,7 +126,15 @@ public class DiameterStackImpl implements DiameterStack
 					else
 						registeredProviders.put(applicationID, roProvider);
 					
+					
 					return roProvider;
+					
+				}
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gy"))
+				{
+					GyProviderImpl gyProvider=new GyProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), gyProvider);
+					return gyProvider;
 				}
 				break;
 			case ApplicationIDs.EAP:

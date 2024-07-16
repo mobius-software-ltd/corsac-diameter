@@ -41,7 +41,7 @@ public class SubscriptionIdImpl extends DiameterAvpImpl implements SubscriptionI
 	
 	private SubscriptionIdData subscriptionIdData;
 	
-	protected SubscriptionIdImpl()
+	public SubscriptionIdImpl()
 	{
 		
 	}

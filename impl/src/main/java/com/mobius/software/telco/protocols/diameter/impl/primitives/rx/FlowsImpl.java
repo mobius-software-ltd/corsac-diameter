@@ -54,7 +54,7 @@ public class FlowsImpl extends DiameterGroupedAvpImpl implements Flows
 	
 	private MediaComponentStatus mediaComponentStatus;
 	
-	protected FlowsImpl()
+	public FlowsImpl()
 	{
 		
 	}
