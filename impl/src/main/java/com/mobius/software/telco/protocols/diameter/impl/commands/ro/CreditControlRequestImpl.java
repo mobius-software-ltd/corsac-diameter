@@ -23,12 +23,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAv
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestType;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.EventTimestamp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcCorrelationId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicator;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedAction;
@@ -73,7 +73,7 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	private RequestedAction requestedAction;
 	private AoCRequestType aocRequestType;
 	private MultipleServicesIndicator multipleServicesIndicator;
-	private List<MultipleServicesCreditControl> multipleServicesCreditControl;
+	private List<TGPPMultipleServicesCreditControl> tgppMultipleServicesCreditControl;
 	protected CcCorrelationId ccCorrelationId;
 	private UserEquipmentInfo userEquipmentInfo;
 	private OCSupportedFeatures ocSupportedFeatures;
@@ -229,15 +229,15 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	}
 
 	@Override
-	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl() 
+	public List<TGPPMultipleServicesCreditControl> getMultipleServicesCreditControl() 
 	{
-		return multipleServicesCreditControl;
+		return tgppMultipleServicesCreditControl;
 	}
 
 	@Override
-	public void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value) 
+	public void setMultipleServicesCreditControl(List<TGPPMultipleServicesCreditControl> value) 
 	{
-		this.multipleServicesCreditControl = value;
+		this.tgppMultipleServicesCreditControl = value;
 	}
 	
 	public UserEquipmentInfo getUserEquipmentInfo() 
@@ -310,8 +310,8 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 		
 		result.add(multipleServicesIndicator);
 		
-		if(multipleServicesCreditControl!=null)
-			result.addAll(multipleServicesCreditControl);
+		if(tgppMultipleServicesCreditControl!=null)
+			result.addAll(tgppMultipleServicesCreditControl);
 		
 		result.add(ccCorrelationId);
 		result.add(userEquipmentInfo);

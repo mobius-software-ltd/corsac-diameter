@@ -1,3 +1,4 @@
+
 package com.mobius.software.telco.protocols.diameter.commands.ro;
 /*
  * Mobius Software LTD
@@ -28,9 +29,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBal
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RemainingBalance;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 /**
@@ -77,9 +78,9 @@ public interface CreditControlAnswer extends com.mobius.software.telco.protocols
 	
 	void setCcSessionFailover(CcSessionFailoverEnum value);
 
-	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
+	public List<TGPPMultipleServicesCreditControl> getMultipleServicesCreditControl();
 	
-	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
+	void setMultipleServicesCreditControl(List<TGPPMultipleServicesCreditControl> value);
 	
 	public CostInformation getCostInformation();
 	

@@ -1,3 +1,4 @@
+
 package com.mobius.software.telco.protocols.diameter.commands.ro;
 /*
  * Mobius Software LTD
@@ -27,8 +28,8 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.AoCRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedActionEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
@@ -113,9 +114,9 @@ public interface CreditControlRequest extends com.mobius.software.telco.protocol
 	
 	void setUserEquipmentInfo(UserEquipmentInfo value);
 	
-	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
+	public List<TGPPMultipleServicesCreditControl> getMultipleServicesCreditControl();
 	
-	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
+	void setMultipleServicesCreditControl(List<TGPPMultipleServicesCreditControl> value);
 	
 	OCSupportedFeatures getOCSupportedFeatures();
 	

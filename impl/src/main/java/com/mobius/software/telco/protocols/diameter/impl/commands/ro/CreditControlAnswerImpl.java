@@ -18,6 +18,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.LowBal
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RemainingBalance;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailover;
@@ -27,7 +28,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Cre
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CreditControlFailureHandlingEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandling;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandlingEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 
 /*
@@ -58,7 +58,7 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 {
 	protected CcSessionFailover ccSessionFailover;
 	
-	protected List<MultipleServicesCreditControl> multipleServicesCreditControl;
+	protected List<TGPPMultipleServicesCreditControl> tgppMultipleServicesCreditControl;
 	
 	protected CostInformation costInformation;
 	
@@ -112,15 +112,15 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	
 
 	@Override
-	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl() 
+	public List<TGPPMultipleServicesCreditControl> getMultipleServicesCreditControl() 
 	{
-		return multipleServicesCreditControl;
+		return tgppMultipleServicesCreditControl;
 	}
 
 	@Override
-	public void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value) 
+	public void setMultipleServicesCreditControl(List<TGPPMultipleServicesCreditControl> value) 
 	{
-		this.multipleServicesCreditControl = value;
+		this.tgppMultipleServicesCreditControl = value;
 	}
 	
 	@Override
@@ -263,8 +263,8 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 		
 		result.add(ccSessionFailover);
 		
-		if(multipleServicesCreditControl!=null)
-			result.addAll(multipleServicesCreditControl);
+		if(tgppMultipleServicesCreditControl!=null)
+			result.addAll(tgppMultipleServicesCreditControl);
 		
 		result.add(costInformation);
 		result.add(lowBalanceIndication);
