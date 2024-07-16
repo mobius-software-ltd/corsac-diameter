@@ -27,7 +27,6 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesIndicatorEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedActionEnum;
@@ -97,19 +96,9 @@ import io.netty.buffer.ByteBuf;
 @DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.CREDIT_CONTROL, request = true, proxyable = true, name="Credit-Control-Request")
 public interface CreditControlRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest
 {
-	public Long getAuthApplicationId();
-	
 	public String getServiceContextId();
 	
 	void setServiceContextId(String value) throws MissingAvpException;
-	
-	CcRequestTypeEnum getCcRequestType();
-	
-	void setCcRequestType(CcRequestTypeEnum value) throws MissingAvpException;
-	
-	Long getCcRequestNumber();
-	
-	void setCcRequestNumber(Long value) throws MissingAvpException;
 	
 	public Long getCcSubSessionId() throws AvpNotSupportedException;
 	
@@ -145,7 +134,7 @@ public interface CreditControlRequest extends com.mobius.software.telco.protocol
 	
 	public RequestedActionEnum getRequestedAction();
 	
-	void setRequestedAction(RequestedActionEnum value);
+	void  setRequestedAction(RequestedActionEnum value);
 	
 	public List<UsedServiceUnit> getUsedServiceUnit() throws AvpNotSupportedException;
 	
@@ -175,7 +164,5 @@ public interface CreditControlRequest extends com.mobius.software.telco.protocol
 	
 	void setUserEquipmentInfoExtension(UserEquipmentInfoExtension value) throws AvpNotSupportedException;
 	
-	public List<String> getRouteRecords();
-	
-	void setRouteRecords(List<String> value);	  	
+		  	
 }

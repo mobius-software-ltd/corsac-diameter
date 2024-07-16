@@ -34,9 +34,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAv
 * @author yulian oifa
 *
 */
-public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements DeviceWatchdogRequest
+public class DeviceWatchdogRequestImpl extends DiameterMessageBase implements DeviceWatchdogRequest
 {
-	public DeviceWatchdogRequestmpl() 
+	public DeviceWatchdogRequestImpl() 
 	{
 		super();
 		setSessionIdAllowed(false);
@@ -44,7 +44,7 @@ public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements Dev
 		setUsernameAllowed(false);		
 	}
 		
-	public DeviceWatchdogRequestmpl(String originHost,String originRealm,Boolean isRetransmit) throws MissingAvpException
+	public DeviceWatchdogRequestImpl(String originHost,String originRealm,Boolean isRetransmit) throws MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit);
 		setSessionIdAllowed(false);

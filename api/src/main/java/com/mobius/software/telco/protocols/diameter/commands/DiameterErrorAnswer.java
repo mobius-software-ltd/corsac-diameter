@@ -1,9 +1,7 @@
-package com.mobius.software.telco.protocols.diameter;
-
-import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+package com.mobius.software.telco.protocols.diameter.commands;
 
 /*
- * Mobius Software LTD, Open Source Cloud Communications
+ * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
  * by the @authors tag.
  *
@@ -25,7 +23,9 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 * @author yulian oifa
 *
 */
-public interface NetworkListener
+public interface DiameterErrorAnswer extends DiameterAnswer
 {
-	void onMessage(DiameterMessage message,AsyncCallback callback);		
+	public Integer getCommandCode();
+	
+	public Long getApplicationId();	
 }

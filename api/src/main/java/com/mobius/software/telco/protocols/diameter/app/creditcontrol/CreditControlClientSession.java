@@ -1,6 +1,4 @@
-package com.mobius.software.telco.protocols.diameter;
-
-import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+package com.mobius.software.telco.protocols.diameter.app.creditcontrol;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -20,12 +18,13 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-/**
-*
-* @author yulian oifa
-*
-*/
-public interface NetworkListener
+
+import com.mobius.software.telco.protocols.diameter.app.ClientCCSession;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.SessionTerminationRequest;
+
+public interface CreditControlClientSession extends ClientCCSession<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>
 {
-	void onMessage(DiameterMessage message,AsyncCallback callback);		
 }

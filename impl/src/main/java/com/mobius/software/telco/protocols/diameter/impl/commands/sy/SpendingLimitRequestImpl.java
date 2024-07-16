@@ -230,5 +230,5 @@ public class SpendingLimitRequestImpl extends SyRequestImpl implements SpendingL
 		}
 		
 		return result;
-	}		
+	}
 }

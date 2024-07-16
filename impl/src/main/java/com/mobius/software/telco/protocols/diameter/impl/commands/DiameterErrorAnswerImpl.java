@@ -1,6 +1,7 @@
-package com.mobius.software.telco.protocols.diameter;
+package com.mobius.software.telco.protocols.diameter.impl.commands;
 
-import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterErrorAnswer;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -20,12 +21,35 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 /**
 *
 * @author yulian oifa
 *
 */
-public interface NetworkListener
+public class DiameterErrorAnswerImpl extends DiameterAnswerBase implements DiameterErrorAnswer
 {
-	void onMessage(DiameterMessage message,AsyncCallback callback);		
+	private Long applicationID;
+	
+	protected Integer commandCode;
+	
+	public DiameterErrorAnswerImpl(Long applicationID,Integer commandCode,String originHost,String originRealm,Boolean isRetransmit,Long resultCode) throws MissingAvpException
+	{
+		super(originHost, originRealm, isRetransmit , resultCode);
+		
+		this.applicationID = applicationID;		
+		this.commandCode = commandCode;
+	}
+
+	@Override
+	public Integer getCommandCode()
+	{
+		return commandCode;
+	}
+
+	@Override
+	public Long getApplicationId()
+	{
+		return applicationID;
+	}
 }

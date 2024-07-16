@@ -29,7 +29,10 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.NetworkManager;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.CreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gy.GyProviderImpl;
@@ -46,29 +49,44 @@ import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl
 */
 public class DiameterStackImpl implements DiameterStack
 {
-	public static final Long DEFAULT_SEND_TIMEOUT = 60000L;
+	public static final Long DEFAULT_RESPONSE_TIMEOUT = 60000L;
 	public static final Long DEFAULT_IDLE_TIMEOUT = 120000L;
 	
 	private ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>> registeredProviders=new ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>>();
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
 	
-	private Long sendTimeout = DEFAULT_SEND_TIMEOUT;
+	private Long responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
 	private Long idleTimeout = DEFAULT_IDLE_TIMEOUT;
 	
 	private WorkerPool workerPool;
 	private IDGenerator<?> idGenerator;
 	
 	private AtomicLong sessionCounter=new AtomicLong();
-	private String localHost,localRealm;
+	private String localHost;
 	
 	private ClusteredID<?> stackID;
 	
-	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,String localHost,String localRealm)
+	private NetworkManager networkManager;
+	
+	private String productName;
+	private Long vendorId;
+	private AtomicLong hopByHopCounter=new AtomicLong(System.currentTimeMillis());
+	private Long originalStateId = hopByHopCounter.get();
+	private Long firmwareRevision;
+	
+	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout) throws Exception
 	{
 		this.idGenerator = idGenerator;
 		this.workerPool = workerPool;
 		this.localHost = localHost;
-		this.localRealm = localRealm;
+		this.productName = productName;
+		this.vendorId = vendorId;
+		this.firmwareRevision = firmwareRevision;
+		
+		if(responseTimeout !=null)
+			this.responseTimeout = responseTimeout;
+		
+		this.networkManager = new NetworkManagerImpl(this, workerThreads, idleTimeout, this.responseTimeout, reconnectTimeout);
 		this.stackID = idGenerator.generateID();
 	}
 	
@@ -135,6 +153,12 @@ public class DiameterStackImpl implements DiameterStack
 					GyProviderImpl gyProvider=new GyProviderImpl(this);
 					registeredProvidersByPackage.put(parentPackage.getName(), gyProvider);
 					return gyProvider;
+				}
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.creditcontrol"))
+				{
+					CreditControlProviderImpl creditControlProvider=new CreditControlProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), creditControlProvider);
+					return creditControlProvider;
 				}
 				break;
 			case ApplicationIDs.EAP:
@@ -255,15 +279,15 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public void sendRequestToNetwork(DiameterMessage message, AsyncCallback callback)
+	public void sendRequestToNetwork(DiameterRequest message, AsyncCallback callback)
 	{
-		// TODO Send to network layer when layer implemented	
+		networkManager.sendRequest(message, callback);
 	}
 
 	@Override
-	public void sendAnswerToNetwork(DiameterMessage message, String destinationHost, String destinationRealm, AsyncCallback callback)
+	public void sendAnswerToNetwork(DiameterAnswer message, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
-		// TODO Auto-generated method stub		
+		networkManager.sendAnswer(message, destinationHost, destinationRealm, callback);	
 	}
 
 	@Override
@@ -273,18 +297,9 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Long getSendTimeout()
+	public Long getResponseTimeout()
 	{
-		return sendTimeout;
-	}
-
-	@Override
-	public void setSendTimeout(Long value)
-	{
-		if(value==null)
-			sendTimeout = DEFAULT_SEND_TIMEOUT;
-		else
-			sendTimeout = value;
+		return responseTimeout;
 	}
 
 	@Override
@@ -309,18 +324,6 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public String getLocalHost()
-	{
-		return this.localHost;
-	}
-
-	@Override
-	public String getLocalRealm()
-	{
-		return this.localRealm;
-	}
-
-	@Override
 	public String generateNewSessionID()
 	{
 		Long currNumber=sessionCounter.incrementAndGet();
@@ -333,5 +336,47 @@ public class DiameterStackImpl implements DiameterStack
 		sb.append(";");
 		sb.append(stackID.getValue());
 		return sb.toString();
+	}
+
+	@Override
+	public NetworkManager getNetworkManager()
+	{
+		return networkManager;
+	}
+
+	@Override
+	public Long getOriginalStateId()
+	{
+		return originalStateId;
+	}
+
+	@Override
+	public Long getNextHopByHopIdentifier()
+	{
+		return hopByHopCounter.incrementAndGet();
+	}
+
+	@Override
+	public String getProductName()
+	{
+		return productName;
+	}
+
+	@Override
+	public Long getVendorID()
+	{
+		return vendorId;
+	}
+
+	@Override
+	public Long getFirmwareRevision()
+	{
+		return firmwareRevision;
+	}
+
+	@Override
+	public void stop()
+	{
+		networkManager.stop();
 	}
 }

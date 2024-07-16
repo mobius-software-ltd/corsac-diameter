@@ -1,6 +1,9 @@
 package com.mobius.software.telco.protocols.diameter;
 
-import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -25,7 +28,34 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 * @author yulian oifa
 *
 */
-public interface NetworkListener
+public enum PeerStateEnum implements IntegerEnum
 {
-	void onMessage(DiameterMessage message,AsyncCallback callback);		
+	IDLE(1),CER_SENT(2),OPEN(3),DPR_SENT(4);
+
+	private static final Map<Integer, PeerStateEnum> intToTypeMap = new HashMap<Integer, PeerStateEnum>();
+	static 
+	{
+	    for (PeerStateEnum type : PeerStateEnum.values()) 
+	    {
+	    	intToTypeMap.put(type.value, type);
+	    }
+	}
+
+	public static PeerStateEnum fromInt(Integer value) 
+	{
+		PeerStateEnum type = intToTypeMap.get(value);
+	    return type;
+	}
+	
+	private int value;
+	
+	private PeerStateEnum(int value)
+	{
+		this.value=value;
+	}
+	
+	public int getValue()
+	{
+		return value;
+	}
 }
