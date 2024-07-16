@@ -40,7 +40,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rx.AbortCauseEnum
 * @author yulian oifa
 *
 */
-public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestmpl implements AbortSessionRequest
+public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestImpl implements AbortSessionRequest
 {
 	protected AbortCause abortCause;
 	

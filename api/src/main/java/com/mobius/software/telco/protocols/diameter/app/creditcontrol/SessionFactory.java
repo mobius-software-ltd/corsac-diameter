@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.commands;
+package com.mobius.software.telco.protocols.diameter.app.creditcontrol;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,21 +18,12 @@ package com.mobius.software.telco.protocols.diameter.commands;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 
-/**
-*
-* @author yulian oifa
-*
-*/
-public interface DiameterRequest extends DiameterMessage
+public interface SessionFactory
 {
-	public String getDestinationHost() throws AvpNotSupportedException;
+	public CreditControlClientSession createClientSession(CreditControlRequest request) throws DiameterException;	
 	
-	void setDestinationHost(String value) throws AvpNotSupportedException, MissingAvpException;
-	
-	public String getDestinationRealm();
-	
-	void setDestinationRealm(String value) throws MissingAvpException;
+	public CreditControlServerSession createServerSession(CreditControlRequest request) throws DiameterException;		
 }

@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -45,8 +46,22 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	@Override
 	public void sendInitialAnswer(A1 answer, AsyncCallback callback)
 	{
-		answerSent(answer, callback, null);
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				answerSent(answer, callback, null);
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+			}
+		});					
 	}
 	
 	@Override

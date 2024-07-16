@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -53,14 +54,28 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	@Override
 	public void sendAccountingRequest(R1 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.PENDING);
-		if(!isRetry) 
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
-			setLastSentRequest(request);	
-			requestSent(request, new CallbackWrapper(callback));
-		}
-		
-		provider.getStack().sendRequestToNetwork(request, callback);			
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				if(!isRetry) 
+				{
+					setLastSentRequest(request);	
+					requestSent(request, new CallbackWrapper(callback));
+				}
+				
+				provider.getStack().sendRequest(request, callback);
+			}
+		});				
 	}
 	
 	@Override

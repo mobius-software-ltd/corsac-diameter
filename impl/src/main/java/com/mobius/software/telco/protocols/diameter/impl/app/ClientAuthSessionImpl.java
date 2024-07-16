@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -52,42 +53,98 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	@Override
 	public void sendInitialRequest(R1 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.PENDING);
-		setLastSentRequest(request);	
-		requestSent(request, callback);
-		provider.getStack().sendRequestToNetwork(request, new CallbackWrapper(callback));			
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				setLastSentRequest(request);	
+				requestSent(request, callback);
+				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
+			}
+		});						
 	}
 
 	@Override
 	public void sendReauthAnswer(A2 answer, AsyncCallback callback)
 	{
-		if(answer.getIsError()!=null && answer.getIsError())
-		{	
-			setSessionState(SessionStateEnum.IDLE);
-			terminate();
-		}
-		
-		answerSent(answer, callback, null);
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				if(answer.getIsError()!=null && answer.getIsError())
+				{	
+					setSessionState(SessionStateEnum.IDLE);
+					terminate();
+				}
+				
+				answerSent(answer, callback, null);
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);		
+			}
+		});		
 	}
 
 	@Override
 	public void sendSessionTerminationRequest(R4 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.DISCONNECTED);
-		setLastSentRequest(request);	
-		requestSent(request, callback);
-		provider.getStack().sendRequestToNetwork(request, callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.DISCONNECTED);
+				setLastSentRequest(request);	
+				requestSent(request, callback);
+				provider.getStack().sendRequest(request, callback);
+			}
+		});			
 	}
 
 	@Override
 	public void sendAbortSessionAnswer(A3 answer, AsyncCallback callback)
 	{
-		if(answer.getIsError()==null || !answer.getIsError())
-			setSessionState(SessionStateEnum.DISCONNECTED);
-		
-		answerSent(answer, callback,  null);
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				if(answer.getIsError()==null || !answer.getIsError())
+					setSessionState(SessionStateEnum.DISCONNECTED);
+				
+				answerSent(answer, callback,  null);
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);	
+			}
+		});			
 	}
 	
 	@Override

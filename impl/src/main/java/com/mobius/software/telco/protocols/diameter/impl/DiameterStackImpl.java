@@ -270,13 +270,13 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public void sendRequestToNetwork(DiameterRequest message, AsyncCallback callback)
+	public void sendRequest(DiameterRequest message, AsyncCallback callback)
 	{
 		networkManager.sendRequest(message, callback);
 	}
 
 	@Override
-	public void sendAnswerToNetwork(DiameterAnswer message, String destinationHost, String destinationRealm, AsyncCallback callback)
+	public void sendAnswer(DiameterAnswer message, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
 		networkManager.sendAnswer(message, destinationHost, destinationRealm, callback);	
 	}

@@ -44,7 +44,6 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	protected DestinationRealm destinationRealm;
 	
 	private boolean destinationHostAllowed = true;
-	private boolean destinationRealmAllowed = true;
 	
 	protected DiameterRequestBase()
 	{
@@ -69,11 +68,6 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	protected void setDestinationHostAllowed(boolean allowed) 
 	{
 		this.destinationHostAllowed = allowed;
-	}
-
-	protected void setDestinationRealmAllowed(boolean allowed) 
-	{
-		this.destinationRealmAllowed = allowed;
 	}
 
 	@Override
@@ -101,11 +95,8 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	}
 
 	@Override
-	public String getDestinationRealm() throws AvpNotSupportedException 
+	public String getDestinationRealm() 
 	{
-		if(!destinationRealmAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl() }));
-		
 		if(destinationRealm == null)
 			return null;
 		
@@ -113,11 +104,8 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	}
 
 	@Override
-	public void setDestinationRealm(String value) throws AvpNotSupportedException, MissingAvpException 
+	public void setDestinationRealm(String value) throws MissingAvpException 
 	{
-		if(!destinationRealmAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl(value, null, null) }));
-		
 		if(value == null)
 			this.destinationRealm = null;
 		else
@@ -129,9 +117,6 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	{
 		if(!destinationHostAllowed && destinationHost!=null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { destinationHost }));
-		
-		if(!destinationRealmAllowed && destinationRealm==null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { destinationRealm }));
 		
 		return super.validate();
 	}

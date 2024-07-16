@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -56,64 +57,121 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void sendInitialAnswer(A1 answer, AsyncCallback callback)
 	{
-		Boolean shouldKeepOpen=true;
-		
-		if(answer.getIsError()!=null && answer.getIsError())
-			shouldKeepOpen=false;
-		else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.EVENT_REQUEST)
-			shouldKeepOpen=false;
-		else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.TERMINATION_REQUEST)
-			shouldKeepOpen=false;
-		
-		if(!shouldKeepOpen)
-		{	
-			setSessionState(SessionStateEnum.IDLE);
-			terminate();
-		}
-		else
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
-			setSessionState(SessionStateEnum.OPEN);
-			
-			Long newTime = null;
-			try
+			@Override
+			public long getStartTime()
 			{
-				if(answer.getValidityTime()!=null)
-					newTime = answer.getValidityTime()*1000L;
+				return startTime;
 			}
-			catch(AvpNotSupportedException ex)
+			
+			@Override
+			public void execute()
 			{
+				Boolean shouldKeepOpen=true;
 				
+				if(answer.getIsError()!=null && answer.getIsError())
+					shouldKeepOpen=false;
+				else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.EVENT_REQUEST)
+					shouldKeepOpen=false;
+				else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.TERMINATION_REQUEST)
+					shouldKeepOpen=false;
+				
+				if(!shouldKeepOpen)
+				{	
+					setSessionState(SessionStateEnum.IDLE);
+					terminate();
+				}
+				else
+				{
+					setSessionState(SessionStateEnum.OPEN);
+					
+					Long newTime = null;
+					try
+					{
+						if(answer.getValidityTime()!=null)
+							newTime = answer.getValidityTime()*1000L;
+					}
+					catch(AvpNotSupportedException ex)
+					{
+						
+					}
+					
+					answerSent(answer, callback, newTime);
+				}
+				
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
-			
-			answerSent(answer, callback, newTime);
-		}
-		
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
+		});					
 	}
 
 	@Override
 	public void sendReauthRequest(R2 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.PENDING);
-		setLastSentRequest(request);
-		requestSent(request, callback);
-		provider.getStack().sendRequestToNetwork(request, callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				setLastSentRequest(request);
+				requestSent(request, callback);
+				provider.getStack().sendRequest(request, callback);				
+			}
+		});
 	}
 
 	@Override
 	public void sendSessionTerminationAnswer(A4 answer, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.IDLE);
-		terminate();
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.IDLE);
+				terminate();
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+			}
+		});			
 	}
 
 	@Override
 	public void sendAbortSessionRequest(R3 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.DISCONNECTED);
-		requestSent(request, callback);
-		provider.getStack().sendRequestToNetwork(request, callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				setLastSentRequest(request);
+				requestSent(request, callback);
+				provider.getStack().sendRequest(request, callback);				
+			}
+		});			
 	}
 	
 	@Override
