@@ -64,9 +64,9 @@ public class GCSNotificationRequestImpl extends com.mobius.software.telco.protoc
 		super();
 	}
 	
-	public GCSNotificationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public GCSNotificationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
 		setAuthSessionState(authSessionState);
 	}

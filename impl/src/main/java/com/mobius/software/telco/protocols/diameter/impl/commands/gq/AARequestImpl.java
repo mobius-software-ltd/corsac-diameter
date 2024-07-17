@@ -63,9 +63,9 @@ public class AARequestImpl extends com.mobius.software.telco.protocols.diameter.
 		super();
 	}
 	
-	public AARequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	public AARequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 	}
 
 	@Override

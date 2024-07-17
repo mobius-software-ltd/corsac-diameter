@@ -39,13 +39,11 @@ public abstract class S6bRequestImpl extends AuthenticationRequestWithHostImpl i
 	protected S6bRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public S6bRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
-		setDestinationHostAllowed(true);
 	}
 
 	@Override

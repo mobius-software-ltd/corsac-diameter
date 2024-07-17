@@ -54,9 +54,9 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public EventConfigurationRequest createEventConfigurationRequest(String originHost, String originRealm,String destinationRealm,String externalIdentifier) throws MissingAvpException, AvpNotSupportedException
+	public EventConfigurationRequest createEventConfigurationRequest(String originHost, String originRealm, String destinationHost, String destinationRealm,String externalIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EventConfigurationRequestImpl(originHost,originRealm, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, externalIdentifier);
+		return new EventConfigurationRequestImpl(originHost,originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, externalIdentifier);
 		
 	}
 	

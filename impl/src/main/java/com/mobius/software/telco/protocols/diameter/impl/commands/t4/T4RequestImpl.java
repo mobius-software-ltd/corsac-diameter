@@ -8,7 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.t4.T4Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -42,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 * @author yulian oifa
 *
 */
-public abstract class T4RequestImpl extends VendorSpecificRequestmpl implements T4Request
+public abstract class T4RequestImpl extends VendorSpecificRequestImpl implements T4Request
 {
 	protected DRMP drmp;
 	
@@ -53,13 +53,11 @@ public abstract class T4RequestImpl extends VendorSpecificRequestmpl implements 
 	protected T4RequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public T4RequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(true);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID);
 		
 		setDestinationHost(destinationHost);
 		

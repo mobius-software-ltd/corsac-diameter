@@ -27,5 +27,5 @@ import io.netty.buffer.ByteBuf;
 
 public interface MessageFactory
 {
-	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException;		
+	public EAPRequest createEAPRequest(String originHost,String originRealm, String destinationHost, String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException;		
 }

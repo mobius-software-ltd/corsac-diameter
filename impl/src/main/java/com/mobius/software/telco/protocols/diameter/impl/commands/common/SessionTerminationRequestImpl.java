@@ -57,9 +57,9 @@ public class SessionTerminationRequestImpl extends AuthenticationRequestImpl imp
 		super();
 	}
 		
-	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
+	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm,destinationRealm, isRetransmit, sessionID, authApplicationID);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
 		
 		setTerminationCause(terminationCause);
 	}

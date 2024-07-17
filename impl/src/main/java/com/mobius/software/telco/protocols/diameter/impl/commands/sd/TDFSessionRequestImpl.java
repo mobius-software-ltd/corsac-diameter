@@ -13,7 +13,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestWithHostImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.DynamicAddressFlagExtensionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.DynamicAddressFlagImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.LogicalAccessIDImpl;
@@ -125,7 +125,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class TDFSessionRequestImpl extends VendorSpecificRequestWithHostImpl implements TDFSessionRequest
+public class TDFSessionRequestImpl extends VendorSpecificRequestImpl implements TDFSessionRequest
 {
 	private DRMP drmp;
 	

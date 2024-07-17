@@ -39,13 +39,11 @@ public abstract class CxDxRequestWithHostBase extends CxDxRequestImpl
 	protected CxDxRequestWithHostBase()
 	{
 		super();
-		setDestinationHostAllowed(true);		
 	}
 	
 	public CxDxRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{	
-		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID,authSessionState);
-		setDestinationHostAllowed(true);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID,authSessionState);
 		
 		setDestinationHost(destinationHost);		
 	}

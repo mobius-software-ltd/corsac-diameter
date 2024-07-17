@@ -58,12 +58,15 @@ public class RegistrationTerminationRequestImpl extends CxDxRequestImpl implemen
 	protected RegistrationTerminationRequestImpl() 
 	{
 		super();
+		setDestinationHostAllowed(false)
 	}
 	
 	public RegistrationTerminationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, String username, DeregistrationReason deregistrationReason) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authSessionState);
+		super(originHost, originRealm, null, destinationRealm, isRetransmit, sessionID, authSessionState);
 
+		setDestinationHostAllowed(false);
+		
 		setUsername(username);
 		
 		setDeregistrationReason(deregistrationReason);

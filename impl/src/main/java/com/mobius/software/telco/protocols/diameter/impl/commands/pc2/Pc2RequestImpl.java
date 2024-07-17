@@ -57,13 +57,11 @@ public abstract class Pc2RequestImpl extends AuthenticationRequestWithHostImpl i
 	protected Pc2RequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public Pc2RequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId, AuthSessionStateEnum authSessionState, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
-		setDestinationHostAllowed(true);
 		
 		setAuthSessionState(authSessionState);
 		

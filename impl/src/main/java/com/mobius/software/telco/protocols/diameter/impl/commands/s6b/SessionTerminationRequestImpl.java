@@ -52,11 +52,14 @@ public class SessionTerminationRequestImpl extends S6bRequestImpl implements Ses
 	protected SessionTerminationRequestImpl() 
 	{
 		super();
+		setDestinationHostAllowed(false);				
 	}
 		
-	public SessionTerminationRequestImpl(String originHost,String originRealm, String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
+	public SessionTerminationRequestImpl(String originHost,String originRealm, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{		
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, null, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		
+		setDestinationHostAllowed(false);
 		
 		setTerminationCause(terminationCause);
 	}

@@ -39,13 +39,11 @@ public abstract class SwmRequestImpl extends AuthenticationRequestWithHostImpl i
 	protected SwmRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public SwmRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
-		setDestinationHostAllowed(true);
 	}
 
 	@Override

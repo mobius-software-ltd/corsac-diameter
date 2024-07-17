@@ -50,13 +50,11 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	protected AuthenticationRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(false);
 	}
 		
-	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm,null,destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(false);
+		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessonID);
 		
 		setAuthApplicationId(authApplicationId);
 	}
