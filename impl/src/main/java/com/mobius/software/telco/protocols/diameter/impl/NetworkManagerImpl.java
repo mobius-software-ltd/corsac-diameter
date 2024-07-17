@@ -42,7 +42,6 @@ import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
@@ -269,16 +268,7 @@ public class NetworkManagerImpl implements NetworkManager
 	@Override
 	public void sendRequest(DiameterRequest request, AsyncCallback callback)
 	{
-		String destinationHost = null;
-		try
-		{
-			destinationHost = request.getDestinationHost();
-		}
-		catch(AvpNotSupportedException ex)
-		{
-			
-		}
-		
+		String destinationHost = request.getDestinationHost();
 		sendMessage(request, destinationHost, request.getDestinationRealm(), callback);		
 	}
 
