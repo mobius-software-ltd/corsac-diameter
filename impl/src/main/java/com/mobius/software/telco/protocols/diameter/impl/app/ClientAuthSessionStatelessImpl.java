@@ -28,7 +28,9 @@ import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListe
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 /**
 *
@@ -47,6 +49,15 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	@Override
 	public void sendInitialRequest(R1 request, AsyncCallback callback)
 	{
+		try
+		{
+			request.setSessionId(getID());
+		}
+		catch(MissingAvpException | AvpNotSupportedException ex)
+		{
+			//will not happen
+		}
+		
 		final Long startTime = System.currentTimeMillis();
 		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
@@ -74,17 +85,19 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		super.requestReceived(request, callback);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
 	{
 		DiameterRequest request = getLastSendRequest();
 		if(request!=null)
 		{
-			@SuppressWarnings("unchecked")
-			Collection<ClientAuthStatelessListener> listeners = (Collection<ClientAuthStatelessListener>) provider.getClientListeners().values();
+			Collection<ClientAuthStatelessListener> listeners = null;
+			if(provider.getClientListeners()!=null)
+				listeners = (Collection<ClientAuthStatelessListener>) provider.getClientListeners().values();
+			
 			try
 			{
-				@SuppressWarnings("unchecked")
 				A1 castedAnswer = (A1)answer;
 				
 				if(getSessionState()==SessionStateEnum.PENDING)
@@ -92,8 +105,11 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 					//we should transition to open, however afterwards the session may be only terminated , so we just terminate it
 					setSessionState(SessionStateEnum.IDLE);
 					terminate();
-					for(ClientAuthStatelessListener listener:listeners)
-						listener.onInitialAnswer(castedAnswer, callback);		
+					if(listeners!=null)
+					{
+						for(ClientAuthStatelessListener listener:listeners)
+							listener.onInitialAnswer(castedAnswer, callback);
+					}
 				}
 			}
 			catch(Exception ex)

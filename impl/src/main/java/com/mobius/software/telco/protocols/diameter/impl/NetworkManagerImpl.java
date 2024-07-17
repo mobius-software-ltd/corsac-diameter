@@ -269,6 +269,15 @@ public class NetworkManagerImpl implements NetworkManager
 	public void sendRequest(DiameterRequest request, AsyncCallback callback)
 	{
 		String destinationHost = request.getDestinationHost();
+		if(request.getHopByHopIdentifier()==null)
+		{
+			Long hopIdentifier = stack.getNextHopByHopIdentifier();
+			request.setHopByHopIdentifier(hopIdentifier);			
+		}
+		
+		if(request.getEndToEndIdentifier()==null)
+			request.setEndToEndIdentifier(request.getHopByHopIdentifier());
+		
 		sendMessage(request, destinationHost, request.getDestinationRealm(), callback);		
 	}
 
@@ -339,13 +348,13 @@ public class NetworkManagerImpl implements NetworkManager
 	}
 
 	@Override
-	public void registerApplication(String linkId, List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package packageName) throws DiameterException
+	public void registerApplication(String linkId, List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package providerPackageName, Package packageName) throws DiameterException
 	{
 		DiameterLink link = this.links.get(linkId);
 		if(link==null)
 			throw new DiameterException("Link with such id doesnt exist", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 		
-		link.registerApplication(vendorApplicationIds, authApplicationIds, acctApplicationIds , packageName);
+		link.registerApplication(vendorApplicationIds, authApplicationIds, acctApplicationIds , providerPackageName, packageName);
 	}
 
 	@Override

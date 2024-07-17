@@ -99,7 +99,7 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	@Override
 	public void setAuthApplicationId(Long value) throws MissingAvpException 
 	{
-		if(authApplicationId==null)
+		if(value==null)
 			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);

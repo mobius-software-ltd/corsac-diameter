@@ -45,6 +45,7 @@ import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.PeerStateEnum;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterErrorAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
@@ -614,28 +615,28 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		}
 	}
 
-	public void registerApplication(List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds,List<Long> acctApplicationIds, Package packageName) throws DiameterException
+	public void registerApplication(List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds,List<Long> acctApplicationIds, Package providerPackageName, Package packageName) throws DiameterException
 	{
 		for(VendorSpecificApplicationId vendorApplicationId:vendorApplicationIds)
 		{
 			addApplication(vendorApplicationId);
 			if(vendorApplicationId.getAcctApplicationId()!=null)
-				acctApplicationPackages.put(vendorApplicationId.getAcctApplicationId(), packageName);
+				acctApplicationPackages.put(vendorApplicationId.getAcctApplicationId(), providerPackageName);
 			
 			if(vendorApplicationId.getAuthApplicationId()!=null)
-				authApplicationPackages.put(vendorApplicationId.getAuthApplicationId(), packageName);
+				authApplicationPackages.put(vendorApplicationId.getAuthApplicationId(), providerPackageName);
 		}
 		
 		for(Long applicationId:authApplicationIds)
-		{
+		{			
 			addAuthApplication(applicationId);
-			authApplicationPackages.put(applicationId, packageName);
+			authApplicationPackages.put(applicationId, providerPackageName);
 		}
 		
 		for(Long applicationId:acctApplicationIds)
 		{
 			addAcctApplication(applicationId);
-			acctApplicationPackages.put(applicationId, packageName);
+			acctApplicationPackages.put(applicationId, providerPackageName);
 		}
 		
 		parser.registerApplication(packageName);
@@ -977,7 +978,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	
 	public void sendError(DiameterException ex) throws MissingAvpException, AvpNotSupportedException
 	{
-		if(ex.getPartialMessage()==null)
+		if(ex.getPartialMessage()==null || ex.getPartialMessage() instanceof DiameterAnswer)
 			return;
 		
 		DiameterErrorAnswer answer;

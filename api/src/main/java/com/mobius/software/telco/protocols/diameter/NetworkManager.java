@@ -45,7 +45,7 @@ public interface NetworkManager
 	
 	DiameterLink getLink(String linkId);
 	
-	void registerApplication(String linkId, List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package packageName) throws DiameterException;
+	void registerApplication(String linkId, List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package providerPackageName, Package packageName) throws DiameterException;
 	
 	void stop();
 	

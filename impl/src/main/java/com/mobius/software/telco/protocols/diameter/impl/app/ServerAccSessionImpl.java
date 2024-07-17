@@ -95,15 +95,19 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	@Override
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
-		@SuppressWarnings("unchecked")
-		Collection<ServerAccListener<R1>> listeners = (Collection<ServerAccListener<R1>>) provider.getServerListeners().values();
-		
 		try
 		{
 			@SuppressWarnings("unchecked")
 			R1 castedRequest = (R1)request;
-			for(ServerAccListener<R1> listener:listeners)
-				listener.onAccountingRequest(castedRequest, callback);	
+			
+			if(provider.getServerListeners()!=null)
+			{
+				@SuppressWarnings("unchecked")
+				Collection<ServerAccListener<R1>> listeners = (Collection<ServerAccListener<R1>>) provider.getServerListeners().values();
+				
+				for(ServerAccListener<R1> listener:listeners)
+					listener.onAccountingRequest(castedRequest, callback);
+			}
 		}
 		catch(Exception ex)
 		{

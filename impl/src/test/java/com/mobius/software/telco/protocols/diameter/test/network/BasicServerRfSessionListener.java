@@ -35,6 +35,8 @@ import org.jdiameter.api.rf.ServerRfSessionListener;
 import org.jdiameter.api.rf.events.RfAccountingAnswer;
 import org.jdiameter.api.rf.events.RfAccountingRequest;
 import org.jdiameter.common.impl.app.rf.RfAccountingAnswerImpl;
+
+import com.mobius.software.telco.protocols.diameter.ResultCodes;
 /**
 *
 * @author yulian oifa
@@ -49,10 +51,20 @@ public class BasicServerRfSessionListener implements ServerRfSessionListener
 	{	
 		try
 		{
-			RfAccountingAnswer answer = new RfAccountingAnswerImpl((Request) request.getMessage(), request.getAccountingRecordType(), (int) request.getAccountingRecordNumber(), 2001);AvpSet set = answer.getMessage().getAvps();
-		    set.removeAvp(Avp.DESTINATION_HOST);
-		    set.removeAvp(Avp.DESTINATION_REALM);		    
-		    appSession.sendAccountAnswer(answer);
+			RfAccountingAnswer answer;
+			//this for timeout
+			if(request.getAccountingRecordNumber()==2001L)
+				return;
+			
+			if(request.getAccountingRecordNumber()==1001L)
+			    answer = new RfAccountingAnswerImpl((Request) request.getMessage(), request.getAccountingRecordType(), (int) request.getAccountingRecordNumber(), ResultCodes.DIAMETER_UNABLE_TO_COMPLY);
+			else
+				answer = new RfAccountingAnswerImpl((Request) request.getMessage(), request.getAccountingRecordType(), (int) request.getAccountingRecordNumber(), ResultCodes.DIAMETER_SUCCESS);
+				
+			AvpSet set = answer.getMessage().getAvps();
+			set.removeAvp(Avp.DESTINATION_HOST);
+		    set.removeAvp(Avp.DESTINATION_REALM);	
+			appSession.sendAccountAnswer(answer);			
 		}
 		catch(Exception ex)
 		{
@@ -63,5 +75,5 @@ public class BasicServerRfSessionListener implements ServerRfSessionListener
 	@Override
 	public void doOtherEvent(AppSession session, AppRequestEvent request, AppAnswerEvent answer) throws InternalException, IllegalDiameterStateException, RouteException, OverloadException
 	{		
-	}
+	}	
 }

@@ -33,32 +33,35 @@ import com.mobius.software.telco.protocols.diameter.DiameterLink;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.app.rf.ClientListener;
-import com.mobius.software.telco.protocols.diameter.app.rf.RfClientSession;
+import com.mobius.software.telco.protocols.diameter.app.ro.ClientListener;
+import com.mobius.software.telco.protocols.diameter.app.ro.RoClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
-import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
-import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
+import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 /**
 *
 * @author yulian oifa
 *
 */
-public class RfTest extends NetworkTestBase
+public class RoTest extends NetworkTestBase
 {
 	protected static final String localListenerID = "1";
-	private static final Logger logger = LogManager.getLogger(RfTest.class);
+	private static final Logger logger = LogManager.getLogger(RoTest.class);
 	
 	@Test
 	public void testEvent() throws Exception
 	{
-		super.setupRemote(new EmptyServerRoSessionListener(),new BasicServerRfSessionListener());
+		super.setupRemote(new BasicServerRoSessionListener(),new EmptyServerRfSessionListener());
 		super.setupLocal();
 		
-		final AtomicLong aaaReceived=new AtomicLong(0L);
-		final AtomicLong aaaReceivedByListener=new AtomicLong(0L);
+		final AtomicLong ccaReceived=new AtomicLong(0L);
+		final AtomicLong ccaReceivedByListener=new AtomicLong(0L);
 		final AtomicLong timeoutReceived=new AtomicLong(0L);
 		
 		DiameterStack localStack = this.localStack;
@@ -68,8 +71,8 @@ public class RfTest extends NetworkTestBase
 			@Override
 			public void onMessage(DiameterMessage message, AsyncCallback callback)
 			{
-				if(message instanceof AccountingAnswer)
-					aaaReceived.incrementAndGet();				
+				if(message instanceof CreditControlAnswer)
+					ccaReceived.incrementAndGet();				
 			}
 		});
 		
@@ -82,7 +85,7 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		RfProviderImpl provider = (RfProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.ACCOUNTING), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.rf"));
+		RoProviderImpl provider = (RoProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.CREDIT_CONTROL), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.ro"));
 		ClusteredID<?> listenerID=generator.generateID();
 		provider.setClientListener(listenerID, new ClientListener()
 		{
@@ -99,17 +102,32 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
 			{
-				aaaReceivedByListener.incrementAndGet();
+				ccaReceivedByListener.incrementAndGet();
+			}
+
+			@Override
+			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
+			{				
+			}
+
+			@Override
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			{
+			}
+
+			@Override
+			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
+			{
 			}
 		});
 		
 		//usually its not needed to get link, here we use it to read hosts/realms
 		DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
-		AccountingRequest request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.EVENT_RECORD, 1L);
-		RfClientSession clientSession = (RfClientSession)provider.getSessionFactory().createClientSession(request);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		CreditControlRequest request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.EVENT_REQUEST, 1L);
+		RoClientSession clientSession = (RoClientSession)provider.getSessionFactory().createClientSession(request);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -156,19 +174,19 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		assertEquals(aaaReceived.get() , 1L);
-		assertEquals(aaaReceivedByListener.get() , 1L);
+		assertEquals(ccaReceived.get() , 1L);
+		assertEquals(ccaReceivedByListener.get() , 1L);
 		assertEquals(timeoutReceived.get() , 0L);
 	}		
 	
 	@Test
 	public void testNonEvent() throws Exception
 	{
-		super.setupRemote(new EmptyServerRoSessionListener(),new BasicServerRfSessionListener());
+		super.setupRemote(new BasicServerRoSessionListener(),new EmptyServerRfSessionListener());
 		super.setupLocal();
 		
-		final AtomicLong aaaReceived=new AtomicLong(0L);
-		final AtomicLong aaaReceivedByListener=new AtomicLong(0L);
+		final AtomicLong ccaReceived=new AtomicLong(0L);
+		final AtomicLong ccaReceivedByListener=new AtomicLong(0L);
 		final AtomicLong timeoutReceived=new AtomicLong(0L);
 		
 		DiameterStack localStack = this.localStack;
@@ -178,8 +196,8 @@ public class RfTest extends NetworkTestBase
 			@Override
 			public void onMessage(DiameterMessage message, AsyncCallback callback)
 			{
-				if(message instanceof AccountingAnswer)
-					aaaReceived.incrementAndGet();				
+				if(message instanceof CreditControlAnswer)
+					ccaReceived.incrementAndGet();				
 			}
 		});
 		
@@ -192,7 +210,7 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		RfProviderImpl provider = (RfProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.ACCOUNTING), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.rf"));
+		RoProviderImpl provider = (RoProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.CREDIT_CONTROL), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.ro"));
 		ClusteredID<?> listenerID=generator.generateID();
 		provider.setClientListener(listenerID, new ClientListener()
 		{
@@ -209,17 +227,32 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
 			{
-				aaaReceivedByListener.incrementAndGet();
+				ccaReceivedByListener.incrementAndGet();
+			}
+
+			@Override
+			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
+			{				
+			}
+
+			@Override
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			{
+			}
+
+			@Override
+			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
+			{
 			}
 		});
 		
 		//usually its not needed to get link, here we use it to read hosts/realms
 		DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
-		AccountingRequest request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.START_RECORD, 1L);
-		RfClientSession clientSession = (RfClientSession)provider.getSessionFactory().createClientSession(request);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		CreditControlRequest request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.INITIAL_REQUEST, 1L);
+		RoClientSession clientSession = (RoClientSession)provider.getSessionFactory().createClientSession(request);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -244,8 +277,8 @@ public class RfTest extends NetworkTestBase
 				
 		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
 		
-		request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.INTERIM_RECORD, 2L);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.UPDATE_REQUEST, 2L);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -270,8 +303,8 @@ public class RfTest extends NetworkTestBase
 		
 		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
 		
-		request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.STOP_RECORD, 3L);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.TERMINATION_REQUEST, 3L);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -318,19 +351,19 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		assertEquals(aaaReceived.get() , 3L);
-		assertEquals(aaaReceivedByListener.get() , 3L);
+		assertEquals(ccaReceived.get() , 3L);
+		assertEquals(ccaReceivedByListener.get() , 3L);
 		assertEquals(timeoutReceived.get() , 0L);
 	}		
 	
 	@Test
 	public void testNonEventWithError() throws Exception
 	{
-		super.setupRemote(new EmptyServerRoSessionListener(),new BasicServerRfSessionListener());
+		super.setupRemote(new BasicServerRoSessionListener(),new EmptyServerRfSessionListener());
 		super.setupLocal();
 		
-		final AtomicLong aaaReceived=new AtomicLong(0L);
-		final AtomicLong aaaReceivedByListener=new AtomicLong(0L);
+		final AtomicLong ccaReceived=new AtomicLong(0L);
+		final AtomicLong ccaReceivedByListener=new AtomicLong(0L);
 		final AtomicLong timeoutReceived=new AtomicLong(0L);
 		
 		DiameterStack localStack = this.localStack;
@@ -340,8 +373,8 @@ public class RfTest extends NetworkTestBase
 			@Override
 			public void onMessage(DiameterMessage message, AsyncCallback callback)
 			{
-				if(message instanceof AccountingAnswer)
-					aaaReceived.incrementAndGet();				
+				if(message instanceof CreditControlAnswer)
+					ccaReceived.incrementAndGet();				
 			}
 		});
 		
@@ -354,7 +387,7 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		RfProviderImpl provider = (RfProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.ACCOUNTING), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.rf"));
+		RoProviderImpl provider = (RoProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.CREDIT_CONTROL), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.ro"));
 		ClusteredID<?> listenerID=generator.generateID();
 		provider.setClientListener(listenerID, new ClientListener()
 		{
@@ -371,17 +404,32 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
 			{
-				aaaReceivedByListener.incrementAndGet();
+				ccaReceivedByListener.incrementAndGet();
+			}
+
+			@Override
+			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
+			{				
+			}
+
+			@Override
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			{
+			}
+
+			@Override
+			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
+			{
 			}
 		});
 		
 		//usually its not needed to get link, here we use it to read hosts/realms
 		DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
-		AccountingRequest request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.START_RECORD, 1L);
-		RfClientSession clientSession = (RfClientSession)provider.getSessionFactory().createClientSession(request);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		CreditControlRequest request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.INITIAL_REQUEST, 1L);
+		RoClientSession clientSession = (RoClientSession)provider.getSessionFactory().createClientSession(request);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -406,8 +454,8 @@ public class RfTest extends NetworkTestBase
 		
 		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
 		
-		request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.INTERIM_RECORD, 1001L);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.UPDATE_REQUEST, 1001L);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -454,8 +502,8 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		assertEquals(aaaReceived.get() , 2L);
-		assertEquals(aaaReceivedByListener.get() , 2L);
+		assertEquals(ccaReceived.get() , 2L);
+		assertEquals(ccaReceivedByListener.get() , 2L);
 		assertEquals(timeoutReceived.get() , 0L);
 	}		
 	
@@ -463,11 +511,11 @@ public class RfTest extends NetworkTestBase
 	@Test
 	public void testNonEventWithTimeout() throws Exception
 	{
-		super.setupRemote(new EmptyServerRoSessionListener(),new BasicServerRfSessionListener());
+		super.setupRemote(new BasicServerRoSessionListener(),new EmptyServerRfSessionListener());
 		super.setupLocal();
 		
-		final AtomicLong aaaReceived=new AtomicLong(0L);
-		final AtomicLong aaaReceivedByListener=new AtomicLong(0L);
+		final AtomicLong ccaReceived=new AtomicLong(0L);
+		final AtomicLong ccaReceivedByListener=new AtomicLong(0L);
 		final AtomicLong timeoutReceived=new AtomicLong(0L);
 		
 		DiameterStack localStack = this.localStack;
@@ -477,8 +525,8 @@ public class RfTest extends NetworkTestBase
 			@Override
 			public void onMessage(DiameterMessage message, AsyncCallback callback)
 			{
-				if(message instanceof AccountingAnswer)
-					aaaReceived.incrementAndGet();				
+				if(message instanceof CreditControlAnswer)
+					ccaReceived.incrementAndGet();				
 			}
 		});
 		
@@ -491,7 +539,7 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		RfProviderImpl provider = (RfProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.ACCOUNTING), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.rf"));
+		RoProviderImpl provider = (RoProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.CREDIT_CONTROL), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.ro"));
 		ClusteredID<?> listenerID=generator.generateID();
 		provider.setClientListener(listenerID, new ClientListener()
 		{
@@ -508,17 +556,32 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
 			{
-				aaaReceivedByListener.incrementAndGet();
+				ccaReceivedByListener.incrementAndGet();
+			}
+
+			@Override
+			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
+			{				
+			}
+
+			@Override
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			{
+			}
+
+			@Override
+			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
+			{
 			}
 		});
 		
 		//usually its not needed to get link, here we use it to read hosts/realms
 		DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
-		AccountingRequest request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.START_RECORD, 1L);
-		RfClientSession clientSession = (RfClientSession)provider.getSessionFactory().createClientSession(request);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		CreditControlRequest request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.INITIAL_REQUEST, 1L);
+		RoClientSession clientSession = (RoClientSession)provider.getSessionFactory().createClientSession(request);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -543,8 +606,8 @@ public class RfTest extends NetworkTestBase
 		
 		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
 		
-		request = provider.getMessageFactory().createAccountingRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), AccountingRecordTypeEnum.INTERIM_RECORD, 2001L);
-		clientSession.sendAccountingRequest(request, new AsyncCallback()
+		request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), "1", CcRequestTypeEnum.UPDATE_REQUEST, 2001L);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
@@ -591,8 +654,8 @@ public class RfTest extends NetworkTestBase
 			
 		}
 		
-		assertEquals(aaaReceived.get() , 1L);
-		assertEquals(aaaReceivedByListener.get() , 1L);
+		assertEquals(ccaReceived.get() , 1L);
+		assertEquals(ccaReceivedByListener.get() , 1L);
 		assertEquals(timeoutReceived.get() , 1L);
 	}		
 }

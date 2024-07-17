@@ -68,7 +68,7 @@ public interface DiameterLink
 	
 	public void start() throws DiameterException;
 	
-	void registerApplication(List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package packageName) throws DiameterException;
+	void registerApplication(List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package providerPackageName, Package packageName) throws DiameterException;
 	
 	List<Long> getAuthApplicationIds();
 	
