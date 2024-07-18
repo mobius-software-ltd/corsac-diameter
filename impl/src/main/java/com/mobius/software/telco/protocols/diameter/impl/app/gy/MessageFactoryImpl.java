@@ -67,9 +67,9 @@ public class MessageFactoryImpl implements MessageFactory
 		this.applicationId = applicationId;
 	}
 	
-	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationRealm, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new CreditControlRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, serviceContextId, ccRequestType, ccRequestNumber);
+		return new CreditControlRequestImpl(originHost,originRealm,destinationHost,destinationRealm, false, idGenerator.generateID().toString(), applicationId, serviceContextId, ccRequestType, ccRequestNumber);
 	}
 
 	@Override
@@ -150,16 +150,17 @@ public class MessageFactoryImpl implements MessageFactory
 		return result;
 	}
 
+	
 	@Override
-	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
+	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
-		return  new SessionTerminationRequestImpl(originHost, originRealm, destinationRealm, false, sessionID, applicationId, terminationCause);
+		return new SessionTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId, terminationCause);
 	}
 
 	@Override
 	public SessionTerminationRequest creatSessionTerminationRequest(CreditControlRequest request, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
-		return  new SessionTerminationRequestImpl(request.getOriginHost(), request.getOriginRealm(), request.getDestinationRealm(), false, request.getSessionId(), applicationId, terminationCause);
+		return new SessionTerminationRequestImpl(request.getOriginHost(), request.getOriginRealm(), request.getDestinationHost(),request.getDestinationRealm(), false, request.getSessionId(), applicationId, terminationCause);
 	}
 
 	@Override

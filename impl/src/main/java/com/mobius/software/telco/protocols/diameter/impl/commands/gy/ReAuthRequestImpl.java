@@ -36,6 +36,9 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	{
 		super();
 		
+		setDestinationHostRequired(true);
+		
+		
 			
 	}
 		
@@ -43,7 +46,8 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, reAuthRequestType);
 		
-				
+		setDestinationHostRequired(true);
+		setDestinationHost(destinationHost);		
 	}
 	
 	@DiameterOrder

@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gy;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.gy.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.AFCorrelationInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TriggerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RedirectServerImpl;
@@ -49,6 +50,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.gy.ServiceInforma
 import com.mobius.software.telco.protocols.diameter.primitives.gy.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.gy.UsedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.rx.Flows;
+
+import io.netty.buffer.ByteBuf;
 
 public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements AvpFactory
 {
@@ -109,14 +112,14 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new TriggerImpl();
 	}
 	
-	public AFCorrelationInformation getAFCorrelationInformation()
+	public AFCorrelationInformation getAFCorrelationInformation(ByteBuf afChargingIdentifier) throws MissingAvpException
 	{
-		return new AFCorrelationInformationImpl();
+		return new AFCorrelationInformationImpl(afChargingIdentifier);
 	}
 	
-	public Flows getFlows()
+	public Flows getFlows(Long mediaComponentNumber) throws MissingAvpException
 	{
-		return new FlowsImpl();
+		return new FlowsImpl(mediaComponentNumber);
 	}
 	
 	public QoSInformation getQoSInformation()
@@ -133,6 +136,8 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 	{
 		return new ConditionalAPNAggregateMaxBitrateImpl();
 	}
+
+	
 
 	
 }
