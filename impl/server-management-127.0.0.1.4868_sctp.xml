@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<connectdelay value="5000"/>
+<servers>
+	<server name="localhost:4868" started="true" hostAddress="127.0.0.1" hostPort="4868" ipChannelType="0" acceptAnonymousConnections="true" maxConcurrentConnectionsCount="10" extraHostAddresseSize="0">
+		<associations>
+			<string value="localhost:4868"/>
+		</associations>
+	</server>
+</servers>
+<associations>
+	<name value="localhost:4868"/>
+	<association name="localhost:4868" assoctype="SERVER" hostPort="0" peerAddress="127.0.0.1" peerPort="4868" serverName="localhost:4868" ipChannelType="0" extraHostAddresseSize="0"/>
+</associations>

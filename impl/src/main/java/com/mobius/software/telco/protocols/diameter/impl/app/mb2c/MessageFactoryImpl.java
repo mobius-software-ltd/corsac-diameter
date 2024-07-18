@@ -53,13 +53,13 @@ public class MessageFactoryImpl implements MessageFactory
 		this.applicationId = applicationId;
 	}
 	
-	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
+	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new GCSNotificationRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		return new GCSNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}	
 	
-	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
+	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new GCSActionRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		return new GCSActionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}
 }

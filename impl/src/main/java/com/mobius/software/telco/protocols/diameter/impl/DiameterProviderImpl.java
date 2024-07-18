@@ -182,7 +182,7 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			
 			idleTimer = idleMap.putIfAbsent(session.getIdleTimerID(), newTimer);
 			if(idleTimer==null)
-				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), idleTimer);
+				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
 		}
 	}
 
@@ -203,10 +203,10 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 		SendTimer sendTimer = sendMap.get(session.getSendTimerID());
 		if(sendTimer == null)
 		{
-			SendTimer newTimer=new SendTimer(session, stack.getSendTimeout());
+			SendTimer newTimer=new SendTimer(session, stack.getResponseTimeout());
 			sendTimer = sendMap.putIfAbsent(session.getSendTimerID(), newTimer);
 			if(sendTimer==null)
-				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), sendTimer);
+				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
 		}
 	}
 
@@ -249,7 +249,7 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	}
 
 	@Override
-	public void onRequest(DiameterMessage message, AsyncCallback callback)
+	public void onMessage(DiameterMessage message, AsyncCallback callback)
 	{
 		String sessionID = null;
 		try

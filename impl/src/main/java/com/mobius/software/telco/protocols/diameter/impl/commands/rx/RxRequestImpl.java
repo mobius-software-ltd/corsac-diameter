@@ -42,7 +42,6 @@ public abstract class RxRequestImpl extends AuthenticationRequestWithHostImpl im
 	protected RxRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public RxRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException

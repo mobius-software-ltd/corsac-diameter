@@ -27,5 +27,5 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 */
 public interface NetworkListener
 {
-	void onRequest(DiameterMessage message,AsyncCallback callback);		
+	void onMessage(DiameterMessage message,AsyncCallback callback);		
 }

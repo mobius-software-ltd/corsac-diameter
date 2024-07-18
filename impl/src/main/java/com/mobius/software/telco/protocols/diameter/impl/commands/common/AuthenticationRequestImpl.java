@@ -50,13 +50,11 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	protected AuthenticationRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(false);
 	}
 		
-	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm,null,destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(false);
+		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessonID);
 		
 		setAuthApplicationId(authApplicationId);
 	}
@@ -101,7 +99,7 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	@Override
 	public void setAuthApplicationId(Long value) throws MissingAvpException 
 	{
-		if(authApplicationId==null)
+		if(value==null)
 			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);

@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.impl.commands.common;
+package com.mobius.software.telco.protocols.diameter.impl.commands;
 
 import java.util.Arrays;
 
@@ -6,7 +6,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DestinationHostImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.SessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 
 /*
@@ -33,28 +33,30 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 * @author yulian oifa
 *
 */
-public abstract class VendorSpecificRequestWithHostImpl extends VendorSpecificRequestmpl
+public class DiameterErrorAnswerWithSessionImpl extends DiameterErrorAnswerImpl
 {
-	protected VendorSpecificRequestWithHostImpl()
+	public DiameterErrorAnswerWithSessionImpl(Long applicationID,Integer commandCode,String originHost,String originRealm,Boolean isRetransmit,Long resultCode,String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
-		super();
-		setDestinationHostAllowed(true);		
-	}
-	
-	public VendorSpecificRequestWithHostImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID) throws AvpNotSupportedException, MissingAvpException
-	{	
-		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID);
-		setDestinationHostAllowed(true);
+		super(applicationID, commandCode, originHost, originRealm, isRetransmit, resultCode);
 		
-		setDestinationHost(destinationHost);		
+		setSessionId(sessionID);		
 	}
+
+	@Override
+	public void setSessionId(String value) throws MissingAvpException, AvpNotSupportedException
+	{
+		if(value==null)
+			throw new MissingAvpException("Session-ID is required", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() }));
+		
+		super.setSessionId(value);
+	}	
 	
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(destinationHost==null)
-			return new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl() } ));
-			
+		if(sessionId==null)
+			return new MissingAvpException("Session-ID is required", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() }));
+		
 		return super.validate();
 	}
 }

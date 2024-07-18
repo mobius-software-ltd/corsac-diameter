@@ -229,5 +229,5 @@ public class MTDataRequestImpl extends T6aRequestImpl implements MTDataRequest
 		}
 		
 		return result;
-	}	
+	}
 }

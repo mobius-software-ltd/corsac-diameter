@@ -5,7 +5,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.Pc4aRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -35,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 * @author yulian oifa
 *
 */
-public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implements Pc4aRequest
+public abstract class Pc4aRequestImpl extends VendorSpecificRequestImpl implements Pc4aRequest
 {
 	protected DRMP drmp;
 	
@@ -44,15 +44,11 @@ public abstract class Pc4aRequestImpl extends VendorSpecificRequestmpl implement
 	protected Pc4aRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public Pc4aRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);		
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID);
 	}
 
 	@Override

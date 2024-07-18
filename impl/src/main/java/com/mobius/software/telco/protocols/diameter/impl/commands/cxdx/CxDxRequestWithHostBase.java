@@ -39,24 +39,11 @@ public abstract class CxDxRequestWithHostBase extends CxDxRequestImpl
 	protected CxDxRequestWithHostBase()
 	{
 		super();
-		setDestinationHostAllowed(true);		
 	}
 	
 	public CxDxRequestWithHostBase(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{	
-		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID,authSessionState);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);		
-	}
-	
-	@Override
-	public void setDestinationHost(String value) throws AvpNotSupportedException, MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl()}));;
-		
-		this.destinationHost = new DestinationHostImpl(value, null, null);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID,authSessionState);
 	}
 	
 	@DiameterValidate

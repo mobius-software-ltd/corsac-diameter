@@ -44,7 +44,7 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	protected DestinationRealm destinationRealm;
 	
 	private boolean destinationHostAllowed = true;
-	private boolean destinationRealmAllowed = true;
+	private Boolean destinationHostRequired = false;
 	
 	protected DiameterRequestBase()
 	{
@@ -60,10 +60,7 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 		else
 			this.destinationHost = null;
 		
-		if(destinationRealm!=null)
-			this.destinationRealm = new DestinationRealmImpl(destinationRealm, null, null);
-		else
-			this.destinationRealm = null;
+		setDestinationRealm(destinationRealm);
 	}
 
 	protected void setDestinationHostAllowed(boolean allowed) 
@@ -71,17 +68,14 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 		this.destinationHostAllowed = allowed;
 	}
 
-	protected void setDestinationRealmAllowed(boolean allowed) 
+	protected void setDestinationHostRequired(boolean required) 
 	{
-		this.destinationRealmAllowed = allowed;
+		this.destinationHostRequired = required;
 	}
 
 	@Override
-	public String getDestinationHost() throws AvpNotSupportedException
+	public String getDestinationHost()
 	{
-		if(!destinationHostAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl() }));
-		
 		if(destinationHost == null)
 			return null;
 		
@@ -94,6 +88,9 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 		if(!destinationHostAllowed && value!=null)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl(value, null, null) }));
 		
+		if(destinationHostRequired && value==null)
+			throw new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl()}));;
+		
 		if(value == null)
 			this.destinationHost = null;
 		else
@@ -101,11 +98,8 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	}
 
 	@Override
-	public String getDestinationRealm() throws AvpNotSupportedException 
+	public String getDestinationRealm() 
 	{
-		if(!destinationRealmAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl() }));
-		
 		if(destinationRealm == null)
 			return null;
 		
@@ -113,11 +107,8 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	}
 
 	@Override
-	public void setDestinationRealm(String value) throws AvpNotSupportedException, MissingAvpException 
+	public void setDestinationRealm(String value) throws MissingAvpException 
 	{
-		if(!destinationRealmAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new DestinationRealmImpl(value, null, null) }));
-		
 		if(value == null)
 			this.destinationRealm = null;
 		else
@@ -130,8 +121,8 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 		if(!destinationHostAllowed && destinationHost!=null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { destinationHost }));
 		
-		if(!destinationRealmAllowed && destinationRealm==null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { destinationRealm }));
+		if(destinationHostRequired && destinationHost==null)
+			return new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl()}));
 		
 		return super.validate();
 	}

@@ -82,12 +82,25 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	protected CreditControlRequestImpl() 
 	{
 		super();
+<<<<<<< HEAD
 		
+=======
+>>>>>>> refs/remotes/origin/main
 	}
 	
+<<<<<<< HEAD
 	
 	public CreditControlRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+=======
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, serviceContextId, ccRequestType, ccRequestNumber);
+	}
+
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+>>>>>>> refs/remotes/origin/main
+	{
+<<<<<<< HEAD
 		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
 		
 		setServiceContextId(serviceContextId);
@@ -174,6 +187,9 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 			this.terminationCause = null;
 		else
 			this.terminationCause = new TerminationCauseImpl(value, null, null);
+=======
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, serviceContextId, ccRequestType, ccRequestNumber);
+>>>>>>> refs/remotes/origin/main
 	}
 	
 	@Override

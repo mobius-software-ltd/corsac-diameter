@@ -24,5 +24,5 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 
 public interface MessageFactory
 {
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;		
+	public AARequest createAARequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;		
 }

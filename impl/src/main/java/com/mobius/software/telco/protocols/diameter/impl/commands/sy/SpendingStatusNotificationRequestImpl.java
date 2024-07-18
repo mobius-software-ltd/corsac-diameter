@@ -104,5 +104,5 @@ public class SpendingStatusNotificationRequestImpl extends SyRequestImpl impleme
 		}
 		
 		return result;
-	}				
+	}			
 }

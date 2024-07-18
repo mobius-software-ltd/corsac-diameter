@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -29,7 +30,9 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRealtimeRequiredEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
@@ -53,14 +56,37 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	@Override
 	public void sendAccountingRequest(R1 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.PENDING);
-		if(!isRetry) 
+		try
 		{
-			setLastSentRequest(request);	
-			requestSent(request, new CallbackWrapper(callback));
+			request.setSessionId(getID());
+		}
+		catch(MissingAvpException | AvpNotSupportedException ex)
+		{
+			//will not happen
 		}
 		
-		provider.getStack().sendRequestToNetwork(request, callback);			
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				if(!isRetry) 
+				{
+					setLastSentRequest(request);	
+					requestSent(request, new CallbackWrapper(callback));
+				}
+				
+				provider.getStack().sendRequest(request, callback);
+			}
+		});				
 	}
 	
 	@Override
@@ -70,6 +96,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 		return;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
 	{
@@ -79,10 +106,11 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 		{
 			try
 			{
-				@SuppressWarnings("unchecked")
 				A1 castedAnswer = (A1)answer;
-				@SuppressWarnings("unchecked")
-				Collection<ClientAccListener<A1>> listeners = (Collection<ClientAccListener<A1>>) provider.getClientListeners().values();
+				
+				Collection<ClientAccListener<A1>> listeners = null;
+				if(provider.getClientListeners()!=null)
+					listeners = (Collection<ClientAccListener<A1>>) provider.getClientListeners().values();
 				
 				if(getSessionState()==SessionStateEnum.PENDING)
 				{
@@ -93,8 +121,11 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 					{
 						setSessionState(SessionStateEnum.IDLE);
 						terminate();
-						for(ClientAccListener<A1> listener:listeners)
-							listener.onAccountingResponse(castedAnswer, callback);
+						if(listeners!=null)
+						{
+							for(ClientAccListener<A1> listener:listeners)
+								listener.onAccountingResponse(castedAnswer, callback);
+						}
 					}
 					else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
 					{
@@ -102,14 +133,20 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						{
 							setSessionState(SessionStateEnum.IDLE);
 							terminate();
-							for(ClientAccListener<A1> listener:listeners)
-								listener.onAccountingResponse(castedAnswer, callback);
+							if(listeners!=null)
+							{
+								for(ClientAccListener<A1> listener:listeners)
+									listener.onAccountingResponse(castedAnswer, callback);
+							}
 						}
 						else
 						{
 							setSessionState(SessionStateEnum.OPEN);
-							for(ClientAccListener<A1> listener:listeners)
-								listener.onAccountingResponse(castedAnswer, callback);
+							if(listeners!=null)
+							{
+								for(ClientAccListener<A1> listener:listeners)
+									listener.onAccountingResponse(castedAnswer, callback);
+							}
 						}
 					}
 					else
@@ -117,11 +154,25 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						Boolean processed = false;
 						if(((AccountingRequest)request).getAccountingRecordType()!=null && (((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.START_RECORD || ((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.INTERIM_RECORD))
 						{
-							if(((AccountingRequest)request).getAccountingRealtimeRequired()!=null && ((AccountingRequest)request).getAccountingRealtimeRequired()==AccountingRealtimeRequiredEnum.GRANT_AND_LOSE)
+							Boolean shouldProcessLocally = false;
+							try
+							{
+								if(((AccountingRequest)request).getAccountingRealtimeRequired()!=null && ((AccountingRequest)request).getAccountingRealtimeRequired()==AccountingRealtimeRequiredEnum.GRANT_AND_LOSE)
+									shouldProcessLocally = true;
+							}
+							catch(AvpNotSupportedException ex)
+							{
+								
+							}
+							
+							if(shouldProcessLocally)
 							{
 								setSessionState(SessionStateEnum.OPEN);
-								for(ClientAccListener<A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, callback);
+								if(listeners!=null)
+								{
+									for(ClientAccListener<A1> listener:listeners)
+										listener.onAccountingResponse(castedAnswer, callback);
+								}
 								
 								processed = true;
 							}
@@ -131,8 +182,11 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						{
 							setSessionState(SessionStateEnum.IDLE);
 							terminate();
-							for(ClientAccListener<A1> listener:listeners)
-								listener.onAccountingResponse(castedAnswer, callback);													
+							if(listeners!=null)
+							{
+								for(ClientAccListener<A1> listener:listeners)
+									listener.onAccountingResponse(castedAnswer, callback);													
+							}
 						}
 					}
 				}
@@ -178,23 +232,22 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			if(request!=null)
 			{
 				Boolean shouldResend=false;
-				try
+				if(!isRetry)
 				{
-					if(!isRetry)
+					if(((AccountingRequest)request).getAccountingRecordType()!=null && (((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.START_RECORD || ((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.INTERIM_RECORD))
 					{
-						if(((AccountingRequest)request).getAccountingRecordType()!=null && (((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.START_RECORD || ((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.INTERIM_RECORD))
+						try
 						{
-							
 							if(((AccountingRequest)request).getAccountingRealtimeRequired()!=null && ((AccountingRequest)request).getAccountingRealtimeRequired()!=AccountingRealtimeRequiredEnum.DELIVER_AND_GRANT)
 								shouldResend = true;
 						}
-						else
-							shouldResend=true;
+						catch(AvpNotSupportedException ex2)
+						{
+							//ignore
+						}
 					}
-				}
-				catch(DiameterException ex1)
-				{
-					
+					else
+						shouldResend=true;
 				}
 				
 				//does not really matters since will be changed right away to PENDING again

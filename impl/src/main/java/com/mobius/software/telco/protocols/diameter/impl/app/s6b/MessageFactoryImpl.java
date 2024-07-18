@@ -55,13 +55,13 @@ public class MessageFactoryImpl implements MessageFactory
 		this.applicationId = applicationId;
 	}
 	
-	public AARequest createAARequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
+	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AARequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType);
+		return new AARequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType);
 	}			
 	
-	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
+	public EAPRequest createEAPRequest(String originHost,String originRealm, String destinationRealm, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EAPRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType, eapPayload);
+		return new EAPRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType, eapPayload);
 	}
 }

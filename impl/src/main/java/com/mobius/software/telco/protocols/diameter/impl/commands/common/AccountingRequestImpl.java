@@ -98,13 +98,11 @@ public class AccountingRequestImpl extends DiameterRequestWithSessionAndRealmBas
 	protected AccountingRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(false);
 	}
 		
 	public AccountingRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessionID);
-		setDestinationHostAllowed(false);
 		
 		setAccountingRecordType(accountingRecordType);
 		

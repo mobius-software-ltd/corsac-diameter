@@ -1,14 +1,14 @@
-package com.mobius.software.telco.protocols.diameter.impl.commands.common;
+package com.mobius.software.telco.protocols.diameter.impl.commands.gy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogRequest;
+import com.mobius.software.telco.protocols.diameter.commands.gy.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterMessageBase;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -29,42 +29,41 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAv
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-/**
-*
-* @author yulian oifa
-*
-*/
-public class DeviceWatchdogRequestmpl extends DiameterMessageBase implements DeviceWatchdogRequest
+
+public class SessionTerminationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.SessionTerminationRequestImpl implements SessionTerminationRequest
 {
-	public DeviceWatchdogRequestmpl() 
+	protected SessionTerminationRequestImpl() 
 	{
 		super();
-		setSessionIdAllowed(false);
-		setProxyInfoAllowed(false);
-		setUsernameAllowed(false);		
 	}
 		
-	public DeviceWatchdogRequestmpl(String originHost,String originRealm,Boolean isRetransmit) throws MissingAvpException
-	{
-		super(originHost, originRealm, isRetransmit);
-		setSessionIdAllowed(false);
-		setProxyInfoAllowed(false);
-		setUsernameAllowed(false);
+	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
+	{		
+		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationID, terminationCause);
 	}
 	
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()
 	{
 		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
 		result.add(originHost);
 		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(authApplicationId);
+		result.add(terminationCause);
+		result.add(destinationHost);
+		
+		if(diameterClass!=null)
+			result.addAll(diameterClass);
+		
 		result.add(originStateId);
 		
-		if(optionalAvps!=null)
-		{
-			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
-				result.addAll(curr);
-		}
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
 		
 		return result;
 	}

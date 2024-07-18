@@ -3,7 +3,7 @@ package com.mobius.software.telco.protocols.diameter.impl.commands.st;
 import com.mobius.software.telco.protocols.diameter.commands.st.StRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
@@ -33,7 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 * @author yulian oifa
 *
 */
-public abstract class StRequestImpl extends VendorSpecificRequestmpl implements StRequest
+public abstract class StRequestImpl extends VendorSpecificRequestImpl implements StRequest
 {
 	protected DRMP drmp;
 	
@@ -42,15 +42,11 @@ public abstract class StRequestImpl extends VendorSpecificRequestmpl implements 
 	protected StRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public StRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);		
+		super(originHost, originRealm,destinationHost, destinationRealm, isRetransmit, sessonID);
 	}
 
 	@Override

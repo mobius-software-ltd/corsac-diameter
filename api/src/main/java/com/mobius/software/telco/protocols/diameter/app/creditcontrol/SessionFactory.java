@@ -23,7 +23,14 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 
 public interface SessionFactory
 {
+<<<<<<< HEAD
 	public CreditControlClientSession createClientSession(CreditControlRequest request) throws DiameterException;
 
 	public CreditControlServerSession createServerSession(CreditControlRequest request) throws DiameterException;
 }
+=======
+	public CreditControlClientSession createClientSession(CreditControlRequest request) throws DiameterException;	
+	
+	public CreditControlServerSession createServerSession(CreditControlRequest request) throws DiameterException;		
+}
+>>>>>>> refs/remotes/origin/main

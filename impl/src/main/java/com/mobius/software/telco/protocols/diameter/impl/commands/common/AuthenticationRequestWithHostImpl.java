@@ -37,16 +37,12 @@ public abstract class AuthenticationRequestWithHostImpl extends AuthenticationRe
 {
 	protected AuthenticationRequestWithHostImpl()
 	{
-		super();
-		setDestinationHostAllowed(true);		
+		super();	
 	}
 	
 	public AuthenticationRequestWithHostImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{	
-		super(originHost, originRealm, destinationRealm, isRetransmit,sessionID, authApplicationId);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);		
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID, authApplicationId);			
 	}
 	
 	@DiameterValidate

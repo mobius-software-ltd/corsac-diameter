@@ -25,7 +25,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 
 public interface MessageFactory
 {
-	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;			
+	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException;			
 	
-	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
+	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
 }

@@ -1,4 +1,5 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol;
+package com.mobius.software.telco.protocols.diameter.commands;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -17,30 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitAction;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitActionEnum;
-
 /**
 *
 * @author yulian oifa
 *
 */
-public class FinalUnitActionImpl extends DiameterEnumeratedImpl<FinalUnitActionEnum> implements FinalUnitAction
+public interface DiameterErrorAnswer extends DiameterAnswer
 {
-	public FinalUnitActionImpl() 
-	{
-		super();
-	}
+	public Integer getCommandCode();
 	
-	protected FinalUnitActionImpl(Integer minValue,Integer maxValue) 
-	{
-		super(minValue, maxValue);
-	}
-	
-	public FinalUnitActionImpl(FinalUnitActionEnum value,Integer minValue,Integer maxValue) 
-	{
-		super(value, minValue, maxValue);
-	}
+	public Long getApplicationId();	
 }

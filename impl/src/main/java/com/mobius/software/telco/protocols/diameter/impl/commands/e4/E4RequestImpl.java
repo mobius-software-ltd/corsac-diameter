@@ -7,7 +7,7 @@ import com.mobius.software.telco.protocols.diameter.commands.e4.E4Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
@@ -37,22 +37,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 * @author yulian oifa
 *
 */
-public abstract class E4RequestImpl extends VendorSpecificRequestmpl implements E4Request
+public abstract class E4RequestImpl extends VendorSpecificRequestImpl implements E4Request
 {
 	protected AuthSessionState authSessionState;
 	
 	protected E4RequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public E4RequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);
+		super(originHost, originRealm,destinationHost ,destinationRealm, isRetransmit, sessonID);
 		
 		setAuthSessionState(authSessionState);
 	}
