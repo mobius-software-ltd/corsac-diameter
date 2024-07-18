@@ -38,7 +38,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestmpl implements AbortSessionRequest
+public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestImpl implements AbortSessionRequest
 {
 	private TGPPNSAPI tgppNSAPI;
 	
@@ -46,12 +46,16 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	{
 		super();
 		setUsernameAllowed(false);
+		setDestinationHostRequired(true);		
 	}
 		
 	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
 		setUsernameAllowed(false);
+		
+		setDestinationHostRequired(true);
+		setDestinationHost(destinationHost);
 	}
 
 	@Override

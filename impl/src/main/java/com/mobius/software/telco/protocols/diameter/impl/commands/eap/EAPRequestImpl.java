@@ -170,18 +170,18 @@ public class EAPRequestImpl extends com.mobius.software.telco.protocols.diameter
 		super();
 	}
 	
-	public EAPRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
+	public EAPRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, 5L);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, 5L);
 		
 		setAuthRequestType(authRequestType);
 		
 		setEAPPayload(eapPayload);
 	}
 	
-	public EAPRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
+	public EAPRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
 		
 		setAuthRequestType(authRequestType);
 		

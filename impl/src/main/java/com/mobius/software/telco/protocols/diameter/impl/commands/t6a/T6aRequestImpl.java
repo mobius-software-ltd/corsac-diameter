@@ -58,15 +58,11 @@ public abstract class T6aRequestImpl extends DiameterRequestWithSessionAndRealmB
 	protected T6aRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public T6aRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);
 		
 		setAuthSessionState(authSessionState);
 	}

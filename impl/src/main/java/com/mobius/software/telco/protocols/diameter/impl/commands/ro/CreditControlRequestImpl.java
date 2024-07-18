@@ -51,43 +51,16 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	protected CreditControlRequestImpl() 
 	{
 		super();
-		
-		setCCSubSessionIdAllowed(false);
-		setAcctMultiSessionIdAllowed(false);
-		setSubscriptionIdExtensionAllowed(false);
-		setServiceIdentifierAllowed(false);
-		setRequestedServiceUnitAllowed(false);
-		setUsedServiceUnitAllowed(false);
-		setServiceParameterInfoAllowed(false);
-		setUserEquipmentInfoExtensionAllowed(false);
 	}
 	
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, serviceContextId, ccRequestType, ccRequestNumber);
-		
-		setCCSubSessionIdAllowed(false);
-		setAcctMultiSessionIdAllowed(false);
-		setSubscriptionIdExtensionAllowed(false);
-		setServiceIdentifierAllowed(false);
-		setRequestedServiceUnitAllowed(false);
-		setUsedServiceUnitAllowed(false);
-		setServiceParameterInfoAllowed(false);
-		setUserEquipmentInfoExtensionAllowed(false);	
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, serviceContextId, ccRequestType, ccRequestNumber);
 	}
 
-	public CreditControlRequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessionID, authApplicationId, serviceContextId, ccRequestType, ccRequestNumber);
-		
-		setCCSubSessionIdAllowed(false);
-		setAcctMultiSessionIdAllowed(false);
-		setSubscriptionIdExtensionAllowed(false);
-		setServiceIdentifierAllowed(false);
-		setRequestedServiceUnitAllowed(false);
-		setUsedServiceUnitAllowed(false);
-		setServiceParameterInfoAllowed(false);
-		setUserEquipmentInfoExtensionAllowed(false);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, serviceContextId, ccRequestType, ccRequestNumber);
 	}
 	
 	@Override

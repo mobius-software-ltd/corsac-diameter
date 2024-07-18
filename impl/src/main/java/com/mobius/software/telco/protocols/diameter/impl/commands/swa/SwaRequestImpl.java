@@ -39,13 +39,11 @@ public abstract class SwaRequestImpl extends AuthenticationRequestWithHostImpl i
 	protected SwaRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public SwaRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
-		setDestinationHostAllowed(true);
 	}
 
 	@Override

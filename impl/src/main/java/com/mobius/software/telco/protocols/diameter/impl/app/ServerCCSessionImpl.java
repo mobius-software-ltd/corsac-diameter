@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -56,79 +57,141 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void sendInitialAnswer(A1 answer, AsyncCallback callback)
 	{
-		Boolean shouldKeepOpen=true;
-		
-		if(answer.getIsError()!=null && answer.getIsError())
-			shouldKeepOpen=false;
-		else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.EVENT_REQUEST)
-			shouldKeepOpen=false;
-		else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.TERMINATION_REQUEST)
-			shouldKeepOpen=false;
-		
-		if(!shouldKeepOpen)
-		{	
-			setSessionState(SessionStateEnum.IDLE);
-			terminate();
-		}
-		else
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
-			setSessionState(SessionStateEnum.OPEN);
-			
-			Long newTime = null;
-			try
+			@Override
+			public long getStartTime()
 			{
-				if(answer.getValidityTime()!=null)
-					newTime = answer.getValidityTime()*1000L;
+				return startTime;
 			}
-			catch(AvpNotSupportedException ex)
+			
+			@Override
+			public void execute()
 			{
+				Boolean shouldKeepOpen=true;
 				
+				if(answer.getIsError()!=null && answer.getIsError())
+					shouldKeepOpen=false;
+				else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.EVENT_REQUEST)
+					shouldKeepOpen=false;
+				else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.TERMINATION_REQUEST)
+					shouldKeepOpen=false;
+				
+				if(!shouldKeepOpen)
+				{	
+					setSessionState(SessionStateEnum.IDLE);
+					terminate();
+				}
+				else
+				{
+					setSessionState(SessionStateEnum.OPEN);
+					
+					Long newTime = null;
+					try
+					{
+						if(answer.getValidityTime()!=null)
+							newTime = answer.getValidityTime()*1000L;
+					}
+					catch(AvpNotSupportedException ex)
+					{
+						
+					}
+					
+					answerSent(answer, callback, newTime);
+				}
+				
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
-			
-			answerSent(answer, callback, newTime);
-		}
-		
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
+		});					
 	}
 
 	@Override
 	public void sendReauthRequest(R2 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.PENDING);
-		setLastSentRequest(request);
-		requestSent(request, callback);
-		provider.getStack().sendRequestToNetwork(request, callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				setLastSentRequest(request);
+				requestSent(request, callback);
+				provider.getStack().sendRequest(request, callback);				
+			}
+		});
 	}
 
 	@Override
 	public void sendSessionTerminationAnswer(A4 answer, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.IDLE);
-		terminate();
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.IDLE);
+				terminate();
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+			}
+		});			
 	}
 
 	@Override
 	public void sendAbortSessionRequest(R3 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.DISCONNECTED);
-		requestSent(request, callback);
-		provider.getStack().sendRequestToNetwork(request, callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				setLastSentRequest(request);
+				requestSent(request, callback);
+				provider.getStack().sendRequest(request, callback);				
+			}
+		});			
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
-		@SuppressWarnings("unchecked")
-		Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+		Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = null;
+		if(provider.getServerListeners()!=null)
+			listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+		
 		if(request instanceof SessionTerminationRequest)
 		{
 			try
 			{
-				@SuppressWarnings("unchecked")
 				R4 castedRequest = (R4)request;
-				for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-					listener.onSessionTerminationRequest(castedRequest, callback);	
+				if(listeners!=null)
+				{
+					for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
+						listener.onSessionTerminationRequest(castedRequest, callback);
+				}
 			}
 			catch(Exception ex)
 			{
@@ -140,10 +203,12 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		{
 			try
 			{
-				@SuppressWarnings("unchecked")
 				R1 castedRequest = (R1)request;
-				for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-					listener.onInitialRequest(castedRequest, callback);	
+				if(listeners!=null)
+				{
+					for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
+						listener.onInitialRequest(castedRequest, callback);
+				}
 			}
 			catch(Exception ex)
 			{
@@ -155,27 +220,32 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		super.requestReceived(request, callback);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
 	{
 		DiameterRequest request = getLastSendRequest();
 		if(request!=null)
 		{
-			@SuppressWarnings("unchecked")
-			Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+			Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = null;
+			if(provider.getServerListeners()!=null)
+				listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+			
 			if(request instanceof AbortSessionRequest)
 			{
 				if(answer instanceof AbortSessionAnswer)
 				{
 					try
 					{
-						@SuppressWarnings("unchecked")
 						A3 castedAnswer = (A3)answer;
 						
 						setSessionState(SessionStateEnum.IDLE);
 						terminate();
-						for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-							listener.onAbortSessionAnswer(castedAnswer, callback);	
+						if(listeners!=null)
+						{
+							for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
+								listener.onAbortSessionAnswer(castedAnswer, callback);
+						}
 					}
 					catch(Exception ex)
 					{
@@ -191,20 +261,25 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				{
 					try
 					{
-						@SuppressWarnings("unchecked")
 						A2 castedAnswer = (A2)answer;
 						if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
 						{
 							setSessionState(SessionStateEnum.OPEN);
-							for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-								listener.onReauthAnswer(castedAnswer, callback);
+							if(listeners!=null)
+							{
+								for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
+									listener.onReauthAnswer(castedAnswer, callback);
+							}
 						}
 						else
 						{
 							setSessionState(SessionStateEnum.IDLE);
 							terminate();
-							for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-								listener.onReauthAnswer(castedAnswer, callback);													
+							if(listeners!=null)
+							{
+								for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
+									listener.onReauthAnswer(castedAnswer, callback);
+							}
 						}
 					}
 					catch(Exception ex)

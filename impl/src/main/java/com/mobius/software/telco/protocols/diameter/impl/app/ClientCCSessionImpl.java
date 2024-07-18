@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -35,7 +36,9 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswe
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.DirectDebitingFailureHandlingEnum;
@@ -60,40 +63,132 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void sendInitialRequest(R1 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.PENDING);
-		if(!isRetry) 
+		try
 		{
-			setLastSentRequest(request);	
-			requestSent(request, callback);
+			request.setSessionId(getID());
+		}
+		catch(MissingAvpException | AvpNotSupportedException ex)
+		{
+			//will not happen
 		}
 		
-		provider.getStack().sendRequestToNetwork(request, callback);			
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.PENDING);
+				if(!isRetry) 
+				{
+					setLastSentRequest(request);	
+					requestSent(request, callback);
+				}
+				
+				provider.getStack().sendRequest(request, callback);
+			}
+		});						
 	}
 
 	@Override
 	public void sendReauthAnswer(A2 answer, AsyncCallback callback)
 	{
-		answerSent(answer, callback, null);
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
+		try
+		{
+			answer.setSessionId(getID());
+		}
+		catch(MissingAvpException | AvpNotSupportedException ex)
+		{
+			//will not happen
+		}
+		
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				answerSent(answer, callback, null);
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+			}
+		});				
 	}
 
 	@Override
 	public void sendSessionTerminationRequest(R4 request, AsyncCallback callback)
 	{
-		setSessionState(SessionStateEnum.DISCONNECTED);
-		setLastSentRequest(request);	
-		requestSent(request, callback);
-		provider.getStack().sendRequestToNetwork(request, callback);	
+		try
+		{
+			request.setSessionId(getID());
+		}
+		catch(MissingAvpException | AvpNotSupportedException ex)
+		{
+			//will not happen
+		}
+		
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				setSessionState(SessionStateEnum.DISCONNECTED);
+				setLastSentRequest(request);	
+				requestSent(request, callback);
+				provider.getStack().sendRequest(request, callback);
+			}
+		});			
 	}
 
 	@Override
 	public void sendAbortSessionAnswer(A3 answer, AsyncCallback callback)
 	{
-		if(answer.getIsError()==null || !answer.getIsError())
-			setSessionState(SessionStateEnum.DISCONNECTED);
+		try
+		{
+			answer.setSessionId(getID());
+		}
+		catch(MissingAvpException | AvpNotSupportedException ex)
+		{
+			//will not happen
+		}
 		
-		answerSent(answer, callback, null);
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);	
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		{
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
+			
+			@Override
+			public void execute()
+			{
+				if(answer.getIsError()==null || !answer.getIsError())
+					setSessionState(SessionStateEnum.DISCONNECTED);
+				
+				answerSent(answer, callback, null);
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+			}
+		});			
 	}
 	
 	@Override
@@ -140,6 +235,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		super.requestReceived(request, callback);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
 	{
@@ -147,21 +243,25 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		Long newTime = null;
 		if(request!=null)
 		{
-			@SuppressWarnings("unchecked")
-			Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+			Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = null;
+			if(provider.getClientListeners()!=null)
+				listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+			
 			if(request instanceof SessionTerminationRequest)
 			{
 				if(answer instanceof SessionTerminationAnswer)
 				{
 					try
 					{
-						@SuppressWarnings("unchecked")
 						A4 castedAnswer = (A4)answer;
 						
 						setSessionState(SessionStateEnum.IDLE);
 						terminate();
-						for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-							listener.onSessionTerminationAnswer(castedAnswer, callback);	
+						if(listeners!=null)
+						{
+							for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+								listener.onSessionTerminationAnswer(castedAnswer, callback);
+						}
 					}
 					catch(Exception ex)
 					{
@@ -175,7 +275,6 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			{
 				try
 				{
-					@SuppressWarnings("unchecked")
 					A1 castedAnswer = (A1)answer;
 					
 					if(getSessionState()==SessionStateEnum.PENDING)
@@ -194,8 +293,11 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						{
 							setSessionState(SessionStateEnum.IDLE);
 							terminate();
-							for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-								listener.onInitialAnswer(castedAnswer, callback);
+							if(listeners!=null)
+							{
+								for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+									listener.onInitialAnswer(castedAnswer, callback);
+							}
 						}
 						else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
 						{
@@ -203,14 +305,20 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							{
 								setSessionState(SessionStateEnum.IDLE);
 								terminate();
-								for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, callback);
+								if(listeners!=null)
+								{
+									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, callback);
+								}
 							}
 							else
 							{
 								setSessionState(SessionStateEnum.OPEN);
-								for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, callback);
+								if(listeners!=null)
+								{
+									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, callback);
+								}
 							}
 						}
 						else
@@ -249,15 +357,20 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							{
 								setSessionState(SessionStateEnum.IDLE);
 								terminate();
-								for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, callback);													
+								if(listeners!=null)
+								{
+									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, callback);
+								}
 							}
 							else
 							{
-								for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, callback);
+								if(listeners!=null)
+								{
+									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, callback);
+								}
 								
-								@SuppressWarnings("unchecked")
 								R1 realRequest=(R1)request;
 								isRetry = true;
 								sendInitialRequest(realRequest, retransmissionCallback);
@@ -316,11 +429,14 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 					
 					if(shouldRetry)
 					{
-						@SuppressWarnings("unchecked")
-						Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+						if(provider.getClientListeners()!=null)
+						{
+							@SuppressWarnings("unchecked")
+							Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
 						
-						for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-							listener.onTimeout();
+							for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+								listener.onTimeout();
+						}
 						
 						@SuppressWarnings("unchecked")
 						R1 realRequest=(R1)request;
@@ -343,9 +459,6 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	
 	private class RetransmissionCallback implements AsyncCallback
 	{
-		@SuppressWarnings("unchecked")
-		Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
-		
 		@Override
 		public void onSuccess()
 		{
@@ -357,8 +470,15 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		{
 			setSessionState(SessionStateEnum.IDLE);
 			terminate();
-			for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-				listener.onTimeout();		
+			
+			if(provider.getClientListeners()!=null)
+			{
+				@SuppressWarnings("unchecked")
+				Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+			
+				for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+					listener.onTimeout();
+			}
 		}
 	}
 }

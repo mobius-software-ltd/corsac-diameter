@@ -182,7 +182,7 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			
 			idleTimer = idleMap.putIfAbsent(session.getIdleTimerID(), newTimer);
 			if(idleTimer==null)
-				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), idleTimer);
+				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
 		}
 	}
 
@@ -206,7 +206,7 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			SendTimer newTimer=new SendTimer(session, stack.getResponseTimeout());
 			sendTimer = sendMap.putIfAbsent(session.getSendTimerID(), newTimer);
 			if(sendTimer==null)
-				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), sendTimer);
+				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
 		}
 	}
 

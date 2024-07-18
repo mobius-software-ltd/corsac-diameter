@@ -35,7 +35,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.RestartCount
 * @author yulian oifa
 *
 */
-public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestmpl implements AbortSessionRequest
+public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestImpl implements AbortSessionRequest
 {
 	private RestartCounter restartCounter;
 	

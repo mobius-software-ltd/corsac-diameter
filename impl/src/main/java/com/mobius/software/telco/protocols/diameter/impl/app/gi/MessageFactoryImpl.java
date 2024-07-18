@@ -74,9 +74,9 @@ public class MessageFactoryImpl implements MessageFactory
 		this.accApplicationId = accApplicationId;
 	}
 	
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
+	public AARequest createAARequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AARequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), authApplicationId);
+		return new AARequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), authApplicationId);
 	}
 
 	@Override
@@ -181,15 +181,15 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
+	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
-		return  new SessionTerminationRequestImpl(originHost, originRealm, destinationRealm, false, sessionID, authApplicationId, terminationCause);
+		return  new SessionTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, authApplicationId, terminationCause);
 	}
 
 	@Override
 	public SessionTerminationRequest creatSessionTerminationRequest(AARequest request, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
-		return  new SessionTerminationRequestImpl(request.getOriginHost(), request.getOriginRealm(), request.getDestinationRealm(), false, request.getSessionId(), authApplicationId, terminationCause);
+		return  new SessionTerminationRequestImpl(request.getOriginHost(), request.getOriginRealm(), request.getDestinationHost(), request.getDestinationRealm(), false, request.getSessionId(), authApplicationId, terminationCause);
 	}
 
 	@Override

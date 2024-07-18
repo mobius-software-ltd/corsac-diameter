@@ -37,7 +37,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
 
 public interface MessageFactory
 {
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;		
+	public AARequest createAARequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;		
 	
 	public AAAnswer createAAAnswer(AARequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	
@@ -65,7 +65,7 @@ public interface MessageFactory
 	
 	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
 	
-	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationRealm,String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
+	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	
 	public SessionTerminationRequest creatSessionTerminationRequest(AARequest request,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	

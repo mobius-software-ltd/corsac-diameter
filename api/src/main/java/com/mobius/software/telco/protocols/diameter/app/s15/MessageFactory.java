@@ -34,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 
 public interface MessageFactory
 {
-	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationRealm, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException;
+	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException;
 	
 	public CreditControlAnswer createCreditControlAnswer(CreditControlRequest request,Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	
@@ -56,7 +56,7 @@ public interface MessageFactory
 	
 	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
 	
-	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationRealm,String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
+	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	
 	public SessionTerminationRequest creatSessionTerminationRequest(CreditControlRequest request,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	

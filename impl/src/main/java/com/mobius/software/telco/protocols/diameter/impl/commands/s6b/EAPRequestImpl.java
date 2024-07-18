@@ -95,11 +95,14 @@ public class EAPRequestImpl extends S6bRequestImpl implements EAPRequest
 	protected EAPRequestImpl() 
 	{
 		super();
+		setDestinationHostAllowed(false);		
 	}
 	
-	public EAPRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
+	public EAPRequestImpl(String originHost,String originRealm, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, null, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		
+		setDestinationHostAllowed(false);
 		
 		setAuthRequestType(authRequestType);
 		

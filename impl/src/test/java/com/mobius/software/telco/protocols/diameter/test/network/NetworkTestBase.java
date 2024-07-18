@@ -48,7 +48,7 @@ public class NetworkTestBase
 	protected JDiameterStackWrapper peerStack;
 	protected DiameterStack localStack;
 	private WorkerPool workerPool;
-	private IDGenerator<?> generator = new UUIDGenerator();
+	protected IDGenerator<?> generator = new UUIDGenerator();
 	
 	protected Long idleTimeout = 1000L;
 	protected Long responseTimeout = 1000L;
@@ -97,8 +97,8 @@ public class NetworkTestBase
 		
 		localStack=new DiameterStackImpl(generator, workerPool, 4, "client.restcomm.org", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout);
 		localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868,  InetAddress.getByName("127.0.0.1"), 13868, false, true, "127.0.0.1", "client.restcomm.org", "127.0.0.1", "server.restcomm.org", false);
-		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.CREDIT_CONTROL) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.ro"));
-		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.ACCOUNTING) }), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rf"));
+		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.CREDIT_CONTROL) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.ro"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.ro"));
+		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.ACCOUNTING) }), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.rf"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rf"));
 		localStack.getNetworkManager().startLink(localLinkID);		
 	}
 	
@@ -113,7 +113,7 @@ public class NetworkTestBase
 		
 		localStack=new DiameterStackImpl(generator, workerPool, 4, "client.restcomm.org", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout);
 		localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868,  InetAddress.getByName("127.0.0.1"), 13868, false, true, "127.0.0.1", "client.restcomm.org", "127.0.0.1", "server.restcomm.org", false);
-		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.S6T) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6t"));
+		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.S6T) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.s6t"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6t"));
 		localStack.getNetworkManager().startLink(localLinkID);		
 	}
 	

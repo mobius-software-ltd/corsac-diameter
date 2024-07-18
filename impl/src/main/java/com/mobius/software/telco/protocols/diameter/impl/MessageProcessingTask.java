@@ -355,33 +355,36 @@ public class MessageProcessingTask implements Task
 					catch(DiameterException ex2)
 					{
 						logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-					}
+					}								
 				}	
 				
-				provider.onMessage(message, new AsyncCallback()
+				if(provider!=null)
 				{
-					@Override
-					public void onSuccess()
+					provider.onMessage(message, new AsyncCallback()
 					{
-						
-					}
-					
-					@Override
-					public void onError(DiameterException ex)
-					{
-						if(ex.getPartialMessage()==null)
-							ex.setPartialMessage(message);
-						
-						try
+						@Override
+						public void onSuccess()
 						{
-							link.sendError(ex);
+							
 						}
-						catch(DiameterException ex2)
+						
+						@Override
+						public void onError(DiameterException ex)
 						{
-							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
+							if(ex.getPartialMessage()==null)
+								ex.setPartialMessage(message);
+							
+							try
+							{
+								link.sendError(ex);
+							}
+							catch(DiameterException ex2)
+							{
+								logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 		} 	
 		

@@ -50,8 +50,8 @@ public class MessageFactoryImpl implements MessageFactory
 		this.applicationId = applicationId;
 	}
 	
-	public AARequest createAARequest(String originHost,String originRealm,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
+	public AARequest createAARequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AARequestImpl(originHost, originRealm, destinationRealm, null, idGenerator.generateID().toString(), applicationId);
+		return new AARequestImpl(originHost, originRealm, destinationHost, destinationRealm, null, idGenerator.generateID().toString(), applicationId);
 	}
 }

@@ -74,9 +74,9 @@ public class MessageFactoryImpl implements MessageFactory
 		return new MultimediaAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipAOR, sipMethod);
 	}
 	
-	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationRealm, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
+	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new PushProfileRequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState);
+		return new PushProfileRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState);
 	}			
 	
 	public RegistrationTerminationRequest createRegistrationTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,SIPDeregistrationReason sipDeregistrationReason) throws MissingAvpException, AvpNotSupportedException

@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 * @author yulian oifa
 *
 */
-public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestmpl implements AbortSessionRequest
+public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestImpl implements AbortSessionRequest
 {
 	protected AbortSessionRequestImpl() 
 	{

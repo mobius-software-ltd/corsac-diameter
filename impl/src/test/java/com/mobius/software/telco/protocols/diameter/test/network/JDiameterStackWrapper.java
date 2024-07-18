@@ -39,6 +39,8 @@ import org.jdiameter.common.impl.validation.DictionaryImpl;
 import org.jdiameter.server.impl.MutablePeerTableImpl;
 import org.jdiameter.server.impl.NetworkImpl;
 import org.jdiameter.server.impl.StackImpl;
+import org.jdiameter.server.impl.app.rf.IServerRfSessionData;
+import org.jdiameter.server.impl.app.rf.ServerRfSessionImpl;
 import org.jdiameter.server.impl.helpers.XMLConfiguration;
 import org.jdiameter.server.impl.io.sctp.NetworkGuard;
 import org.jdiameter.server.impl.io.sctp.SCTPServerConnection;
@@ -53,7 +55,7 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 */
 public class JDiameterStackWrapper extends StackImpl implements NetworkReqListener
 {
-	private static ApplicationId accountingApplicationID = ApplicationId.createByAuthAppId(ApplicationIDs.ACCOUNTING);
+	private static ApplicationId accountingApplicationID = ApplicationId.createByAccAppId(ApplicationIDs.ACCOUNTING);
 	private static ApplicationId creditControlApplicationID = ApplicationId.createByAuthAppId(ApplicationIDs.CREDIT_CONTROL);
 	
 	private static Logger logger = LogManager.getLogger(JDiameterStackWrapper.class);
@@ -125,14 +127,42 @@ public class JDiameterStackWrapper extends StackImpl implements NetworkReqListen
 		switch(intApplicationId)
 		{
 			case 3:
-				org.jdiameter.api.rf.ServerRfSession serverAccSession = (org.jdiameter.api.rf.ServerRfSession)rfSessionFactory.getNewSession(request.getSessionId(), org.jdiameter.api.rf.ServerRfSession.class, accountingApplicationID,  new Object[] { request });
-				return ((org.jdiameter.server.impl.app.acc.ServerAccSessionImpl)serverAccSession).processRequest(request);				
+				org.jdiameter.api.rf.ServerRfSession serverRfSession = (org.jdiameter.api.rf.ServerRfSession)rfSessionFactory.getSession(request.getSessionId(), org.jdiameter.api.rf.ServerRfSession.class);
+				if(serverRfSession == null)
+					serverRfSession = (org.jdiameter.api.rf.ServerRfSession)rfSessionFactory.getNewSession(request.getSessionId(), org.jdiameter.api.rf.ServerRfSession.class, accountingApplicationID,  new Object[] { request });
+				
+				try
+				{
+					patchRfSession((org.jdiameter.server.impl.app.rf.ServerRfSessionImpl)serverRfSession);
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();
+				}
+				
+				return ((org.jdiameter.server.impl.app.rf.ServerRfSessionImpl)serverRfSession).processRequest(request);				
 			case 4:
 				org.jdiameter.api.ro.ServerRoSession serverRoSession = (org.jdiameter.api.ro.ServerRoSession)roSessionFactory.getNewSession(request.getSessionId(), org.jdiameter.api.ro.ServerRoSession.class, accountingApplicationID,  new Object[] { request });
 				return ((org.jdiameter.server.impl.app.ro.ServerRoSessionImpl)serverRoSession).processRequest(request);		
 		}
 		
 		return null;
+	}
+	
+	public void patchRfSession(ServerRfSessionImpl rfSession) throws IllegalArgumentException, IllegalAccessException
+	{
+		Class<ServerRfSessionImpl> rfClass = ServerRfSessionImpl.class;
+		Field[] f= rfClass.getDeclaredFields();
+		Field sessionDataField = null;
+		for(Field currField:f)
+			if(currField.getName().equals("sessionData"))
+			{
+				currField.setAccessible(true);
+				sessionDataField = currField;
+			}
+		
+		IServerRfSessionData rfSessionData = (IServerRfSessionData)sessionDataField.get(rfSession);
+		rfSessionData.setStateless(false);
 	}
 	
 	@SuppressWarnings("unchecked")

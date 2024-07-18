@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
+import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -49,46 +50,64 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	@Override
 	public void sendAccountingResponse(A1 answer, AsyncCallback callback)
 	{
-		Boolean shouldKeepOpen=true;
-		
-		if(answer.getIsError()!=null && answer.getIsError())
-			shouldKeepOpen=false;
-		else if(answer.getAccountingRecordType()!=null && answer.getAccountingRecordType()==AccountingRecordTypeEnum.EVENT_RECORD)
-			shouldKeepOpen=false;
-		else if(answer.getAccountingRecordType()!=null && answer.getAccountingRecordType()==AccountingRecordTypeEnum.STOP_RECORD)
-			shouldKeepOpen=false;
-		
-		if(!shouldKeepOpen)
-		{	
-			setSessionState(SessionStateEnum.IDLE);
-			terminate();
-		}
-		else
+		final Long startTime = System.currentTimeMillis();
+		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
-			setSessionState(SessionStateEnum.OPEN);
+			@Override
+			public long getStartTime()
+			{
+				return startTime;
+			}
 			
-			Long newTime = null;
-			if(answer.getAcctInterimInterval()!=null)
-				newTime = answer.getAcctInterimInterval()*1000L;
-			
-			answerSent(answer, callback, newTime);
-		}
-		
-		provider.getStack().sendAnswerToNetwork(answer, getRemoteHost(), getRemoteRealm(), callback);			
+			@Override
+			public void execute()
+			{
+				Boolean shouldKeepOpen=true;
+				
+				if(answer.getIsError()!=null && answer.getIsError())
+					shouldKeepOpen=false;
+				else if(answer.getAccountingRecordType()!=null && answer.getAccountingRecordType()==AccountingRecordTypeEnum.EVENT_RECORD)
+					shouldKeepOpen=false;
+				else if(answer.getAccountingRecordType()!=null && answer.getAccountingRecordType()==AccountingRecordTypeEnum.STOP_RECORD)
+					shouldKeepOpen=false;
+				
+				if(!shouldKeepOpen)
+				{	
+					setSessionState(SessionStateEnum.IDLE);
+					terminate();
+				}
+				else
+				{
+					setSessionState(SessionStateEnum.OPEN);
+					
+					Long newTime = null;
+					if(answer.getAcctInterimInterval()!=null)
+						newTime = answer.getAcctInterimInterval()*1000L;
+					
+					answerSent(answer, callback, newTime);
+				}
+				
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+			}
+		});					
 	}
 	
 	@Override
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
-		@SuppressWarnings("unchecked")
-		Collection<ServerAccListener<R1>> listeners = (Collection<ServerAccListener<R1>>) provider.getServerListeners().values();
-		
 		try
 		{
 			@SuppressWarnings("unchecked")
 			R1 castedRequest = (R1)request;
-			for(ServerAccListener<R1> listener:listeners)
-				listener.onAccountingRequest(castedRequest, callback);	
+			
+			if(provider.getServerListeners()!=null)
+			{
+				@SuppressWarnings("unchecked")
+				Collection<ServerAccListener<R1>> listeners = (Collection<ServerAccListener<R1>>) provider.getServerListeners().values();
+				
+				for(ServerAccListener<R1> listener:listeners)
+					listener.onAccountingRequest(castedRequest, callback);
+			}
 		}
 		catch(Exception ex)
 		{
