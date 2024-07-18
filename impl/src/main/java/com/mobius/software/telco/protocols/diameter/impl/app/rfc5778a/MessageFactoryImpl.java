@@ -57,8 +57,8 @@ public class MessageFactoryImpl implements MessageFactory
 		this.applicationId = applicationId;
 	}
 	
-	public MIP6Request createMIP6Request(String originHost,String originRealm,String destinationRealm,AuthRequestTypeEnum authRequestType,List<InetAddress> mipMobileNodeAddress,MIP6AgentInfo mip6AgentInfo,InetAddress mipCareofAddress) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
+	public MIP6Request createMIP6Request(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthRequestTypeEnum authRequestType,List<InetAddress> mipMobileNodeAddress,MIP6AgentInfo mip6AgentInfo,InetAddress mipCareofAddress) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
-		return new MIP6RequestImpl(originHost, originRealm, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType, mipMobileNodeAddress, mip6AgentInfo, mipCareofAddress);
+		return new MIP6RequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType, mipMobileNodeAddress, mip6AgentInfo, mipCareofAddress);
 	}
 }

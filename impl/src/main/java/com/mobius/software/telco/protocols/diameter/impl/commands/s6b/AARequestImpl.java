@@ -88,11 +88,14 @@ public class AARequestImpl extends S6bRequestImpl implements AARequest
 	protected AARequestImpl() 
 	{
 		super();
+		setDestinationHostAllowed(false);
 	}
 	
-	public AARequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
+	public AARequestImpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, null, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		
+		setDestinationHostAllowed(false);
 		
 		setAuthRequestType(authRequestType);
 	}

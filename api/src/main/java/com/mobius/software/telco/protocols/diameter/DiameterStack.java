@@ -46,9 +46,9 @@ public interface DiameterStack
 	
 	String generateNewSessionID();
 	
-	void sendRequestToNetwork(DiameterRequest message,AsyncCallback callback);
+	void sendRequest(DiameterRequest message,AsyncCallback callback);
 	
-	void sendAnswerToNetwork(DiameterAnswer message,String destinationHost,String destinationRealm,AsyncCallback callback);
+	void sendAnswer(DiameterAnswer message,String destinationHost,String destinationRealm,AsyncCallback callback);
 	
 	NetworkManager getNetworkManager();
 	

@@ -188,33 +188,52 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	@Override
 	public void onTimeout()
 	{
-		Iterator<?> iterator;
+		Iterator<?> iterator = null;
 		if(isServer())
-			iterator = provider.getServerListeners().entrySet().iterator();
-		else
-			iterator = provider.getClientListeners().entrySet().iterator();
-		
-		while(iterator.hasNext())
 		{
-			Entry<?,?> currEntry = (Entry<?,?>)iterator.next();
-			((SessionListener)currEntry.getValue()).onTimeout();			
+			if(provider.getServerListeners()!=null)
+				iterator = provider.getServerListeners().entrySet().iterator();
 		}
+		else
+		{
+			if(provider.getClientListeners()!=null)
+				iterator = provider.getClientListeners().entrySet().iterator();
+		}
+		
+		if(iterator!=null)
+		{
+			while(iterator.hasNext())
+			{
+				Entry<?,?> currEntry = (Entry<?,?>)iterator.next();
+				((SessionListener)currEntry.getValue()).onTimeout();			
+			}
+		}
+		
 		this.provider.storeSession(this);
 	}
 
 	@Override
 	public void onIdleTimeout()
 	{
-		Iterator<?> iterator;
+		Iterator<?> iterator = null;			
 		if(isServer())
-			iterator = provider.getServerListeners().entrySet().iterator();
-		else
-			iterator = provider.getClientListeners().entrySet().iterator();
-		
-		while(iterator.hasNext())
 		{
-			Entry<?,?> currEntry = (Entry<?,?>)iterator.next();
-			((SessionListener)currEntry.getValue()).onIdleTimeout();			
+			if(provider.getServerListeners()!=null)
+				iterator = provider.getServerListeners().entrySet().iterator();
+		}
+		else
+		{
+			if(provider.getClientListeners()!=null)
+				iterator = provider.getClientListeners().entrySet().iterator();
+		}
+		
+		if(iterator!=null)
+		{
+			while(iterator.hasNext())
+			{
+				Entry<?,?> currEntry = (Entry<?,?>)iterator.next();
+				((SessionListener)currEntry.getValue()).onIdleTimeout();			
+			}				
 		}
 		
 		terminate();

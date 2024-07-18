@@ -1,13 +1,18 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterRequestWithSessionAndRealmBase;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.DestinationHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
@@ -35,24 +40,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
-public abstract class VendorSpecificRequestmpl extends DiameterRequestWithSessionAndRealmBase implements VendorSpecificRequest
+public abstract class VendorSpecificRequestImpl extends DiameterRequestWithSessionAndRealmBase implements VendorSpecificRequest
 {
 	protected VendorSpecificApplicationId vendorSpecificApplicationId;
 	
 	protected List<RouteRecord> routeRecords;
 	
-	protected VendorSpecificRequestmpl() 
+	protected VendorSpecificRequestImpl()
 	{
-		super();
-		setDestinationHostAllowed(false);
+		super();		
 	}
-		
-	public VendorSpecificRequestmpl(String originHost,String originRealm,String destinationRealm,Boolean isRetransmit, String sessonID) throws AvpNotSupportedException, MissingAvpException
-	{
-		super(originHost, originRealm,null,destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(false);
+	
+	public VendorSpecificRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID) throws AvpNotSupportedException, MissingAvpException
+	{	
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID);			
 	}
-
+	
 	@Override
 	public List<String> getRouteRecords() 
 	{
@@ -91,5 +94,14 @@ public abstract class VendorSpecificRequestmpl extends DiameterRequestWithSessio
 	public void setVendorSpecificApplicationId(VendorSpecificApplicationId value) 
 	{
 		this.vendorSpecificApplicationId = value;
+	}
+	
+	@DiameterValidate
+	public DiameterException validate()
+	{
+		if(destinationHost==null)
+			return new MissingAvpException("Destination-Host is required", Arrays.asList(new DiameterAvp[] { new DestinationHostImpl() } ));
+			
+		return super.validate();
 	}
 }

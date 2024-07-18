@@ -8,7 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.s6a.S6aRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -42,7 +42,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 * @author yulian oifa
 *
 */
-public abstract class S6aRequestImpl extends VendorSpecificRequestmpl implements S6aRequest
+public abstract class S6aRequestImpl extends VendorSpecificRequestImpl implements S6aRequest
 {
 	protected DRMP drmp;
 	
@@ -53,15 +53,11 @@ public abstract class S6aRequestImpl extends VendorSpecificRequestmpl implements
 	protected S6aRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public S6aRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID);
 		
 		setAuthSessionState(authSessionState);
 	}

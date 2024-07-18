@@ -30,5 +30,5 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc5447.MIP6Agent
 
 public interface MessageFactory
 {
-	public MIP6Request createMIP6Request(String originHost,String originRealm,String destinationRealm,AuthRequestTypeEnum authRequestType,List<InetAddress> mipMobileNodeAddress,MIP6AgentInfo mip6AgentInfo,InetAddress mipCareofAddress) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;		
+	public MIP6Request createMIP6Request(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthRequestTypeEnum authRequestType,List<InetAddress> mipMobileNodeAddress,MIP6AgentInfo mip6AgentInfo,InetAddress mipCareofAddress) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;		
 }

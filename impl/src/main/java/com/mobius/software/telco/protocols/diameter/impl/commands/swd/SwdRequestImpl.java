@@ -39,13 +39,11 @@ public abstract class SwdRequestImpl extends AuthenticationRequestWithHostImpl i
 	protected SwdRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public SwdRequestImpl(String originHost,String originRealm, String destinationHost, String destinationRealm, Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID, authApplicationId);
-		setDestinationHostAllowed(true);
 	}
 
 	@Override

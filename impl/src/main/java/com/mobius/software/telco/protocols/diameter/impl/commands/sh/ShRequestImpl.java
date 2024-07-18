@@ -8,7 +8,7 @@ import com.mobius.software.telco.protocols.diameter.commands.sh.ShRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.VendorSpecificRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedIMPUImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.WildcardedPublicIdentityImpl;
@@ -48,7 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
 * @author yulian oifa
 *
 */
-public abstract class ShRequestImpl extends VendorSpecificRequestmpl implements ShRequest
+public abstract class ShRequestImpl extends VendorSpecificRequestImpl implements ShRequest
 {
 	protected DRMP drmp;
 	
@@ -65,15 +65,11 @@ public abstract class ShRequestImpl extends VendorSpecificRequestmpl implements 
 	protected ShRequestImpl() 
 	{
 		super();
-		setDestinationHostAllowed(true);
 	}
 		
 	public ShRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessonID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm,destinationRealm, isRetransmit, sessonID);
-		setDestinationHostAllowed(true);
-		
-		setDestinationHost(destinationHost);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID);
 		
 		setAuthSessionState(authSessionState);
 		
