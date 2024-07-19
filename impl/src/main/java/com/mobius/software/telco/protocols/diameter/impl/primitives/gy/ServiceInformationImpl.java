@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol;
+package com.mobius.software.telco.protocols.diameter.impl.primitives.gy;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,29 +18,26 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterEnumeratedImpl;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitAction;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitActionEnum;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
+import com.mobius.software.telco.protocols.diameter.primitives.gy.PSInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.gy.ServiceInformation;
 
-/**
-*
-* @author yulian oifa
-*
-*/
-public class FinalUnitActionImpl extends DiameterEnumeratedImpl<FinalUnitActionEnum> implements FinalUnitAction
+public class ServiceInformationImpl extends DiameterAvpImpl implements ServiceInformation
 {
-	public FinalUnitActionImpl() 
+	private PSInformation psInformation;
+	
+	public ServiceInformationImpl()
 	{
-		super();
+		
 	}
 	
-	protected FinalUnitActionImpl(Integer minValue,Integer maxValue) 
+	public PSInformation getPSInformation()
 	{
-		super(minValue, maxValue);
+		return this.psInformation;
 	}
 	
-	public FinalUnitActionImpl(FinalUnitActionEnum value,Integer minValue,Integer maxValue) 
+	public void setPSInformation(PSInformation value)
 	{
-		super(value, minValue, maxValue);
+		this.psInformation = value;
 	}
 }

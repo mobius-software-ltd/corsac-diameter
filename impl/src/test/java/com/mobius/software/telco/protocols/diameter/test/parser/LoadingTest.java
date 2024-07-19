@@ -17,6 +17,7 @@ import com.mobius.software.telco.protocols.diameter.impl.commands.eap.EAPRequest
 import com.mobius.software.telco.protocols.diameter.impl.commands.gi.AccountingRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gmb.AARequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.gy.ServiceInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.nta.EventReportsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s15.CSServiceQoSRequestIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
@@ -203,6 +204,20 @@ public class LoadingTest
 		assertNotNull(avpClass);
 		
 		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gxx"));		
+	}
+	
+	@Test
+	public void testGy() throws DiameterException
+	{		
+		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		
+		//make sure classes are loaded
+		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gy.CreditControlRequestImpl.class;
+		Class<?> avpClass = ServiceInformationImpl.class;
+		assertNotNull(clazz);
+		assertNotNull(avpClass);
+		
+		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gy"));		
 	}
 	
 	@Test
@@ -806,4 +821,5 @@ public class LoadingTest
 		
 		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.tsp"));		
 	}
+	
 }
