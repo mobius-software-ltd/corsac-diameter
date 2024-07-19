@@ -83,6 +83,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.S
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ScaleFactorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ServiceSpecificInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.SupplementaryServiceImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPPMultipleServicesCreditControlImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TalkBurstExchangeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TariffInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TimeStampsImpl;
@@ -95,7 +96,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontro
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.FinalUnitIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GSUPoolReferenceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GrantedServiceUnitImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.MultipleServicesCreditControlImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.QoSFinalUnitIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RedirectServerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedServiceUnitImpl;
@@ -206,6 +206,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SMSCAd
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ScaleFactor;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SupplementaryService;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBurstExchange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TariffInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeStamps;
@@ -220,7 +221,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Fin
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolReference;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoSFinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectServer;
@@ -271,7 +271,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AvpFactory extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.AvpFactory
+public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter.impl.app.commons.AvpFactoryImpl implements com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.AvpFactory
 {
 	public UserEquipmentInfo getUserEquipmentInfo(UserEquipmentInfoTypeEnum userEquipmentInfoType,ByteBuf userEquipmentInfoValue) throws MissingAvpException
 	{
@@ -283,9 +283,9 @@ public class AvpFactory extends com.mobius.software.telco.protocols.diameter.imp
 		return new ServiceInformationImpl();
 	}
 	
-	public MultipleServicesCreditControl getMultipleServicesCreditControl()
+	public TGPPMultipleServicesCreditControl getMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication)
 	{
-		return new MultipleServicesCreditControlImpl();
+		return new TGPPMultipleServicesCreditControlImpl(grantedServiceUnit,requestedServiceUnit,usedServiceUnit,serviceIdentifier,ratingGroup,gsuPoolReference, validityTime, resultCode, finalUnitIndication);
 	}
 	
 	public UsedServiceUnit getUsedServiceUnit()

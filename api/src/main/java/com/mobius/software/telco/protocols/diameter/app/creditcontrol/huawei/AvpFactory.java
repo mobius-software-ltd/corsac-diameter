@@ -94,6 +94,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SMSCAd
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ScaleFactor;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SupplementaryService;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBurstExchange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TariffInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeStamps;
@@ -161,7 +162,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ServiceInformation getServiceInformation();
 	
-	public MultipleServicesCreditControl getMultipleServicesCreditControl();
+	public TGPPMultipleServicesCreditControl getMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication);
 	
 	public UsedServiceUnit getUsedServiceUnit();
 	
