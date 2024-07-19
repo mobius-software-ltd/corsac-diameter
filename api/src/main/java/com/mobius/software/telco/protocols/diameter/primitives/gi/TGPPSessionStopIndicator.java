@@ -36,7 +36,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetStri
 	Value is set to all 1.
 	3GPP-Session Stop Indicator value: Bit String type.  
  */
-@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_SELECTION_STOP_INDICATOR, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-Session-Stop-Indicator")
+@DiameterAvpDefinition(code = TgppAvpCodes.TGPP_SESSION_STOP_INDICATOR, vendorId = VendorIDs.TGPP_ID, must = false, name = "3GPP-Session-Stop-Indicator")
 public interface TGPPSessionStopIndicator extends DiameterOctetString
 {
 }
