@@ -231,7 +231,7 @@ public class MessageProcessRequestImpl extends VendorSpecificRequestImpl impleme
 	@Override
 	public void setInitialRecipientAddress(List<InitialRecipientAddress> value) throws MissingAvpException
 	{
-		if(value==null || initialRecipientAddress.size()==0)
+		if(value==null || value.size()==0)
 			throw new MissingAvpException("Initial-Recipient-Address is required", Arrays.asList(new DiameterAvp[] { new InitialRecipientAddressImpl() }));
 			
 		this.initialRecipientAddress = value;

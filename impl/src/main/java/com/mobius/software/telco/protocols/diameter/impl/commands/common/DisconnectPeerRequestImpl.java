@@ -40,11 +40,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
 * @author yulian oifa
 *
 */
-public class DisconnectPeerRequestmpl extends DiameterMessageBase implements DisconnectPeerRequest
+public class DisconnectPeerRequestImpl extends DiameterMessageBase implements DisconnectPeerRequest
 {
 	private DisconnectCause disconnectCause;
 	
-	protected DisconnectPeerRequestmpl() 
+	protected DisconnectPeerRequestImpl() 
 	{
 		super();
 		setSessionIdAllowed(false);
@@ -53,7 +53,7 @@ public class DisconnectPeerRequestmpl extends DiameterMessageBase implements Dis
 		setOriginStateIdAllowedAllowed(false);
 	}
 		
-	public DisconnectPeerRequestmpl(String originHost,String originRealm,Boolean isRetransmit, DisconnectCauseEnum disconnectCause) throws MissingAvpException
+	public DisconnectPeerRequestImpl(String originHost,String originRealm,Boolean isRetransmit, DisconnectCauseEnum disconnectCause) throws MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit);
 		setSessionIdAllowed(false);

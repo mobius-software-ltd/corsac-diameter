@@ -270,7 +270,11 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 		
 		DiameterSession session = this.localMap.get(sessionID);
 		if(session==null && (message instanceof DiameterRequest))
+		{
 			session=getNewSession((DiameterRequest)message);
+			if(session!=null)
+				storeSession(session);
+		}
 		
 		if(session==null)
 		{

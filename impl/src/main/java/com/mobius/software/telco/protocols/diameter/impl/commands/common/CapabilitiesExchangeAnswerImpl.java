@@ -120,7 +120,7 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	@Override
 	public void setHostIpAddress(List<InetAddress> value) throws MissingAvpException 
 	{
-		if(hostIpAddresses == null || hostIpAddresses.size() < 1)
+		if(value == null || value.size() < 1)
 			throw new MissingAvpException("At least 1 Host-IP-Address is required", Arrays.asList(new DiameterAvp[] { new HostIpAddressImpl() }));
 		
 		this.hostIpAddresses = new ArrayList<HostIpAddress>();
@@ -140,7 +140,7 @@ public class CapabilitiesExchangeAnswerImpl extends DiameterAnswerBase implement
 	@Override
 	public void setVendorId(Long value) throws MissingAvpException 
 	{
-		if(vendorId==null)
+		if(value==null)
 			throw new MissingAvpException("Vendor-Id is required", Arrays.asList(new DiameterAvp[] { new VendorIdImpl() }));
 			
 		this.vendorId = new VendorIdImpl(value, null, null);

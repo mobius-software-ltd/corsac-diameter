@@ -42,6 +42,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 			{
 				answerSent(answer, callback, null);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+				terminate();
 			}
 		});					
 	}

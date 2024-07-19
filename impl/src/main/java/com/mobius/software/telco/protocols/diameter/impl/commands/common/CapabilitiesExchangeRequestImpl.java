@@ -55,7 +55,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 * @author yulian oifa
 *
 */
-public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implements CapabilitiesExchangeRequest
+public class CapabilitiesExchangeRequestImpl extends DiameterMessageBase implements CapabilitiesExchangeRequest
 {
 	private List<HostIpAddress> hostIpAddresses;
 	
@@ -75,7 +75,7 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 	
 	private FirmwareRevision firmwareRevision;
 	
-	protected CapabilitiesExchangeRequestmpl() 
+	protected CapabilitiesExchangeRequestImpl() 
 	{
 		super();
 		setSessionIdAllowed(false);
@@ -83,7 +83,7 @@ public class CapabilitiesExchangeRequestmpl extends DiameterMessageBase implemen
 		setUsernameAllowed(false);
 	}
 	
-	public CapabilitiesExchangeRequestmpl(String originHost,String originRealm,Boolean isRetransmit, List<InetAddress> hostIpAddresses, Long vendorId, String productName) throws MissingAvpException
+	public CapabilitiesExchangeRequestImpl(String originHost,String originRealm,Boolean isRetransmit, List<InetAddress> hostIpAddresses, Long vendorId, String productName) throws MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit);
 		setSessionIdAllowed(false);

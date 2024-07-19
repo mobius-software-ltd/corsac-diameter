@@ -184,6 +184,7 @@ public class MessageProcessingTask implements Task
 						remoteAuthApplicationIds.set(matchedAuthApplicationIds);
 						remoteApplicationIds.set(matchedVendorSpecificApplicationIds);
 						link.setPeerState(PeerStateEnum.OPEN);
+						link.sendCEA(request);
 					}
 					break;
 				case CER_SENT:
@@ -239,7 +240,7 @@ public class MessageProcessingTask implements Task
 			switch(link.getPeerState())
 			{
 				case OPEN:
-					link.sendDWA(ResultCodes.DIAMETER_SUCCESS);
+					link.sendDWA((DeviceWatchdogRequest)message,ResultCodes.DIAMETER_SUCCESS);
 					break;
 				case CER_SENT:
 				case DPR_SENT:
@@ -279,7 +280,7 @@ public class MessageProcessingTask implements Task
 			switch(link.getPeerState())
 			{
 				case OPEN:
-					link.sendDPA(ResultCodes.DIAMETER_SUCCESS);
+					link.sendDPA((DisconnectPeerRequest)message, ResultCodes.DIAMETER_SUCCESS);
 					link.setPeerState(PeerStateEnum.IDLE);
 					link.resetReconnectTimer();
 					break;

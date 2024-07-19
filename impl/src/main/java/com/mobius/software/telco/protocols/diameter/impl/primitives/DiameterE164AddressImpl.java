@@ -60,8 +60,8 @@ public class DiameterE164AddressImpl extends DiameterOctetStringImpl implements 
 			StringBuilder digits = new StringBuilder();
 
 			int b;
-	        while (buffer.readableBytes() > 0) {
-	            b = buffer.readByte() & 0xff;
+	        while (value.readableBytes() > 0) {
+	            b = value.readByte() & 0xff;
 
 	            digits.append(Integer.toHexString(b & 0x0f));
 	            digits.append(Integer.toHexString((b & 0xf0) >> 4));

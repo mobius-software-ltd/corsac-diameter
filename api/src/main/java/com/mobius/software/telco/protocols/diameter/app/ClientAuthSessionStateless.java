@@ -56,5 +56,7 @@ public interface ClientAuthSessionStateless<R1 extends DiameterRequest>
 {
 	void sendInitialRequest(R1 request,AsyncCallback callback);
 	
+	SessionStateEnum getSessionState();
+	
 	void terminate();
 }

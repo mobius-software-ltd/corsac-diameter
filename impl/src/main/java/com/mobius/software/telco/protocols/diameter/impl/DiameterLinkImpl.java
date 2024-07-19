@@ -51,6 +51,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogRequest;
@@ -63,11 +64,12 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.DeviceWatchdogAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.DeviceWatchdogRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.DisconnectPeerAnswerImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.DisconnectPeerRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.DisconnectPeerRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
@@ -206,7 +208,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 
 		//registering common
 		@SuppressWarnings("unused")
-		Class<?> clazz = CapabilitiesExchangeRequestmpl.class;
+		Class<?> clazz = CapabilitiesExchangeRequestImpl.class;
 		@SuppressWarnings("unused")
 		Class<?> avpClass = AcctApplicationIdImpl.class;
 		
@@ -415,15 +417,47 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				appId = ((VendorSpecificAnswer)message).getVendorSpecificApplicationId();
 			
 			Boolean found=false;
-			List<VendorSpecificApplicationId> remoteIds = remoteApplicationIds.get();
-			if(remoteIds!=null && appId!=null)
+			List<VendorSpecificApplicationId> remoteVendorIds = remoteApplicationIds.get();
+			if(remoteVendorIds!=null && appId!=null)
 			{
-				for(VendorSpecificApplicationId currApplicationId:remoteIds)
+				for(VendorSpecificApplicationId currApplicationId:remoteVendorIds)
 				{
 					if(sameVendorSpecificApplicationId(appId, currApplicationId))
 					{
 						found = true;
 						break;
+					}
+				}
+			}
+			
+			if(!found && appId!=null)
+			{
+				if(appId.getAcctApplicationId()!=null)
+				{
+					List<Long> remoteIds = remoteAcctApplicationIds.get();
+					if(remoteIds!=null)
+					{
+						for(Long currApplicationId:remoteIds)
+						{
+							if(currApplicationId.equals(commandDefintion.applicationId()))
+							{
+								found = true;
+							}
+						}				
+					}
+				}
+				else if(appId.getAuthApplicationId()!=null)
+				{
+					List<Long> remoteIds = remoteAuthApplicationIds.get();
+					if(remoteIds!=null)
+					{
+						for(Long currApplicationId:remoteIds)
+						{
+							if(currApplicationId.equals(commandDefintion.applicationId()))
+							{
+								found = true;
+							}
+						}				
 					}
 				}
 			}
@@ -736,7 +770,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		CapabilitiesExchangeRequest cer = null;
 		try
 		{
-			cer = new CapabilitiesExchangeRequestmpl(localHost, localRealm, false, addresses, stack.getVendorID(), stack.getProductName());
+			cer = new CapabilitiesExchangeRequestImpl(localHost, localRealm, false, addresses, stack.getVendorID(), stack.getProductName());
 			Long hopIdentifier = stack.getNextHopByHopIdentifier();
 			cer.setHopByHopIdentifier(hopIdentifier);
 			cer.setEndToEndIdentifier(hopIdentifier);
@@ -836,6 +870,111 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		}
 	}
 	
+	public void sendCEA(CapabilitiesExchangeRequest request)
+	{
+		List<InetAddress> addresses = Arrays.asList(new InetAddress[] { localAddress });
+		CapabilitiesExchangeAnswer cea = null;
+		try
+		{
+			cea = new CapabilitiesExchangeAnswerImpl(localHost, localRealm, false, ResultCodes.DIAMETER_SUCCESS, addresses, stack.getVendorID(), stack.getProductName());
+			cea.setHopByHopIdentifier(request.getHopByHopIdentifier());
+			cea.setEndToEndIdentifier(request.getEndToEndIdentifier());
+			cea.setOriginStateId(stack.getOriginalStateId());
+			cea.setFirmwareRevision(stack.getFirmwareRevision());
+			
+			List<VendorSpecificApplicationId> vaiToSend=new ArrayList<VendorSpecificApplicationId>();
+			List<Long> acctToSend=new ArrayList<Long>();
+			List<Long> authToSend=new ArrayList<Long>();
+			List<Long> vendorsToSend=new ArrayList<Long>();
+			
+			for(VendorSpecificApplicationId vai:applicationIds)
+			{
+				if(vai.getVendorId()==null)
+					vaiToSend.add(vai);
+				else
+				{
+					Boolean found=false;
+					for(Long currVendor:vendorsToSend)
+						if(currVendor.equals(vai.getVendorId()))
+						{
+							found=true;
+							break;
+						}
+					
+					if(!found)
+						vendorsToSend.add(vai.getVendorId());
+					
+					if(vai.getAuthApplicationId()!=null)
+						authToSend.add(vai.getAuthApplicationId());
+					
+					if(vai.getAcctApplicationId()!=null)
+						acctToSend.add(vai.getAcctApplicationId());
+				}
+			}
+			
+			for(Long acct:acctApplicationIds)
+			{
+				Boolean isNonVendor=true;
+				for(VendorSpecificApplicationId vai:applicationIds)
+					if(vai.getAcctApplicationId().equals(acct))
+					{
+						isNonVendor = false;
+						break;
+					}
+				
+				if(isNonVendor)
+					acctToSend.add(acct);
+			}
+			
+			for(Long auth:authApplicationIds)
+			{
+				Boolean isNonVendor=true;
+				for(VendorSpecificApplicationId vai:applicationIds)
+					if(vai.getAuthApplicationId().equals(auth))
+					{
+						isNonVendor = false;
+						break;
+					}
+				
+				if(isNonVendor)
+					authToSend.add(auth);
+			}
+			
+			if(vaiToSend.size()>0)
+				cea.setVendorSpecificApplicationIds(vaiToSend);
+			
+			if(authToSend.size()>0)
+				cea.setAuthApplicationIds(authToSend);
+			
+			if(acctToSend.size()>0)
+				cea.setAcctApplicationIds(acctToSend);
+			
+			if(vendorsToSend.size()>0)
+				cea.setSupportedVendorIds(vendorsToSend);
+			
+			peerState.set(PeerStateEnum.OPEN);			
+			sendMessageInternally(cea, new AsyncCallback()
+			{
+				@Override
+				public void onSuccess()
+				{						
+				}
+				
+				@Override
+				public void onError(DiameterException ex)
+				{
+					logger.warn("An error occured while sending CEA to " + association + " " + ex.getMessage(),ex);					
+					peerState.set(PeerStateEnum.IDLE);
+					resetReconnectTimer();
+				}
+			});
+		}
+		catch(Exception ex)
+		{
+			logger.warn("An error occured while sending CER to " + association + " " + ex.getMessage(),ex);
+		}
+	}
+	
 	public void sendDWR()
 	{
 		DeviceWatchdogRequest dwr = null;
@@ -870,15 +1009,14 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		}
 	}
 	
-	public void sendDWA(long resultCode)
+	public void sendDWA(DeviceWatchdogRequest request, long resultCode)
 	{
 		DeviceWatchdogAnswer dwa = null;
 		try
 		{
 			dwa = new DeviceWatchdogAnswerImpl(localHost, localRealm, false, resultCode);
-			Long hopIdentifier = stack.getNextHopByHopIdentifier();
-			dwa.setHopByHopIdentifier(hopIdentifier);
-			dwa.setEndToEndIdentifier(hopIdentifier);
+			dwa.setHopByHopIdentifier(request.getHopByHopIdentifier());
+			dwa.setEndToEndIdentifier(request.getEndToEndIdentifier());
 			dwa.setOriginStateId(stack.getOriginalStateId());
 			
 			sendMessageInternally(dwa, new AsyncCallback()
@@ -904,16 +1042,14 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		}
 	}
 	
-	public void sendDPA(long resultCode)
+	public void sendDPA(DisconnectPeerRequest request, long resultCode)
 	{
 		DisconnectPeerAnswer dpa = null;
 		try
 		{
 			dpa = new DisconnectPeerAnswerImpl(localHost, localRealm, false, resultCode);
-			Long hopIdentifier = stack.getNextHopByHopIdentifier();
-			dpa.setHopByHopIdentifier(hopIdentifier);
-			dpa.setEndToEndIdentifier(hopIdentifier);
-			dpa.setOriginStateId(stack.getOriginalStateId());
+			dpa.setHopByHopIdentifier(request.getHopByHopIdentifier());
+			dpa.setEndToEndIdentifier(request.getEndToEndIdentifier());
 				
 			sendMessageInternally(dpa, new AsyncCallback()
 			{
@@ -943,7 +1079,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		DisconnectPeerRequest dpr = null;
 		try
 		{
-			dpr = new DisconnectPeerRequestmpl(localHost, localRealm, false, cause);
+			dpr = new DisconnectPeerRequestImpl(localHost, localRealm, false, cause);
 			Long hopIdentifier = stack.getNextHopByHopIdentifier();
 			dpr.setEndToEndIdentifier(hopIdentifier);
 			dpr.setHopByHopIdentifier(hopIdentifier);

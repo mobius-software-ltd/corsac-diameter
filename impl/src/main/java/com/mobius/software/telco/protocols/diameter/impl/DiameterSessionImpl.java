@@ -123,7 +123,8 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	
 	protected void stopIdleTimer()
 	{
-		this.provider.stopIdleTimer(idleTimerID);
+		if(idleTimerID!=null)
+			this.provider.stopIdleTimer(idleTimerID);
 	}
 	
 	protected void startIdleTimer()
@@ -143,7 +144,8 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	
 	protected void stopSendTimer()
 	{
-		this.provider.stopSendTimer(sendTimerID);
+		if(sendTimerID!=null)
+			this.provider.stopSendTimer(sendTimerID);
 	}
 	
 	@Override
