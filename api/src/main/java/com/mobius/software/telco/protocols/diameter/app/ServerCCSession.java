@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
@@ -74,7 +75,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerm
    |       | timer Tcc expired      |                          |       |
    +-------+------------------------+--------------------------+-------+                                                      
  */
-public interface ServerCCSession<A1 extends CreditControlAnswer,R2 extends ReAuthRequest,R3 extends AbortSessionRequest,A4 extends SessionTerminationAnswer>
+public interface ServerCCSession<A1 extends CreditControlAnswer,R2 extends ReAuthRequest,R3 extends AbortSessionRequest,A4 extends SessionTerminationAnswer> extends DiameterSession
 {
 	void sendInitialAnswer(A1 answer,AsyncCallback callback);
 	
@@ -83,8 +84,4 @@ public interface ServerCCSession<A1 extends CreditControlAnswer,R2 extends ReAut
 	void sendSessionTerminationAnswer(A4 answer,AsyncCallback callback);
 	
 	void sendAbortSessionRequest(R3 request,AsyncCallback callback);
-	
-	SessionStateEnum getSessionState();
-	
-	void terminate();
 }

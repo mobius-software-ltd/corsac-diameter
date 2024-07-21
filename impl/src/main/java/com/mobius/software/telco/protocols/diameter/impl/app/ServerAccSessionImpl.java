@@ -40,8 +40,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 */
 public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends AccountingAnswer> extends DiameterSessionImpl implements ServerAccSession<A1>
 {
-	private DiameterProvider<?, ? extends ServerAccListener<R1>, ?, ?, ?> provider;
-	public ServerAccSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAccListener<R1>, ?, ?, ?> provider)
+	private DiameterProvider<?, ? extends ServerAccListener<R1, A1>, ?, ?, ?> provider;
+	public ServerAccSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAccListener<R1, A1>, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -103,10 +103,10 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			if(provider.getServerListeners()!=null)
 			{
 				@SuppressWarnings("unchecked")
-				Collection<ServerAccListener<R1>> listeners = (Collection<ServerAccListener<R1>>) provider.getServerListeners().values();
+				Collection<ServerAccListener<R1, A1>> listeners = (Collection<ServerAccListener<R1, A1>>) provider.getServerListeners().values();
 				
-				for(ServerAccListener<R1> listener:listeners)
-					listener.onAccountingRequest(castedRequest, callback);
+				for(ServerAccListener<R1, A1> listener:listeners)
+					listener.onAccountingRequest(castedRequest, this, callback);
 			}
 		}
 		catch(Exception ex)

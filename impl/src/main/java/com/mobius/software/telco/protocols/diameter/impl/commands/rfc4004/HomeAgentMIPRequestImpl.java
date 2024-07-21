@@ -1,6 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,9 +13,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFeatureVectorImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHomeAgentAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMSALifetimeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMobileNodeAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPRegRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
@@ -27,13 +24,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFeatur
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoFAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoMNMSA;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoFAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoHAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMSALifetime;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMobileNodeAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPOriginatingForeignAAA;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPRegRequest;
 
 import io.netty.buffer.ByteBuf;
 
@@ -61,13 +54,11 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements HomeAgentMIPRequest
+public class HomeAgentMIPRequestImpl extends Rfc4004RequestImpl implements HomeAgentMIPRequest
 {
-	private AuthorizationLifetime authorizationLifetime;
+	protected AuthorizationLifetime authorizationLifetime;
 	
-	private AuthSessionState authSessionState;
-	
-	private MIPRegRequest mipRegRequest;
+	protected AuthSessionState authSessionState;
 	
 	private MIPFeatureVector mipFeatureVector;
 	
@@ -81,12 +72,6 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	
 	private MIPMSALifetime mipMSALifetime;
 	
-	private MIPOriginatingForeignAAA mipOriginatingForeignAAA;
-	
-	private MIPHomeAgentAddress mipHomeAgentAddress;
-	
-	private MIPMobileNodeAddress mipMobileNodeAddress;
-	
 	private List<MIPFilterRule> mipFilterRule;
 	
 	protected HomeAgentMIPRequestImpl() 
@@ -96,17 +81,15 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	
 	public HomeAgentMIPRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, Long authorizationLifetime, AuthSessionStateEnum authSessionState,ByteBuf mipRegRequest, Long mipFeatureVector) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, mipRegRequest);
 		
 		setAuthorizationLifetime(authorizationLifetime);
 		
 		setAuthSessionState(authSessionState);
 		
-		setMIPRegRequest(mipRegRequest);
-		
 		setMIPFeatureVector(mipFeatureVector);
 	}
-
+	
 	@Override
 	public Long getAuthorizationLifetime() 
 	{
@@ -141,24 +124,6 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 			
 		this.authSessionState = new AuthSessionStateImpl(value, null, null);
-	}
-	
-	@Override
-	public ByteBuf getMIPRegRequest() 
-	{
-		if(mipRegRequest == null)
-			return null;
-		
-		return mipRegRequest.getValue();
-	}
-	
-	@Override
-	public void setMIPRegRequest(ByteBuf value) throws MissingAvpException
-	{
-		if(value == null)
-			throw new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
-			
-		this.mipRegRequest = new MIPRegRequestImpl(value, null, null);
 	}
 	
 	@Override
@@ -246,55 +211,6 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 	}
 	
 	@Override
-	public MIPOriginatingForeignAAA getMIPOriginatingForeignAAA() 
-	{
-		return mipOriginatingForeignAAA;
-	}
-	
-	@Override
-	public void setMIPOriginatingForeignAAA(MIPOriginatingForeignAAA value)
-	{
-		this.mipOriginatingForeignAAA = value;
-	}
-	
-
-	@Override
-	public InetAddress getMIPMobileNodeAddress() 
-	{
-		if(mipMobileNodeAddress == null)
-			return null;
-		
-		return mipMobileNodeAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPMobileNodeAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipMobileNodeAddress = null;
-		else
-			this.mipMobileNodeAddress = new MIPMobileNodeAddressImpl(value, null, null);
-	}
-	
-	@Override
-	public InetAddress getMIPHomeAgentAddress() 
-	{
-		if(mipHomeAgentAddress == null)
-			return null;
-		
-		return mipHomeAgentAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPHomeAgentAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipHomeAgentAddress = null;
-		else
-			this.mipHomeAgentAddress = new MIPHomeAgentAddressImpl(value, null, null);
-	}
-	
-	@Override
 	public List<MIPFilterRule> getMIPFilterRule()
 	{
 		return mipFilterRule;
@@ -317,9 +233,6 @@ public class HomeAgentMIPRequestImpl extends com.mobius.software.telco.protocols
 		
 		if(mipRegRequest == null)
 			return new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
-		
-		if(mipFeatureVector == null)
-			return new MissingAvpException("MIP-Feature-Vector is required", Arrays.asList(new DiameterAvp[] { new MIPFeatureVectorImpl() }));
 		
 		return super.validate();
 	}

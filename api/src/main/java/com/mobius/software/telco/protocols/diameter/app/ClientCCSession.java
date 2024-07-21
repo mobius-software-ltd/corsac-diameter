@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
@@ -332,7 +333,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerm
 
                Table 5: One-Time Event Client State Machine
  */
-public interface ClientCCSession<R1 extends CreditControlRequest,A2 extends ReAuthAnswer,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest>
+public interface ClientCCSession<R1 extends CreditControlRequest,A2 extends ReAuthAnswer,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest> extends DiameterSession
 {
 	void sendInitialRequest(R1 request,AsyncCallback callback);
 	
@@ -341,8 +342,4 @@ public interface ClientCCSession<R1 extends CreditControlRequest,A2 extends ReAu
 	void sendSessionTerminationRequest(R4 request,AsyncCallback callback);
 	
 	void sendAbortSessionAnswer(A3 answer,AsyncCallback callback);
-	
-	SessionStateEnum getSessionState();
-	
-	void terminate();
 }

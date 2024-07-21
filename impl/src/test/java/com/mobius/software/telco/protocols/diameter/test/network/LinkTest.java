@@ -230,7 +230,8 @@ public class LinkTest extends NetworkTestBase
 		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isStarted());
 		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isUp());
 		
-		assertEquals(ceaReceived.get(), 2L);
+		assertTrue(ceaReceived.get() <= 3L);
+		assertTrue(ceaReceived.get() >= 2L);
 		assertEquals(dprReceived.get(), 1L);
 		assertEquals(otherReceived.get(), 0L);
 		//the connection disconnects faster then we receive

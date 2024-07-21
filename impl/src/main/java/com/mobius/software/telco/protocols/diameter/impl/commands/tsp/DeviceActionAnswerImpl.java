@@ -1,20 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.tsp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.tsp.FeatureSupportedInFinalTargetImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
@@ -45,10 +40,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.FeatureSuppor
 * @author yulian oifa
 *
 */
-public class DeviceActionAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl implements DeviceActionAnswer
+public class DeviceActionAnswerImpl extends TspAnswerImpl implements DeviceActionAnswer
 {
-	private AuthSessionState authSessionState;
-	
 	private DeviceNotification deviceNotification;
 	
 	private List<SupportedFeatures> supportedFeatures;
@@ -64,27 +57,7 @@ public class DeviceActionAnswerImpl extends com.mobius.software.telco.protocols.
 	
 	public DeviceActionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
-		
-		setAuthSessionState(authSessionState);
-	}
-
-	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState==null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-			
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, authSessionState);
 	}
 
 	@Override
@@ -137,15 +110,6 @@ public class DeviceActionAnswerImpl extends com.mobius.software.telco.protocols.
 	public void setLoad(List<Load> value)
 	{
 		this.load = value;
-	}
-	
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(authSessionState==null)
-			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		return super.validate();
 	}
 	
 	@DiameterOrder

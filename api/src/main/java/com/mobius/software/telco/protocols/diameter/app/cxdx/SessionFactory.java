@@ -28,27 +28,27 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 
 public interface SessionFactory
 {
-	public CxDxLocationInfoClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException;	
+	public CxDxClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxLocationInfoServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException;	
+	public CxDxServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxMultimediaAuthClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException;	
+	public CxDxClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxMultimediaAuthServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException;	
+	public CxDxServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxPushProfileClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException;	
+	public CxDxClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxPushProfileServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException;	
+	public CxDxServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxRegistrationTerminationClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException;	
+	public CxDxClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxRegistrationTerminationServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException;	
+	public CxDxServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxServerAssignmentClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException;	
+	public CxDxClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxServerAssignmentServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException;	
+	public CxDxServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxUserAuthorizationClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException;	
+	public CxDxClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException;	
 	
-	public CxDxUserAuthorizationServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException;
+	public CxDxServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException;
 }

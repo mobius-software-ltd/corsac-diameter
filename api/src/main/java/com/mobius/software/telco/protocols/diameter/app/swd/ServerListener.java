@@ -2,8 +2,12 @@ package com.mobius.software.telco.protocols.diameter.app.swd;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
 import com.mobius.software.telco.protocols.diameter.commands.swd.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swd.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.swd.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swd.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swd.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swd.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.swd.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swd.SessionTerminationRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -28,6 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.swd.SessionTerminat
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<EAPRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
+public interface ServerListener extends ServerAuthListener<EAPRequest, EAPAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }

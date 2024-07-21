@@ -36,10 +36,11 @@ import com.mobius.software.telco.protocols.diameter.DiameterLink;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthSessionStateless;
+import com.mobius.software.telco.protocols.diameter.app.ServerAuthSessionStateless;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.app.mm10.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.mm10.MM10ClientSession;
-import com.mobius.software.telco.protocols.diameter.app.mm10.MM10ServerSession;
 import com.mobius.software.telco.protocols.diameter.app.mm10.ServerListener;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
@@ -121,9 +122,9 @@ public class MM10Test extends NetworkTestBase
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
-			public void onInitialAnswer(DiameterAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(DiameterAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, AsyncCallback callback)
 			{
 				if(answer instanceof MessageProcessAnswer)
 					mpaReceivedByListener.incrementAndGet();
@@ -144,9 +145,9 @@ public class MM10Test extends NetworkTestBase
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
-			public void onInitialRequest(DiameterRequest request, AsyncCallback callback)
+			public void onInitialRequest(DiameterRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, AsyncCallback callback)
 			{
 				if(request instanceof MessageProcessRequest)
 				{
@@ -155,7 +156,7 @@ public class MM10Test extends NetworkTestBase
 					try
 					{
 						MessageProcessAnswer mpa = serverProvider.getMessageFactory().createMessageProcessAnswer(mpr, mpr.getHopByHopIdentifier(), mpr.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
-						((MM10ServerSession)serverProvider.getSession(request.getSessionId())).sendInitialAnswer(mpa, new AsyncCallback()
+						session.sendInitialAnswer(mpa, new AsyncCallback()
 						{
 							@Override
 							public void onSuccess()

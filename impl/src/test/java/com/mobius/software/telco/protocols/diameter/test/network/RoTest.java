@@ -33,16 +33,19 @@ import com.mobius.software.telco.protocols.diameter.DiameterLink;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
+import com.mobius.software.telco.protocols.diameter.app.ClientCCSession;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.app.ro.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.ro.RoClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
@@ -102,25 +105,25 @@ public class RoTest extends NetworkTestBase
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
-			{				
-			}
-
-			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			{
+			}
+
+			@Override
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 			}
 		});
@@ -231,22 +234,22 @@ public class RoTest extends NetworkTestBase
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
-			{		
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			{
 				rarReceivedByListener.incrementAndGet();
 				
 				try
 				{
 					ReAuthAnswer raa = provider.getMessageFactory().createReAuthAnswer(request, request.getHopByHopIdentifier(), request.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
-					((RoClientSession)provider.getSession(request.getSessionId())).sendReauthAnswer(raa, new AsyncCallback()
+					session.sendReauthAnswer(raa, new AsyncCallback()
 					{
 						@Override
 						public void onSuccess()
@@ -264,17 +267,16 @@ public class RoTest extends NetworkTestBase
 				{
 					logger.warn("AN error occured while sendind RAA," + ex.getMessage(),ex);
 				}
-				
 			}
 
 			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
-			{
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			{	
 			}
 		});
 		
@@ -460,25 +462,25 @@ public class RoTest extends NetworkTestBase
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
-			{				
-			}
-
-			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			{
+			}
+
+			@Override
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 			}
 		});
@@ -612,25 +614,25 @@ public class RoTest extends NetworkTestBase
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, AsyncCallback callback)
-			{				
-			}
-
-			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			{
+			}
+
+			@Override
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
 			{
 			}
 		});

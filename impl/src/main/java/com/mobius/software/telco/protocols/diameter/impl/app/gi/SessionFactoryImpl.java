@@ -20,10 +20,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gi;
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.gi.ClientListener;
-import com.mobius.software.telco.protocols.diameter.app.gi.GiAccClientSession;
-import com.mobius.software.telco.protocols.diameter.app.gi.GiAccServerSession;
-import com.mobius.software.telco.protocols.diameter.app.gi.GiAuthClientSession;
-import com.mobius.software.telco.protocols.diameter.app.gi.GiAuthServerSession;
+import com.mobius.software.telco.protocols.diameter.app.gi.GiClientSession;
+import com.mobius.software.telco.protocols.diameter.app.gi.GiServerSession;
 import com.mobius.software.telco.protocols.diameter.app.gi.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.gi.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AARequest;
@@ -44,26 +42,26 @@ public class SessionFactoryImpl implements SessionFactory
 	}
 
 	@Override
-	public GiAccClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException
+	public GiClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new GiAccClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new GiClientSessionImpl(false, request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
-	public GiAccServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException
+	public GiServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException
 	{
-		return new GiAccServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		return new GiServerSessionImpl(false, request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
-	public GiAuthClientSession createClientSession(AARequest request) throws AvpNotSupportedException
+	public GiClientSession createClientSession(AARequest request) throws AvpNotSupportedException
 	{
-		return new GiAuthClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
+		return new GiClientSessionImpl(true, request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public GiAuthServerSession createServerSession(AARequest request) throws AvpNotSupportedException
+	public GiServerSession createServerSession(AARequest request) throws AvpNotSupportedException
 	{
-		return new GiAuthServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
+		return new GiServerSessionImpl(true, request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 }

@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.e4;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.e4.E4Request;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListe
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener
+public interface ClientListener extends ClientAuthStatelessListener<E4Request>
 {
 }

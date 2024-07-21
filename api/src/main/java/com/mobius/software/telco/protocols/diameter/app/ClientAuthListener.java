@@ -3,9 +3,13 @@ package com.mobius.software.telco.protocols.diameter.app;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.SessionListener;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -114,13 +118,13 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerm
       
       Discon    STA received                   Discon.      Idle
  */
-public interface ClientAuthListener<A1 extends DiameterAnswer,R2 extends ReAuthRequest,R3 extends AbortSessionRequest,A4 extends SessionTerminationAnswer> extends SessionListener
+public interface ClientAuthListener<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends SessionListener
 {
-	void onInitialAnswer(A1 answer,AsyncCallback callback);
+	void onInitialAnswer(A1 answer,ClientAuthSession<R1,A2,A3,R4> session,AsyncCallback callback);
 	
-	void onReauthRequest(R2 request,AsyncCallback callback);
+	void onReauthRequest(R2 request,ClientAuthSession<R1,A2,A3,R4> session,AsyncCallback callback);
 	
-	void onSessionTerminationAnswer(A4 answer,AsyncCallback callback);
+	void onSessionTerminationAnswer(A4 answer,ClientAuthSession<R1,A2,A3,R4> session,AsyncCallback callback);
 	
-	void onAbortSessionRequest(R3 request,AsyncCallback callback);
+	void onAbortSessionRequest(R3 request,ClientAuthSession<R1,A2,A3,R4> session,AsyncCallback callback);
 }

@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 
 /*
@@ -52,11 +53,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
       Open      Service to user is terminated  Discon.      Idle
                                                user/device
  */
-public interface ClientAuthSessionStateless<R1 extends DiameterRequest>
+public interface ClientAuthSessionStateless<R1 extends DiameterRequest> extends DiameterSession
 {
 	void sendInitialRequest(R1 request,AsyncCallback callback);
-	
-	SessionStateEnum getSessionState();
-	
-	void terminate();
 }

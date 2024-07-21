@@ -23,9 +23,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeviceAction;
 
@@ -57,12 +54,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeviceAction;
 
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.TSP, commandCode = CommandCodes.DEVICE_ACTION, request = true, proxyable = true, name="Device-Action-Request")
-public interface DeviceActionRequest extends AuthenticationRequest
+public interface DeviceActionRequest extends TspRequest
 {	
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
-	
 	public DeviceAction getDeviceAction();
 	
 	void setDeviceAction(DeviceAction value);

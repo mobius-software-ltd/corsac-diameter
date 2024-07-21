@@ -1,6 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,25 +10,13 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMI
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFAtoHASPIImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFAtoMNSPIImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHomeAgentAddressImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMobileNodeAddressImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPRegReplyImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoHASPI;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoMNSPI;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMobileNodeAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPRegReply;
-
-import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -55,18 +42,8 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class HomeAgentMIPAnswerImpl extends DiameterAnswerWithSessionBase implements HomeAgentMIPAnswer
+public class HomeAgentMIPAnswerImpl extends Rfc4004AnswerImpl implements HomeAgentMIPAnswer
 {
-	private AuthApplicationId authApplicationId;
-	
-	private AcctMultiSessionId acctMultiSessionId;
-	
-	private MIPRegReply mipRegReply;
-	
-	private MIPHomeAgentAddress mipHomeAgentAddress;
-	
-	private MIPMobileNodeAddress mipMobileNodeAddress;
-	
 	private MIPFAtoHASPI mipFAtoHASPI;
 	
 	private MIPFAtoMNSPI mipFAtoMNSPI;
@@ -79,100 +56,8 @@ public class HomeAgentMIPAnswerImpl extends DiameterAnswerWithSessionBase implem
 	
 	public HomeAgentMIPAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);
-		
-		setAuthApplicationId(authApplicationId);
-	}
-
-	@Override
-	public Long getAuthApplicationId() 
-	{
-		if(authApplicationId == null)
-			return null;
-		
-		return authApplicationId.getUnsigned();
-	}
-
-	@Override
-	public void setAuthApplicationId(Long value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
-			
-		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
-	}
-	
-	@Override
-	public String getAcctMultiSessionId() 
-	{
-		if(acctMultiSessionId == null)
-			return null;
-		
-		return acctMultiSessionId.getString();
-	}
-	
-	@Override
-	public void setAcctMultiSessionId(String value)
-	{
-		if(value == null)
-			this.acctMultiSessionId = null;
-		else
-			this.acctMultiSessionId = new AcctMultiSessionIdImpl(value, null, null);
-	}
-	
-	@Override
-	public ByteBuf getMIPRegReply() 
-	{
-		if(mipRegReply == null)
-			return null;
-		
-		return mipRegReply.getValue();
-	}
-	
-	@Override
-	public void setMIPRegReply(ByteBuf value)
-	{
-		if(value == null)
-			this.mipRegReply = null;
-		else
-			this.mipRegReply = new MIPRegReplyImpl(value, null, null);
-	}
-	
-	@Override
-	public InetAddress getMIPHomeAgentAddress()
-	{
-		if(mipHomeAgentAddress == null)
-			return null;
-		
-		return mipHomeAgentAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPHomeAgentAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipHomeAgentAddress = null;
-		else
-			this.mipHomeAgentAddress = new MIPHomeAgentAddressImpl(value, null, null);
-	}
-	
-	@Override
-	public InetAddress getMIPMobileNodeAddress()
-	{
-		if(mipMobileNodeAddress == null)
-			return null;
-		
-		return mipMobileNodeAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPMobileNodeAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipMobileNodeAddress = null;
-		else
-			this.mipMobileNodeAddress = new MIPMobileNodeAddressImpl(value, null, null);
 	}
 	
 	@Override

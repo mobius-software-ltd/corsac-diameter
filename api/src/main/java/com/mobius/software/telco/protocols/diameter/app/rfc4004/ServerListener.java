@@ -1,6 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.app.rfc4004;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Answer;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -24,6 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListe
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener
+
+public interface ServerListener extends ServerAuthStatelessListener<Rfc4004Answer>
 {
 }

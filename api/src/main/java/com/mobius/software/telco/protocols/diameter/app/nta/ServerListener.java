@@ -19,7 +19,8 @@ import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListe
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+import com.mobius.software.telco.protocols.diameter.commands.nta.NtaAnswer;
 
-public interface ServerListener extends ServerAuthStatelessListener
+public interface ServerListener extends ServerAuthStatelessListener<NtaAnswer>
 {
 }

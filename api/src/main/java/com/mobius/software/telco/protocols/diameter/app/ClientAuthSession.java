@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
@@ -113,7 +114,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerm
       
       Discon    STA received                   Discon.      Idle
  */
-public interface ClientAuthSession<R1 extends DiameterRequest,A2 extends ReAuthAnswer,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest>
+public interface ClientAuthSession<R1 extends DiameterRequest,A2 extends ReAuthAnswer,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest> extends DiameterSession
 {
 	void sendInitialRequest(R1 request,AsyncCallback callback);
 	
@@ -122,8 +123,4 @@ public interface ClientAuthSession<R1 extends DiameterRequest,A2 extends ReAuthA
 	void sendSessionTerminationRequest(R4 request,AsyncCallback callback);
 	
 	void sendAbortSessionAnswer(A3 answer,AsyncCallback callback);
-	
-	SessionStateEnum getSessionState();
-	
-	void terminate();
 }

@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
 
 /*
@@ -70,11 +71,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingA
       Open      Session supervision timer Ts   Stop Ts      Idle
                 expired
  */
-public interface ServerAccSession<A1 extends AccountingAnswer>
+public interface ServerAccSession<A1 extends AccountingAnswer> extends DiameterSession
 {
 	void sendAccountingResponse(A1 answer,AsyncCallback callback);
-	
-	SessionStateEnum getSessionState();
-	
-	void terminate();
 }

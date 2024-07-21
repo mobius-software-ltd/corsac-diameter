@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.SessionListener;
+import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
 
 /*
@@ -71,7 +72,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingR
       Open      Session supervision timer Ts   Stop Ts      Idle
                 expired
  */
-public interface ServerAccListener<R1 extends AccountingRequest> extends SessionListener
+public interface ServerAccListener<R1 extends AccountingRequest,A1 extends AccountingAnswer> extends SessionListener
 {
-	void onAccountingRequest(R1 request,AsyncCallback callback);
+	void onAccountingRequest(R1 request,ServerAccSession<A1> session,AsyncCallback callback);
 }

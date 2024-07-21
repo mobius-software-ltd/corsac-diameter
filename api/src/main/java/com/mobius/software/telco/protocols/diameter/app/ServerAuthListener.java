@@ -2,9 +2,13 @@ package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.SessionListener;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
 
 /*
@@ -92,13 +96,13 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerm
       Any       STR Received                   Send STA,    Idle
                                                Clean up                                                           
  */
-public interface ServerAuthListener<R1 extends DiameterRequest,A2 extends ReAuthAnswer,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest> extends SessionListener
+public interface ServerAuthListener<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends SessionListener
 {
-	void onInitialRequest(R1 request,AsyncCallback callback);
+	void onInitialRequest(R1 request,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
 	
-	void onReauthAnswer(A2 answer,AsyncCallback callback);
+	void onReauthAnswer(A2 answer,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
 	
-	void onSessionTerminationRequest(R4 request,AsyncCallback callback);
+	void onSessionTerminationRequest(R4 request,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
 	
-	void onAbortSessionAnswer(A3 answer,AsyncCallback callback);
+	void onAbortSessionAnswer(A3 answer,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
 }

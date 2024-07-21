@@ -1,9 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.app.s9atag;
 
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.commands.s9atag.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s9atag.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s9atag.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9atag.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s9atag.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s9atag.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s9atag.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9atag.SessionTerminationRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -28,6 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s9atag.SessionTermi
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
+public interface ServerListener extends ServerCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }

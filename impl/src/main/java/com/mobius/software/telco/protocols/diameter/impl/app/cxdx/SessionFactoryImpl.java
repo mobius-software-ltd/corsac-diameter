@@ -21,19 +21,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.cxdx;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxLocationInfoClientSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxLocationInfoServerSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxMultimediaAuthClientSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxMultimediaAuthServerSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxPushProfileClientSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxPushProfileServerSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxRegistrationTerminationClientSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxRegistrationTerminationServerSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxServerAssignmentClientSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxServerAssignmentServerSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxUserAuthorizationClientSession;
-import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxUserAuthorizationServerSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxClientSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxServerSession;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.SessionFactory;
+import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.MultimediaAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.PushProfileRequest;
@@ -49,82 +41,82 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 public class SessionFactoryImpl implements SessionFactory
 {
 	//since we have multiple requests/
-	private DiameterProvider<? extends ClientAuthStatelessListener, ? extends ServerAuthStatelessListener,?, ?, ?> provider;
+	private DiameterProvider<? extends ClientAuthStatelessListener<CxDxRequest>, ? extends ServerAuthStatelessListener<CxDxAnswer>,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener, ? extends ServerAuthStatelessListener,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener<CxDxRequest>, ? extends ServerAuthStatelessListener<CxDxAnswer>,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}
 
 	@Override
-	public CxDxLocationInfoClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException
+	public CxDxClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxLocationInfoClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new CxDxClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
-	public CxDxLocationInfoServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException
+	public CxDxServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxLocationInfoServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		return new CxDxServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
-	public CxDxMultimediaAuthClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException
+	public CxDxClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxMultimediaAuthClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new CxDxClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
-	public CxDxMultimediaAuthServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException
+	public CxDxServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxMultimediaAuthServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		return new CxDxServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
-	public CxDxPushProfileClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException
+	public CxDxClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxPushProfileClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new CxDxClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
-	public CxDxPushProfileServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException
+	public CxDxServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxPushProfileServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		return new CxDxServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
-	public CxDxRegistrationTerminationClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
+	public CxDxClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxRegistrationTerminationClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new CxDxClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
-	public CxDxRegistrationTerminationServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
+	public CxDxServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxRegistrationTerminationServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		return new CxDxServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
-	public CxDxServerAssignmentClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException
+	public CxDxClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxServerAssignmentClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new CxDxClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
-	public CxDxServerAssignmentServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException
+	public CxDxServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxServerAssignmentServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		return new CxDxServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 
 	@Override
-	public CxDxUserAuthorizationClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException
+	public CxDxClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxUserAuthorizationClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new CxDxClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 
 	@Override
-	public CxDxUserAuthorizationServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException
+	public CxDxServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException
 	{
-		return new CxDxUserAuthorizationServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
+		return new CxDxServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(), provider);
 	}
 }

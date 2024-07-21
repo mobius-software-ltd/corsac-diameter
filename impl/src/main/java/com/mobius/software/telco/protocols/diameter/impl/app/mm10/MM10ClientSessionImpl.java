@@ -30,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionSt
 */
 public class MM10ClientSessionImpl extends ClientAuthSessionStatelessImpl<MessageProcessRequest, MessageProcessAnswer> implements MM10ClientSession
 {
-	public MM10ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider)
+	public MM10ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<MessageProcessRequest>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 	}

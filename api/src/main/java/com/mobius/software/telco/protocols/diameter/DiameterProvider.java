@@ -32,12 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 */
 public interface DiameterProvider<L1 extends SessionListener,L2 extends SessionListener,A,M,F> extends NetworkListener
 {
-	void removeSession(String sessionId);
-	
-	void storeSession(DiameterSession session);
-	
-	DiameterSession getSession(String sessionId);
-	
 	A getAvpFactory();
 	
 	M getMessageFactory();
@@ -56,19 +50,7 @@ public interface DiameterProvider<L1 extends SessionListener,L2 extends SessionL
 	
 	Map<ClusteredID<?>,L2> getServerListeners();
 	
-	DiameterStack getStack();
-	
-	void restartIdleTimer(DiameterSession session, Long newTime);
-	
-	void stopIdleTimer(ClusteredID<?> timerID);
-	
-	void startIdleTimer(DiameterSession session, Long idleTime);
-	
-	void restartSendTimer(DiameterSession session);
-	
-	void stopSendTimer(ClusteredID<?> timerID);
-	
-	void startSendTimer(DiameterSession session);
+	DiameterStack getStack();	
 	
 	DiameterSession getNewSession(DiameterRequest message);
 }

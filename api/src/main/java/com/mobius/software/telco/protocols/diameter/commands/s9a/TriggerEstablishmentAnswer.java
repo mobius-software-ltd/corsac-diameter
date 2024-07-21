@@ -57,7 +57,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
                *[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.S9A, commandCode = CommandCodes.TRIGGER_ESTABLIHMENT, request = false, proxyable = true, name="Trigger-Establishment-Answer")
-public interface TriggerEstablishmentAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer
+public interface TriggerEstablishmentAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer
 {
 	DRMPEnum getDRMP();
 	

@@ -63,4 +63,6 @@ public interface DiameterStack
 	Long getFirmwareRevision();
 	
 	void stop();
+	
+	DiameterSessionStorage getSessionStorage();
 }

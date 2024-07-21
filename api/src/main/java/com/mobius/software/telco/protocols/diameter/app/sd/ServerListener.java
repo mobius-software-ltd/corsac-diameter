@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.app.sd;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sd.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -30,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
+public interface ServerListener extends ServerAuthListener<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>,ServerCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
-	void onInitialRequest(TDFSessionRequest request) throws DiameterException;
 }

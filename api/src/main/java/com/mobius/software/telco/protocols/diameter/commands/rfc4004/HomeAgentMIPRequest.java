@@ -18,23 +18,16 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.net.InetAddress;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoFAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoMNMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoFAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoHAMSA;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPOriginatingForeignAAA;
-
-import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -92,24 +85,8 @@ import io.netty.buffer.ByteBuf;
                                     * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.HOME_AGENT_MIP, request = true, proxyable = true, name="Home-Agent-MIP-Request")
-public interface HomeAgentMIPRequest extends AuthenticationRequest
+public interface HomeAgentMIPRequest extends Rfc4004Request
 {
-	Long getAuthorizationLifetime();
-	
-	void setAuthorizationLifetime(Long value) throws MissingAvpException;	
-	
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
-	
-	ByteBuf getMIPRegRequest();
-	
-	void setMIPRegRequest(ByteBuf value) throws MissingAvpException;
-	
-	public Long getMIPFeatureVector();
-	
-	void setMIPFeatureVector(Long value) throws MissingAvpException;
-	
 	MIPMNtoHAMSA getMIPMNtoHAMSA();
 	
 	void setMIPMNtoHAMSA(MIPMNtoHAMSA value);
@@ -128,19 +105,7 @@ public interface HomeAgentMIPRequest extends AuthenticationRequest
 	
 	Long getMIPMSALifetime();
 	
-	void setMIPMSALifetime(Long value);
-	
-	public MIPOriginatingForeignAAA getMIPOriginatingForeignAAA();
-	
-	void setMIPOriginatingForeignAAA(MIPOriginatingForeignAAA value);	
-	
-	public InetAddress getMIPMobileNodeAddress();
-	
-	void setMIPMobileNodeAddress(InetAddress value);
-	
-	public InetAddress getMIPHomeAgentAddress();
-	
-	void setMIPHomeAgentAddress(InetAddress value);
+	void setMIPMSALifetime(Long value);		
 	
 	List<MIPFilterRule> getMIPFilterRule();
 	

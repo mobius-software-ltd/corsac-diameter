@@ -53,17 +53,17 @@ public class CxDxProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 		try
 		{
 			if(message instanceof LocationInfoRequest)
-				return new CxDxLocationInfoServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof MultimediaAuthRequest)
-				return new CxDxMultimediaAuthServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof PushProfileRequest)
-				return new CxDxPushProfileServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof RegistrationTerminationRequest)
-				return new CxDxRegistrationTerminationServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof ServerAssignmentRequest)
-				return new CxDxServerAssignmentServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof UserAuthorizationRequest)
-				return new CxDxUserAuthorizationServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)
 		{			

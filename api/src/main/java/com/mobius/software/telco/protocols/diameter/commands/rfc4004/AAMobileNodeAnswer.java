@@ -18,14 +18,11 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.net.InetAddress;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoHAMSA;
@@ -34,8 +31,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFilter
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoMNMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoFAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoHAMSA;
-
-import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -97,16 +92,8 @@ import io.netty.buffer.ByteBuf;
                                    * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.AA_MOBILE_NODE, request = false, proxyable = true, name="AA-Mobile-Node-Answer")
-public interface AAMobileNodeAnswer extends DiameterAnswer
+public interface AAMobileNodeAnswer extends Rfc4004Answer
 {
-	Long getAuthApplicationId();
-	
-	void setAuthApplicationId(Long value) throws MissingAvpException;
-	
-	String getAcctMultiSessionId();
-	
-	void setAcctMultiSessionId(String value);
-	
 	Long getAuthorizationLifetime();
 	
 	void setAuthorizationLifetime(Long value);	
@@ -122,10 +109,6 @@ public interface AAMobileNodeAnswer extends DiameterAnswer
 	Long getMIPFeatureVector();
 	
 	void setMIPFeatureVector(Long value);
-	
-	ByteBuf getMIPRegReply();
-	
-	void setMIPRegReply(ByteBuf value);
 	
 	MIPMNtoFAMSA getMIPMNtoFAMSA();
 	
@@ -150,14 +133,6 @@ public interface AAMobileNodeAnswer extends DiameterAnswer
 	Long getMIPMSALifetime();
 	
 	void setMIPMSALifetime(Long value);
-	
-	InetAddress getMIPHomeAgentAddress();
-	
-	void setMIPHomeAgentAddress(InetAddress value);
-	
-	InetAddress getMIPMobileNodeAddress();
-	
-	void setMIPMobileNodeAddress(InetAddress value);
 	
 	List<MIPFilterRule> getMIPFilterRule();
 	
