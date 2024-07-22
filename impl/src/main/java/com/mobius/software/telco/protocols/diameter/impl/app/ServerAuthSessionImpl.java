@@ -53,6 +53,12 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	@Override
 	public void sendInitialAnswer(A1 answer, AsyncCallback callback)
 	{
+		if(getSessionState()!=null && getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN)
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		final Long startTime = System.currentTimeMillis();
 		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
@@ -84,6 +90,12 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	@Override
 	public void sendReauthRequest(R2 request, AsyncCallback callback)
 	{
+		if(getSessionState()==null || (getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN))			
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		final Long startTime = System.currentTimeMillis();
 		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
@@ -107,6 +119,12 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	@Override
 	public void sendSessionTerminationAnswer(A4 answer, AsyncCallback callback)
 	{
+		if(getSessionState()==null || (getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN))
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		final Long startTime = System.currentTimeMillis();
 		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
@@ -129,6 +147,12 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	@Override
 	public void sendAbortSessionRequest(R3 request, AsyncCallback callback)
 	{
+		if(getSessionState()==null || (getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN))
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		final Long startTime = System.currentTimeMillis();
 		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{
@@ -198,6 +222,16 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	@Override
 	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
 	{
+		try
+		{
+			validateAnswer(answer);
+		}
+		catch(DiameterException ex)
+		{
+			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
+			return;
+		}
+		
 		DiameterRequest request = getLastSendRequest();
 		if(request!=null)
 		{

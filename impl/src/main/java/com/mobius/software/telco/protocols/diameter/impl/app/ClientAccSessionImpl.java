@@ -56,6 +56,12 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	@Override
 	public void sendAccountingRequest(R1 request, AsyncCallback callback)
 	{
+		if(getSessionState()!=null && getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN)
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		try
 		{
 			request.setSessionId(getID());
@@ -100,6 +106,16 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	@Override
 	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
 	{
+		try
+		{
+			validateAnswer(answer);
+		}
+		catch(DiameterException ex)
+		{
+			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
+			return;
+		}
+		
 		DiameterRequest request = getLastSendRequest();
 		Long newTime = null;
 		if(request!=null)

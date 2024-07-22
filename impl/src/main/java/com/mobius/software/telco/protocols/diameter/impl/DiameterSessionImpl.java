@@ -25,10 +25,12 @@ import org.restcomm.cluster.ClusteredID;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
+import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.SessionListener;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 
 /**
 *
@@ -249,5 +251,17 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	public void setLastSentRequest(DiameterRequest request)
 	{
 		this.lastSentRequest = request;
+	}
+	
+	protected void validateAnswer(DiameterAnswer answer) throws DiameterException
+	{
+		if(lastSentRequest==null)
+			throw new DiameterException("Request has not been found for this answer", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+		
+		if(!lastSentRequest.getEndToEndIdentifier().equals(answer.getEndToEndIdentifier()))
+			throw new DiameterException("Unexpected end to end identifier", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+		
+		if(!lastSentRequest.getHopByHopIdentifier().equals(answer.getHopByHopIdentifier()))
+			throw new DiameterException("Unexpected hop to hop identifier", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);		
 	}
 }

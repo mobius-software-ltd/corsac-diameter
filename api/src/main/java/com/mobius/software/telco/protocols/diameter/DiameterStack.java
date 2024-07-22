@@ -44,6 +44,10 @@ public interface DiameterStack
 	
 	void setIdleTimeout(Long value);
 	
+	Long getDuplicatesTimeout();
+	
+	Long getDuplicatesCheckPeriod();
+	
 	String generateNewSessionID();
 	
 	void sendRequest(DiameterRequest message,AsyncCallback callback);
@@ -65,4 +69,6 @@ public interface DiameterStack
 	void stop();
 	
 	DiameterSessionStorage getSessionStorage();
+	
+	IncomingRequestsStorage getRequestsStorage();
 }

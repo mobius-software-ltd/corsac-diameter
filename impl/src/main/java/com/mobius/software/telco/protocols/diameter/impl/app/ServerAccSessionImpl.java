@@ -50,6 +50,12 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	@Override
 	public void sendAccountingResponse(A1 answer, AsyncCallback callback)
 	{
+		if(getSessionState()!=null && getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN)
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		final Long startTime = System.currentTimeMillis();
 		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
 		{

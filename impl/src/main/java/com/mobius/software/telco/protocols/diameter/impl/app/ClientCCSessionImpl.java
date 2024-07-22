@@ -63,6 +63,12 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void sendInitialRequest(R1 request, AsyncCallback callback)
 	{
+		if(getSessionState()!=null && getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN)
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		try
 		{
 			request.setSessionId(getID());
@@ -99,6 +105,12 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void sendReauthAnswer(A2 answer, AsyncCallback callback)
 	{
+		if(getSessionState()==null || (getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN))
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		try
 		{
 			answer.setSessionId(getID());
@@ -129,6 +141,12 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void sendSessionTerminationRequest(R4 request, AsyncCallback callback)
 	{
+		if(getSessionState()==null || (getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN))
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		try
 		{
 			request.setSessionId(getID());
@@ -161,6 +179,12 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void sendAbortSessionAnswer(A3 answer, AsyncCallback callback)
 	{
+		if(getSessionState()==null || (getSessionState()!=SessionStateEnum.IDLE && getSessionState()!=SessionStateEnum.OPEN))
+		{
+			callback.onError(new DiameterException("session state is invalid, can not send message", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}
+		
 		try
 		{
 			answer.setSessionId(getID());
@@ -239,6 +263,16 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
 	{
+		try
+		{
+			validateAnswer(answer);
+		}
+		catch(DiameterException ex)
+		{
+			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
+			return;
+		}
+		
 		DiameterRequest request = getLastSendRequest();
 		Long newTime = null;
 		if(request!=null)

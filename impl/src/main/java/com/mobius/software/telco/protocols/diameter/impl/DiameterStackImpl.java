@@ -30,6 +30,7 @@ import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSessionStorage;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
+import com.mobius.software.telco.protocols.diameter.IncomingRequestsStorage;
 import com.mobius.software.telco.protocols.diameter.NetworkManager;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
@@ -55,10 +56,14 @@ public class DiameterStackImpl implements DiameterStack
 	
 	private ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>> registeredProviders=new ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>>();
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
+	
 	private DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
+	private IncomingRequestsStorage incomingRequestsStorage;
 	
 	private Long responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
 	private Long idleTimeout = DEFAULT_IDLE_TIMEOUT;
+	private Long duplicateTimeout = 0L;
+	private Long duplicatesCheckPeriod = 0L;
 	
 	private WorkerPool workerPool;
 	private IDGenerator<?> idGenerator;
@@ -73,10 +78,10 @@ public class DiameterStackImpl implements DiameterStack
 	private String productName;
 	private Long vendorId;
 	private AtomicLong hopByHopCounter=new AtomicLong(System.currentTimeMillis());
-	private Long originalStateId = hopByHopCounter.get();
+	private Long originalStateId = hopByHopCounter.get() % 0x100000000L;
 	private Long firmwareRevision;
 	
-	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout) throws Exception
+	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
 	{
 		this.idGenerator = idGenerator;
 		this.workerPool = workerPool;
@@ -88,6 +93,13 @@ public class DiameterStackImpl implements DiameterStack
 		if(responseTimeout !=null)
 			this.responseTimeout = responseTimeout;
 		
+		if(duplicatesCheckPeriod!=null)
+			this.duplicatesCheckPeriod = duplicatesCheckPeriod;
+		
+		if(this.duplicateTimeout!=null)
+			this.duplicateTimeout = duplicateTimeout;
+		
+		this.incomingRequestsStorage = new LocalIncomingRequestsStorageImpl(this);
 		this.networkManager = new NetworkManagerImpl(this, workerThreads, idleTimeout, this.responseTimeout, reconnectTimeout);
 		this.stackID = idGenerator.generateID();
 	}
@@ -355,7 +367,7 @@ public class DiameterStackImpl implements DiameterStack
 	@Override
 	public Long getNextHopByHopIdentifier()
 	{
-		return hopByHopCounter.incrementAndGet();
+		return hopByHopCounter.incrementAndGet() % 0x100000000L;
 	}
 
 	@Override
@@ -386,5 +398,23 @@ public class DiameterStackImpl implements DiameterStack
 	public DiameterSessionStorage getSessionStorage()
 	{
 		return sessionStorage;
+	}
+
+	@Override
+	public Long getDuplicatesTimeout()
+	{
+		return this.duplicateTimeout;
+	}
+
+	@Override
+	public Long getDuplicatesCheckPeriod()
+	{
+		return this.duplicatesCheckPeriod;
+	}
+
+	@Override
+	public IncomingRequestsStorage getRequestsStorage()
+	{
+		return this.incomingRequestsStorage;
 	}
 }
