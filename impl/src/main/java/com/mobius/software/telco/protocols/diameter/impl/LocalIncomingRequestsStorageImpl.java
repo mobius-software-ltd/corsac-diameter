@@ -65,9 +65,12 @@ public class LocalIncomingRequestsStorageImpl implements IncomingRequestsStorage
 		result = new DiameterAnswerData(System.currentTimeMillis());
 		DiameterAnswerData oldResult = hostMap.putIfAbsent(request.getHopByHopIdentifier(), result);
 		if(oldResult!=null)
+		{
 			result = oldResult;
+			return result;
+		}
 		
-		return result;
+		return null;
 	}
 
 	@Override

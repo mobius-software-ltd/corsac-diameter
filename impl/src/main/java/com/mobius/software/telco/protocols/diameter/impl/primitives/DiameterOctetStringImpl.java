@@ -100,7 +100,9 @@ public class DiameterOctetStringImpl extends DiameterAvpImpl implements Diameter
 		if(value==null)
 			return;
 		
+		value.markReaderIndex();
 		buffer.writeBytes(value);
+		value.resetReaderIndex();
 		if(padding.readableBytes()>0)
 		{
 			buffer.writeBytes(padding);

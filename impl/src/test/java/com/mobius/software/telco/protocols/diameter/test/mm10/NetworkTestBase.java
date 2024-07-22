@@ -67,7 +67,7 @@ public class NetworkTestBase
 		serverStack.getNetworkManager().startLink(localLinkID);		
 	}
 	
-	public void setupLocal() throws Exception
+	public void setupLocal(Long duplicateTimeout,Long duplicatePeriod) throws Exception
 	{
 		if(workerPool==null)
 		{
@@ -79,7 +79,7 @@ public class NetworkTestBase
 		@SuppressWarnings("unused")
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.mm10.MessageProcessRequestImpl.class;
 		
-		localStack=new DiameterStackImpl(generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, 0L, 0L);
+		localStack=new DiameterStackImpl(generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868,  InetAddress.getByName("127.0.0.1"), 13868, false, true, "127.0.0.1", "client.mobius-software.com", "127.0.0.1", "server.mobius-software.com", false);
 		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.MM10) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.mm10"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.mm10"));
 		localStack.getNetworkManager().startLink(localLinkID);		

@@ -67,7 +67,7 @@ public class MM10Test extends NetworkTestBase
 	public void testEvent() throws Exception
 	{
 		super.setupRemote();
-		super.setupLocal();
+		super.setupLocal(0L,0L);
 		
 		final AtomicLong mpaReceived=new AtomicLong(0L);
 		final AtomicLong mpaReceivedByListener=new AtomicLong(0L);
@@ -241,6 +241,203 @@ public class MM10Test extends NetworkTestBase
 		assertEquals(mpaReceived.get() , 1L);
 		assertEquals(mpaReceivedByListener.get() , 1L);
 		assertEquals(mprReceived.get() , 1L);
+		assertEquals(mprReceivedByListener.get() , 1L);
+		assertEquals(timeoutReceived.get() , 0L);
+	}
+	
+	@Test
+	public void testDuplicateEvent() throws Exception
+	{
+		super.setupRemote();
+		super.setupLocal(1000L,2000L);
+		
+		final AtomicLong mpaReceived=new AtomicLong(0L);
+		final AtomicLong mpaReceivedByListener=new AtomicLong(0L);
+		final AtomicLong mprReceived=new AtomicLong(0L);
+		final AtomicLong mprReceivedByListener=new AtomicLong(0L);
+		final AtomicLong timeoutReceived=new AtomicLong(0L);
+		
+		DiameterStack localStack = this.localStack;
+		DiameterStack serverStack = this.serverStack;
+		
+		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
+		{
+			@Override
+			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			{
+				if(message instanceof MessageProcessAnswer)
+					mprReceived.incrementAndGet();				
+			}
+		});
+		
+		serverStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
+		{
+			@Override
+			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			{
+				if(message instanceof MessageProcessRequest)
+					mpaReceived.incrementAndGet();				
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(reconnectTimeout * 2);
+		}
+		catch(InterruptedException ex)
+		{
+			
+		}
+		
+		MM10ProviderImpl provider = (MM10ProviderImpl)localStack.getProvider(Long.valueOf(ApplicationIDs.MM10), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.mm10"));
+		ClusteredID<?> listenerID=generator.generateID();
+		provider.setClientListener(listenerID, new ClientListener()
+		{
+			@Override
+			public void onTimeout()
+			{
+				timeoutReceived.incrementAndGet();
+			}
+			
+			@Override
+			public void onIdleTimeout()
+			{
+				timeoutReceived.incrementAndGet();
+			}
+
+			@Override
+			public void onInitialAnswer(DiameterAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, AsyncCallback callback)
+			{
+				if(answer instanceof MessageProcessAnswer)
+					mpaReceivedByListener.incrementAndGet();
+			}
+		});
+		
+		MM10ProviderImpl serverProvider = (MM10ProviderImpl)serverStack.getProvider(Long.valueOf(ApplicationIDs.MM10), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.mm10"));
+		serverProvider.setServerListener(listenerID, new ServerListener()
+		{
+			@Override
+			public void onTimeout()
+			{
+				timeoutReceived.incrementAndGet();
+			}
+			
+			@Override
+			public void onIdleTimeout()
+			{
+				timeoutReceived.incrementAndGet();
+			}
+
+			@Override
+			public void onInitialRequest(DiameterRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, AsyncCallback callback)
+			{
+				if(request instanceof MessageProcessRequest)
+				{
+					mprReceivedByListener.incrementAndGet();
+					MessageProcessRequest mpr=(MessageProcessRequest)request;
+					try
+					{
+						MessageProcessAnswer mpa = serverProvider.getMessageFactory().createMessageProcessAnswer(mpr, mpr.getHopByHopIdentifier(), mpr.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
+						session.sendInitialAnswer(mpa, new AsyncCallback()
+						{
+							@Override
+							public void onSuccess()
+							{
+								
+							}
+							
+							@Override
+							public void onError(DiameterException ex)
+							{
+								logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
+							}
+						});
+					}
+					catch(DiameterException ex)
+					{
+						logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
+					}
+				}
+			}
+		});
+		
+		//usually its not needed to get link, here we use it to read hosts/realms
+		DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
+		Date eventTimestamp=new Date();
+		ServedUserIdentity sui = provider.getAvpFactory().getServedUserIdentity();
+		sui.setMSISDN("12345");
+		
+		InitialRecipientAddress ira = provider.getAvpFactory().getInitialRecipientAddress(1L, "1234");
+		List<InitialRecipientAddress> initialRecipientAddresses = new ArrayList<>();
+		initialRecipientAddresses.add(ira);
+
+		MessageProcessRequest request = provider.getMessageFactory().createMessageProcessRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), eventTimestamp, TriggerEventEnum.MM1_DELIVERY, sui, initialRecipientAddresses, OriginatingInterfaceEnum.MM7);
+		MM10ClientSession clientSession = (MM10ClientSession)provider.getSessionFactory().createClientSession(request);
+		clientSession.sendInitialRequest(request, new AsyncCallback()
+		{
+			@Override
+			public void onSuccess()
+			{
+			}
+			
+			@Override
+			public void onError(DiameterException ex)
+			{
+				logger.error("An error occured while sending Message Process Request," + ex.getMessage(),ex);
+			}
+		});
+		
+		try
+		{
+			Thread.sleep(responseTimeout);
+		}
+		catch(InterruptedException ex)
+		{
+			
+		}
+		
+		assertEquals(clientSession.getSessionState(),SessionStateEnum.IDLE);
+		
+		localLink.sendMessage(request, new AsyncCallback()
+		{
+			@Override
+			public void onSuccess()
+			{
+				
+			}
+			
+			@Override
+			public void onError(DiameterException ex)
+			{
+				
+			}
+		});
+		
+		//make sure no timeout is processed
+		try
+		{
+			Thread.sleep(idleTimeout * 2);
+		}
+		catch(InterruptedException ex)
+		{
+			
+		}
+		
+		super.stopLocal();
+		super.stopRemote();
+		
+		try
+		{
+			Thread.sleep(responseTimeout);
+		}
+		catch(InterruptedException ex)
+		{
+			
+		}
+		
+		assertEquals(mpaReceived.get() , 1L);
+		assertEquals(mpaReceivedByListener.get() , 1L);
+		assertEquals(mprReceived.get() , 2L);
 		assertEquals(mprReceivedByListener.get() , 1L);
 		assertEquals(timeoutReceived.get() , 0L);
 	}

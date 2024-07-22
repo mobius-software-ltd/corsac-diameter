@@ -33,6 +33,7 @@ import org.restcomm.protocols.api.Association;
 
 import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterAnswerData;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
@@ -41,6 +42,7 @@ import com.mobius.software.telco.protocols.diameter.PeerStateEnum;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeAnswer;
@@ -341,6 +343,31 @@ public class MessageProcessingTask implements Task
 					catch(DiameterException ex2)
 					{
 						logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
+					}
+				}
+				
+				if(message instanceof DiameterRequest)
+				{
+					DiameterRequest request = (DiameterRequest)message;
+					DiameterAnswerData answerData = stack.getRequestsStorage().incomingMessageReceived(request);
+					if(answerData!=null)
+					{
+						if(answerData.getAnswer()!=null)
+							link.sendMessage(answerData.getAnswer(), new AsyncCallback()
+							{
+								@Override
+								public void onSuccess()
+								{									
+								}
+								
+								@Override
+								public void onError(DiameterException ex)
+								{
+									logger.warn("An error occured while sending repeated answer," + ex.getMessage(),ex);
+								}
+							});
+						
+						return;
 					}
 				}
 				

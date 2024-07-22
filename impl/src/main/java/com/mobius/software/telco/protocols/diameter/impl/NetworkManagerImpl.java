@@ -284,6 +284,7 @@ public class NetworkManagerImpl implements NetworkManager
 	@Override
 	public void sendAnswer(DiameterAnswer answer, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
+		stack.getRequestsStorage().answerSent(destinationHost, answer);
 		sendMessage(answer, destinationHost, destinationRealm, callback);
 	}
 	
