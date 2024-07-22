@@ -65,7 +65,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class TgppMultipleServicesCreditControlImpl extends DiameterAvpImpl implements TGPPMultipleServicesCreditControl
+public class TGPPMultipleServicesCreditControlImpl extends DiameterAvpImpl implements TGPPMultipleServicesCreditControl
 {
 	private GrantedServiceUnit grantedServiceUnit;
 	
@@ -121,11 +121,11 @@ public class TgppMultipleServicesCreditControlImpl extends DiameterAvpImpl imple
 	
 	private RelatedTrigger relatedTrigger;
 	
-	protected TgppMultipleServicesCreditControlImpl() 
+	protected TGPPMultipleServicesCreditControlImpl() 
 	{
 	}
 	
-	public TgppMultipleServicesCreditControlImpl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication)
+	public TGPPMultipleServicesCreditControlImpl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication)
 	{
 		this.grantedServiceUnit = grantedServiceUnit;
 		
