@@ -23,12 +23,12 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.ericsson.AvpFactory;
 import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPPMultipleServicesCreditControlImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CCMoneyImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CostInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.FinalUnitIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GSUPoolReferenceImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GrantedServiceUnitImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.MultipleServicesCreditControlImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.QoSFinalUnitIndicationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RedirectServerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedServiceUnitImpl;
@@ -48,6 +48,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpFlag;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpOption;
 import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
@@ -55,7 +56,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Fin
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolReference;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoSFinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectServer;
@@ -82,9 +82,9 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ServiceParameterInfoImpl(serviceParameterType, serviceParameterValue);
 	}
 	
-	public MultipleServicesCreditControl getMultipleServicesCreditControl()
+	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication)
 	{
-		return new MultipleServicesCreditControlImpl();
+		return new TGPPMultipleServicesCreditControlImpl(grantedServiceUnit, requestedServiceUnit, usedServiceUnit, serviceIdentifier, ratingGroup, gsuPoolReference, validityTime, resultCode, finalUnitIndication);
 	}
 	
 	public UsedServiceUnit getUsedServiceUnit()
