@@ -19,16 +19,21 @@ package com.mobius.software.telco.protocols.diameter.app.gi;
  */
 import com.mobius.software.telco.protocols.diameter.app.ServerAccListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.commands.gi.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AARequest;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.gi.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.gi.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gi.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.gi.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.gi.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gi.SessionTerminationRequest;
 /**
 *
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAccListener<AccountingRequest>,ServerAuthListener<AARequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
+public interface ServerListener extends ServerAccListener<AccountingRequest,AccountingAnswer>,ServerAuthListener<AARequest, AAAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }

@@ -55,8 +55,8 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 */
 public class JDiameterStackWrapper extends StackImpl implements NetworkReqListener
 {
-	private static ApplicationId accountingApplicationID = ApplicationId.createByAccAppId(ApplicationIDs.ACCOUNTING);
-	private static ApplicationId creditControlApplicationID = ApplicationId.createByAuthAppId(ApplicationIDs.CREDIT_CONTROL);
+	public static ApplicationId accountingApplicationID = ApplicationId.createByAccAppId(ApplicationIDs.ACCOUNTING);
+	public static ApplicationId creditControlApplicationID = ApplicationId.createByAuthAppId(ApplicationIDs.CREDIT_CONTROL);
 	
 	private static Logger logger = LogManager.getLogger(JDiameterStackWrapper.class);
 	private RoSessionFactory roSessionFactory;

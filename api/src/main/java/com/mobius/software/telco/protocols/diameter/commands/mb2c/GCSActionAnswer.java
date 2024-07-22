@@ -23,14 +23,10 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerResponse;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIAllocationResponse;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIDeallocationResponse;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
 /**
@@ -70,16 +66,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
                 *[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.MB2C, commandCode = CommandCodes.GCS_ACTION, request = false, proxyable = true, name="GCS-Action-Answer")
-public interface GCSActionAnswer extends AuthenticationAnswer
+public interface GCSActionAnswer extends MB2CAnswer
 {
-	DRMPEnum getDRMP();
-	
-	void setDRMP(DRMPEnum value);
-	
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
-	
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
 	void setSupportedFeatures(List<SupportedFeatures> value);
@@ -96,11 +84,7 @@ public interface GCSActionAnswer extends AuthenticationAnswer
 	
 	void setMBMSBearerResponse(List<MBMSBearerResponse> value);
 	
-	public Long getRestartCounter();
-	
-	void setRestartCounter(Long value);
-	
-    List<Load> getLoad();
+	List<Load> getLoad();
        	 
     void setLoad(List<Load> value);
 }

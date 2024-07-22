@@ -3,6 +3,7 @@ package com.mobius.software.telco.protocols.diameter.app;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.SessionListener;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -53,7 +54,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
       Open      Service to user is terminated  Discon.      Idle
                                                user/device
  */
-public interface ClientAuthStatelessListener extends SessionListener
+public interface ClientAuthStatelessListener<R1 extends DiameterRequest> extends SessionListener
 {
-	void onInitialAnswer(DiameterAnswer answer,AsyncCallback callback);		
+	void onInitialAnswer(DiameterAnswer answer,ClientAuthSessionStateless<R1> session,AsyncCallback callback);		
 }

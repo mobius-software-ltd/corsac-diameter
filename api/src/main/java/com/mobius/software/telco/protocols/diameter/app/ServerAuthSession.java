@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
@@ -91,7 +92,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerm
       Any       STR Received                   Send STA,    Idle
                                                Clean up                                                           
  */
-public interface ServerAuthSession<A1 extends DiameterAnswer,R2 extends ReAuthRequest,R3 extends AbortSessionRequest,A4 extends SessionTerminationAnswer>
+public interface ServerAuthSession<A1 extends DiameterAnswer,R2 extends ReAuthRequest,R3 extends AbortSessionRequest,A4 extends SessionTerminationAnswer> extends DiameterSession
 {
 	void sendInitialAnswer(A1 answer,AsyncCallback callback);
 	

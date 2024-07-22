@@ -21,9 +21,6 @@ package com.mobius.software.telco.protocols.diameter.commands.tsp;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeviceNotification;
 
 /**
@@ -53,12 +50,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.tsp.DeviceNotific
 
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.TSP, commandCode = CommandCodes.DEVICE_NOTIFICATION, request = true, proxyable = true, name="Device-Notification-Request")
-public interface DeviceNotificationRequest extends AuthenticationRequest
+public interface DeviceNotificationRequest extends TspRequest
 {	
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
-	
 	public DeviceNotification getDeviceNotification();
 	
 	void setDeviceNotification(DeviceNotification value);

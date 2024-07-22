@@ -30,7 +30,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAccSessionImp
 */
 public class RfClientSessionImpl extends ClientAccSessionImpl<AccountingRequest, AccountingAnswer> implements RfClientSession
 {
-	public RfClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<AccountingAnswer>, ?, ?, ?, ?> provider)
+	public RfClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<AccountingRequest, AccountingAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 	}

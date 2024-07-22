@@ -115,7 +115,7 @@ public class DiameterOctetStringImpl extends DiameterAvpImpl implements Diameter
 			return new InvalidAvpLengthException("AVP Length is bigger then available data", Arrays.asList(new DiameterAvp[] { this }));
 		
 		value =  buffer.readSlice(length);		
-		this.padding = PADDINGS[value.readableBytes()%4];	
+		this.padding = PADDINGS[length%4];	
 		return null;
 	}
 	

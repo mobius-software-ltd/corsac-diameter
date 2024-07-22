@@ -43,8 +43,8 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 */
 public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerAuthSession<A1,R2,R3,A4>
 {
-	private DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider;
-	public ServerAuthSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider)
+	private DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider;
+	public ServerAuthSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -152,9 +152,9 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	@Override
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
-		Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = null;
+		Collection<ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>> listeners = null;
 		if(provider.getServerListeners()!=null)
-			listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+			listeners = (Collection<ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>>) provider.getServerListeners().values();
 		
 		if(request instanceof SessionTerminationRequest)
 		{
@@ -163,8 +163,8 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				R4 castedRequest = (R4)request;
 				if(listeners!=null)
 				{
-					for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-						listener.onSessionTerminationRequest(castedRequest, callback);
+					for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+						listener.onSessionTerminationRequest(castedRequest, this, callback);
 				}
 			}
 			catch(Exception ex)
@@ -180,8 +180,8 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				R1 castedRequest = (R1)request;
 				if(listeners!=null)
 				{
-					for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-						listener.onInitialRequest(castedRequest, callback);
+					for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+						listener.onInitialRequest(castedRequest, this, callback);
 				}
 			}
 			catch(Exception ex)
@@ -201,9 +201,9 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		DiameterRequest request = getLastSendRequest();
 		if(request!=null)
 		{
-			Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = null;
+			Collection<ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>> listeners = null;
 			if(provider.getServerListeners()!=null)
-				listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+				listeners = (Collection<ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>>) provider.getServerListeners().values();
 			
 			if(request instanceof AbortSessionRequest)
 			{
@@ -217,8 +217,8 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						terminate();
 						if(listeners!=null)
 						{
-							for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-								listener.onAbortSessionAnswer(castedAnswer, callback);
+							for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+								listener.onAbortSessionAnswer(castedAnswer, this, callback);
 						}
 					}
 					catch(Exception ex)
@@ -241,8 +241,8 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 							setSessionState(SessionStateEnum.OPEN);
 							if(listeners!=null)
 							{
-								for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-									listener.onReauthAnswer(castedAnswer, callback);
+								for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+									listener.onReauthAnswer(castedAnswer, this, callback);
 							}
 						}
 						else
@@ -251,8 +251,8 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 							terminate();
 							if(listeners!=null)
 							{
-								for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-									listener.onReauthAnswer(castedAnswer, callback);
+								for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+									listener.onReauthAnswer(castedAnswer, this, callback);
 							}
 						}
 					}

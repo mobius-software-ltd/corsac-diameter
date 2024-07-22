@@ -1,12 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.app.swm;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
-import com.mobius.software.telco.protocols.diameter.commands.swm.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swm.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.swm.EAPAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swm.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swm.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swm.SessionTerminationAnswer;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.commands.swm.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.swm.SwmAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swm.SwmRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -30,7 +32,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthListener<AAAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAuthListener<SwmRequest, SwmAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
-	void onInitialAnswer(EAPAnswer answer) throws DiameterException;
 }

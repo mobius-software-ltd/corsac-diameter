@@ -28,12 +28,12 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 
 public interface SessionFactory
 {
-	public NtaEventConfigurationClientSession createClientSession(EventConfigurationRequest request) throws AvpNotSupportedException;	
+	public NtaClientSession createClientSession(EventConfigurationRequest request) throws AvpNotSupportedException;	
 	
-	public NtaEventConfigurationServerSession createServerSession(EventConfigurationRequest  request) throws AvpNotSupportedException;	
+	public NtaServerSession createServerSession(EventConfigurationRequest  request) throws AvpNotSupportedException;	
 	
-	public NtaEventReportingClientSession createClientSession(EventReportingRequest request) throws AvpNotSupportedException;
+	public NtaClientSession createClientSession(EventReportingRequest request) throws AvpNotSupportedException;
 	
-	public NtaEventReportingServerSession createServerSession(EventReportingRequest request) throws AvpNotSupportedException;
+	public NtaServerSession createServerSession(EventReportingRequest request) throws AvpNotSupportedException;
 
 }

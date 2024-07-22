@@ -19,8 +19,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gy;
  */
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.app.gy.GyClientSession;
 import com.mobius.software.telco.protocols.diameter.app.gy.GyServerSession;
 import com.mobius.software.telco.protocols.diameter.app.gy.SessionFactory;
@@ -40,9 +40,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 */
 public class SessionFactoryImpl implements SessionFactory
 {
-	private DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider;
+	private DiameterProvider<? extends ClientCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ? extends ServerCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<? extends ClientCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ? extends ServerCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}

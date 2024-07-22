@@ -21,10 +21,6 @@ package com.mobius.software.telco.protocols.diameter.commands.mb2c;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
 /**
 *
@@ -58,17 +54,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
                 *[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.MB2C, commandCode = CommandCodes.GCS_NOTIFICATION, request = false, proxyable = true, name="GCS-Notification-Answer")
-public interface GCSNotificationAnswer extends AuthenticationAnswer
+public interface GCSNotificationAnswer extends MB2CAnswer
 {
-	DRMPEnum getDRMP();
-	
-	void setDRMP(DRMPEnum value);
-	
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
-	
-	public Long getRestartCounter();
-	
-	void setRestartCounter(Long value);
 }

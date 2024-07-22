@@ -23,7 +23,7 @@ import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerCCSession;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
@@ -47,8 +47,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 */
 public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends CreditControlAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerCCSession<A1,R2,R3,A4>
 {
-	private DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider;
-	public ServerCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1,A2,A3,R4>, ?, ?, ?> provider)
+	private DiameterProvider<?, ? extends ServerCCListener<R1,A1, R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider;
+	public ServerCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<R1,A1, R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -178,9 +178,9 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	@Override
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
-		Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = null;
+		Collection<ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4>> listeners = null;
 		if(provider.getServerListeners()!=null)
-			listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+			listeners = (Collection<ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4>>) provider.getServerListeners().values();
 		
 		if(request instanceof SessionTerminationRequest)
 		{
@@ -189,8 +189,8 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				R4 castedRequest = (R4)request;
 				if(listeners!=null)
 				{
-					for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-						listener.onSessionTerminationRequest(castedRequest, callback);
+					for(ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4> listener:listeners)
+						listener.onSessionTerminationRequest(castedRequest, this, callback);
 				}
 			}
 			catch(Exception ex)
@@ -206,8 +206,8 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				R1 castedRequest = (R1)request;
 				if(listeners!=null)
 				{
-					for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-						listener.onInitialRequest(castedRequest, callback);
+					for(ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4> listener:listeners)
+						listener.onInitialRequest(castedRequest, this, callback);
 				}
 			}
 			catch(Exception ex)
@@ -227,9 +227,9 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		DiameterRequest request = getLastSendRequest();
 		if(request!=null)
 		{
-			Collection<ServerAuthListener<R1, A2, A3, R4>> listeners = null;
+			Collection<ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4>> listeners = null;
 			if(provider.getServerListeners()!=null)
-				listeners = (Collection<ServerAuthListener<R1, A2, A3, R4>>) provider.getServerListeners().values();
+				listeners = (Collection<ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4>>) provider.getServerListeners().values();
 			
 			if(request instanceof AbortSessionRequest)
 			{
@@ -243,8 +243,8 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						terminate();
 						if(listeners!=null)
 						{
-							for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-								listener.onAbortSessionAnswer(castedAnswer, callback);
+							for(ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4> listener:listeners)
+								listener.onAbortSessionAnswer(castedAnswer, this, callback);
 						}
 					}
 					catch(Exception ex)
@@ -267,8 +267,8 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							setSessionState(SessionStateEnum.OPEN);
 							if(listeners!=null)
 							{
-								for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-									listener.onReauthAnswer(castedAnswer, callback);
+								for(ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4> listener:listeners)
+									listener.onReauthAnswer(castedAnswer, this, callback);
 							}
 						}
 						else
@@ -277,8 +277,8 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							terminate();
 							if(listeners!=null)
 							{
-								for(ServerAuthListener<R1, A2, A3, R4> listener:listeners)
-									listener.onReauthAnswer(castedAnswer, callback);
+								for(ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4> listener:listeners)
+									listener.onReauthAnswer(castedAnswer, this, callback);
 							}
 						}
 					}

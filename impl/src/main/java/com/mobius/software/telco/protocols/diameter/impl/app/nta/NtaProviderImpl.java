@@ -45,9 +45,9 @@ public class NtaProviderImpl extends DiameterProviderImpl<ClientListener, Server
 		try
 		{
 			if(message instanceof EventConfigurationRequest)
-				return new NtaEventConfigurationServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new NtaServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof EventReportingRequest)	
-				return new NtaEventReportingServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new NtaServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)
 		{			

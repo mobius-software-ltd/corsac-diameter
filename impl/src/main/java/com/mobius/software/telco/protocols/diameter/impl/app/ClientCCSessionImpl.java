@@ -23,7 +23,7 @@ import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
 import com.mobius.software.telco.protocols.diameter.app.ClientCCSession;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
@@ -51,10 +51,10 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 {
 	private Boolean isRetry = false;
 	
-	private DiameterProvider<? extends ClientAuthListener<A1,R2,R3,A4>, ?, ?, ?, ?> provider;
+	private DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider;
 	private RetransmissionCallback retransmissionCallback=new RetransmissionCallback();
 	
-	public ClientCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<A1,R2,R3,A4>, ?, ?, ?, ?> provider)
+	public ClientCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -195,15 +195,15 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
 		@SuppressWarnings("unchecked")
-		Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+		Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 		if(request instanceof ReAuthRequest)
 		{
 			try
 			{
 				@SuppressWarnings("unchecked")
 				R2 castedRequest = (R2)request;
-				for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-					listener.onReauthRequest(castedRequest, callback);	
+				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+					listener.onReauthRequest(castedRequest, this, callback);	
 			}
 			catch(Exception ex)
 			{
@@ -217,8 +217,8 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			{
 				@SuppressWarnings("unchecked")
 				R3 castedRequest = (R3)request;
-				for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-					listener.onAbortSessionRequest(castedRequest, callback);	
+				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+					listener.onAbortSessionRequest(castedRequest, this, callback);	
 			}
 			catch(Exception ex)
 			{
@@ -243,9 +243,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		Long newTime = null;
 		if(request!=null)
 		{
-			Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = null;
+			Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = null;
 			if(provider.getClientListeners()!=null)
-				listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+				listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 			
 			if(request instanceof SessionTerminationRequest)
 			{
@@ -259,8 +259,8 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						terminate();
 						if(listeners!=null)
 						{
-							for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-								listener.onSessionTerminationAnswer(castedAnswer, callback);
+							for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+								listener.onSessionTerminationAnswer(castedAnswer, this, callback);
 						}
 					}
 					catch(Exception ex)
@@ -295,8 +295,8 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							terminate();
 							if(listeners!=null)
 							{
-								for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, callback);
+								for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+									listener.onInitialAnswer(castedAnswer, this, callback);
 							}
 						}
 						else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
@@ -307,8 +307,8 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								terminate();
 								if(listeners!=null)
 								{
-									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, callback);
+									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, this, callback);
 								}
 							}
 							else
@@ -316,8 +316,8 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								setSessionState(SessionStateEnum.OPEN);
 								if(listeners!=null)
 								{
-									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, callback);
+									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, this, callback);
 								}
 							}
 						}
@@ -359,16 +359,16 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								terminate();
 								if(listeners!=null)
 								{
-									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, callback);
+									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, this, callback);
 								}
 							}
 							else
 							{
 								if(listeners!=null)
 								{
-									for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, callback);
+									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+										listener.onInitialAnswer(castedAnswer, this, callback);
 								}
 								
 								R1 realRequest=(R1)request;
@@ -432,9 +432,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						if(provider.getClientListeners()!=null)
 						{
 							@SuppressWarnings("unchecked")
-							Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+							Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 						
-							for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+							for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
 								listener.onTimeout();
 						}
 						
@@ -474,9 +474,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			if(provider.getClientListeners()!=null)
 			{
 				@SuppressWarnings("unchecked")
-				Collection<ClientAuthListener<A1, R2, R3, A4>> listeners = (Collection<ClientAuthListener<A1, R2, R3, A4>>) provider.getClientListeners().values();
+				Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 			
-				for(ClientAuthListener<A1, R2, R3, A4> listener:listeners)
+				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
 					listener.onTimeout();
 			}
 		}

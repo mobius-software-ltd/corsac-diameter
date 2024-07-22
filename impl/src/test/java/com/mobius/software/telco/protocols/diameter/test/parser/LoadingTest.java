@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeRequestmpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.LocationInfoRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.e4.PushNotificationsRequestImpl;
@@ -30,7 +30,7 @@ public class LoadingTest
 		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
-		Class<?> clazz = CapabilitiesExchangeRequestmpl.class;
+		Class<?> clazz = CapabilitiesExchangeRequestImpl.class;
 		Class<?> avpClass = AcctApplicationIdImpl.class;
 		assertNotNull(clazz);
 		assertNotNull(avpClass);

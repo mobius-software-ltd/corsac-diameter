@@ -1,6 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +17,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPC
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFAChallengeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFeatureVectorImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHAtoFASPIImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHomeAgentAddressImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMobileNodeAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPRegRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
@@ -31,12 +28,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPCandid
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAChallenge;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFeatureVector;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoFASPI;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentHost;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNAAAAuth;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMobileNodeAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPOriginatingForeignAAA;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPRegRequest;
 
 import io.netty.buffer.ByteBuf;
 
@@ -64,25 +57,17 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements AAMobileNodeRequest
+public class AAMobileNodeRequestImpl extends Rfc4004RequestImpl implements AAMobileNodeRequest
 {
-	private MIPRegRequest mipRegRequest;
+	protected AuthorizationLifetime authorizationLifetime;
+	
+	protected AuthSessionState authSessionState;
+	
+	private MIPFeatureVector mipFeatureVector;
 	
 	private MIPMNAAAAuth mipMNAAAAuth;
 	
 	private AcctMultiSessionId acctMultiSessionId;
-	
-	private MIPMobileNodeAddress mipMobileNodeAddress;
-	
-	private MIPHomeAgentAddress mipHomeAgentAddress;
-	
-	private MIPFeatureVector mipFeatureVector;
-	
-	private MIPOriginatingForeignAAA mipOriginatingForeignAAA;
-	
-	private AuthorizationLifetime authorizationLifetime;
-	
-	private AuthSessionState authSessionState;
 	
 	private MIPFAChallenge mipFAChallenge;
 	
@@ -99,29 +84,9 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 	
 	public AAMobileNodeRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, ByteBuf mipRegRequest, MIPMNAAAAuth mipMNAAAAuth) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
-		
-		setMIPRegRequest(mipRegRequest);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, mipRegRequest);
 		
 		setMIPMNAAAAuth(mipMNAAAAuth);
-	}
-	
-	@Override
-	public ByteBuf getMIPRegRequest() 
-	{
-		if(mipRegRequest == null)
-			return null;
-		
-		return mipRegRequest.getValue();
-	}
-	
-	@Override
-	public void setMIPRegRequest(ByteBuf value) throws MissingAvpException
-	{
-		if(value == null)
-			throw new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
-			
-		this.mipRegRequest = new MIPRegRequestImpl(value, null, null);
 	}
 	
 	@Override
@@ -157,43 +122,6 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 			this.acctMultiSessionId = new AcctMultiSessionIdImpl(value, null, null);
 	}
 	
-
-	@Override
-	public InetAddress getMIPMobileNodeAddress() 
-	{
-		if(mipMobileNodeAddress == null)
-			return null;
-		
-		return mipMobileNodeAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPMobileNodeAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipMobileNodeAddress = null;
-		else
-			this.mipMobileNodeAddress = new MIPMobileNodeAddressImpl(value, null, null);
-	}
-	
-	@Override
-	public InetAddress getMIPHomeAgentAddress() 
-	{
-		if(mipHomeAgentAddress == null)
-			return null;
-		
-		return mipHomeAgentAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPHomeAgentAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipHomeAgentAddress = null;
-		else
-			this.mipHomeAgentAddress = new MIPHomeAgentAddressImpl(value, null, null);
-	}
-	
 	@Override
 	public Long getMIPFeatureVector() 
 	{
@@ -210,18 +138,6 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 			this.mipFeatureVector = null;
 		else
 			this.mipFeatureVector = new MIPFeatureVectorImpl(value, null, null);
-	}
-	
-	@Override
-	public MIPOriginatingForeignAAA getMIPOriginatingForeignAAA() 
-	{
-		return mipOriginatingForeignAAA;
-	}
-	
-	@Override
-	public void setMIPOriginatingForeignAAA(MIPOriginatingForeignAAA value)
-	{
-		this.mipOriginatingForeignAAA = value;
 	}
 	
 	@Override
@@ -329,9 +245,6 @@ public class AAMobileNodeRequestImpl extends com.mobius.software.telco.protocols
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(mipRegRequest == null)
-			return new MissingAvpException("MIP-Reg-Request is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
-		
 		if(mipMNAAAAuth == null)
 			return new MissingAvpException("MIP-MN-AAA-Auth is required", Arrays.asList(new DiameterAvp[] { new MIPRegRequestImpl() }));
 		

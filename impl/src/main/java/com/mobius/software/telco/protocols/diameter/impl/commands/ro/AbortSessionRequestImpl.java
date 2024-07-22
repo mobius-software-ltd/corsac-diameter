@@ -1,8 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.ro;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -28,7 +34,7 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 * @author yulian oifa
 *
 */
-public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.AbortSessionRequestImpl implements AbortSessionRequest
+public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AbortSessionRequestImpl implements AbortSessionRequest
 {
 	protected AbortSessionRequestImpl() 
 	{
@@ -38,5 +44,32 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
+	}
+	@DiameterOrder
+	public List<DiameterAvp> getOrderedAVPs()
+	{
+		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(sessionId);
+		result.add(originHost);
+		result.add(originRealm);
+		result.add(destinationRealm);
+		result.add(destinationHost);
+		result.add(authApplicationId);
+		result.add(username);
+		result.add(originStateId);
+		
+		if(proxyInfo!=null)
+			result.addAll(proxyInfo);
+		
+		if(routeRecords!=null)
+			result.addAll(routeRecords);
+		
+		if(optionalAvps!=null)
+		{
+			for(List<DiameterUnknownAvp> curr:optionalAvps.values())
+				result.addAll(curr);
+		}
+		
+		return result;
 	}
 }

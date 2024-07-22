@@ -87,7 +87,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
 		restartIdleTimer(null);
-		this.provider.storeSession(this);
+		this.provider.getStack().getSessionStorage().storeSession(this);
 	}
 	
 	@Override
@@ -98,7 +98,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		if(stopSendTimer!=null && stopSendTimer)
 			stopSendTimer();
 		
-		this.provider.storeSession(this);
+		this.provider.getStack().getSessionStorage().storeSession(this);
 	}
 	
 	@Override
@@ -106,44 +106,46 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	{
 		restartIdleTimer(null);
 		restartSendTimer();
-		this.provider.storeSession(this);
+		this.provider.getStack().getSessionStorage().storeSession(this);
 	}
 	
 	@Override
 	public void answerSent(DiameterAnswer answer, AsyncCallback callback, Long idleTime)
 	{
 		restartIdleTimer(idleTime);
-		this.provider.storeSession(this);
+		this.provider.getStack().getSessionStorage().storeSession(this);
 	}
 	
 	protected void restartIdleTimer(Long time)
 	{
-		this.provider.restartIdleTimer(this, time);
+		this.provider.getStack().getSessionStorage().restartIdleTimer(this, time);
 	}
 	
 	protected void stopIdleTimer()
 	{
-		this.provider.stopIdleTimer(idleTimerID);
+		if(idleTimerID!=null)
+			this.provider.getStack().getSessionStorage().stopIdleTimer(idleTimerID);
 	}
 	
 	protected void startIdleTimer()
 	{
-		this.provider.startIdleTimer(this, null);
+		this.provider.getStack().getSessionStorage().startIdleTimer(this, null);
 	}
 	
 	protected void restartSendTimer()
 	{
-		this.provider.restartSendTimer(this);
+		this.provider.getStack().getSessionStorage().restartSendTimer(this);
 	}
 	
 	protected void startSendTimer()
 	{
-		this.provider.startSendTimer(this);
+		this.provider.getStack().getSessionStorage().startSendTimer(this);
 	}
 	
 	protected void stopSendTimer()
 	{
-		this.provider.stopSendTimer(sendTimerID);
+		if(sendTimerID!=null)
+			this.provider.getStack().getSessionStorage().stopSendTimer(sendTimerID);
 	}
 	
 	@Override
@@ -151,7 +153,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	{
 		stopIdleTimer();
 		stopSendTimer();
-		this.provider.removeSession(this.sessionID);
+		this.provider.getStack().getSessionStorage().removeSession(this.sessionID);
 	}
 
 	@Override
@@ -209,7 +211,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 			}
 		}
 		
-		this.provider.storeSession(this);
+		this.provider.getStack().getSessionStorage().storeSession(this);
 	}
 
 	@Override

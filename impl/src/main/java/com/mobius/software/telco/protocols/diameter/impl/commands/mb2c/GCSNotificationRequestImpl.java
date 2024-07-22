@@ -1,27 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.mb2c;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.sgmb.RestartCounterImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.MBMSBearerEventNotification;
 import com.mobius.software.telco.protocols.diameter.primitives.mb2c.TMGIExpiry;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.sgmb.RestartCounter;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -47,17 +37,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.sgmb.RestartCount
 * @author yulian oifa
 *
 */
-public class GCSNotificationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestImpl implements GCSNotificationRequest
+public class GCSNotificationRequestImpl extends MB2CRequestImpl implements GCSNotificationRequest
 {
-	private DRMP drmp;
-	
-	private AuthSessionState authSessionState;
-	
 	private TMGIExpiry tmgiExpiry;
 	
 	private List<MBMSBearerEventNotification> mbmsBearerEventNotification;
-	
-	private RestartCounter restartCounter;
 	
 	protected GCSNotificationRequestImpl() 
 	{
@@ -66,45 +50,7 @@ public class GCSNotificationRequestImpl extends com.mobius.software.telco.protoc
 	
 	public GCSNotificationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
-		
-		setAuthSessionState(authSessionState);
-	}
-
-	@Override
-	public DRMPEnum getDRMP() 
-	{
-		if(drmp==null)
-			return null;
-		
-		return drmp.getEnumerated(DRMPEnum.class);
-	}
-
-	@Override
-	public void setDRMP(DRMPEnum value) 
-	{
-		if(value==null)
-			this.drmp = null;
-		else
-			this.drmp = new DRMPImpl(value, null, null);
-	}
-
-	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState == null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
-	{
-		if(authSessionState==null)
-			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, authSessionState);
 	}
 	
 	@Override
@@ -129,33 +75,6 @@ public class GCSNotificationRequestImpl extends com.mobius.software.telco.protoc
 	public void setMBMSBearerEventNotification(List<MBMSBearerEventNotification> value)
 	{
 		this.mbmsBearerEventNotification = value;
-	}
-	
-	@Override
-	public Long getRestartCounter()
-	{
-		if(restartCounter==null)
-			return null;
-		
-		return restartCounter.getUnsigned();
-	}
-	
-	@Override
-	public void setRestartCounter(Long value)
-	{
-		if(value==null)
-			this.restartCounter = null;
-		else
-			this.restartCounter = new RestartCounterImpl(value, null, null);
-	}
-	
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(authSessionState==null)
-			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		return super.validate();
 	}
 	
 	@DiameterOrder

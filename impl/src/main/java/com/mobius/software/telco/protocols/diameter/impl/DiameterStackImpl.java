@@ -28,6 +28,7 @@ import com.mobius.software.common.dal.timers.WorkerPool;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.DiameterSessionStorage;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkManager;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
@@ -54,6 +55,7 @@ public class DiameterStackImpl implements DiameterStack
 	
 	private ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>> registeredProviders=new ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>>();
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
+	private DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
 	
 	private Long responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
 	private Long idleTimeout = DEFAULT_IDLE_TIMEOUT;
@@ -378,5 +380,11 @@ public class DiameterStackImpl implements DiameterStack
 	public void stop()
 	{
 		networkManager.stop();
+	}
+
+	@Override
+	public DiameterSessionStorage getSessionStorage()
+	{
+		return sessionStorage;
 	}
 }

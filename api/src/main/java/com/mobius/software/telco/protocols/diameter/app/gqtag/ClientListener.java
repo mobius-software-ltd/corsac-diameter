@@ -2,9 +2,13 @@ package com.mobius.software.telco.protocols.diameter.app.gqtag;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.gqtag.AARequest;
+import com.mobius.software.telco.protocols.diameter.commands.gqtag.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.gqtag.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gqtag.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.gqtag.SessionTerminationRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -28,6 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.gqtag.SessionTermin
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthListener<AAAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAuthListener<AARequest, AAAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }

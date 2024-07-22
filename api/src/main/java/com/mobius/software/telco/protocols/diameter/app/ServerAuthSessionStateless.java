@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 
 /*
@@ -36,11 +37,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
                 successfully processed         specific
                                                answer                                                              
  */
-public interface ServerAuthSessionStateless<A1 extends DiameterAnswer>
+public interface ServerAuthSessionStateless<A1 extends DiameterAnswer> extends DiameterSession
 {
 	void sendInitialAnswer(A1 answer,AsyncCallback callback);
-	
-	SessionStateEnum getSessionState();
-	
-	void terminate();
 }

@@ -24,7 +24,6 @@ import com.mobius.software.telco.protocols.diameter.TgppAvpCodes;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 
 /**
 *
@@ -63,7 +62,7 @@ public interface OfflineCharging extends DiameterGroupedAvp
 	
 	void setEnvelopeReporting(EnvelopeReportingEnum value);
 	
-	List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
+	List<TGPPMultipleServicesCreditControl> getMultipleServicesCreditControl();
 	
-	void setMultipleServicesCreditControl(List<MultipleServicesCreditControl> value);
+	void setMultipleServicesCreditControl(List<TGPPMultipleServicesCreditControl> value);
 }

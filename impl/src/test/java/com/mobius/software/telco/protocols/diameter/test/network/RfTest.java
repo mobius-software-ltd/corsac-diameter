@@ -32,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
+import com.mobius.software.telco.protocols.diameter.app.ClientAccSession;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.app.rf.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.rf.RfClientSession;
@@ -99,7 +100,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}
@@ -209,7 +210,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}
@@ -371,7 +372,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}
@@ -508,7 +509,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}

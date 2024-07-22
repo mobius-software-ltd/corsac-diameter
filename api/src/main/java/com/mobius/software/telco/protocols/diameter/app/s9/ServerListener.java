@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.app.s9;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.commands.s9.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s9.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s9.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s9.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablishmentAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablishmentRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -30,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
+public interface ServerListener extends ServerAuthListener<TriggerEstablishmentRequest, TriggerEstablishmentAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>, ServerCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
-	void onInitialRequest(TriggerEstablishmentRequest request) throws DiameterException;
 }

@@ -77,6 +77,7 @@ public class MessageFactoryImpl implements MessageFactory
 		MessageProcessAnswerImpl result = new MessageProcessAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
 		return result;
 	}
 

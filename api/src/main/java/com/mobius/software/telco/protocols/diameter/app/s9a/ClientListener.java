@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.app.s9a;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
+import com.mobius.software.telco.protocols.diameter.commands.s9a.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s9a.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s9a.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s9a.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s9a.TriggerEstablishmentAnswer;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.commands.s9a.TriggerEstablishmentRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -30,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthListener<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAuthListener<TriggerEstablishmentRequest, TriggerEstablishmentAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>, ClientCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
-	void onInitialAnswer(TriggerEstablishmentAnswer answer) throws DiameterException;
 }

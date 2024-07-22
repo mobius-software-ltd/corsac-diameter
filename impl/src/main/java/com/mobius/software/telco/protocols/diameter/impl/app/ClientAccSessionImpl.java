@@ -45,9 +45,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 {
 	private Boolean isRetry = false;
 	
-	private DiameterProvider<? extends ClientAccListener<A1>, ?, ?, ?, ?> provider;
+	private DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider;
 	
-	public ClientAccSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<A1>, ?, ?, ?, ?> provider)
+	public ClientAccSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -108,9 +108,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			{
 				A1 castedAnswer = (A1)answer;
 				
-				Collection<ClientAccListener<A1>> listeners = null;
+				Collection<ClientAccListener<R1, A1>> listeners = null;
 				if(provider.getClientListeners()!=null)
-					listeners = (Collection<ClientAccListener<A1>>) provider.getClientListeners().values();
+					listeners = (Collection<ClientAccListener<R1, A1>>) provider.getClientListeners().values();
 				
 				if(getSessionState()==SessionStateEnum.PENDING)
 				{
@@ -123,8 +123,8 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						terminate();
 						if(listeners!=null)
 						{
-							for(ClientAccListener<A1> listener:listeners)
-								listener.onAccountingResponse(castedAnswer, callback);
+							for(ClientAccListener<R1, A1> listener:listeners)
+								listener.onAccountingResponse(castedAnswer, this, callback);
 						}
 					}
 					else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
@@ -135,8 +135,8 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							terminate();
 							if(listeners!=null)
 							{
-								for(ClientAccListener<A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, callback);
+								for(ClientAccListener<R1, A1> listener:listeners)
+									listener.onAccountingResponse(castedAnswer, this, callback);
 							}
 						}
 						else
@@ -144,8 +144,8 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							setSessionState(SessionStateEnum.OPEN);
 							if(listeners!=null)
 							{
-								for(ClientAccListener<A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, callback);
+								for(ClientAccListener<R1, A1> listener:listeners)
+									listener.onAccountingResponse(castedAnswer, this, callback);
 							}
 						}
 					}
@@ -170,8 +170,8 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 								setSessionState(SessionStateEnum.OPEN);
 								if(listeners!=null)
 								{
-									for(ClientAccListener<A1> listener:listeners)
-										listener.onAccountingResponse(castedAnswer, callback);
+									for(ClientAccListener<R1, A1> listener:listeners)
+										listener.onAccountingResponse(castedAnswer, this, callback);
 								}
 								
 								processed = true;
@@ -184,8 +184,8 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							terminate();
 							if(listeners!=null)
 							{
-								for(ClientAccListener<A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, callback);													
+								for(ClientAccListener<R1, A1> listener:listeners)
+									listener.onAccountingResponse(castedAnswer, this, callback);													
 							}
 						}
 					}

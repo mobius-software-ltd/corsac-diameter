@@ -1,31 +1,19 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterAnswerWithSessionBase;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctMultiSessionIdImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.ReAuthRequestTypeImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPFeatureVectorImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHomeAgentAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMSALifetimeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPMobileNodeAddressImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPRegReplyImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AcctMultiSessionId;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
@@ -36,14 +24,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFAtoMN
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFeatureVector;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPFilterRule;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHAtoMNMSA;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoFAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNtoHAMSA;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMSALifetime;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMobileNodeAddress;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPRegReply;
-
-import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -69,12 +52,8 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implements AAMobileNodeAnswer
+public class AAMobileNodeAnswerImpl extends Rfc4004AnswerImpl implements AAMobileNodeAnswer
 {
-	private AuthApplicationId authApplicationId;
-	
-	private AcctMultiSessionId acctMultiSessionId;
-	
 	private AuthorizationLifetime authorizationLifetime;
 	
 	private AuthSessionState authSessionState;
@@ -82,8 +61,6 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 	private ReAuthRequestType reAuthRequestType;
 	
 	private MIPFeatureVector mipFeatureVector;
-	
-	private MIPRegReply mipRegReply;
 	
 	private MIPMNtoFAMSA mipMNtoFAMSA;
 	
@@ -97,10 +74,6 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 	
 	private MIPMSALifetime mipMSALifetime;
 	
-	private MIPHomeAgentAddress mipHomeAgentAddress;
-	
-	private MIPMobileNodeAddress mipMobileNodeAddress;
-	
 	private List<MIPFilterRule> mipFilterRule;
 	
 	protected AAMobileNodeAnswerImpl() 
@@ -111,46 +84,8 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 	
 	public AAMobileNodeAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(false);
-		
-		setAuthApplicationId(authApplicationId);
-	}
-
-	@Override
-	public Long getAuthApplicationId() 
-	{
-		if(authApplicationId == null)
-			return null;
-		
-		return authApplicationId.getUnsigned();
-	}
-
-	@Override
-	public void setAuthApplicationId(Long value) throws MissingAvpException 
-	{
-		if(value==null)
-			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
-			
-		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
-	}
-	
-	@Override
-	public String getAcctMultiSessionId() 
-	{
-		if(acctMultiSessionId == null)
-			return null;
-		
-		return acctMultiSessionId.getString();
-	}
-	
-	@Override
-	public void setAcctMultiSessionId(String value)
-	{
-		if(value == null)
-			this.acctMultiSessionId = null;
-		else
-			this.acctMultiSessionId = new AcctMultiSessionIdImpl(value, null, null);
 	}
 	
 	@Override
@@ -223,24 +158,6 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 			this.mipFeatureVector = null;
 		else
 			this.mipFeatureVector = new MIPFeatureVectorImpl(value, null, null);
-	}
-	
-	@Override
-	public ByteBuf getMIPRegReply() 
-	{
-		if(mipRegReply == null)
-			return null;
-		
-		return mipRegReply.getValue();
-	}
-	
-	@Override
-	public void setMIPRegReply(ByteBuf value)
-	{
-		if(value == null)
-			this.mipRegReply = null;
-		else
-			this.mipRegReply = new MIPRegReplyImpl(value, null, null);
 	}
 	
 	@Override
@@ -322,42 +239,6 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 	}
 	
 	@Override
-	public InetAddress getMIPHomeAgentAddress()
-	{
-		if(mipHomeAgentAddress == null)
-			return null;
-		
-		return mipHomeAgentAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPHomeAgentAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipHomeAgentAddress = null;
-		else
-			this.mipHomeAgentAddress = new MIPHomeAgentAddressImpl(value, null, null);
-	}
-	
-	@Override
-	public InetAddress getMIPMobileNodeAddress()
-	{
-		if(mipMobileNodeAddress == null)
-			return null;
-		
-		return mipMobileNodeAddress.getAddress();
-	}
-	
-	@Override
-	public void setMIPMobileNodeAddress(InetAddress value)
-	{
-		if(value == null)
-			this.mipMobileNodeAddress = null;
-		else
-			this.mipMobileNodeAddress = new MIPMobileNodeAddressImpl(value, null, null);
-	}
-	
-	@Override
 	public List<MIPFilterRule> getMIPFilterRule()
 	{
 		return mipFilterRule;
@@ -367,15 +248,6 @@ public class AAMobileNodeAnswerImpl extends DiameterAnswerWithSessionBase implem
 	public void setMIPFilterRule(List<MIPFilterRule> value)
 	{
 		this.mipFilterRule = value;
-	}	
-	
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(authApplicationId==null)
-			return new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
-		
-		return super.validate();
 	}
 	
 	@DiameterOrder

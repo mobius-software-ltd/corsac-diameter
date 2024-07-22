@@ -1,12 +1,17 @@
 package com.mobius.software.telco.protocols.diameter.app.nas;
 
+import com.mobius.software.telco.protocols.diameter.app.ServerAccListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.commands.nas.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AARequest;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nas.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.commands.nas.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nas.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nas.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nas.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -30,7 +35,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<AARequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
-{
-	void onInitialRequest(AccountingRequest request) throws DiameterException;	
+public interface ServerListener extends ServerAccListener<AccountingRequest, AccountingAnswer>, ServerAuthListener<AARequest, AAAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+{	
 }

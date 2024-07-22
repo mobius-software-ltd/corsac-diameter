@@ -49,9 +49,9 @@ public class GiProviderImpl extends DiameterProviderImpl<ClientListener, ServerL
 		try
 		{
 			if(message instanceof AARequest)
-				return new GiAuthServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new GiServerSessionImpl(true, message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof AccountingRequest)
-				return new GiAccServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+				return new GiServerSessionImpl(false, message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)
 		{			

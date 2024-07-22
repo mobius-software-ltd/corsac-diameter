@@ -24,11 +24,11 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 
 public interface SessionFactory
 {
-	public GiAccClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException;	
+	public GiClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException;	
 	
-	public GiAccServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException;	
+	public GiServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException;	
 	
-	public GiAuthClientSession createClientSession(AARequest request) throws AvpNotSupportedException;	
+	public GiClientSession createClientSession(AARequest request) throws AvpNotSupportedException;	
 	
-	public GiAuthServerSession createServerSession(AARequest request) throws AvpNotSupportedException;
+	public GiServerSession createServerSession(AARequest request) throws AvpNotSupportedException;
 }

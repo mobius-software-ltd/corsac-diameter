@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app;
 
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
 
 /*
@@ -143,11 +144,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingR
       PendingL  Failed accounting stop answer               Idle
                 received
  */
-public interface ClientAccSession<R1 extends AccountingRequest>
+public interface ClientAccSession<R1 extends AccountingRequest> extends DiameterSession
 {
 	void sendAccountingRequest(R1 request,AsyncCallback callback);
-	
-	SessionStateEnum getSessionState();
-	
-	void terminate();
 }

@@ -36,6 +36,7 @@ import org.jdiameter.api.ro.ServerRoSession;
 import org.jdiameter.api.ro.ServerRoSessionListener;
 import org.jdiameter.api.ro.events.RoCreditControlAnswer;
 import org.jdiameter.api.ro.events.RoCreditControlRequest;
+import org.jdiameter.common.impl.app.auth.ReAuthRequestImpl;
 import org.jdiameter.common.impl.app.ro.RoCreditControlAnswerImpl;
 
 import com.mobius.software.telco.protocols.diameter.AvpCodes;
@@ -66,14 +67,20 @@ public class BasicServerRoSessionListener implements ServerRoSessionListener
 			    answer = new RoCreditControlAnswerImpl((Request) request.getMessage(), ResultCodes.DIAMETER_UNABLE_TO_COMPLY);
 			else
 				answer = new RoCreditControlAnswerImpl((Request) request.getMessage(), ResultCodes.DIAMETER_SUCCESS);
-				
-			
+
 			AvpSet answerSet = answer.getMessage().getAvps();
 			answerSet.addAvp((int)AvpCodes.CC_REQUEST_NUMBER, ccRequestNumber, true);
 			answerSet.addAvp((int)AvpCodes.CC_REQUEST_TYPE, set.getAvp((int)AvpCodes.CC_REQUEST_TYPE).getInteger32());
 			answerSet.removeAvp(Avp.DESTINATION_HOST);
 			answerSet.removeAvp(Avp.DESTINATION_REALM);
 			session.sendCreditControlAnswer(answer);
+			
+			if(ccRequestNumber==3001L)
+			{
+				ReAuthRequest rar= new ReAuthRequestImpl(session.getSessions().get(0).createRequest(ReAuthRequest.code, JDiameterStackWrapper.creditControlApplicationID, request.getOriginRealm()));
+				session.sendReAuthRequest(rar);
+				return;
+			}						
 		}
 		catch(Exception ex)
 		{

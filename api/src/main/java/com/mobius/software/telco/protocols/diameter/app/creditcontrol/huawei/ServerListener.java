@@ -1,6 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei;
 
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.ReAuthAnswer;
@@ -28,6 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawe
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest>
+public interface ServerListener extends ServerCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }

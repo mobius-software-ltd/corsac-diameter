@@ -34,9 +34,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 */
 public class SessionFactoryImpl implements SessionFactory
 {
-	private DiameterProvider<? extends ClientAccListener<AccountingAnswer>, ? extends ServerAccListener<AccountingRequest>,?, ?, ?> provider;
+	private DiameterProvider<? extends ClientAccListener<AccountingRequest,AccountingAnswer>, ? extends ServerAccListener<AccountingRequest, AccountingAnswer>,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAccListener<AccountingAnswer>, ? extends ServerAccListener<AccountingRequest>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<? extends ClientAccListener<AccountingRequest, AccountingAnswer>, ? extends ServerAccListener<AccountingRequest, AccountingAnswer>,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}

@@ -964,6 +964,7 @@ public class DiameterParser
 			
 			DiameterAvpKey key=new DiameterAvpKey(vendorID, avpCode);
 			AvpData currentAvp = childAvps.get(key);
+			
 			if(currentAvp == null)
 			{
 				//set optional if possible as octet string

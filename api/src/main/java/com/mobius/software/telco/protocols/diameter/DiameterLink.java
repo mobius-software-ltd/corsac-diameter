@@ -4,6 +4,9 @@ import java.net.InetAddress;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeRequest;
+import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogRequest;
+import com.mobius.software.telco.protocols.diameter.commands.commons.DisconnectPeerRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
@@ -86,13 +89,15 @@ public interface DiameterLink
 	
 	void sendCER();
 	
+	void sendCEA(CapabilitiesExchangeRequest request);
+	
 	void sendDWR();
 	
-	void sendDWA(long resultCode);
+	void sendDWA(DeviceWatchdogRequest request, long resultCode);
 	
 	void sendDPR(DisconnectCauseEnum cause, AsyncCallback callback);
 	
-	void sendDPA(long resultCode);
+	void sendDPA(DisconnectPeerRequest request, long resultCode);
 	
 	void resetInactivityTimer();
 	

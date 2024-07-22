@@ -20,7 +20,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s15;
  */
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.commands.s15.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s15.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s15.CreditControlAnswer;
@@ -29,11 +29,11 @@ import com.mobius.software.telco.protocols.diameter.commands.s15.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s15.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s15.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s15.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.ServerCCSessionImpl;
 
-public class S15ServerSessionImpl extends ServerAuthSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements com.mobius.software.telco.protocols.diameter.app.s15.S15ServerSession
+public class S15ServerSessionImpl extends ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements com.mobius.software.telco.protocols.diameter.app.s15.S15ServerSession
 {
-	public S15ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
+	public S15ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID,remoteHost, remoteRealm, provider);
 	}

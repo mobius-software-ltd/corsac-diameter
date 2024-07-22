@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.CreditControlClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionRequest;
@@ -30,9 +30,9 @@ import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.Sessi
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl;
 
-public class CreditControlClientSessionImpl extends ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements CreditControlClientSession
+public class CreditControlClientSessionImpl extends ClientCCSessionImpl<CreditControlRequest,CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements CreditControlClientSession
 {
-	public CreditControlClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
+	public CreditControlClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<CreditControlRequest,CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 	}

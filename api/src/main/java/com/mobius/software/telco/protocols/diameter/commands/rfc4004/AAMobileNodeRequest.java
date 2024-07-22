@@ -18,17 +18,12 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.net.InetAddress;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPHomeAgentHost;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNAAAAuth;
-import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPOriginatingForeignAAA;
 
 import io.netty.buffer.ByteBuf;
 
@@ -107,12 +102,8 @@ import io.netty.buffer.ByteBuf;
                                     * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.AA_MOBILE_NODE, request = true, proxyable = true, name="AA-Mobile-Node-Request")
-public interface AAMobileNodeRequest extends AuthenticationRequest
+public interface AAMobileNodeRequest extends Rfc4004Request
 {
-	ByteBuf getMIPRegRequest();
-	
-	void setMIPRegRequest(ByteBuf value) throws MissingAvpException;
-	
 	MIPMNAAAAuth getMIPMNAAAAuth();
 	
 	void setMIPMNAAAAuth(MIPMNAAAAuth value) throws MissingAvpException;
@@ -121,30 +112,6 @@ public interface AAMobileNodeRequest extends AuthenticationRequest
 	
 	void setAcctMultiSessionId(String value);
 
-	public InetAddress getMIPMobileNodeAddress();
-	
-	void setMIPMobileNodeAddress(InetAddress value);
-	
-	public InetAddress getMIPHomeAgentAddress();
-	
-	void setMIPHomeAgentAddress(InetAddress value);
-	
-	public Long getMIPFeatureVector();
-	
-	void setMIPFeatureVector(Long value);
-	
-	public MIPOriginatingForeignAAA getMIPOriginatingForeignAAA();
-	
-	void setMIPOriginatingForeignAAA(MIPOriginatingForeignAAA value);
-	
-	Long getAuthorizationLifetime();
-	
-	void setAuthorizationLifetime(Long value);	
-	
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value);
-	
 	ByteBuf getMIPFAChallenge();
 	
 	void setMIPFAChallenge(ByteBuf value);	

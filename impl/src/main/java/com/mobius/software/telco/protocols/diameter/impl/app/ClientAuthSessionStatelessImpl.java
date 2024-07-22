@@ -39,8 +39,8 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 */
 public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends DiameterSessionImpl implements ClientAuthSessionStateless<R1>
 {
-	private DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider;
-	public ClientAuthSessionStatelessImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener, ?, ?, ?, ?> provider)
+	private DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider;
+	public ClientAuthSessionStatelessImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -92,9 +92,9 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		DiameterRequest request = getLastSendRequest();
 		if(request!=null)
 		{
-			Collection<ClientAuthStatelessListener> listeners = null;
+			Collection<ClientAuthStatelessListener<R1>> listeners = null;
 			if(provider.getClientListeners()!=null)
-				listeners = (Collection<ClientAuthStatelessListener>) provider.getClientListeners().values();
+				listeners = (Collection<ClientAuthStatelessListener<R1>>) provider.getClientListeners().values();
 			
 			try
 			{
@@ -107,8 +107,8 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 					terminate();
 					if(listeners!=null)
 					{
-						for(ClientAuthStatelessListener listener:listeners)
-							listener.onInitialAnswer(castedAnswer, callback);
+						for(ClientAuthStatelessListener<R1> listener:listeners)
+							listener.onInitialAnswer(castedAnswer, this, callback);
 					}
 				}
 			}

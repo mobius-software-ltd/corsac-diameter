@@ -3,6 +3,7 @@ package com.mobius.software.telco.protocols.diameter.app;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.SessionListener;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -144,7 +145,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingA
       PendingL  Failed accounting stop answer               Idle
                 received
  */
-public interface ClientAccListener<A1 extends AccountingAnswer> extends SessionListener
+public interface ClientAccListener<R1 extends AccountingRequest,A1 extends AccountingAnswer> extends SessionListener
 {
-	void onAccountingResponse(A1 answer,AsyncCallback callback);
+	void onAccountingResponse(A1 answer,ClientAccSession<R1> session,AsyncCallback callback);
 }

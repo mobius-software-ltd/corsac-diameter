@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.nta;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.nta.NtaRequest;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -21,6 +22,6 @@ import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListe
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-public interface ClientListener extends ClientAuthStatelessListener
+public interface ClientListener extends ClientAuthStatelessListener<NtaRequest>
 {	
 }

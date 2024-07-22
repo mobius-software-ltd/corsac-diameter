@@ -41,10 +41,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 */
 public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extends SessionListener, A, M, F> implements DiameterProvider<L1, L2, A, M, F>
 {
-	private ConcurrentHashMap<String,DiameterSession> localMap=new ConcurrentHashMap<String,DiameterSession>();
-	private ConcurrentHashMap<ClusteredID<?>,IdleCheckTimer> idleMap=new ConcurrentHashMap<ClusteredID<?>,IdleCheckTimer>();
-	private ConcurrentHashMap<ClusteredID<?>,SendTimer> sendMap=new ConcurrentHashMap<ClusteredID<?>,SendTimer>();
-	
 	private ConcurrentHashMap<ClusteredID<?>,L1> clientListenersMap=new ConcurrentHashMap<ClusteredID<?>,L1>();
 	private ConcurrentHashMap<ClusteredID<?>,L2> serverListenersMap=new ConcurrentHashMap<ClusteredID<?>,L2>();
 	
@@ -63,38 +59,6 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	protected void setSessionFactory(F factory)
 	{
 		this.sessionFactory=factory;
-	}
-	
-	@Override
-	public void removeSession(String sessionId)
-	{
-		DiameterSession session = localMap.remove(sessionId);
-		
-		if(session.getIdleTimerID()!=null)
-		{
-			IdleCheckTimer idleTimer = idleMap.remove(session.getIdleTimerID());
-			if(idleTimer != null)
-				idleTimer.stop();
-		}
-		
-		if(session.getSendTimerID()!=null)
-		{
-			SendTimer sendTimer = sendMap.remove(session.getSendTimerID());
-			if(sendTimer != null)
-				sendTimer.stop();
-		}
-	}
-
-	@Override
-	public void storeSession(DiameterSession session)
-	{
-		localMap.put(session.getID(), session);
-	}
-
-	@Override
-	public DiameterSession getSession(String sessionId)
-	{
-		return localMap.get(sessionId);
 	}
 
 	@Override
@@ -158,97 +122,6 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	}
 
 	@Override
-	public void stopIdleTimer(ClusteredID<?> timerID)
-	{
-		IdleCheckTimer idleTimer = idleMap.remove(timerID);
-		if(idleTimer != null)
-			idleTimer.stop();
-	}
-
-	@Override
-	public void startIdleTimer(DiameterSession session, Long idleTime)
-	{
-		if(session.getIdleTimerID()==null)
-			session.setIdleTimerID(stack.getIDGenerator().generateID());
-		
-		IdleCheckTimer idleTimer = idleMap.get(session.getIdleTimerID());
-		if(idleTimer == null)
-		{			
-			IdleCheckTimer newTimer;
-			if(idleTime==null)
-				newTimer = new IdleCheckTimer(session, stack.getIdleTimeout());
-			else
-				newTimer = new IdleCheckTimer(session, idleTime);
-			
-			idleTimer = idleMap.putIfAbsent(session.getIdleTimerID(), newTimer);
-			if(idleTimer==null)
-				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
-		}
-	}
-
-	@Override
-	public void stopSendTimer(ClusteredID<?> timerID)
-	{
-		SendTimer sendTimer = sendMap.remove(timerID);
-		if(sendTimer != null)
-			sendTimer.stop();
-	}
-
-	@Override
-	public void startSendTimer(DiameterSession session)
-	{
-		if(session.getSendTimerID()==null)
-			session.setSendTimerID(stack.getIDGenerator().generateID());
-		
-		SendTimer sendTimer = sendMap.get(session.getSendTimerID());
-		if(sendTimer == null)
-		{
-			SendTimer newTimer=new SendTimer(session, stack.getResponseTimeout());
-			sendTimer = sendMap.putIfAbsent(session.getSendTimerID(), newTimer);
-			if(sendTimer==null)
-				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
-		}
-	}
-
-	@Override
-	public void restartIdleTimer(DiameterSession session,Long idleTime)
-	{
-		if(session.getIdleTimerID()==null)
-		{
-			startIdleTimer(session, idleTime);
-			return;
-		}
-		
-		IdleCheckTimer idleTimer = idleMap.get(session.getIdleTimerID());
-		if(idleTimer != null)
-		{
-			idleTimer.restart(idleTime);
-			stack.getWorkerPool().getPeriodicQueue().store(idleTimer.getRealTimestamp(), idleTimer);
-		}
-		else
-			startIdleTimer(session, idleTime);
-	}
-
-	@Override
-	public void restartSendTimer(DiameterSession session)
-	{
-		if(session.getSendTimerID()==null)
-		{
-			startSendTimer(session);
-			return;
-		}
-		
-		SendTimer sendTimer = sendMap.get(session.getSendTimerID());
-		if(sendTimer != null)
-		{
-			sendTimer.restart();
-			stack.getWorkerPool().getPeriodicQueue().store(sendTimer.getRealTimestamp(), sendTimer);
-		}
-		else
-			startSendTimer(session);
-	}
-
-	@Override
 	public void onMessage(DiameterMessage message, AsyncCallback callback)
 	{
 		String sessionID = null;
@@ -268,9 +141,13 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			return;
 		}
 		
-		DiameterSession session = this.localMap.get(sessionID);
+		DiameterSession session = this.getStack().getSessionStorage().getSession(sessionID);
 		if(session==null && (message instanceof DiameterRequest))
+		{
 			session=getNewSession((DiameterRequest)message);
+			if(session!=null)
+				getStack().getSessionStorage().storeSession(session);
+		}
 		
 		if(session==null)
 		{

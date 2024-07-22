@@ -1,10 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.app.rfc5778a;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Answer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Request;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.SessionTerminationAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Answer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.SessionTerminationRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -28,6 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Answer
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthListener<MIP6Answer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAuthListener<MIP6Request, MIP6Answer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }

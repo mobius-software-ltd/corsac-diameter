@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.CreditControlServerSession;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionRequest;
@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerCCSessionImpl
 
 public class CreditControlServerSessionImpl extends ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements CreditControlServerSession
 {
-	public CreditControlServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<CreditControlRequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>, ?, ?, ?> provider)
+	public CreditControlServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<CreditControlRequest,CreditControlAnswer, ReAuthRequest,ReAuthAnswer,AbortSessionRequest, AbortSessionAnswer,SessionTerminationRequest, SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, remoteHost, remoteRealm, provider);
 	}

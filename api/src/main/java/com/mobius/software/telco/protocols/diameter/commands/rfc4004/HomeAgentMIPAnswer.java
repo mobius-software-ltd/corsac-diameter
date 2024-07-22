@@ -18,15 +18,9 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.net.InetAddress;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-
-import io.netty.buffer.ByteBuf;
 
 /**
 *
@@ -68,28 +62,8 @@ import io.netty.buffer.ByteBuf;
                                    * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.MOBILE_IPV4, commandCode = CommandCodes.HOME_AGENT_MIP, request = false, proxyable = true, name="Home-Agent-MIP-Answer")
-public interface HomeAgentMIPAnswer extends DiameterAnswer
+public interface HomeAgentMIPAnswer extends Rfc4004Answer
 {
-	Long getAuthApplicationId(); 
-	
-	void setAuthApplicationId(Long value) throws MissingAvpException; 
-	
-	String getAcctMultiSessionId();
-	
-	void setAcctMultiSessionId(String value);
-	
-	ByteBuf getMIPRegReply();
-	
-	void setMIPRegReply(ByteBuf value);
-	
-	InetAddress getMIPHomeAgentAddress();
-	
-	void setMIPHomeAgentAddress(InetAddress value);
-	
-	InetAddress getMIPMobileNodeAddress();
-	
-	void setMIPMobileNodeAddress(InetAddress value);
-	
 	Long getMIPFAtoHASPI();
 	
 	void setMIPFAtoHASPI(Long value);

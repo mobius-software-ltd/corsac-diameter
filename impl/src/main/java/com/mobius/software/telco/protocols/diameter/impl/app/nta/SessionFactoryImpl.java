@@ -20,10 +20,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.nta;
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.nta.ClientListener;
-import com.mobius.software.telco.protocols.diameter.app.nta.NtaEventConfigurationClientSession;
-import com.mobius.software.telco.protocols.diameter.app.nta.NtaEventConfigurationServerSession;
-import com.mobius.software.telco.protocols.diameter.app.nta.NtaEventReportingClientSession;
-import com.mobius.software.telco.protocols.diameter.app.nta.NtaEventReportingServerSession;
+import com.mobius.software.telco.protocols.diameter.app.nta.NtaClientSession;
+import com.mobius.software.telco.protocols.diameter.app.nta.NtaServerSession;
 import com.mobius.software.telco.protocols.diameter.app.nta.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.nta.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventConfigurationRequest;
@@ -40,26 +38,26 @@ public class SessionFactoryImpl implements SessionFactory
 	}
 	
 	@Override
-	public NtaEventConfigurationClientSession createClientSession(EventConfigurationRequest request) throws AvpNotSupportedException
+	public NtaClientSession createClientSession(EventConfigurationRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventConfigurationClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new NtaClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 	
 	@Override
-	public NtaEventConfigurationServerSession createServerSession(EventConfigurationRequest request) throws AvpNotSupportedException
+	public NtaServerSession createServerSession(EventConfigurationRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventConfigurationServerSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new NtaServerSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 	
 	@Override
-	public NtaEventReportingClientSession createClientSession(EventReportingRequest request) throws AvpNotSupportedException
+	public NtaClientSession createClientSession(EventReportingRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventReportingClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new NtaClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 	
 	@Override
-	public NtaEventReportingServerSession createServerSession(EventReportingRequest request) throws AvpNotSupportedException
+	public NtaServerSession createServerSession(EventReportingRequest request) throws AvpNotSupportedException
 	{
-		return new NtaEventReportingServerSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
+		return new NtaServerSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(), provider);
 	}
 }

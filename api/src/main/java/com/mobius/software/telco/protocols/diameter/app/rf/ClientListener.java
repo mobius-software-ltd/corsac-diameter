@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app.rf;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAccListener;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingRequest;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAccListener<AccountingAnswer>
+public interface ClientListener extends ClientAccListener<AccountingRequest,AccountingAnswer>
 {
 }
