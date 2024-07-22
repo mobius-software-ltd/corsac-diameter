@@ -32,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterRulePorts
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpFlag;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleTcpOption;
 import com.mobius.software.telco.protocols.diameter.primitives.InternetProtocol;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
@@ -39,7 +40,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Fin
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolReference;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoSFinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectServer;
@@ -60,7 +60,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public ServiceParameterInfo getServiceParameterInfo(Long serviceParameterType,ByteBuf serviceParameterValue) throws MissingAvpException;
 	
-	public MultipleServicesCreditControl getMultipleServicesCreditControl();
+	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication);
 	
 	public UsedServiceUnit getUsedServiceUnit();
 	
