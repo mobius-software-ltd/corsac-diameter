@@ -18,6 +18,8 @@ package com.mobius.software.telco.protocols.diameter;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.Map;
+
 import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.common.dal.timers.WorkerPool;
@@ -71,4 +73,32 @@ public interface DiameterStack
 	DiameterSessionStorage getSessionStorage();
 	
 	IncomingRequestsStorage getRequestsStorage();
+	
+	Map<Long,Long> getMessagesSentByType();
+    
+    Map<Long,Long> getMessagesReceivedByType();
+    
+    Map<Long,Long> getErrorsSentByType();
+    
+    Map<Long,Long> getErrorsReceivedByType();
+    
+    Map<Long,Long> getSessionsSentByApplication();
+    
+    Map<Long,Long> getSessionsReceivedByApplication();  
+    
+    Map<Long,Long> getMessagesSentByTypeAndApplication(long applicationID);
+    
+    Map<Long,Long> getMessagesReceivedByTypeAndApplication(long applicationID);
+    
+    Map<Long,Long> getErrorsSentByTypeAndApplication(long applicationID);
+    
+    Map<Long,Long> getErrorsReceivedByTypeAndApplication(long applicationID);
+    
+    Map<Long,Long> getLinkMessagesSentByTypeAndApplication(String linkID, long applicationID);
+    
+    Map<Long,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, long applicationID);
+    
+    Map<Long,Long> getLinkErrorsSentByTypeAndApplication(String linkID, long applicationID);
+    
+    Map<Long,Long> getLinkErrorsReceivedByTypeAndApplication(String linkID, long applicationID);
 }

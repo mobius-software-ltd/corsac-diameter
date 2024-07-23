@@ -18,6 +18,10 @@ package com.mobius.software.telco.protocols.diameter.impl;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -57,6 +61,23 @@ public class DiameterStackImpl implements DiameterStack
 	private ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>> registeredProviders=new ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>>();
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
 	
+	private Map<Long, AtomicLong> messagesSentByType = new ConcurrentHashMap<Long, AtomicLong>();
+	private Map<Long, AtomicLong> messagesReceivedByType = new ConcurrentHashMap<Long, AtomicLong>();
+	private Map<Long, AtomicLong> errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
+	private Map<Long, AtomicLong> errorsReceivedByType = new ConcurrentHashMap<Long, AtomicLong>();
+	private Map<Long, AtomicLong> sessionsSentByApplication = new ConcurrentHashMap<Long, AtomicLong>();
+	private Map<Long, AtomicLong> sessionsReceivedByApplication = new ConcurrentHashMap<Long, AtomicLong>();
+		
+	private ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> messagesSentByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
+	private ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> messagesReceivedByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
+	private ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
+	private ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
+    
+	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> messagesSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
+	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> messagesReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
+	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
+	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
+    
 	private DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
 	private IncomingRequestsStorage incomingRequestsStorage;
 	
@@ -416,5 +437,227 @@ public class DiameterStackImpl implements DiameterStack
 	public IncomingRequestsStorage getRequestsStorage()
 	{
 		return this.incomingRequestsStorage;
+	}
+
+	@Override
+	public Map<Long, Long> getMessagesSentByType()
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Iterator<Entry<Long, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Entry<Long, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey(), currEntry.getValue().get());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getMessagesReceivedByType()
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Iterator<Entry<Long, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Entry<Long, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey(), currEntry.getValue().get());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getErrorsSentByType()
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Iterator<Entry<Long, AtomicLong>> iterator=errorsSentByType.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Entry<Long, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey(), currEntry.getValue().get());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getErrorsReceivedByType()
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Iterator<Entry<Long, AtomicLong>> iterator=errorsReceivedByType.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Entry<Long, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey(), currEntry.getValue().get());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getSessionsSentByApplication()
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Iterator<Entry<Long, AtomicLong>> iterator=sessionsSentByApplication.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Entry<Long, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey(), currEntry.getValue().get());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getSessionsReceivedByApplication()
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Iterator<Entry<Long, AtomicLong>> iterator=sessionsReceivedByApplication.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Entry<Long, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey(), currEntry.getValue().get());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getMessagesSentByTypeAndApplication(long applicationID)
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Map<Long,AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
+		if(messagesSentByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getMessagesReceivedByTypeAndApplication(long applicationID)
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Map<Long,AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
+		if(messagesReceivedByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getErrorsSentByTypeAndApplication(long applicationID)
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Map<Long,AtomicLong> errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
+		if(errorsSentByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=errorsSentByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getErrorsReceivedByTypeAndApplication(long applicationID)
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		Map<Long,AtomicLong> errorsReceivedByType = errorsReceivedByTypeAndApplication.get(applicationID);
+		if(errorsReceivedByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=errorsReceivedByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getLinkMessagesSentByTypeAndApplication(String linkID, long applicationID)
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>> messagesSentByTypeAndApplication = messagesSentByLinkTypeAndApplication.get(linkID);
+		if(messagesSentByTypeAndApplication==null)
+			return null;
+		
+		Map<Long,AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
+		if(messagesSentByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+    
+	@Override
+	public Map<Long,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, long applicationID)    
+    {
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>> messagesReceivedByTypeAndApplication = messagesReceivedByLinkTypeAndApplication.get(linkID);
+		if(messagesReceivedByTypeAndApplication==null)
+			return null;
+		
+		Map<Long,AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
+		if(messagesReceivedByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getLinkErrorsSentByTypeAndApplication(String linkID, long applicationID)
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
+		if(errorsSentByTypeAndApplication==null)
+			return null;
+		
+		Map<Long,AtomicLong> errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
+		if(errorsSentByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=errorsSentByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<Long, Long> getLinkErrorsReceivedByTypeAndApplication(String linkID, long applicationID)
+	{
+		Map<Long,Long> result=new HashMap<Long, Long>();
+		ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
+		if(errorsReceivedByTypeAndApplication==null)
+			return null;
+		
+		Map<Long,AtomicLong> errorsReceivedByType = errorsReceivedByTypeAndApplication.get(applicationID);
+		if(errorsReceivedByType!=null) {
+			Iterator<Entry<Long, AtomicLong>> iterator=errorsReceivedByType.entrySet().iterator();
+			while(iterator.hasNext()) {
+				Entry<Long, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey(), currEntry.getValue().get());
+			}
+		}
+		
+		return result;
 	}
 }
