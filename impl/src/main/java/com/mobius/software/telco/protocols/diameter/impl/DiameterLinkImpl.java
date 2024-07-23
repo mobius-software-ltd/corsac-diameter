@@ -568,7 +568,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			DiameterRequest request = (DiameterRequest)message;			
 			try
 			{
-				if(request.getDestinationHost()==null)
+				if(request.isDestinationHostRequred() && request.getDestinationHost()==null)
 					request.setDestinationHost(destinationHost);
 			}
 			catch(DiameterException ex)

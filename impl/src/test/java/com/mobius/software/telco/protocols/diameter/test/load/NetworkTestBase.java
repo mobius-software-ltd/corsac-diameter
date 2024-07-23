@@ -1,7 +1,8 @@
-package com.mobius.software.telco.protocols.diameter.test.mm10;
+package com.mobius.software.telco.protocols.diameter.test.load;
 
 import java.net.InetAddress;
 import java.util.Arrays;
+import java.util.List;
 
 import org.restcomm.cluster.IDGenerator;
 import org.restcomm.cluster.UUIDGenerator;
@@ -47,7 +48,7 @@ public class NetworkTestBase
 	protected Long responseTimeout = 1000L;
 	protected Long reconnectTimeout = 1000L;
 	
-	protected static final String localLinkID = "1";
+	protected static final List<String> localLinkIDs = Arrays.asList(new String[] {"1","2","3","4"});
 	
 	public void setupRemote(Long duplicateTimeout,Long duplicatePeriod) throws Exception
 	{
@@ -62,9 +63,12 @@ public class NetworkTestBase
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.mm10.MessageProcessRequestImpl.class;
 		
 		serverStack=new DiameterStackImpl(generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
-		serverStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 13868,  InetAddress.getByName("127.0.0.1"), 4868, true, true, "127.0.0.1", "server.mobius-software.com", "127.0.0.1", "client.mobius-software.com", false);
-		serverStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.MM10) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.mm10"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.mm10"));
-		serverStack.getNetworkManager().startLink(localLinkID);		
+		for(String localLinkID:localLinkIDs)
+		{
+			serverStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 13868 + Integer.parseInt(localLinkID),  InetAddress.getByName("127.0.0.1"), 4868 + Integer.parseInt(localLinkID), true, true, "127.0.0.1", "server.mobius-software.com", "127.0.0.1", "client.mobius-software.com", false);
+			serverStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.MM10) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.mm10"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.mm10"));
+			serverStack.getNetworkManager().startLink(localLinkID);
+		}
 	}
 	
 	public void setupLocal(Long duplicateTimeout,Long duplicatePeriod) throws Exception
@@ -80,9 +84,12 @@ public class NetworkTestBase
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.mm10.MessageProcessRequestImpl.class;
 		
 		localStack=new DiameterStackImpl(generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
-		localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868,  InetAddress.getByName("127.0.0.1"), 13868, false, true, "127.0.0.1", "client.mobius-software.com", "127.0.0.1", "server.mobius-software.com", false);
-		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.MM10) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.mm10"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.mm10"));
-		localStack.getNetworkManager().startLink(localLinkID);		
+		for(String localLinkID:localLinkIDs)
+		{
+			localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868 + Integer.parseInt(localLinkID),  InetAddress.getByName("127.0.0.1"), 13868 + Integer.parseInt(localLinkID), false, true, "127.0.0.1", "client.mobius-software.com", "127.0.0.1", "server.mobius-software.com", false);
+			localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.MM10) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.mm10"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.mm10"));
+			localStack.getNetworkManager().startLink(localLinkID);		
+		}
 	}
 	
 	public void stopRemote() throws Exception

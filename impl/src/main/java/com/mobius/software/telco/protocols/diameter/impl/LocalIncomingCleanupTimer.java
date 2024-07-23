@@ -79,8 +79,11 @@ public class LocalIncomingCleanupTimer implements Timer
 					currHostEntry.getValue().remove(curr);
 			}
 			
-			this.timestamp = new AtomicLong(System.currentTimeMillis() + stack.getDuplicatesCheckPeriod());
-			stack.getWorkerPool().getPeriodicQueue().store(this.getRealTimestamp(), this);	
+			if(stack.getDuplicatesTimeout()!=null && stack.getDuplicatesTimeout()>0 && stack.getDuplicatesCheckPeriod()!=null && stack.getDuplicatesCheckPeriod()>0)
+			{
+				this.timestamp = new AtomicLong(System.currentTimeMillis() + stack.getDuplicatesCheckPeriod());
+				stack.getWorkerPool().getPeriodicQueue().store(this.getRealTimestamp(), this);	
+			}
 		}
 	}
 

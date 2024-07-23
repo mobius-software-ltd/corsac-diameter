@@ -34,4 +34,6 @@ public interface IncomingRequestsStorage
 	void answerSent(String originHost, DiameterAnswer answer);
 	
 	void stop();
+	
+	Integer getRequestsCount();
 }

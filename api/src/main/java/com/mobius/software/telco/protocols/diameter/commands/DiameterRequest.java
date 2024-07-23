@@ -35,4 +35,6 @@ public interface DiameterRequest extends DiameterMessage
 	public String getDestinationRealm();
 	
 	void setDestinationRealm(String value) throws MissingAvpException;
+	
+	Boolean isDestinationHostRequred();
 }

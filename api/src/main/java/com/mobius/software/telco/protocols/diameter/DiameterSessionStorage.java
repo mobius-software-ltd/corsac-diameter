@@ -45,4 +45,6 @@ public interface DiameterSessionStorage
 	void stopSendTimer(ClusteredID<?> timerID);
 	
 	void startSendTimer(DiameterSession session);
+	
+	Integer getSessionsCount();
 }

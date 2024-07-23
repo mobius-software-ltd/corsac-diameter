@@ -35,9 +35,11 @@ public class LocalIncomingRequestsStorageImpl implements IncomingRequestsStorage
 {
 	private ConcurrentHashMap<String,ConcurrentHashMap<Long,DiameterAnswerData>> referencesMap=new ConcurrentHashMap<String,ConcurrentHashMap<Long,DiameterAnswerData>>();
 	private LocalIncomingCleanupTimer cleanupTimer;
+	private DiameterStack stack;
 	
 	public LocalIncomingRequestsStorageImpl(DiameterStack stack)
 	{
+		this.stack = stack;
 		this.cleanupTimer = new LocalIncomingCleanupTimer(stack, referencesMap);
 	}
 	
@@ -49,6 +51,9 @@ public class LocalIncomingRequestsStorageImpl implements IncomingRequestsStorage
 	@Override
 	public DiameterAnswerData incomingMessageReceived(DiameterRequest request)
 	{
+		if(stack.getDuplicatesTimeout()==null || stack.getDuplicatesTimeout()==0 || stack.getDuplicatesCheckPeriod()==null || stack.getDuplicatesCheckPeriod()==0)
+			return null;
+		
 		ConcurrentHashMap<Long,DiameterAnswerData> hostMap = referencesMap.get(request.getOriginHost());
 		if(hostMap==null)
 		{
@@ -88,5 +93,15 @@ public class LocalIncomingRequestsStorageImpl implements IncomingRequestsStorage
 		DiameterAnswerData result = hostMap.get(answer.getHopByHopIdentifier());
 		if(result != null)
 			result.setAnswer(answer);
+	}
+
+	@Override
+	public Integer getRequestsCount()
+	{
+		Integer result = 0;
+		for(ConcurrentHashMap<Long,DiameterAnswerData> currHostData:referencesMap.values())
+			result +=currHostData.size();
+		
+		return result;
 	}
 }

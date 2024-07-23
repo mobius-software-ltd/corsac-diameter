@@ -72,6 +72,11 @@ public abstract class DiameterRequestBase extends DiameterMessageBase implements
 	{
 		this.destinationHostRequired = required;
 	}
+	
+	public Boolean isDestinationHostRequred()
+	{
+		return this.destinationHostRequired;
+	}
 
 	@Override
 	public String getDestinationHost()

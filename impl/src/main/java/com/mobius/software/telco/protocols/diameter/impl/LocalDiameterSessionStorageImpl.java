@@ -166,4 +166,10 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 		else
 			startSendTimer(session);
 	}
+
+	@Override
+	public Integer getSessionsCount()
+	{
+		return localMap.size();
+	}
 }

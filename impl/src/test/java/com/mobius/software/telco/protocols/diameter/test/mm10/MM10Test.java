@@ -66,7 +66,7 @@ public class MM10Test extends NetworkTestBase
 	@Test
 	public void testEvent() throws Exception
 	{
-		super.setupRemote();
+		super.setupRemote(0L,0L);
 		super.setupLocal(0L,0L);
 		
 		final AtomicLong mpaReceived=new AtomicLong(0L);
@@ -248,7 +248,7 @@ public class MM10Test extends NetworkTestBase
 	@Test
 	public void testDuplicateEvent() throws Exception
 	{
-		super.setupRemote();
+		super.setupRemote(1000L,2000L);
 		super.setupLocal(1000L,2000L);
 		
 		final AtomicLong mpaReceived=new AtomicLong(0L);
@@ -440,5 +440,5 @@ public class MM10Test extends NetworkTestBase
 		assertEquals(mprReceived.get() , 2L);
 		assertEquals(mprReceivedByListener.get() , 1L);
 		assertEquals(timeoutReceived.get() , 0L);
-	}
+	}		
 }
