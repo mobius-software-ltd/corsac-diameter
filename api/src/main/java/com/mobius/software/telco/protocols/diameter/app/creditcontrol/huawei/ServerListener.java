@@ -1,10 +1,10 @@
 package com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei.ReAuthAnswer;
