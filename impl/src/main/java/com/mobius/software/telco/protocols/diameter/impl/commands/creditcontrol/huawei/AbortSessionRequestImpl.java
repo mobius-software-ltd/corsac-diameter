@@ -33,10 +33,16 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	protected AbortSessionRequestImpl() 
 	{
 		super();
+		
+		setDestinationHostRequired(true);
+		
 	}
 		
 	public AbortSessionRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID);
+		
+		setDestinationHostRequired(true);
+		setDestinationHost(destinationHost);
 	}
 }

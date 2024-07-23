@@ -52,11 +52,16 @@ public class ReAuthRequestImpl extends com.mobius.software.telco.protocols.diame
 	protected ReAuthRequestImpl() 
 	{
 		super();
+		setDestinationHostRequired(true);
+		
 	}
 		
 	public ReAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{		
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationID, reAuthRequestType);
+		
+		setDestinationHostRequired(true);
+		setDestinationHost(destinationHost);
 	}
 
 	@Override
