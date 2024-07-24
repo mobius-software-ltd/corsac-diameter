@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.gi;
 import org.restcomm.cluster.ClusteredID;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 /*
  * Mobius Software LTD
@@ -49,9 +50,9 @@ public class GiClientSessionImpl implements GiClientSession
 	public GiClientSessionImpl(Boolean isAuth, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientListener, ?, ?, ?, ?> provider)
 	{
 		if(isAuth==null || isAuth)
-			authSession = new ClientAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, remoteHost, remoteRealm, provider);
+			authSession = new ClientAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, Long.valueOf(ApplicationIDs.NASREQ), remoteHost, remoteRealm, provider);
 		else
-			accSession = new ClientAccSessionImpl<AccountingRequest, AccountingAnswer>(sessionID, remoteHost, remoteRealm, provider);		
+			accSession = new ClientAccSessionImpl<AccountingRequest, AccountingAnswer>(sessionID, Long.valueOf(ApplicationIDs.NASREQ), remoteHost, remoteRealm, provider);		
 	}
 
 	@Override
@@ -73,12 +74,12 @@ public class GiClientSessionImpl implements GiClientSession
 	}
 
 	@Override
-	public void terminate()
+	public void terminate(Long resultCode)
 	{
 		if(accSession==null)
-			accSession.terminate();
+			accSession.terminate(resultCode);
 		else
-			authSession.terminate();
+			authSession.terminate(resultCode);
 	}
 
 	@Override
@@ -223,5 +224,14 @@ public class GiClientSessionImpl implements GiClientSession
 			return accSession.isServer();
 		else
 			return authSession.isServer();
+	}
+
+	@Override
+	public Long getApplicationID()
+	{
+		if(accSession!=null)
+			return accSession.getApplicationID();
+		else
+			return authSession.getApplicationID();
 	}
 }

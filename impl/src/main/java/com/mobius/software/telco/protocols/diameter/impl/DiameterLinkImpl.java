@@ -95,6 +95,8 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	private Server server;
 	private AtomicReference<PeerStateEnum> peerState = new AtomicReference<PeerStateEnum>(PeerStateEnum.IDLE);
 	
+	private String linkId;
+	
 	private String localHost;
 	private String localRealm;
 	private String destinationHost;
@@ -133,6 +135,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	public DiameterLinkImpl(DiameterStack stack, Management management, ConcurrentHashMap<String, NetworkListener> genericListeners, String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps, Long inactivityTimeout, Long responseTimeout, Long reconnectTimeout) throws DiameterException
 	{
 		this.genericListeners = genericListeners;
+		this.linkId = linkId;
 		
 		if(remoteAddress==null)
 			throw new DiameterException("The remote address can not be null", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
@@ -587,6 +590,8 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			}
 		}
 			
+		stack.messageSent(message, linkId);
+		
 		PayloadData payloadData = null;
 		try
 		{
@@ -1210,5 +1215,11 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	public void disconnectOperationCompleted()
 	{
 		disconnectTimer.execute();	
+	}
+
+	@Override
+	public String getID()
+	{
+		return linkId;
 	}
 }

@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.nta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.nta.NtaClientSession;
@@ -29,6 +30,6 @@ public class NtaClientSessionImpl extends ClientAuthSessionStatelessImpl<NtaRequ
 {
 	public NtaClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<NtaRequest>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, Long.valueOf(ApplicationIDs.NTA), remoteHost, remoteRealm, provider);
 	}
 }

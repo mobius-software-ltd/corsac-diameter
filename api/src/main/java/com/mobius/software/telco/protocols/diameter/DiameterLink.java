@@ -39,6 +39,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpec
 */
 public interface DiameterLink
 {
+	String getID();
+	
 	void sendMessage(DiameterMessage message,AsyncCallback callback);
 	
 	public boolean isStarted();

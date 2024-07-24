@@ -107,6 +107,8 @@ public class MessageProcessingTask implements Task
 	public void execute()
 	{
 		lastActivity.set(System.currentTimeMillis());
+		stack.messageReceived(message, link.getID());
+		
 		if(message instanceof CapabilitiesExchangeRequest)
 		{
 			switch(link.getPeerState())

@@ -20,6 +20,8 @@ package com.mobius.software.telco.protocols.diameter.impl;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
@@ -33,6 +35,8 @@ import com.mobius.software.telco.protocols.diameter.DiameterStack;
 */
 public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 {
+	public static Logger logger=LogManager.getLogger(InactivityTimer.class);
+	
 	private ConcurrentHashMap<String,DiameterSession> localMap=new ConcurrentHashMap<String,DiameterSession>();
 	private ConcurrentHashMap<ClusteredID<?>,IdleCheckTimer> idleMap=new ConcurrentHashMap<ClusteredID<?>,IdleCheckTimer>();
 	private ConcurrentHashMap<ClusteredID<?>,SendTimer> sendMap=new ConcurrentHashMap<ClusteredID<?>,SendTimer>();
@@ -45,29 +49,34 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	}
 	
 	@Override
-	public void removeSession(String sessionId)
+	public Boolean removeSession(String sessionId)
 	{
 		DiameterSession session = localMap.remove(sessionId);
 		
-		if(session.getIdleTimerID()!=null)
+		if(session!=null)
 		{
-			IdleCheckTimer idleTimer = idleMap.remove(session.getIdleTimerID());
-			if(idleTimer != null)
-				idleTimer.stop();
+			if(session.getIdleTimerID()!=null)
+			{
+				IdleCheckTimer idleTimer = idleMap.remove(session.getIdleTimerID());
+				if(idleTimer != null)
+					idleTimer.stop();
+			}
+			
+			if(session.getSendTimerID()!=null)
+			{
+				SendTimer sendTimer = sendMap.remove(session.getSendTimerID());
+				if(sendTimer != null)
+					sendTimer.stop();
+			}
 		}
 		
-		if(session.getSendTimerID()!=null)
-		{
-			SendTimer sendTimer = sendMap.remove(session.getSendTimerID());
-			if(sendTimer != null)
-				sendTimer.stop();
-		}
+		return session!=null;
 	}
 
 	@Override
-	public void storeSession(DiameterSession session)
+	public Boolean storeSession(DiameterSession session)
 	{
-		localMap.put(session.getID(), session);
+		return localMap.put(session.getID(), session) != null;
 	}
 
 	@Override
@@ -79,6 +88,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	@Override
 	public void stopIdleTimer(ClusteredID<?> timerID)
 	{
+		logger.info("Stopping idle timer");
 		IdleCheckTimer idleTimer = idleMap.remove(timerID);
 		if(idleTimer != null)
 			idleTimer.stop();
@@ -87,6 +97,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	@Override
 	public void startIdleTimer(DiameterSession session, Long idleTime)
 	{
+		logger.info("starting idle timer");
 		if(session.getIdleTimerID()==null)
 			session.setIdleTimerID(stack.getIDGenerator().generateID());
 		
@@ -132,6 +143,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	@Override
 	public void restartIdleTimer(DiameterSession session,Long idleTime)
 	{
+		logger.info("restarting idle timer");
 		if(session.getIdleTimerID()==null)
 		{
 			startIdleTimer(session, idleTime);

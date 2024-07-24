@@ -54,9 +54,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	private DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider;
 	private RetransmissionCallback retransmissionCallback=new RetransmissionCallback();
 	
-	public ClientCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider)
+	public ClientCCSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -290,7 +290,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						A4 castedAnswer = (A4)answer;
 						
 						setSessionState(SessionStateEnum.IDLE);
-						terminate();
+						terminate(castedAnswer.getResultCode());
 						if(listeners!=null)
 						{
 							for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -326,7 +326,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						if(((CreditControlRequest)request).getCcRequestType()!=null && ((CreditControlRequest)request).getCcRequestType()==CcRequestTypeEnum.TERMINATION_REQUEST)
 						{
 							setSessionState(SessionStateEnum.IDLE);
-							terminate();
+							terminate(castedAnswer.getResultCode());
 							if(listeners!=null)
 							{
 								for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -338,7 +338,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							if(((CreditControlRequest)request).getCcRequestType()!=null && ((CreditControlRequest)request).getCcRequestType()==CcRequestTypeEnum.EVENT_REQUEST)
 							{
 								setSessionState(SessionStateEnum.IDLE);
-								terminate();
+								terminate(castedAnswer.getResultCode());
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -390,7 +390,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							if(!shouldRetry)
 							{
 								setSessionState(SessionStateEnum.IDLE);
-								terminate();
+								terminate(castedAnswer.getResultCode());
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -503,7 +503,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		public void onError(DiameterException ex)
 		{
 			setSessionState(SessionStateEnum.IDLE);
-			terminate();
+			terminate(ex.getErrorCode());
 			
 			if(provider.getClientListeners()!=null)
 			{

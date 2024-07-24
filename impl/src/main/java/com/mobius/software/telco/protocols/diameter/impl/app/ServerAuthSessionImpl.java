@@ -44,9 +44,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerAuthSession<A1,R2,R3,A4>
 {
 	private DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider;
-	public ServerAuthSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
+	public ServerAuthSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -74,7 +74,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				if(answer.getIsError()!=null && answer.getIsError())
 				{	
 					setSessionState(SessionStateEnum.IDLE);
-					terminate();
+					terminate(answer.getResultCode());
 				}
 				else
 				{
@@ -138,7 +138,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.IDLE);
-				terminate();
+				terminate(answer.getResultCode());
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
 		});			
@@ -248,7 +248,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						A3 castedAnswer = (A3)answer;
 						
 						setSessionState(SessionStateEnum.IDLE);
-						terminate();
+						terminate(castedAnswer.getResultCode());
 						if(listeners!=null)
 						{
 							for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -282,7 +282,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						else
 						{
 							setSessionState(SessionStateEnum.IDLE);
-							terminate();
+							terminate(castedAnswer.getResultCode());
 							if(listeners!=null)
 							{
 								for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)

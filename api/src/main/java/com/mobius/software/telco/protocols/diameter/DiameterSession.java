@@ -33,6 +33,8 @@ public interface DiameterSession
 {
 	String getID();
 	
+	Long getApplicationID();
+	
 	ClusteredID<?> getIdleTimerID();
 	
 	ClusteredID<?> getSendTimerID();
@@ -51,7 +53,7 @@ public interface DiameterSession
 	
 	void answerSent(DiameterAnswer answer, AsyncCallback callback, Long idleTime);
 	
-	void terminate();
+	void terminate(Long resultCode);
 	
 	void onTimeout();
 	

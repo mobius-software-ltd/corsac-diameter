@@ -716,6 +716,6 @@ public class RoTest extends NetworkTestBase
 		
 		assertEquals(ccaReceived.get() , 1L);
 		assertEquals(ccaReceivedByListener.get() , 1L);
-		assertEquals(timeoutReceived.get() , 1L);
+		assertEquals(timeoutReceived.get() , 2L);
 	}		
 }

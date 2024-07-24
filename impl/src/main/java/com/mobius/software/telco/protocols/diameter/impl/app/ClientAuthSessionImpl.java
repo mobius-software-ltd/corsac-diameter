@@ -46,9 +46,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ClientAuthSession<R1,A2,A3,R4>
 {
 	private DiameterProvider<? extends ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?, ?> provider;
-	public ClientAuthSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?, ?> provider)
+	public ClientAuthSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -123,7 +123,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				if(answer.getIsError()!=null && answer.getIsError())
 				{	
 					setSessionState(SessionStateEnum.IDLE);
-					terminate();
+					terminate(answer.getResultCode());
 				}
 				
 				answerSent(answer, callback, null);
@@ -287,7 +287,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						A4 castedAnswer = (A4)answer;
 						
 						setSessionState(SessionStateEnum.IDLE);
-						terminate();
+						terminate(castedAnswer.getResultCode());
 						if(listeners!=null)
 						{
 							for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -322,7 +322,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						else
 						{
 							setSessionState(SessionStateEnum.IDLE);
-							terminate();
+							terminate(castedAnswer.getResultCode());
 							if(listeners!=null)
 							{
 								for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -370,7 +370,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		public void onError(DiameterException ex)
 		{
 			setSessionState(SessionStateEnum.IDLE);
-			terminate();
+			terminate(ex.getErrorCode());
 			realCallback.onError(ex);	
 		}		
 	}

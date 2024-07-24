@@ -57,4 +57,8 @@ public class ResultCodes
 	public static final long DIAMETER_INVALID_MESSAGE_LENGTH = 5015L;
 	public static final long DIAMETER_INVALID_AVP_BIT_COMBO = 5016L;
 	public static final long DIAMETER_NO_COMMON_SECURITY = 5017L;	
+	
+	//application specific codes
+	public static final long DIAMETER_SESSION_TIMEOUT = -1000L;	
+	public static final long DIAMETER_REQUEST_TIMEOUT = -1001L;		
 }

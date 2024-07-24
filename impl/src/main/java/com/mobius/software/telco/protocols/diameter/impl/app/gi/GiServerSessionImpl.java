@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.gi;
 import org.restcomm.cluster.ClusteredID;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 /*
  * Mobius Software LTD
@@ -48,9 +49,9 @@ public class GiServerSessionImpl implements GiServerSession
 	public GiServerSessionImpl(Boolean isAuth, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerListener, ?, ?, ?> provider)
 	{
 		if(isAuth==null || isAuth)
-			authSession = new ServerAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, remoteHost, remoteRealm, provider);
+			authSession = new ServerAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, Long.valueOf(ApplicationIDs.NASREQ), remoteHost, remoteRealm, provider);
 		else
-			accSession = new ServerAccSessionImpl<AccountingRequest, AccountingAnswer>(sessionID, remoteHost, remoteRealm, provider);
+			accSession = new ServerAccSessionImpl<AccountingRequest, AccountingAnswer>(sessionID, Long.valueOf(ApplicationIDs.NASREQ), remoteHost, remoteRealm, provider);
 	}
 
 	@Override
@@ -72,12 +73,12 @@ public class GiServerSessionImpl implements GiServerSession
 	}
 
 	@Override
-	public void terminate()
+	public void terminate(Long resultCode)
 	{
 		if(accSession==null)
-			accSession.terminate();
+			accSession.terminate(resultCode);
 		else
-			authSession.terminate();
+			authSession.terminate(resultCode);
 	}
 
 	@Override
@@ -123,6 +124,15 @@ public class GiServerSessionImpl implements GiServerSession
 			return accSession.getID();
 		else
 			return authSession.getID();
+	}
+
+	@Override
+	public Long getApplicationID()
+	{
+		if(accSession!=null)
+			return accSession.getApplicationID();
+		else
+			return authSession.getApplicationID();
 	}
 
 	@Override

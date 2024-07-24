@@ -47,9 +47,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	
 	private DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider;
 	
-	public ClientAccSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider)
+	public ClientAccSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -87,10 +87,10 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				if(!isRetry) 
 				{
 					setLastSentRequest(request);	
-					requestSent(request, new CallbackWrapper(callback));
+					requestSent(request, callback);
 				}
 				
-				provider.getStack().sendRequest(request, callback);
+				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
 		});				
 	}
@@ -136,7 +136,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 					if(((AccountingRequest)request).getAccountingRecordType()!=null && ((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.STOP_RECORD)
 					{
 						setSessionState(SessionStateEnum.IDLE);
-						terminate();
+						terminate(answer.getResultCode());
 						if(listeners!=null)
 						{
 							for(ClientAccListener<R1, A1> listener:listeners)
@@ -148,7 +148,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						if(((AccountingRequest)request).getAccountingRecordType()!=null && ((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.EVENT_RECORD)
 						{
 							setSessionState(SessionStateEnum.IDLE);
-							terminate();
+							terminate(answer.getResultCode());
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
@@ -197,7 +197,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						if(!processed)
 						{
 							setSessionState(SessionStateEnum.IDLE);
-							terminate();
+							terminate(answer.getResultCode());
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
@@ -270,7 +270,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				setSessionState(SessionStateEnum.IDLE);
 				if(!shouldResend)
 				{
-					terminate();
+					terminate(ex.getErrorCode());
 					realCallback.onError(ex);	
 				}
 				else

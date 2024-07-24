@@ -40,9 +40,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends DiameterSessionImpl implements ClientAuthSessionStateless<R1>
 {
 	private DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider;
-	public ClientAuthSessionStatelessImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider)
+	public ClientAuthSessionStatelessImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -120,7 +120,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				{
 					//we should transition to open, however afterwards the session may be only terminated , so we just terminate it
 					setSessionState(SessionStateEnum.IDLE);
-					terminate();
+					terminate(castedAnswer.getResultCode());
 					if(listeners!=null)
 					{
 						for(ClientAuthStatelessListener<R1> listener:listeners)
@@ -166,7 +166,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		public void onError(DiameterException ex)
 		{
 			setSessionState(SessionStateEnum.IDLE);
-			terminate();
+			terminate(ex.getErrorCode());
 			realCallback.onError(ex);	
 		}		
 	}

@@ -146,7 +146,10 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 		{
 			session=getNewSession((DiameterRequest)message);
 			if(session!=null)
+			{
+				stack.newIncomingSession(session.getApplicationID());
 				getStack().getSessionStorage().storeSession(session);
+			}
 		}
 		
 		if(session==null)

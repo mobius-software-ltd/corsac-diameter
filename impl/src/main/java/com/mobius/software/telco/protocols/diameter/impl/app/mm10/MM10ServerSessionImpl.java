@@ -1,4 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.mm10;
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -32,6 +33,6 @@ public class MM10ServerSessionImpl extends ServerAuthSessionStatelessImpl<Messag
 {
 	public MM10ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<MessageProcessAnswer>, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, Long.valueOf(ApplicationIDs.MM10), remoteHost, remoteRealm, provider);
 	}
 }

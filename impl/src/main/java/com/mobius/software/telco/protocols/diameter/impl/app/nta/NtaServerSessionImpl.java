@@ -1,4 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.nta;
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -28,6 +29,6 @@ public class NtaServerSessionImpl extends ServerAuthSessionStatelessImpl<NtaRequ
 {
 	public NtaServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<NtaAnswer>, ?, ?, ?> provider)
 	{
-		super(sessionID,remoteHost,remoteRealm, provider);
+		super(sessionID, Long.valueOf(ApplicationIDs.NTA),remoteHost,remoteRealm, provider);
 	}
 }

@@ -1,5 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.s15;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -35,7 +37,7 @@ public class S15ServerSessionImpl extends ServerCCSessionImpl<CreditControlReque
 {
 	public S15ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
-		super(sessionID,remoteHost, remoteRealm, provider);
+		super(sessionID, Long.valueOf(ApplicationIDs.S15),remoteHost, remoteRealm, provider);
 	}
 
 }

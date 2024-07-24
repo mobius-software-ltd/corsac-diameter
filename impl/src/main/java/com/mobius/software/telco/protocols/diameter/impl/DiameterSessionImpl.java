@@ -41,15 +41,17 @@ public abstract class DiameterSessionImpl implements DiameterSession
 {
 	private DiameterProvider<?, ?, ?, ?, ?> provider;
 	private String sessionID;
+	private Long applicationID;
 	private ClusteredID<?> idleTimerID;
 	private ClusteredID<?> sendTimerID;
 	private SessionStateEnum state;
 	private String remoteHost,remoteRealm;
 	private DiameterRequest lastSentRequest;
 	
-	public DiameterSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ?, ?, ?, ?> provider)
+	public DiameterSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
 		this.sessionID = sessionID;
+		this.applicationID = applicationID;
 		this.remoteHost = remoteHost;
 		this.remoteRealm = remoteRealm;
 		this.provider = provider;
@@ -85,6 +87,13 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		return this.sessionID;
 	}
 	
+	
+	@Override
+	public Long getApplicationID()
+	{
+		return applicationID;
+	}
+	
 	@Override
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
@@ -108,7 +117,8 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	{
 		restartIdleTimer(null);
 		restartSendTimer();
-		this.provider.getStack().getSessionStorage().storeSession(this);
+		if(!this.provider.getStack().getSessionStorage().storeSession(this))
+			provider.getStack().newOutgoingSession(applicationID);		
 	}
 	
 	@Override
@@ -151,11 +161,12 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	}
 	
 	@Override
-	public void terminate()
+	public void terminate(Long resultCode)
 	{
 		stopIdleTimer();
 		stopSendTimer();
-		this.provider.getStack().getSessionStorage().removeSession(this.sessionID);
+		if(this.provider.getStack().getSessionStorage().removeSession(this.sessionID))
+			this.provider.getStack().sessionEnded(resultCode, applicationID);
 	}
 
 	@Override
@@ -240,7 +251,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 			}				
 		}
 		
-		terminate();
+		terminate(ResultCodes.DIAMETER_SESSION_TIMEOUT);
 	}
 	
 	protected DiameterRequest getLastSendRequest()

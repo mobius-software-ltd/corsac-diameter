@@ -24,6 +24,7 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.common.dal.timers.WorkerPool;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 
 /**
@@ -74,31 +75,45 @@ public interface DiameterStack
 	
 	IncomingRequestsStorage getRequestsStorage();
 	
-	Map<Long,Long> getMessagesSentByType();
+	Map<Integer,Long> getMessagesSentByType();
     
-    Map<Long,Long> getMessagesReceivedByType();
+    Map<Integer,Long> getMessagesReceivedByType();
     
     Map<Long,Long> getErrorsSentByType();
     
     Map<Long,Long> getErrorsReceivedByType();
     
-    Map<Long,Long> getSessionsSentByApplication();
+    Map<Long,Long> getOutgoingSessionByApplication();
     
-    Map<Long,Long> getSessionsReceivedByApplication();  
+    Map<Long,Long> getIncomingSessionsByApplication();  
     
-    Map<Long,Long> getMessagesSentByTypeAndApplication(long applicationID);
+    Map<Long,Long> getSessionEndedByResultCode();
     
-    Map<Long,Long> getMessagesReceivedByTypeAndApplication(long applicationID);
+    Map<Long,Long> getSessionEndedByResultCodeAndApplication(long applicationID);
+    
+    Map<Integer,Long> getMessagesSentByTypeAndApplication(long applicationID);
+    
+    Map<Integer,Long> getMessagesReceivedByTypeAndApplication(long applicationID);
     
     Map<Long,Long> getErrorsSentByTypeAndApplication(long applicationID);
     
     Map<Long,Long> getErrorsReceivedByTypeAndApplication(long applicationID);
     
-    Map<Long,Long> getLinkMessagesSentByTypeAndApplication(String linkID, long applicationID);
+    Map<Integer,Long> getLinkMessagesSentByTypeAndApplication(String linkID, long applicationID);
     
-    Map<Long,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, long applicationID);
+    Map<Integer,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, long applicationID);
     
     Map<Long,Long> getLinkErrorsSentByTypeAndApplication(String linkID, long applicationID);
     
     Map<Long,Long> getLinkErrorsReceivedByTypeAndApplication(String linkID, long applicationID);
+    
+    void messageReceived(DiameterMessage message, String linkID);
+    
+    void messageSent(DiameterMessage message, String linkID);
+    
+    void newIncomingSession(long applicationID);
+    
+    void newOutgoingSession(long applicationID);
+    
+    void sessionEnded(Long resultCode, long applicationID);
 }

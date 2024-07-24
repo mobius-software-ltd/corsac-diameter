@@ -48,9 +48,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends CreditControlAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerCCSession<A1,R2,R3,A4>
 {
 	private DiameterProvider<?, ? extends ServerCCListener<R1,A1, R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider;
-	public ServerCCSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<R1,A1, R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
+	public ServerCCSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<R1,A1, R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
 	{
-		super(sessionID, remoteHost, remoteRealm, provider);
+		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
 
@@ -87,7 +87,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				if(!shouldKeepOpen)
 				{	
 					setSessionState(SessionStateEnum.IDLE);
-					terminate();
+					terminate(answer.getResultCode());
 				}
 				else
 				{
@@ -163,7 +163,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.IDLE);
-				terminate();
+				terminate(answer.getResultCode());
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
 		});			
@@ -274,7 +274,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						A3 castedAnswer = (A3)answer;
 						
 						setSessionState(SessionStateEnum.IDLE);
-						terminate();
+						terminate(castedAnswer.getResultCode());
 						if(listeners!=null)
 						{
 							for(ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -308,7 +308,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						else
 						{
 							setSessionState(SessionStateEnum.IDLE);
-							terminate();
+							terminate(answer.getResultCode());
 							if(listeners!=null)
 							{
 								for(ServerCCListener<R1, A1, R2, A2, R3, A3, R4, A4> listener:listeners)
