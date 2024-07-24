@@ -23,14 +23,20 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.s6c.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.s6c.AlertServiceCentreAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.AlertServiceCentreRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6c.ReportSMDeliveryStatusAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.ReportSMDeliveryStatusRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s6c.AlertServiceCentreAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s6c.AlertServiceCentreRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s6c.ReportSMDeliveryStatusAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s6c.ReportSMDeliveryStatusRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s6c.SendRoutingInfoForSMAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s6c.SendRoutingInfoForSMRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -67,6 +73,25 @@ public class MessageFactoryImpl implements MessageFactory
 		AlertServiceCentreRequest request = new AlertServiceCentreRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, scAddress, userIdentifier); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public AlertServiceCentreAnswer createAlertServiceCentreAnswer(AlertServiceCentreRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		AlertServiceCentreAnswerImpl result = new  AlertServiceCentreAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public AlertServiceCentreAnswer createAlertServiceCentreAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		AlertServiceCentreAnswerImpl result = new  AlertServiceCentreAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}			
 	
 	public ReportSMDeliveryStatusRequest createReportSMDeliveryStatusRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,String scAddress, SMDeliveryOutcome smDeliveryOutcome) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
@@ -76,6 +101,25 @@ public class MessageFactoryImpl implements MessageFactory
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
+
+	@Override
+	public ReportSMDeliveryStatusAnswer createReportSMDeliveryStatusAnswer(ReportSMDeliveryStatusRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ReportSMDeliveryStatusAnswerImpl result = new  ReportSMDeliveryStatusAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ReportSMDeliveryStatusAnswer createReportSMDeliveryStatusAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ReportSMDeliveryStatusAnswerImpl result = new  ReportSMDeliveryStatusAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public SendRoutingInfoForSMRequest createSendRoutingInfoForSMRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
@@ -83,5 +127,24 @@ public class MessageFactoryImpl implements MessageFactory
 		SendRoutingInfoForSMRequest request = new SendRoutingInfoForSMRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;		
+	}
+
+	@Override
+	public SendRoutingInfoForSMAnswer createSendRoutingInfoForSMAnswer(SendRoutingInfoForSMRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		SendRoutingInfoForSMAnswerImpl result = new  SendRoutingInfoForSMAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public SendRoutingInfoForSMAnswer createSendRoutingInfoForSMAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		SendRoutingInfoForSMAnswerImpl result = new  SendRoutingInfoForSMAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

@@ -67,12 +67,12 @@ public class MultimediaAuthAnswerImpl extends SwxAnswerImpl implements Multimedi
 		setExperimentalResultAllowed(false);
 	}
 	
-	public MultimediaAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState, String userName) throws MissingAvpException, AvpNotSupportedException
+	public MultimediaAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState, String username) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);
 		
-		setUsername(userName);
+		setUsername(username);
 	}
 	
 	@Override

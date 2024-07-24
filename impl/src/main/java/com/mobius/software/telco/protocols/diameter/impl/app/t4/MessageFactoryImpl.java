@@ -23,12 +23,16 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.t4.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportRequest;
+import com.mobius.software.telco.protocols.diameter.commands.t4.DeviceTriggerAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeviceTriggerRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.t4.DeliveryReportAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.t4.DeliveryReportRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.t4.DeviceTriggerAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.t4.DeviceTriggerRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -67,7 +71,26 @@ public class MessageFactoryImpl implements MessageFactory
 		DeliveryReportRequest request = new DeliveryReportRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, smRPSMEA, smDeliveryOutcomeT4); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}			
+	}
+	
+	@Override
+	public DeliveryReportAnswer createDeliveryReportAnswer(DeliveryReportRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeliveryReportAnswerImpl result = new  DeliveryReportAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public DeliveryReportAnswer createDeliveryReportAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeliveryReportAnswerImpl result = new  DeliveryReportAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public DeviceTriggerRequest createDeviceTriggerRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf smRPSMEA,ByteBuf payload) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
@@ -75,5 +98,24 @@ public class MessageFactoryImpl implements MessageFactory
 		DeviceTriggerRequest request = new DeviceTriggerRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, smRPSMEA, payload); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public DeviceTriggerAnswer createDeviceTriggerAnswer(DeviceTriggerRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeviceTriggerAnswerImpl result = new  DeviceTriggerAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public DeviceTriggerAnswer createDeviceTriggerAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeviceTriggerAnswerImpl result = new  DeviceTriggerAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.app.e4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -28,5 +30,14 @@ public interface MessageFactory
 {
 	public UserDataRequest createUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException;	
 	
+	public UserDataAnswer createUserDataAnswer(UserDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public UserDataAnswer createUserDataAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public PushNotificationAnswer createPushNotificationAnswer(PushNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public PushNotificationAnswer createPushNotificationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }

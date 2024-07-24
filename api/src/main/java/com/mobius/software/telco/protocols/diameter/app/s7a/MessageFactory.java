@@ -20,10 +20,15 @@ package com.mobius.software.telco.protocols.diameter.app.s7a;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.DeleteSubscriberDataAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.DeleteSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.ResetAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.ResetRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -35,13 +40,34 @@ import com.mobius.software.telco.protocols.diameter.primitives.s6a.VPLMNCSGSubsc
 
 public interface MessageFactory
 {
-	public CancelVCSGLocationRequest createCancelVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CancellationTypeEnum cancellationType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;			
+	public CancelVCSGLocationRequest createCancelVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CancellationTypeEnum cancellationType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public CancelVCSGLocationAnswer createCancelVCSGLocationAnswer(CancelVCSGLocationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public CancelVCSGLocationAnswer createCancelVCSGLocationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	
 	public DeleteSubscriberDataRequest createDeleteSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,DSRFlags dsrFlags) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
 	
+	public DeleteSubscriberDataAnswer createDeleteSubscriberDataAnswer(DeleteSubscriberDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public DeleteSubscriberDataAnswer createDeleteSubscriberDataAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 	public InsertSubscriberDataRequest createInsertSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public InsertSubscriberDataAnswer createInsertSubscriberDataAnswer(InsertSubscriberDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public InsertSubscriberDataAnswer createInsertSubscriberDataAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	
 	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
 	
+	public ResetAnswer createResetAnswer(ResetRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public ResetAnswer createResetAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 	public UpdateVCSGLocationRequest createUpdateVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UVRFlags uvrFlags) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public UpdateVCSGLocationAnswer createUpdateVCSGLocationAnswer(UpdateVCSGLocationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public UpdateVCSGLocationAnswer createUpdateVCSGLocationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }

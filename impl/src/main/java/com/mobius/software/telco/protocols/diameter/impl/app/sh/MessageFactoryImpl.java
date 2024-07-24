@@ -25,15 +25,23 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.sh.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.sh.UserDataAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sh.ProfileUpdateAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.ProfileUpdateRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sh.PushNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.PushNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sh.SubscribeNotificationsAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.SubscribeNotificationsRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sh.UserDataRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sh.UserDataAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sh.ProfileUpdateAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sh.ProfileUpdateRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sh.PushNotificationsAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sh.PushNotificationsRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sh.SubscribeNotificationsAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sh.SubscribeNotificationsRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sh.UserDataRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
@@ -73,7 +81,26 @@ public class MessageFactoryImpl implements MessageFactory
 		ProfileUpdateRequest request = new ProfileUpdateRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentity, userData, dataReference); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}	
+	}
+	
+	@Override
+	public ProfileUpdateAnswer createProfileUpdateAnswer(ProfileUpdateRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProfileUpdateAnswerImpl result = new  ProfileUpdateAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProfileUpdateAnswer createProfileUpdateAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProfileUpdateAnswerImpl result = new  ProfileUpdateAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, ByteBuf userData) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
@@ -83,13 +110,51 @@ public class MessageFactoryImpl implements MessageFactory
 		return request;
 	}
 	
+	@Override
+	public PushNotificationAnswer createPushNotificationAnswer(PushNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		PushNotificationsAnswerImpl result = new  PushNotificationsAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public PushNotificationAnswer createPushNotificationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		PushNotificationsAnswerImpl result = new  PushNotificationsAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 	public SubscribeNotificationsRequest createSubscribeNotificationsRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		SubscribeNotificationsRequest request = new SubscribeNotificationsRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentity, dataReference); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}			
+	}
+	
+	@Override
+	public SubscribeNotificationsAnswer createSubscribeNotificationsAnswer(SubscribeNotificationsRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		SubscribeNotificationsAnswerImpl result = new  SubscribeNotificationsAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public SubscribeNotificationsAnswer createSubscribeNotificationsAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		SubscribeNotificationsAnswerImpl result = new  SubscribeNotificationsAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public UserDataRequest createRegistrationUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
@@ -97,5 +162,24 @@ public class MessageFactoryImpl implements MessageFactory
 		UserDataRequest request = new UserDataRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentity, dataReference);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}	
+	}
+	
+	@Override
+	public UserDataAnswer createUserDataAnswer(UserDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		UserDataAnswerImpl result = new  UserDataAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public UserDataAnswer createUserDataAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		UserDataAnswerImpl result = new  UserDataAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 }

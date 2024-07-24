@@ -23,12 +23,16 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.e4.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.e4.PushNotificationsAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.e4.PushNotificationsRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.e4.UserDataAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.e4.UserDataRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -65,11 +69,49 @@ public class MessageFactoryImpl implements MessageFactory
 		return result;
 	}	
 	
+	@Override
+	public UserDataAnswer createUserDataAnswer(UserDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		UserDataAnswerImpl result = new  UserDataAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public UserDataAnswer createUserDataAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		UserDataAnswerImpl result = new  UserDataAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		PushNotificationRequest result=new PushNotificationsRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setVendorSpecificApplicationId(appId);
 		return result;
-	}	
+	}
+	
+	@Override
+	public PushNotificationAnswer createPushNotificationAnswer(PushNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		PushNotificationsAnswerImpl result = new  PushNotificationsAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public PushNotificationAnswer createPushNotificationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		PushNotificationsAnswerImpl result = new  PushNotificationsAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 }

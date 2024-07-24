@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.nt;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -26,5 +27,10 @@ import com.mobius.software.telco.protocols.diameter.primitives.nt.TransferReques
 
 public interface MessageFactory
 {
-	public BackgroundDataTransferRequest createBackgroundDataTransferRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,TransferRequestTypeEnum transferRequestType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;		
+	public BackgroundDataTransferRequest createBackgroundDataTransferRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,TransferRequestTypeEnum transferRequestType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
+
+	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(BackgroundDataTransferRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+
 }

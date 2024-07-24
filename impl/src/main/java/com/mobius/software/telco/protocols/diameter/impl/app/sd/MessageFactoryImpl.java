@@ -23,12 +23,16 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.sd.MesssageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.ro.CreditControlAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.CreditControlRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sd.TDFSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.TDFSessionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
@@ -60,7 +64,25 @@ public class MessageFactoryImpl implements MesssageFactory
 	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, ccRequestType, ccRequestNumber);
-	}	
+	}
+	
+	@Override
+	public CreditControlAnswer createCreditControlAnswer(CreditControlRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	{
+		CreditControlAnswerImpl result = new CreditControlAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(), applicationId, request.getCcRequestType(), request.getCcRequestNumber());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public CreditControlAnswer createCreditControlAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	{
+		CreditControlAnswerImpl result = new CreditControlAnswerImpl(originHost,originRealm,false, resultCode, sessionID, applicationId, ccRequestType, ccRequestNumber);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public TDFSessionRequest createTDFSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException
 	{
@@ -68,5 +90,24 @@ public class MessageFactoryImpl implements MesssageFactory
 		TDFSessionRequest request = new TDFSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString()); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public TDFSessionAnswer createTDFSessionAnswer(TDFSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		TDFSessionAnswerImpl result = new  TDFSessionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public TDFSessionAnswer createTDFSessionAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		TDFSessionAnswerImpl result = new  TDFSessionAnswerImpl(originHost, originRealm, false, resultCode,  sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

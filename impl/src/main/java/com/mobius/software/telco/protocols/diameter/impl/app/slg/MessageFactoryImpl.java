@@ -23,12 +23,16 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.slg.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportRequest;
+import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.slg.LocationReportAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.slg.LocationReportRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.slg.ProvideLocationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.slg.ProvideLocationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.LCSClientTypeEnum;
@@ -67,7 +71,26 @@ public class MessageFactoryImpl implements MessageFactory
 		ProvideLocationRequest request = new ProvideLocationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, slgLocationType, lcsEPSClientName, lcsClientType); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}			
+	}
+	
+	@Override
+	public ProvideLocationAnswer createProvideLocationAnswer(ProvideLocationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProvideLocationAnswerImpl result = new  ProvideLocationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProvideLocationAnswer createProvideLocationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProvideLocationAnswerImpl result = new  ProvideLocationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public LocationReportRequest createLocationReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,LocationEventEnum locationEvent) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
@@ -75,5 +98,24 @@ public class MessageFactoryImpl implements MessageFactory
 		LocationReportRequest request = new LocationReportRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, locationEvent); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public LocationReportAnswer createLocationReportAnswer(LocationReportRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		LocationReportAnswerImpl result = new  LocationReportAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public LocationReportAnswer createLocationReportAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		LocationReportAnswerImpl result = new  LocationReportAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }
