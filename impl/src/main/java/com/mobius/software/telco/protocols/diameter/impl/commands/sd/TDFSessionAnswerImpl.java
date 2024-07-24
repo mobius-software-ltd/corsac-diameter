@@ -14,7 +14,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
-import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.gx.EventReportIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
@@ -73,7 +72,7 @@ public class TDFSessionAnswerImpl extends VendorSpecificAnswerImpl implements TD
 		setUsernameAllowed(false);
 	}
 	
-	public TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
+	public TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);
@@ -81,13 +80,6 @@ public class TDFSessionAnswerImpl extends VendorSpecificAnswerImpl implements TD
 		setUsernameAllowed(false);
 	}
 	
-	protected TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
-	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
-		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
-		setUsernameAllowed(false);
-	}
 	
 	@Override
 	public DRMPEnum getDRMP() 

@@ -18,8 +18,11 @@ package com.mobius.software.telco.protocols.diameter.app.np;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportRequest;
+import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextRequest;
+import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -29,7 +32,20 @@ public interface MessageFactory
 {
 	public ModifyUeContextRequest createModifyUeContextRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;	
 	
+	public ModifyUeContextAnswer createModifyUeContextAnswer(ModifyUeContextRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public ModifyUeContextAnswer createModifyUeContextAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
+	
 	public AggregatedRUCIReportRequest createAggregatedRUCIReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
 	
-	public NonAggregatedRUCIReportRequest createNonAggregatedRUCIReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;	
+	public AggregatedRUCIReportAnswer createAggregatedRUCIReportAnswer(AggregatedRUCIReportRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public AggregatedRUCIReportAnswer createAggregatedRUCIReportAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
+	
+	public NonAggregatedRUCIReportRequest createNonAggregatedRUCIReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+
+	public NonAggregatedRUCIReportAnswer createNonAggregatedRUCIReportAnswer(NonAggregatedRUCIReportRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public NonAggregatedRUCIReportAnswer createNonAggregatedRUCIReportAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;
+	
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.app.t4;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeliveryReportRequest;
+import com.mobius.software.telco.protocols.diameter.commands.t4.DeviceTriggerAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.t4.DeviceTriggerRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -31,6 +33,15 @@ import io.netty.buffer.ByteBuf;
 public interface MessageFactory
 {
 	public DeliveryReportRequest createDeliveryReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf smRPSMEA,SMDeliveryOutcomeT4Enum smDeliveryOutcomeT4) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;			
+
+	public DeliveryReportAnswer createDeliveryReportAnswer(DeliveryReportRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public DeliveryReportAnswer createDeliveryReportAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	
 	public DeviceTriggerRequest createDeviceTriggerRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf smRPSMEA,ByteBuf payload) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+
+	public DeviceTriggerAnswer createDeviceTriggerAnswer(DeviceTriggerRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public DeviceTriggerAnswer createDeviceTriggerAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }

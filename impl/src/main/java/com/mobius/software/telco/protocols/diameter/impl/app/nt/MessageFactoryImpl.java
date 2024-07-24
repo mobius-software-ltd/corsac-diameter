@@ -23,10 +23,12 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.nt.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.nt.BackgroundDataTransferAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.nt.BackgroundDataTransferRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -62,5 +64,21 @@ public class MessageFactoryImpl implements MessageFactory
 		BackgroundDataTransferRequest request = new BackgroundDataTransferRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, transferRequestType);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}		
+	}
+	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(BackgroundDataTransferRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	{
+		BackgroundDataTransferAnswer result = new BackgroundDataTransferAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+	@Override
+	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		BackgroundDataTransferAnswer result = new BackgroundDataTransferAnswerImpl(originHost,originRealm, false, resultCode, sessionID,AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 }

@@ -63,12 +63,12 @@ public class ServerAssignmentAnswerImpl extends SwxAnswerImpl implements ServerA
 		setExperimentalResultAllowed(false);
 	}
 	
-	public ServerAssignmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState, String userName) throws MissingAvpException, AvpNotSupportedException
+	public ServerAssignmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AuthSessionStateEnum authSessionState, String username) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
 		setExperimentalResultAllowed(false);
 		
-		setUsername(userName);
+		setUsername(username);
 	}
 	
 	@Override

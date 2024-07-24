@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.app.sgd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -29,7 +31,15 @@ import io.netty.buffer.ByteBuf;
 
 public interface MessageFactory
 {
-	public MOForwardShortMessageRequest createMOForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentifier userIdentifier, ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;			
+	public MOForwardShortMessageRequest createMOForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentifier userIdentifier, ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
 	
-	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;	
+	public MOForwardShortMessageAnswer createMOForwardShortMessageAnswer(MOForwardShortMessageRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public MOForwardShortMessageAnswer createMOForwardShortMessageAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public MTForwardShortMessageAnswer createMTForwardShortMessageAnswer(MTForwardShortMessageRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public MTForwardShortMessageAnswer createMTForwardShortMessageAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;		
 }

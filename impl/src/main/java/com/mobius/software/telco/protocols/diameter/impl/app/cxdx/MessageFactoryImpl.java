@@ -95,6 +95,7 @@ public class MessageFactoryImpl implements MessageFactory
 		LocationInfoAnswerImpl result = new LocationInfoAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
 		return result;
 	}
 
@@ -121,6 +122,7 @@ public class MessageFactoryImpl implements MessageFactory
 		MultimediaAuthAnswerImpl result = new MultimediaAuthAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
 		return result;
 	}
 
@@ -147,6 +149,7 @@ public class MessageFactoryImpl implements MessageFactory
 		PushProfileAnswerImpl result = new PushProfileAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
 		return result;
 	}	
 
@@ -173,6 +176,7 @@ public class MessageFactoryImpl implements MessageFactory
 		RegistrationTerminationAnswerImpl result = new RegistrationTerminationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
 		return result;
 	}
 
@@ -199,6 +203,7 @@ public class MessageFactoryImpl implements MessageFactory
 		ServerAssignmentAnswerImpl result = new ServerAssignmentAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
 		return result;
 	}
 
@@ -225,6 +230,7 @@ public class MessageFactoryImpl implements MessageFactory
 		UserAuthorizationAnswerImpl result = new UserAuthorizationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
 		return result;
 	}
 

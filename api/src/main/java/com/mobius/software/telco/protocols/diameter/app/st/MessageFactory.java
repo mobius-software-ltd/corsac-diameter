@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.st;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -26,4 +27,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 public interface MessageFactory
 {
 	public TDFSessionRequest createTDFSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException;
+	
+	public TDFSessionAnswer createTDFSessionAnswer(TDFSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public TDFSessionAnswer createTDFSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }
