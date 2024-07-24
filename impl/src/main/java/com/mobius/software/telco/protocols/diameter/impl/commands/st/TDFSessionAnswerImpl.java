@@ -53,7 +53,7 @@ public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnsw
 		setUsernameAllowed(false);
 	}
 	
-	protected TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	public TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);

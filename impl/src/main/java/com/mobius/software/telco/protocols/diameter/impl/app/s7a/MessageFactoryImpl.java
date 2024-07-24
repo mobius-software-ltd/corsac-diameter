@@ -25,18 +25,28 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.s7a.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.DeleteSubscriberDataAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.DeleteSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.ResetAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.ResetRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.CancelVCSGLocationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.CancelVCSGLocationRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.DeleteSubscriberDataAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.DeleteSubscriberDataRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.InsertSubscriberDataAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.InsertSubscriberDataRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.ResetAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.ResetRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.UpdateVCSGLocationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s7a.UpdateVCSGLocationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -75,6 +85,25 @@ public class MessageFactoryImpl implements MessageFactory
 		CancelVCSGLocationRequest request = new CancelVCSGLocationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, cancellationType); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public CancelVCSGLocationAnswer createCancelVCSGLocationAnswer(CancelVCSGLocationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		CancelVCSGLocationAnswerImpl result = new  CancelVCSGLocationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public CancelVCSGLocationAnswer createCancelVCSGLocationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		CancelVCSGLocationAnswerImpl result = new  CancelVCSGLocationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}			
 	
 	public DeleteSubscriberDataRequest createDeleteSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,DSRFlags dsrFlags) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
@@ -85,12 +114,50 @@ public class MessageFactoryImpl implements MessageFactory
 		return request;
 	}
 	
+	@Override
+	public DeleteSubscriberDataAnswer createDeleteSubscriberDataAnswer(DeleteSubscriberDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeleteSubscriberDataAnswerImpl result = new  DeleteSubscriberDataAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public DeleteSubscriberDataAnswer createDeleteSubscriberDataAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeleteSubscriberDataAnswerImpl result = new  DeleteSubscriberDataAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 	public InsertSubscriberDataRequest createInsertSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,List<VPLMNCSGSubscriptionData> vplmnCSGSubscriptionData) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		InsertSubscriberDataRequest request = new InsertSubscriberDataRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, vplmnCSGSubscriptionData); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public InsertSubscriberDataAnswer createInsertSubscriberDataAnswer(InsertSubscriberDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		InsertSubscriberDataAnswerImpl result = new  InsertSubscriberDataAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public InsertSubscriberDataAnswer createInsertSubscriberDataAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		InsertSubscriberDataAnswerImpl result = new  InsertSubscriberDataAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 	
 	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
@@ -101,11 +168,49 @@ public class MessageFactoryImpl implements MessageFactory
 		return request;
 	}
 	
+	@Override
+	public ResetAnswer createResetAnswer(ResetRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ResetAnswerImpl result = new  ResetAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ResetAnswer createResetAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ResetAnswerImpl result = new  ResetAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 	public UpdateVCSGLocationRequest createUpdateVCSGLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UVRFlags uvrFlags) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		UpdateVCSGLocationRequest request = new UpdateVCSGLocationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, uvrFlags); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public UpdateVCSGLocationAnswer createUpdateVCSGLocationAnswer(UpdateVCSGLocationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		UpdateVCSGLocationAnswerImpl result = new  UpdateVCSGLocationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public UpdateVCSGLocationAnswer createUpdateVCSGLocationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		UpdateVCSGLocationAnswerImpl result = new  UpdateVCSGLocationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

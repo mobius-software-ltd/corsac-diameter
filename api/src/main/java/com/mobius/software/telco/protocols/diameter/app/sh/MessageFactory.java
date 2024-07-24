@@ -20,9 +20,13 @@ package com.mobius.software.telco.protocols.diameter.app.sh;
 
 import java.util.List;
 
+import com.mobius.software.telco.protocols.diameter.commands.sh.ProfileUpdateAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.ProfileUpdateRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sh.PushNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.PushNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sh.SubscribeNotificationsAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.SubscribeNotificationsRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sh.UserDataAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.UserDataRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -36,9 +40,25 @@ public interface MessageFactory
 {
 	public ProfileUpdateRequest createProfileUpdateRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, ByteBuf userData,List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;	
 	
+	public ProfileUpdateAnswer createProfileUpdateAnswer(ProfileUpdateRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public ProfileUpdateAnswer createProfileUpdateAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 	public PushNotificationRequest createPushNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentity userIdentity, ByteBuf userData) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public PushNotificationAnswer createPushNotificationAnswer(PushNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public PushNotificationAnswer createPushNotificationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	
 	public SubscribeNotificationsRequest createSubscribeNotificationsRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;			
 	
-	public UserDataRequest createRegistrationUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;	
+	public SubscribeNotificationsAnswer createSubscribeNotificationsAnswer(SubscribeNotificationsRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public SubscribeNotificationsAnswer createSubscribeNotificationsAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public UserDataRequest createRegistrationUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public UserDataAnswer createUserDataAnswer(UserDataRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public UserDataAnswer createUserDataAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 }

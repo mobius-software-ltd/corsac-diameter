@@ -23,24 +23,40 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.pc6.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAlertAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAlertRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAuthorizationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAuthorizationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeCancellationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeCancellationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeDiscoveryAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeDiscoveryRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeLocationUpdateAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeLocationUpdateRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchReportInfoAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchReportInfoRequest;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeProximityAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeProximityRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeAlertAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeAlertRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeAuthorizationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeAuthorizationRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeCancellationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeCancellationRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeDiscoveryAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeDiscoveryRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeLocationUpdateAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeLocationUpdateRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeMatchAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeMatchReportInfoAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeMatchReportInfoRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeMatchRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeProximityAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeProximityRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -82,7 +98,26 @@ public class MessageFactoryImpl implements MessageFactory
 		ProSeAlertRequest request = new ProSeAlertRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, appLayerUserId, targetedEPUID);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}		
+	}
+	
+	@Override
+	public ProSeAlertAnswer createProSeAlertAnswer(ProSeAlertRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeAlertAnswerImpl result = new  ProSeAlertAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeAlertAnswer createProSeAlertAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeAlertAnswerImpl result = new  ProSeAlertAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public ProSeAuthorizationRequest createProSeAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentity userIdentity,ByteBuf visitedPLMNId) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
@@ -90,6 +125,25 @@ public class MessageFactoryImpl implements MessageFactory
 		ProSeAuthorizationRequest request = new ProSeAuthorizationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentity, visitedPLMNId);
 		request.setVendorSpecificApplicationId(appId);
 		return request; 
+	}
+	
+	@Override
+	public ProSeAuthorizationAnswer createProSeAuthorizationAnswer(ProSeAuthorizationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeAuthorizationAnswerImpl result = new ProSeAuthorizationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeAuthorizationAnswer createProSeAuthorizationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeAuthorizationAnswerImpl result = new ProSeAuthorizationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 	
 	public ProSeCancellationRequest createProSeCancellationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String requestingEPUID,String targetedEPUID) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
@@ -100,12 +154,50 @@ public class MessageFactoryImpl implements MessageFactory
 		return request; 
 	}
 	
+	@Override
+	public ProSeCancellationAnswer createProSeCancellationAnswer(ProSeCancellationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeCancellationAnswerImpl result = new  ProSeCancellationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeCancellationAnswer createProSeCancellationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeCancellationAnswerImpl result = new  ProSeCancellationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 	public ProSeDiscoveryRequest createProSeDiscoveryRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,DiscoveryAuthRequest discoveryAuthRequest) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ProSeDiscoveryRequest request = new ProSeDiscoveryRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, discoveryAuthRequest);
 		request.setVendorSpecificApplicationId(appId);
 		return request; 
+	}
+	
+	@Override
+	public ProSeDiscoveryAnswer createProSeDiscoveryAnswer(ProSeDiscoveryRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeDiscoveryAnswerImpl result = new  ProSeDiscoveryAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeDiscoveryAnswer createProSeDiscoveryAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeDiscoveryAnswerImpl result = new  ProSeDiscoveryAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 	
 	public ProSeLocationUpdateRequest createProSeLocationUpdateRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String targetedEPUID,ByteBuf locationEstimate) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
@@ -116,12 +208,50 @@ public class MessageFactoryImpl implements MessageFactory
 		return request; 
 	}
 	
+	@Override
+	public ProSeLocationUpdateAnswer createProSeLocationUpdateAnswer(ProSeLocationUpdateRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeLocationUpdateAnswerImpl result = new  ProSeLocationUpdateAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeLocationUpdateAnswer createProSeLocationUpdateAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeLocationUpdateAnswerImpl result = new  ProSeLocationUpdateAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 	public ProSeMatchReportInfoRequest createProSeMatchReportInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,MatchReportInfo matchReportInfo) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ProSeMatchReportInfoRequest request = new ProSeMatchReportInfoRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, matchReportInfo);
 		request.setVendorSpecificApplicationId(appId);
 		return request; 
+	}
+	
+	@Override
+	public ProSeMatchReportInfoAnswer createProSeMatchReportInfoAnswer(ProSeMatchReportInfoRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeMatchReportInfoAnswerImpl result = new  ProSeMatchReportInfoAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeMatchReportInfoAnswer createProSeMatchReportInfoAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeMatchReportInfoAnswerImpl result = new  ProSeMatchReportInfoAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 	
 	public ProSeMatchRequest createProSeMatchRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,MatchRequest matchRequest) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
@@ -132,11 +262,49 @@ public class MessageFactoryImpl implements MessageFactory
 		return request; 
 	}
 	
+	@Override
+	public ProSeMatchAnswer createProSeMatchAnswer(ProSeMatchRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeMatchAnswerImpl result = new  ProSeMatchAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeMatchAnswer createProSeMatchAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeMatchAnswerImpl result = new  ProSeMatchAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 	public ProSeProximityRequest createProSeProximityRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,PRRFlags prrFlags,String requestingEPUID,String targetedEPUID,Long timeWindow,ByteBuf locationEstimate) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ProSeProximityRequest request = new ProSeProximityRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, prrFlags, requestingEPUID, targetedEPUID, timeWindow, locationEstimate);
 		request.setVendorSpecificApplicationId(appId);
 		return request; 
+	}
+	
+	@Override
+	public ProSeProximityAnswer createProSeProximityAnswer(ProSeProximityRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeProximityAnswerImpl result = new  ProSeProximityAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public ProSeProximityAnswer createProSeProximityAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		ProSeProximityAnswerImpl result = new  ProSeProximityAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.app.sd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -28,6 +30,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 public interface MesssageFactory
 {
 	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException;	
+
+	public CreditControlAnswer createCreditControlAnswer(CreditControlRequest answer, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public CreditControlAnswer createCreditControlAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException;
 	
 	public TDFSessionRequest createTDFSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException;
+
+	public TDFSessionAnswer createTDFSessionAnswer(TDFSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public TDFSessionAnswer createTDFSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }

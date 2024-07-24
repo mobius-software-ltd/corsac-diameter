@@ -18,6 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.slh;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -25,5 +26,10 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 
 public interface MessageFactory
 {
-	public LCSRoutingInfoRequest createLCSRoutingInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException;				
+	public LCSRoutingInfoRequest createLCSRoutingInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException;	
+	
+	public LCSRoutingInfoAnswer createLCSRoutingInfoAnswer(LCSRoutingInfoRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public LCSRoutingInfoAnswer createLCSRoutingInfoAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.app.slg;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.slg.LocationReportRequest;
+import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.slg.ProvideLocationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
@@ -31,6 +33,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.slg.SLgLocationTy
 public interface MessageFactory
 {
 	public ProvideLocationRequest createProvideLocationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,SLgLocationTypeEnum slgLocationType,LCSEPSClientName lcsEPSClientName,LCSClientTypeEnum lcsClientType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;			
+
+	public ProvideLocationAnswer createProvideLocationAnswer(ProvideLocationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public ProvideLocationAnswer createProvideLocationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	
 	public LocationReportRequest createLocationReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,LocationEventEnum locationEvent) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+
+	public LocationReportAnswer createLocationReportAnswer(LocationReportRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public LocationReportAnswer createLocationReportAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }

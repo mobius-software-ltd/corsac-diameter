@@ -23,10 +23,12 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.st.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.st.TDFSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.st.TDFSessionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
@@ -60,5 +62,24 @@ public class MessageFactoryImpl implements MessageFactory
 		TDFSessionRequest request = new TDFSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString()); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
+	}
+	
+	@Override
+	public TDFSessionAnswer createTDFSessionAnswer(TDFSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		TDFSessionAnswerImpl result = new  TDFSessionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public TDFSessionAnswer createTDFSessionAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		TDFSessionAnswerImpl result = new  TDFSessionAnswerImpl(originHost, originRealm, false, resultCode,  sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

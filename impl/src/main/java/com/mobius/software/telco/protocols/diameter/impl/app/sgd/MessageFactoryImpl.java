@@ -23,12 +23,16 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.sgd.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MOForwardShortMessageRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortMessageRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgd.MOForwardShortMessageAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgd.MOForwardShortMessageRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgd.MTForwardShortMessageAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgd.MTForwardShortMessageRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -66,7 +70,26 @@ public class MessageFactoryImpl implements MessageFactory
 		MOForwardShortMessageRequest request = new MOForwardShortMessageRequestImpl(originHost,originRealm,destinationHost, destinationRealm,false, idGenerator.generateID().toString(),AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, smRPUI);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}			
+	}
+	
+	@Override
+	public MOForwardShortMessageAnswer createMOForwardShortMessageAnswer(MOForwardShortMessageRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		MOForwardShortMessageAnswerImpl result = new MOForwardShortMessageAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public MOForwardShortMessageAnswer createMOForwardShortMessageAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		MOForwardShortMessageAnswerImpl result = new MOForwardShortMessageAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
@@ -74,5 +97,24 @@ public class MessageFactoryImpl implements MessageFactory
 		MTForwardShortMessageRequest request = new MTForwardShortMessageRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(),AuthSessionStateEnum.NO_STATE_MAINTAINED, scAddress, smRPUI); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}	
+	}
+	
+	@Override
+	public MTForwardShortMessageAnswer createMTForwardShortMessageAnswer(MTForwardShortMessageRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		MTForwardShortMessageAnswerImpl result = new  MTForwardShortMessageAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public MTForwardShortMessageAnswer createMTForwardShortMessageAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		MTForwardShortMessageAnswerImpl result = new  MTForwardShortMessageAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 }
