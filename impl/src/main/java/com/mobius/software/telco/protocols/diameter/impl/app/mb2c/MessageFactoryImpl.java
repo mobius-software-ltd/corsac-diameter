@@ -22,11 +22,16 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.mb2c.GCSActionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.mb2c.GCSActionRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.mb2c.GCSNotificationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.mb2c.GCSNotificationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 /**
@@ -56,10 +61,46 @@ public class MessageFactoryImpl implements MessageFactory
 	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new GCSNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
-	}	
+	}
+	
+	@Override
+	public GCSNotificationAnswer createGCSNotificationAnswer(GCSNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		GCSNotificationAnswerImpl result = new GCSNotificationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(),applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public GCSNotificationAnswer createGCSNotificationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		GCSNotificationAnswerImpl result = new GCSNotificationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new GCSActionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+	}
+	
+	@Override
+	public GCSActionAnswer createGCSActionAnswer(GCSActionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,Long authApplicationId) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		GCSActionAnswerImpl result = new GCSActionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public GCSActionAnswer createGCSActionAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID,Long authApplicationId) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		GCSActionAnswerImpl result = new GCSActionAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }
