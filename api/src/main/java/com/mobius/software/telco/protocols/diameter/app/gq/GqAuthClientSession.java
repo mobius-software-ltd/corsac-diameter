@@ -1,7 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.app.mb2c;
-
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
+package com.mobius.software.telco.protocols.diameter.app.gq;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -20,11 +17,13 @@ import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-/**
-*
-* @author yulian oifa
-*
-*/
-public interface ClientListener extends ClientAuthStatelessListener<MB2CRequest>
+
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthSession;
+import com.mobius.software.telco.protocols.diameter.commands.gq.AARequest;
+import com.mobius.software.telco.protocols.diameter.commands.gq.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.gq.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.gq.SessionTerminationRequest;
+
+public interface GqAuthClientSession extends ClientAuthSession<AARequest,ReAuthAnswer,AbortSessionAnswer,SessionTerminationRequest>
 {
 }

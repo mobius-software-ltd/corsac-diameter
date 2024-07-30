@@ -32,6 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.gmb.SessionTerminat
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthListener<AARequest, AAAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAuthListener<AARequest, AAAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer,SessionTerminationRequest, SessionTerminationAnswer>
 {
 }

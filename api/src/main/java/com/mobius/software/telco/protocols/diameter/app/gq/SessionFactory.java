@@ -1,9 +1,6 @@
-package com.mobius.software.telco.protocols.diameter.app.mb2c;
-
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
+package com.mobius.software.telco.protocols.diameter.app.gq;
 /*
- * Mobius Software LTD, Open Source Cloud Communications
+ * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
  * by the @authors tag.
  *
@@ -20,11 +17,13 @@ import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-/**
-*
-* @author yulian oifa
-*
-*/
-public interface ClientListener extends ClientAuthStatelessListener<MB2CRequest>
+
+import com.mobius.software.telco.protocols.diameter.commands.gq.AARequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+
+public interface SessionFactory
 {
+	public GqAuthClientSession createClientSession(AARequest request) throws AvpNotSupportedException;	
+	
+	public GqAuthServerSession createServerSession(AARequest request) throws AvpNotSupportedException;
 }
