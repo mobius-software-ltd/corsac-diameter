@@ -61,6 +61,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.pc6.PC6ProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.pc4a.PC4AProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.pc2.PC2ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.rfc4004.RFC4004ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
@@ -186,6 +187,12 @@ public class DiameterStackImpl implements DiameterStack
 				}
 				break;
 			case ApplicationIDs.MOBILE_IPV4:
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc4004"))
+				{
+					RFC4004ProviderImpl rfc4004Provider=new RFC4004ProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), rfc4004Provider);
+					return rfc4004Provider;
+				}
 				break;
 			case ApplicationIDs.ACCOUNTING:
 				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rf"))
