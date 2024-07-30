@@ -41,6 +41,8 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.CreditControlProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.ericsson.EricssonCreditControlProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.huawei.HuaweiCreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gy.GyProviderImpl;
@@ -203,6 +205,18 @@ public class DiameterStackImpl implements DiameterStack
 					CreditControlProviderImpl creditControlProvider=new CreditControlProviderImpl(this);
 					registeredProvidersByPackage.put(parentPackage.getName(), creditControlProvider);
 					return creditControlProvider;
+				}
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ericsson"))
+				{
+					EricssonCreditControlProviderImpl ericssonCreditControlProvider=new EricssonCreditControlProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), ericssonCreditControlProvider);
+					return ericssonCreditControlProvider;
+				}
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.huawei"))
+				{
+					HuaweiCreditControlProviderImpl huaweiCreditControlProvider=new HuaweiCreditControlProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), huaweiCreditControlProvider);
+					return huaweiCreditControlProvider;
 				}
 				break;
 			case ApplicationIDs.EAP:
