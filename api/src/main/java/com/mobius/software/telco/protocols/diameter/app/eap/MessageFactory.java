@@ -18,8 +18,10 @@ package com.mobius.software.telco.protocols.diameter.app.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 
@@ -27,5 +29,9 @@ import io.netty.buffer.ByteBuf;
 
 public interface MessageFactory
 {
-	public EAPRequest createEAPRequest(String originHost,String originRealm, String destinationHost, String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException;		
+	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationRealm, String sessionid,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException;
+	
+	public EAPAnswer createEAPAnswer(EAPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode,Long authApplicationId,AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	
+	public EAPAnswer createEAPAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID,Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 }
