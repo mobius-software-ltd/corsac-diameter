@@ -22,9 +22,12 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.eap.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.eap.EAPAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.eap.EAPRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 
@@ -53,8 +56,27 @@ public class MessageFactoryImpl implements MessageFactory
 		this.applicationId = applicationId;
 	}
 	
-	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationHost, String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
+	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationRealm,String sessionID,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EAPRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType, eapPayload);
-	}		
+		return new EAPRequestImpl(originHost, originRealm, destinationRealm, sessionID, false, idGenerator.generateID().toString(), applicationId, authRequestType, eapPayload);
+	}
+	
+	
+	public EAPAnswer createEAPAnswer(EAPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		EAPAnswerImpl result = new  EAPAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, authRequestType);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public EAPAnswer createEAPAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID,Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		EAPAnswerImpl result = new  EAPAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, authApplicationId, authRequestType);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 }
