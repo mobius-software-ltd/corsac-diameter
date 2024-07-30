@@ -21,12 +21,56 @@ package com.mobius.software.telco.protocols.diameter.app.nas;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.commands.nas.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nas.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nas.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nas.AccountingAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nas.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nas.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nas.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nas.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.nas.AARequest;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AccountingRecordTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 
 public interface MessageFactory
 {
 	public AARequest createAARequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;		
 	
+	public AAAnswer createAAAnswer(AARequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AAAnswer createAAAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
 	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AccountingAnswer createAccountingAnswer(AccountingRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AccountingAnswer createAccountingAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException;
+	
+	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
+	public ReAuthRequest createReAuthRequest(AARequest initialRequest,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
+	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;		
+	
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
+	
+	public AbortSessionRequest createAbortSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AbortSessionRequest createAbortSessionRequest(AARequest request) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationRequest creatSessionTerminationRequest(AARequest request,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
 }
+	
