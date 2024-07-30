@@ -71,7 +71,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()
@@ -109,7 +109,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()
@@ -151,7 +151,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()
@@ -189,7 +189,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()

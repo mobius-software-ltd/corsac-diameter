@@ -36,7 +36,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()

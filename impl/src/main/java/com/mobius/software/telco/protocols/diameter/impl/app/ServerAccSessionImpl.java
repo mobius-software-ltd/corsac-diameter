@@ -57,7 +57,7 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()

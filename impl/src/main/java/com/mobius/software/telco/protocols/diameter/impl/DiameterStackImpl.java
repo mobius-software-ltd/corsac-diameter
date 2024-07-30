@@ -28,7 +28,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.restcomm.cluster.ClusteredID;
 import org.restcomm.cluster.IDGenerator;
 
-import com.mobius.software.common.dal.timers.WorkerPool;
+import com.mobius.software.common.dal.timers.CountableQueue;
+import com.mobius.software.common.dal.timers.PeriodicQueuedTasks;
+import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.Timer;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
@@ -47,19 +50,19 @@ import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderIm
 import com.mobius.software.telco.protocols.diameter.impl.app.e4.E4ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.eap.EAPProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.gxx.GxxProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.gq.GqProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gmb.GMBProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.gq.GqProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.gxx.GxxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gy.GyProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mb2c.Mb2cProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mm10.MM10ProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.nt.NtProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.nas.NasProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.np.NpProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.nt.NtProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.nta.NtaProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.pc6.PC6ProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.pc4a.PC4AProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.pc2.PC2ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.pc4a.PC4AProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.pc6.PC6ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rfc4004.RFC4004ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
@@ -99,15 +102,16 @@ public class DiameterStackImpl implements DiameterStack
 	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
 	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
     
-	private DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
-	private IncomingRequestsStorage incomingRequestsStorage;
+	protected DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
+	protected IncomingRequestsStorage incomingRequestsStorage;
 	
 	private Long responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
 	private Long idleTimeout = DEFAULT_IDLE_TIMEOUT;
 	private Long duplicateTimeout = 0L;
 	private Long duplicatesCheckPeriod = 0L;
 	
-	private WorkerPool workerPool;
+	private CountableQueue<Task> queue;
+	private PeriodicQueuedTasks<Timer> periodicQueue;
 	private IDGenerator<?> idGenerator;
 	
 	private AtomicLong sessionCounter=new AtomicLong();
@@ -123,10 +127,11 @@ public class DiameterStackImpl implements DiameterStack
 	private Long originalStateId = hopByHopCounter.get() % 0x100000000L;
 	private Long firmwareRevision;
 	
-	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
+	public DiameterStackImpl(IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
 	{
 		this.idGenerator = idGenerator;
-		this.workerPool = workerPool;
+		this.queue = queue;
+		this.periodicQueue = periodicQueue;
 		this.localHost = localHost;
 		this.productName = productName;
 		this.vendorId = vendorId;
@@ -448,12 +453,6 @@ public class DiameterStackImpl implements DiameterStack
 	public void sendAnswer(DiameterAnswer message, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
 		networkManager.sendAnswer(message, destinationHost, destinationRealm, callback);	
-	}
-
-	@Override
-	public WorkerPool getWorkerPool()
-	{
-		return workerPool;
 	}
 
 	@Override
@@ -1145,5 +1144,17 @@ public class DiameterStackImpl implements DiameterStack
 		}
 		
 		counter.incrementAndGet();
+	}
+
+	@Override
+	public CountableQueue<Task> getQueue()
+	{
+		return queue;
+	}
+
+	@Override
+	public PeriodicQueuedTasks<Timer> getPeriodicQueue()
+	{
+		return periodicQueue;
 	}
 }

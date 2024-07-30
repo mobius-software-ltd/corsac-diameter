@@ -627,7 +627,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			try
 			{
 				DiameterMessage message = parser.decode(buffer, rejectUnmandatoryAvps);
-				stack.getWorkerPool().getQueue().offerLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
+				stack.getQueue().offerLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
 			}
 			catch(DiameterException ex)
 			{
@@ -1096,7 +1096,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				public void onSuccess()
 				{									
 					disconnectTimer.startTimer(inactivityTimeout, callback);
-					stack.getWorkerPool().getPeriodicQueue().store(disconnectTimer.getRealTimestamp(), disconnectTimer);	
+					stack.getPeriodicQueue().store(disconnectTimer.getRealTimestamp(), disconnectTimer);	
 				}
 				
 				@Override
@@ -1201,14 +1201,14 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	@Override
 	public void resetInactivityTimer()
 	{
-		stack.getWorkerPool().getPeriodicQueue().store(inactivityTimer.getRealTimestamp(), inactivityTimer);		
+		stack.getPeriodicQueue().store(inactivityTimer.getRealTimestamp(), inactivityTimer);		
 	}
 	
 	@Override
 	public void resetReconnectTimer()
 	{
 		reconnectTimer.startTimer(reconnectTimeout, null);
-		stack.getWorkerPool().getPeriodicQueue().store(reconnectTimer.getRealTimestamp(), reconnectTimer);		
+		stack.getPeriodicQueue().store(reconnectTimer.getRealTimestamp(), reconnectTimer);		
 	}	
 	
 	@Override
