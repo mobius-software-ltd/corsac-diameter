@@ -2,7 +2,6 @@ package com.mobius.software.telco.protocols.diameter.app.mb2c;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
-
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors

@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.app.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
@@ -26,7 +28,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestT
 
 public interface MessageFactory
 {
-	public ProXimityApplicationRequest createProXimityApplicationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException;		
+	public ProXimityApplicationRequest createProXimityApplicationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException;	
 	
+	public ProXimityApplicationAnswer createProXimityApplicationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException;
+
+	public ProXimityApplicationAnswer createProXimityApplicationAnswer(ProXimityApplicationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException;
+
 	public ProXimityActionRequest createProXimityActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
+	public ProXimityActionAnswer createProXimityActionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID,  Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException;
+
+	public ProXimityActionAnswer createProXimityActionAnswer(ProXimityActionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException;
 }
