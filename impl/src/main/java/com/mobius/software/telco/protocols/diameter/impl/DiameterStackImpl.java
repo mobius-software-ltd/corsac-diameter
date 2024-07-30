@@ -57,6 +57,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.nt.NtProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.nas.NasProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.np.NpProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.nta.NtaProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.pc6.PC6ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.pc4a.PC4AProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.pc2.PC2ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
@@ -380,7 +381,13 @@ public class DiameterStackImpl implements DiameterStack
 				
 				return pc4aProvider;
 			case ApplicationIDs.PC6:
-				break;
+				PC6ProviderImpl pc6Provider=new PC6ProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), pc6Provider);
+				else
+					registeredProviders.put(applicationID, pc6Provider);
+				
+				return pc6Provider;
 			case ApplicationIDs.NP:
 				NpProviderImpl npProvider=new NpProviderImpl(this);
 				if(parentPackage!=null)
