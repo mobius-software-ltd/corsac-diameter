@@ -22,11 +22,15 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.pc2.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc2.ProXimityActionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc2.ProXimityActionRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.pc2.ProXimityApplicationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.pc2.ProXimityApplicationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.pc2.ProSeRequestTypeEnum;
@@ -43,6 +47,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	private Long applicationId = APPLICATION_ID;
 	
+	
 	public MessageFactoryImpl(IDGenerator<?> idGenerator)
 	{
 		this.idGenerator = idGenerator;
@@ -57,10 +62,48 @@ public class MessageFactoryImpl implements MessageFactory
 	public ProXimityApplicationRequest createProXimityApplicationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ProXimityApplicationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
-	}		
+	}
+	
+	@Override
+	public ProXimityApplicationAnswer createProXimityApplicationAnswer(ProXimityApplicationRequest request,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException 
+	{
+		ProXimityApplicationAnswerImpl result = new ProXimityApplicationAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode,  request.getSessionId(),authApplicationId,AuthSessionStateEnum.NO_STATE_MAINTAINED,proSeRequestType);
+		 result.setHopByHopIdentifier(hopByHopIdentifier);
+		 result.setEndToEndIdentifier(endToEndIdentifier);
+		 return result;
+	}
+
+	@Override
+	public ProXimityApplicationAnswer createProXimityApplicationAnswer(String originHost, String originRealm,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,String sessionID, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
+	{
+		ProXimityApplicationAnswerImpl result = new ProXimityApplicationAnswerImpl(originHost,originRealm, false, resultCode, sessionID, authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
 	
 	public ProXimityActionRequest createProXimityActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ProXimityActionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
 	}
+	
+	@Override
+	public ProXimityActionAnswer createProXimityActionAnswer(ProXimityActionRequest request,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException 
+	{
+		 ProXimityActionAnswerImpl result = new ProXimityActionAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(), authApplicationId,AuthSessionStateEnum.NO_STATE_MAINTAINED,proSeRequestType);
+		 result.setHopByHopIdentifier(hopByHopIdentifier);
+		 result.setEndToEndIdentifier(endToEndIdentifier);
+		 return result;
+	}
+
+	@Override
+	public ProXimityActionAnswer createProXimityActionAnswer(String originHost, String originRealm,Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,String sessionID, Long authApplicationId, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
+	{
+		ProXimityActionAnswerImpl result = new ProXimityActionAnswerImpl(originHost,originRealm, false, resultCode, sessionID,authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
 }
