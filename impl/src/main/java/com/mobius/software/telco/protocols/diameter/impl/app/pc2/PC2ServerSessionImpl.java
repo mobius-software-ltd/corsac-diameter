@@ -1,5 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.pc2;
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,6 +17,7 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.pc2.PC2ServerSession;
@@ -29,6 +29,6 @@ public class PC2ServerSessionImpl extends ServerAuthSessionStatelessImpl<Pc2Requ
 {
 	public PC2ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<Pc2Answer>, ?, ?, ?> provider)
 	{
-		super(sessionID, Long.valueOf(ApplicationIDs.NTA),remoteHost,remoteRealm, provider);
+		super(sessionID, Long.valueOf(ApplicationIDs.PC2),remoteHost,remoteRealm, provider);
 	}
 }
