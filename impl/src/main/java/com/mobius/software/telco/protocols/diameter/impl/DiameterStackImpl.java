@@ -42,6 +42,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.CreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.e4.E4ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gy.GyProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mm10.MM10ProviderImpl;
@@ -236,7 +237,13 @@ public class DiameterStackImpl implements DiameterStack
 				
 				return mm10Provider;
 			case ApplicationIDs.E4:
-				break;
+				E4ProviderImpl e4Provider=new E4ProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), e4Provider);
+				else
+					registeredProviders.put(applicationID, e4Provider);
+				
+				return e4Provider;
 			case ApplicationIDs.MB2C:
 				break;
 			case ApplicationIDs.RX:
