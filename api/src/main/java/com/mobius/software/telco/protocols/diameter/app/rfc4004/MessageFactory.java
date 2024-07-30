@@ -18,7 +18,9 @@ package com.mobius.software.telco.protocols.diameter.app.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
@@ -29,7 +31,16 @@ import io.netty.buffer.ByteBuf;
 
 public interface MessageFactory
 {
-	public AAMobileNodeRequest createAAMobileNodeRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ByteBuf mipRegRequest, MIPMNAAAAuth mipMNAAAAuth) throws MissingAvpException, AvpNotSupportedException;		
+	public AAMobileNodeRequest createAAMobileNodeRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ByteBuf mipRegRequest, MIPMNAAAAuth mipMNAAAAuth) throws MissingAvpException, AvpNotSupportedException;
 	
-	public HomeAgentMIPRequest createHomeAgentMIPRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Long authorizationLifetime, AuthSessionStateEnum authSessionState,ByteBuf mipRegRequest, Long mipFeatureVector) throws MissingAvpException, AvpNotSupportedException;	
+	public AAMobileNodeAnswer createAAMobileNodeAnswer(AAMobileNodeRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,Long authApplicationId) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AAMobileNodeAnswer createAAMobileNodeAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID, Long authApplicationId ) throws MissingAvpException, AvpNotSupportedException;
+
+	public HomeAgentMIPRequest createHomeAgentMIPRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Long authorizationLifetime, AuthSessionStateEnum authSessionState,ByteBuf mipRegRequest, Long mipFeatureVector) throws MissingAvpException, AvpNotSupportedException;
+	
+	public HomeAgentMIPAnswer createHomeAgentMIPAnswer(HomeAgentMIPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,Long authApplicationId) throws MissingAvpException, AvpNotSupportedException;
+	
+	public HomeAgentMIPAnswer createHomeAgentMIPAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException;
+
 }
