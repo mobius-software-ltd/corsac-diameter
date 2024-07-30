@@ -18,14 +18,26 @@ package com.mobius.software.telco.protocols.diameter.app.mb2c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public interface MessageFactory
 {
 	public GCSNotificationRequest createGCSNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
 	
+	public GCSNotificationAnswer createGCSNotificationAnswer(GCSNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public GCSNotificationAnswer createGCSNotificationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 	public GCSActionRequest createGCSActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;
+	
+	public GCSActionAnswer createGCSActionAnswer(GCSActionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, Long authApplicationId) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public GCSActionAnswer createGCSActionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID, Long authApplicationId) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }
