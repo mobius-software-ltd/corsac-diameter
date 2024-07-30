@@ -53,6 +53,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.gmb.GMBProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.gy.GyProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mb2c.Mb2cProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mm10.MM10ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.nas.NasProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.np.NpProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.nta.NtaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
@@ -172,6 +173,12 @@ public class DiameterStackImpl implements DiameterStack
 					GiProviderImpl giProvider=new GiProviderImpl(this);
 					registeredProvidersByPackage.put(parentPackage.getName(), giProvider);
 					return giProvider;
+				}
+				else if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.nas"))
+				{
+					NasProviderImpl nasProvider=new NasProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), nasProvider);
+					return nasProvider;
 				}
 				break;
 			case ApplicationIDs.MOBILE_IPV4:
