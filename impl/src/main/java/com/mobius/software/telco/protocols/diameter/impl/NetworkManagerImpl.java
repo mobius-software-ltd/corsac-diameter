@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl;
  */
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -421,5 +422,11 @@ public class NetworkManagerImpl implements NetworkManager
     	}
     	
     	return null;
+	}
+
+	@Override
+	public List<DiameterLink> getAllLinks()
+	{
+		return new ArrayList<DiameterLink>(links.values());
 	}
 }

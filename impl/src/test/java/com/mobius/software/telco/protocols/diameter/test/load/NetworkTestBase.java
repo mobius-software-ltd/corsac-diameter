@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
 import org.restcomm.cluster.IDGenerator;
 import org.restcomm.cluster.UUIDGenerator;
 
@@ -52,6 +53,9 @@ public class NetworkTestBase
 	
 	public void setupRemote(Long duplicateTimeout,Long duplicatePeriod) throws Exception
 	{
+		BasicConfigurator.resetConfiguration();
+		BasicConfigurator.configure();
+		
 		if(workerPool==null)
 		{
 			workerPool = new WorkerPool();
@@ -62,7 +66,7 @@ public class NetworkTestBase
 		@SuppressWarnings("unused")
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.mm10.MessageProcessRequestImpl.class;
 		
-		serverStack=new DiameterStackImpl(generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
+		serverStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		for(String localLinkID:localLinkIDs)
 		{
 			serverStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 13868 + Integer.parseInt(localLinkID),  InetAddress.getByName("127.0.0.1"), 4868 + Integer.parseInt(localLinkID), true, true, "127.0.0.1", "server.mobius-software.com", "127.0.0.1", "client.mobius-software.com", false);
@@ -83,7 +87,7 @@ public class NetworkTestBase
 		@SuppressWarnings("unused")
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.mm10.MessageProcessRequestImpl.class;
 		
-		localStack=new DiameterStackImpl(generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
+		localStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		for(String localLinkID:localLinkIDs)
 		{
 			localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868 + Integer.parseInt(localLinkID),  InetAddress.getByName("127.0.0.1"), 13868 + Integer.parseInt(localLinkID), false, true, "127.0.0.1", "client.mobius-software.com", "127.0.0.1", "server.mobius-software.com", false);

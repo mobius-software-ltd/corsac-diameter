@@ -135,7 +135,7 @@ public class GxCreditControlTest
 	@Test
 	public void testCreditControlRequest() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = CreditControlRequestImpl.class;
@@ -143,7 +143,7 @@ public class GxCreditControlTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gx"));
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gx"));
 		
 		creditControlRequestMessage.resetReaderIndex();
 		DiameterMessage decodeMessage = diameterParser.decode(creditControlRequestMessage, false);

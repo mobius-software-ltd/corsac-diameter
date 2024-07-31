@@ -79,7 +79,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()
@@ -121,7 +121,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()
@@ -157,7 +157,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()
@@ -195,7 +195,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		}
 		
 		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getWorkerPool().getQueue().offerLast(new Task()
+		provider.getStack().getQueue().offerLast(new Task()
 		{
 			@Override
 			public long getStartTime()

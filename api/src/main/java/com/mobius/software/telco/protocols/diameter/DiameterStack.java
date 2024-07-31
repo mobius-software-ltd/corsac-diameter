@@ -22,7 +22,10 @@ import java.util.Map;
 
 import org.restcomm.cluster.IDGenerator;
 
-import com.mobius.software.common.dal.timers.WorkerPool;
+import com.mobius.software.common.dal.timers.CountableQueue;
+import com.mobius.software.common.dal.timers.PeriodicQueuedTasks;
+import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.Timer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
@@ -34,10 +37,14 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 */
 public interface DiameterStack
 {
+	ClassLoader getClassLoader();
+	
 	//package is required for credit control and others that has multiple options
 	DiameterProvider<?,?,?,?,?> getProvider(Long applicationID,Package parentPackage);
 	
-	WorkerPool getWorkerPool();
+	CountableQueue<Task> getQueue();
+	
+	PeriodicQueuedTasks<Timer> getPeriodicQueue();
 	
 	IDGenerator<?> getIDGenerator();
 	

@@ -28,7 +28,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.restcomm.cluster.ClusteredID;
 import org.restcomm.cluster.IDGenerator;
 
-import com.mobius.software.common.dal.timers.WorkerPool;
+import com.mobius.software.common.dal.timers.CountableQueue;
+import com.mobius.software.common.dal.timers.PeriodicQueuedTasks;
+import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.Timer;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
@@ -41,13 +44,28 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.CreditControlProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.ericsson.EricssonCreditControlProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.huawei.HuaweiCreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.cxdx.CxDxProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.e4.E4ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.eap.EAPProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gi.GiProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gx.GxProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.gmb.GMBProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.gq.GqProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.gxx.GxxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.gy.GyProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.mb2c.Mb2cProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.mm10.MM10ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.nas.NasProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.np.NpProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.nt.NtProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.nta.NtaProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.pc2.PC2ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.pc4a.PC4AProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.pc6.PC6ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.rfc4004.RFC4004ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
@@ -85,15 +103,16 @@ public class DiameterStackImpl implements DiameterStack
 	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
 	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
     
-	private DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
-	private IncomingRequestsStorage incomingRequestsStorage;
+	protected DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
+	protected IncomingRequestsStorage incomingRequestsStorage;
 	
 	private Long responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
 	private Long idleTimeout = DEFAULT_IDLE_TIMEOUT;
 	private Long duplicateTimeout = 0L;
 	private Long duplicatesCheckPeriod = 0L;
 	
-	private WorkerPool workerPool;
+	private CountableQueue<Task> queue;
+	private PeriodicQueuedTasks<Timer> periodicQueue;
 	private IDGenerator<?> idGenerator;
 	
 	private AtomicLong sessionCounter=new AtomicLong();
@@ -109,10 +128,14 @@ public class DiameterStackImpl implements DiameterStack
 	private Long originalStateId = hopByHopCounter.get() % 0x100000000L;
 	private Long firmwareRevision;
 	
-	public DiameterStackImpl(IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
+	private ClassLoader classLoader;
+	
+	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
 	{
+		this.classLoader = classLoader;
 		this.idGenerator = idGenerator;
-		this.workerPool = workerPool;
+		this.queue = queue;
+		this.periodicQueue = periodicQueue;
 		this.localHost = localHost;
 		this.productName = productName;
 		this.vendorId = vendorId;
@@ -165,8 +188,20 @@ public class DiameterStackImpl implements DiameterStack
 					registeredProvidersByPackage.put(parentPackage.getName(), giProvider);
 					return giProvider;
 				}
+				else if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.nas"))
+				{
+					NasProviderImpl nasProvider=new NasProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), nasProvider);
+					return nasProvider;
+				}
 				break;
 			case ApplicationIDs.MOBILE_IPV4:
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc4004"))
+				{
+					RFC4004ProviderImpl rfc4004Provider=new RFC4004ProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), rfc4004Provider);
+					return rfc4004Provider;
+				}
 				break;
 			case ApplicationIDs.ACCOUNTING:
 				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rf"))
@@ -205,8 +240,32 @@ public class DiameterStackImpl implements DiameterStack
 					registeredProvidersByPackage.put(parentPackage.getName(), creditControlProvider);
 					return creditControlProvider;
 				}
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ericsson"))
+				{
+					EricssonCreditControlProviderImpl ericssonCreditControlProvider=new EricssonCreditControlProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), ericssonCreditControlProvider);
+					return ericssonCreditControlProvider;
+				}
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.huawei"))
+				{
+					HuaweiCreditControlProviderImpl huaweiCreditControlProvider=new HuaweiCreditControlProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), huaweiCreditControlProvider);
+					return huaweiCreditControlProvider;
+				}
 				break;
 			case ApplicationIDs.EAP:
+				
+				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.eap"))
+				{
+					EAPProviderImpl eapProvider=new EAPProviderImpl(this);
+					if(parentPackage!=null)
+						registeredProvidersByPackage.put(parentPackage.getName(), eapProvider);
+					else
+						registeredProviders.put(applicationID, eapProvider);
+					
+					
+					return eapProvider;
+				}
 				break;
 			case ApplicationIDs.SIP_APPLICATION:
 				break;
@@ -225,8 +284,20 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.SH:
 				break;
 			case ApplicationIDs.GQ:
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gq"))
+				{
+					GqProviderImpl gqProvider=new GqProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), gqProvider);
+					return gqProvider;
+				}
 				break;
 			case ApplicationIDs.GMB:
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gmb"))
+				{
+					GMBProviderImpl gmbProvider=new GMBProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), gmbProvider);
+					return gmbProvider;
+				}
 				break;
 			case ApplicationIDs.MM10:
 				MM10ProviderImpl mm10Provider=new MM10ProviderImpl(this);
@@ -237,9 +308,21 @@ public class DiameterStackImpl implements DiameterStack
 				
 				return mm10Provider;
 			case ApplicationIDs.E4:
-				break;
+				E4ProviderImpl e4Provider=new E4ProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), e4Provider);
+				else
+					registeredProviders.put(applicationID, e4Provider);
+				
+				return e4Provider;
 			case ApplicationIDs.MB2C:
-				break;
+				Mb2cProviderImpl mb2cProvider=new Mb2cProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), mb2cProvider);
+				else
+					registeredProviders.put(applicationID, mb2cProvider);
+				
+				return mb2cProvider;
 			case ApplicationIDs.RX:
 				break;
 			case ApplicationIDs.GX:
@@ -276,6 +359,17 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.SWX:
 				break;
 			case ApplicationIDs.GXX:
+				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gxx"))
+				{
+					GxxProviderImpl gxxProvider=new GxxProviderImpl(this);
+					if(parentPackage!=null)
+						registeredProvidersByPackage.put(parentPackage.getName(), gxxProvider);
+					else
+						registeredProviders.put(applicationID, gxxProvider);
+					
+					
+					return gxxProvider;
+				}
 				break;
 			case ApplicationIDs.S9:
 				break;
@@ -306,17 +400,41 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.S9ATAG:
 				break;
 			case ApplicationIDs.PC4A:
-				break;
+				PC4AProviderImpl pc4aProvider=new PC4AProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), pc4aProvider);
+				else
+					registeredProviders.put(applicationID, pc4aProvider);
+				
+				return pc4aProvider;
 			case ApplicationIDs.PC6:
-				break;
+				PC6ProviderImpl pc6Provider=new PC6ProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), pc6Provider);
+				else
+					registeredProviders.put(applicationID, pc6Provider);
+				
+				return pc6Provider;
 			case ApplicationIDs.NP:
-				break;
+				NpProviderImpl npProvider=new NpProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), npProvider);
+				else
+					registeredProviders.put(applicationID, npProvider);
+				
+				return npProvider;
 			case ApplicationIDs.S6T:
 				break;
 			case ApplicationIDs.T6A:
 				break;
 			case ApplicationIDs.NT:
-				break;
+				NtProviderImpl ntProvider=new NtProviderImpl(this);
+				if(parentPackage!=null)
+					registeredProvidersByPackage.put(parentPackage.getName(), ntProvider);
+				else
+					registeredProviders.put(applicationID, ntProvider);
+				
+				return ntProvider;
 			case ApplicationIDs.NTA:
 				NtaProviderImpl ntaProvider=new NtaProviderImpl(this);
 				if(parentPackage!=null)
@@ -328,6 +446,12 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.ST:
 				break;
 			case ApplicationIDs.PC2:
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.pc2"))
+				{
+					PC2ProviderImpl pc2Provider=new PC2ProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), pc2Provider);
+					return pc2Provider;
+				}
 				break;
 		}
 		
@@ -344,12 +468,6 @@ public class DiameterStackImpl implements DiameterStack
 	public void sendAnswer(DiameterAnswer message, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
 		networkManager.sendAnswer(message, destinationHost, destinationRealm, callback);	
-	}
-
-	@Override
-	public WorkerPool getWorkerPool()
-	{
-		return workerPool;
 	}
 
 	@Override
@@ -1041,5 +1159,23 @@ public class DiameterStackImpl implements DiameterStack
 		}
 		
 		counter.incrementAndGet();
+	}
+
+	@Override
+	public CountableQueue<Task> getQueue()
+	{
+		return queue;
+	}
+
+	@Override
+	public PeriodicQueuedTasks<Timer> getPeriodicQueue()
+	{
+		return periodicQueue;
+	}
+
+	@Override
+	public ClassLoader getClassLoader()
+	{
+		return this.classLoader;
 	}
 }

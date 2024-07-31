@@ -22,11 +22,15 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.rfc4004.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004.AAMobileNodeAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004.AAMobileNodeRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004.HomeAgentMIPAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004.HomeAgentMIPRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4004.MIPMNAAAAuth;
@@ -59,10 +63,46 @@ public class MessageFactoryImpl implements MessageFactory
 	public AAMobileNodeRequest createAAMobileNodeRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ByteBuf mipRegRequest, MIPMNAAAAuth mipMNAAAAuth) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AAMobileNodeRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, mipRegRequest, mipMNAAAAuth);
-	}		
+	}
+	
+	@Override
+	public AAMobileNodeAnswer createAAMobileNodeAnswer(AAMobileNodeRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	{
+		AAMobileNodeAnswerImpl result = new AAMobileNodeAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(),authApplicationId);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public AAMobileNodeAnswer createAAMobileNodeAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	{
+		AAMobileNodeAnswerImpl result = new AAMobileNodeAnswerImpl(originHost, originRealm, false, resultCode, sessionID, authApplicationId);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public HomeAgentMIPRequest createHomeAgentMIPRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Long authorizationLifetime, AuthSessionStateEnum authSessionState,ByteBuf mipRegRequest, Long mipFeatureVector) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new HomeAgentMIPRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), mipFeatureVector, authorizationLifetime, authSessionState, mipRegRequest, mipFeatureVector);
-	}	
+	}
+	
+	@Override
+	public HomeAgentMIPAnswer createHomeAgentMIPAnswer(HomeAgentMIPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
+	{
+		HomeAgentMIPAnswerImpl result = new HomeAgentMIPAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public HomeAgentMIPAnswer createHomeAgentMIPAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, Long authApplicationId ) throws MissingAvpException, AvpNotSupportedException
+	{
+		HomeAgentMIPAnswerImpl result = new HomeAgentMIPAnswerImpl(originHost, originRealm, false, resultCode, sessionID, authApplicationId);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 }
