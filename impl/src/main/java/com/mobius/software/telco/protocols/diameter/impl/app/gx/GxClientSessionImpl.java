@@ -1,6 +1,6 @@
-package com.mobius.software.telco.protocols.diameter.app.gx;
+package com.mobius.software.telco.protocols.diameter.impl.app.gx;
 /*
- * Mobius Software LTD, Open Source Cloud Communications
+ * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
  * by the @authors tag.
  *
@@ -17,7 +17,11 @@ package com.mobius.software.telco.protocols.diameter.app.gx;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
+import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
+import com.mobius.software.telco.protocols.diameter.app.gx.GxClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.gx.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gx.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gx.CreditControlAnswer;
@@ -26,12 +30,12 @@ import com.mobius.software.telco.protocols.diameter.commands.gx.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gx.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gx.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gx.SessionTerminationRequest;
-/**
-*
-* @author yulian oifa
-*
-*/
-public interface ClientListener extends ClientCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
-{
-}
+import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl;
 
+public class GxClientSessionImpl extends ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements GxClientSession
+{
+	public GxClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
+	{
+		super(sessionID, Long.valueOf(ApplicationIDs.GX), remoteHost, remoteRealm, provider);
+	}
+}
