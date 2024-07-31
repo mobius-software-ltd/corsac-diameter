@@ -37,6 +37,8 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 */
 public interface DiameterStack
 {
+	ClassLoader getClassLoader();
+	
 	//package is required for credit control and others that has multiple options
 	DiameterProvider<?,?,?,?,?> getProvider(Long applicationID,Package parentPackage);
 	

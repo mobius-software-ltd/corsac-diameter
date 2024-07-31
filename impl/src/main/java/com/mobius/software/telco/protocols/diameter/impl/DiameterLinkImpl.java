@@ -88,7 +88,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	
 	public static final Integer DIAMETER_SCTP_PROTOCOL_IDENTIFIER=46;
 	
-	private DiameterParser parser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));;
+	private DiameterParser parser;
 	
 	private Management management;
 	private Association association;
@@ -131,9 +131,11 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	private AtomicBoolean waitingForDWA=new AtomicBoolean(false);
 	
 	private ConcurrentHashMap<String, NetworkListener> genericListeners;
-	
+		
 	public DiameterLinkImpl(DiameterStack stack, Management management, ConcurrentHashMap<String, NetworkListener> genericListeners, String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps, Long inactivityTimeout, Long responseTimeout, Long reconnectTimeout) throws DiameterException
 	{
+		this.parser = new DiameterParser(stack.getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		
 		this.genericListeners = genericListeners;
 		this.linkId = linkId;
 		
@@ -215,7 +217,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		@SuppressWarnings("unused")
 		Class<?> avpClass = AcctApplicationIdImpl.class;
 		
-		parser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));
+		parser.registerApplication(stack.getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));
 		
 		this.stack = stack;
 		this.rejectUnmandatoryAvps = rejectUnmandatoryAvps;
@@ -678,7 +680,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			acctApplicationPackages.put(applicationId, providerPackageName);
 		}
 		
-		parser.registerApplication(packageName);
+		parser.registerApplication(stack.getClassLoader(), packageName);
 	}
 
 	public static Boolean sameVendorSpecificApplicationId(VendorSpecificApplicationId oldId, VendorSpecificApplicationId applicationId)

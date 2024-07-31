@@ -27,7 +27,7 @@ public class LoadingTest
 	@Test
 	public void testCommon() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = CapabilitiesExchangeRequestImpl.class;
@@ -35,13 +35,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));		
 	}
 	
 	@Test
 	public void testCreditControl() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = CreditControlRequestImpl.class;
@@ -49,13 +49,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol"));		
 	}
 	
 	@Test
 	public void testCreditControlHuawei() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.huawei.CreditControlRequestImpl.class;
@@ -63,13 +63,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.huawei"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.huawei"));		
 	}
 	
 	@Test
 	public void testCreditControlEricsson() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.CreditControlRequestImpl.class;
@@ -77,13 +77,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson"));		
 	}
 	
 	@Test
 	public void testCxDx() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = LocationInfoRequestImpl.class;
@@ -91,13 +91,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.cxdx"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.cxdx"));		
 	}
 	
 	@Test
 	public void testE4() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = PushNotificationsRequestImpl.class;
@@ -105,13 +105,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.e4"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.e4"));		
 	}
 	
 	@Test
 	public void testEap() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = EAPRequestImpl.class;
@@ -119,13 +119,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.eap"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.eap"));		
 	}
 	
 	@Test
 	public void testGi() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = AccountingRequestImpl.class;
@@ -133,13 +133,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gi"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gi"));		
 	}
 	
 	@Test
 	public void testGmb() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = AARequestImpl.class;
@@ -147,13 +147,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gmb"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gmb"));		
 	}
 	
 	@Test
 	public void testGq() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gq.AARequestImpl.class;
@@ -161,13 +161,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gq"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gq"));		
 	}
 	
 	@Test
 	public void testGqTag() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gqtag.AARequestImpl.class;
@@ -175,13 +175,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gqtag"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gqtag"));		
 	}
 	
 	@Test
 	public void testGx() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gx.CreditControlRequestImpl.class;
@@ -189,13 +189,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gx"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gx"));		
 	}
 	
 	@Test
 	public void testGxx() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gxx.CreditControlRequestImpl.class;
@@ -203,13 +203,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gxx"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gxx"));		
 	}
 	
 	@Test
 	public void testGy() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gy.CreditControlRequestImpl.class;
@@ -217,13 +217,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gy"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gy"));		
 	}
 	
 	@Test
 	public void testMB2C() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.mb2c.GCSActionRequestImpl.class;
@@ -231,13 +231,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.mb2c"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.mb2c"));		
 	}
 	
 	@Test
 	public void testMM10() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.mm10.MessageProcessRequestImpl.class;
@@ -245,13 +245,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gxx"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gxx"));		
 	}
 	
 	@Test
 	public void testNas() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.nas.AccountingRequestImpl.class;
@@ -259,13 +259,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.nas"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.nas"));		
 	}
 	
 	@Test
 	public void testNp() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.np.NonAggregatedRUCIReportRequestImpl.class;
@@ -273,13 +273,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.np"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.np"));		
 	}
 	
 	@Test
 	public void testNt() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.nt.BackgroundDataTransferRequestImpl.class;
@@ -287,13 +287,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.nt"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.nt"));		
 	}
 	
 	@Test
 	public void testNta() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.nta.EventReportingRequestImpl.class;
@@ -301,13 +301,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.nta"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.nta"));		
 	}
 	
 	@Test
 	public void testPC2() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.pc2.ProXimityActionRequestImpl.class;
@@ -315,13 +315,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.pc2"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.pc2"));		
 	}
 	
 	@Test
 	public void testPC4A() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.pc4a.ProSeInitialLocationInformationRequestImpl.class;
@@ -329,13 +329,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.pc4a"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.pc4a"));		
 	}
 	
 	@Test
 	public void testPC6() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.pc6.ProSeAlertRequestImpl.class;
@@ -343,13 +343,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.pc6"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.pc6"));		
 	}
 	
 	@Test
 	public void testRf() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rf.AccountingRequestImpl.class;
@@ -357,13 +357,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rf"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rf"));		
 	}
 	
 	@Test
 	public void testRfc4004() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004.AAMobileNodeRequestImpl.class;
@@ -371,13 +371,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc4004"));		
 	}
 	
 	@Test
 	public void testRfc4740() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740.MultimediaAuthRequestImpl.class;
@@ -385,13 +385,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740"));		
 	}
 	
 	@Test
 	public void testRfc5778a() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778a.MIP6RequestImpl.class;
@@ -399,13 +399,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778a"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778a"));		
 	}
 	
 	@Test
 	public void testRfc5778i() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778i.EAPRequestImpl.class;
@@ -413,13 +413,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778i"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rfc5778i"));		
 	}
 	
 	@Test
 	public void testRo() throws DiameterException
 	{
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.ro.CreditControlRequestImpl.class;
@@ -427,13 +427,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.ro"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.ro"));		
 	}
 	
 	@Test
 	public void testRx() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.rx.AARequestImpl.class;
@@ -441,13 +441,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rx"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.rx"));		
 	}
 	
 	@Test
 	public void testS13() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s13.MEIdentityCheckRequestImpl.class;
@@ -455,13 +455,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s13"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s13"));		
 	}
 	
 	@Test
 	public void testS15() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s15.CreditControlAnswerImpl.class;
@@ -469,13 +469,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s15"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s15"));		
 	}
 	
 	@Test
 	public void testS6A() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s6a.CancelLocationRequestImpl.class;
@@ -483,13 +483,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6a"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6a"));		
 	}
 	
 	@Test
 	public void testS6B() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s6b.EAPRequestImpl.class;
@@ -497,13 +497,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6b"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6b"));		
 	}
 	
 	@Test
 	public void testS6C() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s6c.AlertServiceCentreRequestImpl.class;
@@ -511,13 +511,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6c"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6c"));		
 	}
 	
 	@Test
 	public void testS6M() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s6m.SubscriberInformationRequestImpl.class;
@@ -525,13 +525,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6m"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6m"));		
 	}
 	
 	@Test
 	public void testS6T() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s6t.ReportingInformationRequestImpl.class;
@@ -539,13 +539,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6t"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s6t"));		
 	}
 	
 	@Test
 	public void testS7A() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s7a.InsertSubscriberDataRequestImpl.class;
@@ -553,13 +553,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s7a"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s7a"));		
 	}
 	
 	@Test
 	public void testS9() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s9.CreditControlRequestImpl.class;
@@ -567,13 +567,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s9"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s9"));		
 	}
 	
 	@Test
 	public void testS9A() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s9a.CreditControlRequestImpl.class;
@@ -581,13 +581,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s9a"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s9a"));		
 	}
 	
 	@Test
 	public void testS9ATag() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.s9atag.CreditControlRequestImpl.class;
@@ -595,13 +595,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s9atag"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s9atag"));		
 	}
 	
 	@Test
 	public void testSd() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.sd.CreditControlRequestImpl.class;
@@ -609,13 +609,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sd"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sd"));		
 	}
 	
 	@Test
 	public void testSgd() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.sgd.MOForwardShortMessageRequestImpl.class;
@@ -623,13 +623,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sgd"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sgd"));		
 	}
 	
 	@Test
 	public void testSgmb() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.ReAuthRequestImpl.class;
@@ -637,13 +637,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sgmb"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sgmb"));		
 	}
 	
 	@Test
 	public void testSh() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.sh.PushNotificationsRequestImpl.class;
@@ -651,13 +651,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sh"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sh"));		
 	}
 	
 	@Test
 	public void testSlg() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.slg.LocationReportRequestImpl.class;
@@ -665,13 +665,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.slg"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.slg"));		
 	}
 	
 	@Test
 	public void testSlh() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.slh.LCSRoutingInfoRequestImpl.class;
@@ -679,13 +679,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.slh"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.slh"));		
 	}
 	
 	@Test
 	public void testSt() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.st.TDFSessionRequestImpl.class;
@@ -693,13 +693,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.st"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.st"));		
 	}
 	
 	@Test
 	public void testSta() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.sta.EAPRequestImpl.class;
@@ -707,13 +707,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sta"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sta"));		
 	}
 	
 	@Test
 	public void testSwa() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.swa.EAPRequestImpl.class;
@@ -721,13 +721,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swa"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swa"));		
 	}
 	
 	@Test
 	public void testSwd() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.swd.EAPRequestImpl.class;
@@ -735,13 +735,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swd"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swd"));		
 	}
 	
 	@Test
 	public void testSwm() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.swm.EAPRequestImpl.class;
@@ -749,13 +749,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swm"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swm"));		
 	}
 	
 	@Test
 	public void testSwx() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.swx.MultimediaAuthRequestImpl.class;
@@ -763,13 +763,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swx"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.swx"));		
 	}
 	
 	@Test
 	public void testSy() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.sy.SpendingLimitRequestImpl.class;
@@ -777,13 +777,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sy"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sy"));		
 	}
 	
 	@Test
 	public void testT4() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.t4.DeliveryReportRequestImpl.class;
@@ -791,13 +791,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.t4"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.t4"));		
 	}
 	
 	@Test
 	public void testT6A() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.t6a.ConfigurationInformationRequestImpl.class;
@@ -805,13 +805,13 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.t6a"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.t6a"));		
 	}
 	
 	@Test
 	public void testTsp() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.tsp.DeviceActionRequestImpl.class;
@@ -819,7 +819,7 @@ public class LoadingTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.tsp"));		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.tsp"));		
 	}
 	
 }

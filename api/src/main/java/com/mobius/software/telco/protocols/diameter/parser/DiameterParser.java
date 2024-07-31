@@ -71,9 +71,9 @@ public class DiameterParser
 	private ConcurrentHashMap<Class<?>,AvpData> avpsMap = new ConcurrentHashMap<Class<?>, AvpData>();
 	private ConcurrentHashMap<Class<?>,CommandData> commandsMap = new ConcurrentHashMap<Class<?>, CommandData>();
 	
-	public DiameterParser(List<Class<?>> errorClasses,Package avpPackage) throws DiameterException
+	public DiameterParser(ClassLoader classLoader, List<Class<?>> errorClasses,Package avpPackage) throws DiameterException
 	{
-		registerAvps(avpPackage);
+		registerAvps(classLoader, avpPackage);
 		for(Class<?> clazz: errorClasses)
 		{
 			Method[] methods=clazz.getMethods();
@@ -1078,9 +1078,9 @@ public class DiameterParser
 		}
 	}
 	
-	public void registerApplication(Package packageName) throws DiameterException
+	public void registerApplication(ClassLoader classLoader, Package packageName) throws DiameterException
 	{
-		List<Class<?>> classes=loadClasses(packageName);
+		List<Class<?>> classes=loadClasses(classLoader, packageName);
 		for(Class<?> clazz:classes)
 		{
 			DiameterCommandDefinition commandDefition = getCommandDefinition(clazz);						
@@ -1133,9 +1133,9 @@ public class DiameterParser
 		}
 	}
 	
-	public void registerAvps(Package parentPackageName) throws DiameterException
+	public void registerAvps(ClassLoader classLoader, Package parentPackageName) throws DiameterException
 	{
-		List<Class<?>> classes=loadAllClasses(parentPackageName);
+		List<Class<?>> classes=loadAllClasses(classLoader, parentPackageName);
 		for(Class<?> clazz:classes)
 		{
 			Class<?> avpDefinition = getAvpDefinitionClass(clazz);						
@@ -1237,15 +1237,14 @@ public class DiameterParser
 		parentStorage.setOrderedAvpData(orderedAvpData);
 	}
 	
-	public static List<Class<?>> loadClasses(Package packageName) throws DiameterException
+	public static List<Class<?>> loadClasses(ClassLoader classLoader, Package packageName) throws DiameterException
 	{		
 		List<Class<?>> result = new ArrayList<Class<?>>();
 		
 		String pkgName = packageName.getName();
 		String pkgPath = pkgName.replace('.', '/');
 	 		
-		ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
-	    URL packageURL = classLoader.getResource(pkgPath);
+		URL packageURL = classLoader.getResource(pkgPath);
 		if (packageURL != null) 
 		{
 		    String packagePath = packageURL.getPath();
@@ -1284,7 +1283,7 @@ public class DiameterParser
 		return result;
 	}
 	
-	public static List<Class<?>> loadAllClasses(Package rootPackage) throws DiameterException
+	public static List<Class<?>> loadAllClasses(ClassLoader classLoader, Package rootPackage) throws DiameterException
 	{				
 		List<Class<?>> result = new ArrayList<Class<?>>();
 		
@@ -1294,8 +1293,7 @@ public class DiameterParser
 		List<File> pendingFiles = new ArrayList<File>();
 		List<String> packageNames = new ArrayList<String>();
 		
-		ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
-	    URL packageURL = classLoader.getResource(pkgPath);
+		URL packageURL = classLoader.getResource(pkgPath);
 		if (packageURL != null) 
 		{
 		    String packagePath = packageURL.getPath();

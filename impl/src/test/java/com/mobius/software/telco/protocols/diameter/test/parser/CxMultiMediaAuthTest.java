@@ -103,7 +103,7 @@ public class CxMultiMediaAuthTest
 	@Test
 	public void testMultimediaAuthRequest() throws DiameterException
 	{		
-		DiameterParser diameterParser=new DiameterParser(Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		
 		//make sure classes are loaded
 		Class<?> clazz = AllowedWAFWWSFIdentitiesImpl.class;
@@ -111,7 +111,7 @@ public class CxMultiMediaAuthTest
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		
-		diameterParser.registerApplication(Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.cxdx"));
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.cxdx"));
 		
 		multimediaAuthRequestMessage.resetReaderIndex();
 		DiameterMessage decodeMessage = diameterParser.decode(multimediaAuthRequestMessage, false);

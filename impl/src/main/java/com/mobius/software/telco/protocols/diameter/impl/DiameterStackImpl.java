@@ -127,8 +127,11 @@ public class DiameterStackImpl implements DiameterStack
 	private Long originalStateId = hopByHopCounter.get() % 0x100000000L;
 	private Long firmwareRevision;
 	
-	public DiameterStackImpl(IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
+	private ClassLoader classLoader;
+	
+	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
 	{
+		this.classLoader = classLoader;
 		this.idGenerator = idGenerator;
 		this.queue = queue;
 		this.periodicQueue = periodicQueue;
@@ -1156,5 +1159,11 @@ public class DiameterStackImpl implements DiameterStack
 	public PeriodicQueuedTasks<Timer> getPeriodicQueue()
 	{
 		return periodicQueue;
+	}
+
+	@Override
+	public ClassLoader getClassLoader()
+	{
+		return this.classLoader;
 	}
 }
