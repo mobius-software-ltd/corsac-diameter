@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.parser;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -9,11 +10,19 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.StandardLocation;
+import javax.tools.ToolProvider;
 
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
@@ -1240,45 +1249,45 @@ public class DiameterParser
 	public static List<Class<?>> loadClasses(ClassLoader classLoader, Package packageName) throws DiameterException
 	{		
 		List<Class<?>> result = new ArrayList<Class<?>>();
+
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+
+		StandardLocation location = StandardLocation.CLASS_PATH;
+		Set<JavaFileObject.Kind> kinds = new HashSet<>();
+		kinds.add(JavaFileObject.Kind.CLASS);
+		boolean recurse = false;
+
+		Iterable<JavaFileObject> list = null;
+		try
+		{
+			list = fileManager.list(location, packageName.getName(), kinds, recurse);
+		}
+		catch(IOException ex)
+		{
+			throw new DiameterException("Package " + packageName.getName() + " can not be loaded", null, null, null);
+		}
 		
 		String pkgName = packageName.getName();
 		String pkgPath = pkgName.replace('.', '/');
-	 		
-		URL packageURL = classLoader.getResource(pkgPath);
-		if (packageURL != null) 
-		{
-		    String packagePath = packageURL.getPath();
-		    if (packagePath != null) {
-		        File packageDir = new File(packagePath);
-		        if (packageDir.isDirectory()) 
-		        {
-		            File[] files = packageDir.listFiles();
-		            for (File file : files) 
-		            {
-		                String className = file.getName();
-		                if (className.endsWith(".class")) 
-		                {
-		                	Class<?> clazz;
-							try
-							{
-								clazz = classLoader.loadClass(pkgName + "." + className.substring(0, className.length() - 6));
-								result.add(clazz);
-							} 
-							catch (ClassNotFoundException e)
-							{
-								throw new DiameterException("Can not load class " + className, null, null, null);
-							}									                    
-		                }
-		            }
-		        }
-		        else
-					throw new DiameterException("Package " + packageName + " can not be loaded", null, null, null);
-		    }
-		    else
-				throw new DiameterException("Package " + packageName + " can not be loaded", null, null, null);
-		}
-		else
-			throw new DiameterException("Package " + packageName + " can not be loaded", null, null, null);
+	 	
+		for (JavaFileObject classFile : list) {
+			String name = classFile.getName();
+			int startIndex = name.indexOf(pkgPath);
+			int endIndex = name.indexOf(".class");
+			String className = name.substring(startIndex,endIndex).replace("/", ".");
+			
+			Class<?> clazz;
+			try
+			{
+				clazz = classLoader.loadClass(className);
+				result.add(clazz);
+			} 
+			catch (ClassNotFoundException e)
+			{
+				throw new DiameterException("Can not load class " + className, null, null, null);
+			}				
+		}	
 		
 		return result;
 	}
@@ -1286,63 +1295,45 @@ public class DiameterParser
 	public static List<Class<?>> loadAllClasses(ClassLoader classLoader, Package rootPackage) throws DiameterException
 	{				
 		List<Class<?>> result = new ArrayList<Class<?>>();
+
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+
+		StandardLocation location = StandardLocation.CLASS_PATH;
+		Set<JavaFileObject.Kind> kinds = new HashSet<>();
+		kinds.add(JavaFileObject.Kind.CLASS);
+		boolean recurse = true;
+
+		Iterable<JavaFileObject> list = null;
+		try
+		{
+			list = fileManager.list(location, rootPackage.getName(), kinds, recurse);
+		}
+		catch(IOException ex)
+		{
+			throw new DiameterException("Package " + rootPackage.getName() + " can not be loaded", null, null, null);
+		}
 		
 		String pkgName = rootPackage.getName();
 		String pkgPath = pkgName.replace('.', '/');
-	 		
-		List<File> pendingFiles = new ArrayList<File>();
-		List<String> packageNames = new ArrayList<String>();
-		
-		URL packageURL = classLoader.getResource(pkgPath);
-		if (packageURL != null) 
-		{
-		    String packagePath = packageURL.getPath();
-		    if (packagePath != null) 
-		    {
-		        File packageDir = new File(packagePath);
-		        if (packageDir.isDirectory()) 
-		        {
-		        	pendingFiles.add(packageDir);
-		        	packageNames.add(pkgName);
-		        }
-		        else
-					throw new DiameterException("Package " + pkgName + " can not be loaded", null, null, null);
-		    }
-		    else
-				throw new DiameterException("Package " + pkgName + " can not be loaded", null, null, null);
-		}
-		
-		while(pendingFiles.size()>0)
-		{
-			File packageDir = pendingFiles.remove(0);
-			String packageName = packageNames.remove(0);
+	 	
+		for (JavaFileObject classFile : list) {
+			String name = classFile.getName();
+			int startIndex = name.indexOf(pkgPath);
+			int endIndex = name.indexOf(".class");
+			String className = name.substring(startIndex,endIndex).replace("/", ".");
 			
-			File[] files = packageDir.listFiles(folderFilter);
-			for (File file : files) 
-            {
-				pendingFiles.add(file);
-				packageNames.add(packageName + "." + file.getName());
-            }
-			
-			files = packageDir.listFiles();
-			for (File file : files) 
-            {
-				String className = file.getName();
-                if (className.endsWith(".class")) 
-                {
-                	Class<?> clazz;
-					try
-					{
-						clazz = classLoader.loadClass(packageName + "." + className.substring(0, className.length() - 6));
-						result.add(clazz);
-					} 
-					catch (ClassNotFoundException e)
-					{
-						throw new DiameterException("Can not load class " + className, null, null, null);
-					}									                    
-                }                				
-            }	   
-		}
+			Class<?> clazz;
+			try
+			{
+				clazz = classLoader.loadClass(className);
+				result.add(clazz);
+			} 
+			catch (ClassNotFoundException e)
+			{
+				throw new DiameterException("Can not load class " + className, null, null, null);
+			}				
+		}	
 		
 		return result;
 	}
