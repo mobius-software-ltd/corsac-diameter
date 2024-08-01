@@ -10,14 +10,12 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4740.MultimediaA
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPMethodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPNumberAuthItemsImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPServerURIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthDataItem;
@@ -49,9 +47,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServer
 * @author yulian oifa
 *
 */
-public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements MultimediaAuthRequest
+public class MultimediaAuthRequestImpl extends Rfc4740RequestImpl implements MultimediaAuthRequest
 {
-	private AuthSessionState authSessionState;
+	
 	
 	private SIPAOR sipAOR;
 	
@@ -70,33 +68,13 @@ public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protoco
 	
 	public MultimediaAuthRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState,String sipAOR, String sipMethod) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
-		
-		setAuthSessionState(authSessionState);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId,authSessionState);
 		
 		setSIPAOR(sipAOR);
 		
 		setSIPMethod(sipMethod);
 	}
 
-	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState == null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
-	{
-		if(value == null)
-			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
-	}
-	
 	@Override
 	public String getSIPAOR()
 	{
@@ -184,8 +162,6 @@ public class MultimediaAuthRequestImpl extends com.mobius.software.telco.protoco
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(authSessionState == null)
-			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
 		
 		if(sipAOR == null)
 			return new MissingAvpException("SIP-AOR is required", Arrays.asList(new DiameterAvp[] { new SIPAORImpl() }));

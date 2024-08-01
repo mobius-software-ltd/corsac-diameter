@@ -18,14 +18,9 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.List;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
 *
@@ -100,13 +95,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
                * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.PUSH_PROFILE, request = false, proxyable = true, name="Push-Profile-Answer")
-public interface PushProfileAnswer extends AuthenticationAnswer
+public interface PushProfileAnswer extends Rfc4740Answer
 {
-	AuthSessionStateEnum getAuthSessionState();
 	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;	
-	
-	public List<String> getRouteRecords(); 
-
-	public void setRouteRecords(List<String> value);
 }

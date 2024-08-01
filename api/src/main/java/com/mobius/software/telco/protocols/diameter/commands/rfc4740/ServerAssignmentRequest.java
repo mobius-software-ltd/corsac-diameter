@@ -23,9 +23,7 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServerAssignmentTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDataAlreadyAvailableEnum;
 
@@ -124,11 +122,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
                * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.SERVER_ASSIGNMENT, request = true, proxyable = true, name="Server-Assignment-Request")
-public interface ServerAssignmentRequest extends AuthenticationRequest
+public interface ServerAssignmentRequest extends Rfc4740Request
 {
-	public AuthSessionStateEnum getAuthSessionState();
-
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
 	
 	SIPServerAssignmentTypeEnum getSIPServerAssignmentType();
 	

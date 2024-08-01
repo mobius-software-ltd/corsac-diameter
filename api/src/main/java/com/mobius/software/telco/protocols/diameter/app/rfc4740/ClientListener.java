@@ -3,17 +3,12 @@ package com.mobius.software.telco.protocols.diameter.app.rfc4740;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.MultimediaAuthAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.PushProfileAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.RegistrationTerminationAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ServerAssignmentAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4740.Rfc4740Answer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4740.Rfc4740Request;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.UserAuthorizationAnswer;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -37,15 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4740.UserAuthori
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthListener<LocationInfoRequest, LocationInfoAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAuthListener<Rfc4740Request, Rfc4740Answer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
-	void onInitialAnswer(MultimediaAuthAnswer answer);
-	
-	void onInitialAnswer(PushProfileAnswer answer);
-	
-	void onInitialAnswer(RegistrationTerminationAnswer answer);
-	
-	void onInitialAnswer(ServerAssignmentAnswer answer);
-	
-	void onInitialAnswer(UserAuthorizationAnswer answer);	
 }

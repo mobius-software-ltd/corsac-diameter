@@ -1,23 +1,15 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.PushProfileAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -43,12 +35,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecor
 * @author yulian oifa
 *
 */
-public class PushProfileAnswerImpl extends AuthenticationAnswerImpl implements PushProfileAnswer
+public class PushProfileAnswerImpl extends Rfc4740AnswerImpl implements PushProfileAnswer
 {
-	private AuthSessionState authSessionState;
-	
-	protected List<RouteRecord> routeRecords;
-	
 	protected PushProfileAnswerImpl() 
 	{
 		super();
@@ -57,67 +45,11 @@ public class PushProfileAnswerImpl extends AuthenticationAnswerImpl implements P
 	
 	public PushProfileAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, authSessionState);
 		setExperimentalResultAllowed(false);
-		
-		setAuthSessionState(authSessionState);
-	}
-
-	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState == null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
-	{
-		if(value == null)
-			throw new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
-	}
-
-	@Override
-	public List<String> getRouteRecords() 
-	{
-		if(this.routeRecords==null)
-			return null;
-		else
-		{
-			List<String> result = new ArrayList<String>();
-			for(RouteRecord curr:routeRecords)
-				result.add(curr.getIdentity());
-			
-			return result;
-		}
-	}
-
-	@Override
-	public void setRouteRecords(List<String> value)
-	{
-		if(value == null || value.size()==0)
-			this.routeRecords = null;
-		else
-		{
-			this.routeRecords = new ArrayList<RouteRecord>();
-			for(String curr:value)
-				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
-		}
-	}
-
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(authSessionState == null)
-			return new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		return super.validate();
-	}
 	
+	}
+
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()
 	{

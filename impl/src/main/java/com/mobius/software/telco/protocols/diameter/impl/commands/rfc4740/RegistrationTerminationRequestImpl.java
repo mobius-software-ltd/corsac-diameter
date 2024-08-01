@@ -10,12 +10,10 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4740.Registratio
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPDeregistrationReasonImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPDeregistrationReason;
@@ -44,10 +42,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPDeregi
 * @author yulian oifa
 *
 */
-public class RegistrationTerminationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements RegistrationTerminationRequest
+public class RegistrationTerminationRequestImpl extends Rfc4740RequestImpl implements RegistrationTerminationRequest
 {
-	private AuthSessionState authSessionState;
-	
 	private SIPDeregistrationReason sipDeregistrationReason;
 	
 	private List<SIPAOR> sipAOR;
@@ -59,30 +55,13 @@ public class RegistrationTerminationRequestImpl extends com.mobius.software.telc
 	
 	public RegistrationTerminationRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState,SIPDeregistrationReason sipDeregistrationReason) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, authSessionState);
 		
-		setAuthSessionState(authSessionState);
+		setDestinationHostRequired(true);
 		
 		setSIPDeregistrationReason(sipDeregistrationReason);
 	}
 
-	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState == null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
-	{
-		if(value == null)
-			throw new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-			
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
-	}
 	
 	@Override
 	public SIPDeregistrationReason getSIPDeregistrationReason()
@@ -128,9 +107,6 @@ public class RegistrationTerminationRequestImpl extends com.mobius.software.telc
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(authSessionState == null)
-			return new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
 		if(sipDeregistrationReason == null)
 			return new MissingAvpException("SIP-Deregistration-Reason is required is required", Arrays.asList(new DiameterAvp[] { new SIPDeregistrationReasonImpl() }));
 		
