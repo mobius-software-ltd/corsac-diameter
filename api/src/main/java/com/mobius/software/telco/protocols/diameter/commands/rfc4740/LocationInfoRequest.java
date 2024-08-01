@@ -21,9 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.rfc4740;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
 /**
 *
@@ -56,12 +54,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
                * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.LOCATION_INFO, request = true, proxyable = true, name="Location-Info-Request")
-public interface LocationInfoRequest extends AuthenticationRequest
+public interface LocationInfoRequest extends Rfc4740Request
 {
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
-	
 	String getSIPAOR();
 	
 	void setSIPAOR(String value) throws MissingAvpException;

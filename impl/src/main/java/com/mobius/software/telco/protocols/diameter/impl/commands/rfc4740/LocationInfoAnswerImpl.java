@@ -5,24 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPServerURIImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServerCapabilities;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServerURI;
 
@@ -50,10 +44,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServer
 * @author yulian oifa
 *
 */
-public class LocationInfoAnswerImpl extends AuthenticationAnswerImpl implements LocationInfoAnswer
+public class LocationInfoAnswerImpl extends Rfc4740AnswerImpl implements LocationInfoAnswer
 {
-	private AuthSessionState authSessionState;
-	
 	private SIPServerURI sipServerURI;
 	
 	private SIPServerCapabilities sipServerCapabilities;
@@ -61,8 +53,6 @@ public class LocationInfoAnswerImpl extends AuthenticationAnswerImpl implements 
 	private AuthGracePeriod authGracePeriod;
 	
 	private AuthorizationLifetime authorizationLifetime;
-	
-	protected List<RouteRecord> routeRecords;
 	
 	protected LocationInfoAnswerImpl() 
 	{
@@ -72,10 +62,10 @@ public class LocationInfoAnswerImpl extends AuthenticationAnswerImpl implements 
 	
 	public LocationInfoAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId,authSessionState);
 		setExperimentalResultAllowed(false);
 		
-		setAuthSessionState(authSessionState);
+		
 	}
 
 	@Override
@@ -162,42 +152,6 @@ public class LocationInfoAnswerImpl extends AuthenticationAnswerImpl implements 
 			this.authorizationLifetime = new AuthorizationLifetimeImpl(value, null, null);
 	}
 
-	@Override
-	public List<String> getRouteRecords() 
-	{
-		if(this.routeRecords==null)
-			return null;
-		else
-		{
-			List<String> result = new ArrayList<String>();
-			for(RouteRecord curr:routeRecords)
-				result.add(curr.getIdentity());
-			
-			return result;
-		}
-	}
-
-	@Override
-	public void setRouteRecords(List<String> value)
-	{
-		if(value == null || value.size()==0)
-			this.routeRecords = null;
-		else
-		{
-			this.routeRecords = new ArrayList<RouteRecord>();
-			for(String curr:value)
-				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
-		}
-	}
-
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(authSessionState == null)
-			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		return super.validate();
-	}
 	
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()

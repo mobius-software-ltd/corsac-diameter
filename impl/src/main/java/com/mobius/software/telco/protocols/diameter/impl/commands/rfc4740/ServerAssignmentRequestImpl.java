@@ -18,7 +18,6 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPS
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPUserDataAlreadyAvailableImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPServerAssignmentType;
@@ -52,10 +51,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
 * @author yulian oifa
 *
 */
-public class ServerAssignmentRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements ServerAssignmentRequest
+public class ServerAssignmentRequestImpl extends Rfc4740RequestImpl implements ServerAssignmentRequest
 {
-	private AuthSessionState authSessionState;
-	
 	private SIPServerAssignmentType sipServerAssignmentType;
 	
 	private SIPUserDataAlreadyAvailable sipUserDataAlreadyAvailable;
@@ -73,9 +70,7 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 	
 	public ServerAssignmentRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
-		
-		setAuthSessionState(authSessionState);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, authSessionState);
 		
 		setSIPServerAssignmentType(sipServerAssignmentType);
 		
@@ -209,9 +204,7 @@ public class ServerAssignmentRequestImpl extends com.mobius.software.telco.proto
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(authSessionState == null)
-			return new MissingAvpException("Auth-Session-State is required is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
+	
 		if(sipServerAssignmentType == null)
 			return new MissingAvpException("SIP-Server-Assignment-Type is required is required", Arrays.asList(new DiameterAvp[] { new SIPServerAssignmentTypeImpl() }));
 		

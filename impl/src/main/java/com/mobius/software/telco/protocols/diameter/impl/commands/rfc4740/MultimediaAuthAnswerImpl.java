@@ -1,29 +1,21 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.rfc4740;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.MultimediaAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthGracePeriodImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthorizationLifetimeImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4740.SIPNumberAuthItemsImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthGracePeriod;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthorizationLifetime;
-import com.mobius.software.telco.protocols.diameter.primitives.common.RouteRecord;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAuthDataItem;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPNumberAuthItems;
@@ -52,10 +44,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPNumber
 * @author yulian oifa
 *
 */
-public class MultimediaAuthAnswerImpl extends AuthenticationAnswerImpl implements MultimediaAuthAnswer
+public class MultimediaAuthAnswerImpl extends Rfc4740AnswerImpl implements MultimediaAuthAnswer
 {
-	private AuthSessionState authSessionState;
-	
 	private SIPAOR sipAOR;
 	
 	private SIPNumberAuthItems sipNumberAuthItems;
@@ -66,8 +56,6 @@ public class MultimediaAuthAnswerImpl extends AuthenticationAnswerImpl implement
 	
 	private AuthGracePeriod authGracePeriod;
 	
-	protected List<RouteRecord> routeRecords;
-	
 	protected MultimediaAuthAnswerImpl() 
 	{
 		super();
@@ -76,30 +64,10 @@ public class MultimediaAuthAnswerImpl extends AuthenticationAnswerImpl implement
 	
 	public MultimediaAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId,AuthSessionStateEnum authSessionState) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId,authSessionState);
 		setExperimentalResultAllowed(false);
-		
-		setAuthSessionState(authSessionState);
 	}
 
-	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState == null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
-	{
-		if(value == null)
-			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-			
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
-	}
-	
 	@Override
 	public String getSIPAOR()
 	{
@@ -184,43 +152,6 @@ public class MultimediaAuthAnswerImpl extends AuthenticationAnswerImpl implement
 			this.authGracePeriod = new AuthGracePeriodImpl(value, null, null);
 	}
 
-	@Override
-	public List<String> getRouteRecords() 
-	{
-		if(this.routeRecords==null)
-			return null;
-		else
-		{
-			List<String> result = new ArrayList<String>();
-			for(RouteRecord curr:routeRecords)
-				result.add(curr.getIdentity());
-			
-			return result;
-		}
-	}
-
-	@Override
-	public void setRouteRecords(List<String> value)
-	{
-		if(value == null || value.size()==0)
-			this.routeRecords = null;
-		else
-		{
-			this.routeRecords = new ArrayList<RouteRecord>();
-			for(String curr:value)
-				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
-		}
-	}
-
-	@DiameterValidate
-	public DiameterException validate()
-	{
-		if(authSessionState == null)
-			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
-		return super.validate();
-	}
-	
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()
 	{

@@ -23,9 +23,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPAccountingInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserData;
 
@@ -91,12 +88,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4740.SIPUserDa
                * [ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SIP_APPLICATION, commandCode = CommandCodes.PUSH_PROFILE, request = true, proxyable = true, name="Push-Profile-Request")
-public interface PushProfileRequest extends AuthenticationRequest
+public interface PushProfileRequest extends Rfc4740Request
 {
-	AuthSessionStateEnum getAuthSessionState();
-	
-	void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException;
-	
 	List<SIPUserData> getSIPUserData();
 	
 	void setSIPUserData(List<SIPUserData> value);

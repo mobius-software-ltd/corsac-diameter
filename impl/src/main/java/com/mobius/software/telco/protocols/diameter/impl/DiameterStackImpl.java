@@ -71,6 +71,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.pc4a.PC4AProviderIm
 import com.mobius.software.telco.protocols.diameter.impl.app.pc6.PC6ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rfc4004.RFC4004ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.rfc4740.Rfc4740ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
@@ -289,6 +290,12 @@ public class DiameterStackImpl implements DiameterStack
 				}
 				break;
 			case ApplicationIDs.SIP_APPLICATION:
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc4740"))
+				{
+					Rfc4740ProviderImpl rfc4740Provider=new Rfc4740ProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), rfc4740Provider);
+					return rfc4740Provider;
+				}
 				break;
 			case ApplicationIDs.MIP6I:
 				break;

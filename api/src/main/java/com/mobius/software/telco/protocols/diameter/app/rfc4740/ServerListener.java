@@ -3,17 +3,12 @@ package com.mobius.software.telco.protocols.diameter.app.rfc4740;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.MultimediaAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.PushProfileRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.RegistrationTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ServerAssignmentRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4740.Rfc4740Answer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4740.Rfc4740Request;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.UserAuthorizationRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -37,15 +32,7 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4740.UserAuthori
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<LocationInfoRequest, LocationInfoAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ServerListener extends ServerAuthListener<Rfc4740Request, Rfc4740Answer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
-	void onInitialRequest(MultimediaAuthRequest request);
 	
-	void onInitialRequest(PushProfileRequest request);
-	
-	void onInitialRequest(RegistrationTerminationRequest request);
-	
-	void onInitialRequest(ServerAssignmentRequest request);
-	
-	void onInitialRequest(UserAuthorizationRequest request);	
 }

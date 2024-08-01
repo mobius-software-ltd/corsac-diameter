@@ -10,11 +10,9 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInf
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthSessionStateImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4590.SIPAORImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
-import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionState;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 
@@ -42,10 +40,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc4590.SIPAOR;
 * @author yulian oifa
 *
 */
-public class LocationInfoRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.AuthenticationRequestWithHostImpl implements LocationInfoRequest
+public class LocationInfoRequestImpl extends Rfc4740RequestImpl implements LocationInfoRequest
 {
-	private AuthSessionState authSessionState;
-	
 	private SIPAOR sipAOR;
 	
 	protected LocationInfoRequestImpl() 
@@ -55,31 +51,11 @@ public class LocationInfoRequestImpl extends com.mobius.software.telco.protocols
 	
 	public LocationInfoRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, AuthSessionStateEnum authSessionState,String sipAOR) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
-		
-		setAuthSessionState(authSessionState);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId,authSessionState);
 		
 		setSIPAOR(sipAOR);
 	}
 
-	@Override
-	public AuthSessionStateEnum getAuthSessionState() 
-	{
-		if(authSessionState == null)
-			return null;
-		
-		return authSessionState.getEnumerated(AuthSessionStateEnum.class);
-	}
-
-	@Override
-	public void setAuthSessionState(AuthSessionStateEnum value) throws MissingAvpException 
-	{
-		if(value == null)
-			throw new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-			
-		this.authSessionState = new AuthSessionStateImpl(value, null, null);
-	}
-	
 	@Override
 	public String getSIPAOR()
 	{
@@ -101,9 +77,6 @@ public class LocationInfoRequestImpl extends com.mobius.software.telco.protocols
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(authSessionState == null)
-			return new MissingAvpException("Auth-Session-State is required", Arrays.asList(new DiameterAvp[] { new AuthSessionStateImpl() }));
-		
 		if(sipAOR == null)
 			return new MissingAvpException("SIP-AOR is required", Arrays.asList(new DiameterAvp[] { new SIPAORImpl() }));
 		
