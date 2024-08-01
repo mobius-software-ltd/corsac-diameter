@@ -1,6 +1,9 @@
 package com.mobius.software.telco.protocols.diameter.app.rfc5778a;
 
+import com.mobius.software.telco.protocols.diameter.app.ClientAccListener;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AccountingAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Answer;
@@ -32,6 +35,6 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.SessionTer
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthListener<MIP6Request, MIP6Answer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAccListener<AccountingRequest,AccountingAnswer>,ClientAuthListener<MIP6Request, MIP6Answer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }
