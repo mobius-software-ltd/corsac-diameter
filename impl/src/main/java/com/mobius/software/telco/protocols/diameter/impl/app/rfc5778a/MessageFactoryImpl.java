@@ -88,7 +88,7 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 	
 	@Override
-	public MIP6Answer createAAAnswer(MIP6Request request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public MIP6Answer createMIP6Answer(MIP6Request request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		MIP6Answer result = new MIP6AnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, request.getAuthRequestType());
 		result.setHopByHopIdentifier(hopByHopIdentifier);
@@ -97,7 +97,7 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public MIP6Answer createAAAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
+	public MIP6Answer createMIP6Answer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		MIP6Answer result = new MIP6AnswerImpl(originHost, originRealm, false, resultCode, sessionID, authApplicationId, authRequestType);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
