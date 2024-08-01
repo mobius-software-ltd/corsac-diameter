@@ -1,8 +1,11 @@
 package com.mobius.software.telco.protocols.diameter.app.rfc5778i;
 
+import com.mobius.software.telco.protocols.diameter.app.ServerAccListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.AccountingAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.ReAuthAnswer;
@@ -32,6 +35,6 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc5778i.SessionTer
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<EAPRequest, EAPAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ServerListener extends ServerAccListener<AccountingRequest,AccountingAnswer>,ServerAuthListener<EAPRequest, EAPAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }
