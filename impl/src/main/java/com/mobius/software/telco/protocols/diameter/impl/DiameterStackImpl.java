@@ -18,8 +18,10 @@ package com.mobius.software.telco.protocols.diameter.impl;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,8 +34,10 @@ import com.mobius.software.common.dal.timers.CountableQueue;
 import com.mobius.software.common.dal.timers.PeriodicQueuedTasks;
 import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.common.dal.timers.Timer;
+import com.mobius.software.telco.protocols.diameter.ApplicationID;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.CommandCode;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSessionStorage;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
@@ -84,25 +88,25 @@ public class DiameterStackImpl implements DiameterStack
 	private ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>> registeredProviders=new ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>>();
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
 	
-	private ConcurrentHashMap<Integer, AtomicLong> messagesSentByType = new ConcurrentHashMap<Integer, AtomicLong>();
-	private ConcurrentHashMap<Integer, AtomicLong> messagesReceivedByType = new ConcurrentHashMap<Integer, AtomicLong>();
+	private ConcurrentHashMap<CommandCode, AtomicLong> messagesSentByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
+	private ConcurrentHashMap<CommandCode, AtomicLong> messagesReceivedByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
 	private ConcurrentHashMap<Long, AtomicLong> errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
 	private ConcurrentHashMap<Long, AtomicLong> errorsReceivedByType = new ConcurrentHashMap<Long, AtomicLong>();
-	private ConcurrentHashMap<Long, AtomicLong> outgoingSessionsByApplication = new ConcurrentHashMap<Long, AtomicLong>();
-	private ConcurrentHashMap<Long, AtomicLong> incomingSessionsByApplication = new ConcurrentHashMap<Long, AtomicLong>();
+	private ConcurrentHashMap<ApplicationID, AtomicLong> outgoingSessionsByApplication = new ConcurrentHashMap<ApplicationID, AtomicLong>();
+	private ConcurrentHashMap<ApplicationID, AtomicLong> incomingSessionsByApplication = new ConcurrentHashMap<ApplicationID, AtomicLong>();
 	
 	private ConcurrentHashMap<Long, AtomicLong> sessionsEndedByResultCode = new ConcurrentHashMap<Long, AtomicLong>();
-	private ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>> sessionsEndedByResultCodeAndApplication = new ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>>();
+	private ConcurrentHashMap<ApplicationID, ConcurrentHashMap<Long, AtomicLong>> sessionsEndedByResultCodeAndApplication = new ConcurrentHashMap<ApplicationID, ConcurrentHashMap<Long, AtomicLong>>();
 		
-	private ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>> messagesSentByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>();
-	private ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>> messagesReceivedByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>();
-	private ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
-	private ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication=new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
+	private ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>> messagesSentByTypeAndApplication=new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>();
+	private ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>> messagesReceivedByTypeAndApplication=new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>();
+	private ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication=new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
+	private ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication=new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
     
-	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>> messagesSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>>();
-	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>> messagesReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>>();
-	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
-	private ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>> errorsReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>>();
+	private ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>> messagesSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>>();
+	private ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>> messagesReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>>();
+	private ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>> errorsSentByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>>();
+	private ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>> errorsReceivedByLinkTypeAndApplication=new ConcurrentHashMap<String,ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>>();
     
 	protected DiameterSessionStorage sessionStorage = new LocalDiameterSessionStorageImpl(this);
 	protected IncomingRequestsStorage incomingRequestsStorage;
@@ -131,6 +135,22 @@ public class DiameterStackImpl implements DiameterStack
 	
 	private ClassLoader classLoader;
 	
+	public static List<String> allCommands=new ArrayList<String>();
+	public static List<String> allApplications=new ArrayList<String>();
+    
+    static
+    {
+    	for(CommandCode commandCode:CommandCode.values())
+    		allCommands.add(commandCode.name());
+        
+    	allCommands.add("UNKNOWN"); 
+    	
+    	for(ApplicationID applicationID:ApplicationID.values())
+    		allApplications.add(applicationID.name());
+        
+    	allApplications.add("UNKNOWN"); 
+    }
+    
 	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
 	{
 		this.classLoader = classLoader;
@@ -586,26 +606,26 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Integer, Long> getMessagesSentByType()
+	public Map<String, Long> getMessagesSentByType()
 	{
-		Map<Integer,Long> result=new HashMap<Integer, Long>();
-		Iterator<Entry<Integer, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
+		Map<String,Long> result=new HashMap<String, Long>();
+		Iterator<Entry<CommandCode, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
 		while(iterator.hasNext()) {
-			Entry<Integer, AtomicLong> currEntry=iterator.next();
-			result.put(currEntry.getKey(), currEntry.getValue().get());
+			Entry<CommandCode, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey().name(), currEntry.getValue().get());
 		}
 		
 		return result;
 	}
 
 	@Override
-	public Map<Integer, Long> getMessagesReceivedByType()
+	public Map<String, Long> getMessagesReceivedByType()
 	{
-		Map<Integer,Long> result=new HashMap<Integer, Long>();
-		Iterator<Entry<Integer, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
+		Map<String,Long> result=new HashMap<String, Long>();
+		Iterator<Entry<CommandCode, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
 		while(iterator.hasNext()) {
-			Entry<Integer, AtomicLong> currEntry=iterator.next();
-			result.put(currEntry.getKey(), currEntry.getValue().get());
+			Entry<CommandCode, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey().name(), currEntry.getValue().get());
 		}
 		
 		return result;
@@ -638,41 +658,41 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Long, Long> getOutgoingSessionByApplication()
+	public Map<String, Long> getOutgoingSessionByApplication()
 	{
-		Map<Long,Long> result=new HashMap<Long, Long>();
-		Iterator<Entry<Long, AtomicLong>> iterator=outgoingSessionsByApplication.entrySet().iterator();
+		Map<String,Long> result=new HashMap<String, Long>();
+		Iterator<Entry<ApplicationID, AtomicLong>> iterator=outgoingSessionsByApplication.entrySet().iterator();
 		while(iterator.hasNext()) {
-			Entry<Long, AtomicLong> currEntry=iterator.next();
-			result.put(currEntry.getKey(), currEntry.getValue().get());
+			Entry<ApplicationID, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey().name(), currEntry.getValue().get());
 		}
 		
 		return result;
 	}
 
 	@Override
-	public Map<Long, Long> getIncomingSessionsByApplication()
+	public Map<String, Long> getIncomingSessionsByApplication()
 	{
-		Map<Long,Long> result=new HashMap<Long, Long>();
-		Iterator<Entry<Long, AtomicLong>> iterator=incomingSessionsByApplication.entrySet().iterator();
+		Map<String,Long> result=new HashMap<String, Long>();
+		Iterator<Entry<ApplicationID, AtomicLong>> iterator=incomingSessionsByApplication.entrySet().iterator();
 		while(iterator.hasNext()) {
-			Entry<Long, AtomicLong> currEntry=iterator.next();
-			result.put(currEntry.getKey(), currEntry.getValue().get());
+			Entry<ApplicationID, AtomicLong> currEntry=iterator.next();
+			result.put(currEntry.getKey().name(), currEntry.getValue().get());
 		}
 		
 		return result;
 	}
 
 	@Override
-	public Map<Integer, Long> getMessagesSentByTypeAndApplication(long applicationID)
+	public Map<String, Long> getMessagesSentByTypeAndApplication(ApplicationID applicationID)
 	{
-		Map<Integer,Long> result=new HashMap<Integer, Long>();
-		Map<Integer,AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
+		Map<String,Long> result=new HashMap<String, Long>();
+		Map<CommandCode,AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
 		if(messagesSentByType!=null) {
-			Iterator<Entry<Integer, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
+			Iterator<Entry<CommandCode, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
 			while(iterator.hasNext()) {
-				Entry<Integer, AtomicLong> currEntry=iterator.next();
-				result.put(currEntry.getKey(), currEntry.getValue().get());
+				Entry<CommandCode, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey().name(), currEntry.getValue().get());
 			}
 		}
 		
@@ -680,15 +700,15 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Integer, Long> getMessagesReceivedByTypeAndApplication(long applicationID)
+	public Map<String, Long> getMessagesReceivedByTypeAndApplication(ApplicationID applicationID)
 	{
-		Map<Integer,Long> result=new HashMap<Integer, Long>();
-		Map<Integer,AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
+		Map<String,Long> result=new HashMap<String, Long>();
+		Map<CommandCode,AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
 		if(messagesReceivedByType!=null) {
-			Iterator<Entry<Integer, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
+			Iterator<Entry<CommandCode, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
 			while(iterator.hasNext()) {
-				Entry<Integer, AtomicLong> currEntry=iterator.next();
-				result.put(currEntry.getKey(), currEntry.getValue().get());
+				Entry<CommandCode, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey().name(), currEntry.getValue().get());
 			}
 		}
 		
@@ -696,7 +716,7 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Long, Long> getErrorsSentByTypeAndApplication(long applicationID)
+	public Map<Long, Long> getErrorsSentByTypeAndApplication(ApplicationID applicationID)
 	{
 		Map<Long,Long> result=new HashMap<Long, Long>();
 		Map<Long,AtomicLong> errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
@@ -712,7 +732,7 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Long, Long> getErrorsReceivedByTypeAndApplication(long applicationID)
+	public Map<Long, Long> getErrorsReceivedByTypeAndApplication(ApplicationID applicationID)
 	{
 		Map<Long,Long> result=new HashMap<Long, Long>();
 		Map<Long,AtomicLong> errorsReceivedByType = errorsReceivedByTypeAndApplication.get(applicationID);
@@ -728,19 +748,19 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Integer, Long> getLinkMessagesSentByTypeAndApplication(String linkID, long applicationID)
+	public Map<String, Long> getLinkMessagesSentByTypeAndApplication(String linkID, ApplicationID applicationID)
 	{
-		Map<Integer,Long> result=new HashMap<Integer, Long>();
-		ConcurrentHashMap<Long, ConcurrentHashMap<Integer, AtomicLong>> messagesSentByTypeAndApplication = messagesSentByLinkTypeAndApplication.get(linkID);
+		Map<String,Long> result=new HashMap<String, Long>();
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>> messagesSentByTypeAndApplication = messagesSentByLinkTypeAndApplication.get(linkID);
 		if(messagesSentByTypeAndApplication==null)
 			return null;
 		
-		Map<Integer,AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
+		Map<CommandCode,AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
 		if(messagesSentByType!=null) {
-			Iterator<Entry<Integer, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
+			Iterator<Entry<CommandCode, AtomicLong>> iterator=messagesSentByType.entrySet().iterator();
 			while(iterator.hasNext()) {
-				Entry<Integer, AtomicLong> currEntry=iterator.next();
-				result.put(currEntry.getKey(), currEntry.getValue().get());
+				Entry<CommandCode, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey().name(), currEntry.getValue().get());
 			}
 		}
 		
@@ -748,19 +768,19 @@ public class DiameterStackImpl implements DiameterStack
 	}
     
 	@Override
-	public Map<Integer,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, long applicationID)    
+	public Map<String,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, ApplicationID applicationID)    
     {
-		Map<Integer,Long> result=new HashMap<Integer, Long>();
-		ConcurrentHashMap<Long, ConcurrentHashMap<Integer, AtomicLong>> messagesReceivedByTypeAndApplication = messagesReceivedByLinkTypeAndApplication.get(linkID);
+		Map<String,Long> result=new HashMap<String, Long>();
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>> messagesReceivedByTypeAndApplication = messagesReceivedByLinkTypeAndApplication.get(linkID);
 		if(messagesReceivedByTypeAndApplication==null)
 			return null;
 		
-		Map<Integer,AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
+		Map<CommandCode,AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
 		if(messagesReceivedByType!=null) {
-			Iterator<Entry<Integer, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
+			Iterator<Entry<CommandCode, AtomicLong>> iterator=messagesReceivedByType.entrySet().iterator();
 			while(iterator.hasNext()) {
-				Entry<Integer, AtomicLong> currEntry=iterator.next();
-				result.put(currEntry.getKey(), currEntry.getValue().get());
+				Entry<CommandCode, AtomicLong> currEntry=iterator.next();
+				result.put(currEntry.getKey().name(), currEntry.getValue().get());
 			}
 		}
 		
@@ -768,10 +788,10 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Long, Long> getLinkErrorsSentByTypeAndApplication(String linkID, long applicationID)
+	public Map<Long, Long> getLinkErrorsSentByTypeAndApplication(String linkID, ApplicationID applicationID)
 	{
 		Map<Long,Long> result=new HashMap<Long, Long>();
-		ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
 		if(errorsSentByTypeAndApplication==null)
 			return null;
 		
@@ -788,10 +808,10 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Long, Long> getLinkErrorsReceivedByTypeAndApplication(String linkID, long applicationID)
+	public Map<Long, Long> getLinkErrorsReceivedByTypeAndApplication(String linkID, ApplicationID applicationID)
 	{
 		Map<Long,Long> result=new HashMap<Long, Long>();
-		ConcurrentHashMap<Long, ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
 		if(errorsReceivedByTypeAndApplication==null)
 			return null;
 		
@@ -808,63 +828,122 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
+	public Map<String, Map<String, Long>> getLinkMessagesSentByTypeAndApplication(String linkID)
+	{
+		Map<String, Map<String, Long>> result=new HashMap<String, Map<String, Long>>();
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>> messagesSentByTypeAndApplication = messagesSentByLinkTypeAndApplication.get(linkID);
+		if(messagesSentByTypeAndApplication==null)
+			return null;
+		
+		Iterator<Entry<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>>> outerIterator = messagesSentByTypeAndApplication.entrySet().iterator();
+		while(outerIterator.hasNext())
+		{
+			Entry<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>> currOuterEntry = outerIterator.next();
+			Map<String,Long> currMap = new  HashMap<String, Long>();
+			result.put(currOuterEntry.getKey().name(), currMap);
+			
+			Iterator<Entry<CommandCode, AtomicLong>> innerIterator = currOuterEntry.getValue().entrySet().iterator();
+			while(innerIterator.hasNext())
+			{
+				Entry<CommandCode, AtomicLong> innerEntry = innerIterator.next();
+				currMap.put(innerEntry.getKey().name(), innerEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<String, Map<String, Long>> getLinkMessagesReceivedByTypeAndApplication(String linkID)
+	{
+		Map<String, Map<String, Long>> result=new HashMap<String, Map<String, Long>>();
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>> messagesReceivedByTypeAndApplication = messagesReceivedByLinkTypeAndApplication.get(linkID);
+		if(messagesReceivedByTypeAndApplication==null)
+			return null;
+		
+		Iterator<Entry<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>>> outerIterator = messagesReceivedByTypeAndApplication.entrySet().iterator();
+		while(outerIterator.hasNext())
+		{
+			Entry<ApplicationID, ConcurrentHashMap<CommandCode, AtomicLong>> currOuterEntry = outerIterator.next();
+			Map<String,Long> currMap = new  HashMap<String, Long>();
+			result.put(currOuterEntry.getKey().name(), currMap);
+			
+			Iterator<Entry<CommandCode, AtomicLong>> innerIterator = currOuterEntry.getValue().entrySet().iterator();
+			while(innerIterator.hasNext())
+			{
+				Entry<CommandCode, AtomicLong> innerEntry = innerIterator.next();
+				currMap.put(innerEntry.getKey().name(), innerEntry.getValue().get());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<String, Map<Long, Long>> getLinkErrorsSentByTypeAndApplication(String linkID)
+	{
+		Map<String, Map<Long, Long>> result=new HashMap<String, Map<Long, Long>>();
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
+		if(errorsSentByTypeAndApplication==null)
+			return null;
+		
+		Iterator<Entry<ApplicationID, ConcurrentHashMap<Long, AtomicLong>>> outerIterator = errorsSentByTypeAndApplication.entrySet().iterator();
+		while(outerIterator.hasNext())
+		{
+			Entry<ApplicationID, ConcurrentHashMap<Long, AtomicLong>> currOuterEntry = outerIterator.next();
+			Map<Long,Long> currMap = new  HashMap<Long, Long>();
+			result.put(currOuterEntry.getKey().name(), currMap);
+			
+			Iterator<Entry<Long, AtomicLong>> innerIterator = currOuterEntry.getValue().entrySet().iterator();
+			while(innerIterator.hasNext())
+			{
+				Entry<Long, AtomicLong> innerEntry = innerIterator.next();
+				currMap.put(innerEntry.getKey(), innerEntry.getValue().get());
+			}			
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Map<String, Map<Long, Long>> getLinkErrorsReceivedByTypeAndApplication(String linkID)
+	{
+		Map<String, Map<Long, Long>> result=new HashMap<String, Map<Long, Long>>();
+		ConcurrentHashMap<ApplicationID, ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
+		if(errorsReceivedByTypeAndApplication==null)
+			return null;
+		
+		Iterator<Entry<ApplicationID, ConcurrentHashMap<Long, AtomicLong>>> outerIterator = errorsReceivedByTypeAndApplication.entrySet().iterator();
+		while(outerIterator.hasNext())
+		{
+			Entry<ApplicationID, ConcurrentHashMap<Long, AtomicLong>> currOuterEntry = outerIterator.next();
+			Map<Long,Long> currMap = new  HashMap<Long, Long>();
+			result.put(currOuterEntry.getKey().name(), currMap);
+			
+			Iterator<Entry<Long, AtomicLong>> innerIterator = currOuterEntry.getValue().entrySet().iterator();
+			while(innerIterator.hasNext())
+			{
+				Entry<Long, AtomicLong> innerEntry = innerIterator.next();
+				currMap.put(innerEntry.getKey(), innerEntry.getValue().get());
+			}			
+		}
+		
+		return result;
+	}
+
+	@Override
 	public void messageReceived(DiameterMessage message, String linkID)
 	{
 		DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
-		AtomicLong counter = messagesReceivedByType.get(commandDef.commandCode());
+		CommandCode commandCode = CommandCode.fromInt(commandDef.commandCode());
+		if(commandCode==null)
+			return;
+		
+		AtomicLong counter = messagesReceivedByType.get(commandCode);
 		if(counter == null)
 		{
 			counter = new AtomicLong(0);
-			AtomicLong oldCounter = messagesReceivedByType.putIfAbsent(commandDef.commandCode(), counter);
-			if(oldCounter != null)
-				counter = oldCounter;
-		}
-		
-		counter.incrementAndGet();
-		
-		ConcurrentHashMap<Integer, AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(commandDef.applicationId());
-		if(messagesReceivedByType == null)
-		{
-			messagesReceivedByType = new ConcurrentHashMap<Integer, AtomicLong>();
-			ConcurrentHashMap<Integer, AtomicLong> oldMap = messagesReceivedByTypeAndApplication.putIfAbsent(commandDef.applicationId(), messagesReceivedByType);
-			if(oldMap!=null)
-				messagesReceivedByType = oldMap;								
-		}
-		
-		counter = messagesReceivedByType.get(commandDef.commandCode());
-		if(counter == null)
-		{
-			counter = new AtomicLong(0);
-			AtomicLong oldCounter = messagesReceivedByType.putIfAbsent(commandDef.commandCode(), counter);
-			if(oldCounter != null)
-				counter = oldCounter;
-		}
-		
-		counter.incrementAndGet();
-		
-		ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>> messagesReceivedByTypeAndApplication = messagesReceivedByLinkTypeAndApplication.get(linkID);
-		if(messagesReceivedByTypeAndApplication == null)
-		{
-			messagesReceivedByTypeAndApplication = new ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>();
-			ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>> oldMap = messagesReceivedByLinkTypeAndApplication.putIfAbsent(linkID, messagesReceivedByTypeAndApplication);
-			if(oldMap!=null)
-				messagesReceivedByTypeAndApplication = oldMap;								
-		}
-		
-		messagesReceivedByType = messagesReceivedByTypeAndApplication.get(commandDef.applicationId());
-		if(messagesReceivedByType == null)
-		{
-			messagesReceivedByType = new ConcurrentHashMap<Integer, AtomicLong>();
-			ConcurrentHashMap<Integer, AtomicLong> oldMap = messagesReceivedByTypeAndApplication.putIfAbsent(commandDef.applicationId(), messagesReceivedByType);
-			if(oldMap!=null)
-				messagesReceivedByType = oldMap;								
-		}
-		
-		counter = messagesReceivedByType.get(commandDef.commandCode());
-		if(counter == null)
-		{
-			counter = new AtomicLong(0);
-			AtomicLong oldCounter = messagesReceivedByType.putIfAbsent(commandDef.commandCode(), counter);
+			AtomicLong oldCounter = messagesReceivedByType.putIfAbsent(commandCode, counter);
 			if(oldCounter != null)
 				counter = oldCounter;
 		}
@@ -886,12 +965,72 @@ public class DiameterStackImpl implements DiameterStack
 				}
 				
 				counter.incrementAndGet();
-				
-				ConcurrentHashMap<Long, AtomicLong> errorsReceivedByType = errorsReceivedByTypeAndApplication.get(commandDef.applicationId());
+			}
+		}
+		
+		ApplicationID applicationID = ApplicationID.fromInt((int)commandDef.applicationId());
+		if(applicationID==null)
+			return;
+		
+		ConcurrentHashMap<CommandCode, AtomicLong> messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
+		if(messagesReceivedByType == null)
+		{
+			messagesReceivedByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
+			ConcurrentHashMap<CommandCode, AtomicLong> oldMap = messagesReceivedByTypeAndApplication.putIfAbsent(applicationID, messagesReceivedByType);
+			if(oldMap!=null)
+				messagesReceivedByType = oldMap;								
+		}
+		
+		counter = messagesReceivedByType.get(commandCode);
+		if(counter == null)
+		{
+			counter = new AtomicLong(0);
+			AtomicLong oldCounter = messagesReceivedByType.putIfAbsent(commandCode, counter);
+			if(oldCounter != null)
+				counter = oldCounter;
+		}
+		
+		counter.incrementAndGet();
+		
+		ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>> messagesReceivedByTypeAndApplication = messagesReceivedByLinkTypeAndApplication.get(linkID);
+		if(messagesReceivedByTypeAndApplication == null)
+		{
+			messagesReceivedByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>();
+			ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>> oldMap = messagesReceivedByLinkTypeAndApplication.putIfAbsent(linkID, messagesReceivedByTypeAndApplication);
+			if(oldMap!=null)
+				messagesReceivedByTypeAndApplication = oldMap;								
+		}
+		
+		messagesReceivedByType = messagesReceivedByTypeAndApplication.get(applicationID);
+		if(messagesReceivedByType == null)
+		{
+			messagesReceivedByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
+			ConcurrentHashMap<CommandCode, AtomicLong> oldMap = messagesReceivedByTypeAndApplication.putIfAbsent(applicationID, messagesReceivedByType);
+			if(oldMap!=null)
+				messagesReceivedByType = oldMap;								
+		}
+		
+		counter = messagesReceivedByType.get(commandCode);
+		if(counter == null)
+		{
+			counter = new AtomicLong(0);
+			AtomicLong oldCounter = messagesReceivedByType.putIfAbsent(commandCode, counter);
+			if(oldCounter != null)
+				counter = oldCounter;
+		}
+		
+		counter.incrementAndGet();
+		
+		if(message instanceof DiameterAnswer)
+		{
+			DiameterAnswer answer=(DiameterAnswer)message;
+			if(answer.getIsError())
+			{
+				ConcurrentHashMap<Long, AtomicLong> errorsReceivedByType = errorsReceivedByTypeAndApplication.get(applicationID);
 				if(errorsReceivedByType == null)
 				{
 					errorsReceivedByType = new ConcurrentHashMap<Long, AtomicLong>();
-					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsReceivedByTypeAndApplication.putIfAbsent(commandDef.applicationId(), errorsReceivedByType);
+					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsReceivedByTypeAndApplication.putIfAbsent(applicationID, errorsReceivedByType);
 					if(oldMap!=null)
 						errorsReceivedByType = oldMap;								
 				}
@@ -907,20 +1046,20 @@ public class DiameterStackImpl implements DiameterStack
 				
 				counter.incrementAndGet();
 				
-				ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
+				ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
 				if(errorsReceivedByTypeAndApplication == null)
 				{
-					errorsReceivedByTypeAndApplication = new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
-					ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsReceivedByLinkTypeAndApplication.putIfAbsent(linkID, errorsReceivedByTypeAndApplication);
+					errorsReceivedByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
+					ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsReceivedByLinkTypeAndApplication.putIfAbsent(linkID, errorsReceivedByTypeAndApplication);
 					if(oldMap!=null)
 						errorsReceivedByTypeAndApplication = oldMap;								
 				}
 				
-				errorsReceivedByType = errorsReceivedByTypeAndApplication.get(commandDef.applicationId());
+				errorsReceivedByType = errorsReceivedByTypeAndApplication.get(applicationID);
 				if(errorsReceivedByType == null)
 				{
 					errorsReceivedByType = new ConcurrentHashMap<Long, AtomicLong>();
-					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsReceivedByTypeAndApplication.putIfAbsent(commandDef.applicationId(), errorsReceivedByType);
+					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsReceivedByTypeAndApplication.putIfAbsent(applicationID, errorsReceivedByType);
 					if(oldMap!=null)
 						errorsReceivedByType = oldMap;								
 				}
@@ -943,60 +1082,86 @@ public class DiameterStackImpl implements DiameterStack
 	public void messageSent(DiameterMessage message, String linkID)
 	{
 		DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
-		AtomicLong counter = messagesSentByType.get(commandDef.commandCode());
+		CommandCode commandCode = CommandCode.fromInt(commandDef.commandCode());
+		if(commandCode==null)
+			return;
+		
+		AtomicLong counter = messagesSentByType.get(commandCode);
 		if(counter == null)
 		{
 			counter = new AtomicLong(0);
-			AtomicLong oldCounter = messagesSentByType.putIfAbsent(commandDef.commandCode(), counter);
+			AtomicLong oldCounter = messagesSentByType.putIfAbsent(commandCode, counter);
 			if(oldCounter != null)
 				counter = oldCounter;
 		}
 		
 		counter.incrementAndGet();
 		
-		ConcurrentHashMap<Integer, AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(commandDef.applicationId());
+		if(message instanceof DiameterAnswer)
+		{
+			DiameterAnswer answer=(DiameterAnswer)message;
+			if(answer.getIsError())
+			{
+				counter = errorsSentByType.get(answer.getResultCode());
+				if(counter == null)
+				{
+					counter = new AtomicLong(0);
+					AtomicLong oldCounter = errorsSentByType.putIfAbsent(answer.getResultCode(), counter);
+					if(oldCounter != null)
+						counter = oldCounter;
+				}
+				
+				counter.incrementAndGet();
+			}
+		}
+		
+		ApplicationID applicationID = ApplicationID.fromInt((int)commandDef.applicationId());
+		if(applicationID==null)
+			return;
+		
+		ConcurrentHashMap<CommandCode, AtomicLong> messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
 		if(messagesSentByType == null)
 		{
-			messagesSentByType = new ConcurrentHashMap<Integer, AtomicLong>();
-			ConcurrentHashMap<Integer, AtomicLong> oldMap = messagesSentByTypeAndApplication.putIfAbsent(commandDef.applicationId(), messagesSentByType);
+			messagesSentByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
+			ConcurrentHashMap<CommandCode, AtomicLong> oldMap = messagesSentByTypeAndApplication.putIfAbsent(applicationID, messagesSentByType);
 			if(oldMap!=null)
 				messagesSentByType = oldMap;								
 		}
 		
-		counter = messagesSentByType.get(commandDef.commandCode());
+		counter = messagesSentByType.get(commandCode);
 		if(counter == null)
 		{
 			counter = new AtomicLong(0);
-			AtomicLong oldCounter = messagesSentByType.putIfAbsent(commandDef.commandCode(), counter);
+			AtomicLong oldCounter = messagesSentByType.putIfAbsent(commandCode, counter);
 			if(oldCounter != null)
 				counter = oldCounter;
 		}
 		
 		counter.incrementAndGet();
 		
-		ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>> messagesSentByTypeAndApplication = messagesSentByLinkTypeAndApplication.get(linkID);
+		ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>> messagesSentByTypeAndApplication = messagesSentByLinkTypeAndApplication.get(linkID);
 		if(messagesSentByTypeAndApplication == null)
 		{
-			messagesSentByTypeAndApplication = new ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>>();
-			ConcurrentHashMap<Long,ConcurrentHashMap<Integer, AtomicLong>> oldMap = messagesSentByLinkTypeAndApplication.putIfAbsent(linkID, messagesSentByTypeAndApplication);
+			messagesSentByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>>();
+			ConcurrentHashMap<ApplicationID,ConcurrentHashMap<CommandCode, AtomicLong>> oldMap = messagesSentByLinkTypeAndApplication.putIfAbsent(linkID, messagesSentByTypeAndApplication);
 			if(oldMap!=null)
 				messagesSentByTypeAndApplication = oldMap;								
 		}
 		
-		messagesSentByType = messagesSentByTypeAndApplication.get(commandDef.applicationId());
+		messagesSentByType = messagesSentByTypeAndApplication.get(applicationID);
 		if(messagesSentByType == null)
 		{
-			messagesSentByType = new ConcurrentHashMap<Integer, AtomicLong>();
-			ConcurrentHashMap<Integer, AtomicLong> oldMap = messagesSentByTypeAndApplication.putIfAbsent(commandDef.applicationId(), messagesSentByType);
+			messagesSentByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
+			ConcurrentHashMap<CommandCode, AtomicLong> oldMap = messagesSentByTypeAndApplication.putIfAbsent(applicationID, messagesSentByType);
 			if(oldMap!=null)
 				messagesSentByType = oldMap;								
 		}
 		
-		counter = messagesSentByType.get(commandDef.commandCode());
+		counter = messagesSentByType.get(commandCode);
 		if(counter == null)
 		{
 			counter = new AtomicLong(0);
-			AtomicLong oldCounter = messagesSentByType.putIfAbsent(commandDef.commandCode(), counter);
+			AtomicLong oldCounter = messagesSentByType.putIfAbsent(commandCode, counter);
 			if(oldCounter != null)
 				counter = oldCounter;
 		}
@@ -1019,11 +1184,11 @@ public class DiameterStackImpl implements DiameterStack
 				
 				counter.incrementAndGet();
 				
-				ConcurrentHashMap<Long, AtomicLong> errorsSentByType = errorsSentByTypeAndApplication.get(commandDef.applicationId());
+				ConcurrentHashMap<Long, AtomicLong> errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
 				if(errorsSentByType == null)
 				{
 					errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
-					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(commandDef.applicationId(), errorsSentByType);
+					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(applicationID, errorsSentByType);
 					if(oldMap!=null)
 						errorsSentByType = oldMap;								
 				}
@@ -1039,20 +1204,20 @@ public class DiameterStackImpl implements DiameterStack
 				
 				counter.incrementAndGet();
 				
-				ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
+				ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
 				if(errorsSentByTypeAndApplication == null)
 				{
-					errorsSentByTypeAndApplication = new ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>>();
-					ConcurrentHashMap<Long,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsSentByLinkTypeAndApplication.putIfAbsent(linkID, errorsSentByTypeAndApplication);
+					errorsSentByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
+					ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsSentByLinkTypeAndApplication.putIfAbsent(linkID, errorsSentByTypeAndApplication);
 					if(oldMap!=null)
 						errorsSentByTypeAndApplication = oldMap;								
 				}
 				
-				errorsSentByType = errorsSentByTypeAndApplication.get(commandDef.applicationId());
+				errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
 				if(errorsSentByType == null)
 				{
 					errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
-					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(commandDef.applicationId(), errorsSentByType);
+					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(applicationID, errorsSentByType);
 					if(oldMap!=null)
 						errorsSentByType = oldMap;								
 				}
@@ -1072,7 +1237,7 @@ public class DiameterStackImpl implements DiameterStack
 	}
 	
 	@Override
-	public void newIncomingSession(long applicationID)
+	public void newIncomingSession(ApplicationID applicationID)
 	{
 		AtomicLong counter = incomingSessionsByApplication.get(applicationID);
 		if(counter == null)
@@ -1087,7 +1252,7 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public void newOutgoingSession(long applicationID)
+	public void newOutgoingSession(ApplicationID applicationID)
 	{
 		AtomicLong counter = outgoingSessionsByApplication.get(applicationID);
 		if(counter == null)
@@ -1115,7 +1280,7 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public Map<Long, Long> getSessionEndedByResultCodeAndApplication(long applicationID)
+	public Map<Long, Long> getSessionEndedByResultCodeAndApplication(ApplicationID applicationID)
 	{
 		Map<Long,Long> result=new HashMap<Long, Long>();
 		Map<Long,AtomicLong> sessionsEndedByResultCode = sessionsEndedByResultCodeAndApplication.get(applicationID);
@@ -1131,7 +1296,7 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public void sessionEnded(Long resultCode, long applicationID)
+	public void sessionEnded(Long resultCode, ApplicationID applicationID)
 	{
 		if(resultCode==null)
 			return;

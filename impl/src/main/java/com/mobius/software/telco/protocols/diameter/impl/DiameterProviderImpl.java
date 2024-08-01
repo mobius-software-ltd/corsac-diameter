@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.restcomm.cluster.ClusteredID;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationID;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
@@ -147,7 +148,13 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			session=getNewSession((DiameterRequest)message);
 			if(session!=null)
 			{
-				stack.newIncomingSession(session.getApplicationID());
+				if(session.getApplicationID()!=null)
+				{
+					ApplicationID applicationID = ApplicationID.fromInt(session.getApplicationID().intValue());
+					if(applicationID!=null)
+						stack.newIncomingSession(applicationID);
+				}
+				
 				getStack().getSessionStorage().storeSession(session);
 			}
 		}

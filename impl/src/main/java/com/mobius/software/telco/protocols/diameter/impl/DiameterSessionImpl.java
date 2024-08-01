@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 
 import org.restcomm.cluster.ClusteredID;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationID;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
@@ -118,7 +119,14 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		restartIdleTimer(null);
 		restartSendTimer();
 		if(!this.provider.getStack().getSessionStorage().storeSession(this))
-			provider.getStack().newOutgoingSession(applicationID);		
+		{
+			if(this.getApplicationID()!=null)
+			{
+				ApplicationID applicationID = ApplicationID.fromInt(this.getApplicationID().intValue());
+				if(applicationID!=null)
+					provider.getStack().newOutgoingSession(applicationID);
+			}
+		}			
 	}
 	
 	@Override
@@ -166,7 +174,14 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		stopIdleTimer();
 		stopSendTimer();
 		if(this.provider.getStack().getSessionStorage().removeSession(this.sessionID))
-			this.provider.getStack().sessionEnded(resultCode, applicationID);
+		{
+			if(this.getApplicationID()!=null)
+			{
+				ApplicationID applicationID = ApplicationID.fromInt(this.getApplicationID().intValue());
+				if(applicationID!=null)
+					this.provider.getStack().sessionEnded(resultCode, applicationID);
+			}
+		}
 	}
 
 	@Override

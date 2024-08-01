@@ -82,45 +82,53 @@ public interface DiameterStack
 	
 	IncomingRequestsStorage getRequestsStorage();
 	
-	Map<Integer,Long> getMessagesSentByType();
+	Map<String,Long> getMessagesSentByType();
     
-    Map<Integer,Long> getMessagesReceivedByType();
+    Map<String,Long> getMessagesReceivedByType();
     
     Map<Long,Long> getErrorsSentByType();
     
     Map<Long,Long> getErrorsReceivedByType();
     
-    Map<Long,Long> getOutgoingSessionByApplication();
+    Map<String,Long> getOutgoingSessionByApplication();
     
-    Map<Long,Long> getIncomingSessionsByApplication();  
+    Map<String,Long> getIncomingSessionsByApplication();  
     
     Map<Long,Long> getSessionEndedByResultCode();
     
-    Map<Long,Long> getSessionEndedByResultCodeAndApplication(long applicationID);
+    Map<Long,Long> getSessionEndedByResultCodeAndApplication(ApplicationID applicationID);
     
-    Map<Integer,Long> getMessagesSentByTypeAndApplication(long applicationID);
+    Map<String,Long> getMessagesSentByTypeAndApplication(ApplicationID applicationID);
     
-    Map<Integer,Long> getMessagesReceivedByTypeAndApplication(long applicationID);
+    Map<String,Long> getMessagesReceivedByTypeAndApplication(ApplicationID applicationID);
     
-    Map<Long,Long> getErrorsSentByTypeAndApplication(long applicationID);
+    Map<Long,Long> getErrorsSentByTypeAndApplication(ApplicationID applicationID);
     
-    Map<Long,Long> getErrorsReceivedByTypeAndApplication(long applicationID);
+    Map<Long,Long> getErrorsReceivedByTypeAndApplication(ApplicationID applicationID);
     
-    Map<Integer,Long> getLinkMessagesSentByTypeAndApplication(String linkID, long applicationID);
+    Map<String,Long> getLinkMessagesSentByTypeAndApplication(String linkID, ApplicationID applicationID);
     
-    Map<Integer,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, long applicationID);
+    Map<String,Long> getLinkMessagesReceivedByTypeAndApplication(String linkID, ApplicationID applicationID);
     
-    Map<Long,Long> getLinkErrorsSentByTypeAndApplication(String linkID, long applicationID);
+    Map<Long,Long> getLinkErrorsSentByTypeAndApplication(String linkID, ApplicationID applicationID);
     
-    Map<Long,Long> getLinkErrorsReceivedByTypeAndApplication(String linkID, long applicationID);
+    Map<Long,Long> getLinkErrorsReceivedByTypeAndApplication(String linkID, ApplicationID applicationID);
+    
+    Map<String,Map<String,Long>> getLinkMessagesSentByTypeAndApplication(String linkID);
+    
+    Map<String,Map<String,Long>> getLinkMessagesReceivedByTypeAndApplication(String linkID);
+    
+    Map<String,Map<Long,Long>> getLinkErrorsSentByTypeAndApplication(String linkID);
+    
+    Map<String,Map<Long,Long>> getLinkErrorsReceivedByTypeAndApplication(String linkID);
     
     void messageReceived(DiameterMessage message, String linkID);
     
     void messageSent(DiameterMessage message, String linkID);
     
-    void newIncomingSession(long applicationID);
+    void newIncomingSession(ApplicationID applicationID);
     
-    void newOutgoingSession(long applicationID);
+    void newOutgoingSession(ApplicationID applicationID);
     
-    void sessionEnded(Long resultCode, long applicationID);
+    void sessionEnded(Long resultCode, ApplicationID applicationID);
 }

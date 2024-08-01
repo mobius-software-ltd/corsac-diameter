@@ -34,9 +34,10 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.restcomm.cluster.ClusteredID;
 
+import com.mobius.software.telco.protocols.diameter.ApplicationID;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
-import com.mobius.software.telco.protocols.diameter.CommandCodes;
+import com.mobius.software.telco.protocols.diameter.CommandCode;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
@@ -262,44 +263,44 @@ public class LoadTest extends NetworkTestBase
 		
 		//statistics validation
 		//messages
-		Map<Integer, Long> localMessagesReceived = localStack.getMessagesReceivedByType();
-		Map<Integer, Long> localMessagesSent = localStack.getMessagesSentByType();
-		Map<Integer, Long> remoteMessagesReceived = serverStack.getMessagesReceivedByType();
-		Map<Integer, Long> remoteMessagesSent = serverStack.getMessagesSentByType();
+		Map<String, Long> localMessagesReceived = localStack.getMessagesReceivedByType();
+		Map<String, Long> localMessagesSent = localStack.getMessagesSentByType();
+		Map<String, Long> remoteMessagesReceived = serverStack.getMessagesReceivedByType();
+		Map<String, Long> remoteMessagesSent = serverStack.getMessagesSentByType();
 		
 		assertEquals(localMessagesReceived.size(),4);
 		assertEquals(localMessagesSent.size(),4);
 		assertEquals(remoteMessagesReceived.size(),4);
 		assertEquals(remoteMessagesSent.size(),4);
 		
-		assertEquals(localMessagesReceived.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
-		assertEquals(localMessagesSent.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
-		assertEquals(remoteMessagesReceived.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
-		assertEquals(remoteMessagesSent.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
+		assertEquals(remoteMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
+		assertEquals(remoteMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
 		
-		assertEquals(localMessagesReceived.get(CommandCodes.DISCONNECT_PEER),4L);
-		assertEquals(localMessagesSent.get(CommandCodes.DISCONNECT_PEER),4L);
-		assertEquals(remoteMessagesReceived.get(CommandCodes.DISCONNECT_PEER),4L);
-		assertTrue(remoteMessagesSent.get(CommandCodes.DISCONNECT_PEER)>=4L);
-		assertTrue(remoteMessagesSent.get(CommandCodes.DISCONNECT_PEER)<=8L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),4L);
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),4L);
+		assertEquals(remoteMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),4L);
+		assertTrue(remoteMessagesSent.get(CommandCode.DISCONNECT_PEER.name())>=4L);
+		assertTrue(remoteMessagesSent.get(CommandCode.DISCONNECT_PEER.name())<=8L);
 		
-		assertTrue(localMessagesReceived.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
-		assertTrue(localMessagesSent.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
-		assertTrue(remoteMessagesReceived.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
-		assertTrue(remoteMessagesSent.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
+		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
+		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
+		assertTrue(remoteMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
+		assertTrue(remoteMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
 		
-		assertEquals(localMessagesReceived.get(CommandCodes.MESSAGE_PROCESS),1000L);
-		assertEquals(localMessagesSent.get(CommandCodes.MESSAGE_PROCESS),1000L);
-		assertEquals(remoteMessagesReceived.get(CommandCodes.MESSAGE_PROCESS),1000L);
-		assertEquals(remoteMessagesSent.get(CommandCodes.MESSAGE_PROCESS),1000L);
+		assertEquals(localMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
+		assertEquals(localMessagesSent.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
+		assertEquals(remoteMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
+		assertEquals(remoteMessagesSent.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
 		
 		//sessions 
 		
-		Map<Long, Long> localIncomingSessions = localStack.getIncomingSessionsByApplication();
-		Map<Long, Long> localOutgoingSessions = localStack.getOutgoingSessionByApplication();
+		Map<String, Long> localIncomingSessions = localStack.getIncomingSessionsByApplication();
+		Map<String, Long> localOutgoingSessions = localStack.getOutgoingSessionByApplication();
 		Map<Long, Long> localSessionsEnded = localStack.getSessionEndedByResultCode();
-		Map<Long, Long> remoteIncomingSessions = serverStack.getIncomingSessionsByApplication();
-		Map<Long, Long> remoteOutgoingSessions = serverStack.getOutgoingSessionByApplication();
+		Map<String, Long> remoteIncomingSessions = serverStack.getIncomingSessionsByApplication();
+		Map<String, Long> remoteOutgoingSessions = serverStack.getOutgoingSessionByApplication();
 		Map<Long, Long> remoteSessionsEnded = serverStack.getSessionEndedByResultCode();
 		
 		assertEquals(localIncomingSessions.size(),0);
@@ -309,8 +310,8 @@ public class LoadTest extends NetworkTestBase
 		assertEquals(remoteOutgoingSessions.size(),0);
 		assertEquals(remoteSessionsEnded.size(),1);
 		
-		assertEquals(localOutgoingSessions.get(Long.valueOf(ApplicationIDs.MM10)),1000L);
-		assertEquals(remoteIncomingSessions.get(Long.valueOf(ApplicationIDs.MM10)),1000L);		
+		assertEquals(localOutgoingSessions.get(ApplicationID.MM10.name()),1000L);
+		assertEquals(remoteIncomingSessions.get(ApplicationID.MM10.name()),1000L);		
 		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_SUCCESS),1000L);		
 		assertEquals(remoteSessionsEnded.get(ResultCodes.DIAMETER_SUCCESS),1000L);
 		
@@ -328,8 +329,8 @@ public class LoadTest extends NetworkTestBase
 		
 		//sessions by application
 		
-		localSessionsEnded = localStack.getSessionEndedByResultCodeAndApplication(Long.valueOf(ApplicationIDs.MM10));
-		remoteSessionsEnded = serverStack.getSessionEndedByResultCodeAndApplication(Long.valueOf(ApplicationIDs.MM10));
+		localSessionsEnded = localStack.getSessionEndedByResultCodeAndApplication(ApplicationID.MM10);
+		remoteSessionsEnded = serverStack.getSessionEndedByResultCodeAndApplication(ApplicationID.MM10);
 				
 		assertEquals(localSessionsEnded.size(),1);
 		assertEquals(remoteSessionsEnded.size(),1);
@@ -337,71 +338,71 @@ public class LoadTest extends NetworkTestBase
 		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_SUCCESS),1000L);
 		assertEquals(remoteSessionsEnded.get(ResultCodes.DIAMETER_SUCCESS),1000L);
 				
-		localSessionsEnded = localStack.getSessionEndedByResultCodeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
-		remoteSessionsEnded = serverStack.getSessionEndedByResultCodeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
+		localSessionsEnded = localStack.getSessionEndedByResultCodeAndApplication(ApplicationID.COMMON);
+		remoteSessionsEnded = serverStack.getSessionEndedByResultCodeAndApplication(ApplicationID.COMMON);
 				
 		assertEquals(localSessionsEnded.size(),0);
 		assertEquals(remoteSessionsEnded.size(),0);
 				
 		//messages by application
 		
-		localMessagesReceived = localStack.getMessagesReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
-		localMessagesSent = localStack.getMessagesSentByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
-		remoteMessagesReceived = serverStack.getMessagesReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
-		remoteMessagesSent = serverStack.getMessagesSentByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
+		localMessagesReceived = localStack.getMessagesReceivedByTypeAndApplication(ApplicationID.MM10);
+		localMessagesSent = localStack.getMessagesSentByTypeAndApplication(ApplicationID.MM10);
+		remoteMessagesReceived = serverStack.getMessagesReceivedByTypeAndApplication(ApplicationID.MM10);
+		remoteMessagesSent = serverStack.getMessagesSentByTypeAndApplication(ApplicationID.MM10);
 		
 		assertEquals(localMessagesReceived.size(),1);
 		assertEquals(localMessagesSent.size(),1);
 		assertEquals(remoteMessagesReceived.size(),1);
 		assertEquals(remoteMessagesSent.size(),1);
 		
-		assertEquals(localMessagesReceived.get(CommandCodes.MESSAGE_PROCESS),1000L);
-		assertEquals(localMessagesSent.get(CommandCodes.MESSAGE_PROCESS),1000L);
-		assertEquals(remoteMessagesReceived.get(CommandCodes.MESSAGE_PROCESS),1000L);
-		assertEquals(remoteMessagesSent.get(CommandCodes.MESSAGE_PROCESS),1000L);
+		assertEquals(localMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
+		assertEquals(localMessagesSent.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
+		assertEquals(remoteMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
+		assertEquals(remoteMessagesSent.get(CommandCode.MESSAGE_PROCESS.name()),1000L);
 		
-		localMessagesReceived = localStack.getMessagesReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
-		localMessagesSent = localStack.getMessagesSentByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
-		remoteMessagesReceived = serverStack.getMessagesReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
-		remoteMessagesSent = serverStack.getMessagesSentByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
+		localMessagesReceived = localStack.getMessagesReceivedByTypeAndApplication(ApplicationID.COMMON);
+		localMessagesSent = localStack.getMessagesSentByTypeAndApplication(ApplicationID.COMMON);
+		remoteMessagesReceived = serverStack.getMessagesReceivedByTypeAndApplication(ApplicationID.COMMON);
+		remoteMessagesSent = serverStack.getMessagesSentByTypeAndApplication(ApplicationID.COMMON);
 		
 		assertEquals(localMessagesReceived.size(),3);
 		assertEquals(localMessagesSent.size(),3);
 		assertEquals(remoteMessagesReceived.size(),3);
 		assertEquals(remoteMessagesSent.size(),3);
 		
-		assertEquals(localMessagesReceived.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
-		assertEquals(localMessagesSent.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
-		assertEquals(remoteMessagesReceived.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
-		assertEquals(remoteMessagesSent.get(CommandCodes.CAPABILITIES_EXCHANGE),4L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
+		assertEquals(remoteMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
+		assertEquals(remoteMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),4L);
 		
-		assertEquals(localMessagesReceived.get(CommandCodes.DISCONNECT_PEER),4L);
-		assertEquals(localMessagesSent.get(CommandCodes.DISCONNECT_PEER),4L);
-		assertEquals(remoteMessagesReceived.get(CommandCodes.DISCONNECT_PEER),4L);
-		assertTrue(remoteMessagesSent.get(CommandCodes.DISCONNECT_PEER)>=4L);
-		assertTrue(remoteMessagesSent.get(CommandCodes.DISCONNECT_PEER)<=8L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),4L);
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),4L);
+		assertEquals(remoteMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),4L);
+		assertTrue(remoteMessagesSent.get(CommandCode.DISCONNECT_PEER.name())>=4L);
+		assertTrue(remoteMessagesSent.get(CommandCode.DISCONNECT_PEER.name())<=8L);
 		
-		assertTrue(localMessagesReceived.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
-		assertTrue(localMessagesSent.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
-		assertTrue(remoteMessagesReceived.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
-		assertTrue(remoteMessagesSent.get(CommandCodes.DEVICE_WATCHDOG)>=4L);
+		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
+		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
+		assertTrue(remoteMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
+		assertTrue(remoteMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=4L);
 		
 		//errors by application
 		
-		localErrorsReceived = localStack.getErrorsReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
-		localErrorsSent = localStack.getErrorsSentByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
-		remoteErrorsReceived = serverStack.getErrorsReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
-		remoteErrorsSent = serverStack.getErrorsSentByTypeAndApplication(Long.valueOf(ApplicationIDs.MM10));
+		localErrorsReceived = localStack.getErrorsReceivedByTypeAndApplication(ApplicationID.MM10);
+		localErrorsSent = localStack.getErrorsSentByTypeAndApplication(ApplicationID.MM10);
+		remoteErrorsReceived = serverStack.getErrorsReceivedByTypeAndApplication(ApplicationID.MM10);
+		remoteErrorsSent = serverStack.getErrorsSentByTypeAndApplication(ApplicationID.MM10);
 		
 		assertEquals(localErrorsReceived.size(),0);
 		assertEquals(localErrorsSent.size(),0);
 		assertEquals(remoteErrorsReceived.size(),0);
 		assertEquals(remoteErrorsSent.size(),0);
 		
-		localErrorsReceived = localStack.getErrorsReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
-		localErrorsSent = localStack.getErrorsSentByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
-		remoteErrorsReceived = serverStack.getErrorsReceivedByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
-		remoteErrorsSent = serverStack.getErrorsSentByTypeAndApplication(Long.valueOf(ApplicationIDs.COMMON));
+		localErrorsReceived = localStack.getErrorsReceivedByTypeAndApplication(ApplicationID.COMMON);
+		localErrorsSent = localStack.getErrorsSentByTypeAndApplication(ApplicationID.COMMON);
+		remoteErrorsReceived = serverStack.getErrorsReceivedByTypeAndApplication(ApplicationID.COMMON);
+		remoteErrorsSent = serverStack.getErrorsSentByTypeAndApplication(ApplicationID.COMMON);
 		
 		assertEquals(localErrorsReceived.size(),0);
 		assertEquals(localErrorsSent.size(),0);
@@ -417,55 +418,55 @@ public class LoadTest extends NetworkTestBase
 		
 		for(String currLinkID:localLinkIDs)
 		{
-			localMessagesReceived = localStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
-			localMessagesSent = localStack.getLinkMessagesSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
-			remoteMessagesReceived = serverStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
-			remoteMessagesSent = serverStack.getLinkMessagesSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
+			localMessagesReceived = localStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, ApplicationID.MM10);
+			localMessagesSent = localStack.getLinkMessagesSentByTypeAndApplication(currLinkID, ApplicationID.MM10);
+			remoteMessagesReceived = serverStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, ApplicationID.MM10);
+			remoteMessagesSent = serverStack.getLinkMessagesSentByTypeAndApplication(currLinkID, ApplicationID.MM10);
 			
 			assertEquals(localMessagesReceived.size(),1);
 			assertEquals(localMessagesSent.size(),1);
 			assertEquals(remoteMessagesReceived.size(),1);
 			assertEquals(remoteMessagesSent.size(),1);
 			
-			assertTrue(localMessagesReceived.get(CommandCodes.MESSAGE_PROCESS)>200L);
-			assertTrue(localMessagesReceived.get(CommandCodes.MESSAGE_PROCESS)<300L);
-			assertTrue(localMessagesSent.get(CommandCodes.MESSAGE_PROCESS)>200L);
-			assertTrue(localMessagesSent.get(CommandCodes.MESSAGE_PROCESS)<300L);
-			assertTrue(remoteMessagesReceived.get(CommandCodes.MESSAGE_PROCESS)>200L);
-			assertTrue(remoteMessagesReceived.get(CommandCodes.MESSAGE_PROCESS)<300L);
-			assertTrue(remoteMessagesSent.get(CommandCodes.MESSAGE_PROCESS)>200L);
-			assertTrue(remoteMessagesSent.get(CommandCodes.MESSAGE_PROCESS)<300L);
+			assertTrue(localMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name())>200L);
+			assertTrue(localMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name())<300L);
+			assertTrue(localMessagesSent.get(CommandCode.MESSAGE_PROCESS.name())>200L);
+			assertTrue(localMessagesSent.get(CommandCode.MESSAGE_PROCESS.name())<300L);
+			assertTrue(remoteMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name())>200L);
+			assertTrue(remoteMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name())<300L);
+			assertTrue(remoteMessagesSent.get(CommandCode.MESSAGE_PROCESS.name())>200L);
+			assertTrue(remoteMessagesSent.get(CommandCode.MESSAGE_PROCESS.name())<300L);
 			
-			totalLocalMPReceived += localMessagesReceived.get(CommandCodes.MESSAGE_PROCESS);
-			totalLocalMPSent += localMessagesSent.get(CommandCodes.MESSAGE_PROCESS);
-			totalRemoteMPReceived += remoteMessagesReceived.get(CommandCodes.MESSAGE_PROCESS);
-			totalRemoteMPSent += remoteMessagesSent.get(CommandCodes.MESSAGE_PROCESS);
+			totalLocalMPReceived += localMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name());
+			totalLocalMPSent += localMessagesSent.get(CommandCode.MESSAGE_PROCESS.name());
+			totalRemoteMPReceived += remoteMessagesReceived.get(CommandCode.MESSAGE_PROCESS.name());
+			totalRemoteMPSent += remoteMessagesSent.get(CommandCode.MESSAGE_PROCESS.name());
 			
-			localMessagesReceived = localStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
-			localMessagesSent = localStack.getLinkMessagesSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
-			remoteMessagesReceived = serverStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
-			remoteMessagesSent = serverStack.getLinkMessagesSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
+			localMessagesReceived = localStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, ApplicationID.COMMON);
+			localMessagesSent = localStack.getLinkMessagesSentByTypeAndApplication(currLinkID, ApplicationID.COMMON);
+			remoteMessagesReceived = serverStack.getLinkMessagesReceivedByTypeAndApplication(currLinkID, ApplicationID.COMMON);
+			remoteMessagesSent = serverStack.getLinkMessagesSentByTypeAndApplication(currLinkID, ApplicationID.COMMON);
 			
 			assertEquals(localMessagesReceived.size(),3);
 			assertEquals(localMessagesSent.size(),3);
 			assertEquals(remoteMessagesReceived.size(),3);
 			assertEquals(remoteMessagesSent.size(),3);
 			
-			assertEquals(localMessagesReceived.get(CommandCodes.CAPABILITIES_EXCHANGE),1L);
-			assertEquals(localMessagesSent.get(CommandCodes.CAPABILITIES_EXCHANGE),1L);
-			assertEquals(remoteMessagesReceived.get(CommandCodes.CAPABILITIES_EXCHANGE),1L);
-			assertEquals(remoteMessagesSent.get(CommandCodes.CAPABILITIES_EXCHANGE),1L);
+			assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+			assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+			assertEquals(remoteMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+			assertEquals(remoteMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
 			
-			assertEquals(localMessagesReceived.get(CommandCodes.DISCONNECT_PEER),1L);
-			assertEquals(localMessagesSent.get(CommandCodes.DISCONNECT_PEER),1L);
-			assertEquals(remoteMessagesReceived.get(CommandCodes.DISCONNECT_PEER),1L);
-			assertTrue(remoteMessagesSent.get(CommandCodes.DISCONNECT_PEER)>=1L);
-			assertTrue(remoteMessagesSent.get(CommandCodes.DISCONNECT_PEER)<=2L);
+			assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
+			assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),1L);
+			assertEquals(remoteMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
+			assertTrue(remoteMessagesSent.get(CommandCode.DISCONNECT_PEER.name())>=1L);
+			assertTrue(remoteMessagesSent.get(CommandCode.DISCONNECT_PEER.name())<=2L);
 			
-			assertTrue(localMessagesReceived.get(CommandCodes.DEVICE_WATCHDOG)>=1L);
-			assertTrue(localMessagesSent.get(CommandCodes.DEVICE_WATCHDOG)>=1L);
-			assertTrue(remoteMessagesReceived.get(CommandCodes.DEVICE_WATCHDOG)>=1L);
-			assertTrue(remoteMessagesSent.get(CommandCodes.DEVICE_WATCHDOG)>=1L);		
+			assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
+			assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
+			assertTrue(remoteMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
+			assertTrue(remoteMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);		
 		}
 
 		assertEquals(totalLocalMPReceived,1000L);
@@ -477,20 +478,20 @@ public class LoadTest extends NetworkTestBase
 		
 		for(String currLinkID:localLinkIDs)
 		{
-			localErrorsReceived = localStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
-			localErrorsSent = localStack.getLinkErrorsSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
-			remoteErrorsReceived = serverStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
-			remoteErrorsSent = serverStack.getLinkErrorsSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.MM10));
+			localErrorsReceived = localStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, ApplicationID.MM10);
+			localErrorsSent = localStack.getLinkErrorsSentByTypeAndApplication(currLinkID, ApplicationID.MM10);
+			remoteErrorsReceived = serverStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, ApplicationID.MM10);
+			remoteErrorsSent = serverStack.getLinkErrorsSentByTypeAndApplication(currLinkID, ApplicationID.MM10);
 			
 			assertNull(localErrorsReceived);
 			assertNull(localErrorsSent);
 			assertNull(remoteErrorsReceived);
 			assertNull(remoteErrorsSent);
 			
-			localErrorsReceived = localStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
-			localErrorsSent = localStack.getLinkErrorsSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
-			remoteErrorsReceived = serverStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
-			remoteErrorsSent = serverStack.getLinkErrorsSentByTypeAndApplication(currLinkID, Long.valueOf(ApplicationIDs.COMMON));
+			localErrorsReceived = localStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, ApplicationID.COMMON);
+			localErrorsSent = localStack.getLinkErrorsSentByTypeAndApplication(currLinkID, ApplicationID.COMMON);
+			remoteErrorsReceived = serverStack.getLinkErrorsReceivedByTypeAndApplication(currLinkID, ApplicationID.COMMON);
+			remoteErrorsSent = serverStack.getLinkErrorsSentByTypeAndApplication(currLinkID, ApplicationID.COMMON);
 			
 			assertNull(localErrorsReceived);
 			assertNull(localErrorsSent);
