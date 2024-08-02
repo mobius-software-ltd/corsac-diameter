@@ -18,17 +18,12 @@ package com.mobius.software.telco.protocols.diameter.app.s13;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
-import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
-public interface MessageFactory
+public interface SessionFactory
 {
-	public MEIdentityCheckRequest createMEIdentityCheckRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	public S13ClientSession createClientSession(MEIdentityCheckRequest request) throws AvpNotSupportedException;	
 	
-	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
-
-	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(MEIdentityCheckRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	public S13ServerSession createServerSession(MEIdentityCheckRequest request) throws AvpNotSupportedException;		
 }
