@@ -377,20 +377,15 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		logger.info("Association ," + association + " invalid stream id");
 	}
 
-	public void sendMessage(DiameterMessage message, AsyncCallback callback)
+	@Override
+	public Boolean canSendMessage(DiameterMessage message)
 	{
 		if(!peerState.get().equals(PeerStateEnum.OPEN))
-		{
-			callback.onError(new DiameterException("Invalid state for peer while sending message , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-			return;
-		}	
+			return false;
 		
 		DiameterCommandDefinition commandDefintion = DiameterParser.getCommandDefinition(message.getClass());
 		if(commandDefintion == null)
-		{
-			callback.onError(new DiameterException("Command not registered in parser for class " + message.getClass().getCanonicalName(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-			return;
-		}	
+			return false;
 		
 		if(message instanceof AccountingRequest || message instanceof AccountingAnswer)
 		{
@@ -408,10 +403,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			}
 			
 			if(!found)
-			{
-				callback.onError(new DiameterException("Application id is not supported by peer, " + commandDefintion.applicationId(), null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-				return;
-			}
+				return false;
 		}		
 		else if(message instanceof VendorSpecificRequest || message instanceof VendorSpecificAnswer)
 		{
@@ -468,10 +460,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			}
 			
 			if(!found)
-			{
-				callback.onError(new DiameterException("Application id is not supported by peer, " + commandDefintion.applicationId(), null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-				return;
-			}
+				return false;
 			
 			if(appId.getAcctApplicationId()!=null)
 			{
@@ -489,10 +478,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				}
 				
 				if(!found)
-				{
-					callback.onError(new DiameterException("Application id is not supported by peer, " + commandDefintion.applicationId(), null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-					return;
-				}
+					return false;
 			}
 			
 			if(appId.getAuthApplicationId()!=null)
@@ -511,10 +497,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				}
 				
 				if(!found)
-				{
-					callback.onError(new DiameterException("Application id is not supported by peer, " + commandDefintion.applicationId(), null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-					return;
-				}
+					return false;
 			}
 		}
 		else
@@ -533,10 +516,31 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			}
 			
 			if(!found)
-			{
-				callback.onError(new DiameterException("Application id is not supported by peer, " + commandDefintion.applicationId(), null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-				return;
-			}
+				return false;
+		}
+		
+		return true;
+	}
+	
+	public void sendMessage(DiameterMessage message, AsyncCallback callback)
+	{
+		if(!peerState.get().equals(PeerStateEnum.OPEN))
+		{
+			callback.onError(new DiameterException("Invalid state for peer while sending message , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}	
+		
+		DiameterCommandDefinition commandDefintion = DiameterParser.getCommandDefinition(message.getClass());
+		if(commandDefintion == null)
+		{
+			callback.onError(new DiameterException("Command not registered in parser for class " + message.getClass().getCanonicalName(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return;
+		}	
+		
+		if(!canSendMessage(message))
+		{
+			callback.onError(new DiameterException("Application id is not supported by peer, " + commandDefintion.applicationId(), null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
+			return;
 		}
 		
 		sendMessageInternally(message, callback);

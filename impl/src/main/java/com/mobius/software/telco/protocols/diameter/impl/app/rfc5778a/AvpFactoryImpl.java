@@ -21,7 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a;
 import java.net.InetAddress;
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.app.rfc5778i.AvpFactory;
+import com.mobius.software.telco.protocols.diameter.app.rfc5778a.AvpFactory;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc4004.MIPHomeAgentHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc5447.MIP6AgentInfoImpl;
