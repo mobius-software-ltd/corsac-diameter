@@ -75,6 +75,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.rfc4740.Rfc4740Prov
 import com.mobius.software.telco.protocols.diameter.impl.app.rfc5778i.Rfc5778iProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a.Rfc5778aProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.rx.RxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 
@@ -371,6 +372,12 @@ public class DiameterStackImpl implements DiameterStack
 				
 				return mb2cProvider;
 			case ApplicationIDs.RX:
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rx"))
+				{
+					RxProviderImpl rxProvider=new RxProviderImpl(this);
+					registeredProvidersByPackage.put(parentPackage.getName(), rxProvider);
+					return rxProvider;
+				}
 				break;
 			case ApplicationIDs.GX:
 				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gx"))
