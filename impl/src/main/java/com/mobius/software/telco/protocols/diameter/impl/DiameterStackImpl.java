@@ -277,8 +277,7 @@ public class DiameterStackImpl implements DiameterStack
 					return huaweiCreditControlProvider;
 				}
 				break;
-			case ApplicationIDs.EAP:
-				
+			case ApplicationIDs.EAP:				
 				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.eap"))
 				{
 					EAPProviderImpl eapProvider=new EAPProviderImpl(this);
@@ -300,12 +299,12 @@ public class DiameterStackImpl implements DiameterStack
 				}
 				break;
 			case ApplicationIDs.MIP6I:
-        if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc5778i"))
+				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc5778i"))
 				{
 					Rfc5778iProviderImpl rfc5778iProvider=new Rfc5778iProviderImpl(this);
 					registeredProvidersByPackage.put(parentPackage.getName(), rfc5778iProvider);
 					return rfc5778iProvider;
-        }
+				}
 				break;
 			case ApplicationIDs.MIP6A:
 				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc5778a"))
