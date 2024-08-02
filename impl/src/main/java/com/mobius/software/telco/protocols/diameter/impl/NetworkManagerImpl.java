@@ -303,7 +303,7 @@ public class NetworkManagerImpl implements NetworkManager
 				DiameterLink resultLink = null;
 				try
 				{
-					resultLink = chooseRandomLink(innerMap, destinationRealm);
+					resultLink = chooseRandomLink(message, innerMap, destinationRealm);
 				}
 				catch (DiameterException e) 
 				{
@@ -332,7 +332,7 @@ public class NetworkManagerImpl implements NetworkManager
 					DiameterLink resultLink = null;
 					try
 					{
-						resultLink = chooseRandomLink(innerMap, destinationRealm);
+						resultLink = chooseRandomLink(message, innerMap, destinationRealm);
 					}
 					catch (DiameterException e) 
 					{
@@ -377,7 +377,7 @@ public class NetworkManagerImpl implements NetworkManager
 		genericListeners.remove(listenerId);
 	}
 	
-	private DiameterLink chooseRandomLink(ConcurrentHashMap<String,DiameterLink> links, String destinationRealm) throws DiameterException
+	private DiameterLink chooseRandomLink(DiameterMessage message, ConcurrentHashMap<String,DiameterLink> links, String destinationRealm) throws DiameterException
 	{
 		if(links.size()==0)
     		throw new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
@@ -407,7 +407,7 @@ public class NetworkManagerImpl implements NetworkManager
     		if(iterator.hasNext())
     		{
     			DiameterLink currLink=iterator.next();
-    			if (currLink != null && currLink.isConnected())
+    			if (currLink != null && currLink.isConnected() && currLink.canSendMessage(message))
     				return currLink;
 	            else
 	            	retries--;
