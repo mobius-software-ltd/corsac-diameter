@@ -23,10 +23,12 @@ import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.s13.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.s13.MEIdentityCheckAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.s13.MEIdentityCheckRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
@@ -61,5 +63,23 @@ public class MessageFactoryImpl implements MessageFactory
 		MEIdentityCheckRequest request = new MEIdentityCheckRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
-	}			
+	}		
+	
+	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(MEIdentityCheckRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	{
+		MEIdentityCheckAnswerImpl result = new MEIdentityCheckAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		return result;
+	}
+
+	@Override
+	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		MEIdentityCheckAnswerImpl result = new MEIdentityCheckAnswerImpl(originHost,originRealm, false, resultCode, sessionID,AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 }
