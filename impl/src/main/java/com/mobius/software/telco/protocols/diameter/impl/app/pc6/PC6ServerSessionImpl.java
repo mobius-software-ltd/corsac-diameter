@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 
 public class PC6ServerSessionImpl extends ServerAuthSessionStatelessImpl<Pc6Request,Pc6Answer> implements PC6ServerSession
 {
+	public PC6ServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.PC6));
+	}
+	
 	public PC6ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<Pc6Answer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.PC6),remoteHost,remoteRealm, provider);

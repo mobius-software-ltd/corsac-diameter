@@ -31,6 +31,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 */
 public class MM10ServerSessionImpl extends ServerAuthSessionStatelessImpl<MessageProcessRequest, MessageProcessAnswer> implements MM10ServerSession
 {
+	public MM10ServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.MM10));
+	}
+	
 	public MM10ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<MessageProcessAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.MM10), remoteHost, remoteRealm, provider);

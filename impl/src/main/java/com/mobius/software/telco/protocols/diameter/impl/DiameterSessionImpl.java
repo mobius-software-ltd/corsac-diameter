@@ -1,4 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.impl;
+import java.io.IOException;
+import java.io.ObjectInput;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -33,6 +35,9 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+
 /**
 *
 * @author yulian oifa
@@ -48,12 +53,28 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	private SessionStateEnum state;
 	private String remoteHost,remoteRealm;
 	private DiameterRequest lastSentRequest;
+	private ByteBuf lastRequestSentData;
+	
 	private Boolean isRetry = false;
+	
+	//for serialization
+	public DiameterSessionImpl(Long applicationID)
+	{
+		this.applicationID = applicationID;
+	}
 	
 	public DiameterSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
 		this.sessionID = sessionID;
 		this.applicationID = applicationID;
+		this.remoteHost = remoteHost;
+		this.remoteRealm = remoteRealm;
+		this.provider = provider;
+	}
+	
+	public void load(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.sessionID = sessionID;
 		this.remoteHost = remoteHost;
 		this.remoteRealm = remoteRealm;
 		this.provider = provider;
@@ -313,5 +334,42 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
 	{
 		return provider;
+	}
+	
+	@Override
+	public ByteBuf getLastSendRequestData()
+	{
+		return lastRequestSentData;
+	}
+	
+	@Override
+	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	{
+		sessionID = in.readUTF();
+		state = SessionStateEnum.fromInt(in.readInt());
+		
+		byte otherFields = in.readByte();
+		if((otherFields & 0x01)!=0)
+			remoteHost = in.readUTF();
+		
+		if((otherFields & 0x02)!=0)
+			remoteRealm = in.readUTF();
+		
+		if((otherFields & 0x04)!=0)
+			idleTimerID = (ClusteredID<?>)in.readObject();
+		
+		if((otherFields & 0x08)!=0)
+			sendTimerID = (ClusteredID<?>)in.readObject();
+		
+		if((otherFields & 0x10)!=0)
+		{
+			int length = in.readInt();
+			byte[] data = new byte[length];
+			in.read(data);
+			lastRequestSentData = Unpooled.wrappedBuffer(data);
+			lastRequestSentData.readerIndex(0);
+		}
+		
+		isRetry = (otherFields & 0x20)!=0;
 	}
 }

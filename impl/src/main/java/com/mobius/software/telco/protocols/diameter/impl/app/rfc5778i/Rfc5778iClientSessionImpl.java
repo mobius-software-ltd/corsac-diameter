@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778i;
+import java.io.IOException;
+import java.io.ObjectInput;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -42,10 +45,17 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAccSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionImpl;
 
+import io.netty.buffer.ByteBuf;
+
 public class Rfc5778iClientSessionImpl implements Rfc5778iClientSession
 {
 	private ClientAccSessionImpl<AccountingRequest, AccountingAnswer> accSession = null;
 	private ClientAuthSessionImpl<EAPRequest, EAPAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> authSession = null;
+	
+	public Rfc5778iClientSessionImpl()
+	{
+		
+	}
 	
 	public Rfc5778iClientSessionImpl(Boolean isAuth, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientListener, ?, ?, ?, ?> provider)
 	{
@@ -297,6 +307,15 @@ public class Rfc5778iClientSessionImpl implements Rfc5778iClientSession
 		
 		authSession.setIsRetry(isRetry);
 	}
+
+	@Override
+	public ByteBuf getLastSendRequestData()
+	{
+		if(accSession!=null)
+			return accSession.getLastSendRequestData();
+		
+		return authSession.getLastSendRequestData();
+	}
 	
 	@Override
 	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
@@ -305,5 +324,21 @@ public class Rfc5778iClientSessionImpl implements Rfc5778iClientSession
 			return accSession.getProvider();
 		
 		return authSession.getProvider();
+	}
+
+	@Override
+	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	{
+		Boolean isAcc = in.readBoolean();
+		if(isAcc)
+		{
+			accSession = new ClientAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.MIP6I));
+			accSession.load(in);
+		}
+		else
+		{
+			authSession = new ClientAuthSessionImpl<EAPRequest, EAPAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.MIP6I));
+			authSession.load(in);
+		}
 	}
 }

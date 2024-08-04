@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a;
+import java.io.IOException;
+import java.io.ObjectInput;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 import org.restcomm.cluster.ClusteredID;
+
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
@@ -27,12 +31,12 @@ import com.mobius.software.telco.protocols.diameter.app.rfc5778a.Rfc5778aServerS
 import com.mobius.software.telco.protocols.diameter.app.rfc5778a.ServerListener;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Answer;
-import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Request;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Answer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Request;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.SessionTerminationAnswer;
@@ -41,10 +45,17 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAccSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionImpl;
 
+import io.netty.buffer.ByteBuf;
+
 public class Rfc5778aServerSessionImpl implements Rfc5778aServerSession
 {
 	private ServerAccSessionImpl<AccountingRequest, AccountingAnswer> accSession=null;
 	private ServerAuthSessionImpl<MIP6Request, MIP6Answer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> authSession=null;
+	
+	public Rfc5778aServerSessionImpl()
+	{
+		
+	}
 	
 	public Rfc5778aServerSessionImpl(Boolean isAuth, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerListener, ?, ?, ?> provider)
 	{
@@ -296,6 +307,15 @@ public class Rfc5778aServerSessionImpl implements Rfc5778aServerSession
 		
 		authSession.setIsRetry(isRetry);
 	}
+
+	@Override
+	public ByteBuf getLastSendRequestData()
+	{
+		if(accSession!=null)
+			return accSession.getLastSendRequestData();
+		
+		return authSession.getLastSendRequestData();
+	}
 	
 	@Override
 	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
@@ -304,5 +324,21 @@ public class Rfc5778aServerSessionImpl implements Rfc5778aServerSession
 			return accSession.getProvider();
 		
 		return authSession.getProvider();
+	}
+
+	@Override
+	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	{
+		Boolean isAcc = in.readBoolean();
+		if(isAcc)
+		{
+			accSession = new ServerAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.MIP6A));
+			accSession.load(in);
+		}
+		else
+		{
+			authSession = new ServerAuthSessionImpl<MIP6Request, MIP6Answer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.MIP6A));
+			authSession.load(in);
+		}
 	}
 }

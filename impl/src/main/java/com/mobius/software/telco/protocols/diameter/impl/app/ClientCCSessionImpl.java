@@ -52,6 +52,12 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	private DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider;
 	private RetransmissionCallback retransmissionCallback=new RetransmissionCallback();
 	
+	//for serialization
+	public ClientCCSessionImpl(Long applicationID)
+	{
+		super(applicationID);
+	}
+					
 	public ClientCCSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);

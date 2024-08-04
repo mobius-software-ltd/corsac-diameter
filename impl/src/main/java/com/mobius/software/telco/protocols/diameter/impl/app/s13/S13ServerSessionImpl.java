@@ -31,6 +31,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 */
 public class S13ServerSessionImpl extends ServerAuthSessionStatelessImpl<S13Request, S13Answer> implements S13ServerSession
 {
+	public S13ServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.S13));
+	}
+	
 	public S13ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<S13Answer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.S13), remoteHost, remoteRealm, provider);

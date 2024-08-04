@@ -33,6 +33,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionIm
 
 public class RxServerSessionImpl extends ServerAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements RxServerSession
 {
+	public RxServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.RX));
+	}
+	
 	public RxServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.RX), remoteHost, remoteRealm, provider);

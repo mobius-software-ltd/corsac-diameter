@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionSt
 
 public class PC4AClientSessionImpl extends ClientAuthSessionStatelessImpl<Pc4aRequest,Pc4aAnswer> implements PC4AClientSession
 {
+	public PC4AClientSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.PC4A));
+	}
+	
 	public PC4AClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<Pc4aRequest>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.PC4A), remoteHost, remoteRealm, provider);

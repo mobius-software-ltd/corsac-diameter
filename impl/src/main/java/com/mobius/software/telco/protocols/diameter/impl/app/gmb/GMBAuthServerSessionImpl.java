@@ -33,6 +33,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionIm
 
 public class GMBAuthServerSessionImpl extends ServerAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements GMBAuthServerSession
 {
+	public GMBAuthServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.GMB));
+	}
+	
 	public GMBAuthServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.GMB), remoteHost, remoteRealm, provider);

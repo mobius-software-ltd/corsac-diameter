@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 
 public class Mb2cServerSessionImpl extends ServerAuthSessionStatelessImpl<MB2CRequest, MB2CAnswer> implements Mb2cServerSession
 {
+	public Mb2cServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.MB2C));
+	}
+	
 	public Mb2cServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<MB2CAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.MB2C), remoteHost, remoteRealm, provider);

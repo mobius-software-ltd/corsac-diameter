@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a;
+import java.io.IOException;
+import java.io.ObjectInput;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -42,10 +45,17 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAccSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionImpl;
 
+import io.netty.buffer.ByteBuf;
+
 public class Rfc5778aClientSessionImpl implements Rfc5778aClientSession
 {
 	private ClientAccSessionImpl<AccountingRequest, AccountingAnswer> accSession = null;
 	private ClientAuthSessionImpl<MIP6Request, MIP6Answer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> authSession = null;
+	
+	public Rfc5778aClientSessionImpl()
+	{
+		
+	}
 	
 	public Rfc5778aClientSessionImpl(Boolean isAuth, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientListener, ?, ?, ?, ?> provider)
 	{
@@ -297,6 +307,15 @@ public class Rfc5778aClientSessionImpl implements Rfc5778aClientSession
 		
 		authSession.setIsRetry(isRetry);
 	}
+
+	@Override
+	public ByteBuf getLastSendRequestData()
+	{
+		if(accSession!=null)
+			return accSession.getLastSendRequestData();
+		
+		return authSession.getLastSendRequestData();
+	}
 	
 	@Override
 	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
@@ -305,5 +324,21 @@ public class Rfc5778aClientSessionImpl implements Rfc5778aClientSession
 			return accSession.getProvider();
 		
 		return authSession.getProvider();
+	}
+
+	@Override
+	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	{
+		Boolean isAcc = in.readBoolean();
+		if(isAcc)
+		{
+			accSession = new ClientAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.MIP6A));
+			accSession.load(in);
+		}
+		else
+		{
+			authSession = new ClientAuthSessionImpl<MIP6Request, MIP6Answer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.MIP6A));
+			authSession.load(in);
+		}
 	}
 }

@@ -33,6 +33,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl
 
 public class EricssonCreditControlClientSessionImpl extends ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements EricssonCreditControlClientSession
 {
+	public EricssonCreditControlClientSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.CREDIT_CONTROL));
+	}
+	
 	public EricssonCreditControlClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<CreditControlRequest,CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.CREDIT_CONTROL), remoteHost, remoteRealm, provider);

@@ -45,6 +45,12 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 {
 	private DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider;
 	
+	//for serialization
+	public ClientAccSessionImpl(Long applicationID)
+	{
+		super(applicationID);
+	}
+		
 	public ClientAccSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);

@@ -28,6 +28,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 
 public class NtServerSessionImpl extends ServerAuthSessionStatelessImpl<NtRequest, NtAnswer> implements NtServerSession
 {
+	public NtServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.NT));
+	}
+	
 	public NtServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<NtAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.NT), remoteHost, remoteRealm, provider);

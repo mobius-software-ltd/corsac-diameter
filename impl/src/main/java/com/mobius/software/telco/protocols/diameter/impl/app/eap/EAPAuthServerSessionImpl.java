@@ -33,6 +33,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionIm
 
 public class EAPAuthServerSessionImpl extends ServerAuthSessionImpl<EAPRequest, EAPAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements EAPAuthServerSession
 {
+	public EAPAuthServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.EAP));
+	}
+	
 	public EAPAuthServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<EAPRequest, EAPAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> , ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.EAP), remoteHost, remoteRealm, provider);

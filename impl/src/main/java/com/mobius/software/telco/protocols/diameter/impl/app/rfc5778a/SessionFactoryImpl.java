@@ -38,28 +38,27 @@ public class SessionFactoryImpl implements SessionFactory
 	}
 
 	@Override
-	public Rfc5778aClientSession createClientSession( AccountingRequest request) throws AvpNotSupportedException
+	public Rfc5778aClientSession createClientSession(AccountingRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc5778aClientSessionImpl(false,request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc5778aServerSession createServerSession( AccountingRequest request) throws AvpNotSupportedException
+	public Rfc5778aServerSession createServerSession(AccountingRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc5778aServerSessionImpl(false,request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	
 	@Override
-	public Rfc5778aClientSession createClientSession( MIP6Request request) throws AvpNotSupportedException
+	public Rfc5778aClientSession createClientSession(MIP6Request request) throws AvpNotSupportedException
 	{
 		return new Rfc5778aClientSessionImpl(true,request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc5778aServerSession createServerSession( MIP6Request request) throws AvpNotSupportedException
+	public Rfc5778aServerSession createServerSession(MIP6Request request) throws AvpNotSupportedException
 	{
 		return new Rfc5778aServerSessionImpl(true,request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
-	
 }

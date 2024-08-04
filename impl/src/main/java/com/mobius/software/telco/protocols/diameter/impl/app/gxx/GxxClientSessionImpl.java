@@ -33,6 +33,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl
 
 public class GxxClientSessionImpl extends ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements GxxClientSession
 {
+	public GxxClientSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.GXX));
+	}
+	
 	public GxxClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.GXX), remoteHost, remoteRealm, provider);

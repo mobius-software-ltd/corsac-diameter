@@ -33,6 +33,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionIm
 
 public class S6bClientSessionImpl extends ClientAuthSessionImpl<S6bRequest, S6bAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements S6bClientSession
 {
+	public S6bClientSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.S6B));
+	}
+	
 	public S6bClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<S6bRequest, S6bAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.S6B),remoteHost, remoteRealm, provider);

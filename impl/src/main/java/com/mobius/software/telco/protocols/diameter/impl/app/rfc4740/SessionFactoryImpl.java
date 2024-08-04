@@ -42,73 +42,73 @@ public class SessionFactoryImpl implements SessionFactory
 	}
 
 	@Override
-	public Rfc4740ClientSession createClientSession( LocationInfoRequest request) throws AvpNotSupportedException
+	public Rfc4740ClientSession createClientSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc4740ServerSession createServerSession( LocationInfoRequest request) throws AvpNotSupportedException
+	public Rfc4740ServerSession createServerSession(LocationInfoRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	@Override
-	public Rfc4740ClientSession createClientSession( MultimediaAuthRequest request) throws AvpNotSupportedException
+	public Rfc4740ClientSession createClientSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc4740ServerSession createServerSession( MultimediaAuthRequest request) throws AvpNotSupportedException
+	public Rfc4740ServerSession createServerSession(MultimediaAuthRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	@Override
-	public Rfc4740ClientSession createClientSession( PushProfileRequest request) throws AvpNotSupportedException
+	public Rfc4740ClientSession createClientSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc4740ServerSession createServerSession( PushProfileRequest request) throws AvpNotSupportedException
+	public Rfc4740ServerSession createServerSession(PushProfileRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	@Override
-	public Rfc4740ClientSession createClientSession( RegistrationTerminationRequest request) throws AvpNotSupportedException
+	public Rfc4740ClientSession createClientSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc4740ServerSession createServerSession( RegistrationTerminationRequest request) throws AvpNotSupportedException
+	public Rfc4740ServerSession createServerSession(RegistrationTerminationRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	@Override
-	public Rfc4740ClientSession createClientSession( ServerAssignmentRequest request) throws AvpNotSupportedException
+	public Rfc4740ClientSession createClientSession(ServerAssignmentRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc4740ServerSession createServerSession( ServerAssignmentRequest request) throws AvpNotSupportedException
+	public Rfc4740ServerSession createServerSession(ServerAssignmentRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	@Override
-	public Rfc4740ClientSession createClientSession( UserAuthorizationRequest request) throws AvpNotSupportedException
+	public Rfc4740ClientSession createClientSession(UserAuthorizationRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public Rfc4740ServerSession createServerSession( UserAuthorizationRequest request) throws AvpNotSupportedException
+	public Rfc4740ServerSession createServerSession(UserAuthorizationRequest request) throws AvpNotSupportedException
 	{
 		return new Rfc4740ServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}

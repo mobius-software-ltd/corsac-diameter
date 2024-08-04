@@ -44,6 +44,12 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerAuthSession<A1,R2,R3,A4>
 {
 	private DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider;
+	//for serialization
+	public ServerAuthSessionImpl(Long applicationID)
+	{
+		super(applicationID);
+	}
+							
 	public ServerAuthSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);

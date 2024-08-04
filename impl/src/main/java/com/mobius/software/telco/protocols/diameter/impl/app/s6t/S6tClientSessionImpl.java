@@ -31,6 +31,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionSt
 */
 public class S6tClientSessionImpl extends ClientAuthSessionStatelessImpl<S6tRequest, S6tAnswer> implements S6tClientSession
 {
+	public S6tClientSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.S6T));
+	}
+	
 	public S6tClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<S6tRequest>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.S6T), remoteHost, remoteRealm, provider);

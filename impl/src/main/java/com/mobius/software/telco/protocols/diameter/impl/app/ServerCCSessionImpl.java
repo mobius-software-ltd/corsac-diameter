@@ -48,6 +48,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcR
 public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends CreditControlAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ServerCCSession<A1,R2,R3,A4>
 {
 	private DiameterProvider<?, ? extends ServerCCListener<R1,A1, R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider;
+	//for serialization
+	public ServerCCSessionImpl(Long applicationID)
+	{
+		super(applicationID);
+	}
+	
 	public ServerCCSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<R1,A1, R2, A2, R3, A3, R4, A4>, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);

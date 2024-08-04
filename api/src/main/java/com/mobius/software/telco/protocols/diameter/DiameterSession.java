@@ -1,10 +1,15 @@
 package com.mobius.software.telco.protocols.diameter;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+
+import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -69,6 +74,8 @@ public interface DiameterSession
 	
 	DiameterRequest getLastSendRequest();
 	
+	ByteBuf getLastSendRequestData();
+	
 	void setLastSentRequest(DiameterRequest request);
 	
 	Boolean isRetry();
@@ -76,4 +83,6 @@ public interface DiameterSession
 	void setIsRetry(Boolean isRetry);	
 	
 	DiameterProvider<?, ?, ?, ?, ?> getProvider();
+	
+	void load(ObjectInput in) throws IOException, ClassNotFoundException;
 }

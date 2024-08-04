@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.nas;
+import java.io.IOException;
+import java.io.ObjectInput;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -41,10 +44,17 @@ import com.mobius.software.telco.protocols.diameter.commands.nas.SessionTerminat
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAccSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionImpl;
+
+import io.netty.buffer.ByteBuf;
 public class NasServerSessionImpl implements NasServerSession
 {
 	private ServerAccSessionImpl<AccountingRequest, AccountingAnswer> accSession=null;
 	private ServerAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> authSession=null;
+	
+	public NasServerSessionImpl()
+	{
+		
+	}
 	
 	public NasServerSessionImpl(Boolean isAuth, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerListener, ?, ?, ?> provider)
 	{
@@ -296,6 +306,15 @@ public class NasServerSessionImpl implements NasServerSession
 		
 		authSession.setIsRetry(isRetry);
 	}
+
+	@Override
+	public ByteBuf getLastSendRequestData()
+	{
+		if(accSession!=null)
+			return accSession.getLastSendRequestData();
+		
+		return authSession.getLastSendRequestData();
+	}
 	
 	@Override
 	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
@@ -304,5 +323,21 @@ public class NasServerSessionImpl implements NasServerSession
 			return accSession.getProvider();
 		
 		return authSession.getProvider();
+	}
+
+	@Override
+	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	{
+		Boolean isAcc = in.readBoolean();
+		if(isAcc)
+		{
+			accSession = new ServerAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.NASREQ));
+			accSession.load(in);
+		}
+		else
+		{
+			authSession = new ServerAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.NASREQ));
+			authSession.load(in);
+		}
 	}
 }

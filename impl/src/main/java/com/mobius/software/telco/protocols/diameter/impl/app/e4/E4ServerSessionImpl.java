@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 
 public class E4ServerSessionImpl extends ServerAuthSessionStatelessImpl<E4Request, E4Answer> implements E4ServerSession
 {
+	public E4ServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.E4));
+	}
+	
 	public E4ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<E4Answer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.E4), remoteHost, remoteRealm, provider);

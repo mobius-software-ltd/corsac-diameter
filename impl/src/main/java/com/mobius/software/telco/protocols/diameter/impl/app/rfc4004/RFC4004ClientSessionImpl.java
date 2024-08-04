@@ -31,6 +31,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionSt
 */
 public class RFC4004ClientSessionImpl extends ClientAuthSessionStatelessImpl<Rfc4004Request, Rfc4004Answer> implements RFC4004ClientSession
 {
+	public RFC4004ClientSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.MOBILE_IPV4));
+	}
+	
 	public RFC4004ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<Rfc4004Request>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.MOBILE_IPV4), remoteHost, remoteRealm, provider);

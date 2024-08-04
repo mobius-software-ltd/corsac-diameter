@@ -41,6 +41,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends AccountingAnswer> extends DiameterSessionImpl implements ServerAccSession<A1>
 {
 	private DiameterProvider<?, ? extends ServerAccListener<R1, A1>, ?, ?, ?> provider;
+	//for serialization
+	public ServerAccSessionImpl(Long applicationID)
+	{
+		super(applicationID);
+	}
+						
 	public ServerAccSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAccListener<R1, A1>, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);

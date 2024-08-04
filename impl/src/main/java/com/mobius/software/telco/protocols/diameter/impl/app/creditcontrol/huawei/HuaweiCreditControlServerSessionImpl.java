@@ -34,6 +34,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerCCSessionImpl
 
 public class HuaweiCreditControlServerSessionImpl extends ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements HuaweiCreditControlServerSession
 {
+	public HuaweiCreditControlServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.CREDIT_CONTROL));
+	}
+	
 	public HuaweiCreditControlServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<CreditControlRequest,CreditControlAnswer, ReAuthRequest,ReAuthAnswer,AbortSessionRequest, AbortSessionAnswer,SessionTerminationRequest, SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.CREDIT_CONTROL), remoteHost, remoteRealm, provider);

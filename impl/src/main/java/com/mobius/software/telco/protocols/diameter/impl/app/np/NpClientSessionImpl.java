@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionSt
 
 public class NpClientSessionImpl extends ClientAuthSessionStatelessImpl<NpRequest, NpAnswer> implements NpClientSession
 {
+	public NpClientSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.NP));
+	}
+	
 	public NpClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<NpRequest>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.NP), remoteHost, remoteRealm, provider);

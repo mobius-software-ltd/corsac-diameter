@@ -27,6 +27,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionSt
 
 public class NtaServerSessionImpl extends ServerAuthSessionStatelessImpl<NtaRequest,NtaAnswer> implements NtaServerSession
 {
+	public NtaServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.NTA));
+	}
+	
 	public NtaServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<NtaAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.NTA),remoteHost,remoteRealm, provider);

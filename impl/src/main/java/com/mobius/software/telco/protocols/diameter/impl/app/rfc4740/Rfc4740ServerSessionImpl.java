@@ -33,8 +33,13 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionIm
 
 public class Rfc4740ServerSessionImpl extends ServerAuthSessionImpl<Rfc4740Request, Rfc4740Answer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements Rfc4740ServerSession
 {
+	public Rfc4740ServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.SIP_APPLICATION));
+	}
+	
 	public Rfc4740ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthListener<Rfc4740Request, Rfc4740Answer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
-		super(sessionID, Long.valueOf(ApplicationIDs.MOBILE_IPV4), remoteHost, remoteRealm, provider);
+		super(sessionID, Long.valueOf(ApplicationIDs.SIP_APPLICATION), remoteHost, remoteRealm, provider);
 	}
 }

@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.nas;
+import java.io.IOException;
+import java.io.ObjectInput;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -42,10 +45,17 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAccSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionImpl;
 
+import io.netty.buffer.ByteBuf;
+
 public class NasClientSessionImpl implements NasClientSession
 {
 	private ClientAccSessionImpl<AccountingRequest, AccountingAnswer> accSession = null;
 	private ClientAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> authSession = null;
+	
+	public NasClientSessionImpl()
+	{
+		
+	}
 	
 	public NasClientSessionImpl(Boolean isAuth, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientListener, ?, ?, ?, ?> provider)
 	{
@@ -305,5 +315,30 @@ public class NasClientSessionImpl implements NasClientSession
 			return accSession.getProvider();
 		
 		return authSession.getProvider();
+	}
+
+	@Override
+	public ByteBuf getLastSendRequestData()
+	{
+		if(accSession!=null)
+			return accSession.getLastSendRequestData();
+		
+		return authSession.getLastSendRequestData();
+	}
+
+	@Override
+	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	{
+		Boolean isAcc = in.readBoolean();
+		if(isAcc)
+		{
+			accSession = new ClientAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.NASREQ));
+			accSession.load(in);
+		}
+		else
+		{
+			authSession = new ClientAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.NASREQ));
+			authSession.load(in);
+		}
 	}
 }

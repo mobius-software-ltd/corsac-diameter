@@ -37,6 +37,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ServerCCSessionImpl
 */
 public class RoServerSessionImpl extends ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements RoServerSession
 {
+	public RoServerSessionImpl()
+	{
+		super(Long.valueOf(ApplicationIDs.CREDIT_CONTROL));
+	}
+	
 	public RoServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.CREDIT_CONTROL), remoteHost, remoteRealm, provider);

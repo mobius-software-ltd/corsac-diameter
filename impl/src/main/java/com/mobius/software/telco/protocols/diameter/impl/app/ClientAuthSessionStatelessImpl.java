@@ -40,6 +40,13 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends DiameterSessionImpl implements ClientAuthSessionStateless<R1>
 {
 	private DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider;
+	
+	//for serialization
+	public ClientAuthSessionStatelessImpl(Long applicationID)
+	{
+		super(applicationID);	
+	}
+				
 	public ClientAuthSessionStatelessImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
