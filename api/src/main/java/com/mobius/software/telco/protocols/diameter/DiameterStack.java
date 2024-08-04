@@ -44,6 +44,8 @@ public interface DiameterStack
 	//package is required for credit control and others that has multiple options
 	DiameterProvider<?,?,?,?,?> getProvider(Long applicationID,Package parentPackage);
 	
+	void registerCustomProvider(DiameterProvider<?,?,?,?,?> provider,Package parentPackage);
+	
 	CountableQueue<Task> getQueue();
 	
 	PeriodicQueuedTasks<Timer> getPeriodicQueue();
@@ -136,5 +138,7 @@ public interface DiameterStack
     
     void registerGlobalApplication(Package providerPackageName, Package packageName) throws DiameterException;
     
-    void DiameterParser getGlobalParser();
+    DiameterParser getGlobalParser();
+    
+    Boolean isSessionLess();
 }

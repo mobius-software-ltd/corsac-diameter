@@ -151,6 +151,7 @@ public class DiameterStackImpl implements DiameterStack
 	public static List<String> allCommands=new ArrayList<String>();
 	public static List<String> allApplications=new ArrayList<String>();
     
+	private Boolean isSessionLess;
 	private DiameterParser globalParser;
 	
     static
@@ -166,8 +167,14 @@ public class DiameterStackImpl implements DiameterStack
     	allApplications.add("UNKNOWN"); 
     }
     
-	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
+    public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
 	{
+    	this(classLoader, idGenerator, queue, periodicQueue, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
+	}
+    
+	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess) throws Exception
+	{
+		this.isSessionLess = sessionLess;
 		this.classLoader = classLoader;
 		this.idGenerator = idGenerator;
 		this.queue = queue;
@@ -196,10 +203,22 @@ public class DiameterStackImpl implements DiameterStack
 		this.stackID = idGenerator.generateID();
 	}
 	
+	@Override
+	public void registerCustomProvider(DiameterProvider<?,?,?,?,?> provider,Package parentPackage)
+	{
+		if(isSessionLess)
+			return;
+		
+		registeredProvidersByPackage.putIfAbsent(parentPackage.getName(), provider);
+	}
+	
 	//its not required to create the providers from here, they may be created as needed
 	@Override
 	public DiameterProvider<?, ?, ?, ?, ?> getProvider(Long applicationID, Package parentPackage)
 	{
+		if(isSessionLess)
+			return null;
+		
 		if(parentPackage==null)
 			return null;
 		
@@ -1296,5 +1315,11 @@ public class DiameterStackImpl implements DiameterStack
 	public DiameterParser getGlobalParser()
 	{
 		return globalParser;
+	}
+
+	@Override
+	public Boolean isSessionLess()
+	{
+		return isSessionLess;
 	}
 }

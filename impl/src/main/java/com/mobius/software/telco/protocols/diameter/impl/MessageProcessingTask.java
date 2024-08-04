@@ -322,101 +322,104 @@ public class MessageProcessingTask implements Task
 		}
 		else
 		{
-			DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
-			if(commandDef==null)
-				//should not happen , just in case 
-				logger.warn("Can find the command definition for " + message.getClass());
-			else
+			if(stack.isSessionLess()==null || !stack.isSessionLess())
 			{
-				Package packageName;
-				if((message instanceof AccountingRequest) || (message instanceof AccountingAnswer))
-					packageName = link.getPackage(commandDef.applicationId(), false);
-				else 
-					packageName = link.getPackage(commandDef.applicationId(), true);
-				
-				if(packageName == null)
+				DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
+				if(commandDef==null)
+					//should not happen , just in case 
+					logger.warn("Can find the command definition for " + message.getClass());
+				else
 				{
-					try
+					Package packageName;
+					if((message instanceof AccountingRequest) || (message instanceof AccountingAnswer))
+						packageName = link.getPackage(commandDef.applicationId(), false);
+					else 
+						packageName = link.getPackage(commandDef.applicationId(), true);
+					
+					if(packageName == null)
 					{
-						DiameterException exception  = new DiameterException("Application has not been found locally", null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null);
-						exception.setPartialMessage(message);
-						link.sendError(exception);
+						try
+						{
+							DiameterException exception  = new DiameterException("Application has not been found locally", null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null);
+							exception.setPartialMessage(message);
+							link.sendError(exception);
+						}
+						catch(DiameterException ex2)
+						{
+							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
+						}
 					}
-					catch(DiameterException ex2)
+					
+					if(message instanceof DiameterRequest)
 					{
-						logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-					}
-				}
-				
-				if(message instanceof DiameterRequest)
-				{
-					DiameterRequest request = (DiameterRequest)message;
-					DiameterAnswerData answerData = stack.getRequestsStorage().incomingMessageReceived(request);
-					if(answerData!=null)
-					{
-						if(answerData.getAnswer()!=null)
-							link.sendMessage(answerData.getAnswer(), new AsyncCallback()
-							{
-								@Override
-								public void onSuccess()
-								{									
-								}
-								
-								@Override
-								public void onError(DiameterException ex)
+						DiameterRequest request = (DiameterRequest)message;
+						DiameterAnswerData answerData = stack.getRequestsStorage().incomingMessageReceived(request);
+						if(answerData!=null)
+						{
+							if(answerData.getAnswer()!=null)
+								link.sendMessage(answerData.getAnswer(), new AsyncCallback()
 								{
-									logger.warn("An error occured while sending repeated answer," + ex.getMessage(),ex);
+									@Override
+									public void onSuccess()
+									{									
+									}
+									
+									@Override
+									public void onError(DiameterException ex)
+									{
+										logger.warn("An error occured while sending repeated answer," + ex.getMessage(),ex);
+									}
+								});
+							
+							return;
+						}
+					}
+					
+					DiameterProvider<?, ?, ?, ?, ?> provider = stack.getProvider(commandDef.applicationId(), packageName);
+					if(provider == null)
+					{
+						try
+						{
+							DiameterException exception = new DiameterException("Application has not been found locally", null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null);
+							exception.setPartialMessage(message);
+							link.sendError(exception);
+						}
+						catch(DiameterException ex2)
+						{
+							logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
+						}								
+					}	
+					
+					if(provider!=null)
+					{
+						provider.onMessage(message, new AsyncCallback()
+						{
+							@Override
+							public void onSuccess()
+							{
+								
+							}
+							
+							@Override
+							public void onError(DiameterException ex)
+							{
+								if(ex.getPartialMessage()==null)
+									ex.setPartialMessage(message);
+								
+								try
+								{
+									link.sendError(ex);
 								}
-							});
-						
-						return;
-					}
-				}
-				
-				DiameterProvider<?, ?, ?, ?, ?> provider = stack.getProvider(commandDef.applicationId(), packageName);
-				if(provider == null)
-				{
-					try
-					{
-						DiameterException exception = new DiameterException("Application has not been found locally", null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null);
-						exception.setPartialMessage(message);
-						link.sendError(exception);
-					}
-					catch(DiameterException ex2)
-					{
-						logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-					}								
-				}	
-				
-				if(provider!=null)
-				{
-					provider.onMessage(message, new AsyncCallback()
-					{
-						@Override
-						public void onSuccess()
-						{
-							
-						}
-						
-						@Override
-						public void onError(DiameterException ex)
-						{
-							if(ex.getPartialMessage()==null)
-								ex.setPartialMessage(message);
-							
-							try
-							{
-								link.sendError(ex);
+								catch(DiameterException ex2)
+								{
+									logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
+								}
 							}
-							catch(DiameterException ex2)
-							{
-								logger.warn("An error occured while sending error for incoming message " + ex2.getMessage() + " from " + association, ex2);						
-							}
-						}
-					});
+						});
+					}
 				}
 			}
-		} 	
+		}
 		
 		try
 		{
