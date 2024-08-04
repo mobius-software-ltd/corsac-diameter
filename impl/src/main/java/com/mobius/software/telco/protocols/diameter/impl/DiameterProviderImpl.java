@@ -49,12 +49,14 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	private M messageFactory;
 	private F sessionFactory;
 	private DiameterStack stack;
+	private String packageName;
 	
-	public DiameterProviderImpl(DiameterStack stack,A avpFactory,M messageFactory)
+	public DiameterProviderImpl(DiameterStack stack,A avpFactory,M messageFactory,String packageName)
 	{
 		this.stack=stack;
 		this.avpFactory=avpFactory;
 		this.messageFactory=messageFactory;
+		this.packageName = packageName;
 	}
 	
 	protected void setSessionFactory(F factory)
@@ -169,5 +171,11 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			session.requestReceived((DiameterRequest)message, callback);
 		else
 			session.answerReceived((DiameterAnswer)message, callback, null, true);
+	}
+	
+	@Override
+	public String getPackageName()
+	{
+		return this.packageName;
 	}
 }

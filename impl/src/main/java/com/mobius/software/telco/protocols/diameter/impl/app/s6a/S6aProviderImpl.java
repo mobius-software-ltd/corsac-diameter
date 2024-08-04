@@ -43,9 +43,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 */
 public class S6aProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
-	public S6aProviderImpl(DiameterStack stack)
+	public S6aProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()));
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

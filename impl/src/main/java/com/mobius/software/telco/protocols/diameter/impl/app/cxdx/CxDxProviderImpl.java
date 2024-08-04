@@ -41,9 +41,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 */
 public class CxDxProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
-	public CxDxProviderImpl(DiameterStack stack)
+	public CxDxProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()));
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

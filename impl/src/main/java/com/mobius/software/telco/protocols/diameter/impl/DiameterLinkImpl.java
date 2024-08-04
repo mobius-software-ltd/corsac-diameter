@@ -685,6 +685,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		}
 		
 		parser.registerApplication(stack.getClassLoader(), packageName);
+		stack.registerGlobalApplication(providerPackageName, packageName);
 	}
 
 	public static Boolean sameVendorSpecificApplicationId(VendorSpecificApplicationId oldId, VendorSpecificApplicationId applicationId)

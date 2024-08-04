@@ -19,6 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +48,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.CreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.ericsson.EricssonCreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.huawei.HuaweiCreditControlProviderImpl;
@@ -72,17 +74,19 @@ import com.mobius.software.telco.protocols.diameter.impl.app.pc6.PC6ProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.rf.RfProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rfc4004.RFC4004ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rfc4740.Rfc4740ProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.rfc5778i.Rfc5778iProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a.Rfc5778aProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.rfc5778i.Rfc5778iProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ro.RoProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.s13.S13ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.rx.RxProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.s13.S13ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s15.S15ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s6a.S6aProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.s6b.S6bProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.s6c.S6cProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s6m.S6mProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s6t.S6tProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.s6c.S6cProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.s6b.S6bProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 
 /**
@@ -95,7 +99,6 @@ public class DiameterStackImpl implements DiameterStack
 	public static final Long DEFAULT_RESPONSE_TIMEOUT = 60000L;
 	public static final Long DEFAULT_IDLE_TIMEOUT = 120000L;
 	
-	private ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>> registeredProviders=new ConcurrentHashMap<Long,DiameterProvider<?, ?, ?, ?, ?>>();
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
 	
 	private ConcurrentHashMap<CommandCode, AtomicLong> messagesSentByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
@@ -148,6 +151,8 @@ public class DiameterStackImpl implements DiameterStack
 	public static List<String> allCommands=new ArrayList<String>();
 	public static List<String> allApplications=new ArrayList<String>();
     
+	private DiameterParser globalParser;
+	
     static
     {
     	for(CommandCode commandCode:CommandCode.values())
@@ -185,6 +190,8 @@ public class DiameterStackImpl implements DiameterStack
 			this.duplicateTimeout = duplicateTimeout;
 		
 		this.incomingRequestsStorage = new LocalIncomingRequestsStorageImpl(this);
+		this.globalParser = new DiameterParser(classLoader, Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		this.globalParser.registerApplication(classLoader, Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));
 		this.networkManager = new NetworkManagerImpl(this, workerThreads, idleTimeout, this.responseTimeout, reconnectTimeout);
 		this.stackID = idGenerator.generateID();
 	}
@@ -194,17 +201,11 @@ public class DiameterStackImpl implements DiameterStack
 	public DiameterProvider<?, ?, ?, ?, ?> getProvider(Long applicationID, Package parentPackage)
 	{
 		if(parentPackage==null)
-		{
-			DiameterProvider<?, ?, ?, ?, ?> provider = registeredProviders.get(applicationID);
-			if(provider != null)
-				return provider;		
-		}
-		else
-		{
-			DiameterProvider<?, ?, ?, ?, ?> provider = registeredProvidersByPackage.get(parentPackage.getName());
-			if(provider != null)
-				return provider;
-		}
+			return null;
+		
+		DiameterProvider<?, ?, ?, ?, ?> provider = registeredProvidersByPackage.get(parentPackage.getName());
+		if(provider != null)
+			return provider;
 		
 		//TODO:create providers when exists
 		
@@ -213,216 +214,132 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.COMMON:
 				break;
 			case ApplicationIDs.NASREQ:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gi"))
+				if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gi"))
 				{
-					GiProviderImpl giProvider=new GiProviderImpl(this);
+					GiProviderImpl giProvider=new GiProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), giProvider);
 					return giProvider;
 				}
-				else if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.nas"))
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.nas"))
 				{
-					NasProviderImpl nasProvider=new NasProviderImpl(this);
+					NasProviderImpl nasProvider=new NasProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), nasProvider);
 					return nasProvider;
 				}
 				break;
 			case ApplicationIDs.MOBILE_IPV4:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc4004"))
-				{
-					RFC4004ProviderImpl rfc4004Provider=new RFC4004ProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), rfc4004Provider);
-					return rfc4004Provider;
-				}
-				break;
+				RFC4004ProviderImpl rfc4004Provider=new RFC4004ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), rfc4004Provider);
+				return rfc4004Provider;
 			case ApplicationIDs.ACCOUNTING:
-				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rf"))
-				{
-					RfProviderImpl rfProvider=new RfProviderImpl(this);
-					if(parentPackage!=null)
-						registeredProvidersByPackage.put(parentPackage.getName(), rfProvider);
-					else
-						registeredProviders.put(applicationID, rfProvider);
-					
-					return rfProvider;
-				}
-				break;
+				RfProviderImpl rfProvider=new RfProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), rfProvider);
+				return rfProvider;
 			case ApplicationIDs.CREDIT_CONTROL:
-				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ro"))
+				if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ro"))
 				{
-					RoProviderImpl roProvider=new RoProviderImpl(this);
-					if(parentPackage!=null)
-						registeredProvidersByPackage.put(parentPackage.getName(), roProvider);
-					else
-						registeredProviders.put(applicationID, roProvider);
-					
-					
-					return roProvider;
-					
+					RoProviderImpl roProvider=new RoProviderImpl(this, parentPackage.getName());
+					registeredProvidersByPackage.put(parentPackage.getName(), roProvider);
+					return roProvider;					
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gy"))
 				{
-					GyProviderImpl gyProvider=new GyProviderImpl(this);
+					GyProviderImpl gyProvider=new GyProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), gyProvider);
 					return gyProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.creditcontrol"))
 				{
-					CreditControlProviderImpl creditControlProvider=new CreditControlProviderImpl(this);
+					CreditControlProviderImpl creditControlProvider=new CreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), creditControlProvider);
 					return creditControlProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ericsson"))
 				{
-					EricssonCreditControlProviderImpl ericssonCreditControlProvider=new EricssonCreditControlProviderImpl(this);
+					EricssonCreditControlProviderImpl ericssonCreditControlProvider=new EricssonCreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), ericssonCreditControlProvider);
 					return ericssonCreditControlProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.huawei"))
 				{
-					HuaweiCreditControlProviderImpl huaweiCreditControlProvider=new HuaweiCreditControlProviderImpl(this);
+					HuaweiCreditControlProviderImpl huaweiCreditControlProvider=new HuaweiCreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), huaweiCreditControlProvider);
 					return huaweiCreditControlProvider;
 				}
 				break;
 			case ApplicationIDs.EAP:				
-				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.eap"))
-				{
-					EAPProviderImpl eapProvider=new EAPProviderImpl(this);
-					if(parentPackage!=null)
-						registeredProvidersByPackage.put(parentPackage.getName(), eapProvider);
-					else
-						registeredProviders.put(applicationID, eapProvider);
-					
-					
-					return eapProvider;
-				}
-				break;
+				EAPProviderImpl eapProvider=new EAPProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), eapProvider);
+				return eapProvider;
 			case ApplicationIDs.SIP_APPLICATION:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc4740"))
-				{
-					Rfc4740ProviderImpl rfc4740Provider=new Rfc4740ProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), rfc4740Provider);
-					return rfc4740Provider;
-				}
-				break;
+				Rfc4740ProviderImpl rfc4740Provider=new Rfc4740ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), rfc4740Provider);
+				return rfc4740Provider;
 			case ApplicationIDs.MIP6I:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc5778i"))
-				{
-					Rfc5778iProviderImpl rfc5778iProvider=new Rfc5778iProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), rfc5778iProvider);
-					return rfc5778iProvider;
-				}
-				break;
+				Rfc5778iProviderImpl rfc5778iProvider=new Rfc5778iProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), rfc5778iProvider);
+				return rfc5778iProvider;
 			case ApplicationIDs.MIP6A:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rfc5778a"))
-				{
-					Rfc5778aProviderImpl rfc5778aProvider=new Rfc5778aProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), rfc5778aProvider);
-					return rfc5778aProvider;
-				}
-				break;		
+				Rfc5778aProviderImpl rfc5778aProvider=new Rfc5778aProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), rfc5778aProvider);
+				return rfc5778aProvider;		
 			case ApplicationIDs.CX_DX:
-				CxDxProviderImpl cxDxProvider=new CxDxProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), cxDxProvider);
-				else
-					registeredProviders.put(applicationID, cxDxProvider);
-				
+				CxDxProviderImpl cxDxProvider=new CxDxProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), cxDxProvider);
 				return cxDxProvider;				
 			case ApplicationIDs.SH:
 				break;
 			case ApplicationIDs.GQ:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gq"))
+				if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gq"))
 				{
-					GqProviderImpl gqProvider=new GqProviderImpl(this);
+					GqProviderImpl gqProvider=new GqProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), gqProvider);
 					return gqProvider;
 				}
-				else if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gqtag"))
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gqtag"))
 				{
-					GqTagProviderImpl gqTagProvider=new GqTagProviderImpl(this);
+					GqTagProviderImpl gqTagProvider=new GqTagProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), gqTagProvider);
 					return gqTagProvider;
 				}
 				break;
 			case ApplicationIDs.GMB:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gmb"))
-				{
-					GMBProviderImpl gmbProvider=new GMBProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), gmbProvider);
-					return gmbProvider;
-				}
-				break;
+				GMBProviderImpl gmbProvider=new GMBProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), gmbProvider);
+				return gmbProvider;
 			case ApplicationIDs.MM10:
-				MM10ProviderImpl mm10Provider=new MM10ProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), mm10Provider);
-				else
-					registeredProviders.put(applicationID, mm10Provider);
-				
+				MM10ProviderImpl mm10Provider=new MM10ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), mm10Provider);
 				return mm10Provider;
 			case ApplicationIDs.E4:
-				E4ProviderImpl e4Provider=new E4ProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), e4Provider);
-				else
-					registeredProviders.put(applicationID, e4Provider);
-				
+				E4ProviderImpl e4Provider=new E4ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), e4Provider);
 				return e4Provider;
 			case ApplicationIDs.MB2C:
-				Mb2cProviderImpl mb2cProvider=new Mb2cProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), mb2cProvider);
-				else
-					registeredProviders.put(applicationID, mb2cProvider);
-				
+				Mb2cProviderImpl mb2cProvider=new Mb2cProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), mb2cProvider);
 				return mb2cProvider;
 			case ApplicationIDs.RX:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.rx"))
-				{
-					RxProviderImpl rxProvider=new RxProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), rxProvider);
-					return rxProvider;
-				}
-				break;
+				RxProviderImpl rxProvider=new RxProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), rxProvider);
+				return rxProvider;
 			case ApplicationIDs.GX:
-				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gx"))
-				{
-					GxProviderImpl gxProvider=new GxProviderImpl(this);
-					if(parentPackage!=null)
-						registeredProvidersByPackage.put(parentPackage.getName(), gxProvider);
-					else
-						registeredProviders.put(applicationID, gxProvider);
-					
-	
-					return gxProvider;
-				}
-				break;
+				GxProviderImpl gxProvider=new GxProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), gxProvider);
+				return gxProvider;
 			case ApplicationIDs.STA:
 				break;
 			case ApplicationIDs.S6A:
-				S6aProviderImpl s6aProvider=new S6aProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), s6aProvider);
-				else
-					registeredProviders.put(applicationID, s6aProvider);
-				
+				S6aProviderImpl s6aProvider=new S6aProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s6aProvider);
 				return s6aProvider;
 			case ApplicationIDs.S13:
-				S13ProviderImpl s13Provider=new S13ProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), s13Provider);
-				else
-					registeredProviders.put(applicationID, s13Provider);
-				
+				S13ProviderImpl s13Provider=new S13ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s13Provider);
 				return s13Provider;
 			case ApplicationIDs.S15:
-				S15ProviderImpl s15Provider=new S15ProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), s15Provider);
-				else
-					registeredProviders.put(applicationID, s15Provider);
-				
+				S15ProviderImpl s15Provider=new S15ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s15Provider);
 				return s15Provider;	
 			case ApplicationIDs.SLG:
 				break;
@@ -431,28 +348,15 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.SWX:
 				break;
 			case ApplicationIDs.GXX:
-				if(parentPackage==null || parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gxx"))
-				{
-					GxxProviderImpl gxxProvider=new GxxProviderImpl(this);
-					if(parentPackage!=null)
-						registeredProvidersByPackage.put(parentPackage.getName(), gxxProvider);
-					else
-						registeredProviders.put(applicationID, gxxProvider);
-					
-					
-					return gxxProvider;
-				}
-				break;
+				GxxProviderImpl gxxProvider=new GxxProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), gxxProvider);
+				return gxxProvider;
 			case ApplicationIDs.S9:
 				break;
 			case ApplicationIDs.S6B:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.s6b"))
-				{
-					S6bProviderImpl s6bProvider=new S6bProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), s6bProvider);
-					return s6bProvider;
-				}
-				break;
+				S6bProviderImpl s6bProvider=new S6bProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s6bProvider);
+				return s6bProvider;
 			case ApplicationIDs.SLH:
 				break;
 			case ApplicationIDs.SGMB:
@@ -466,22 +370,14 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.TSP:
 				break;
 			case ApplicationIDs.S6M:
-				S6mProviderImpl s6mProvider=new S6mProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), s6mProvider);
-				else
-					registeredProviders.put(applicationID, s6mProvider);
-				
+				S6mProviderImpl s6mProvider=new S6mProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s6mProvider);
 				return s6mProvider;
 			case ApplicationIDs.T4:
 				break;
 			case ApplicationIDs.S6C:
-				S6cProviderImpl s6cProvider=new S6cProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), s6cProvider);
-				else
-					registeredProviders.put(applicationID, s6cProvider);
-				
+				S6cProviderImpl s6cProvider=new S6cProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s6cProvider);
 				return s6cProvider;
 			case ApplicationIDs.SGD:
 				break;
@@ -490,65 +386,37 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.S9ATAG:
 				break;
 			case ApplicationIDs.PC4A:
-				PC4AProviderImpl pc4aProvider=new PC4AProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), pc4aProvider);
-				else
-					registeredProviders.put(applicationID, pc4aProvider);
-				
+				PC4AProviderImpl pc4aProvider=new PC4AProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), pc4aProvider);
 				return pc4aProvider;
 			case ApplicationIDs.PC6:
-				PC6ProviderImpl pc6Provider=new PC6ProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), pc6Provider);
-				else
-					registeredProviders.put(applicationID, pc6Provider);
-				
+				PC6ProviderImpl pc6Provider=new PC6ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), pc6Provider);
 				return pc6Provider;
 			case ApplicationIDs.NP:
-				NpProviderImpl npProvider=new NpProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), npProvider);
-				else
-					registeredProviders.put(applicationID, npProvider);
-				
+				NpProviderImpl npProvider=new NpProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), npProvider);
 				return npProvider;
 			case ApplicationIDs.S6T:
-				S6tProviderImpl s6tProvider=new S6tProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), s6tProvider);
-				else
-					registeredProviders.put(applicationID, s6tProvider);
-				
+				S6tProviderImpl s6tProvider=new S6tProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s6tProvider);
 				return s6tProvider;
 			case ApplicationIDs.T6A:
 				break;
 			case ApplicationIDs.NT:
-				NtProviderImpl ntProvider=new NtProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), ntProvider);
-				else
-					registeredProviders.put(applicationID, ntProvider);
-				
+				NtProviderImpl ntProvider=new NtProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), ntProvider);
 				return ntProvider;
 			case ApplicationIDs.NTA:
-				NtaProviderImpl ntaProvider=new NtaProviderImpl(this);
-				if(parentPackage!=null)
-					registeredProvidersByPackage.put(parentPackage.getName(), ntaProvider);
-				else
-					registeredProviders.put(applicationID, ntaProvider);
-				
+				NtaProviderImpl ntaProvider=new NtaProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), ntaProvider);
 				return ntaProvider;	
 			case ApplicationIDs.ST:
 				break;
 			case ApplicationIDs.PC2:
-				if(parentPackage!=null && parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.pc2"))
-				{
-					PC2ProviderImpl pc2Provider=new PC2ProviderImpl(this);
-					registeredProvidersByPackage.put(parentPackage.getName(), pc2Provider);
-					return pc2Provider;
-				}
-				break;
+				PC2ProviderImpl pc2Provider=new PC2ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), pc2Provider);
+				return pc2Provider;
 		}
 		
 		return null;
@@ -1418,5 +1286,15 @@ public class DiameterStackImpl implements DiameterStack
 	public ClassLoader getClassLoader()
 	{
 		return this.classLoader;
+	}
+	
+	public void registerGlobalApplication(Package providerPackageName, Package packageName) throws DiameterException
+	{
+		globalParser.registerGlobalApplication(classLoader, providerPackageName, packageName);
+	}
+	
+	public DiameterParser getGlobalParser()
+	{
+		return globalParser;
 	}
 }

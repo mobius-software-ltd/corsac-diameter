@@ -73,6 +73,7 @@ public class DiameterParser
 	
 	public static FolderFilter folderFilter = new FolderFilter();
 	
+	private ConcurrentHashMap<String,ConcurrentHashMap<CommandIdentifier,CommandData>> globalInterfacesMapping = new ConcurrentHashMap<String,ConcurrentHashMap<CommandIdentifier,CommandData>>();
 	private ConcurrentHashMap<Long,ConcurrentHashMap<CommandIdentifier,CommandData>> interfacesMapping = new ConcurrentHashMap<Long,ConcurrentHashMap<CommandIdentifier,CommandData>>();
 	private ConcurrentHashMap<Class<?>,Class<?>> avpImplementationsMap = new ConcurrentHashMap<Class<?>, Class<?>>();
 	private ConcurrentHashMap<Class<?>,AvpData> avpsMap = new ConcurrentHashMap<Class<?>, AvpData>();
@@ -701,6 +702,11 @@ public class DiameterParser
 	
 	public DiameterMessage decode(ByteBuf message, Boolean rejectUnmandatoryAvps) throws DiameterException
 	{
+		return decode(message, rejectUnmandatoryAvps, false, null);
+	}
+	
+	public DiameterMessage decode(ByteBuf message, Boolean rejectUnmandatoryAvps, Boolean isGlobal, String packageName) throws DiameterException
+	{
 		if(message.readableBytes()<4)
 			return null;
 		
@@ -760,7 +766,12 @@ public class DiameterParser
 		Long hopByHopIdentifier = message.readUnsignedInt();
 		Long endToEndIdentifier = message.readUnsignedInt();
 		
-		ConcurrentHashMap<CommandIdentifier,CommandData> interfaceMessages = interfacesMapping.get(applicationID);
+		ConcurrentHashMap<CommandIdentifier,CommandData> interfaceMessages = null;
+		if(isGlobal && packageName!=null)
+			interfaceMessages = globalInterfacesMapping.get(packageName);
+		else
+			interfaceMessages = interfacesMapping.get(applicationID);
+			
 		if(interfaceMessages == null)
 		{
 			if(messageLength>20)
@@ -778,7 +789,8 @@ public class DiameterParser
 		}
 		
 		CommandIdentifier commandIdentifier = new CommandIdentifier(commandCode, isRequest);
-		CommandData commandData = interfaceMessages.get(commandIdentifier);
+		CommandData commandData = interfaceMessages.get(commandIdentifier);	
+		
 		if(commandData == null)
 		{
 			if(messageLength>20)
@@ -1081,6 +1093,65 @@ public class DiameterParser
 			{
 				message.skipBytes(4 - (remainingLength%4));
 				length -= (4 - (remainingLength%4));
+			}
+		}
+	}
+	
+	public void registerGlobalApplication(ClassLoader classLoader, Package mappingName, Package packageName) throws DiameterException
+	{
+		//registering only once
+		ConcurrentHashMap<CommandIdentifier,CommandData> commandsMapping = globalInterfacesMapping.get(mappingName.getName());
+		if(commandsMapping==null)
+		{
+			commandsMapping = new ConcurrentHashMap<CommandIdentifier,CommandData>();
+			ConcurrentHashMap<CommandIdentifier,CommandData> oldMapping = globalInterfacesMapping.putIfAbsent(mappingName.getName(), commandsMapping);
+			if(oldMapping!=null)
+				return;
+		}
+		else
+			return;
+		
+		List<Class<?>> classes=loadClasses(classLoader, packageName);
+		for(Class<?> clazz:classes)
+		{
+			DiameterCommandDefinition commandDefition = getCommandDefinition(clazz);						
+			if(commandDefition!=null)
+			{
+				Long applicationID = commandDefition.applicationId();
+				Integer commandCode = commandDefition.commandCode();
+				Boolean isRequest = commandDefition.request();
+				Boolean isProxyable = commandDefition.proxyable();
+				
+				CommandIdentifier identifier = new CommandIdentifier(commandCode, isRequest);
+				CommandData oldCommand = commandsMapping.get(identifier);
+				if(oldCommand!=null)
+				{
+					if(isRequest!=null && isRequest)
+						throw new DiameterException("The request " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+					else
+						throw new DiameterException("The answer " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+				}
+					
+				Method[] methods=clazz.getMethods();
+				Method validateMethod = null, orderMethod = null;
+				for(Method method:methods) 
+				{
+					DiameterValidate validateMethodAnnotation=method.getAnnotation(DiameterValidate.class);
+					if(validateMethodAnnotation!=null && validateMethod==null)
+						validateMethod = method;
+						
+					DiameterOrder orderMethodAnnotation=method.getAnnotation(DiameterOrder.class);
+					if(orderMethodAnnotation!=null && orderMethod==null)
+						orderMethod = method;
+				}
+					
+				CommandData newCommand = new CommandData(clazz,commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
+				oldCommand = commandsMapping.putIfAbsent(identifier, newCommand);
+				if(oldCommand!=null)
+					throw new DiameterException("The command " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+					
+				commandsMap.put(clazz, newCommand);
+				buildAvpList(newCommand, applicationID, isRequest, commandCode, clazz);				
 			}
 		}
 	}

@@ -37,9 +37,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 */
 public class NasProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
-	public NasProviderImpl(DiameterStack stack)
+	public NasProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()));
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

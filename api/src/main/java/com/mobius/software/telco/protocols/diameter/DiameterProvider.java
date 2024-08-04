@@ -53,4 +53,6 @@ public interface DiameterProvider<L1 extends SessionListener,L2 extends SessionL
 	DiameterStack getStack();	
 	
 	DiameterSession getNewSession(DiameterRequest message);
+	
+	String getPackageName();
 }

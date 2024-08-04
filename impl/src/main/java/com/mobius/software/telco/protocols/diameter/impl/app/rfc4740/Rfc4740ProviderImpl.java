@@ -36,9 +36,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
 public class Rfc4740ProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
-	public Rfc4740ProviderImpl(DiameterStack stack)
+	public Rfc4740ProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()));
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

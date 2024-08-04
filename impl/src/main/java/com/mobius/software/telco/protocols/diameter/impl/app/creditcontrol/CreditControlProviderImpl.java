@@ -32,9 +32,9 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
 public class CreditControlProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
-	public CreditControlProviderImpl(DiameterStack stack)
+	public CreditControlProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()));
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

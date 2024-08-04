@@ -29,6 +29,8 @@ import com.mobius.software.common.dal.timers.Timer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 
 /**
 *
@@ -131,4 +133,8 @@ public interface DiameterStack
     void newOutgoingSession(ApplicationID applicationID);
     
     void sessionEnded(Long resultCode, ApplicationID applicationID);
+    
+    void registerGlobalApplication(Package providerPackageName, Package packageName) throws DiameterException;
+    
+    void DiameterParser getGlobalParser();
 }
