@@ -13,6 +13,8 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
+import io.netty.buffer.ByteBuf;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -102,6 +104,8 @@ public interface DiameterLink
 	void sendDPR(DisconnectCauseEnum cause, AsyncCallback callback);
 	
 	void sendDPA(DisconnectPeerRequest request, long resultCode);
+	
+	void sendEncodedMessage(ByteBuf buffer, AsyncCallback callback);
 	
 	void resetInactivityTimer();
 	

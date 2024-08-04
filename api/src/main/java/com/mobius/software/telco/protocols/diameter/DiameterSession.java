@@ -35,6 +35,10 @@ public interface DiameterSession
 	
 	Long getApplicationID();
 	
+	String getRemoteHost();
+	
+	String getRemoteRealm();
+	
 	ClusteredID<?> getIdleTimerID();
 	
 	ClusteredID<?> getSendTimerID();
@@ -70,4 +74,6 @@ public interface DiameterSession
 	Boolean isRetry();
 	
 	void setIsRetry(Boolean isRetry);	
+	
+	DiameterProvider<?, ?, ?, ?, ?> getProvider();
 }

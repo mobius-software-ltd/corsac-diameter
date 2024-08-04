@@ -2,6 +2,8 @@ package com.mobius.software.telco.protocols.diameter;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 
+import io.netty.buffer.ByteBuf;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -30,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 public class DiameterAnswerData
 {
 	private DiameterAnswer answer;
+	private ByteBuf buffer;
 	private Long initialTimestamp;
 		
 	public DiameterAnswerData()
@@ -50,6 +53,16 @@ public class DiameterAnswerData
 	public void setAnswer(DiameterAnswer answer)
 	{
 		this.answer = answer;
+	}
+
+	public ByteBuf getBuffer()
+	{
+		return buffer;
+	}
+
+	public void setBuffer(ByteBuf buffer)
+	{
+		this.buffer = buffer;
 	}
 
 	public Long getInitialTimestamp()

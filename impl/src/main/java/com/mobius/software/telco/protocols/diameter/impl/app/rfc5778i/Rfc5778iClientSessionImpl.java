@@ -128,6 +128,24 @@ public class Rfc5778iClientSessionImpl implements Rfc5778iClientSession
 	}
 
 	@Override
+	public String getRemoteHost()
+	{
+		if(accSession!=null)
+			return accSession.getRemoteHost();
+		
+		return authSession.getRemoteHost();
+	}
+
+	@Override
+	public String getRemoteRealm()
+	{
+		if(accSession!=null)
+			return accSession.getRemoteRealm();
+		
+		return authSession.getRemoteRealm();
+	}
+
+	@Override
 	public ClusteredID<?> getIdleTimerID()
 	{
 		if(accSession!=null)
@@ -278,5 +296,14 @@ public class Rfc5778iClientSessionImpl implements Rfc5778iClientSession
 			accSession.setIsRetry(isRetry);
 		
 		authSession.setIsRetry(isRetry);
+	}
+	
+	@Override
+	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
+	{
+		if(accSession!=null)
+			return accSession.getProvider();
+		
+		return authSession.getProvider();
 	}
 }

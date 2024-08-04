@@ -622,6 +622,22 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		}
 	}
 
+	public void sendEncodedMessage(ByteBuf buffer, AsyncCallback callback)
+	{
+		try
+		{
+			PayloadData payloadData = new PayloadData(buffer.readableBytes(), buffer, true, false, DIAMETER_SCTP_PROTOCOL_IDENTIFIER, wheel.incrementAndGet()%maxStreams);
+			
+			association.send(payloadData);
+			lastActivity.set(System.currentTimeMillis());
+			callback.onSuccess();
+		}
+		catch(Exception ex)
+		{
+			callback.onError(new DiameterException(ex.getMessage(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+		}
+	}
+	
 	@Override
 	public void onPayload(Association association, PayloadData payloadData)
 	{		

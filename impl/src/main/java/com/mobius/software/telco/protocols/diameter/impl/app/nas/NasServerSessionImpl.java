@@ -127,6 +127,24 @@ public class NasServerSessionImpl implements NasServerSession
 	}
 
 	@Override
+	public String getRemoteHost()
+	{
+		if(accSession!=null)
+			return accSession.getRemoteHost();
+		
+		return authSession.getRemoteHost();
+	}
+
+	@Override
+	public String getRemoteRealm()
+	{
+		if(accSession!=null)
+			return accSession.getRemoteRealm();
+		
+		return authSession.getRemoteRealm();
+	}
+
+	@Override
 	public Long getApplicationID()
 	{
 		if(accSession!=null)
@@ -277,5 +295,14 @@ public class NasServerSessionImpl implements NasServerSession
 			accSession.setIsRetry(isRetry);
 		
 		authSession.setIsRetry(isRetry);
+	}
+	
+	@Override
+	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
+	{
+		if(accSession!=null)
+			return accSession.getProvider();
+		
+		return authSession.getProvider();
 	}
 }

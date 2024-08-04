@@ -197,6 +197,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		this.state = state;
 	}
 
+	@Override
 	public String getRemoteHost()
 	{
 		return remoteHost;
@@ -207,6 +208,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		this.remoteHost = remoteHost;
 	}
 
+	@Override
 	public String getRemoteRealm()
 	{
 		return remoteRealm;
@@ -305,5 +307,11 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	public void setIsRetry(Boolean isRetry)
 	{
 		this.isRetry = isRetry;
+	}
+	
+	@Override
+	public DiameterProvider<?, ?, ?, ?, ?> getProvider()
+	{
+		return provider;
 	}
 }
