@@ -234,4 +234,49 @@ public class Rfc5778iClientSessionImpl implements Rfc5778iClientSession
 		else
 			return authSession.getApplicationID();
 	}
+
+	@Override
+	public void setSessionState(SessionStateEnum state)
+	{
+		if(accSession!=null)
+			accSession.setSessionState(state);
+		
+		authSession.setSessionState(state);
+	}
+
+	@Override
+	public DiameterRequest getLastSendRequest()
+	{
+		if(accSession!=null)
+			return accSession.getLastSendRequest();
+		
+		return authSession.getLastSendRequest();
+	}
+
+	@Override
+	public void setLastSentRequest(DiameterRequest request)
+	{
+		if(accSession!=null)
+			accSession.setLastSentRequest(request);
+		
+		authSession.setLastSentRequest(request);
+	}
+
+	@Override
+	public Boolean isRetry()
+	{
+		if(accSession!=null)
+			return accSession.isRetry();
+		
+		return authSession.isRetry();
+	}
+
+	@Override
+	public void setIsRetry(Boolean isRetry)
+	{
+		if(accSession!=null)
+			accSession.setIsRetry(isRetry);
+		
+		authSession.setIsRetry(isRetry);
+	}
 }

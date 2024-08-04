@@ -43,6 +43,8 @@ public interface DiameterSession
 	
 	void setSendTimerID(ClusteredID<?> id);
 	
+	void setSessionState(SessionStateEnum state);
+	
 	SessionStateEnum getSessionState();
 	
 	void requestReceived(DiameterRequest request, AsyncCallback callback);
@@ -60,4 +62,12 @@ public interface DiameterSession
 	void onIdleTimeout();
 	
 	boolean isServer();
+	
+	DiameterRequest getLastSendRequest();
+	
+	void setLastSentRequest(DiameterRequest request);
+	
+	Boolean isRetry();
+	
+	void setIsRetry(Boolean isRetry);	
 }

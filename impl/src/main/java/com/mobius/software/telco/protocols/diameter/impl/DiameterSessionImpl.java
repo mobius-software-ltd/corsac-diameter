@@ -48,6 +48,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	private SessionStateEnum state;
 	private String remoteHost,remoteRealm;
 	private DiameterRequest lastSentRequest;
+	private Boolean isRetry = false;
 	
 	public DiameterSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
@@ -190,7 +191,8 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		return this.state;
 	}
 	
-	protected void setSessionState(SessionStateEnum state)
+	@Override
+	public void setSessionState(SessionStateEnum state)
 	{
 		this.state = state;
 	}
@@ -269,11 +271,13 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		terminate(ResultCodes.DIAMETER_SESSION_TIMEOUT);
 	}
 	
-	protected DiameterRequest getLastSendRequest()
+	@Override
+	public DiameterRequest getLastSendRequest()
 	{
 		return this.lastSentRequest;
 	}
 	
+	@Override
 	public void setLastSentRequest(DiameterRequest request)
 	{
 		this.lastSentRequest = request;
@@ -289,5 +293,17 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		
 		if(!lastSentRequest.getHopByHopIdentifier().equals(answer.getHopByHopIdentifier()))
 			throw new DiameterException("Unexpected hop to hop identifier", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);		
+	}
+	
+	@Override
+	public Boolean isRetry()
+	{
+		return this.isRetry;
+	}
+	
+	@Override
+	public void setIsRetry(Boolean isRetry)
+	{
+		this.isRetry = isRetry;
 	}
 }

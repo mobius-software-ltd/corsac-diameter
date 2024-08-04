@@ -49,8 +49,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Dir
 */
 public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends CreditControlAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ClientCCSession<R1,A2,A3,R4>
 {
-	private Boolean isRetry = false;
-	
 	private DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider;
 	private RetransmissionCallback retransmissionCallback=new RetransmissionCallback();
 	
@@ -91,7 +89,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.PENDING);
-				if(!isRetry) 
+				if(!isRetry()) 
 				{
 					setLastSentRequest(request);	
 					requestSent(request, callback);
@@ -406,7 +404,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								}
 								
 								R1 realRequest=(R1)request;
-								isRetry = true;
+								setIsRetry(true);
 								sendInitialRequest(realRequest, retransmissionCallback);
 							}
 						}
@@ -422,7 +420,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			if(getSessionState()!=SessionStateEnum.IDLE)
 			{
 				//for retry we dont need to stop the timer
-				super.answerReceived(answer, callback, newTime,!isRetry);
+				super.answerReceived(answer, callback, newTime,!isRetry());
 			}
 		}
 		else 
@@ -474,7 +472,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						
 						@SuppressWarnings("unchecked")
 						R1 realRequest=(R1)request;
-						isRetry = true;
+						setIsRetry(true);
 						sendInitialRequest(realRequest, retransmissionCallback);
 						return;
 					}

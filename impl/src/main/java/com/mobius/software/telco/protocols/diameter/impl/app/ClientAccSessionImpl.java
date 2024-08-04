@@ -43,8 +43,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Accounting
 */
 public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends AccountingAnswer> extends DiameterSessionImpl implements ClientAccSession<R1>
 {
-	private Boolean isRetry = false;
-	
 	private DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider;
 	
 	public ClientAccSessionImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?> provider)
@@ -84,7 +82,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.PENDING);
-				if(!isRetry) 
+				if(!isRetry()) 
 				{
 					setLastSentRequest(request);	
 					requestSent(request, callback);
@@ -214,7 +212,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			}
 			
 			if(getSessionState()!=SessionStateEnum.IDLE)
-				super.answerReceived(answer, callback,newTime, !isRetry);			
+				super.answerReceived(answer, callback,newTime, !isRetry());			
 		}
 		else 
 			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
@@ -248,7 +246,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			if(request!=null)
 			{
 				Boolean shouldResend=false;
-				if(!isRetry)
+				if(!isRetry())
 				{
 					if(((AccountingRequest)request).getAccountingRecordType()!=null && (((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.START_RECORD || ((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.INTERIM_RECORD))
 					{
@@ -275,6 +273,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				}
 				else
 				{
+					setIsRetry(true);
 					@SuppressWarnings("unchecked")
 					R1 castedRequest=(R1)request;
 					sendAccountingRequest(castedRequest, realCallback);				
