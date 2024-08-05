@@ -1162,10 +1162,18 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			//may be without session
 		}
 		
+		String originHost=((DiameterRequest)ex.getPartialMessage()).getDestinationHost();
+		if(originHost == null)
+			originHost = this.localHost;
+		
+		String originRealm=((DiameterRequest)ex.getPartialMessage()).getDestinationRealm();
+		if(originRealm == null)
+			originRealm = this.localRealm;
+		
 		if(sessionId == null)
-			answer = new DiameterErrorAnswerImpl(ex.getApplicationID(), ex.getCommandCode(), sessionId, sessionId, false, ex.getErrorCode());
+			answer = new DiameterErrorAnswerImpl(ex.getApplicationID(), ex.getCommandCode(), originHost, originRealm, false, ex.getErrorCode());
 		else
-			answer = new DiameterErrorAnswerWithSessionImpl(ex.getApplicationID(), ex.getCommandCode(), sessionId, sessionId, false, ex.getErrorCode(), sessionId);
+			answer = new DiameterErrorAnswerWithSessionImpl(ex.getApplicationID(), ex.getCommandCode(), originHost, originRealm, false, ex.getErrorCode(), sessionId);
 		
 		answer.setErrorMessage(ex.getMessage());
 		answer.setErrorReportingHost(localHost);
