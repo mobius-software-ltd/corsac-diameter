@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.s13.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.s13.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.s13.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s13.S13Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -47,7 +47,7 @@ public class S13ProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof MEIdentityCheckRequest)
+			if(message instanceof S13Request)
 				return new S13ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

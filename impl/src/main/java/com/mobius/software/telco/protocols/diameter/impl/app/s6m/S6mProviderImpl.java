@@ -26,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.s6m.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.s6m.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.s6m.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6m.S6mRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -47,7 +47,7 @@ public class S6mProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof SubscriberInformationRequest)
+			if(message instanceof S6mRequest)
 				return new S6mServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

@@ -26,9 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.s6t.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.s6t.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.s6t.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6t.NIDDInformationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6t.ReportingInformationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6t.S6tRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -49,14 +47,8 @@ public class S6tProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof ConfigurationInformationRequest)
+			if(message instanceof S6tRequest)
 				return new S6tServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof NIDDInformationRequest)
-				return new S6tServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ReportingInformationRequest)
-				return new S6tServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-		
-		
 		}
 		catch(DiameterException ex)
 		{			

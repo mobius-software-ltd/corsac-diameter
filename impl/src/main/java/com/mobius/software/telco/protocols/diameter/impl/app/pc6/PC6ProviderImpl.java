@@ -26,14 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.pc6.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.pc6.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.pc6.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAlertRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeAuthorizationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeCancellationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeDiscoveryRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeLocationUpdateRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchReportInfoRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeMatchRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc6.ProSeProximityRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc6.Pc6Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -50,21 +43,7 @@ public class PC6ProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof ProSeAlertRequest)
-				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeAuthorizationRequest)	
-				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeCancellationRequest)	
-				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeDiscoveryRequest)	
-				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeLocationUpdateRequest)	
-				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeMatchReportInfoRequest)	
-				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeMatchRequest)	
-				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeProximityRequest)	
+			if(message instanceof Pc6Request)
 				return new PC6ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

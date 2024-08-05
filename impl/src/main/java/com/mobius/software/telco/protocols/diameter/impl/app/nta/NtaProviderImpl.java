@@ -26,8 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.nta.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.nta.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.nta.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.nta.EventConfigurationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.nta.EventReportingRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nta.NtaRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -44,9 +43,7 @@ public class NtaProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof EventConfigurationRequest)
-				return new NtaServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof EventReportingRequest)	
+			if(message instanceof NtaRequest)
 				return new NtaServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

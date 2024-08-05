@@ -26,12 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.cxdx.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoRequest;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.MultimediaAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.PushProfileRequest;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.RegistrationTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.ServerAssignmentRequest;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.UserAuthorizationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -52,18 +47,9 @@ public class CxDxProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 	{		
 		try
 		{
-			if(message instanceof LocationInfoRequest)
+			if(message instanceof CxDxRequest)
 				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof MultimediaAuthRequest)
-				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof PushProfileRequest)
-				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof RegistrationTerminationRequest)
-				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ServerAssignmentRequest)
-				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof UserAuthorizationRequest)
-				return new CxDxServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+			
 		}
 		catch(DiameterException ex)
 		{			

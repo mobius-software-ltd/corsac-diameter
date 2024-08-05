@@ -26,9 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.s6c.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.s6c.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.s6c.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6c.AlertServiceCentreRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6c.ReportSMDeliveryStatusRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6c.SendRoutingInfoForSMRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6c.S6cRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -49,14 +47,8 @@ public class S6cProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof AlertServiceCentreRequest)
+			if(message instanceof S6cRequest)
 				return new S6cServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ReportSMDeliveryStatusRequest)
-				return new S6cServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof SendRoutingInfoForSMRequest)
-				return new S6cServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			
-		
 		}
 		catch(DiameterException ex)
 		{			

@@ -25,8 +25,7 @@ import com.mobius.software.telco.protocols.diameter.app.s6b.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.s6b.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.s6b.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6b.AARequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6b.EAPRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6b.S6bRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -43,9 +42,7 @@ public class S6bProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof AARequest)
-				return new S6bServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof EAPRequest)
+			if(message instanceof S6bRequest)
 				return new S6bServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		

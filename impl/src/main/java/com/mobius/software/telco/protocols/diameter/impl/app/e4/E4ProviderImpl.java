@@ -26,8 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.e4.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.e4.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.e4.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.e4.PushNotificationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.e4.UserDataRequest;
+import com.mobius.software.telco.protocols.diameter.commands.e4.E4Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -44,10 +43,9 @@ public class E4ProviderImpl extends DiameterProviderImpl<ClientListener, ServerL
 	{		
 		try
 		{
-			if(message instanceof PushNotificationRequest)
+			if(message instanceof E4Request)
 				return new E4ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof UserDataRequest)
-				return new E4ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
+		
 		}
 		catch(DiameterException ex)
 		{			

@@ -26,9 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.np.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.np.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.np.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportRequest;
-import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextRequest;
-import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportRequest;
+import com.mobius.software.telco.protocols.diameter.commands.np.NpRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -45,13 +43,8 @@ public class NpProviderImpl extends DiameterProviderImpl<ClientListener, ServerL
 	{		
 		try
 		{
-			if(message instanceof AggregatedRUCIReportRequest)
+			if(message instanceof NpRequest)
 				return new NpServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ModifyUeContextRequest)
-				return new NpServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof NonAggregatedRUCIReportRequest)
-				return new NpServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-		
 		}
 		catch(DiameterException ex)
 		{			
