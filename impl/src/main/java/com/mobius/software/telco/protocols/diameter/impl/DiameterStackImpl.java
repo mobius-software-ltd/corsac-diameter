@@ -910,6 +910,9 @@ public class DiameterStackImpl implements DiameterStack
 	public void messageReceived(DiameterMessage message, String linkID)
 	{
 		DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
+		if(commandDef==null)
+			return;
+		
 		CommandCode commandCode = CommandCode.fromInt(commandDef.commandCode());
 		if(commandCode==null)
 			return;
@@ -1057,6 +1060,9 @@ public class DiameterStackImpl implements DiameterStack
 	public void messageSent(DiameterMessage message, String linkID)
 	{
 		DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
+		if(commandDef==null)
+			return;
+		
 		CommandCode commandCode = CommandCode.fromInt(commandDef.commandCode());
 		if(commandCode==null)
 			return;
