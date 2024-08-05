@@ -26,8 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.mb2c.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -44,9 +43,7 @@ public class Mb2cProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 	{		
 		try
 		{
-			if(message instanceof GCSActionRequest)
-				return new Mb2cServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof GCSNotificationRequest)
+			if(message instanceof MB2CRequest)
 				return new Mb2cServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

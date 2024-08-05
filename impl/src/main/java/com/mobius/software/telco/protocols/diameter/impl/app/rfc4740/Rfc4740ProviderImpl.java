@@ -25,12 +25,7 @@ import com.mobius.software.telco.protocols.diameter.app.rfc4740.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.rfc4740.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.rfc4740.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.LocationInfoRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.MultimediaAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.PushProfileRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.RegistrationTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.ServerAssignmentRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4740.UserAuthorizationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4740.Rfc4740Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -47,17 +42,7 @@ public class Rfc4740ProviderImpl extends DiameterProviderImpl<ClientListener, Se
 	{		
 		try
 		{
-			if(message instanceof LocationInfoRequest)
-				return new Rfc4740ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof MultimediaAuthRequest)
-				return new Rfc4740ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof PushProfileRequest)
-				return new Rfc4740ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof RegistrationTerminationRequest)
-				return new Rfc4740ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ServerAssignmentRequest)
-				return new Rfc4740ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof UserAuthorizationRequest)
+			if(message instanceof Rfc4740Request)
 				return new Rfc4740ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

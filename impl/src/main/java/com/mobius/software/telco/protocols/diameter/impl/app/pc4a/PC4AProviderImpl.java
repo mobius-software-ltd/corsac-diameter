@@ -26,11 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.pc4a.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.pc4a.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.pc4a.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeInitialLocationInformationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeNotifyRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeSubscriberInformationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc4a.ResetRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc4a.UpdateProSeSubscriberDataRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc4a.Pc4aRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -47,15 +43,7 @@ public class PC4AProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 	{		
 		try
 		{
-			if(message instanceof ProSeInitialLocationInformationRequest)
-				return new PC4AServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeNotifyRequest)	
-				return new PC4AServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProSeSubscriberInformationRequest)
-				return new PC4AServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ResetRequest)	
-				return new PC4AServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof UpdateProSeSubscriberDataRequest)	
+			if(message instanceof Pc4aRequest)
 				return new PC4AServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

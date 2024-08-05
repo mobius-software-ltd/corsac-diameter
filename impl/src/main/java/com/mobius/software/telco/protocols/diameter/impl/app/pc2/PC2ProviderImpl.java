@@ -26,8 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.pc2.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.pc2.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.pc2.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityApplicationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -44,9 +43,7 @@ public class PC2ProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof ProXimityApplicationRequest)
-				return new PC2ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ProXimityActionRequest)	
+			if(message instanceof Pc2Request)
 				return new PC2ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

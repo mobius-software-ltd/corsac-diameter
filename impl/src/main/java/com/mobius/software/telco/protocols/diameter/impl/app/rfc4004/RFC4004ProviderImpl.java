@@ -26,8 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.rfc4004.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.rfc4004.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.rfc4004.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4004.HomeAgentMIPRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -48,9 +47,7 @@ public class RFC4004ProviderImpl extends DiameterProviderImpl<ClientListener, Se
 	{		
 		try
 		{
-			if(message instanceof AAMobileNodeRequest)
-				return new RFC4004ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof HomeAgentMIPRequest)
+			if(message instanceof Rfc4004Request)
 				return new RFC4004ServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		catch(DiameterException ex)

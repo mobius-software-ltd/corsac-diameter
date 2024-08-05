@@ -26,14 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.s6a.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.s6a.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.s6a.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.AuthenticationInformationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.CancelLocationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.DeleteSubscriberDataRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.InsertSubscriberDataRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.NotifyRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.PurgeUERequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.ResetRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s6a.UpdateLocationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6a.S6aRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -54,23 +47,8 @@ public class S6aProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof AuthenticationInformationRequest)
+			if(message instanceof S6aRequest)
 				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof CancelLocationRequest)
-				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof DeleteSubscriberDataRequest)
-				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof InsertSubscriberDataRequest)
-				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof NotifyRequest)
-				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof PurgeUERequest)
-				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ResetRequest)
-				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof UpdateLocationRequest)
-				return new S6aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-		
 		}
 		catch(DiameterException ex)
 		{			
