@@ -167,12 +167,7 @@ public class DiameterStackImpl implements DiameterStack
     	allApplications.add("UNKNOWN"); 
     }
     
-    public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
-	{
-    	this(classLoader, idGenerator, queue, periodicQueue, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
-	}
-    
-	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess) throws Exception
+	protected DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess) throws Exception
 	{
 		this.isSessionLess = sessionLess;
 		this.classLoader = classLoader;
@@ -196,46 +191,26 @@ public class DiameterStackImpl implements DiameterStack
 		if(this.duplicateTimeout!=null)
 			this.duplicateTimeout = duplicateTimeout;
 		
-		sessionStorage = new LocalDiameterSessionStorageImpl(this);
-		incomingRequestsStorage = new LocalIncomingRequestsStorageImpl(this);
-		
 		this.globalParser = new DiameterParser(classLoader, Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		this.globalParser.registerApplication(classLoader, Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));
 		this.networkManager = new NetworkManagerImpl(this, workerThreads, idleTimeout, this.responseTimeout, reconnectTimeout);
 		this.stackID = idGenerator.generateID();
+	}
+    
+    public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
+	{
+    	this(classLoader, idGenerator, queue, periodicQueue, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
+    	
+    	sessionStorage = new LocalDiameterSessionStorageImpl(this);
+		incomingRequestsStorage = new LocalIncomingRequestsStorageImpl(this);				
 	}
 	
 	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess, DiameterSessionStorage sessionStorage, IncomingRequestsStorage incomingRequestsStorage) throws Exception
 	{
-		this.isSessionLess = sessionLess;
-		this.classLoader = classLoader;
-		this.idGenerator = idGenerator;
-		this.queue = queue;
-		this.periodicQueue = periodicQueue;
-		this.localHost = localHost;
-		this.productName = productName;
-		this.vendorId = vendorId;
-		this.firmwareRevision = firmwareRevision;
-		
-		if(idleTimeout!=null)
-			this.idleTimeout = idleTimeout;
-		
-		if(responseTimeout !=null)
-			this.responseTimeout = responseTimeout;
-		
-		if(duplicatesCheckPeriod!=null)
-			this.duplicatesCheckPeriod = duplicatesCheckPeriod;
-		
-		if(this.duplicateTimeout!=null)
-			this.duplicateTimeout = duplicateTimeout;
-		
-		this.sessionStorage = sessionStorage;
-		this.incomingRequestsStorage = incomingRequestsStorage;
-		
-		this.globalParser = new DiameterParser(classLoader, Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
-		this.globalParser.registerApplication(classLoader, Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));
-		this.networkManager = new NetworkManagerImpl(this, workerThreads, idleTimeout, this.responseTimeout, reconnectTimeout);
-		this.stackID = idGenerator.generateID();
+		this(classLoader, idGenerator, queue, periodicQueue, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
+    	
+    	this.sessionStorage = sessionStorage;
+		this.incomingRequestsStorage = incomingRequestsStorage;		
 	}
 	
 	@Override
