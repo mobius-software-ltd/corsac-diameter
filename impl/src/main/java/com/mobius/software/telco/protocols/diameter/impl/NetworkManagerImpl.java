@@ -47,6 +47,8 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.primitives.common.DisconnectCauseEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
+import io.netty.buffer.ByteBuf;
+
 /**
 *
 * @author yulian oifa
@@ -285,11 +287,12 @@ public class NetworkManagerImpl implements NetworkManager
 	@Override
 	public void sendAnswer(DiameterAnswer answer, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
-		stack.getRequestsStorage().answerSent(destinationHost, answer);
-		sendMessage(answer, destinationHost, destinationRealm, callback);
+		ByteBuf buffer = sendMessage(answer, destinationHost, destinationRealm, callback);
+		if(buffer!=null)
+			stack.getRequestsStorage().answerSent(destinationHost, answer, buffer);		
 	}
 	
-	private void sendMessage(DiameterMessage message, String destinationHost, String destinationRealm, AsyncCallback callback)
+	private ByteBuf sendMessage(DiameterMessage message, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
 		if(destinationRealm==null)
 			callback.onError(new DiameterException("Can not route message without realm defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
@@ -308,7 +311,7 @@ public class NetworkManagerImpl implements NetworkManager
 				catch (DiameterException e) 
 				{
 					callback.onError(e);
-					return;
+					return null;
 				}
 				
 				if(resultLink!=null)
@@ -337,16 +340,18 @@ public class NetworkManagerImpl implements NetworkManager
 					catch (DiameterException e) 
 					{
 						callback.onError(e);
-						return;
+						return null;
 					}
 					
 					if(resultLink!=null)
-						resultLink.sendMessage(message, callback);
+						return resultLink.sendMessage(message, callback);
 					else
 						callback.onError(new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
 				}			
 			}
 		}
+		
+		return null;
 	}
 
 	@Override
@@ -410,7 +415,7 @@ public class NetworkManagerImpl implements NetworkManager
     			if (currLink != null && currLink.isConnected() && currLink.canSendMessage(message))
     				return currLink;
 	            else
-	            	retries--;
+	            	retries--;	            
     		}
     		else
     		{

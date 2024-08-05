@@ -26,6 +26,8 @@ import com.mobius.software.telco.protocols.diameter.IncomingRequestsStorage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 
+import io.netty.buffer.ByteBuf;
+
 /**
 *
 * @author yulian oifa
@@ -79,7 +81,7 @@ public class LocalIncomingRequestsStorageImpl implements IncomingRequestsStorage
 	}
 
 	@Override
-	public void answerSent(String originHost, DiameterAnswer answer)
+	public void answerSent(String originHost, DiameterAnswer answer, ByteBuf buffer)
 	{
 		ConcurrentHashMap<Long,DiameterAnswerData> hostMap = referencesMap.get(originHost);
 		if(hostMap==null)
@@ -92,7 +94,7 @@ public class LocalIncomingRequestsStorageImpl implements IncomingRequestsStorage
 		
 		DiameterAnswerData result = hostMap.get(answer.getHopByHopIdentifier());
 		if(result != null)
-			result.setAnswer(answer);
+			result.setBuffer(buffer);
 	}
 
 	@Override
