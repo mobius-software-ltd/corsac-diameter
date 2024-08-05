@@ -1,6 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.app.s9;
 
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
 import com.mobius.software.telco.protocols.diameter.commands.s9.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9.AbortSessionRequest;
@@ -11,7 +11,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s9.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s9.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablishmentAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablishmentRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -35,6 +34,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablish
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<TriggerEstablishmentRequest, TriggerEstablishmentAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>, ServerCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<TriggerEstablishmentAnswer>,ServerCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }
