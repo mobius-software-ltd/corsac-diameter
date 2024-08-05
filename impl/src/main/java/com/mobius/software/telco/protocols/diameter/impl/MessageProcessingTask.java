@@ -55,8 +55,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
-import io.netty.util.ReferenceCountUtil;
-
 /**
 *
 * @author yulian oifa
