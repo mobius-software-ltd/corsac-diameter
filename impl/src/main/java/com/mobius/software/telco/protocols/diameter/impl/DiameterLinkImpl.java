@@ -1164,6 +1164,18 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		
 		String originHost=null;
 		String originRealm=null;
+		Integer commandCode = ex.getCommandCode();
+		Long applicationID = ex.getApplicationID();
+		if(commandCode==null || applicationID==null)
+		{
+			DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(ex.getPartialMessage().getClass());
+			if(commandDef!=null)
+			{
+				commandCode = commandDef.commandCode();
+				applicationID = commandDef.applicationId();
+			}
+		}
+		
 		if(ex.getPartialMessage() instanceof DiameterRequest)
 		{
 			originHost = ((DiameterRequest)ex.getPartialMessage()).getDestinationHost();
@@ -1176,10 +1188,11 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		if(originRealm == null)
 			originRealm = this.localRealm;
 		
+		
 		if(sessionId == null)
-			answer = new DiameterErrorAnswerImpl(ex.getApplicationID(), ex.getCommandCode(), originHost, originRealm, false, ex.getErrorCode());
+			answer = new DiameterErrorAnswerImpl(applicationID, commandCode, originHost, originRealm, false, ex.getErrorCode());
 		else
-			answer = new DiameterErrorAnswerWithSessionImpl(ex.getApplicationID(), ex.getCommandCode(), originHost, originRealm, false, ex.getErrorCode(), sessionId);
+			answer = new DiameterErrorAnswerWithSessionImpl(applicationID, commandCode, originHost, originRealm, false, ex.getErrorCode(), sessionId);
 		
 		answer.setErrorMessage(ex.getMessage());
 		answer.setErrorReportingHost(localHost);

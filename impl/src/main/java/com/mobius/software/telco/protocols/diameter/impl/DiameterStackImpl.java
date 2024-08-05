@@ -909,11 +909,29 @@ public class DiameterStackImpl implements DiameterStack
 	@Override
 	public void messageReceived(DiameterMessage message, String linkID)
 	{
-		DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
-		if(commandDef==null)
-			return;
+		Integer commandCodeValue=null;
+		Long applicationIDValue=null;
+		if(message instanceof DiameterErrorAnswerImpl)
+		{	
+			commandCodeValue = ((DiameterErrorAnswerImpl)message).getCommandCode();
+			applicationIDValue = ((DiameterErrorAnswerImpl)message).getApplicationId();
+		}
+		else if(message instanceof DiameterErrorAnswerWithSessionImpl)
+		{
+			commandCodeValue = ((DiameterErrorAnswerWithSessionImpl)message).getCommandCode();
+			applicationIDValue = ((DiameterErrorAnswerWithSessionImpl)message).getApplicationId();
+		}
+		else
+		{
+			DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
+			if(commandDef==null)
+				return;
+			
+			commandCodeValue = commandDef.commandCode();
+			applicationIDValue = commandDef.applicationId();
+		}
 		
-		CommandCode commandCode = CommandCode.fromInt(commandDef.commandCode());
+		CommandCode commandCode = CommandCode.fromInt(commandCodeValue);
 		if(commandCode==null)
 			return;
 		
@@ -946,7 +964,7 @@ public class DiameterStackImpl implements DiameterStack
 			}
 		}
 		
-		ApplicationID applicationID = ApplicationID.fromInt((int)commandDef.applicationId());
+		ApplicationID applicationID = ApplicationID.fromInt(applicationIDValue.intValue());
 		if(applicationID==null)
 			return;
 		
@@ -1059,11 +1077,29 @@ public class DiameterStackImpl implements DiameterStack
 	@Override
 	public void messageSent(DiameterMessage message, String linkID)
 	{
-		DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
-		if(commandDef==null)
-			return;
+		Integer commandCodeValue=null;
+		Long applicationIDValue=null;
+		if(message instanceof DiameterErrorAnswerImpl)
+		{	
+			commandCodeValue = ((DiameterErrorAnswerImpl)message).getCommandCode();
+			applicationIDValue = ((DiameterErrorAnswerImpl)message).getApplicationId();
+		}
+		else if(message instanceof DiameterErrorAnswerWithSessionImpl)
+		{
+			commandCodeValue = ((DiameterErrorAnswerWithSessionImpl)message).getCommandCode();
+			applicationIDValue = ((DiameterErrorAnswerWithSessionImpl)message).getApplicationId();
+		}
+		else
+		{
+			DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
+			if(commandDef==null)
+				return;
+			
+			commandCodeValue = commandDef.commandCode();
+			applicationIDValue = commandDef.applicationId();
+		}
 		
-		CommandCode commandCode = CommandCode.fromInt(commandDef.commandCode());
+		CommandCode commandCode = CommandCode.fromInt(commandCodeValue);
 		if(commandCode==null)
 			return;
 		
@@ -1096,7 +1132,7 @@ public class DiameterStackImpl implements DiameterStack
 			}
 		}
 		
-		ApplicationID applicationID = ApplicationID.fromInt((int)commandDef.applicationId());
+		ApplicationID applicationID = ApplicationID.fromInt(applicationIDValue.intValue());
 		if(applicationID==null)
 			return;
 		

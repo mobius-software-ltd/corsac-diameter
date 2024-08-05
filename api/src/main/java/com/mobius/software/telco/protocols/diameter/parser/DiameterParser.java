@@ -31,6 +31,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterErrorAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -168,13 +169,26 @@ public class DiameterParser
 		
 		result.writeByte(flags);
 		
-		//command code
-		result.writeByte((commandData.getCommandCode() >> 16) & 0x0FF);
-		result.writeByte((commandData.getCommandCode() >> 8) & 0x0FF);
-		result.writeByte(commandData.getCommandCode() & 0x0FF);
-		
-		//application ID
-		result.writeInt(commandData.getApplicationID().intValue());
+		if(message instanceof DiameterErrorAnswer)
+		{
+			//command code
+			result.writeByte((((DiameterErrorAnswer)message).getCommandCode() >> 16) & 0x0FF);
+			result.writeByte((((DiameterErrorAnswer)message).getCommandCode() >> 8) & 0x0FF);
+			result.writeByte(((DiameterErrorAnswer)message).getCommandCode() & 0x0FF);
+			
+			//application ID
+			result.writeInt(((DiameterErrorAnswer)message).getApplicationId().intValue());
+		}
+		else
+		{
+			//command code
+			result.writeByte((commandData.getCommandCode() >> 16) & 0x0FF);
+			result.writeByte((commandData.getCommandCode() >> 8) & 0x0FF);
+			result.writeByte(commandData.getCommandCode() & 0x0FF);
+			
+			//application ID
+			result.writeInt(commandData.getApplicationID().intValue());
+		}
 		
 		//hop by hop identifier
 		if(message.getHopByHopIdentifier()!=null)
