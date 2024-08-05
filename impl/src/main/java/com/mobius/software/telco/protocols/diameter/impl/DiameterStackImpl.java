@@ -87,6 +87,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.s6m.S6mProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.s6t.S6tProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s7a.S7aProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s9.S9ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.s9a.S9aProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
@@ -417,7 +418,9 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.SGD:
 				break;
 			case ApplicationIDs.S9A:
-				break;
+				S9aProviderImpl s9aProvider=new S9aProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), s9aProvider);
+				return s9aProvider;
 			case ApplicationIDs.S9ATAG:
 				break;
 			case ApplicationIDs.PC4A:
