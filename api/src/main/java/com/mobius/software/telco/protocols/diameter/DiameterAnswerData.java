@@ -1,8 +1,12 @@
 package com.mobius.software.telco.protocols.diameter;
 
-import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 /*
  * Mobius Software LTD
@@ -29,9 +33,8 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class DiameterAnswerData
+public class DiameterAnswerData implements Externalizable
 {
-	private DiameterAnswer answer;
 	private ByteBuf buffer;
 	private Long initialTimestamp;
 		
@@ -45,19 +48,12 @@ public class DiameterAnswerData
 		this.initialTimestamp = initialTimestamp;
 	}
 
-	public DiameterAnswer getAnswer()
-	{
-		return answer;
-	}
-
-	public void setAnswer(DiameterAnswer answer)
-	{
-		this.answer = answer;
-	}
-
 	public ByteBuf getBuffer()
 	{
-		return buffer;
+		if(buffer==null)
+			return null;
+		
+		return Unpooled.wrappedBuffer(buffer);
 	}
 
 	public void setBuffer(ByteBuf buffer)
@@ -73,5 +69,42 @@ public class DiameterAnswerData
 	public void setInitialTimestamp(Long initialTimestamp)
 	{
 		this.initialTimestamp = initialTimestamp;
+	}
+
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
+	{
+		Boolean hasAnswer = in.readBoolean();
+		if(hasAnswer)
+		{
+			int length = in.readInt();
+			byte[] data = new byte[length];
+			in.read(data);
+			buffer = Unpooled.wrappedBuffer(data);
+			buffer.readerIndex(0);
+		}
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException
+	{
+		if(buffer!=null)
+		{
+			out.writeBoolean(true);
+			out.writeInt(buffer.readableBytes());
+			buffer.markReaderIndex();
+			try
+			{
+				byte[] data = new byte[buffer.readableBytes()];
+				buffer.readBytes(data);
+				out.write(data);
+			}
+			finally 
+			{
+				buffer.resetReaderIndex();
+			}
+		}
+		else
+			out.writeBoolean(false);
 	}		
 }

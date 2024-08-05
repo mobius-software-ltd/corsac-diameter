@@ -3,6 +3,8 @@ package com.mobius.software.telco.protocols.diameter;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 
+import io.netty.buffer.ByteBuf;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -31,7 +33,7 @@ public interface IncomingRequestsStorage
 {
 	DiameterAnswerData incomingMessageReceived(DiameterRequest request);
 	
-	void answerSent(String originHost, DiameterAnswer answer);
+	void answerSent(String originHost, DiameterAnswer answer, ByteBuf buffer);
 	
 	void stop();
 	

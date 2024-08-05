@@ -356,21 +356,8 @@ public class MessageProcessingTask implements Task
 						DiameterAnswerData answerData = stack.getRequestsStorage().incomingMessageReceived(request);
 						if(answerData!=null)
 						{
-							if(answerData.getAnswer()!=null)
-								link.sendMessage(answerData.getAnswer(), new AsyncCallback()
-								{
-									@Override
-									public void onSuccess()
-									{									
-									}
-									
-									@Override
-									public void onError(DiameterException ex)
-									{
-										logger.warn("An error occured while sending repeated answer," + ex.getMessage(),ex);
-									}
-								});
-							else if(answerData.getBuffer()!=null)
+							if(answerData.getBuffer()!=null)
+							{
 								link.sendEncodedMessage(answerData.getBuffer(), new AsyncCallback()
 								{
 									@Override
@@ -384,7 +371,7 @@ public class MessageProcessingTask implements Task
 										logger.warn("An error occured while sending repeated answer," + ex.getMessage(),ex);
 									}
 								});
-							
+							}
 							return;
 						}
 					}

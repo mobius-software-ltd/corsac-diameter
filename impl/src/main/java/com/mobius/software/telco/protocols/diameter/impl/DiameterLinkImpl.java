@@ -76,6 +76,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Disconnect
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 /**
 *
@@ -269,7 +270,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	@Override
 	public boolean isConnected()
 	{
-		return association.isConnected() && peerState.get().equals(PeerStateEnum.OPEN);
+		return association.isConnected() && getPeerState().equals(PeerStateEnum.OPEN);
 	}
 
 	@Override
@@ -351,7 +352,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	public void onCommunicationShutdown(Association association)
 	{
 		logger.info("Association ," + association + " shutdown");
-		peerState.set(PeerStateEnum.IDLE);
+		setPeerState(PeerStateEnum.IDLE);
 		inactivityTimer.stop();
 	}
 
@@ -359,7 +360,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	public void onCommunicationLost(Association association)
 	{
 		logger.info("Association ," + association + " communication lost");
-		peerState.set(PeerStateEnum.IDLE);
+		setPeerState(PeerStateEnum.IDLE);
 		inactivityTimer.stop();
 	}
 
@@ -367,7 +368,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	public void onCommunicationRestart(Association association)
 	{
 		logger.info("Association ," + association + " communication restart");
-		peerState.set(PeerStateEnum.IDLE);
+		setPeerState(PeerStateEnum.IDLE);
 		inactivityTimer.stop();
 	}
 
@@ -380,7 +381,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	@Override
 	public Boolean canSendMessage(DiameterMessage message)
 	{
-		if(!peerState.get().equals(PeerStateEnum.OPEN))
+		if(!getPeerState().equals(PeerStateEnum.OPEN))
 			return false;
 		
 		DiameterCommandDefinition commandDefintion = DiameterParser.getCommandDefinition(message.getClass());
@@ -522,31 +523,31 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		return true;
 	}
 	
-	public void sendMessage(DiameterMessage message, AsyncCallback callback)
+	public ByteBuf sendMessage(DiameterMessage message, AsyncCallback callback)
 	{
-		if(!peerState.get().equals(PeerStateEnum.OPEN))
+		if(!getPeerState().equals(PeerStateEnum.OPEN))
 		{
-			callback.onError(new DiameterException("Invalid state for peer while sending message , current state " + peerState.get(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-			return;
+			callback.onError(new DiameterException("Invalid state for peer while sending message , current state " + getPeerState(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
+			return null;
 		}	
 		
 		DiameterCommandDefinition commandDefintion = DiameterParser.getCommandDefinition(message.getClass());
 		if(commandDefintion == null)
 		{
 			callback.onError(new DiameterException("Command not registered in parser for class " + message.getClass().getCanonicalName(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
-			return;
+			return null;
 		}	
 		
 		if(!canSendMessage(message))
 		{
 			callback.onError(new DiameterException("Application id is not supported by peer, " + commandDefintion.applicationId(), null, ResultCodes.DIAMETER_APPLICATION_UNSUPPORTED, null));
-			return;
+			return null;
 		}
 		
-		sendMessageInternally(message, callback);
+		return sendMessageInternally(message, callback);
 	}
 	
-	private void sendMessageInternally(DiameterMessage message, AsyncCallback callback)
+	private ByteBuf sendMessageInternally(DiameterMessage message, AsyncCallback callback)
 	{
 		if(message.getOriginHost()==null)
 		{
@@ -599,15 +600,18 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		stack.messageSent(message, linkId);
 		
 		PayloadData payloadData = null;
+		ByteBuf buffer = null;
+		ByteBuf copiedBuffer = null;
 		try
 		{
-			ByteBuf buffer = parser.encode(message);
+			buffer = parser.encode(message);
+			copiedBuffer = Unpooled.copiedBuffer(buffer);
 			payloadData = new PayloadData(buffer.readableBytes(), buffer, true, false, DIAMETER_SCTP_PROTOCOL_IDENTIFIER, wheel.incrementAndGet()%maxStreams);
 		}		
 		catch(DiameterException ex)
 		{
 			callback.onError(ex);
-			return;
+			return null;
 		}
 		
 		try
@@ -620,6 +624,8 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		{
 			callback.onError(new DiameterException(ex.getMessage(), null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null));
 		}
+		
+		return copiedBuffer;
 	}
 
 	public void sendEncodedMessage(ByteBuf buffer, AsyncCallback callback)
@@ -875,7 +881,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			if(vendorsToSend.size()>0)
 				cer.setSupportedVendorIds(vendorsToSend);
 			
-			peerState.set(PeerStateEnum.CER_SENT);			
+			setPeerState(PeerStateEnum.CER_SENT);			
 			sendMessageInternally(cer, new AsyncCallback()
 			{
 				@Override
@@ -887,7 +893,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				public void onError(DiameterException ex)
 				{
 					logger.warn("An error occured while sending CER to " + association + " " + ex.getMessage(),ex);					
-					peerState.set(PeerStateEnum.IDLE);
+					setPeerState(PeerStateEnum.IDLE);
 					resetReconnectTimer();
 				}
 			});
@@ -980,7 +986,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			if(vendorsToSend.size()>0)
 				cea.setSupportedVendorIds(vendorsToSend);
 			
-			peerState.set(PeerStateEnum.OPEN);			
+			setPeerState(PeerStateEnum.OPEN);			
 			sendMessageInternally(cea, new AsyncCallback()
 			{
 				@Override
@@ -992,7 +998,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				public void onError(DiameterException ex)
 				{
 					logger.warn("An error occured while sending CEA to " + association + " " + ex.getMessage(),ex);					
-					peerState.set(PeerStateEnum.IDLE);
+					setPeerState(PeerStateEnum.IDLE);
 					resetReconnectTimer();
 				}
 			});
@@ -1026,7 +1032,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				public void onError(DiameterException ex)
 				{
 					logger.warn("An error occured while sending DWR to " + association + " " + ex.getMessage(),ex);
-					peerState.set(PeerStateEnum.IDLE);
+					setPeerState(PeerStateEnum.IDLE);
 					resetReconnectTimer();
 				}
 			});
@@ -1059,7 +1065,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				public void onError(DiameterException ex)
 				{
 					logger.warn("An error occured while sending DWA to " + association + " " + ex.getMessage(),ex);
-					peerState.set(PeerStateEnum.IDLE);
+					setPeerState(PeerStateEnum.IDLE);
 					resetReconnectTimer();
 				}
 			});
@@ -1091,7 +1097,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				public void onError(DiameterException ex)
 				{
 					logger.warn("An error occured while sending DPA to " + association + " " + ex.getMessage(),ex);
-					peerState.set(PeerStateEnum.IDLE);
+					setPeerState(PeerStateEnum.IDLE);
 					resetReconnectTimer();
 				}
 			});
@@ -1111,7 +1117,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			Long hopIdentifier = stack.getNextHopByHopIdentifier();
 			dpr.setEndToEndIdentifier(hopIdentifier);
 			dpr.setHopByHopIdentifier(hopIdentifier);
-			peerState.set(PeerStateEnum.DPR_SENT);
+			setPeerState(PeerStateEnum.DPR_SENT);
 			
 			sendMessageInternally(dpr, new AsyncCallback()
 			{
@@ -1126,7 +1132,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				public void onError(DiameterException ex)
 				{
 					logger.warn("An error occured while sending DPR to " + association + " " + ex.getMessage(),ex);
-					peerState.set(PeerStateEnum.IDLE);
+					setPeerState(PeerStateEnum.IDLE);
 					inactivityTimer.stop();
 					
 					if(callback!=null)

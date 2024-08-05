@@ -45,7 +45,7 @@ public interface DiameterLink
 	
 	public Boolean canSendMessage(DiameterMessage message);
 	
-	void sendMessage(DiameterMessage message,AsyncCallback callback);
+	ByteBuf sendMessage(DiameterMessage message,AsyncCallback callback);
 	
 	public boolean isStarted();
 
