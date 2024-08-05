@@ -26,11 +26,7 @@ import com.mobius.software.telco.protocols.diameter.app.s7a.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.s7a.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.s7a.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s7a.CancelVCSGLocationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s7a.DeleteSubscriberDataRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s7a.InsertSubscriberDataRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s7a.ResetRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s7a.UpdateVCSGLocationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.S7aRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 /**
@@ -51,19 +47,8 @@ public class S7aProviderImpl extends DiameterProviderImpl<ClientListener, Server
 	{		
 		try
 		{
-			if(message instanceof CancelVCSGLocationRequest)
+			if(message instanceof S7aRequest)
 				return new S7aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof DeleteSubscriberDataRequest)
-				return new S7aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof InsertSubscriberDataRequest)
-				return new S7aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof ResetRequest)
-				return new S7aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			else if(message instanceof UpdateVCSGLocationRequest)
-				return new S7aServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-		
-		
-		
 		}
 		catch(DiameterException ex)
 		{			
