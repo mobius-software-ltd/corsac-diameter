@@ -1,6 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.swd;
 
-import com.mobius.software.telco.protocols.diameter.commands.swa.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.swd.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
