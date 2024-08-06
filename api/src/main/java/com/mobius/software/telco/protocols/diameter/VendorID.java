@@ -30,17 +30,17 @@ import java.util.Map;
 public enum VendorID
 {
 	HP(11),
-	SUN_ID(42),
-	MERIT_ID(61),
-	ERICSSON_ID(193),
-	US_ROBOTICS_ID(429),
-	TGPP2_ID(5535),
-	TGPP_ID(10415),
-	VODAFONE_ID(12645),
-	ETSI_ID(13019),
-	CABLE_LABS_ID(4491),
-	HUAWEI_ID(2011),
-	ONEM2M_ID(45687);	
+	SUN(42),
+	MERIT(61),
+	ERICSSON(193),
+	US_ROBOTICS(429),
+	TGPP2(5535),
+	TGPP(10415),
+	VODAFONE(12645),
+	ETSI(13019),
+	CABLE_LABS(4491),
+	HUAWEI(2011),
+	ONEM2M(45687);	
 	
 	private static final Map<Integer, VendorID> intToTypeMap = new HashMap<Integer, VendorID>();
 	static 
