@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.impl.app.s9;
+package com.mobius.software.telco.protocols.diameter.impl.app.sd;
 import java.io.IOException;
 import java.io.ObjectInput;
 
@@ -27,46 +27,46 @@ import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
-import com.mobius.software.telco.protocols.diameter.app.s9.ClientListener;
-import com.mobius.software.telco.protocols.diameter.app.s9.S9ClientSession;
+import com.mobius.software.telco.protocols.diameter.app.sd.ClientListener;
+import com.mobius.software.telco.protocols.diameter.app.sd.SdClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s9.AbortSessionAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s9.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s9.CreditControlAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s9.CreditControlRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s9.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s9.SessionTerminationAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s9.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablishmentAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s9.TriggerEstablishmentRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
-import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionStatelessImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl;
 
 import io.netty.buffer.ByteBuf;
 
-public class S9ClientSessionImpl implements S9ClientSession
+public class SdClientSessionImpl implements SdClientSession
 {
-	private ClientAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer> authSession = null;
+	private ClientAuthSessionImpl<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer> authSession = null;
 	private ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> ccSession = null;
 	
-	public S9ClientSessionImpl()
+	public SdClientSessionImpl()
 	{
 		
 	}
 	
-	public S9ClientSessionImpl(Boolean isCC, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientListener, ?, ?, ?, ?> provider)
+	public SdClientSessionImpl(Boolean isCC, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientListener, ?, ?, ?, ?> provider)
 	{
 		if(isCC==null || isCC)
-			ccSession = new ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, Long.valueOf(ApplicationIDs.S9), remoteHost, remoteRealm, provider);
+			ccSession = new ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, Long.valueOf(ApplicationIDs.SD), remoteHost, remoteRealm, provider);
 		else
-			authSession = new ClientAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(sessionID, Long.valueOf(ApplicationIDs.S9), remoteHost, remoteRealm, provider);		
+			authSession = new ClientAuthSessionImpl<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>(sessionID, Long.valueOf(ApplicationIDs.SD), remoteHost, remoteRealm, provider);		
 	}
 
 	@Override
-	public void sendInitialRequest(TriggerEstablishmentRequest request, AsyncCallback callback)
+	public void sendInitialRequest(TDFSessionRequest request, AsyncCallback callback)
 	{
 		if(authSession != null)
 			authSession.sendInitialRequest(request, callback);
@@ -332,12 +332,12 @@ public class S9ClientSessionImpl implements S9ClientSession
 		Boolean isAuth = in.readBoolean();
 		if(isAuth)
 		{
-			authSession = new ClientAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(Long.valueOf(ApplicationIDs.S9));
+			authSession = new ClientAuthSessionImpl<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.SD));
 			authSession.load(in);
 		}
 		else
 		{
-			ccSession = new ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.S9));
+			ccSession = new ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.SD));
 			ccSession.load(in);
 		}
 	}

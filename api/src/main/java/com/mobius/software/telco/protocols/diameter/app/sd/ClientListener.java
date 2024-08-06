@@ -1,7 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.sd;
 
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
 import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlAnswer;
@@ -35,6 +35,6 @@ import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionReques
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ServerAuthListener<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>, ClientCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ClientListener extends ClientAuthListener<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>, ClientCCListener<CreditControlRequest, CreditControlAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }
