@@ -18,14 +18,46 @@ package com.mobius.software.telco.protocols.diameter.app.swa;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.swa.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swa.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.swa.EAPAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swa.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swa.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.swa.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swa.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swa.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 
 import io.netty.buffer.ByteBuf;
 
 public interface MessageFactory
 {
 	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationHost, String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException;
+	
+	public EAPAnswer createEAPAnswer(EAPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode,AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
+	public EAPAnswer createEAPAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID, AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
+	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
+	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;		
+	
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
+	
+	public AbortSessionRequest createAbortSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID) throws MissingAvpException, AvpNotSupportedException;
+
+	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	
 }
