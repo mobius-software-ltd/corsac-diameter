@@ -696,14 +696,40 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 		
 		for(Long applicationId:authApplicationIds)
 		{			
-			addAuthApplication(applicationId);
-			authApplicationPackages.put(applicationId, providerPackageName);
+			Boolean found = false;
+			for(VendorSpecificApplicationId vendorApplicationId:vendorApplicationIds)
+			{
+				if(vendorApplicationId.getAuthApplicationId()!=null && vendorApplicationId.getAuthApplicationId().equals(applicationId))
+				{
+					found = true;
+					break;
+				}
+			}
+			
+			if(!found)
+			{
+				addAuthApplication(applicationId);
+				authApplicationPackages.put(applicationId, providerPackageName);
+			}
 		}
 		
 		for(Long applicationId:acctApplicationIds)
 		{
-			addAcctApplication(applicationId);
-			acctApplicationPackages.put(applicationId, providerPackageName);
+			Boolean found = false;
+			for(VendorSpecificApplicationId vendorApplicationId:vendorApplicationIds)
+			{
+				if(vendorApplicationId.getAcctApplicationId()!=null && vendorApplicationId.getAcctApplicationId().equals(applicationId))
+				{
+					found = true;
+					break;
+				}
+			}
+			
+			if(!found)
+			{
+				addAcctApplication(applicationId);
+				acctApplicationPackages.put(applicationId, providerPackageName);
+			}
 		}
 		
 		parser.registerApplication(stack.getClassLoader(), packageName);
@@ -816,6 +842,8 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			List<Long> authToSend=new ArrayList<Long>();
 			List<Long> vendorsToSend=new ArrayList<Long>();
 			
+			ConcurrentHashMap<Long,Boolean> acctUsed=new ConcurrentHashMap<Long,Boolean>();
+			ConcurrentHashMap<Long,Boolean> authUsed=new ConcurrentHashMap<Long,Boolean>();
 			for(VendorSpecificApplicationId vai:applicationIds)
 			{
 				if(vai.getVendorId()==null)
@@ -834,40 +862,28 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 						vendorsToSend.add(vai.getVendorId());
 					
 					if(vai.getAuthApplicationId()!=null)
+					{
 						authToSend.add(vai.getAuthApplicationId());
+						authUsed.put(vai.getAuthApplicationId(),true);			
+					}
 					
 					if(vai.getAcctApplicationId()!=null)
+					{
 						acctToSend.add(vai.getAcctApplicationId());
+						acctUsed.put(vai.getAcctApplicationId(),true);
+					}
 				}
 			}
 			
 			for(Long acct:acctApplicationIds)
 			{
-				Boolean isNonVendor=true;
-				for(VendorSpecificApplicationId vai:applicationIds)
-					if(vai.getAcctApplicationId().equals(acct))
-					{
-						isNonVendor = false;
-						break;
-					}
-				
-				if(isNonVendor)
+				if(acctUsed.putIfAbsent(acct, true)==null)
 					acctToSend.add(acct);
 			}
 			
 			for(Long auth:authApplicationIds)
-			{
-				Boolean isNonVendor=true;
-				for(VendorSpecificApplicationId vai:applicationIds)
-					if(vai.getAuthApplicationId().equals(auth))
-					{
-						isNonVendor = false;
-						break;
-					}
-				
-				if(isNonVendor)
+				if(authUsed.putIfAbsent(auth, true)==null)
 					authToSend.add(auth);
-			}
 			
 			if(vaiToSend.size()>0)
 				cer.setVendorSpecificApplicationIds(vaiToSend);
