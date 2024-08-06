@@ -59,9 +59,9 @@ public class S9aServerSessionImpl implements S9aServerSession
 	public S9aServerSessionImpl(Boolean isCC, String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerListener, ?, ?, ?> provider)
 	{
 		if(isCC==null || isCC)
-			ccSession = new ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, Long.valueOf(ApplicationIDs.S9), remoteHost, remoteRealm, provider);
+			ccSession = new ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(sessionID, Long.valueOf(ApplicationIDs.S9A), remoteHost, remoteRealm, provider);
 		else
-			authSession = new ServerAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(sessionID, Long.valueOf(ApplicationIDs.S9), remoteHost, remoteRealm, provider);
+			authSession = new ServerAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(sessionID, Long.valueOf(ApplicationIDs.S9A), remoteHost, remoteRealm, provider);
 	}
 
 	@Override
@@ -331,12 +331,12 @@ public class S9aServerSessionImpl implements S9aServerSession
 		Boolean isAuth = in.readBoolean();
 		if(isAuth)
 		{
-			authSession = new ServerAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(Long.valueOf(ApplicationIDs.S9));
+			authSession = new ServerAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(Long.valueOf(ApplicationIDs.S9A));
 			authSession.load(in);		
 		}
 		else
 		{
-			ccSession = new ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.S9));
+			ccSession = new ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.S9A));
 			ccSession.load(in);
 		}
 	}
