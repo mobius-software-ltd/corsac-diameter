@@ -88,9 +88,11 @@ import com.mobius.software.telco.protocols.diameter.impl.app.s6t.S6tProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.s7a.S7aProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s9.S9ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s9a.S9aProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.sgd.SgdProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s9atag.S9atagProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.sd.SdProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.slg.SlgProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.sh.ShProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
@@ -323,7 +325,9 @@ public class DiameterStackImpl implements DiameterStack
 				registeredProvidersByPackage.put(parentPackage.getName(), cxDxProvider);
 				return cxDxProvider;				
 			case ApplicationIDs.SH:
-				break;
+				ShProviderImpl shProvider=new ShProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), shProvider);
+				return shProvider;
 			case ApplicationIDs.GQ:
 				if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gq"))
 				{
@@ -423,7 +427,9 @@ public class DiameterStackImpl implements DiameterStack
 				registeredProvidersByPackage.put(parentPackage.getName(), s6cProvider);
 				return s6cProvider;
 			case ApplicationIDs.SGD:
-				break;
+				SgdProviderImpl sgdProvider=new SgdProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), sgdProvider);
+				return sgdProvider;
 			case ApplicationIDs.S9A:
 				S9aProviderImpl s9aProvider=new S9aProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s9aProvider);
