@@ -7,8 +7,8 @@ import com.mobius.software.telco.protocols.diameter.commands.st.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.st.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.st.StAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.st.StRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -32,6 +32,6 @@ import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionReques
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthListener<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
+public interface ServerListener extends ServerAuthListener<StRequest, StAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }
