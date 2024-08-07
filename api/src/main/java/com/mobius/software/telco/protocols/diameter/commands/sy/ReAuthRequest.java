@@ -21,7 +21,6 @@ package com.mobius.software.telco.protocols.diameter.commands.sy;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 
 /**
 *
@@ -29,6 +28,6 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.Authenticat
 *
 */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SY, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
-public interface ReAuthRequest extends AuthenticationRequest
+public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
 {
 }

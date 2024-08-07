@@ -97,8 +97,10 @@ import com.mobius.software.telco.protocols.diameter.impl.app.slh.SlhProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.sta.StaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swa.SwaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swd.SwdProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.sy.SyProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swx.SwxProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.t6a.T6aProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.t4.T4ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swm.SwmProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.st.StProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
@@ -436,7 +438,9 @@ public class DiameterStackImpl implements DiameterStack
 			case ApplicationIDs.SGMB:
 				break;
 			case ApplicationIDs.SY:
-				break;
+				SyProviderImpl syProvider=new SyProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), syProvider);
+				return syProvider;
 			case ApplicationIDs.SD:
 				SdProviderImpl sdProvider=new SdProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), sdProvider);
@@ -452,7 +456,9 @@ public class DiameterStackImpl implements DiameterStack
 				registeredProvidersByPackage.put(parentPackage.getName(), s6mProvider);
 				return s6mProvider;
 			case ApplicationIDs.T4:
-				break;
+				T4ProviderImpl t4Provider=new T4ProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), t4Provider);
+				return t4Provider;
 			case ApplicationIDs.S6C:
 				S6cProviderImpl s6cProvider=new S6cProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s6cProvider);
