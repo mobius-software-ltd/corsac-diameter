@@ -88,7 +88,6 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	@Override
 	public void stopIdleTimer(ClusteredID<?> timerID)
 	{
-		logger.info("Stopping idle timer");
 		IdleCheckTimer idleTimer = idleMap.remove(timerID);
 		if(idleTimer != null)
 			idleTimer.stop();
@@ -97,7 +96,6 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	@Override
 	public void startIdleTimer(DiameterSession session, Long idleTime)
 	{
-		logger.info("starting idle timer");
 		if(session.getIdleTimerID()==null)
 			session.setIdleTimerID(stack.getIDGenerator().generateID());
 		
@@ -143,7 +141,6 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	@Override
 	public void restartIdleTimer(DiameterSession session,Long idleTime)
 	{
-		logger.info("restarting idle timer");
 		if(session.getIdleTimerID()==null)
 		{
 			startIdleTimer(session, idleTime);
