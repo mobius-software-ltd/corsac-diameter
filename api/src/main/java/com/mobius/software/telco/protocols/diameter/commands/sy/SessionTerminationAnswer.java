@@ -23,6 +23,9 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
 /**
@@ -55,8 +58,20 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
                 *[ AVP ]
  */
 @DiameterCommandDefinition(applicationId = ApplicationIDs.SY, commandCode = CommandCodes.SESSION_TERMINATION, request = false, proxyable = true, name="AA-Answer")
-public interface SessionTerminationAnswer extends SyAnswer
+public interface SessionTerminationAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer
 {	
+	public DRMPEnum getDRMP();
+	 
+	void setDRMP(DRMPEnum value);
+	
+	public OCSupportedFeatures getOCSupportedFeatures();
+	 
+	void setOCSupportedFeatures(OCSupportedFeatures value);
+	
+	public OCOLR getOCOLR();
+	
+	void setOCOLR(OCOLR value);
+	
 	public List<Load> getLoad();
 	 
 	void setLoad(List<Load> value);

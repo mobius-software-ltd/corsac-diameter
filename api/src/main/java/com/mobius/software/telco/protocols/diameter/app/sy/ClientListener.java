@@ -1,6 +1,13 @@
 package com.mobius.software.telco.protocols.diameter.app.sy;
 
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
+import com.mobius.software.telco.protocols.diameter.commands.sy.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sy.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sy.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sy.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sy.SyAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SyRequest;
 
 /*
@@ -26,6 +33,6 @@ import com.mobius.software.telco.protocols.diameter.commands.sy.SyRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<SyRequest>
+public interface ClientListener extends ClientAuthListener<SyRequest, SyAnswer, ReAuthRequest, ReAuthAnswer , AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
 }
