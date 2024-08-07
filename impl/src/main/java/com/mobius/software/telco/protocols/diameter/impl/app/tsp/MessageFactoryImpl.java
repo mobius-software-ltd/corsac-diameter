@@ -22,11 +22,16 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.tsp.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.tsp.DeviceActionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.tsp.DeviceActionRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.tsp.DeviceNotificationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.tsp.DeviceNotificationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 /**
@@ -41,25 +46,64 @@ public class MessageFactoryImpl implements MessageFactory
 	private IDGenerator<?> idGenerator;
 	
 	private Long applicationId = APPLICATION_ID;
+	private Long authApplicationId = APPLICATION_ID;
 	
 	public MessageFactoryImpl(IDGenerator<?> idGenerator)
 	{
 		this.idGenerator = idGenerator;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(IDGenerator<?> idGenerator,long authApplicationId, long applicationId)
 	{
 		this.idGenerator = idGenerator;
 		this.applicationId = applicationId;
+		this.authApplicationId = authApplicationId;
 	}
 	
 	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new DeviceNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
-	}			
+	}
+	
+	@Override
+	public DeviceNotificationAnswer createDeviceNotificationAnswer(DeviceNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeviceNotificationAnswerImpl result = new  DeviceNotificationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public DeviceNotificationAnswer createDeviceNotificationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeviceNotificationAnswerImpl result = new  DeviceNotificationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
 	
 	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new DeviceActionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}
+	
+	@Override
+	public DeviceActionAnswer createDeviceActionAnswer(DeviceActionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeviceActionAnswerImpl result = new  DeviceActionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public DeviceActionAnswer createDeviceActionAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	{
+		DeviceActionAnswerImpl result = new  DeviceActionAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, authApplicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
 }
