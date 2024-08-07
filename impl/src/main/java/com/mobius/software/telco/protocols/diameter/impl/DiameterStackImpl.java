@@ -256,8 +256,6 @@ public class DiameterStackImpl implements DiameterStack
 		if(provider != null)
 			return provider;
 		
-		//TODO:create providers when exists
-		
 		switch(applicationID.intValue())
 		{
 			case ApplicationIDs.COMMON:

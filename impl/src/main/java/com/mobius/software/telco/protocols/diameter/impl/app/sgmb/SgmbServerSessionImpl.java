@@ -51,8 +51,6 @@ public class SgmbServerSessionImpl extends ServerAuthSessionImpl<SgmbRequest, Sg
 	@Override
 	public void sendInitialAnswer(SgmbAnswer request, AsyncCallback callback)
 	{
-			sendInitialAnswer(request, callback); 
 			callback.onError(new DiameterException("The SgmbRequest is not real and can not be created", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 	}
-	
 }
