@@ -18,14 +18,26 @@ package com.mobius.software.telco.protocols.diameter.app.tsp;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceActionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.DeviceNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 
 public interface MessageFactory
 {
-	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException;			
+	public DeviceNotificationRequest createDeviceNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
+	
+	public DeviceNotificationAnswer createDeviceNotificationAnswer(DeviceNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public DeviceNotificationAnswer createDeviceNotificationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	
 	public DeviceActionRequest createDeviceActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
+	
+	public DeviceActionAnswer createDeviceActionAnswer(DeviceActionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
+	public DeviceActionAnswer createDeviceActionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	
 }

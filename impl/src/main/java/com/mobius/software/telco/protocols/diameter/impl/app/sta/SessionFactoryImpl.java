@@ -38,25 +38,25 @@ public class SessionFactoryImpl implements SessionFactory
 	}
 
 	@Override
-	public StaClientSession createClientSession( AARequest request) throws AvpNotSupportedException
+	public StaClientSession createClientSession(AARequest request) throws AvpNotSupportedException
 	{
 		return new StaClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public StaServerSession createServerSession( AARequest request) throws AvpNotSupportedException
+	public StaServerSession createServerSession(AARequest request) throws AvpNotSupportedException
 	{
 		return new StaServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	@Override
-	public StaClientSession createClientSession( EAPRequest request) throws AvpNotSupportedException
+	public StaClientSession createClientSession(EAPRequest request) throws AvpNotSupportedException
 	{
 		return new StaClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 	
 	@Override
-	public StaServerSession createServerSession( EAPRequest request) throws AvpNotSupportedException
+	public StaServerSession createServerSession(EAPRequest request) throws AvpNotSupportedException
 	{
 		return new StaServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
