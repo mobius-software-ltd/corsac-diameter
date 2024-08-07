@@ -155,7 +155,7 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 		if(!authApplicationIdAllowed && value!=null)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl( value, null, null) }));
 		
-		if(authApplicationId==null)
+		if(value==null)
 			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		this.authApplicationId = new AuthApplicationIdImpl(value, null, null);
