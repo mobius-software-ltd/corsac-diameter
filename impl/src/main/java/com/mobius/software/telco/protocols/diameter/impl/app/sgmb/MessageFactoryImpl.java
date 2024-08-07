@@ -22,11 +22,22 @@ import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.app.sgmb.MessageFactory;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.AbortSessionAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.AbortSessionRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.ReAuthAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.SessionTerminationAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.SessionTerminationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.ReAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 /**
 *
 * @author yulian oifa
@@ -54,5 +65,71 @@ public class MessageFactoryImpl implements MessageFactory
 	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ReAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, reAuthRequestType);
+	}
+	
+	@Override
+	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	{
+		ReAuthAnswerImpl result = new ReAuthAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		ReAuthAnswerImpl result = new ReAuthAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
+	@Override
+	public AbortSessionRequest createAbortSessionRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new AbortSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId);
+	}
+
+	@Override
+	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	{
+		AbortSessionAnswerImpl result = new AbortSessionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		AbortSessionAnswerImpl result = new AbortSessionAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
+	{
+		return  new SessionTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId, terminationCause);
+	}
+
+	@Override
+	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	{
+		SessionTerminationAnswer result = new SessionTerminationAnswerImpl(request.getOriginHost(), request.getOriginRealm(), false, resultCode, request.getSessionId());
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+
+	@Override
+	public SessionTerminationAnswer createSessionTerminationAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		SessionTerminationAnswer result = new SessionTerminationAnswerImpl(originHost, originRealm, false, resultCode, sessionID);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
 	}
 }

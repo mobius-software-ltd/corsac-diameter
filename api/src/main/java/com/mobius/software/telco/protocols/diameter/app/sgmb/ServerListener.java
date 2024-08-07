@@ -1,10 +1,14 @@
 package com.mobius.software.telco.protocols.diameter.app.sgmb;
 
-import com.mobius.software.telco.protocols.diameter.SessionListener;
-import com.mobius.software.telco.protocols.diameter.commands.s6b.AbortSessionAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s6b.ReAuthAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s6b.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.app.ServerAuthListener;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.AbortSessionAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.SessionTerminationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.SgmbAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.SgmbRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -28,11 +32,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 * @author yulian oifa
 *
 */
-public interface ServerListener extends SessionListener
+public interface ServerListener extends ServerAuthListener<SgmbRequest, SgmbAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>
 {
-	void onReauthAnswer(ReAuthAnswer answer) throws DiameterException;
-	
-	void onSessionTerminationRequest(SessionTerminationRequest request) throws DiameterException;
-	
-	void onAbortSessionAnswer(AbortSessionAnswer answer) throws DiameterException;
 }
