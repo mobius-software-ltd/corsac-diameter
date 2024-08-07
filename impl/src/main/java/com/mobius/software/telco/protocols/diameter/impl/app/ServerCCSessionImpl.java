@@ -85,9 +85,9 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				
 				if(answer.getIsError()!=null && answer.getIsError())
 					shouldKeepOpen=false;
-				else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.EVENT_REQUEST)
+				else if(((CreditControlAnswer)answer).getCcRequestType()!=null && ((CreditControlAnswer)answer).getCcRequestType()==CcRequestTypeEnum.EVENT_REQUEST)
 					shouldKeepOpen=false;
-				else if(((CreditControlRequest)answer).getCcRequestType()!=null && ((CreditControlRequest)answer).getCcRequestType()==CcRequestTypeEnum.TERMINATION_REQUEST)
+				else if(((CreditControlAnswer)answer).getCcRequestType()!=null && ((CreditControlAnswer)answer).getCcRequestType()==CcRequestTypeEnum.TERMINATION_REQUEST)
 					shouldKeepOpen=false;
 				
 				if(!shouldKeepOpen)

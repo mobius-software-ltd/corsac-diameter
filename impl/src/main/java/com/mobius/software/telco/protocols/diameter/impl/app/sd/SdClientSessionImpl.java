@@ -327,18 +327,27 @@ public class SdClientSessionImpl implements SdClientSession
 	}
 	
 	@Override
-	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
 	{
-		Boolean isAuth = in.readBoolean();
+		Boolean isAuth = (otherFields & 0x40)!=0;
 		if(isAuth)
 		{
 			authSession = new ClientAuthSessionImpl<TDFSessionRequest, TDFSessionAnswer, ReAuthRequest, ReAuthAnswer, AbortSessionRequest, AbortSessionAnswer, SessionTerminationRequest, SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.SD));
-			authSession.load(in);
+			authSession.load(sessionID, sessionSate, otherFields, in);
 		}
 		else
 		{
 			ccSession = new ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.SD));
-			ccSession.load(in);
+			ccSession.load(sessionID, sessionSate, otherFields, in);
 		}
+	}
+	
+	@Override
+	public byte getOtherFieldsByte()
+	{
+		if(authSession!=null)
+			return (byte)(authSession.getOtherFieldsByte() + 64);
+		else
+			return ccSession.getOtherFieldsByte();
 	}
 }

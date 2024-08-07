@@ -343,12 +343,11 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	}
 	
 	@Override
-	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
 	{
-		sessionID = in.readUTF();
-		state = SessionStateEnum.fromInt(in.readInt());
+		this.sessionID = sessionID;
+		this.state = sessionSate;
 		
-		byte otherFields = in.readByte();
 		if((otherFields & 0x01)!=0)
 			remoteHost = in.readUTF();
 		
@@ -371,5 +370,30 @@ public abstract class DiameterSessionImpl implements DiameterSession
 		}
 		
 		isRetry = (otherFields & 0x20)!=0;
+	}
+	
+	@Override
+	public byte getOtherFieldsByte()
+	{
+		byte otherFields = 0;
+		if(getRemoteHost()!=null)
+			otherFields += 1;
+		
+		if(getRemoteRealm()!=null)
+			otherFields += 2;
+		
+		if(getIdleTimerID()!=null)
+			otherFields += 4;
+		
+		if(getSendTimerID()!=null)
+			otherFields += 8;
+		
+		if(getLastSendRequest()!=null)
+			otherFields += 16;
+		
+		if(isRetry())
+			otherFields += 32;
+		
+		return otherFields;
 	}
 }

@@ -84,5 +84,7 @@ public interface DiameterSession
 	
 	DiameterProvider<?, ?, ?, ?, ?> getProvider();
 	
-	void load(ObjectInput in) throws IOException, ClassNotFoundException;
+	void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException;
+	
+	byte getOtherFieldsByte();
 }

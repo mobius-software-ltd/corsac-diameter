@@ -327,18 +327,27 @@ public class NasClientSessionImpl implements NasClientSession
 	}
 
 	@Override
-	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
 	{
-		Boolean isAcc = in.readBoolean();
+		Boolean isAcc = (otherFields & 0x40)!=0;
 		if(isAcc)
 		{
 			accSession = new ClientAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.NASREQ));
-			accSession.load(in);
+			accSession.load(sessionID, sessionSate, otherFields, in);
 		}
 		else
 		{
 			authSession = new ClientAuthSessionImpl<AARequest, AAAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.NASREQ));
-			authSession.load(in);
+			authSession.load(sessionID, sessionSate, otherFields, in);
 		}
+	}
+	
+	@Override
+	public byte getOtherFieldsByte()
+	{
+		if(accSession!=null)
+			return (byte)(accSession.getOtherFieldsByte() + 64);
+		else
+			return authSession.getOtherFieldsByte();
 	}
 }

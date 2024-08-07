@@ -327,18 +327,27 @@ public class Rfc5778aClientSessionImpl implements Rfc5778aClientSession
 	}
 
 	@Override
-	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
 	{
-		Boolean isAcc = in.readBoolean();
+		Boolean isAcc = (otherFields & 0x40)!=0;
 		if(isAcc)
 		{
 			accSession = new ClientAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.MIP6A));
-			accSession.load(in);
+			accSession.load(sessionID, sessionSate, otherFields, in);
 		}
 		else
 		{
 			authSession = new ClientAuthSessionImpl<MIP6Request, MIP6Answer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.MIP6A));
-			authSession.load(in);
+			authSession.load(sessionID, sessionSate, otherFields, in);
 		}
+	}
+	
+	@Override
+	public byte getOtherFieldsByte()
+	{
+		if(accSession!=null)
+			return (byte)(accSession.getOtherFieldsByte() + 64);
+		else
+			return authSession.getOtherFieldsByte();
 	}
 }

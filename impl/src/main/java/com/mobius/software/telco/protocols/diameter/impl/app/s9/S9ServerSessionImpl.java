@@ -326,19 +326,27 @@ public class S9ServerSessionImpl implements S9ServerSession
 	}
 
 	@Override
-	public void load(ObjectInput in) throws IOException, ClassNotFoundException
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
 	{
-		Boolean isAuth = in.readBoolean();
+		Boolean isAuth = (otherFields & 0x40)!=0;
 		if(isAuth)
 		{
 			authSession = new ServerAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(Long.valueOf(ApplicationIDs.S9));
-			authSession.load(in);		
+			authSession.load(sessionID, sessionSate, otherFields, in);		
 		}
 		else
 		{
 			ccSession = new ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.S9));
-			ccSession.load(in);
+			ccSession.load(sessionID, sessionSate, otherFields, in);
 		}
 	}
-
+	
+	@Override
+	public byte getOtherFieldsByte()
+	{
+		if(authSession!=null)
+			return (byte)(authSession.getOtherFieldsByte() + 64);
+		else
+			return ccSession.getOtherFieldsByte();
+	}
 }
