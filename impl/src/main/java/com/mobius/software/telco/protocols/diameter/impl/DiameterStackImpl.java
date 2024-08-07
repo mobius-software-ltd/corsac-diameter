@@ -98,6 +98,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.sta.StaProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.swa.SwaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swd.SwdProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.sy.SyProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.swx.SwxProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.swm.SwmProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.st.StProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
@@ -408,9 +410,13 @@ public class DiameterStackImpl implements DiameterStack
 				registeredProvidersByPackage.put(parentPackage.getName(), slgProvider);
 				return slgProvider;
 			case ApplicationIDs.SWM:
-				break;
+				SwmProviderImpl swmProvider=new SwmProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), swmProvider);
+				return swmProvider;
 			case ApplicationIDs.SWX:
-				break;
+				SwxProviderImpl swxProvider=new SwxProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), swxProvider);
+				return swxProvider;
 			case ApplicationIDs.GXX:
 				GxxProviderImpl gxxProvider=new GxxProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), gxxProvider);
