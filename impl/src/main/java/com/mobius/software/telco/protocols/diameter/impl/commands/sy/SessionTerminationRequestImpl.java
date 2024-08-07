@@ -1,20 +1,20 @@
 package com.mobius.software.telco.protocols.diameter.impl.commands.sy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
-import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.TerminationCauseImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCause;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -40,49 +40,56 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.Terminatio
 * @author yulian oifa
 *
 */
-public class SessionTerminationRequestImpl extends SyRequestImpl implements SessionTerminationRequest
+public class SessionTerminationRequestImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.SessionTerminationRequestImpl implements SessionTerminationRequest
 {
-	private TerminationCause terminationCause;
+	protected DRMP drmp;
+	
+	protected OCSupportedFeatures ocSupportedFeatures;
 	
 	protected SessionTerminationRequestImpl() 
 	{
 		super();
+		
+		setUsernameAllowed(false);
 	}
 	
 	public SessionTerminationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm, Boolean isRetransmit, String sessionID, Long authApplicationId, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
-		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId);
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authApplicationId, terminationCause);
 		
-		setTerminationCause(terminationCause);
+		setUsernameAllowed(false);
 	}
-
+	
 	@Override
-	public TerminationCauseEnum getTerminationCause() 
+	public DRMPEnum getDRMP() 
 	{
-		if(this.terminationCause == null)
+		if(drmp==null)
 			return null;
 		
-		return this.terminationCause.getEnumerated(TerminationCauseEnum.class);
+		return drmp.getEnumerated(DRMPEnum.class);
 	}
 
 	@Override
-	public void setTerminationCause(TerminationCauseEnum value) throws MissingAvpException 
+	public void setDRMP(DRMPEnum value) 
 	{
 		if(value==null)
-			throw new MissingAvpException("Termination-Cause is required is required", Arrays.asList(new DiameterAvp[] { new TerminationCauseImpl() }));
-		
-		this.terminationCause = new TerminationCauseImpl(value, null, null);
-	}		
-	
-	@DiameterValidate
-	public DiameterException validate()
+			this.drmp = null;
+		else
+			this.drmp = new DRMPImpl(value, null, null);
+	}
+
+	@Override
+	public OCSupportedFeatures getOCSupportedFeatures() 
 	{
-		if(terminationCause==null)
-			return new MissingAvpException("Termination-Cause is required is required", Arrays.asList(new DiameterAvp[] { new TerminationCauseImpl() }));
-		
-		return super.validate();
-	}	
-	
+		return ocSupportedFeatures;
+	}
+
+	@Override
+	public void setOCSupportedFeatures(OCSupportedFeatures value) 
+	{
+		this.ocSupportedFeatures = value;
+	}
+
 	@DiameterOrder
 	public List<DiameterAvp> getOrderedAVPs()
 	{

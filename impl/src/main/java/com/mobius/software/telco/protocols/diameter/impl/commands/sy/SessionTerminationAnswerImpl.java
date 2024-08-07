@@ -7,8 +7,13 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.rfc7944.DRMPImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnknownAvp;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.OCOLR;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7683.OCSupportedFeatures;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMP;
+import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 
 /*
@@ -35,18 +40,69 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc8583.Load;
 * @author yulian oifa
 *
 */
-public class SessionTerminationAnswerImpl extends SyAnswerImpl implements SessionTerminationAnswer
+public class SessionTerminationAnswerImpl extends com.mobius.software.telco.protocols.diameter.impl.commands.common.SessionTerminationAnswerImpl implements SessionTerminationAnswer
 {
+	protected DRMP drmp;
+
+	protected OCSupportedFeatures ocSupportedFeatures;
+	
+	protected OCOLR ocOLR;
+	
 	public List<Load> load;
 	
 	protected SessionTerminationAnswerImpl() 
 	{
 		super();
+		setUsernameAllowed(false);
+
 	}
 	
 	public SessionTerminationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		setUsernameAllowed(false);
+	}
+	
+	@Override
+	public DRMPEnum getDRMP() 
+	{
+		if(drmp==null)
+			return null;
+		
+		return drmp.getEnumerated(DRMPEnum.class);
+	}
+
+	@Override
+	public void setDRMP(DRMPEnum value) 
+	{
+		if(value==null)
+			this.drmp = null;
+		else
+			this.drmp = new DRMPImpl(value, null, null);
+	}
+
+	@Override
+	public OCSupportedFeatures getOCSupportedFeatures() 
+	{
+		return ocSupportedFeatures;
+	}
+
+	@Override
+	public void setOCSupportedFeatures(OCSupportedFeatures value) 
+	{
+		this.ocSupportedFeatures = value;
+	}
+
+	@Override
+	public OCOLR getOCOLR() 
+	{
+		return ocOLR;
+	}
+
+	@Override
+	public void setOCOLR(OCOLR value) 
+	{
+		this.ocOLR = value;
 	}
 	
 	@Override
