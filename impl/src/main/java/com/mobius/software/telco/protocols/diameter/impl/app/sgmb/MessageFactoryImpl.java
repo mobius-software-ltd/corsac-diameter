@@ -21,21 +21,22 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sgmb;
 import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.sgmb.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sgmb.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.sgmb.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.AbortSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.AbortSessionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.ReAuthAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.ReAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.SessionTerminationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.SessionTerminationRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.sgmb.ReAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
 /**
@@ -47,24 +48,24 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.SGMB;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ReAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, reAuthRequestType);
+		return new ReAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, reAuthRequestType);
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ public class SgmbProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 {
 	public SgmbProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 
