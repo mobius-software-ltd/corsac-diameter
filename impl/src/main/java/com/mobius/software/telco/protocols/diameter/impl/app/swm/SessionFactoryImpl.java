@@ -38,25 +38,25 @@ public class SessionFactoryImpl implements SessionFactory
 	}
 
 	@Override
-	public SwmClientSession createClientSession( AARequest request) throws AvpNotSupportedException
+	public SwmClientSession createClientSession(AARequest request) throws AvpNotSupportedException
 	{
 		return new SwmClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 
 	@Override
-	public SwmServerSession createServerSession( AARequest request) throws AvpNotSupportedException
+	public SwmServerSession createServerSession(AARequest request) throws AvpNotSupportedException
 	{
 		return new SwmServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
 	
 	@Override
-	public SwmClientSession createClientSession( EAPRequest request) throws AvpNotSupportedException
+	public SwmClientSession createClientSession(EAPRequest request) throws AvpNotSupportedException
 	{
 		return new SwmClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
 	}
 	
 	@Override
-	public SwmServerSession createServerSession( EAPRequest request) throws AvpNotSupportedException
+	public SwmServerSession createServerSession(EAPRequest request) throws AvpNotSupportedException
 	{
 		return new SwmServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}
