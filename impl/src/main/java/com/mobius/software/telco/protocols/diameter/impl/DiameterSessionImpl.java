@@ -1,6 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.impl;
-import java.io.IOException;
-import java.io.ObjectInput;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -22,6 +20,8 @@ import java.io.ObjectInput;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationID;
@@ -35,9 +35,6 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
 /**
 *
 * @author yulian oifa
@@ -45,6 +42,8 @@ import io.netty.buffer.Unpooled;
 */
 public abstract class DiameterSessionImpl implements DiameterSession
 {
+	public static Logger logger=LogManager.getLogger(DiameterLinkImpl.class);
+	
 	private DiameterProvider<?, ?, ?, ?, ?> provider;
 	private String sessionID;
 	private Long applicationID;
@@ -53,7 +52,6 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	private SessionStateEnum state;
 	private String remoteHost,remoteRealm;
 	private DiameterRequest lastSentRequest;
-	private ByteBuf lastRequestSentData;
 	
 	private Boolean isRetry = false;
 	
@@ -67,14 +65,6 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	{
 		this.sessionID = sessionID;
 		this.applicationID = applicationID;
-		this.remoteHost = remoteHost;
-		this.remoteRealm = remoteRealm;
-		this.provider = provider;
-	}
-	
-	public void load(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ?, ?, ?, ?> provider)
-	{
-		this.sessionID = sessionID;
 		this.remoteHost = remoteHost;
 		this.remoteRealm = remoteRealm;
 		this.provider = provider;
@@ -303,19 +293,38 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	@Override
 	public void setLastSentRequest(DiameterRequest request)
 	{
+		//if we will not generate the identifiers here, we may have invalid identifiers stored
+		if(request.getHopByHopIdentifier()==null)
+		{
+			Long hopIdentifier = provider.getStack().getNextHopByHopIdentifier();
+			request.setHopByHopIdentifier(hopIdentifier);			
+		}
+		
+		if(request.getEndToEndIdentifier()==null)
+			request.setEndToEndIdentifier(request.getHopByHopIdentifier());
+		
 		this.lastSentRequest = request;
 	}
 	
 	protected void validateAnswer(DiameterAnswer answer) throws DiameterException
 	{
 		if(lastSentRequest==null)
+		{
+			logger.warn("Received answer, however original request not found");
 			throw new DiameterException("Request has not been found for this answer", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+		}
 		
 		if(!lastSentRequest.getEndToEndIdentifier().equals(answer.getEndToEndIdentifier()))
+		{
+			logger.warn("Received answer, however with unexpected end to end identifier");
 			throw new DiameterException("Unexpected end to end identifier", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+		}
 		
 		if(!lastSentRequest.getHopByHopIdentifier().equals(answer.getHopByHopIdentifier()))
+		{
+			logger.warn("Received answer, however with unexpected hpp by hop identifier");
 			throw new DiameterException("Unexpected hop to hop identifier", null, ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);		
+		}
 	}
 	
 	@Override
@@ -337,39 +346,16 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	}
 	
 	@Override
-	public ByteBuf getLastSendRequestData()
-	{
-		return lastRequestSentData;
-	}
-	
-	@Override
-	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields)
 	{
 		this.sessionID = sessionID;
 		this.state = sessionSate;
-		
-		if((otherFields & 0x01)!=0)
-			remoteHost = in.readUTF();
-		
-		if((otherFields & 0x02)!=0)
-			remoteRealm = in.readUTF();
-		
-		if((otherFields & 0x04)!=0)
-			idleTimerID = (ClusteredID<?>)in.readObject();
-		
-		if((otherFields & 0x08)!=0)
-			sendTimerID = (ClusteredID<?>)in.readObject();
-		
-		if((otherFields & 0x10)!=0)
-		{
-			int length = in.readInt();
-			byte[] data = new byte[length];
-			in.read(data);
-			lastRequestSentData = Unpooled.wrappedBuffer(data);
-			lastRequestSentData.readerIndex(0);
-		}
-		
-		isRetry = (otherFields & 0x20)!=0;
+	}
+	
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = provider;
 	}
 	
 	@Override

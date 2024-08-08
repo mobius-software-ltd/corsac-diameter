@@ -1,15 +1,10 @@
 package com.mobius.software.telco.protocols.diameter;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-
-import io.netty.buffer.ByteBuf;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -40,7 +35,11 @@ public interface DiameterSession
 	
 	Long getApplicationID();
 	
+	void setRemoteHost(String remoteHost);
+	
 	String getRemoteHost();
+	
+	void setRemoteRealm(String remoteRealm);
 	
 	String getRemoteRealm();
 	
@@ -74,8 +73,6 @@ public interface DiameterSession
 	
 	DiameterRequest getLastSendRequest();
 	
-	ByteBuf getLastSendRequestData();
-	
 	void setLastSentRequest(DiameterRequest request);
 	
 	Boolean isRetry();
@@ -84,7 +81,9 @@ public interface DiameterSession
 	
 	DiameterProvider<?, ?, ?, ?, ?> getProvider();
 	
-	void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException;
+	void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider);
+	
+	void load(String sessionID, SessionStateEnum sessionSate, byte otherFields);
 	
 	byte getOtherFieldsByte();
 }

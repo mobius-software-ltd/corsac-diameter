@@ -41,6 +41,8 @@ public interface DiameterStack
 {
 	ClassLoader getClassLoader();
 	
+	DiameterProvider<?,?,?,?,?> getProvider(Class<?> providerClass);
+		
 	//package is required for credit control and others that has multiple options
 	DiameterProvider<?,?,?,?,?> getProvider(Long applicationID,Package parentPackage);
 	

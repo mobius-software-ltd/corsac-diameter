@@ -1,7 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778i;
-import java.io.IOException;
-import java.io.ObjectInput;
-
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -45,8 +42,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAccSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionImpl;
 
-import io.netty.buffer.ByteBuf;
-
 
 public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 {
@@ -80,8 +75,8 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			return accSession.getSessionState();
-		
-		return authSession.getSessionState();
+		else
+			return authSession.getSessionState();
 	}
 
 	@Override
@@ -143,8 +138,8 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			return accSession.getRemoteHost();
-		
-		return authSession.getRemoteHost();
+		else
+			return authSession.getRemoteHost();
 	}
 
 	@Override
@@ -152,8 +147,26 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			return accSession.getRemoteRealm();
-		
-		return authSession.getRemoteRealm();
+		else
+			return authSession.getRemoteRealm();
+	}
+
+	@Override
+	public void setRemoteHost(String remoteHost)
+	{
+		if(accSession!=null)
+			accSession.setRemoteHost(remoteHost);
+		else
+			authSession.setRemoteHost(remoteHost);
+	}
+
+	@Override
+	public void setRemoteRealm(String remoteRealm)
+	{
+		if(accSession!=null)
+			accSession.setRemoteRealm(remoteRealm);
+		else
+			authSession.setRemoteRealm(remoteRealm);
 	}
 
 	@Override
@@ -269,8 +282,8 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			accSession.setSessionState(state);
-		
-		authSession.setSessionState(state);
+		else
+			authSession.setSessionState(state);
 	}
 
 	@Override
@@ -278,8 +291,8 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			return accSession.getLastSendRequest();
-		
-		return authSession.getLastSendRequest();
+		else
+			return authSession.getLastSendRequest();
 	}
 
 	@Override
@@ -287,8 +300,8 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			accSession.setLastSentRequest(request);
-		
-		authSession.setLastSentRequest(request);
+		else
+			authSession.setLastSentRequest(request);
 	}
 
 	@Override
@@ -296,8 +309,8 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			return accSession.isRetry();
-		
-		return authSession.isRetry();
+		else
+			return authSession.isRetry();
 	}
 
 	@Override
@@ -305,17 +318,8 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			accSession.setIsRetry(isRetry);
-		
-		authSession.setIsRetry(isRetry);
-	}
-
-	@Override
-	public ByteBuf getLastSendRequestData()
-	{
-		if(accSession!=null)
-			return accSession.getLastSendRequestData();
-		
-		return authSession.getLastSendRequestData();
+		else
+			authSession.setIsRetry(isRetry);
 	}
 	
 	@Override
@@ -323,23 +327,32 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	{
 		if(accSession!=null)
 			return accSession.getProvider();
-		
-		return authSession.getProvider();
+		else
+			return authSession.getProvider();
 	}
 
 	@Override
-	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		if(accSession!=null)
+			accSession.setProvider(provider);
+		else
+			authSession.setProvider(provider);
+	}
+
+	@Override
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields)
 	{
 		Boolean isAcc = (otherFields & 0x40)!=0;
 		if(isAcc)
 		{
 			accSession = new ServerAccSessionImpl<AccountingRequest, AccountingAnswer>(Long.valueOf(ApplicationIDs.MIP6I));
-			accSession.load(sessionID, sessionSate, otherFields, in);
+			accSession.load(sessionID, sessionSate, otherFields);
 		}
 		else
 		{
 			authSession = new ServerAuthSessionImpl<EAPRequest, EAPAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.MIP6I));
-			authSession.load(sessionID, sessionSate, otherFields, in);
+			authSession.load(sessionID, sessionSate, otherFields);
 		}
 	}
 	

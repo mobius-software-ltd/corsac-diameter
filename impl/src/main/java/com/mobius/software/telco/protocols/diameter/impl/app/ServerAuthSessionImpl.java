@@ -35,6 +35,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthReque
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 /**
 *
@@ -54,6 +55,14 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = (DiameterProvider<?, ? extends ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?>)provider;
+		super.setProvider(provider);
 	}
 
 	@Override
@@ -115,6 +124,18 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.PENDING);
+				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
+				{
+					try
+					{
+						request.setDestinationRealm(getRemoteRealm());
+					}
+					catch(MissingAvpException ex)
+					{
+						
+					}
+				}
+				
 				setLastSentRequest(request);
 				requestSent(request, callback);
 				provider.getStack().sendRequest(request, callback);
@@ -172,6 +193,18 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.DISCONNECTED);
+				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
+				{
+					try
+					{
+						request.setDestinationRealm(getRemoteRealm());
+					}
+					catch(MissingAvpException ex)
+					{
+						
+					}
+				}
+				
 				requestSent(request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
@@ -191,6 +224,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R4 castedRequest = (R4)request;
+				super.requestReceived(request, callback);
 				if(listeners!=null)
 				{
 					for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -208,6 +242,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R1 castedRequest = (R1)request;
+				super.requestReceived(request, callback);
 				if(listeners!=null)
 				{
 					for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -220,8 +255,6 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				return;
 			}
 		}
-		
-		super.requestReceived(request, callback);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -279,6 +312,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
 						{
 							setSessionState(SessionStateEnum.OPEN);
+							super.answerReceived(answer, callback, idleTime, stopSendTimer);
 							if(listeners!=null)
 							{
 								for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -304,9 +338,6 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 					
 				}
 			}
-			
-			if(getSessionState()!=SessionStateEnum.IDLE)
-				super.answerReceived(answer, callback, idleTime, stopSendTimer);
 		}
 		else 
 			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		

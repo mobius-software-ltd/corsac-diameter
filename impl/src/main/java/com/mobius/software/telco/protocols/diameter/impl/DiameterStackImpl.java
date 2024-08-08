@@ -120,7 +120,8 @@ public class DiameterStackImpl implements DiameterStack
 	public static final Long DEFAULT_IDLE_TIMEOUT = 120000L;
 	
 	private ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByPackage=new ConcurrentHashMap<String,DiameterProvider<?, ?, ?, ?, ?>>();
-	
+	private ConcurrentHashMap<Class<?>,DiameterProvider<?, ?, ?, ?, ?>> registeredProvidersByClass=new ConcurrentHashMap<Class<?>,DiameterProvider<?, ?, ?, ?, ?>>();
+		
 	private ConcurrentHashMap<CommandCode, AtomicLong> messagesSentByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
 	private ConcurrentHashMap<CommandCode, AtomicLong> messagesReceivedByType = new ConcurrentHashMap<CommandCode, AtomicLong>();
 	private ConcurrentHashMap<Long, AtomicLong> errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
@@ -240,6 +241,12 @@ public class DiameterStackImpl implements DiameterStack
 			return;
 		
 		registeredProvidersByPackage.putIfAbsent(parentPackage.getName(), provider);
+		registeredProvidersByClass.putIfAbsent(provider.getClass(), provider);
+	}
+	
+	public DiameterProvider<?,?,?,?,?> getProvider(Class<?> providerClass)
+	{
+		return registeredProvidersByClass.get(providerClass);
 	}
 	
 	//its not required to create the providers from here, they may be created as needed
@@ -265,255 +272,311 @@ public class DiameterStackImpl implements DiameterStack
 				{
 					GiProviderImpl giProvider=new GiProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), giProvider);
+					registeredProvidersByClass.put(giProvider.getClass(), giProvider);
 					return giProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.nas"))
 				{
 					NasProviderImpl nasProvider=new NasProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), nasProvider);
+					registeredProvidersByClass.put(nasProvider.getClass(), nasProvider);
 					return nasProvider;
 				}
 				break;
 			case ApplicationIDs.MOBILE_IPV4:
 				RFC4004ProviderImpl rfc4004Provider=new RFC4004ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), rfc4004Provider);
+				registeredProvidersByClass.put(rfc4004Provider.getClass(), rfc4004Provider);
 				return rfc4004Provider;
 			case ApplicationIDs.ACCOUNTING:
 				RfProviderImpl rfProvider=new RfProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), rfProvider);
+				registeredProvidersByClass.put(rfProvider.getClass(), rfProvider);
 				return rfProvider;
 			case ApplicationIDs.CREDIT_CONTROL:
 				if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ro"))
 				{
 					RoProviderImpl roProvider=new RoProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), roProvider);
+					registeredProvidersByClass.put(roProvider.getClass(), roProvider);
 					return roProvider;					
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gy"))
 				{
 					GyProviderImpl gyProvider=new GyProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), gyProvider);
+					registeredProvidersByClass.put(gyProvider.getClass(), gyProvider);
 					return gyProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.creditcontrol"))
 				{
 					CreditControlProviderImpl creditControlProvider=new CreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), creditControlProvider);
+					registeredProvidersByClass.put(creditControlProvider.getClass(), creditControlProvider);
 					return creditControlProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ericsson"))
 				{
 					EricssonCreditControlProviderImpl ericssonCreditControlProvider=new EricssonCreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), ericssonCreditControlProvider);
+					registeredProvidersByClass.put(ericssonCreditControlProvider.getClass(), ericssonCreditControlProvider);
 					return ericssonCreditControlProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.huawei"))
 				{
 					HuaweiCreditControlProviderImpl huaweiCreditControlProvider=new HuaweiCreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), huaweiCreditControlProvider);
+					registeredProvidersByClass.put(huaweiCreditControlProvider.getClass(), huaweiCreditControlProvider);
 					return huaweiCreditControlProvider;
 				}
 				break;
 			case ApplicationIDs.EAP:				
 				EAPProviderImpl eapProvider=new EAPProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), eapProvider);
+				registeredProvidersByClass.put(eapProvider.getClass(), eapProvider);
 				return eapProvider;
 			case ApplicationIDs.SIP_APPLICATION:
 				Rfc4740ProviderImpl rfc4740Provider=new Rfc4740ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), rfc4740Provider);
+				registeredProvidersByClass.put(rfc4740Provider.getClass(), rfc4740Provider);
 				return rfc4740Provider;
 			case ApplicationIDs.MIP6I:
 				Rfc5778iProviderImpl rfc5778iProvider=new Rfc5778iProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), rfc5778iProvider);
+				registeredProvidersByClass.put(rfc5778iProvider.getClass(), rfc5778iProvider);
 				return rfc5778iProvider;
 			case ApplicationIDs.MIP6A:
 				Rfc5778aProviderImpl rfc5778aProvider=new Rfc5778aProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), rfc5778aProvider);
+				registeredProvidersByClass.put(rfc5778aProvider.getClass(), rfc5778aProvider);
 				return rfc5778aProvider;		
 			case ApplicationIDs.CX_DX:
 				CxDxProviderImpl cxDxProvider=new CxDxProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), cxDxProvider);
+				registeredProvidersByClass.put(cxDxProvider.getClass(), cxDxProvider);
 				return cxDxProvider;				
 			case ApplicationIDs.SH:
 				ShProviderImpl shProvider=new ShProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), shProvider);
+				registeredProvidersByClass.put(shProvider.getClass(), shProvider);
 				return shProvider;
 			case ApplicationIDs.GQ:
 				if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gq"))
 				{
 					GqProviderImpl gqProvider=new GqProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), gqProvider);
+					registeredProvidersByClass.put(gqProvider.getClass(), gqProvider);
 					return gqProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.gqtag"))
 				{
 					GqTagProviderImpl gqTagProvider=new GqTagProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), gqTagProvider);
+					registeredProvidersByClass.put(gqTagProvider.getClass(), gqTagProvider);
 					return gqTagProvider;
 				}
 				break;
 			case ApplicationIDs.GMB:
 				GMBProviderImpl gmbProvider=new GMBProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), gmbProvider);
+				registeredProvidersByClass.put(gmbProvider.getClass(), gmbProvider);
 				return gmbProvider;
 			case ApplicationIDs.MM10:
 				MM10ProviderImpl mm10Provider=new MM10ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), mm10Provider);
+				registeredProvidersByClass.put(mm10Provider.getClass(), mm10Provider);
 				return mm10Provider;
 			case ApplicationIDs.E4:
 				E4ProviderImpl e4Provider=new E4ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), e4Provider);
+				registeredProvidersByClass.put(e4Provider.getClass(), e4Provider);
 				return e4Provider;
 			case ApplicationIDs.MB2C:
 				Mb2cProviderImpl mb2cProvider=new Mb2cProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), mb2cProvider);
+				registeredProvidersByClass.put(mb2cProvider.getClass(), mb2cProvider);
 				return mb2cProvider;
 			case ApplicationIDs.RX:
 				RxProviderImpl rxProvider=new RxProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), rxProvider);
+				registeredProvidersByClass.put(rxProvider.getClass(), rxProvider);
 				return rxProvider;
 			case ApplicationIDs.GX:
 				GxProviderImpl gxProvider=new GxProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), gxProvider);
+				registeredProvidersByClass.put(gxProvider.getClass(), gxProvider);
 				return gxProvider;
 			case ApplicationIDs.STA:
 				if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.sta"))
 				{
 					StaProviderImpl staProvider=new StaProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), staProvider);
+					registeredProvidersByClass.put(staProvider.getClass(), staProvider);
 					return staProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.swa"))
 				{
 					SwaProviderImpl swaProvider=new SwaProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), swaProvider);
+					registeredProvidersByClass.put(swaProvider.getClass(), swaProvider);
 					return swaProvider;
 				}
 				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.swd"))
 				{
 					SwdProviderImpl swdProvider=new SwdProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), swdProvider);
+					registeredProvidersByClass.put(swdProvider.getClass(), swdProvider);
 					return swdProvider;
 				}
 			case ApplicationIDs.S6A:
 				S6aProviderImpl s6aProvider=new S6aProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s6aProvider);
+				registeredProvidersByClass.put(s6aProvider.getClass(), s6aProvider);
 				return s6aProvider;
 			case ApplicationIDs.S13:
 				S13ProviderImpl s13Provider=new S13ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s13Provider);
+				registeredProvidersByClass.put(s13Provider.getClass(), s13Provider);
 				return s13Provider;
 			case ApplicationIDs.S15:
 				S15ProviderImpl s15Provider=new S15ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s15Provider);
+				registeredProvidersByClass.put(s15Provider.getClass(), s15Provider);
 				return s15Provider;	
 			case ApplicationIDs.SLG:
 				SlgProviderImpl slgProvider=new SlgProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), slgProvider);
+				registeredProvidersByClass.put(slgProvider.getClass(), slgProvider);
 				return slgProvider;
 			case ApplicationIDs.SWM:
 				SwmProviderImpl swmProvider=new SwmProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), swmProvider);
+				registeredProvidersByClass.put(swmProvider.getClass(), swmProvider);
 				return swmProvider;
 			case ApplicationIDs.SWX:
 				SwxProviderImpl swxProvider=new SwxProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), swxProvider);
+				registeredProvidersByClass.put(swxProvider.getClass(), swxProvider);
 				return swxProvider;
 			case ApplicationIDs.GXX:
 				GxxProviderImpl gxxProvider=new GxxProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), gxxProvider);
+				registeredProvidersByClass.put(gxxProvider.getClass(), gxxProvider);
 				return gxxProvider;
 			case ApplicationIDs.S9:
 				S9ProviderImpl s9Provider=new S9ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s9Provider);
+				registeredProvidersByClass.put(s9Provider.getClass(), s9Provider);
 				return s9Provider;
 			case ApplicationIDs.S6B:
 				S6bProviderImpl s6bProvider=new S6bProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s6bProvider);
+				registeredProvidersByClass.put(s6bProvider.getClass(), s6bProvider);
 				return s6bProvider;
 			case ApplicationIDs.SLH:
 				SlhProviderImpl slhProvider=new SlhProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), slhProvider);
+				registeredProvidersByClass.put(slhProvider.getClass(), slhProvider);
 				return slhProvider;
 			case ApplicationIDs.SGMB:
 				SgmbProviderImpl sgmbProvider=new SgmbProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), sgmbProvider);
+				registeredProvidersByClass.put(sgmbProvider.getClass(), sgmbProvider);
 				return sgmbProvider;
 			case ApplicationIDs.SY:
 				SyProviderImpl syProvider=new SyProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), syProvider);
+				registeredProvidersByClass.put(syProvider.getClass(), syProvider);
 				return syProvider;
 			case ApplicationIDs.SD:
 				SdProviderImpl sdProvider=new SdProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), sdProvider);
+				registeredProvidersByClass.put(sdProvider.getClass(), sdProvider);
 				return sdProvider;
 			case ApplicationIDs.S7A:
 				S7aProviderImpl s7aProvider=new S7aProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s7aProvider);
+				registeredProvidersByClass.put(s7aProvider.getClass(), s7aProvider);
 				return s7aProvider;
 			case ApplicationIDs.TSP:
 				TspProviderImpl tspProvider=new TspProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), tspProvider);
+				registeredProvidersByClass.put(tspProvider.getClass(), tspProvider);
 				return tspProvider;
 			case ApplicationIDs.S6M:
 				S6mProviderImpl s6mProvider=new S6mProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s6mProvider);
+				registeredProvidersByClass.put(s6mProvider.getClass(), s6mProvider);
 				return s6mProvider;
 			case ApplicationIDs.T4:
 				T4ProviderImpl t4Provider=new T4ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), t4Provider);
+				registeredProvidersByClass.put(t4Provider.getClass(), t4Provider);
 				return t4Provider;
 			case ApplicationIDs.S6C:
 				S6cProviderImpl s6cProvider=new S6cProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s6cProvider);
+				registeredProvidersByClass.put(s6cProvider.getClass(), s6cProvider);
 				return s6cProvider;
 			case ApplicationIDs.SGD:
 				SgdProviderImpl sgdProvider=new SgdProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), sgdProvider);
+				registeredProvidersByClass.put(sgdProvider.getClass(), sgdProvider);
 				return sgdProvider;
 			case ApplicationIDs.S9A:
 				S9aProviderImpl s9aProvider=new S9aProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s9aProvider);
+				registeredProvidersByClass.put(s9aProvider.getClass(), s9aProvider);
 				return s9aProvider;
 			case ApplicationIDs.S9ATAG:
 				S9atagProviderImpl s9atagProvider=new S9atagProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s9atagProvider);
+				registeredProvidersByClass.put(s9atagProvider.getClass(), s9atagProvider);
 				return s9atagProvider;
 			case ApplicationIDs.PC4A:
 				PC4AProviderImpl pc4aProvider=new PC4AProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), pc4aProvider);
+				registeredProvidersByClass.put(pc4aProvider.getClass(), pc4aProvider);
 				return pc4aProvider;
 			case ApplicationIDs.PC6:
 				PC6ProviderImpl pc6Provider=new PC6ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), pc6Provider);
+				registeredProvidersByClass.put(pc6Provider.getClass(), pc6Provider);
 				return pc6Provider;
 			case ApplicationIDs.NP:
 				NpProviderImpl npProvider=new NpProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), npProvider);
+				registeredProvidersByClass.put(npProvider.getClass(), npProvider);
 				return npProvider;
 			case ApplicationIDs.S6T:
 				S6tProviderImpl s6tProvider=new S6tProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), s6tProvider);
+				registeredProvidersByClass.put(s6tProvider.getClass(), s6tProvider);
 				return s6tProvider;
 			case ApplicationIDs.T6A:
 				T6aProviderImpl t6aProvider=new T6aProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), t6aProvider);
+				registeredProvidersByClass.put(t6aProvider.getClass(), t6aProvider);
 				return t6aProvider;
 			case ApplicationIDs.NT:
 				NtProviderImpl ntProvider=new NtProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), ntProvider);
+				registeredProvidersByClass.put(ntProvider.getClass(), ntProvider);
 				return ntProvider;
 			case ApplicationIDs.NTA:
 				NtaProviderImpl ntaProvider=new NtaProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), ntaProvider);
+				registeredProvidersByClass.put(ntaProvider.getClass(), ntaProvider);
 				return ntaProvider;	
 			case ApplicationIDs.ST:
 				StProviderImpl stProvider=new StProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), stProvider);
+				registeredProvidersByClass.put(stProvider.getClass(), stProvider);
 				return stProvider;
 			case ApplicationIDs.PC2:
 				PC2ProviderImpl pc2Provider=new PC2ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), pc2Provider);
+				registeredProvidersByClass.put(pc2Provider.getClass(), pc2Provider);
 				return pc2Provider;
 		}
 		

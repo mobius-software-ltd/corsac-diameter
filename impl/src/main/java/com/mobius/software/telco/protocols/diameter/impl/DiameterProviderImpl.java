@@ -144,7 +144,7 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			return;
 		}
 		
-		DiameterSession session = this.getStack().getSessionStorage().getSession(sessionID);
+		DiameterSession session = this.getStack().getSessionStorage().getSession(sessionID, this);
 		if(session==null && (message instanceof DiameterRequest))
 		{
 			session=getNewSession((DiameterRequest)message);

@@ -404,6 +404,8 @@ public class MessageProcessingTask implements Task
 							@Override
 							public void onError(DiameterException ex)
 							{
+								logger.warn("An error occured while delivering incoming message " + ex.getMessage() + " from " + association, ex);
+								
 								if(ex.getPartialMessage()==null)
 									ex.setPartialMessage(message);
 								

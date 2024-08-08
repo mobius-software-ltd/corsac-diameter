@@ -52,7 +52,15 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = (DiameterProvider<?, ? extends ServerAccListener<R1, A1>, ?, ?, ?>)provider;
+		super.setProvider(provider);
+	}
+	
 	@Override
 	public void sendAccountingResponse(A1 answer, AsyncCallback callback)
 	{
@@ -111,7 +119,7 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 		{
 			@SuppressWarnings("unchecked")
 			R1 castedRequest = (R1)request;
-			
+			super.requestReceived(request, callback);
 			if(provider.getServerListeners()!=null)
 			{
 				@SuppressWarnings("unchecked")
@@ -125,9 +133,7 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 		{
 			callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 			return;
-		}
-		
-		super.requestReceived(request, callback);
+		}				
 	}
 	
 	@Override

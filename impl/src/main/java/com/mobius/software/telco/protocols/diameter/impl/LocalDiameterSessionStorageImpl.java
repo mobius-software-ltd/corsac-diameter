@@ -24,6 +24,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.restcomm.cluster.ClusteredID;
 
+import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.DiameterSessionStorage;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
@@ -80,7 +81,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	}
 
 	@Override
-	public DiameterSession getSession(String sessionId)
+	public DiameterSession getSession(String sessionId, DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
 		return localMap.get(sessionId);
 	}

@@ -58,6 +58,14 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = (DiameterProvider<? extends ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>, ?, ?, ?, ?>)provider;
+		super.setProvider(provider);
+	}
 
 	@Override
 	public void sendInitialRequest(R1 request, AsyncCallback callback)
@@ -90,7 +98,19 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.PENDING);
-				setLastSentRequest(request);	
+				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
+				{
+					try
+					{
+						request.setDestinationRealm(getRemoteRealm());
+					}
+					catch(MissingAvpException ex)
+					{
+						
+					}
+				}
+				
+				setLastSentRequest(request);				
 				requestSent(request, callback);
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
@@ -170,6 +190,17 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.DISCONNECTED);
+				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
+				{
+					try
+					{
+						request.setDestinationRealm(getRemoteRealm());
+					}
+					catch(MissingAvpException ex)
+					{
+						
+					}
+				}
 				setLastSentRequest(request);	
 				requestSent(request, callback);
 				provider.getStack().sendRequest(request, callback);
@@ -229,6 +260,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R2 castedRequest = (R2)request;
+				super.requestReceived(request, callback);
 				if(listeners!=null)
 				{
 					for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -246,6 +278,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R3 castedRequest = (R3)request;
+				super.requestReceived(request, callback);
 				for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
 					listener.onAbortSessionRequest(castedRequest, this, callback);	
 			}
@@ -260,8 +293,6 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 			return;
 		}
-		
-		super.requestReceived(request, callback);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -320,6 +351,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
 						{
 							setSessionState(SessionStateEnum.OPEN);
+							super.answerReceived(answer, callback, idleTime, stopSendTimer);
 							if(listeners!=null)
 							{
 								for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
@@ -344,9 +376,6 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 					return;
 				}
 			}
-			
-			if(getSessionState()!=SessionStateEnum.IDLE)
-				super.answerReceived(answer, callback, idleTime, stopSendTimer);
 		}
 		else 
 			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		

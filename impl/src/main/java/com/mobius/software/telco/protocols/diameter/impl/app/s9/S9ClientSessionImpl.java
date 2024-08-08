@@ -1,7 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.s9;
-import java.io.IOException;
-import java.io.ObjectInput;
-
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
@@ -45,8 +42,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionStatelessImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientCCSessionImpl;
 
-import io.netty.buffer.ByteBuf;
-
 public class S9ClientSessionImpl implements S9ClientSession
 {
 	private ClientAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer> authSession = null;
@@ -79,8 +74,8 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			return authSession.getSessionState();
-		
-		return ccSession.getSessionState();
+		else
+			return ccSession.getSessionState();
 	}
 
 	@Override
@@ -142,8 +137,8 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			return authSession.getRemoteHost();
-		
-		return ccSession.getRemoteHost();
+		else
+			return ccSession.getRemoteHost();
 	}
 
 	@Override
@@ -151,8 +146,26 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			return authSession.getRemoteRealm();
-		
-		return ccSession.getRemoteRealm();
+		else
+			return ccSession.getRemoteRealm();
+	}
+
+	@Override
+	public void setRemoteHost(String remoteHost)
+	{
+		if(authSession!=null)
+			authSession.setRemoteHost(remoteHost);
+		else
+			ccSession.setRemoteHost(remoteHost);
+	}
+
+	@Override
+	public void setRemoteRealm(String remoteRealm)
+	{
+		if(authSession!=null)
+			authSession.setRemoteRealm(remoteRealm);
+		else
+			ccSession.setRemoteRealm(remoteRealm);
 	}
 
 	@Override
@@ -268,8 +281,8 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			authSession.setSessionState(state);
-		
-		ccSession.setSessionState(state);
+		else
+			ccSession.setSessionState(state);
 	}
 
 	@Override
@@ -277,8 +290,8 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			return authSession.getLastSendRequest();
-		
-		return ccSession.getLastSendRequest();
+		else
+			return ccSession.getLastSendRequest();
 	}
 
 	@Override
@@ -286,8 +299,8 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			authSession.setLastSentRequest(request);
-		
-		ccSession.setLastSentRequest(request);
+		else
+			ccSession.setLastSentRequest(request);
 	}
 
 	@Override
@@ -295,8 +308,8 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			return authSession.isRetry();
-		
-		return ccSession.isRetry();
+		else
+			return ccSession.isRetry();
 	}
 
 	@Override
@@ -304,8 +317,8 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			authSession.setIsRetry(isRetry);
-		
-		ccSession.setIsRetry(isRetry);
+		else
+			ccSession.setIsRetry(isRetry);
 	}
 	
 	@Override
@@ -313,32 +326,32 @@ public class S9ClientSessionImpl implements S9ClientSession
 	{
 		if(authSession!=null)
 			return authSession.getProvider();
-		
-		return ccSession.getProvider();
+		else
+			return ccSession.getProvider();
 	}
 
 	@Override
-	public ByteBuf getLastSendRequestData()
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
 		if(authSession!=null)
-			return authSession.getLastSendRequestData();
-		
-		return ccSession.getLastSendRequestData();
+			authSession.setProvider(provider);
+		else
+			ccSession.setProvider(provider);
 	}
 	
 	@Override
-	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields)
 	{
 		Boolean isAuth = (otherFields & 0x40)!=0;
 		if(isAuth)
 		{
 			authSession = new ClientAuthSessionStatelessImpl<TriggerEstablishmentRequest, TriggerEstablishmentAnswer>(Long.valueOf(ApplicationIDs.S9));
-			authSession.load(sessionID, sessionSate, otherFields, in);
+			authSession.load(sessionID, sessionSate, otherFields);
 		}
 		else
 		{
 			ccSession = new ClientCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.S9));
-			ccSession.load(sessionID, sessionSate, otherFields, in);
+			ccSession.load(sessionID, sessionSate, otherFields);
 		}
 	}
 	

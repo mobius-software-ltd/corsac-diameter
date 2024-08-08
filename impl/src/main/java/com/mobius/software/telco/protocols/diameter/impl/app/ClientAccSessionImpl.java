@@ -56,6 +56,14 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = (DiameterProvider<? extends ClientAccListener<R1, A1>, ?, ?, ?, ?>)provider;
+		super.setProvider(provider);
+	}
 
 	@Override
 	public void sendAccountingRequest(R1 request, AsyncCallback callback)
@@ -162,6 +170,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						else
 						{
 							setSessionState(SessionStateEnum.OPEN);
+							super.answerReceived(answer, callback,newTime, !isRetry());	
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
@@ -188,6 +197,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							if(shouldProcessLocally)
 							{
 								setSessionState(SessionStateEnum.OPEN);
+								super.answerReceived(answer, callback,newTime, !isRetry());	
 								if(listeners!=null)
 								{
 									for(ClientAccListener<R1, A1> listener:listeners)
@@ -202,6 +212,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						{
 							setSessionState(SessionStateEnum.IDLE);
 							terminate(answer.getResultCode());
+							
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
@@ -215,15 +226,12 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			{
 				callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 				return;
-			}
-			
-			if(getSessionState()!=SessionStateEnum.IDLE)
-				super.answerReceived(answer, callback,newTime, !isRetry());			
+			}		
 		}
 		else 
 			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
 	}
-
+	
 	@Override
 	public boolean isServer()
 	{

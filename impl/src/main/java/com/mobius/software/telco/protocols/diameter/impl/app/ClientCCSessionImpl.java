@@ -63,6 +63,14 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = (DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?>)provider;
+		super.setProvider(provider);
+	}
 
 	@Override
 	public void sendInitialRequest(R1 request, AsyncCallback callback)
@@ -97,6 +105,18 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				setSessionState(SessionStateEnum.PENDING);
 				if(!isRetry()) 
 				{
+					if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
+					{
+						try
+						{
+							request.setDestinationRealm(getRemoteRealm());
+						}
+						catch(MissingAvpException ex)
+						{
+							
+						}
+					}
+					
 					setLastSentRequest(request);	
 					requestSent(request, callback);
 				}
@@ -173,6 +193,18 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.DISCONNECTED);
+				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
+				{
+					try
+					{
+						request.setDestinationRealm(getRemoteRealm());
+					}
+					catch(MissingAvpException ex)
+					{
+						
+					}
+				}
+				
 				setLastSentRequest(request);	
 				requestSent(request, callback);
 				provider.getStack().sendRequest(request, callback);
@@ -228,6 +260,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		{
 			try
 			{
+				super.requestReceived(request, callback);
 				@SuppressWarnings("unchecked")
 				R2 castedRequest = (R2)request;
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -243,6 +276,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		{
 			try
 			{
+				super.requestReceived(request, callback);
 				@SuppressWarnings("unchecked")
 				R3 castedRequest = (R3)request;
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -259,8 +293,6 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 			return;
 		}
-		
-		super.requestReceived(request, callback);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -352,6 +384,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							else
 							{
 								setSessionState(SessionStateEnum.OPEN);
+								super.answerReceived(answer, callback, newTime,!isRetry());
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -403,6 +436,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							}
 							else
 							{
+								super.answerReceived(answer, callback, newTime,!isRetry());
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
@@ -421,12 +455,6 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 					callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 					return;
 				}
-			}
-			
-			if(getSessionState()!=SessionStateEnum.IDLE)
-			{
-				//for retry we dont need to stop the timer
-				super.answerReceived(answer, callback, newTime,!isRetry());
 			}
 		}
 		else 

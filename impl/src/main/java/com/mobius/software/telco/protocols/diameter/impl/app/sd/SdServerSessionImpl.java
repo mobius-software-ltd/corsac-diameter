@@ -1,7 +1,4 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.sd;
-import java.io.IOException;
-import java.io.ObjectInput;
-
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
@@ -44,8 +41,6 @@ import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionReques
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerCCSessionImpl;
-
-import io.netty.buffer.ByteBuf;
 public class SdServerSessionImpl implements SdServerSession
 {
 	private ServerAuthSessionImpl<TDFSessionRequest, TDFSessionAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> authSession = null;
@@ -78,8 +73,8 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			return authSession.getSessionState();
-		
-		return ccSession.getSessionState();
+		else
+			return ccSession.getSessionState();
 	}
 
 	@Override
@@ -141,8 +136,8 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			return authSession.getRemoteHost();
-		
-		return ccSession.getRemoteHost();
+		else
+			return ccSession.getRemoteHost();
 	}
 
 	@Override
@@ -150,8 +145,26 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			return authSession.getRemoteRealm();
-		
-		return ccSession.getRemoteRealm();
+		else
+			return ccSession.getRemoteRealm();
+	}
+
+	@Override
+	public void setRemoteHost(String remoteHost)
+	{
+		if(authSession!=null)
+			authSession.setRemoteHost(remoteHost);
+		else
+			ccSession.setRemoteHost(remoteHost);
+	}
+
+	@Override
+	public void setRemoteRealm(String remoteRealm)
+	{
+		if(authSession!=null)
+			authSession.setRemoteRealm(remoteRealm);
+		else
+			ccSession.setRemoteRealm(remoteRealm);
 	}
 
 	@Override
@@ -267,8 +280,8 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			authSession.setSessionState(state);
-		
-		ccSession.setSessionState(state);
+		else
+			ccSession.setSessionState(state);
 	}
 
 	@Override
@@ -276,8 +289,8 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			return authSession.getLastSendRequest();
-		
-		return ccSession.getLastSendRequest();
+		else
+			return ccSession.getLastSendRequest();
 	}
 
 	@Override
@@ -285,8 +298,8 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			authSession.setLastSentRequest(request);
-		
-		ccSession.setLastSentRequest(request);
+		else
+			ccSession.setLastSentRequest(request);
 	}
 
 	@Override
@@ -294,8 +307,8 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			return authSession.isRetry();
-		
-		return ccSession.isRetry();
+		else
+			return ccSession.isRetry();
 	}
 
 	@Override
@@ -303,17 +316,8 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			authSession.setIsRetry(isRetry);
-		
-		ccSession.setIsRetry(isRetry);
-	}
-
-	@Override
-	public ByteBuf getLastSendRequestData()
-	{
-		if(authSession!=null)
-			return authSession.getLastSendRequestData();
-		
-		return ccSession.getLastSendRequestData();
+		else
+			ccSession.setIsRetry(isRetry);
 	}
 	
 	@Override
@@ -321,23 +325,32 @@ public class SdServerSessionImpl implements SdServerSession
 	{
 		if(authSession!=null)
 			return authSession.getProvider();
-		
-		return ccSession.getProvider();
+		else
+			return ccSession.getProvider();
 	}
 
 	@Override
-	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields, ObjectInput in) throws IOException, ClassNotFoundException
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		if(authSession!=null)
+			authSession.setProvider(provider);
+		else
+			ccSession.setProvider(provider);
+	}
+
+	@Override
+	public void load(String sessionID, SessionStateEnum sessionSate, byte otherFields)
 	{
 		Boolean isAuth = (otherFields & 0x40)!=0;
 		if(isAuth)
 		{
 			authSession = new ServerAuthSessionImpl<TDFSessionRequest, TDFSessionAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.SD));
-			authSession.load(sessionID, sessionSate, otherFields, in);		
+			authSession.load(sessionID, sessionSate, otherFields);		
 		}
 		else
 		{
 			ccSession = new ServerCCSessionImpl<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>(Long.valueOf(ApplicationIDs.SD));
-			ccSession.load(sessionID, sessionSate, otherFields, in);
+			ccSession.load(sessionID, sessionSate, otherFields);
 		}
 	}
 	

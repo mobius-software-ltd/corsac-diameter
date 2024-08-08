@@ -52,6 +52,14 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = (DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?>)provider;
+		super.setProvider(provider);
+	}
 
 	@Override
 	public void sendInitialRequest(R1 request, AsyncCallback callback)
@@ -95,7 +103,6 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	public void requestReceived(DiameterRequest request, AsyncCallback callback)
 	{
 		callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
-		super.requestReceived(request, callback);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -140,9 +147,6 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 				return;
 			}
-			
-			if(getSessionState()!=SessionStateEnum.IDLE)
-				super.answerReceived(answer, callback, idleTime, stopSendTimer);
 		}
 		else 
 			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		

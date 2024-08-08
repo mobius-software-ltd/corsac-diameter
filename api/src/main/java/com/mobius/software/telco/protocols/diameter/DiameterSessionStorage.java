@@ -32,7 +32,7 @@ public interface DiameterSessionStorage
 	
 	Boolean storeSession(DiameterSession session);
 	
-	DiameterSession getSession(String sessionId);
+	DiameterSession getSession(String sessionId, DiameterProvider<?, ?, ?, ?, ?> provider);
 	
 	void restartIdleTimer(DiameterSession session, Long newTime);
 	

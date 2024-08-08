@@ -31,6 +31,14 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
+	{
+		this.provider = (DiameterProvider<?, ? extends ServerAuthStatelessListener<A1>, ?, ?, ?>)provider;
+		super.setProvider(provider);
+	}
 
 	@Override
 	public void sendInitialAnswer(A1 answer, AsyncCallback callback)
