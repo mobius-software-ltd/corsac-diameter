@@ -38,7 +38,7 @@ public class RFC4004ProviderImpl extends DiameterProviderImpl<ClientListener, Se
 {
 	public RFC4004ProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s6t;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.s6t.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.ConfigurationInformationRequest;
@@ -48,16 +47,16 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.S6T;
 	
-	private IDGenerator<?> idGenerator;
+	private  DiameterStack stack;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
 	public ConfigurationInformationRequest createConfigurationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ConfigurationInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier);
+		return new ConfigurationInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier);
 	}
 	
 	@Override
@@ -80,7 +79,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public NIDDInformationRequest createNIDDInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new NIDDInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier);
+		return new NIDDInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier);
 	}
 	
 	@Override
@@ -103,7 +102,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public ReportingInformationRequest createReportingInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ReportingInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		return new ReportingInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}
 	
 	@Override

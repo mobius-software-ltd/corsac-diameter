@@ -34,7 +34,7 @@ public class CreditControlProviderImpl extends DiameterProviderImpl<ClientListen
 {
 	public CreditControlProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

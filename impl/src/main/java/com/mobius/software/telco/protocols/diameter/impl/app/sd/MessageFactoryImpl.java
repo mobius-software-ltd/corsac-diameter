@@ -18,32 +18,31 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sd;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.sd.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sd.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sd.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.sd.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sd.TDFSessionRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.sd.CreditControlAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.AbortSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.AbortSessionRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sd.CreditControlAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.sd.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.ReAuthAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.ReAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.SessionTerminationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.SessionTerminationRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.sd.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.TDFSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.sd.TDFSessionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
@@ -60,24 +59,25 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.SD;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
+	
 	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, ccRequestType, ccRequestNumber);
+		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, ccRequestType, ccRequestNumber);
 	}
 	
 	@Override
@@ -190,7 +190,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public TDFSessionRequest createTDFSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		TDFSessionRequest request = new TDFSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString()); 
+		TDFSessionRequest request = new TDFSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID()); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}

@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.eap;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.eap.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
@@ -41,24 +40,24 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.EAP;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationRealm,String sessionID,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EAPRequestImpl(originHost, originRealm, destinationRealm, sessionID, false, idGenerator.generateID().toString(), applicationId, authRequestType, eapPayload);
+		return new EAPRequestImpl(originHost, originRealm, destinationRealm, sessionID, false, stack.generateNewSessionID(), applicationId, authRequestType, eapPayload);
 	}
 	
 	

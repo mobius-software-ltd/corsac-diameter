@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc4740;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.rfc4740.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4740.AbortSessionRequest;
@@ -76,26 +75,26 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.SIP_APPLICATION;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	private Long authApplicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator,long authApplicationId, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack,long authApplicationId, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 		this.authApplicationId = authApplicationId;
 	}
 	
 	public LocationInfoRequest createLocationInfoRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,String sipAOR) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new LocationInfoRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipAOR);
+		return new LocationInfoRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authSessionState, sipAOR);
 	}
 	
 	@Override
@@ -118,7 +117,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public MultimediaAuthRequest createMultimediaAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,String sipAOR, String sipMethod) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new MultimediaAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipAOR, sipMethod);
+		return new MultimediaAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authSessionState, sipAOR, sipMethod);
 	}
 	
 	@Override
@@ -141,7 +140,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new PushProfileRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState);
+		return new PushProfileRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authSessionState);
 	}
 	
 	@Override
@@ -164,7 +163,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public RegistrationTerminationRequest createRegistrationTerminationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthSessionStateEnum authSessionState,SIPDeregistrationReason sipDeregistrationReason) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new RegistrationTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipDeregistrationReason);
+		return new RegistrationTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authSessionState, sipDeregistrationReason);
 	}
 	
 	@Override
@@ -188,7 +187,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public ServerAssignmentRequest createServerAssignmentRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState, SIPServerAssignmentTypeEnum sipServerAssignmentType,SIPUserDataAlreadyAvailableEnum sipUserDataAlreadyAvailable) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ServerAssignmentRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipServerAssignmentType, sipUserDataAlreadyAvailable);
+		return new ServerAssignmentRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authSessionState, sipServerAssignmentType, sipUserDataAlreadyAvailable);
 	}
 	
 	@Override
@@ -211,7 +210,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public UserAuthorizationRequest createUserAuthorizationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, AuthSessionStateEnum authSessionState,String sipAOR) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new UserAuthorizationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authSessionState, sipAOR);
+		return new UserAuthorizationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authSessionState, sipAOR);
 	}
 	
 	@Override

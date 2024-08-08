@@ -34,7 +34,7 @@ public class NtProviderImpl extends DiameterProviderImpl<ClientListener, ServerL
 {
 	public NtProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

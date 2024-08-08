@@ -34,7 +34,7 @@ public class Rfc5778iProviderImpl extends DiameterProviderImpl<ClientListener, S
 {
 	public Rfc5778iProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

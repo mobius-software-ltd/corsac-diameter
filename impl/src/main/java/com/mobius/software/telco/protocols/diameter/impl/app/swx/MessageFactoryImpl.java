@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.swx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.swx.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.swx.MultimediaAuthAnswer;
@@ -57,25 +56,25 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.SWX;
 	
-	private IDGenerator<?> idGenerator;
+	private  DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public MultimediaAuthRequest createMultimediaAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String username, Long sipNumberAuthItems,SIPAuthDataItem sIPAuthDataItem) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		MultimediaAuthRequest request = new MultimediaAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, sipNumberAuthItems, sIPAuthDataItem); 
+		MultimediaAuthRequest request = new MultimediaAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, sipNumberAuthItems, sIPAuthDataItem); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -102,7 +101,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public PushProfileRequest createPushProfileRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String username) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		PushProfileRequest request = new PushProfileRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username); 
+		PushProfileRequest request = new PushProfileRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -129,7 +128,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public RegistrationTerminationRequest createRegistrationTerminationRequest(String originHost,String originRealm, String destinationHost, String destinationRealm, String username, DeregistrationReason deregistrationReason) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		RegistrationTerminationRequest request = new RegistrationTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, deregistrationReason); 
+		RegistrationTerminationRequest request = new RegistrationTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, deregistrationReason); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -156,7 +155,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public ServerAssignmentRequest createServerAssignmentRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String username,ServerAssignmentTypeEnum serverAssignmentType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ServerAssignmentRequest request = new ServerAssignmentRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, serverAssignmentType); 
+		ServerAssignmentRequest request = new ServerAssignmentRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, serverAssignmentType); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}

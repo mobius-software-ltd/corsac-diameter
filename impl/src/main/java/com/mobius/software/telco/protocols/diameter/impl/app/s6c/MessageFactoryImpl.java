@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.s6c;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.s6c.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.s6c.AlertServiceCentreAnswer;
@@ -52,25 +51,25 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.S6C;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public AlertServiceCentreRequest createAlertServiceCentreRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String scAddress,UserIdentifier userIdentifier) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		AlertServiceCentreRequest request = new AlertServiceCentreRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, scAddress, userIdentifier); 
+		AlertServiceCentreRequest request = new AlertServiceCentreRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, scAddress, userIdentifier); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -97,7 +96,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public ReportSMDeliveryStatusRequest createReportSMDeliveryStatusRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,String scAddress, SMDeliveryOutcome smDeliveryOutcome) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ReportSMDeliveryStatusRequest request = new ReportSMDeliveryStatusRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, scAddress, smDeliveryOutcome); 
+		ReportSMDeliveryStatusRequest request = new ReportSMDeliveryStatusRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, scAddress, smDeliveryOutcome); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -124,7 +123,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public SendRoutingInfoForSMRequest createSendRoutingInfoForSMRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		SendRoutingInfoForSMRequest request = new SendRoutingInfoForSMRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED); 
+		SendRoutingInfoForSMRequest request = new SendRoutingInfoForSMRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;		
 	}

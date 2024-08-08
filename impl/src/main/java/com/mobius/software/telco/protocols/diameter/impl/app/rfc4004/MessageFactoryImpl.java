@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc4004;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.rfc4004.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.AAMobileNodeRequest;
@@ -45,24 +44,24 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.MOBILE_IPV4;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public AAMobileNodeRequest createAAMobileNodeRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ByteBuf mipRegRequest, MIPMNAAAAuth mipMNAAAAuth) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AAMobileNodeRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, mipRegRequest, mipMNAAAAuth);
+		return new AAMobileNodeRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, mipRegRequest, mipMNAAAAuth);
 	}
 	
 	@Override
@@ -85,7 +84,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public HomeAgentMIPRequest createHomeAgentMIPRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Long authorizationLifetime, AuthSessionStateEnum authSessionState,ByteBuf mipRegRequest, Long mipFeatureVector) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new HomeAgentMIPRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), mipFeatureVector, authorizationLifetime, authSessionState, mipRegRequest, mipFeatureVector);
+		return new HomeAgentMIPRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), mipFeatureVector, authorizationLifetime, authSessionState, mipRegRequest, mipFeatureVector);
 	}
 	
 	@Override

@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.gi.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AAAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gi.AARequest;
@@ -57,26 +56,26 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.NASREQ;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long authApplicationId = APPLICATION_ID;
 	private Long accApplicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long authApplicationId, long accApplicationId)
+	public MessageFactoryImpl(DiameterStack stack, long authApplicationId, long accApplicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.authApplicationId = authApplicationId;
 		this.accApplicationId = accApplicationId;
 	}
 	
 	public AARequest createAARequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AARequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), authApplicationId);
+		return new AARequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), authApplicationId);
 	}
 
 	@Override
@@ -99,7 +98,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AccountingRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), accountingRecordType, accountingRecordNumber, accApplicationId);
+		return new AccountingRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), accountingRecordType, accountingRecordNumber, accApplicationId);
 	}
 
 	@Override

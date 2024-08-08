@@ -33,7 +33,7 @@ public class Rfc4740ProviderImpl extends DiameterProviderImpl<ClientListener, Se
 {
 	public Rfc4740ProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 
