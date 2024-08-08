@@ -21,9 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a;
 import java.net.InetAddress;
 import java.util.List;
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.rfc5778a.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AbortSessionRequest;
@@ -62,21 +61,20 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.MIP6A;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 
-	
 	private Long applicationId = APPLICATION_ID;
 	private Long authApplicationId = APPLICATION_ID;
 	private Long accApplicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId,long authApplicationId, long accApplicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId,long authApplicationId, long accApplicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 		this.authApplicationId = authApplicationId;
 		this.accApplicationId = accApplicationId;
@@ -84,7 +82,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public MIP6Request createMIP6Request(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthRequestTypeEnum authRequestType,List<InetAddress> mipMobileNodeAddress,MIP6AgentInfo mip6AgentInfo,InetAddress mipCareofAddress) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
-		return new MIP6RequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType, mipMobileNodeAddress, mip6AgentInfo, mipCareofAddress);
+		return new MIP6RequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authRequestType, mipMobileNodeAddress, mip6AgentInfo, mipCareofAddress);
 	}
 	
 	@Override
@@ -107,7 +105,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public AccountingRequest createAccountingRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AccountingRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), accountingRecordNumber, accountingRecordType, accApplicationId);
+		return new AccountingRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), accountingRecordNumber, accountingRecordType, accApplicationId);
 	}
 
 	@Override

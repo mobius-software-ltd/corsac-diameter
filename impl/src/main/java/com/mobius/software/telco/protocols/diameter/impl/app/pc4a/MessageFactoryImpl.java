@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.pc4a.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.pc4a.ProSeInitialLocationInformationAnswer;
@@ -58,25 +57,25 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.PC4A;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public ProSeInitialLocationInformationRequest createProSeInitialLocationInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ProSeInitialLocationInformationRequest request = new ProSeInitialLocationInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		ProSeInitialLocationInformationRequest request = new ProSeInitialLocationInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -103,7 +102,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public ProSeNotifyRequest createProSeNotifyRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ProSeNotifyRequest request = new ProSeNotifyRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		ProSeNotifyRequest request = new ProSeNotifyRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -130,7 +129,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public ProSeSubscriberInformationRequest createProSeSubscriberInformationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ProSeSubscriberInformationRequest request = new ProSeSubscriberInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		ProSeSubscriberInformationRequest request = new ProSeSubscriberInformationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -156,7 +155,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public ResetRequest createResetRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ResetRequest request = new ResetRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString());
+		ResetRequest request = new ResetRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID());
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -183,7 +182,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public UpdateProSeSubscriberDataRequest createUpdateProSeSubscriberDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		UpdateProSeSubscriberDataRequest request = new UpdateProSeSubscriberDataRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		UpdateProSeSubscriberDataRequest request = new UpdateProSeSubscriberDataRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}

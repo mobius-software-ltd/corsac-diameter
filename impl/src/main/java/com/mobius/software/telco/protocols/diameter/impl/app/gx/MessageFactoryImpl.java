@@ -18,24 +18,23 @@ package com.mobius.software.telco.protocols.diameter.impl.app.gx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.gx.MessageFactory;
-import com.mobius.software.telco.protocols.diameter.commands.gx.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gx.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gx.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gx.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.gx.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gx.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gx.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.gx.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.gx.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.gx.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gx.AbortSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gx.AbortSessionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gx.CreditControlAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.gx.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gx.ReAuthAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gx.ReAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.gx.SessionTerminationAnswerImpl;
@@ -52,24 +51,24 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.GX;
 	
-	private IDGenerator<?> idGenerator;
+private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, ccRequestType, ccRequestNumber);
+		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, ccRequestType, ccRequestNumber);
 	}
 	
 	@Override

@@ -18,8 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.nta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.nta.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventConfigurationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.nta.EventConfigurationRequest;
@@ -36,27 +36,18 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.NTA;
+
+	private  DiameterStack stack;
 	
-	private IDGenerator<?> idGenerator;
-	
-	//
-	//private Long applicationId = APPLICATION_ID;
-	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
-	}
-	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
-	{
-		this.idGenerator = idGenerator;
-		//this.applicationId = applicationId;
+		this.stack = stack;
 	}
 
 	@Override
 	public EventConfigurationRequest createEventConfigurationRequest(String originHost, String originRealm, String destinationHost, String destinationRealm,String externalIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EventConfigurationRequestImpl(originHost,originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED, externalIdentifier);
+		return new EventConfigurationRequestImpl(originHost,originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, externalIdentifier);
 		
 	}
 	
@@ -81,7 +72,7 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public EventReportingRequest createEventReportingRequest(String originHost, String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException 
 	{
-		return new EventReportingRequestImpl(originHost, originRealm, destinationHost, destinationRealm,false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
+		return new EventReportingRequestImpl(originHost, originRealm, destinationHost, destinationRealm,false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 	}
 
 	@Override

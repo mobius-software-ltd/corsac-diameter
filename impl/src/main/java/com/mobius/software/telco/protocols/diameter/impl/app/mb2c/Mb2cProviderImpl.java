@@ -34,7 +34,7 @@ public class Mb2cProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 {
 	public Mb2cProviderImpl(DiameterStack stack,String packageName)
 	{
-		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack.getIDGenerator()), packageName);
+		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
 		setSessionFactory(new SessionFactoryImpl(this));
 	}
 

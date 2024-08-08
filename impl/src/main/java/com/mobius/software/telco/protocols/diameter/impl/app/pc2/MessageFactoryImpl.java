@@ -18,9 +18,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc2;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.pc2.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.ProXimityActionRequest;
@@ -43,25 +42,24 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.PC2;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public ProXimityApplicationRequest createProXimityApplicationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ProXimityApplicationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
+		return new ProXimityApplicationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
 	}
 	
 	@Override
@@ -85,7 +83,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public ProXimityActionRequest createProXimityActionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,ProSeRequestTypeEnum proSeRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new ProXimityActionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
+		return new ProXimityActionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, AuthSessionStateEnum.NO_STATE_MAINTAINED, proSeRequestType);
 	}
 	
 	@Override

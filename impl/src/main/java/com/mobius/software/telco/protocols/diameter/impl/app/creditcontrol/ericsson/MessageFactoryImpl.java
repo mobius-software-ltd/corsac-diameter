@@ -18,24 +18,23 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.eric
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.ericsson.MessageFactory;
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
-import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.AbortSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.AbortSessionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.CreditControlAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.ReAuthAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.ReAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.ericsson.SessionTerminationAnswerImpl;
@@ -52,24 +51,24 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.CREDIT_CONTROL;
 	
-	private IDGenerator<?> idGenerator;
-	 
+	private DiameterStack stack;
+	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public CreditControlRequest createCreditControlRequest(String originHost,String originRealm,String destinationHost, String destinationRealm,String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, serviceContextId, ccRequestType, ccRequestNumber);
+		return new CreditControlRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, serviceContextId, ccRequestType, ccRequestNumber);
 	}
 	@Override
 	public CreditControlAnswer createCreditControlAnswer(CreditControlRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException

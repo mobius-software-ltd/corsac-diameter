@@ -18,32 +18,31 @@ package com.mobius.software.telco.protocols.diameter.impl.app.swm;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.swm.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AAAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swm.AARequest;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swm.EAPAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swm.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swm.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swm.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swm.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swm.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.swm.AARequest;
-import com.mobius.software.telco.protocols.diameter.commands.swm.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.AAAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.swm.AARequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.AbortSessionAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.AbortSessionRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.EAPAnswerImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.swm.EAPRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.ReAuthAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.ReAuthRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.SessionTerminationAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.swm.SessionTerminationRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.swm.AARequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.commands.swm.EAPRequestImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ReAuthRequestTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.TerminationCauseEnum;
@@ -58,26 +57,26 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.SWM;
 	
-	private IDGenerator<?> idGenerator;
+	private  DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	private Long authApplicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator,long authApplicationId, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack,long authApplicationId, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 		this.authApplicationId = authApplicationId;
 	}
 	
 	public AARequest createAARequest(String originHost,String originRealm,String destinationHost,String destinationRealm,AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new AARequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType);
+		return new AARequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authRequestType);
 	}	
 	
 	@Override
@@ -100,7 +99,7 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationHost, String destinationRealm,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new EAPRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString(), applicationId, authRequestType, eapPayload);
+		return new EAPRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId, authRequestType, eapPayload);
 	}
 	
 	@Override

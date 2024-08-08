@@ -18,13 +18,10 @@ package com.mobius.software.telco.protocols.diameter.impl.app.st;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.st.MessageFactory;
-import com.mobius.software.telco.protocols.diameter.commands.st.TSSFNotificationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.st.TSSFNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.st.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.st.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.st.ReAuthAnswer;
@@ -33,6 +30,8 @@ import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminati
 import com.mobius.software.telco.protocols.diameter.commands.st.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.st.TDFSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.st.TSSFNotificationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.st.TSSFNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpOccursTooManyTimesException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
@@ -59,19 +58,19 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.ST;
 	
-	private IDGenerator<?> idGenerator;
+	private  DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	private Long authApplicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId,long authApplicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId,long authApplicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 		this.authApplicationId = authApplicationId;
 	}
@@ -79,7 +78,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public TDFSessionRequest createTDFSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		TDFSessionRequest request = new TDFSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString()); 
+		TDFSessionRequest request = new TDFSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID()); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -106,7 +105,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public TSSFNotificationRequest createTSSFNotificationRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws AvpNotSupportedException, MissingAvpException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		TSSFNotificationRequest request = new TSSFNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, idGenerator.generateID().toString()); 
+		TSSFNotificationRequest request = new TSSFNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID()); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}

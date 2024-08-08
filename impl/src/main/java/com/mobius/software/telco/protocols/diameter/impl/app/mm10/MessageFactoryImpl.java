@@ -21,9 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl.app.mm10;
 import java.util.Date;
 import java.util.List;
 
-import org.restcomm.cluster.IDGenerator;
-
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.app.mm10.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessAnswer;
@@ -49,25 +48,25 @@ public class MessageFactoryImpl implements MessageFactory
 {
 	public static final long APPLICATION_ID=ApplicationIDs.MM10;
 	
-	private IDGenerator<?> idGenerator;
+	private DiameterStack stack;
 	
 	private Long applicationId = APPLICATION_ID;
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator)
+	public MessageFactoryImpl(DiameterStack stack)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 	}
 	
-	public MessageFactoryImpl(IDGenerator<?> idGenerator, long applicationId)
+	public MessageFactoryImpl(DiameterStack stack, long applicationId)
 	{
-		this.idGenerator = idGenerator;
+		this.stack = stack;
 		this.applicationId = applicationId;
 	}
 	
 	public MessageProcessRequest createMessageProcessRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,Date eventTimestamp, TriggerEventEnum triggerEvent, ServedUserIdentity servedUserIdentity,List<InitialRecipientAddress> initialRecipientAddress,OriginatingInterfaceEnum originatingInterface) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		MessageProcessRequest request = new MessageProcessRequestImpl(originHost,originRealm,destinationHost,destinationRealm,false, idGenerator.generateID().toString(), AuthSessionStateEnum.NO_STATE_MAINTAINED,eventTimestamp, triggerEvent, servedUserIdentity,initialRecipientAddress,originatingInterface);
+		MessageProcessRequest request = new MessageProcessRequestImpl(originHost,originRealm,destinationHost,destinationRealm,false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED,eventTimestamp, triggerEvent, servedUserIdentity,initialRecipientAddress,originatingInterface);
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}	
