@@ -22,6 +22,9 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
@@ -69,6 +72,8 @@ import io.netty.buffer.Unpooled;
 */
 public class DiameterParser
 {
+	public static Logger logger=LogManager.getLogger(DiameterParser.class);
+	
 	private static ConcurrentHashMap<Class<?>,DiameterAvpDefinition> avpDefsMap = new ConcurrentHashMap<Class<?>, DiameterAvpDefinition>();
 	private static ConcurrentHashMap<Class<?>,DiameterCommandDefinition> commandDefsMap = new ConcurrentHashMap<Class<?>, DiameterCommandDefinition>();
 	
@@ -452,6 +457,7 @@ public class DiameterParser
 				}
 				catch(InvocationTargetException ex)
 				{
+					logger.warn("Can not execute encode for class, " + avp.getClass().getCanonicalName() + ", error " + ex.getMessage(), ex);
 					if(ex.getTargetException()!=null && ex.getTargetException() instanceof DiameterException)
 						throw (DiameterException)ex.getTargetException();
 					

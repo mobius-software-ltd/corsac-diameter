@@ -45,15 +45,15 @@ import io.netty.buffer.Unpooled;
 */
 public class DiameterOctetStringImpl extends DiameterAvpImpl implements DiameterOctetString
 {
-	public static ByteBuf PADDING_0=Unpooled.EMPTY_BUFFER;
-	public static ByteBuf PADDING_1=Unpooled.wrappedBuffer(new byte[] { 0x00, 0x00, 0x00 });
-	public static ByteBuf PADDING_2=Unpooled.wrappedBuffer(new byte[] { 0x00, 0x00 });
-	public static ByteBuf PADDING_3=Unpooled.wrappedBuffer(new byte[] { 0x00 });
+	public static byte[] PADDING_0=new byte[] {};
+	public static byte[] PADDING_1=new byte[] { 0x00, 0x00, 0x00 };
+	public static byte[] PADDING_2=new byte[] { 0x00, 0x00 };
+	public static byte[] PADDING_3=new byte[] { 0x00 };
 	
-	public static ByteBuf[] PADDINGS = { PADDING_0, PADDING_1, PADDING_2, PADDING_3 };
+	public static byte[][] PADDINGS = { PADDING_0, PADDING_1, PADDING_2, PADDING_3 };
 	
 	private ByteBuf value;
-	private ByteBuf padding;
+	private byte[] padding;
 	private Integer minLength;
 	private Integer maxLength;
 	
@@ -72,7 +72,7 @@ public class DiameterOctetStringImpl extends DiameterAvpImpl implements Diameter
 	public DiameterOctetStringImpl(ByteBuf value,Integer minLength,Integer maxLength) 
 	{
 		this.value=Unpooled.wrappedBuffer(value);
-		this.padding = Unpooled.wrappedBuffer(PADDINGS[value.readableBytes()%4]);
+		this.padding = PADDINGS[value.readableBytes()%4];
 		this.minLength = minLength;
 		this.maxLength = maxLength;
 	}
@@ -103,11 +103,8 @@ public class DiameterOctetStringImpl extends DiameterAvpImpl implements Diameter
 		value.markReaderIndex();
 		buffer.writeBytes(value);
 		value.resetReaderIndex();
-		if(padding.readableBytes()>0)
-		{
-			buffer.writeBytes(padding);
-			padding.setIndex(0,padding.writerIndex());			
-		}
+		if(padding.length>0)
+			buffer.writeBytes(padding);		
 	}
 	
 	@DiameterDecode
