@@ -428,12 +428,12 @@ public class AbortSessionRequestImpl extends com.mobius.software.telco.protocols
 	}
 
 	@Override
-	public void setState(ByteBuf state) 
+	public void setState(ByteBuf value) 
 	{
-		if(state == null)
+		if(value == null)
 			this.state = null;
 		else
-			this.state = new StateImpl(state, null, null);
+			this.state = new StateImpl(value, null, null);
 	}
 	
 	@Override
