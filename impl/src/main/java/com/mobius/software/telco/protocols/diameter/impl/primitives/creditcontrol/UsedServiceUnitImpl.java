@@ -44,11 +44,11 @@ public class UsedServiceUnitImpl extends RequestedServiceUnitImpl implements Use
 		return tariffChangeUsage.getEnumerated(TariffChangeUsageEnum.class);
 	}
 	
-	public void setTariffChangeUsage(TariffChangeUsageEnum tariffChangeUsage)
+	public void setTariffChangeUsage(TariffChangeUsageEnum value)
 	{
-		if(tariffChangeUsage == null)
+		if(value == null)
 			this.tariffChangeUsage = null;
 		else
-			this.tariffChangeUsage = new TariffChangeUsageImpl(tariffChangeUsage, null, null);
+			this.tariffChangeUsage = new TariffChangeUsageImpl(value, null, null);
 	}
 }

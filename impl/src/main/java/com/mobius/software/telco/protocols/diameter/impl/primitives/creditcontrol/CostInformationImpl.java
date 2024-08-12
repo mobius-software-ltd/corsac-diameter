@@ -60,16 +60,16 @@ public class CostInformationImpl extends CCMoneyImpl implements CostInformation
 	
 	public String getCostUnit()
 	{
-		if(this.costUnit == null)
+		if(costUnit == null)
 			return null;
 		
 		return this.costUnit.getString();
 	}
 	
-	public void setCostUnit(String costUnit)
+	public void setCostUnit(String value)
 	{
-		if(costUnit!=null)
-			this.costUnit = new CostUnitImpl(costUnit, null, null);
+		if(value!=null)
+			this.costUnit = new CostUnitImpl(value, null, null);
 		else
 			this.costUnit = null;
 	}

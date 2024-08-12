@@ -72,7 +72,7 @@ public class ChargeMoneyImpl extends DiameterAvpImpl implements ChargeMoney
 	@Override
 	public void setNewMoney(Long value)
 	{
-		if(newMoney==null)
+		if(value==null)
 			this.newMoney = null;
 		else
 			this.newMoney = new NewMoneyImpl(value, null, null);
@@ -90,7 +90,7 @@ public class ChargeMoneyImpl extends DiameterAvpImpl implements ChargeMoney
 	@Override
 	public void setActiveDay(Long value)
 	{
-		if(activeDay==null)
+		if(value==null)
 			this.activeDay = null;
 		else
 			this.activeDay = new ActiveDayImpl(value, null, null);

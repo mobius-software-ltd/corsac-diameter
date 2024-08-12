@@ -107,45 +107,45 @@ public interface MultipleServicesCreditControl extends DiameterGroupedAvp
 {
 	GrantedServiceUnit getGrantedServiceUnit();
 	
-	void setGrantedServiceUnit(GrantedServiceUnit grantedServiceUnit);
+	void setGrantedServiceUnit(GrantedServiceUnit value);
 	
 	RequestedServiceUnit getRequestedServiceUnit();
 	
-	void setRequestedServiceUnit(RequestedServiceUnit requestedServiceUnit);
+	void setRequestedServiceUnit(RequestedServiceUnit value);
 	
 	List<UsedServiceUnit> getUsedServiceUnit();
 	
-	void setUsedServiceUnit(List<UsedServiceUnit> usedServiceUnit);
+	void setUsedServiceUnit(List<UsedServiceUnit> value);
 	
 	TariffChangeUsageEnum getTariffChangeUsage();
 	
-	void setTariffChangeUsage(TariffChangeUsageEnum tariffChangeUsage);	
+	void setTariffChangeUsage(TariffChangeUsageEnum value);	
 	
 	List<Long> getServiceIdentifier();
 	
-	void setServiceIdentifier(List<Long> serviceIdentifier);	
+	void setServiceIdentifier(List<Long> value);	
 	
 	Long getRatingGroup();
 	
-	void setRatingGroup(Long ratingGroup);	
+	void setRatingGroup(Long value);	
 			
 	List<GSUPoolReference> getGSUPoolReference();
 	
-	void setGSUPoolReference(List<GSUPoolReference> gsuPoolReference);	
+	void setGSUPoolReference(List<GSUPoolReference> value);	
 	
 	Long getValidityTime();
 	
-	void setValidityTime(Long validityTime);	
+	void setValidityTime(Long value);	
 			
 	Long getResultCode();
 	
-	void setResultCode(Long resultCode);	
+	void setResultCode(Long value);	
 			
 	FinalUnitIndication getFinalUnitIndication();
 	
-	void setFinalUnitIndication(FinalUnitIndication finalUnitIndication);	
+	void setFinalUnitIndication(FinalUnitIndication value);	
 
 	QoSFinalUnitIndication getQoSFinalUnitIndication();
 	
-	void setQoSFinalUnitIndication(QoSFinalUnitIndication qosFinalUnitIndication);	        
+	void setQoSFinalUnitIndication(QoSFinalUnitIndication value);	        
 }

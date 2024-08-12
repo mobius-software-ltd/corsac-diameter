@@ -75,9 +75,9 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.grantedServiceUnit;
 	}
 	
-	public void setGrantedServiceUnit(GrantedServiceUnit grantedServiceUnit)
+	public void setGrantedServiceUnit(GrantedServiceUnit value)
 	{
-		this.grantedServiceUnit = grantedServiceUnit;
+		this.grantedServiceUnit = value;
 	}
 	
 	public RequestedServiceUnit getRequestedServiceUnit()	
@@ -85,9 +85,9 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.requestedServiceUnit;
 	}
 
-	public void setRequestedServiceUnit(RequestedServiceUnit requestedServiceUnit)
+	public void setRequestedServiceUnit(RequestedServiceUnit value)
 	{
-		this.requestedServiceUnit = requestedServiceUnit;
+		this.requestedServiceUnit = value;
 	}
 	
 	public List<UsedServiceUnit> getUsedServiceUnit()
@@ -95,14 +95,14 @@ public class MultipleServicesCreditControlImpl extends DiameterGroupedAvpImpl im
 		return this.usedServiceUnit;
 	}
 
-	public void setUsedServiceUnit(List<UsedServiceUnit> usedServiceUnit)
+	public void setUsedServiceUnit(List<UsedServiceUnit> value)
 	{
-		this.usedServiceUnit = usedServiceUnit;
+		this.usedServiceUnit = value;
 	}
 	
 	public TariffChangeUsageEnum getTariffChangeUsage()
 	{
-		if(this.tariffChangeUsage == null)
+		if(tariffChangeUsage == null)
 			return null;
 		
 		return this.tariffChangeUsage.getEnumerated(TariffChangeUsageEnum.class);
