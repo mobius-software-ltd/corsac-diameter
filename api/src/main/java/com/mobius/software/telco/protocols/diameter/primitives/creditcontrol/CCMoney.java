@@ -46,9 +46,9 @@ public interface CCMoney extends DiameterAvp
 {
 	UnitValue getUnitValue();
 	
-	void setUnitValue(UnitValue unitValue) throws MissingAvpException;
+	void setUnitValue(UnitValue value) throws MissingAvpException;
 	
 	Long getCurrencyCode();
 	
-	void setCurrencyCode(Long currencyCode) throws MissingAvpException;	
+	void setCurrencyCode(Long value) throws MissingAvpException;	
 }
