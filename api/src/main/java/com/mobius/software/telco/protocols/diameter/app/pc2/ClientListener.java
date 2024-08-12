@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.pc2;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Answer;
 import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Request;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.pc2.Pc2Request;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<Pc2Request>
+public interface ClientListener extends ClientAuthStatelessListener<Pc2Request,Pc2Answer>
 {
 }

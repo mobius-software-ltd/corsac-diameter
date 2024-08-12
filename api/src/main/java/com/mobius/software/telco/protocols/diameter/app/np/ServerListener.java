@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app.np;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.commands.np.NpAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.np.NpRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.np.NpAnswer;
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<NpAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<NpRequest,NpAnswer>
 {
 }

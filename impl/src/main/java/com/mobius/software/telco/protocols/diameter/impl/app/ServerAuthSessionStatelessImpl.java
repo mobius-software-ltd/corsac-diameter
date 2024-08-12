@@ -19,14 +19,14 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 */
 public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends DiameterSessionImpl implements ServerAuthSessionStateless<A1>
 {
-	private DiameterProvider<?, ? extends ServerAuthStatelessListener<A1>, ?, ?, ?> provider;
+	private DiameterProvider<?, ? extends ServerAuthStatelessListener<R1,A1>, ?, ?, ?> provider;
 	//for serialization
 	public ServerAuthSessionStatelessImpl(Long applicationID)
 	{
 		super(applicationID);				
 	}
 								
-	public ServerAuthSessionStatelessImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<A1>, ?, ?, ?> provider)
+	public ServerAuthSessionStatelessImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<R1,A1>, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -36,7 +36,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	@Override
 	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
-		this.provider = (DiameterProvider<?, ? extends ServerAuthStatelessListener<A1>, ?, ?, ?>)provider;
+		this.provider = (DiameterProvider<?, ? extends ServerAuthStatelessListener<R1,A1>, ?, ?, ?>)provider;
 		super.setProvider(provider);
 	}
 
@@ -79,8 +79,8 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 			if(provider.getServerListeners()!=null)
 			{
 				@SuppressWarnings("unchecked")
-				Collection<ServerAuthStatelessListener<A1>> listeners = (Collection<ServerAuthStatelessListener<A1>>) provider.getServerListeners().values();
-				for(ServerAuthStatelessListener<A1> listener:listeners)
+				Collection<ServerAuthStatelessListener<R1,A1>> listeners = (Collection<ServerAuthStatelessListener<R1,A1>>) provider.getServerListeners().values();
+				for(ServerAuthStatelessListener<R1,A1> listener:listeners)
 					listener.onInitialRequest(castedRequest, this, callback);
 			}
 		}

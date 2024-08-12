@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app.swx;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.commands.swx.SwxAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.swx.SwxRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.swx.SwxAnswer;
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<SwxAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<SwxRequest,SwxAnswer>
 {
 }

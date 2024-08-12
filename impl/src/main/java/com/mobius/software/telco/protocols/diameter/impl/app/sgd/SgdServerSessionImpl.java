@@ -36,7 +36,7 @@ public class SgdServerSessionImpl extends ServerAuthSessionStatelessImpl<SgdRequ
 		super(Long.valueOf(ApplicationIDs.SGD));
 	}
 	
-	public SgdServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<SgdAnswer>, ?, ?, ?> provider)
+	public SgdServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<SgdRequest, SgdAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.SGD), remoteHost, remoteRealm, provider);
 	}

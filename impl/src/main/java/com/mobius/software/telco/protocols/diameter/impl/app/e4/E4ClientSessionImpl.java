@@ -32,7 +32,7 @@ public class E4ClientSessionImpl extends ClientAuthSessionStatelessImpl<E4Reques
 		super(Long.valueOf(ApplicationIDs.E4));
 	}
 	
-	public E4ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<E4Request>, ?, ?, ?, ?> provider)
+	public E4ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<E4Request,E4Answer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.E4), remoteHost, remoteRealm, provider);
 	}

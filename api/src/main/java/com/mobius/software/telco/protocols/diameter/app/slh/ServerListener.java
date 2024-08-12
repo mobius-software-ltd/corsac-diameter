@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app.slh;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.commands.slh.SlhAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.slh.SlhRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.slh.SlhAnswer;
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<SlhAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<SlhRequest,SlhAnswer>
 {
 }

@@ -32,9 +32,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 
 public class SessionFactoryImpl implements SessionFactory
 {
-private DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest>, ? extends ServerAuthStatelessListener<MB2CAnswer>,?, ?, ?> provider;
+private DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest,MB2CAnswer>, ? extends ServerAuthStatelessListener<MB2CRequest,MB2CAnswer>,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest>, ? extends ServerAuthStatelessListener<MB2CAnswer>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest,MB2CAnswer>, ? extends ServerAuthStatelessListener<MB2CRequest,MB2CAnswer>,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}

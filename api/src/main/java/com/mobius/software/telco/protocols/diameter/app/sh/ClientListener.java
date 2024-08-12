@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.sh;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.sh.ShAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sh.ShRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.sh.ShRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<ShRequest>
+public interface ClientListener extends ClientAuthStatelessListener<ShRequest,ShAnswer>
 {
 }

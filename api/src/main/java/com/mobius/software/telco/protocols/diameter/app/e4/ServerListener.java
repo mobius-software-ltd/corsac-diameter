@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app.e4;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.commands.e4.E4Answer;
+import com.mobius.software.telco.protocols.diameter.commands.e4.E4Request;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.e4.E4Answer;
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<E4Answer>
+public interface ServerListener extends ServerAuthStatelessListener<E4Request,E4Answer>
 {
 }

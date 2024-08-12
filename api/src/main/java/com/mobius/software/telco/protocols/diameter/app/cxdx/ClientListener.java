@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.cxdx;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<CxDxRequest>
+public interface ClientListener extends ClientAuthStatelessListener<CxDxRequest,CxDxAnswer>
 {	
 }

@@ -36,7 +36,7 @@ public class ShClientSessionImpl extends ClientAuthSessionStatelessImpl<ShReques
 		super(Long.valueOf(ApplicationIDs.SH));
 	}
 	
-	public ShClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<ShRequest>, ?, ?, ?, ?> provider)
+	public ShClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<ShRequest, ShAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.SH), remoteHost, remoteRealm, provider);
 	}

@@ -32,7 +32,7 @@ public class Mb2cClientSessionImpl extends ClientAuthSessionStatelessImpl<MB2CRe
 		super(Long.valueOf(ApplicationIDs.MB2C));
 	}
 	
-	public Mb2cClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest>, ?, ?, ?, ?> provider)
+	public Mb2cClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest,MB2CAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.MB2C), remoteHost, remoteRealm, provider);
 	}

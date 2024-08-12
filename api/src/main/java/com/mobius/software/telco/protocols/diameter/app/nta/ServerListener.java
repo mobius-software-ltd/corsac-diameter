@@ -20,7 +20,8 @@ import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListe
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 import com.mobius.software.telco.protocols.diameter.commands.nta.NtaAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nta.NtaRequest;
 
-public interface ServerListener extends ServerAuthStatelessListener<NtaAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<NtaRequest,NtaAnswer>
 {
 }

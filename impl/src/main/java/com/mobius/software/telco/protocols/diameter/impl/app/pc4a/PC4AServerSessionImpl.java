@@ -32,7 +32,7 @@ public class PC4AServerSessionImpl extends ServerAuthSessionStatelessImpl<Pc4aRe
 		super(Long.valueOf(ApplicationIDs.PC4A));
 	}
 	
-	public PC4AServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<Pc4aAnswer>, ?, ?, ?> provider)
+	public PC4AServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<Pc4aRequest,Pc4aAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.PC4A),remoteHost,remoteRealm, provider);
 	}

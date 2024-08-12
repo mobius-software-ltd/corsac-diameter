@@ -32,7 +32,7 @@ public class NtClientSessionImpl extends ClientAuthSessionStatelessImpl<NtReques
 		super(Long.valueOf(ApplicationIDs.NT));
 	}
 	
-	public NtClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<NtRequest>, ?, ?, ?, ?> provider)
+	public NtClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<NtRequest,NtAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.NT), remoteHost, remoteRealm, provider);
 	}

@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.t4;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.t4.T4Answer;
 import com.mobius.software.telco.protocols.diameter.commands.t4.T4Request;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.t4.T4Request;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<T4Request>
+public interface ClientListener extends ClientAuthStatelessListener<T4Request,T4Answer>
 {
 }

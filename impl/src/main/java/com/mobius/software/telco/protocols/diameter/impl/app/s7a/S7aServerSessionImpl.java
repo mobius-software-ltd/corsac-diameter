@@ -36,7 +36,7 @@ public class S7aServerSessionImpl extends ServerAuthSessionStatelessImpl<S7aRequ
 		super(Long.valueOf(ApplicationIDs.S7A));
 	}
 	
-	public S7aServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<S7aAnswer>, ?, ?, ?> provider)
+	public S7aServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<S7aRequest, S7aAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.S7A), remoteHost, remoteRealm, provider);
 	}

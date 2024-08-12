@@ -21,8 +21,8 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.rfc4004.RFC4004ServerSession;
-import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Request;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Answer;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Request;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionStatelessImpl;
 /**
 *
@@ -36,7 +36,7 @@ public class RFC4004ServerSessionImpl extends ServerAuthSessionStatelessImpl<Rfc
 		super(Long.valueOf(ApplicationIDs.MOBILE_IPV4));
 	}
 	
-	public RFC4004ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<Rfc4004Answer>, ?, ?, ?> provider)
+	public RFC4004ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<Rfc4004Request,Rfc4004Answer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.MOBILE_IPV4), remoteHost, remoteRealm, provider);
 	}

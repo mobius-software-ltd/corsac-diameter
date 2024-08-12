@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.sgd;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.sgd.SgdAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sgd.SgdRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.sgd.SgdRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<SgdRequest>
+public interface ClientListener extends ClientAuthStatelessListener<SgdRequest,SgdAnswer>
 {
 }

@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.tsp;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.tsp.TspAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.tsp.TspRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.tsp.TspRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<TspRequest>
+public interface ClientListener extends ClientAuthStatelessListener<TspRequest,TspAnswer>
 {
 }

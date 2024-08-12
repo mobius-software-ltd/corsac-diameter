@@ -39,7 +39,7 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 */
 public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends DiameterSessionImpl implements ClientAuthSessionStateless<R1>
 {
-	private DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider;
+	private DiameterProvider<? extends ClientAuthStatelessListener<R1,A1>, ?, ?, ?, ?> provider;
 	
 	//for serialization
 	public ClientAuthSessionStatelessImpl(Long applicationID)
@@ -47,7 +47,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		super(applicationID);	
 	}
 				
-	public ClientAuthSessionStatelessImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?> provider)
+	public ClientAuthSessionStatelessImpl(String sessionID, Long applicationID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<R1,A1>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, applicationID, remoteHost, remoteRealm, provider);
 		this.provider = provider;
@@ -57,7 +57,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	@Override
 	public void setProvider(DiameterProvider<?, ?, ?, ?, ?> provider)
 	{
-		this.provider = (DiameterProvider<? extends ClientAuthStatelessListener<R1>, ?, ?, ?, ?>)provider;
+		this.provider = (DiameterProvider<? extends ClientAuthStatelessListener<R1,A1>, ?, ?, ?, ?>)provider;
 		super.setProvider(provider);
 	}
 
@@ -122,9 +122,9 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		DiameterRequest request = getLastSendRequest();
 		if(request!=null)
 		{
-			Collection<ClientAuthStatelessListener<R1>> listeners = null;
+			Collection<ClientAuthStatelessListener<R1,A1>> listeners = null;
 			if(provider.getClientListeners()!=null)
-				listeners = (Collection<ClientAuthStatelessListener<R1>>) provider.getClientListeners().values();
+				listeners = (Collection<ClientAuthStatelessListener<R1,A1>>) provider.getClientListeners().values();
 			
 			try
 			{
@@ -137,7 +137,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 					terminate(castedAnswer.getResultCode());
 					if(listeners!=null)
 					{
-						for(ClientAuthStatelessListener<R1> listener:listeners)
+						for(ClientAuthStatelessListener<R1,A1> listener:listeners)
 							listener.onInitialAnswer(castedAnswer, this, callback);
 					}
 				}

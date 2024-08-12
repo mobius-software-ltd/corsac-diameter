@@ -36,7 +36,7 @@ public class SwxClientSessionImpl extends ClientAuthSessionStatelessImpl<SwxRequ
 		super(Long.valueOf(ApplicationIDs.SWX));
 	}
 	
-	public SwxClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<SwxRequest>, ?, ?, ?, ?> provider)
+	public SwxClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<SwxRequest, SwxAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.SWX), remoteHost, remoteRealm, provider);
 	}

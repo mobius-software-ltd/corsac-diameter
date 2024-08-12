@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.s6t;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.s6t.S6tAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s6t.S6tRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s6t.S6tRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<S6tRequest>
+public interface ClientListener extends ClientAuthStatelessListener<S6tRequest,S6tAnswer>
 {
 }

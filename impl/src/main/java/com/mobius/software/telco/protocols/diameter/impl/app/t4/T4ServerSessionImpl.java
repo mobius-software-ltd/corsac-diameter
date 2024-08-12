@@ -36,7 +36,7 @@ public class T4ServerSessionImpl extends ServerAuthSessionStatelessImpl<T4Reques
 		super(Long.valueOf(ApplicationIDs.T4));
 	}
 	
-	public T4ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<T4Answer>, ?, ?, ?> provider)
+	public T4ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<T4Request, T4Answer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.T4), remoteHost, remoteRealm, provider);
 	}

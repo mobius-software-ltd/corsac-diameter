@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.mm10;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcess
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<MessageProcessRequest>
+public interface ClientListener extends ClientAuthStatelessListener<MessageProcessRequest,MessageProcessAnswer>
 {	
 }

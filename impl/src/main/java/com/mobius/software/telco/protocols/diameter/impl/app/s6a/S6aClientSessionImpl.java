@@ -36,7 +36,7 @@ public class S6aClientSessionImpl extends ClientAuthSessionStatelessImpl<S6aRequ
 		super(Long.valueOf(ApplicationIDs.S6A));
 	}
 	
-	public S6aClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<S6aRequest>, ?, ?, ?, ?> provider)
+	public S6aClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<S6aRequest, S6aAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.S6A), remoteHost, remoteRealm, provider);
 	}

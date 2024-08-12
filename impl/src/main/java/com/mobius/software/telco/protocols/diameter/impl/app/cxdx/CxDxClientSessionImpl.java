@@ -36,7 +36,7 @@ public class CxDxClientSessionImpl extends ClientAuthSessionStatelessImpl<CxDxRe
 		super(Long.valueOf(ApplicationIDs.CX_DX));
 	}
 	
-	public CxDxClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<CxDxRequest>, ?, ?, ?, ?> provider)
+	public CxDxClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<CxDxRequest,CxDxAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.CX_DX), remoteHost, remoteRealm, provider);
 	}

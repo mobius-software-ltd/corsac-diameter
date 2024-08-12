@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.swx;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.swx.SwxAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swx.SwxRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.swx.SwxRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<SwxRequest>
+public interface ClientListener extends ClientAuthStatelessListener<SwxRequest,SwxAnswer>
 {
 }

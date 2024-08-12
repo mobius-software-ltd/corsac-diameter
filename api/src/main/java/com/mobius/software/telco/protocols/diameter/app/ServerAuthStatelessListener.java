@@ -38,7 +38,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
                 successfully processed         specific
                                                answer                                                              
  */
-public interface ServerAuthStatelessListener<A1 extends DiameterAnswer> extends SessionListener
+public interface ServerAuthStatelessListener<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends SessionListener
 {
-	void onInitialRequest(DiameterRequest request,ServerAuthSessionStateless<A1> session,AsyncCallback callback);		
+	void onInitialRequest(R1 request,ServerAuthSessionStateless<A1> session,AsyncCallback callback);		
 }

@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.s7a;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.s7a.S7aAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.s7a.S7aRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s7a.S7aRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<S7aRequest>
+public interface ClientListener extends ClientAuthStatelessListener<S7aRequest,S7aAnswer>
 {
 }

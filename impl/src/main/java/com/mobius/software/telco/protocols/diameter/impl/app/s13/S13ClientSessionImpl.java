@@ -21,22 +21,22 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.s13.S13ClientSession;
-import com.mobius.software.telco.protocols.diameter.commands.s13.S13Answer;
-import com.mobius.software.telco.protocols.diameter.commands.s13.S13Request;
+import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionStatelessImpl;
 /**
 *
 * @author yulian oifa
 *
 */
-public class S13ClientSessionImpl extends ClientAuthSessionStatelessImpl<S13Request, S13Answer> implements S13ClientSession
+public class S13ClientSessionImpl extends ClientAuthSessionStatelessImpl<MEIdentityCheckRequest,MEIdentityCheckAnswer> implements S13ClientSession
 {
 	public S13ClientSessionImpl()
 	{
 		super(Long.valueOf(ApplicationIDs.S13));
 	}
 	
-	public S13ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<S13Request>, ?, ?, ?, ?> provider)
+	public S13ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<MEIdentityCheckRequest,MEIdentityCheckAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.S13), remoteHost, remoteRealm, provider);
 	}

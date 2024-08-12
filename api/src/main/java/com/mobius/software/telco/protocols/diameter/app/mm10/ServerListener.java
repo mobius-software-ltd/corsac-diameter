@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app.mm10;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcess
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<MessageProcessAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<MessageProcessRequest,MessageProcessAnswer>
 {
 }

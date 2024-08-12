@@ -1,7 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.app.s13;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.commands.s13.S13Request;
+import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
 
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s13.S13Request;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<S13Request>
+public interface ClientListener extends ClientAuthStatelessListener<MEIdentityCheckRequest,MEIdentityCheckAnswer>
 {
 }

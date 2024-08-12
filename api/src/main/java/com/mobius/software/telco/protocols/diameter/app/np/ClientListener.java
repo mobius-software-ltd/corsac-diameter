@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.np;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.np.NpAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.np.NpRequest;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.np.NpRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<NpRequest>
+public interface ClientListener extends ClientAuthStatelessListener<NpRequest,NpAnswer>
 {
 }

@@ -42,9 +42,7 @@ import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.app.mm10.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.mm10.MM10ClientSession;
 import com.mobius.software.telco.protocols.diameter.app.mm10.ServerListener;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
-import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
@@ -124,10 +122,9 @@ public class MM10Test extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(DiameterAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, AsyncCallback callback)
+			public void onInitialAnswer(MessageProcessAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, AsyncCallback callback)
 			{
-				if(answer instanceof MessageProcessAnswer)
-					mpaReceivedByListener.incrementAndGet();
+				mpaReceivedByListener.incrementAndGet();
 			}
 		});
 		
@@ -147,34 +144,31 @@ public class MM10Test extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialRequest(DiameterRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, AsyncCallback callback)
+			public void onInitialRequest(MessageProcessRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, AsyncCallback callback)
 			{
-				if(request instanceof MessageProcessRequest)
+				mprReceivedByListener.incrementAndGet();
+				MessageProcessRequest mpr=(MessageProcessRequest)request;
+				try
 				{
-					mprReceivedByListener.incrementAndGet();
-					MessageProcessRequest mpr=(MessageProcessRequest)request;
-					try
+					MessageProcessAnswer mpa = serverProvider.getMessageFactory().createMessageProcessAnswer(mpr, mpr.getHopByHopIdentifier(), mpr.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
+					session.sendInitialAnswer(mpa, new AsyncCallback()
 					{
-						MessageProcessAnswer mpa = serverProvider.getMessageFactory().createMessageProcessAnswer(mpr, mpr.getHopByHopIdentifier(), mpr.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
-						session.sendInitialAnswer(mpa, new AsyncCallback()
+						@Override
+						public void onSuccess()
 						{
-							@Override
-							public void onSuccess()
-							{
-								
-							}
 							
-							@Override
-							public void onError(DiameterException ex)
-							{
-								logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
-							}
-						});
-					}
-					catch(DiameterException ex)
-					{
-						logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
-					}
+						}
+						
+						@Override
+						public void onError(DiameterException ex)
+						{
+							logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
+						}
+					});
+				}
+				catch(DiameterException ex)
+				{
+					logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
 				}
 			}
 		});
@@ -306,10 +300,9 @@ public class MM10Test extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(DiameterAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, AsyncCallback callback)
+			public void onInitialAnswer(MessageProcessAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, AsyncCallback callback)
 			{
-				if(answer instanceof MessageProcessAnswer)
-					mpaReceivedByListener.incrementAndGet();
+				mpaReceivedByListener.incrementAndGet();
 			}
 		});
 		
@@ -329,34 +322,31 @@ public class MM10Test extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialRequest(DiameterRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, AsyncCallback callback)
+			public void onInitialRequest(MessageProcessRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, AsyncCallback callback)
 			{
-				if(request instanceof MessageProcessRequest)
+				mprReceivedByListener.incrementAndGet();
+				MessageProcessRequest mpr=(MessageProcessRequest)request;
+				try
 				{
-					mprReceivedByListener.incrementAndGet();
-					MessageProcessRequest mpr=(MessageProcessRequest)request;
-					try
+					MessageProcessAnswer mpa = serverProvider.getMessageFactory().createMessageProcessAnswer(mpr, mpr.getHopByHopIdentifier(), mpr.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
+					session.sendInitialAnswer(mpa, new AsyncCallback()
 					{
-						MessageProcessAnswer mpa = serverProvider.getMessageFactory().createMessageProcessAnswer(mpr, mpr.getHopByHopIdentifier(), mpr.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
-						session.sendInitialAnswer(mpa, new AsyncCallback()
+						@Override
+						public void onSuccess()
 						{
-							@Override
-							public void onSuccess()
-							{
-								
-							}
 							
-							@Override
-							public void onError(DiameterException ex)
-							{
-								logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
-							}
-						});
-					}
-					catch(DiameterException ex)
-					{
-						logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
-					}
+						}
+						
+						@Override
+						public void onError(DiameterException ex)
+						{
+							logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
+						}
+					});
+				}
+				catch(DiameterException ex)
+				{
+					logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
 				}
 			}
 		});

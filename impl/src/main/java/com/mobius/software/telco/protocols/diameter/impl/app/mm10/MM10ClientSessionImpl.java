@@ -36,7 +36,7 @@ public class MM10ClientSessionImpl extends ClientAuthSessionStatelessImpl<Messag
 		super(Long.valueOf(ApplicationIDs.MM10));
 	}
 	
-	public MM10ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<MessageProcessRequest>, ?, ?, ?, ?> provider)
+	public MM10ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<MessageProcessRequest,MessageProcessAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.MM10), remoteHost, remoteRealm, provider);
 	}

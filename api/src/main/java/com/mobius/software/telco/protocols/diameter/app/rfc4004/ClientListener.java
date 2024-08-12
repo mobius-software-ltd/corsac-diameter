@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.rfc4004;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Answer;
 import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Request;
 
 /*
@@ -26,6 +27,6 @@ import com.mobius.software.telco.protocols.diameter.commands.rfc4004.Rfc4004Requ
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<Rfc4004Request>
+public interface ClientListener extends ClientAuthStatelessListener<Rfc4004Request,Rfc4004Answer>
 {
 }

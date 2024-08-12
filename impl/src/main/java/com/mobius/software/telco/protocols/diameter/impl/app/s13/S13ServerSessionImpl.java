@@ -21,22 +21,22 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.s13.S13ServerSession;
-import com.mobius.software.telco.protocols.diameter.commands.s13.S13Answer;
-import com.mobius.software.telco.protocols.diameter.commands.s13.S13Request;
+import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s13.MEIdentityCheckRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionStatelessImpl;
 /**
 *
 * @author yulian oifa
 *
 */
-public class S13ServerSessionImpl extends ServerAuthSessionStatelessImpl<S13Request, S13Answer> implements S13ServerSession
+public class S13ServerSessionImpl extends ServerAuthSessionStatelessImpl<MEIdentityCheckRequest,MEIdentityCheckAnswer> implements S13ServerSession
 {
 	public S13ServerSessionImpl()
 	{
 		super(Long.valueOf(ApplicationIDs.S13));
 	}
 	
-	public S13ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<S13Answer>, ?, ?, ?> provider)
+	public S13ServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<MEIdentityCheckRequest,MEIdentityCheckAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.S13), remoteHost, remoteRealm, provider);
 	}

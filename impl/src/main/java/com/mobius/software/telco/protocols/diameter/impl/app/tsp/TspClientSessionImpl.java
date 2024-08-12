@@ -36,7 +36,7 @@ public class TspClientSessionImpl extends ClientAuthSessionStatelessImpl<TspRequ
 		super(Long.valueOf(ApplicationIDs.TSP));
 	}
 	
-	public TspClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<TspRequest>, ?, ?, ?, ?> provider)
+	public TspClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<TspRequest, TspAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.TSP), remoteHost, remoteRealm, provider);
 	}

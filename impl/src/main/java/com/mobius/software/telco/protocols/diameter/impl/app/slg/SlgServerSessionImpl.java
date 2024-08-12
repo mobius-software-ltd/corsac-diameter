@@ -36,7 +36,7 @@ public class SlgServerSessionImpl extends ServerAuthSessionStatelessImpl<SlgRequ
 		super(Long.valueOf(ApplicationIDs.SLG));
 	}
 	
-	public SlgServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<SlgAnswer>, ?, ?, ?> provider)
+	public SlgServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<SlgRequest, SlgAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.SLG), remoteHost, remoteRealm, provider);
 	}

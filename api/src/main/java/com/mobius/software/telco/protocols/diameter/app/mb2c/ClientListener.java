@@ -1,6 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.app.mb2c;
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
 * @author yulian oifa
 *
 */
-public interface ClientListener extends ClientAuthStatelessListener<MB2CRequest>
+public interface ClientListener extends ClientAuthStatelessListener<MB2CRequest,MB2CAnswer>
 {
 }

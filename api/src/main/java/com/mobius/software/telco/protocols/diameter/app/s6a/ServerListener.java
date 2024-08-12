@@ -2,6 +2,7 @@ package com.mobius.software.telco.protocols.diameter.app.s6a;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.commands.s6a.S6aAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s6a.S6aRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.s6a.S6aAnswer;
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<S6aAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<S6aRequest,S6aAnswer>
 {
 }

@@ -33,7 +33,7 @@ public class PC6ClientSessionImpl extends ClientAuthSessionStatelessImpl<Pc6Requ
 		super(Long.valueOf(ApplicationIDs.PC6));
 	}
 	
-	public PC6ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<Pc6Request>, ?, ?, ?, ?> provider)
+	public PC6ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<Pc6Request,Pc6Answer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.PC6), remoteHost, remoteRealm, provider);
 	}

@@ -36,7 +36,7 @@ public class RFC4004ClientSessionImpl extends ClientAuthSessionStatelessImpl<Rfc
 		super(Long.valueOf(ApplicationIDs.MOBILE_IPV4));
 	}
 	
-	public RFC4004ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<Rfc4004Request>, ?, ?, ?, ?> provider)
+	public RFC4004ClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<Rfc4004Request,Rfc4004Answer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.MOBILE_IPV4), remoteHost, remoteRealm, provider);
 	}
