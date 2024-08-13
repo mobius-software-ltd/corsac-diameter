@@ -1,8 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.app.slh;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.commands.slh.SlhAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.slh.SlhRequest;
+import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -26,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.slh.SlhRequest;
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<SlhRequest,SlhAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<LCSRoutingInfoRequest,LCSRoutingInfoAnswer>
 {
 }

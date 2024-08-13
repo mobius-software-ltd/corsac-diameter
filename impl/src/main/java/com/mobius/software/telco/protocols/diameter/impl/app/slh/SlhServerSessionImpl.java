@@ -21,22 +21,22 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.slh.SlhServerSession;
-import com.mobius.software.telco.protocols.diameter.commands.slh.SlhAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.slh.SlhRequest;
+import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.slh.LCSRoutingInfoRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.ServerAuthSessionStatelessImpl;
 /**
 *
 * @author yulian oifa
 *
 */
-public class SlhServerSessionImpl extends ServerAuthSessionStatelessImpl<SlhRequest, SlhAnswer> implements SlhServerSession
+public class SlhServerSessionImpl extends ServerAuthSessionStatelessImpl<LCSRoutingInfoRequest, LCSRoutingInfoAnswer> implements SlhServerSession
 {
 	public SlhServerSessionImpl()
 	{
 		super(Long.valueOf(ApplicationIDs.SLH));
 	}
 	
-	public SlhServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<SlhRequest, SlhAnswer>, ?, ?, ?> provider)
+	public SlhServerSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<?, ? extends ServerAuthStatelessListener<LCSRoutingInfoRequest, LCSRoutingInfoAnswer>, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.SLH), remoteHost, remoteRealm, provider);
 	}

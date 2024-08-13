@@ -19,8 +19,8 @@ package com.mobius.software.telco.protocols.diameter.app.nt;
  */
 
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthSessionStateless;
-import com.mobius.software.telco.protocols.diameter.commands.nt.NtRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
 
-public interface NtClientSession extends ClientAuthSessionStateless<NtRequest>
+public interface NtClientSession extends ClientAuthSessionStateless<BackgroundDataTransferRequest>
 {
 }

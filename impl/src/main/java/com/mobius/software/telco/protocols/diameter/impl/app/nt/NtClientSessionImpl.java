@@ -21,18 +21,18 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.nt.NtClientSession;
-import com.mobius.software.telco.protocols.diameter.commands.nt.NtAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.nt.NtRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionStatelessImpl;
 
-public class NtClientSessionImpl extends ClientAuthSessionStatelessImpl<NtRequest, NtAnswer> implements NtClientSession
+public class NtClientSessionImpl extends ClientAuthSessionStatelessImpl<BackgroundDataTransferRequest, BackgroundDataTransferAnswer> implements NtClientSession
 {
 	public NtClientSessionImpl()
 	{
 		super(Long.valueOf(ApplicationIDs.NT));
 	}
 	
-	public NtClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<NtRequest,NtAnswer>, ?, ?, ?, ?> provider)
+	public NtClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<BackgroundDataTransferRequest,BackgroundDataTransferAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.NT), remoteHost, remoteRealm, provider);
 	}
