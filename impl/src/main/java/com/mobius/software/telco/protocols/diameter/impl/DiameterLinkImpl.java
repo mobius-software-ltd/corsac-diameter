@@ -175,22 +175,30 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 				}
 			}
 			
+			StringBuilder serverNameBuilder = new StringBuilder();
+			serverNameBuilder.append(channelType.name()).append("://").append(localAddress.getHostAddress()).append(":").append(localPort);
+			String serverName = serverNameBuilder.toString();
 			if(server == null)
 			{
-				StringBuilder serverNameBuilder = new StringBuilder();
-				serverNameBuilder.append(channelType.name()).append("://").append(localAddress.getHostAddress()).append(":").append(localPort);
-				String serverName = serverNameBuilder.toString();
 				try
 				{
 					server = management.addServer(serverName, localAddress.getHostAddress(), localPort, channelType, null);
 					management.startServer(serverName);
-					this.association = management.addServerAssociation(remoteAddress.getHostAddress(), remotePort, serverName, linkId, channelType);
 				}
 				catch(Exception ex)
 				{
 					throw new DiameterException("An error occured while establishing a peer", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
-				}								
-			}			
+				}	
+			}
+												
+			try
+			{
+				this.association = management.addServerAssociation(remoteAddress.getHostAddress(), remotePort, serverName, linkId, channelType);
+			}
+			catch(Exception ex)
+			{
+				throw new DiameterException("An error occured while establishing a peer", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
+			}
 		}
 		else
 		{
