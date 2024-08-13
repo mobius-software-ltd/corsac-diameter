@@ -209,7 +209,7 @@ public interface SubsessionEnforcementInfo extends DiameterGroupedAvp
 	
 	Long getExperimentalResultCode();
 	
-	void setExperimentalResultCode(Long experimentalResultCode);
+	void setExperimentalResultCode(Long value);
 	
 	List<ChargingRuleReport> getChargingRuleReport();
 	

@@ -50,9 +50,9 @@ public interface SubscriptionId extends DiameterAvp
 {
 	SubscriptionIdTypeEnum getSubscriptionIdType();
 	
-	void setSubscriptionIdType(SubscriptionIdTypeEnum subscriptionIdType) throws MissingAvpException;
+	void setSubscriptionIdType(SubscriptionIdTypeEnum value) throws MissingAvpException;
 	
 	String getSubscriptionIdData();
 	
-	void setSubscriptionIdData(String subscriptionIdData) throws MissingAvpException;
+	void setSubscriptionIdData(String value) throws MissingAvpException;
 }

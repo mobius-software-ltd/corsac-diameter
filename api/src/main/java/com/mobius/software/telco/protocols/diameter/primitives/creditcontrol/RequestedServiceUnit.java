@@ -57,25 +57,25 @@ public interface RequestedServiceUnit extends DiameterGroupedAvp
 {
 	Date getCCTime();
 	
-	void setCCTime(Date ccTime);
+	void setCCTime(Date value);
 	
 	CCMoney getCCMoney();
 	
-	void setCCMoney(CCMoney ccMoney);
+	void setCCMoney(CCMoney value);
 	
 	Long getCCTotalOctets();
 	
-	void setCCTotalOctets(Long ccTotalOctets);
+	void setCCTotalOctets(Long value);
 	
 	Long getCCInputOctets();
 	
-	void setCCInputOctets(Long ccInputOctets);
+	void setCCInputOctets(Long value);
 	
 	Long getCCOutputOctets();
 	
-	void setCCOutputOctets(Long ccOutputOctets);
+	void setCCOutputOctets(Long value);
 	
 	Long getCCServiceSpecificUnits();
 	
-	void setCCServiceSpecificUnits(Long ccServiceSpecificUnits);		
+	void setCCServiceSpecificUnits(Long value);		
 }

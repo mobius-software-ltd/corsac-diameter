@@ -40,9 +40,9 @@ public interface FinalUnitIndication extends DiameterAvp
 {
 	FinalUnitActionEnum getFinalUnitAction();
 	
-	void setFinalUnitAction(FinalUnitActionEnum finalUnitAction) throws MissingAvpException;
+	void setFinalUnitAction(FinalUnitActionEnum value) throws MissingAvpException;
 	
 	RedirectServer getRedirectServer();
 	
-	void setRedirectServer(RedirectServer redirectServer);	
+	void setRedirectServer(RedirectServer value);	
 }

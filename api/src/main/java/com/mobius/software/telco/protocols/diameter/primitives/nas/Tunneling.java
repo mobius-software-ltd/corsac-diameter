@@ -55,11 +55,11 @@ public interface Tunneling extends DiameterAvp
 {
 	TunnelTypeEnum getTunnelType();
 	
-	void setTunnelType(TunnelTypeEnum tunnelType) throws MissingAvpException;
+	void setTunnelType(TunnelTypeEnum value) throws MissingAvpException;
 	
 	TunnelMediumTypeEnum getTunnelMediumType();
 	
-	void setTunnelMediumType(TunnelMediumTypeEnum tunnelMediumType) throws MissingAvpException;
+	void setTunnelMediumType(TunnelMediumTypeEnum value) throws MissingAvpException;
 	
 	String getTunnelClientEndpoint();
 	

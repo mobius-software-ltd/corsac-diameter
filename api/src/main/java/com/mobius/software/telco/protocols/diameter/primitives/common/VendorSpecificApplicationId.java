@@ -65,13 +65,13 @@ public interface VendorSpecificApplicationId extends DiameterAvp
 {
 	Long getVendorId();
 	
-	void setVendorId(Long vendorId);
+	void setVendorId(Long value);
 	
 	Long getAuthApplicationId();
 	
-	void setAuthApplicationId(Long authApplicationId) throws MissingAvpException;
+	void setAuthApplicationId(Long value) throws MissingAvpException;
 	
 	Long getAcctApplicationId();
 	
-	void setAcctApplicationId(Long acctApplication) throws MissingAvpException;
+	void setAcctApplicationId(Long value) throws MissingAvpException;
 }

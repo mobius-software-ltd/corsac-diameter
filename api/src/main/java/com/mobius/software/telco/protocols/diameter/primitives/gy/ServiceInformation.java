@@ -36,4 +36,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 public interface ServiceInformation extends DiameterAvp 
 {
 	PSInformation getPSInformation();
+	
+	void setPSInformation(PSInformation value);
 }

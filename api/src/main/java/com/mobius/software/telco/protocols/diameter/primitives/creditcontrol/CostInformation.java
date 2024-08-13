@@ -70,5 +70,5 @@ public interface CostInformation extends CCMoney
 {
 	String getCostUnit();
 	
-	void setCostUnit(String costUnit);
+	void setCostUnit(String value);
 }

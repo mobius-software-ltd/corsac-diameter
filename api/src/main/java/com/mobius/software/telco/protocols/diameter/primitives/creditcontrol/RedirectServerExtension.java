@@ -61,13 +61,13 @@ public interface RedirectServerExtension extends DiameterGroupedAvp
 {
 	InetAddress getIPAddress();
 	
-	void setIPAddress(InetAddress address);
+	void setIPAddress(InetAddress value);
 	
 	String getURL();
 	
-	void setURL(String url);
+	void setURL(String value);
 	
 	String getSIPURI();
 	
-	void setSIPURI(String sipURI);		
+	void setSIPURI(String value);		
 }

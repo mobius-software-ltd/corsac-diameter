@@ -62,9 +62,9 @@ public interface ServiceParameterInfo extends DiameterAvp
 {
 	Long getServiceParameterType();
 	
-	void setServiceParameterType(Long serviceParameterType) throws MissingAvpException;
+	void setServiceParameterType(Long value) throws MissingAvpException;
 	
 	ByteBuf getServiceParameterValue();
 	
-	void setServiceParameterValue(ByteBuf serviceParameterValue) throws MissingAvpException;
+	void setServiceParameterValue(ByteBuf value) throws MissingAvpException;
 }

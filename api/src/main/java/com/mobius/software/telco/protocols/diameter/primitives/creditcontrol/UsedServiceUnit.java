@@ -56,5 +56,5 @@ public interface UsedServiceUnit extends RequestedServiceUnit
 {
 	TariffChangeUsageEnum getTariffChangeUsage();
 	
-	void setTariffChangeUsage(TariffChangeUsageEnum tariffChangeUsage);			
+	void setTariffChangeUsage(TariffChangeUsageEnum value);			
 }
