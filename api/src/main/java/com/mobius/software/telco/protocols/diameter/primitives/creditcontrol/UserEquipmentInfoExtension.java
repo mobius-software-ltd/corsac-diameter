@@ -62,21 +62,21 @@ public interface UserEquipmentInfoExtension extends DiameterGroupedAvp
 {
 	ByteBuf getIMEISV();
 	
-	void setIMEISV(ByteBuf imeiSV) throws MissingAvpException;
+	void setIMEISV(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getMAC();
 	
-	void setMAC(ByteBuf mac) throws MissingAvpException;
+	void setMAC(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getEUI64();
 	
-	void setEUI64(ByteBuf eui64) throws MissingAvpException;
+	void setEUI64(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getModifiedEUI64();
 	
-	void setModifiedEUI64(ByteBuf modifiedEUI64) throws MissingAvpException;
+	void setModifiedEUI64(ByteBuf value) throws MissingAvpException;
 	
 	ByteBuf getIMEI();
 	
-	void setIMEI(ByteBuf imei) throws MissingAvpException;
+	void setIMEI(ByteBuf value) throws MissingAvpException;
 }

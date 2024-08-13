@@ -52,9 +52,9 @@ public interface UnitValue extends DiameterAvp
 {
 	Long getValueDigits();
 	
-	void setValueDigits(Long valueDigits) throws MissingAvpException;
+	void setValueDigits(Long value) throws MissingAvpException;
 	
 	Long getExponent();
 	
-	void setExponent(Long exponent);	
+	void setExponent(Long value);	
 }

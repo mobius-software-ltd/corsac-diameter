@@ -61,13 +61,13 @@ public interface GSUPoolReference extends DiameterAvp
 {
 	Long getGSUPoolIdentifier();
 	
-	void setGSUPoolIdentifier(Long gsuPoolIdentifier) throws MissingAvpException;
+	void setGSUPoolIdentifier(Long value) throws MissingAvpException;
 	
 	CcUnitTypeEnum getCCUnitType();
 	
-	void setCCUnitType(CcUnitTypeEnum ccUnitType) throws MissingAvpException;
+	void setCCUnitType(CcUnitTypeEnum value) throws MissingAvpException;
 	
 	UnitValue getUnitValue();
 	
-	void setUnitValue(UnitValue unitValue) throws MissingAvpException;	
+	void setUnitValue(UnitValue value) throws MissingAvpException;	
 }

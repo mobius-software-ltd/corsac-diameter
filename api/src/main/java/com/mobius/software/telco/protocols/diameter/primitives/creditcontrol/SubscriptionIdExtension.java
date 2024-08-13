@@ -71,21 +71,21 @@ public interface SubscriptionIdExtension extends DiameterGroupedAvp
 {
 	String getE164();
 	
-	void setE164(String e164) throws MissingAvpException;
+	void setE164(String value) throws MissingAvpException;
 	
 	String getIMSI();
 	
-	void setIMSI(String imsi) throws MissingAvpException;
+	void setIMSI(String value) throws MissingAvpException;
 	
 	String getSIPURI();
 	
-	void setSIPURI(String sipURI) throws MissingAvpException;
+	void setSIPURI(String value) throws MissingAvpException;
 	
 	String getNAI();
 	
-	void setNAI(String nai) throws MissingAvpException;
+	void setNAI(String value) throws MissingAvpException;
 	
 	String getPrivate();
 	
-	void setPrivate(String uePrivate) throws MissingAvpException;
+	void setPrivate(String value) throws MissingAvpException;
 }

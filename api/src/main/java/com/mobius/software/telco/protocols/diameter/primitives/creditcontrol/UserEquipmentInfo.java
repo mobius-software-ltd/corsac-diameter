@@ -52,9 +52,9 @@ public interface UserEquipmentInfo extends DiameterAvp
 {
 	UserEquipmentInfoTypeEnum getUserEquipmentInfoType();
 	
-	void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum userEquipmentInfoType) throws MissingAvpException;
+	void setUserEquipmentInfoType(UserEquipmentInfoTypeEnum value) throws MissingAvpException;
 	
 	ByteBuf getUserEquipmentInfoValue();
 	
-	void setUserEquipmentInfoValue(ByteBuf userEquipmentInfoValue) throws MissingAvpException;
+	void setUserEquipmentInfoValue(ByteBuf value) throws MissingAvpException;
 }

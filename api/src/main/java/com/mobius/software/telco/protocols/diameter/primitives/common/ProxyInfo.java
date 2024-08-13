@@ -49,9 +49,9 @@ public interface ProxyInfo extends DiameterGroupedAvp
 {
 	String getProxyHost();
 	
-	void setProxyHost(String proxyHost) throws MissingAvpException;
+	void setProxyHost(String value) throws MissingAvpException;
 	
 	ByteBuf getProxyState();
 	
-	void setProxyState(ByteBuf proxyState) throws MissingAvpException;	
+	void setProxyState(ByteBuf value) throws MissingAvpException;	
 }

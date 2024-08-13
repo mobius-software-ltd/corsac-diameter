@@ -114,17 +114,17 @@ public interface QoSFinalUnitIndication extends DiameterGroupedAvp
 {
 	FinalUnitActionEnum getFinalUnitAction();
 	
-	void setFinalUnitAction(FinalUnitActionEnum finalUnitAction) throws MissingAvpException;
+	void setFinalUnitAction(FinalUnitActionEnum value) throws MissingAvpException;
 	
 	List<RestrictionFilterRule> getRestrictionFilterRule();
 	
-	void setRestrictionFilterRule(List<RestrictionFilterRule> restrictionFilterRule);	
+	void setRestrictionFilterRule(List<RestrictionFilterRule> value);	
 	
 	List<String> getFilterId();
 	
-	void setFilterId(List<String> filterId);	
+	void setFilterId(List<String> value);	
 	
 	RedirectServerExtension getRedirectServerExtension();
 	
-	void setRedirectServerExtension(RedirectServerExtension redirectServerExtension);	
+	void setRedirectServerExtension(RedirectServerExtension value);	
 }

@@ -109,17 +109,17 @@ public interface FinalUnitIndication extends DiameterAvp
 {
 	FinalUnitActionEnum getFinalUnitAction();
 	
-	void setFinalUnitAction(FinalUnitActionEnum finalUnitAction) throws MissingAvpException;
+	void setFinalUnitAction(FinalUnitActionEnum value) throws MissingAvpException;
 	
 	List<RestrictionFilterRule> getRestrictionFilterRule();
 	
-	void setRestrictionFilterRule(List<RestrictionFilterRule> restrictionFilterRule);	
+	void setRestrictionFilterRule(List<RestrictionFilterRule> value);	
 	
 	List<String> getFilterId();
 	
-	void setFilterId(List<String> filterId);	
+	void setFilterId(List<String> value);	
 	
 	RedirectServer getRedirectServer();
 	
-	void setRedirectServer(RedirectServer redirectServer);	
+	void setRedirectServer(RedirectServer value);	
 }

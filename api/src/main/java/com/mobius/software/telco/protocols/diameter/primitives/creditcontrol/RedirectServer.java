@@ -50,9 +50,9 @@ public interface RedirectServer extends DiameterAvp
 {
 	RedirectAddressTypeEnum getRedirectAddressType();
 	
-	void setRedirectAddressType(RedirectAddressTypeEnum redirectAddressType) throws MissingAvpException;
+	void setRedirectAddressType(RedirectAddressTypeEnum value) throws MissingAvpException;
 	
 	String getRedirectServerAddress();
 	
-	void setRedirectServerAddress(String redirectServerAddress) throws MissingAvpException;
+	void setRedirectServerAddress(String value) throws MissingAvpException;
 }

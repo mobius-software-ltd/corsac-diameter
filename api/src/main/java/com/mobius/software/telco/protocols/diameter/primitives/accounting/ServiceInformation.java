@@ -64,69 +64,69 @@ public interface ServiceInformation extends DiameterAvp
 {
 	List<SubscriptionId> getSubscriptionId();
 	
-	void setSubscriptionId(List<SubscriptionId> subscriptionId);
+	void setSubscriptionId(List<SubscriptionId> value);
 	
 	AoCInformation getAoCInformation();
 	
-	void setAoCInformation(AoCInformation aocInformation);
+	void setAoCInformation(AoCInformation value);
 	
 	PSInformation getPSInformation();
 	
-	void setPSInformation(PSInformation psInformation);
+	void setPSInformation(PSInformation value);
 	
 	IMSInformation getIMSInformation();
 	
-	void setIMSInformation(IMSInformation imsInformation);
+	void setIMSInformation(IMSInformation value);
 	
 	MMSInformation getMMSInformation();
 	
-	void setMMSInformation(MMSInformation mmsInformation);
+	void setMMSInformation(MMSInformation value);
 	
 	LCSInformation getLCSInformation();
 	
-	void setLCSInformation(LCSInformation lcsInformation);
+	void setLCSInformation(LCSInformation value);
 	
 	PoCInformation getPoCInformation();
 	
-	void setPoCInformation(PoCInformation pocInformation);
+	void setPoCInformation(PoCInformation value);
 	
 	MBMSInformation getMBMSInformation();
 	
-	void setMBMSInformation(MBMSInformation mbmsInformation);
+	void setMBMSInformation(MBMSInformation value);
 	
 	SMSInformation getSMSInformation();
 	
-	void setSMSInformation(SMSInformation smsInformation);
+	void setSMSInformation(SMSInformation value);
 
 	VCSInformation getVCSInformation();
 	
-	void setVCSInformation(VCSInformation vcsInformation);
+	void setVCSInformation(VCSInformation value);
 	
 	MMTelInformation getMMTelInformation();
 	
-	void setMMTelInformation(MMTelInformation mmtelInformation);
+	void setMMTelInformation(MMTelInformation value);
 	
 	ProSeInformation getProSeInformation();
 	
-	void setProSeInformation(ProSeInformation proseInformation);
+	void setProSeInformation(ProSeInformation value);
 	
 	ServiceGenericInformation getServiceGenericInformation();
 	
-	void setServiceGenericInformation(ServiceGenericInformation serviceGenericInformation);
+	void setServiceGenericInformation(ServiceGenericInformation value);
 	
 	IMInformation getIMInformation();
 	
-	void setIMInformation(IMInformation imInformation);
+	void setIMInformation(IMInformation value);
 	
 	DCDInformation getDCDInformation();
 	
-	void setDCDInformation(DCDInformation serviceGenericInformation);
+	void setDCDInformation(DCDInformation value);
 	
 	M2MInformation getM2MInformation();
 	
-	void setM2MInformation(M2MInformation m2mInformation);
+	void setM2MInformation(M2MInformation value);
 	
 	CPDTInformation getCPDTInformation();
 	
-	void setCPDTInformation(CPDTInformation cpdtInformation);	
+	void setCPDTInformation(CPDTInformation value);	
 }

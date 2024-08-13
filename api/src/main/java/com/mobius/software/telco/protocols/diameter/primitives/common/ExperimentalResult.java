@@ -55,9 +55,9 @@ public interface ExperimentalResult extends DiameterAvp
 {
 	Long getVendorId();
 	
-	void setVendorId(Long vendorId) throws MissingAvpException;
+	void setVendorId(Long value) throws MissingAvpException;
 	
 	Long getExperimentalResultCode();
 	
-	void setExperimentalResultCode(Long experimentalResultCode) throws MissingAvpException;	
+	void setExperimentalResultCode(Long value) throws MissingAvpException;	
 }

@@ -48,7 +48,7 @@ public interface ETHOption extends DiameterGroupedAvp
 {
 	ETHProtoType getETHProtoType();
 	
-	void setETHProtoType(ETHProtoType ethProtoType) throws MissingAvpException;
+	void setETHProtoType(ETHProtoType value) throws MissingAvpException;
 	
 	List<VLANIDRange> getVLANIDRange();
 	
