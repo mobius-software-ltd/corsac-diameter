@@ -74,11 +74,13 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		MEIdentityCheckAnswerImpl result = new MEIdentityCheckAnswerImpl(originHost,originRealm, false, resultCode, sessionID,AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 }

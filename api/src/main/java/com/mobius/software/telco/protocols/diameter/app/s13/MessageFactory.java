@@ -28,7 +28,7 @@ public interface MessageFactory
 {
 	public MEIdentityCheckRequest createMEIdentityCheckRequest(String originHost,String originRealm,String destinationHost,String destinationRealm) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
 	
-	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException,AvpOccursTooManyTimesException;
 
-	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(MEIdentityCheckRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	public MEIdentityCheckAnswer createMEIdentityCheckAnswer(MEIdentityCheckRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException,AvpOccursTooManyTimesException;
 }

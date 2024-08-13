@@ -93,9 +93,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public ProSeInitialLocationInformationAnswer createProSeInitialLocationInformationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ProSeInitialLocationInformationAnswerImpl result = new  ProSeInitialLocationInformationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 	
@@ -120,9 +122,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public ProSeNotifyAnswer createProSeNotifyAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ProSeNotifyAnswerImpl result = new ProSeNotifyAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 	
@@ -146,9 +150,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public ProSeSubscriberInformationAnswer createProSeSubscriberInformationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ProSeSubscriberInformationAnswerImpl result = new ProSeSubscriberInformationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 	
@@ -173,9 +179,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public ResetAnswer createResetAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ResetAnswerImpl result = new  ResetAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 	
@@ -199,9 +207,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public UpdateProSeSubscriberDataAnswer createUpdateProSeSubscriberDataAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		UpdateProSeSubscriberDataAnswerImpl result = new UpdateProSeSubscriberDataAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 }

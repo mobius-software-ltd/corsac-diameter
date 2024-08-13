@@ -71,7 +71,7 @@ public class MessageFactoryImpl implements MessageFactory
 		return request;
 	}	
 	
-	public MessageProcessAnswer createMessageProcessAnswer(MessageProcessRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException
+	public MessageProcessAnswer createMessageProcessAnswer(MessageProcessRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException,AvpOccursTooManyTimesException
 	{
 		MessageProcessAnswerImpl result = new MessageProcessAnswerImpl(request.getDestinationHost(),request.getDestinationRealm(),false, resultCode, request.getSessionId(),AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
@@ -81,11 +81,13 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public MessageProcessAnswer createMessageProcessAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	public MessageProcessAnswer createMessageProcessAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		MessageProcessAnswerImpl result = new MessageProcessAnswerImpl(originHost,originRealm, false, resultCode, sessionID,AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 }

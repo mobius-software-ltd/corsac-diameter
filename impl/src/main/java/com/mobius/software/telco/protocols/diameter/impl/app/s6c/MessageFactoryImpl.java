@@ -87,9 +87,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public AlertServiceCentreAnswer createAlertServiceCentreAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		AlertServiceCentreAnswerImpl result = new  AlertServiceCentreAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}			
 	
@@ -114,9 +116,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public ReportSMDeliveryStatusAnswer createReportSMDeliveryStatusAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		ReportSMDeliveryStatusAnswerImpl result = new  ReportSMDeliveryStatusAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 	
@@ -141,9 +145,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public SendRoutingInfoForSMAnswer createSendRoutingInfoForSMAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		SendRoutingInfoForSMAnswerImpl result = new  SendRoutingInfoForSMAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 }

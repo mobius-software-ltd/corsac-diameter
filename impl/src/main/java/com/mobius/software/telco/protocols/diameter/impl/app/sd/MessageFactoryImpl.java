@@ -208,9 +208,11 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public TDFSessionAnswer createTDFSessionAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		TDFSessionAnswerImpl result = new  TDFSessionAnswerImpl(originHost, originRealm, false, resultCode,  sessionID);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 }
