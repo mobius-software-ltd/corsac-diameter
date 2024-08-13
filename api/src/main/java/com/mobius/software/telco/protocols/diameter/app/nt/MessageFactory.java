@@ -29,8 +29,8 @@ public interface MessageFactory
 {
 	public BackgroundDataTransferRequest createBackgroundDataTransferRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,TransferRequestTypeEnum transferRequestType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
 	
-	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException,AvpOccursTooManyTimesException;
 
-	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(BackgroundDataTransferRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
+	public BackgroundDataTransferAnswer createBackgroundDataTransferAnswer(BackgroundDataTransferRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException,AvpOccursTooManyTimesException;
 
 }
