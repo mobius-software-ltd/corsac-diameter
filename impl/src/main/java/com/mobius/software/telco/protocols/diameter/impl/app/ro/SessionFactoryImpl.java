@@ -19,19 +19,12 @@ package com.mobius.software.telco.protocols.diameter.impl.app.ro;
  */
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerCCListener;
+import com.mobius.software.telco.protocols.diameter.app.ro.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.ro.RoClientSession;
 import com.mobius.software.telco.protocols.diameter.app.ro.RoServerSession;
+import com.mobius.software.telco.protocols.diameter.app.ro.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.ro.SessionFactory;
-import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlRequest;
-import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.ro.ReAuthRequest;
-import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.ro.SessionTerminationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 /**
 *
@@ -40,9 +33,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 */
 public class SessionFactoryImpl implements SessionFactory
 {
-	private DiameterProvider<? extends ClientCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ? extends ServerCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>,?, ?, ?> provider;
+	private DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ? extends ServerCCListener<CreditControlRequest, CreditControlAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}

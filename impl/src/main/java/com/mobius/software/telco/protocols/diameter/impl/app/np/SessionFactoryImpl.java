@@ -19,24 +19,22 @@ package com.mobius.software.telco.protocols.diameter.impl.app.np;
  */
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.app.np.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.np.NpClientSession;
 import com.mobius.software.telco.protocols.diameter.app.np.NpServerSession;
+import com.mobius.software.telco.protocols.diameter.app.np.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.np.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.np.AggregatedRUCIReportRequest;
 import com.mobius.software.telco.protocols.diameter.commands.np.ModifyUeContextRequest;
 import com.mobius.software.telco.protocols.diameter.commands.np.NonAggregatedRUCIReportRequest;
-import com.mobius.software.telco.protocols.diameter.commands.np.NpAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.np.NpRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
 public class SessionFactoryImpl implements SessionFactory
 {
 	//since we have multiple requests/
-	private DiameterProvider<? extends ClientAuthStatelessListener<NpRequest,NpAnswer>, ? extends ServerAuthStatelessListener<NpRequest,NpAnswer>,?, ?, ?> provider;
+	private DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener<NpRequest,NpAnswer>, ? extends ServerAuthStatelessListener<NpRequest,NpAnswer>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}

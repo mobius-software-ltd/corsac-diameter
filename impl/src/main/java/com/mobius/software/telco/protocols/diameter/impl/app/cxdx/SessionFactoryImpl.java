@@ -19,13 +19,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.cxdx;
  */
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxClientSession;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.CxDxServerSession;
+import com.mobius.software.telco.protocols.diameter.app.cxdx.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.cxdx.SessionFactory;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.cxdx.CxDxRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.LocationInfoRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.MultimediaAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.cxdx.PushProfileRequest;
@@ -40,10 +38,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 */
 public class SessionFactoryImpl implements SessionFactory
 {
-	//since we have multiple requests/
-	private DiameterProvider<? extends ClientAuthStatelessListener<CxDxRequest,CxDxAnswer>, ? extends ServerAuthStatelessListener<CxDxRequest,CxDxAnswer>,?, ?, ?> provider;
+	private DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener<CxDxRequest,CxDxAnswer>, ? extends ServerAuthStatelessListener<CxDxRequest,CxDxAnswer>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}

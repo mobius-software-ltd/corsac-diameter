@@ -1,8 +1,8 @@
 package com.mobius.software.telco.protocols.diameter.app.nt;
 
 import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.commands.nt.NtAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.nt.NtRequest;
+import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.nt.BackgroundDataTransferRequest;
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -26,6 +26,6 @@ import com.mobius.software.telco.protocols.diameter.commands.nt.NtRequest;
 * @author yulian oifa
 *
 */
-public interface ServerListener extends ServerAuthStatelessListener<NtRequest,NtAnswer>
+public interface ServerListener extends ServerAuthStatelessListener<BackgroundDataTransferRequest,BackgroundDataTransferAnswer>
 {
 }

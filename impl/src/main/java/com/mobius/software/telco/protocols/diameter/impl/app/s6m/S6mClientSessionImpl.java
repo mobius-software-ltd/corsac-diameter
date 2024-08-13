@@ -21,22 +21,22 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
 import com.mobius.software.telco.protocols.diameter.app.s6m.S6mClientSession;
-import com.mobius.software.telco.protocols.diameter.commands.s6m.S6mAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.s6m.S6mRequest;
+import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.s6m.SubscriberInformationRequest;
 import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionStatelessImpl;
 /**
 *
 * @author yulian oifa
 *
 */
-public class S6mClientSessionImpl extends ClientAuthSessionStatelessImpl<S6mRequest, S6mAnswer> implements S6mClientSession
+public class S6mClientSessionImpl extends ClientAuthSessionStatelessImpl<SubscriberInformationRequest, SubscriberInformationAnswer> implements S6mClientSession
 {
 	public S6mClientSessionImpl()
 	{
 		super(Long.valueOf(ApplicationIDs.S6M));
 	}
 	
-	public S6mClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<S6mRequest, S6mAnswer>, ?, ?, ?, ?> provider)
+	public S6mClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthStatelessListener<SubscriberInformationRequest, SubscriberInformationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.S6M), remoteHost, remoteRealm, provider);
 	}

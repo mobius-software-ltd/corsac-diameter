@@ -19,22 +19,20 @@ package com.mobius.software.telco.protocols.diameter.impl.app.mb2c;
  */
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAuthStatelessListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerAuthStatelessListener;
+import com.mobius.software.telco.protocols.diameter.app.mb2c.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.Mb2cClientSession;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.Mb2cServerSession;
+import com.mobius.software.telco.protocols.diameter.app.mb2c.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.mb2c.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSActionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.mb2c.GCSNotificationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CAnswer;
-import com.mobius.software.telco.protocols.diameter.commands.mb2c.MB2CRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
 public class SessionFactoryImpl implements SessionFactory
 {
-private DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest,MB2CAnswer>, ? extends ServerAuthStatelessListener<MB2CRequest,MB2CAnswer>,?, ?, ?> provider;
+	private DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAuthStatelessListener<MB2CRequest,MB2CAnswer>, ? extends ServerAuthStatelessListener<MB2CRequest,MB2CAnswer>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}

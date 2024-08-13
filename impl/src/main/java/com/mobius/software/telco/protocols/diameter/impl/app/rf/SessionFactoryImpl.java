@@ -19,12 +19,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.rf;
  */
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
-import com.mobius.software.telco.protocols.diameter.app.ClientAccListener;
-import com.mobius.software.telco.protocols.diameter.app.ServerAccListener;
+import com.mobius.software.telco.protocols.diameter.app.rf.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.rf.RfClientSession;
 import com.mobius.software.telco.protocols.diameter.app.rf.RfServerSession;
+import com.mobius.software.telco.protocols.diameter.app.rf.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.rf.SessionFactory;
-import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 /**
@@ -34,9 +33,9 @@ import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedEx
 */
 public class SessionFactoryImpl implements SessionFactory
 {
-	private DiameterProvider<? extends ClientAccListener<AccountingRequest,AccountingAnswer>, ? extends ServerAccListener<AccountingRequest, AccountingAnswer>,?, ?, ?> provider;
+	private DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider;
 	
-	public SessionFactoryImpl(DiameterProvider<? extends ClientAccListener<AccountingRequest, AccountingAnswer>, ? extends ServerAccListener<AccountingRequest, AccountingAnswer>,?, ?, ?> provider)
+	public SessionFactoryImpl(DiameterProvider<ClientListener, ServerListener,?, ?, ?> provider)
 	{
 		this.provider = provider;
 	}
