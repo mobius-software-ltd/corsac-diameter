@@ -85,7 +85,7 @@ public class LoadTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message,String linkID, AsyncCallback callback)
 			{
 				if(message instanceof MessageProcessAnswer)
 					mprReceived.incrementAndGet();				
@@ -95,7 +95,7 @@ public class LoadTest extends NetworkTestBase
 		serverStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message,String linkID, AsyncCallback callback)
 			{
 				if(message instanceof MessageProcessRequest)
 					mpaReceived.incrementAndGet();				
@@ -128,7 +128,7 @@ public class LoadTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(MessageProcessAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, AsyncCallback callback)
+			public void onInitialAnswer(MessageProcessAnswer answer, ClientAuthSessionStateless<MessageProcessRequest> session, String linkID, AsyncCallback callback)
 			{
 				mpaReceivedByListener.incrementAndGet();
 			}
@@ -150,7 +150,7 @@ public class LoadTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialRequest(MessageProcessRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, AsyncCallback callback)
+			public void onInitialRequest(MessageProcessRequest request, ServerAuthSessionStateless<MessageProcessAnswer> session, String linkID, AsyncCallback callback)
 			{
 				mprReceivedByListener.incrementAndGet();
 				MessageProcessRequest mpr=(MessageProcessRequest)request;

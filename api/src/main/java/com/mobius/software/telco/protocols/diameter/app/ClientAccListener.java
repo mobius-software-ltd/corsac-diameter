@@ -147,5 +147,5 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingR
  */
 public interface ClientAccListener<R1 extends AccountingRequest,A1 extends AccountingAnswer> extends SessionListener
 {
-	void onAccountingResponse(A1 answer,ClientAccSession<R1> session,AsyncCallback callback);
+	void onAccountingResponse(A1 answer,ClientAccSession<R1> session,String linkID,AsyncCallback callback);
 }

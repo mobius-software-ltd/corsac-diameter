@@ -74,7 +74,7 @@ public class RoTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof CreditControlAnswer)
 					ccaReceived.incrementAndGet();				
@@ -107,23 +107,23 @@ public class RoTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 		});
@@ -201,7 +201,7 @@ public class RoTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof CreditControlAnswer)
 					ccaReceived.incrementAndGet();	
@@ -236,13 +236,13 @@ public class RoTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 				rarReceivedByListener.incrementAndGet();
 				
@@ -270,12 +270,12 @@ public class RoTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{	
 			}
 		});
@@ -431,7 +431,7 @@ public class RoTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof CreditControlAnswer)
 					ccaReceived.incrementAndGet();				
@@ -464,23 +464,23 @@ public class RoTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 		});
@@ -583,7 +583,7 @@ public class RoTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof CreditControlAnswer)
 					ccaReceived.incrementAndGet();				
@@ -616,23 +616,23 @@ public class RoTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, AsyncCallback callback)
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 			}
 		});

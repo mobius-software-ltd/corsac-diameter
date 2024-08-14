@@ -104,7 +104,7 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 					if(answer.getAcctInterimInterval()!=null)
 						newTime = answer.getAcctInterimInterval()*1000L;
 					
-					answerSent(answer, callback, newTime);
+					answerSent(answer, newTime, callback);
 				}
 				
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
@@ -113,20 +113,20 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	}
 	
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request,String linkID, AsyncCallback callback)
 	{
 		try
 		{
 			@SuppressWarnings("unchecked")
 			R1 castedRequest = (R1)request;
-			super.requestReceived(request, callback);
+			super.requestReceived(request, linkID,callback);
 			if(provider.getServerListeners()!=null)
 			{
 				@SuppressWarnings("unchecked")
 				Collection<ServerAccListener<R1, A1>> listeners = (Collection<ServerAccListener<R1, A1>>) provider.getServerListeners().values();
 				
 				for(ServerAccListener<R1, A1> listener:listeners)
-					listener.onAccountingRequest(castedRequest, this, callback);
+					listener.onAccountingRequest(castedRequest, this, linkID,callback);
 			}
 		}
 		catch(Exception ex)
@@ -137,7 +137,7 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	}
 	
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
 	}

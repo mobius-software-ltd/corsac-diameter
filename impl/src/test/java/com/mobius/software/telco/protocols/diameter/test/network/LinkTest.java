@@ -60,7 +60,7 @@ public class LinkTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof CapabilitiesExchangeAnswer)
 					ceaReceived.incrementAndGet();
@@ -147,7 +147,7 @@ public class LinkTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof CapabilitiesExchangeAnswer)
 					ceaReceived.incrementAndGet();
@@ -254,7 +254,7 @@ public class LinkTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof CapabilitiesExchangeAnswer)
 					ceaReceived.incrementAndGet();

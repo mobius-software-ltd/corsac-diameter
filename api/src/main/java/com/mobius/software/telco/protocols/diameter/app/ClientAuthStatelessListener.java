@@ -56,5 +56,5 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
  */
 public interface ClientAuthStatelessListener<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends SessionListener
 {
-	void onInitialAnswer(A1 answer,ClientAuthSessionStateless<R1> session,AsyncCallback callback);		
+	void onInitialAnswer(A1 answer,ClientAuthSessionStateless<R1> session,String linkID,AsyncCallback callback);		
 }

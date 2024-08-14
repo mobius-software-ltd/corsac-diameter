@@ -393,7 +393,7 @@ public class MessageProcessingTask implements Task
 					
 					if(provider!=null)
 					{
-						provider.onMessage(message, new AsyncCallback()
+						provider.onMessage(message, link.getID(), new AsyncCallback()
 						{
 							@Override
 							public void onSuccess()
@@ -430,7 +430,7 @@ public class MessageProcessingTask implements Task
 			while(iterator.hasNext())
 			{
 				Entry<String,NetworkListener> currEntry = iterator.next();
-				currEntry.getValue().onMessage(message, dummyCallback);
+				currEntry.getValue().onMessage(message, link.getID(), dummyCallback);
 			}
 		}
 		catch(Exception ex)
