@@ -225,7 +225,7 @@ public class LoadTest extends NetworkTestBase
 		//make sure no timeout is processed
 		try
 		{
-			Thread.sleep(idleTimeout * 2);
+			Thread.sleep((int)(idleTimeout * 2));
 		}
 		catch(InterruptedException ex)
 		{

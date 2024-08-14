@@ -45,7 +45,7 @@ public class NetworkTestBase
 	private WorkerPool workerPool;
 	protected IDGenerator<?> generator = new UUIDGenerator();
 	
-	protected Long idleTimeout = 1000L;
+	protected Long idleTimeout = 2000L;
 	protected Long responseTimeout = 1000L;
 	protected Long reconnectTimeout = 1000L;
 	
