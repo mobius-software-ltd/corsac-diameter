@@ -125,7 +125,7 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	}
 
 	@Override
-	public void onMessage(DiameterMessage message, AsyncCallback callback)
+	public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 	{
 		String sessionID = null;
 		try
@@ -168,9 +168,9 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 		}
 		
 		if(message instanceof DiameterRequest)
-			session.requestReceived((DiameterRequest)message, callback);
+			session.requestReceived((DiameterRequest)message, linkID, callback);
 		else
-			session.answerReceived((DiameterAnswer)message, callback, null, true);
+			session.answerReceived((DiameterAnswer)message, null, true, linkID, callback);
 	}
 	
 	@Override

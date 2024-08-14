@@ -94,7 +94,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				else
 				{
 					setSessionState(SessionStateEnum.OPEN);
-					answerSent(answer, callback, null);
+					answerSent(answer, null, callback);
 				}
 				
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
@@ -213,7 +213,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request,String linkID,AsyncCallback callback)
 	{
 		Collection<ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>> listeners = null;
 		if(provider.getServerListeners()!=null)
@@ -224,11 +224,11 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R4 castedRequest = (R4)request;
-				super.requestReceived(request, callback);
+				super.requestReceived(request, linkID,callback);
 				if(listeners!=null)
 				{
 					for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-						listener.onSessionTerminationRequest(castedRequest, this, callback);
+						listener.onSessionTerminationRequest(castedRequest, this, linkID,callback);
 				}
 			}
 			catch(Exception ex)
@@ -242,11 +242,11 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R1 castedRequest = (R1)request;
-				super.requestReceived(request, callback);
+				super.requestReceived(request, linkID,callback);
 				if(listeners!=null)
 				{
 					for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-						listener.onInitialRequest(castedRequest, this, callback);
+						listener.onInitialRequest(castedRequest, this, linkID,callback);
 				}
 			}
 			catch(Exception ex)
@@ -259,7 +259,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		try
 		{
@@ -291,7 +291,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						if(listeners!=null)
 						{
 							for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-								listener.onAbortSessionAnswer(castedAnswer, this, callback);
+								listener.onAbortSessionAnswer(castedAnswer, this, linkID,callback);
 						}
 					}
 					catch(Exception ex)
@@ -312,11 +312,11 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
 						{
 							setSessionState(SessionStateEnum.OPEN);
-							super.answerReceived(answer, callback, idleTime, stopSendTimer);
+							super.answerReceived(answer, idleTime, stopSendTimer,linkID, callback);
 							if(listeners!=null)
 							{
 								for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-									listener.onReauthAnswer(castedAnswer, this, callback);
+									listener.onReauthAnswer(castedAnswer, this, linkID, callback);
 							}
 						}
 						else
@@ -326,7 +326,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 							if(listeners!=null)
 							{
 								for(ServerAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-									listener.onReauthAnswer(castedAnswer, this, callback);
+									listener.onReauthAnswer(castedAnswer, this, linkID, callback);
 							}
 						}
 					}

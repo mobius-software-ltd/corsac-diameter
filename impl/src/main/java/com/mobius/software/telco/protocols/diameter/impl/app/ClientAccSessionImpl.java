@@ -108,7 +108,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	}
 	
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request,String linkID, AsyncCallback callback)
 	{
 		callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 		return;
@@ -116,7 +116,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		try
 		{
@@ -152,7 +152,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						if(listeners!=null)
 						{
 							for(ClientAccListener<R1, A1> listener:listeners)
-								listener.onAccountingResponse(castedAnswer, this, callback);
+								listener.onAccountingResponse(castedAnswer, this, linkID,callback);
 						}
 					}
 					else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
@@ -164,17 +164,17 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, this, callback);
+									listener.onAccountingResponse(castedAnswer, this, linkID,callback);
 							}
 						}
 						else
 						{
 							setSessionState(SessionStateEnum.OPEN);
-							super.answerReceived(answer, callback,newTime, !isRetry());	
+							super.answerReceived(answer,newTime, !isRetry(), linkID, callback);	
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, this, callback);
+									listener.onAccountingResponse(castedAnswer, this, linkID,callback);
 							}
 						}
 					}
@@ -197,11 +197,11 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							if(shouldProcessLocally)
 							{
 								setSessionState(SessionStateEnum.OPEN);
-								super.answerReceived(answer, callback,newTime, !isRetry());	
+								super.answerReceived(answer, newTime, !isRetry(), linkID, callback);	
 								if(listeners!=null)
 								{
 									for(ClientAccListener<R1, A1> listener:listeners)
-										listener.onAccountingResponse(castedAnswer, this, callback);
+										listener.onAccountingResponse(castedAnswer, this, linkID,callback);
 								}
 								
 								processed = true;
@@ -216,7 +216,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, this, callback);													
+									listener.onAccountingResponse(castedAnswer, this, linkID, callback);													
 							}
 						}
 					}

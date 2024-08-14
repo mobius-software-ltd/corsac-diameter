@@ -215,21 +215,21 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	}
 
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request, String linkID, AsyncCallback callback)
 	{
 		if(accSession!=null)
-			accSession.requestReceived(request, callback);
+			accSession.requestReceived(request, linkID, callback);
 		else
-			authSession.requestReceived(request, callback);
+			authSession.requestReceived(request, linkID, callback);
 	}
 
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime, Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime, Boolean stopSendTimer, String linkID, AsyncCallback callback)
 	{
 		if(accSession!=null)
-			accSession.answerReceived(answer, callback, idleTime, stopSendTimer);	
+			accSession.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);	
 		else
-			authSession.answerReceived(answer, callback, idleTime, stopSendTimer);	
+			authSession.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);	
 	}
 
 	@Override
@@ -242,12 +242,12 @@ public class Rfc5778iServerSessionImpl implements Rfc5778iServerSession
 	}
 
 	@Override
-	public void answerSent(DiameterAnswer answer, AsyncCallback callback, Long idleTime)
+	public void answerSent(DiameterAnswer answer, Long idleTime, AsyncCallback callback)
 	{
 		if(accSession!=null)
-			accSession.answerSent(answer, callback, idleTime);
+			accSession.answerSent(answer, idleTime, callback);
 		else
-			authSession.answerSent(answer, callback, idleTime);
+			authSession.answerSent(answer, idleTime, callback);
 	}
 
 	@Override

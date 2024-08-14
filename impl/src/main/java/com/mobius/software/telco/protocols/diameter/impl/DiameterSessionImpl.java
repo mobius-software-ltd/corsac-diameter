@@ -108,14 +108,14 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	}
 	
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request, String linkID, AsyncCallback callback)
 	{
 		restartIdleTimer(null);
 		this.provider.getStack().getSessionStorage().storeSession(this);
 	}
 	
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer,Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		restartIdleTimer(idleTime);
 		
@@ -142,7 +142,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	}
 	
 	@Override
-	public void answerSent(DiameterAnswer answer, AsyncCallback callback, Long idleTime)
+	public void answerSent(DiameterAnswer answer, Long idleTime, AsyncCallback callback)
 	{
 		restartIdleTimer(idleTime);
 		this.provider.getStack().getSessionStorage().storeSession(this);

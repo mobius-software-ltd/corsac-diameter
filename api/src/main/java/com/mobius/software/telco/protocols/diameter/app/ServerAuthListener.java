@@ -98,11 +98,11 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerm
  */
 public interface ServerAuthListener<R1 extends DiameterRequest,A1 extends DiameterAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends SessionListener
 {
-	void onInitialRequest(R1 request,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
+	void onInitialRequest(R1 request,ServerAuthSession<A1,R2,R3,A4> session,String linkID,AsyncCallback callback);
 	
-	void onReauthAnswer(A2 answer,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
+	void onReauthAnswer(A2 answer,ServerAuthSession<A1,R2,R3,A4> session,String linkID,AsyncCallback callback);
 	
-	void onSessionTerminationRequest(R4 request,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
+	void onSessionTerminationRequest(R4 request,ServerAuthSession<A1,R2,R3,A4> session,String linkID,AsyncCallback callback);
 	
-	void onAbortSessionAnswer(A3 answer,ServerAuthSession<A1,R2,R3,A4> session,AsyncCallback callback);
+	void onAbortSessionAnswer(A3 answer,ServerAuthSession<A1,R2,R3,A4> session,String linkID,AsyncCallback callback);
 }

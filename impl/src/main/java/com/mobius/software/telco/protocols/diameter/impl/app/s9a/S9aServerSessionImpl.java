@@ -213,21 +213,21 @@ public class S9aServerSessionImpl implements S9aServerSession
 	}
 
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request, String linkID, AsyncCallback callback)
 	{
 		if(authSession!=null)
-			authSession.requestReceived(request, callback);
+			authSession.requestReceived(request, linkID, callback);
 		else
-			ccSession.requestReceived(request, callback);
+			ccSession.requestReceived(request, linkID, callback);
 	}
 
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime, Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime, Boolean stopSendTimer, String linkID, AsyncCallback callback)
 	{
 		if(authSession!=null)
-			authSession.answerReceived(answer, callback, idleTime, stopSendTimer);	
+			authSession.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);	
 		else
-			ccSession.answerReceived(answer, callback, idleTime, stopSendTimer);	
+			ccSession.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);	
 	}
 
 	@Override
@@ -240,12 +240,12 @@ public class S9aServerSessionImpl implements S9aServerSession
 	}
 
 	@Override
-	public void answerSent(DiameterAnswer answer, AsyncCallback callback, Long idleTime)
+	public void answerSent(DiameterAnswer answer, Long idleTime, AsyncCallback callback)
 	{
 		if(authSession!=null)
-			authSession.answerSent(answer, callback, idleTime);
+			authSession.answerSent(answer, idleTime, callback);
 		else
-			ccSession.answerSent(answer, callback, idleTime);
+			ccSession.answerSent(answer, idleTime, callback);
 	}
 
 	@Override

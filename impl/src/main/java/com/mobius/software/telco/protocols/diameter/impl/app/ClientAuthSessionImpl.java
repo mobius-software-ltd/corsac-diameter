@@ -153,7 +153,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 					terminate(answer.getResultCode());
 				}
 				
-				answerSent(answer, callback, null);
+				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);		
 			}
 		});		
@@ -241,7 +241,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				if(answer.getIsError()==null || !answer.getIsError())
 					setSessionState(SessionStateEnum.DISCONNECTED);
 				
-				answerSent(answer, callback,  null);
+				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);	
 			}
 		});			
@@ -249,7 +249,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request, String linkID, AsyncCallback callback)
 	{
 		Collection<ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>> listeners = null;
 		if(provider.getClientListeners()!=null)
@@ -260,11 +260,11 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R2 castedRequest = (R2)request;
-				super.requestReceived(request, callback);
+				super.requestReceived(request, linkID, callback);
 				if(listeners!=null)
 				{
 					for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-						listener.onReauthRequest(castedRequest, this, callback);
+						listener.onReauthRequest(castedRequest, this, linkID, callback);
 				}
 			}
 			catch(Exception ex)
@@ -278,9 +278,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			try
 			{
 				R3 castedRequest = (R3)request;
-				super.requestReceived(request, callback);
+				super.requestReceived(request, linkID, callback);
 				for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-					listener.onAbortSessionRequest(castedRequest, this, callback);	
+					listener.onAbortSessionRequest(castedRequest, this, linkID, callback);	
 			}
 			catch(Exception ex)
 			{
@@ -297,7 +297,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		try
 		{
@@ -329,7 +329,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						if(listeners!=null)
 						{
 							for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-								listener.onSessionTerminationAnswer(castedAnswer, this, callback);
+								listener.onSessionTerminationAnswer(castedAnswer, this, linkID, callback);
 						}
 					}
 					catch(Exception ex)
@@ -351,11 +351,11 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
 						{
 							setSessionState(SessionStateEnum.OPEN);
-							super.answerReceived(answer, callback, idleTime, stopSendTimer);
+							super.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);
 							if(listeners!=null)
 							{
 								for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, this, callback);
+									listener.onInitialAnswer(castedAnswer, this, linkID, callback);
 							}
 						}
 						else
@@ -365,7 +365,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 							if(listeners!=null)
 							{
 								for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, this, callback);
+									listener.onInitialAnswer(castedAnswer, this, linkID, callback);
 							}
 						}
 					}

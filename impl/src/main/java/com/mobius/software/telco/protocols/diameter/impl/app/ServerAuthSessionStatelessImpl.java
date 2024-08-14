@@ -61,7 +61,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 			@Override
 			public void execute()
 			{
-				answerSent(answer, callback, null);
+				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 				terminate(answer.getResultCode());
 			}
@@ -69,7 +69,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	}
 	
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request, String linkID, AsyncCallback callback)
 	{		
 		try
 		{
@@ -81,7 +81,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				@SuppressWarnings("unchecked")
 				Collection<ServerAuthStatelessListener<R1,A1>> listeners = (Collection<ServerAuthStatelessListener<R1,A1>>) provider.getServerListeners().values();
 				for(ServerAuthStatelessListener<R1,A1> listener:listeners)
-					listener.onInitialRequest(castedRequest, this, callback);
+					listener.onInitialRequest(castedRequest, this, linkID,callback);
 			}
 		}
 		catch(Exception ex)
@@ -91,7 +91,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	}
 	
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
 	}

@@ -55,13 +55,13 @@ public interface DiameterSession
 	
 	SessionStateEnum getSessionState();
 	
-	void requestReceived(DiameterRequest request, AsyncCallback callback);
+	void requestReceived(DiameterRequest request,String linkID, AsyncCallback callback);
 	
-	void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer);
+	void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback);
 	
 	void requestSent(DiameterRequest request, AsyncCallback callback);
 	
-	void answerSent(DiameterAnswer answer, AsyncCallback callback, Long idleTime);
+	void answerSent(DiameterAnswer answer, Long idleTime, AsyncCallback callback);
 	
 	void terminate(Long resultCode);
 	

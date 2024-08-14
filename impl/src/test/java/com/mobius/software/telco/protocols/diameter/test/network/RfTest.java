@@ -73,7 +73,7 @@ public class RfTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof AccountingAnswer)
 					aaaReceived.incrementAndGet();				
@@ -106,7 +106,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, String linkID, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}
@@ -183,7 +183,7 @@ public class RfTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof AccountingAnswer)
 					aaaReceived.incrementAndGet();				
@@ -216,7 +216,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session,String linkID, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}
@@ -345,7 +345,7 @@ public class RfTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof AccountingAnswer)
 					aaaReceived.incrementAndGet();				
@@ -378,7 +378,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, String linkID, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}
@@ -616,7 +616,7 @@ public class RfTest extends NetworkTestBase
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
-			public void onMessage(DiameterMessage message, AsyncCallback callback)
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
 				if(message instanceof AccountingAnswer)
 					aaaReceived.incrementAndGet();				
@@ -649,7 +649,7 @@ public class RfTest extends NetworkTestBase
 			}
 			
 			@Override
-			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, AsyncCallback callback)
+			public void onAccountingResponse(AccountingAnswer answer, ClientAccSession<AccountingRequest> session, String linkID, AsyncCallback callback)
 			{
 				aaaReceivedByListener.incrementAndGet();
 			}

@@ -100,14 +100,14 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 	}
 	
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request, String linkID, AsyncCallback callback)
 	{
 		callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		try
 		{
@@ -138,7 +138,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 					if(listeners!=null)
 					{
 						for(ClientAuthStatelessListener<R1,A1> listener:listeners)
-							listener.onInitialAnswer(castedAnswer, this, callback);
+							listener.onInitialAnswer(castedAnswer, this, linkID, callback);
 					}
 				}
 			}

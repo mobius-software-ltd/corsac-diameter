@@ -156,7 +156,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			@Override
 			public void execute()
 			{
-				answerSent(answer, callback, null);
+				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
 		});				
@@ -245,14 +245,14 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				if(answer.getIsError()==null || !answer.getIsError())
 					setSessionState(SessionStateEnum.DISCONNECTED);
 				
-				answerSent(answer, callback, null);
+				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
 		});			
 	}
 	
 	@Override
-	public void requestReceived(DiameterRequest request, AsyncCallback callback)
+	public void requestReceived(DiameterRequest request,String linkID, AsyncCallback callback)
 	{
 		@SuppressWarnings("unchecked")
 		Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
@@ -260,11 +260,11 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		{
 			try
 			{
-				super.requestReceived(request, callback);
+				super.requestReceived(request, linkID, callback);
 				@SuppressWarnings("unchecked")
 				R2 castedRequest = (R2)request;
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-					listener.onReauthRequest(castedRequest, this, callback);	
+					listener.onReauthRequest(castedRequest, this, linkID, callback);	
 			}
 			catch(Exception ex)
 			{
@@ -276,11 +276,11 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		{
 			try
 			{
-				super.requestReceived(request, callback);
+				super.requestReceived(request, linkID, callback);
 				@SuppressWarnings("unchecked")
 				R3 castedRequest = (R3)request;
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-					listener.onAbortSessionRequest(castedRequest, this, callback);	
+					listener.onAbortSessionRequest(castedRequest, this, linkID, callback);	
 			}
 			catch(Exception ex)
 			{
@@ -297,7 +297,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void answerReceived(DiameterAnswer answer, AsyncCallback callback, Long idleTime,Boolean stopSendTimer)
+	public void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback)
 	{
 		try
 		{
@@ -330,7 +330,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						if(listeners!=null)
 						{
 							for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-								listener.onSessionTerminationAnswer(castedAnswer, this, callback);
+								listener.onSessionTerminationAnswer(castedAnswer, this, linkID, callback);
 						}
 					}
 					catch(Exception ex)
@@ -366,7 +366,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							if(listeners!=null)
 							{
 								for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-									listener.onInitialAnswer(castedAnswer, this, callback);
+									listener.onInitialAnswer(castedAnswer, this, linkID, callback);
 							}
 						}
 						else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
@@ -378,17 +378,17 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, this, callback);
+										listener.onInitialAnswer(castedAnswer, this, linkID, callback);
 								}
 							}
 							else
 							{
 								setSessionState(SessionStateEnum.OPEN);
-								super.answerReceived(answer, callback, newTime,!isRetry());
+								super.answerReceived(answer, newTime,!isRetry(), linkID, callback);
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, this, callback);
+										listener.onInitialAnswer(castedAnswer, this, linkID, callback);
 								}
 							}
 						}
@@ -431,16 +431,16 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, this, callback);
+										listener.onInitialAnswer(castedAnswer, this, linkID, callback);
 								}
 							}
 							else
 							{
-								super.answerReceived(answer, callback, newTime,!isRetry());
+								super.answerReceived(answer, newTime,!isRetry(), linkID, callback);
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-										listener.onInitialAnswer(castedAnswer, this, callback);
+										listener.onInitialAnswer(castedAnswer, this, linkID,callback);
 								}
 								
 								R1 realRequest=(R1)request;
