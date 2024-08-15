@@ -110,8 +110,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 					}
 				}
 				
-				setLastSentRequest(request);				
-				requestSent(request, callback);
+				DiameterRequest oldRequest=getLastSendRequest();
+				setLastSentRequest(request);	
+				requestSent(oldRequest==null, request, callback);
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
 		});						
@@ -202,7 +203,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 					}
 				}
 				setLastSentRequest(request);	
-				requestSent(request, callback);
+				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
 		});			

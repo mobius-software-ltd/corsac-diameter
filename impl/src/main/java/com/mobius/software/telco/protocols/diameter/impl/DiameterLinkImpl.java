@@ -655,6 +655,9 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	@Override
 	public void onPayload(Association association, PayloadData payloadData)
 	{		
+		if(logger.isDebugEnabled())
+			logger.debug(String.format("Diameter Message received on link=%s %s", this.getID(), payloadData));
+		
 		ByteBuf buffer = payloadData.getByteBuf();
 		while(buffer.readableBytes()>0)
 		{
@@ -1281,6 +1284,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 	@Override
 	public void resetInactivityTimer()
 	{
+		inactivityTimer.resetTimer();
 		stack.getPeriodicQueue().store(inactivityTimer.getRealTimestamp(), inactivityTimer);		
 	}
 	

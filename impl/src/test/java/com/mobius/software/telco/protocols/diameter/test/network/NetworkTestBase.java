@@ -6,7 +6,8 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-import org.apache.log4j.BasicConfigurator;
+import org.apache.logging.log4j.core.config.Configurator;
+import org.apache.logging.log4j.core.config.DefaultConfiguration;
 import org.jdiameter.api.rf.ServerRfSessionListener;
 import org.jdiameter.api.ro.ServerRoSessionListener;
 import org.restcomm.cluster.IDGenerator;
@@ -58,8 +59,7 @@ public class NetworkTestBase
 	
 	public void setupRemote(ServerRoSessionListener sessionRoListener,ServerRfSessionListener sessionRfListener) throws Exception
 	{
-		BasicConfigurator.resetConfiguration();
-		BasicConfigurator.configure();
+		Configurator.initialize(new DefaultConfiguration());
 		
 		File f = new File(this.getClass().getClassLoader().getResource("jdiameter-config.xml").getPath());
 		InputStream targetStream = null;

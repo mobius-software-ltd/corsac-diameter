@@ -98,8 +98,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				setSessionState(SessionStateEnum.PENDING);
 				if(!isRetry()) 
 				{
+					DiameterRequest oldRequest=getLastSendRequest();
 					setLastSentRequest(request);	
-					requestSent(request, callback);
+					requestSent(oldRequest==null, request, callback);
 				}
 				
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));

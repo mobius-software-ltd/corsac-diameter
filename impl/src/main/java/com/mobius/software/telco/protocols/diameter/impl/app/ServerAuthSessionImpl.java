@@ -137,7 +137,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				}
 				
 				setLastSentRequest(request);
-				requestSent(request, callback);
+				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
 		});				
@@ -205,7 +205,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 					}
 				}
 				
-				requestSent(request, callback);
+				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
 		});			

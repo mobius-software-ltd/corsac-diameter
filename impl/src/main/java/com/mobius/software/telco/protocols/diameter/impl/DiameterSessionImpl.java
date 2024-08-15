@@ -126,11 +126,12 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	}
 	
 	@Override
-	public void requestSent(DiameterRequest request, AsyncCallback callback)
+	public void requestSent(Boolean newSession, DiameterRequest request, AsyncCallback callback)
 	{
 		restartIdleTimer(null);
 		restartSendTimer();
-		if(!this.provider.getStack().getSessionStorage().storeSession(this))
+		this.provider.getStack().getSessionStorage().storeSession(this);
+		if(newSession)
 		{
 			if(this.getApplicationID()!=null)
 			{
@@ -185,14 +186,12 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	{
 		stopIdleTimer();
 		stopSendTimer();
-		if(this.provider.getStack().getSessionStorage().removeSession(this.sessionID))
+		this.provider.getStack().getSessionStorage().removeSession(this.sessionID);
+		if(this.getApplicationID()!=null)
 		{
-			if(this.getApplicationID()!=null)
-			{
-				ApplicationID applicationID = ApplicationID.fromInt(this.getApplicationID().intValue());
-				if(applicationID!=null)
-					this.provider.getStack().sessionEnded(resultCode, applicationID);
-			}
+			ApplicationID applicationID = ApplicationID.fromInt(this.getApplicationID().intValue());
+			if(applicationID!=null)
+				this.provider.getStack().sessionEnded(resultCode, applicationID);
 		}
 	}
 

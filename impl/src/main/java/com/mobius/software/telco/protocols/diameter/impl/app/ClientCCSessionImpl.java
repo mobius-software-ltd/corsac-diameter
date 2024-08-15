@@ -117,8 +117,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						}
 					}
 					
+					DiameterRequest oldRequest = getLastSendRequest();
 					setLastSentRequest(request);	
-					requestSent(request, callback);
+					requestSent(oldRequest==null, request, callback);
 				}
 				
 				provider.getStack().sendRequest(request, callback);
@@ -206,7 +207,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				}
 				
 				setLastSentRequest(request);	
-				requestSent(request, callback);
+				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
 		});			

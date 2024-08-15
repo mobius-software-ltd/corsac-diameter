@@ -59,7 +59,7 @@ public interface DiameterSession
 	
 	void answerReceived(DiameterAnswer answer, Long idleTime,Boolean stopSendTimer,String linkID, AsyncCallback callback);
 	
-	void requestSent(DiameterRequest request, AsyncCallback callback);
+	void requestSent(Boolean newSession, DiameterRequest request, AsyncCallback callback);
 	
 	void answerSent(DiameterAnswer answer, Long idleTime, AsyncCallback callback);
 	

@@ -28,9 +28,9 @@ import org.restcomm.cluster.ClusteredID;
 */
 public interface DiameterSessionStorage
 {
-	Boolean removeSession(String sessionId);
+	void removeSession(String sessionId);
 	
-	Boolean storeSession(DiameterSession session);
+	void storeSession(DiameterSession session);
 	
 	DiameterSession getSession(String sessionId, DiameterProvider<?, ?, ?, ?, ?> provider);
 	

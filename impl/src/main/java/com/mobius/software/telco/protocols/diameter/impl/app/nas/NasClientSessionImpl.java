@@ -223,12 +223,12 @@ public class NasClientSessionImpl implements NasClientSession
 	}
 
 	@Override
-	public void requestSent(DiameterRequest request, AsyncCallback callback)
+	public void requestSent(Boolean newSession,DiameterRequest request, AsyncCallback callback)
 	{
 		if(accSession!=null)
-			accSession.requestSent(request, callback);
+			accSession.requestSent(newSession, request, callback);
 		else
-			authSession.requestSent(request, callback);
+			authSession.requestSent(newSession, request, callback);
 	}
 
 	@Override

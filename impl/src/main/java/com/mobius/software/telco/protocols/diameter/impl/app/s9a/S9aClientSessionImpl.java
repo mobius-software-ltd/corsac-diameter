@@ -223,12 +223,12 @@ public class S9aClientSessionImpl implements S9aClientSession
 	}
 
 	@Override
-	public void requestSent(DiameterRequest request, AsyncCallback callback)
+	public void requestSent(Boolean newSession,DiameterRequest request, AsyncCallback callback)
 	{
 		if(authSession!=null)
-			authSession.requestSent(request, callback);
+			authSession.requestSent(newSession, request, callback);
 		else
-			ccSession.requestSent(request, callback);
+			ccSession.requestSent(newSession, request, callback);
 	}
 
 	@Override

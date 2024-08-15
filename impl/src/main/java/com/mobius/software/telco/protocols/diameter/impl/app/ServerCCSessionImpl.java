@@ -122,7 +122,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 					answerSent(answer, newTime, callback);
 				}
 				
-				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
+				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);				
 			}
 		});					
 	}
@@ -162,7 +162,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				}
 				
 				setLastSentRequest(request);
-				requestSent(request, callback);
+				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);				
 			}
 		});
@@ -231,7 +231,7 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				}
 				
 				setLastSentRequest(request);
-				requestSent(request, callback);
+				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);				
 			}
 		});			

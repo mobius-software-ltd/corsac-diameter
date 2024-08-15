@@ -74,13 +74,14 @@ public class InactivityTimer implements Timer
 						this.lastDWRSent = System.currentTimeMillis();
 						this.lastActivity.set(System.currentTimeMillis());
 						link.sendDWR();
+						logger.debug("Sending DWR for link " +  link.getID() + " At " + System.currentTimeMillis());
 					}
 					break;
 				default:
 					break;				
 			}
 			
-			this.timestamp.set(System.currentTimeMillis() + responseTimeout);
+			resetTimer();
 			link.resetInactivityTimer();
 		}						
 	}
@@ -97,6 +98,12 @@ public class InactivityTimer implements Timer
 		return timestamp.get();
 	}
 
+	public void resetTimer()
+	{
+		logger.debug("Reseting inactivity timer for link " +  link.getID() + " To " + (System.currentTimeMillis() + responseTimeout));
+		this.timestamp.set(System.currentTimeMillis() + responseTimeout);		
+	}
+	
 	@Override
 	public void stop() 
 	{

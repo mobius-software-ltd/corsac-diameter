@@ -21,6 +21,8 @@ package com.mobius.software.telco.protocols.diameter.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationID;
@@ -42,6 +44,8 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 */
 public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extends SessionListener, A, M, F> implements DiameterProvider<L1, L2, A, M, F>
 {
+	public static Logger logger=LogManager.getLogger(DiameterProviderImpl.class);
+	
 	private ConcurrentHashMap<ClusteredID<?>,L1> clientListenersMap=new ConcurrentHashMap<ClusteredID<?>,L1>();
 	private ConcurrentHashMap<ClusteredID<?>,L2> serverListenersMap=new ConcurrentHashMap<ClusteredID<?>,L2>();
 	
@@ -147,6 +151,9 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 		DiameterSession session = this.getStack().getSessionStorage().getSession(sessionID, this);
 		if(session==null && (message instanceof DiameterRequest))
 		{
+			if(logger.isDebugEnabled())
+				logger.debug(String.format("Getting new session for message %s in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
+			
 			session=getNewSession((DiameterRequest)message);
 			if(session!=null)
 			{
@@ -160,7 +167,12 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 				getStack().getSessionStorage().storeSession(session);
 			}
 		}
-		
+		else
+		{
+			if(logger.isDebugEnabled())
+				logger.debug(String.format("Processing message %s in existing session in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
+		}	
+			
 		if(session==null)
 		{
 			callback.onError(new DiameterException("Session with this ID not found", null, ResultCodes.DIAMETER_UNKNOWN_SESSION_ID, null));
@@ -171,6 +183,9 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			session.requestReceived((DiameterRequest)message, linkID, callback);
 		else
 			session.answerReceived((DiameterAnswer)message, null, true, linkID, callback);
+		
+		if(logger.isDebugEnabled())
+			logger.debug(String.format("Message %s delivered to session in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
 	}
 	
 	@Override

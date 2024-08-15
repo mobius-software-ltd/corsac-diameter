@@ -1,6 +1,9 @@
 package com.mobius.software.telco.protocols.diameter.impl.app;
 import java.util.Collection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
@@ -19,6 +22,8 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterSessionImpl;
 */
 public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extends DiameterAnswer> extends DiameterSessionImpl implements ServerAuthSessionStateless<A1>
 {
+	public static Logger logger=LogManager.getLogger(ServerAuthSessionStatelessImpl.class);
+	
 	private DiameterProvider<?, ? extends ServerAuthStatelessListener<R1,A1>, ?, ?, ?> provider;
 	//for serialization
 	public ServerAuthSessionStatelessImpl(Long applicationID)

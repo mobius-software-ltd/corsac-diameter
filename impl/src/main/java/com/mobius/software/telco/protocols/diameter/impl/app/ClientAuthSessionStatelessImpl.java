@@ -92,8 +92,9 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 			public void execute()
 			{
 				setSessionState(SessionStateEnum.PENDING);
+				DiameterRequest oldRequest=getLastSendRequest();
 				setLastSentRequest(request);	
-				requestSent(request, callback);
+				requestSent(oldRequest==null, request, callback);
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
 		});		

@@ -3,7 +3,8 @@ package com.mobius.software.telco.protocols.diameter.test.mm10;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-import org.apache.log4j.BasicConfigurator;
+import org.apache.logging.log4j.core.config.Configurator;
+import org.apache.logging.log4j.core.config.DefaultConfiguration;
 import org.restcomm.cluster.IDGenerator;
 import org.restcomm.cluster.UUIDGenerator;
 
@@ -52,8 +53,7 @@ public class NetworkTestBase
 	
 	public void setupRemote(Long duplicateTimeout,Long duplicatePeriod) throws Exception
 	{
-		BasicConfigurator.resetConfiguration();
-		BasicConfigurator.configure();
+		Configurator.initialize(new DefaultConfiguration());
 		
 		if(workerPool==null)
 		{

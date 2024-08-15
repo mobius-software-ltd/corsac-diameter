@@ -50,7 +50,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	}
 	
 	@Override
-	public Boolean removeSession(String sessionId)
+	public void removeSession(String sessionId)
 	{
 		DiameterSession session = localMap.remove(sessionId);
 		
@@ -70,14 +70,12 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 					sendTimer.stop();
 			}
 		}
-		
-		return session!=null;
 	}
 
 	@Override
-	public Boolean storeSession(DiameterSession session)
+	public void storeSession(DiameterSession session)
 	{
-		return localMap.put(session.getID(), session) != null;
+		localMap.put(session.getID(), session);
 	}
 
 	@Override

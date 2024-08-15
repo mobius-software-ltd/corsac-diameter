@@ -109,6 +109,9 @@ public class MessageProcessingTask implements Task
 		lastActivity.set(System.currentTimeMillis());
 		stack.messageReceived(message, link.getID());
 		
+		if(logger.isDebugEnabled())
+			logger.debug(String.format("Processing Incoming Message received on link=%s %s", link.getID(), message.getClass().getCanonicalName()));
+		
 		if(message instanceof CapabilitiesExchangeRequest)
 		{
 			switch(link.getPeerState())
@@ -393,6 +396,9 @@ public class MessageProcessingTask implements Task
 					
 					if(provider!=null)
 					{
+						if(logger.isDebugEnabled())
+							logger.debug(String.format("Delivering message %s received on link=%s to provider %s", message.getClass().getCanonicalName(), link.getID() , provider.getClass().getCanonicalName()));
+						
 						provider.onMessage(message, link.getID(), new AsyncCallback()
 						{
 							@Override
