@@ -1,7 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.test.parser;
 
 import static org.junit.Assert.assertNotNull;
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 

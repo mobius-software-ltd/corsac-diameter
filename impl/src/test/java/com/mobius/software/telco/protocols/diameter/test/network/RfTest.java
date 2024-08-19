@@ -19,8 +19,8 @@ package com.mobius.software.telco.protocols.diameter.test.network;
  */
 
 import static org.junit.Assert.assertNull;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -473,17 +473,17 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),4);
 		assertEquals(localMessagesSent.size(),4);
 				
-		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
 				
-		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
 				
 		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 				
-		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),2L);
-		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),2L);
+		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),new Long(2L));
+		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),new Long(2L));
 				
 		//sessions 
 		Map<String, Long> localIncomingSessions = localStack.getIncomingSessionsByApplication();
@@ -494,8 +494,8 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localOutgoingSessions.size(),1);
 		assertEquals(localSessionsEnded.size(),1);
 				
-		assertEquals(localOutgoingSessions.get(ApplicationID.ACC.name()),1L);
-		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),1L);
+		assertEquals(localOutgoingSessions.get(ApplicationID.ACC.name()),new Long(1L));
+		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),new Long(1L));
 				
 		//errors
 		Map<Long, Long> localErrorsReceived = localStack.getErrorsReceivedByType();
@@ -504,14 +504,14 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localErrorsReceived.size(),1);
 		assertEquals(localErrorsSent.size(),0);
 				
-		assertEquals(localErrorsReceived.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),1L);
+		assertEquals(localErrorsReceived.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),new Long(1L));
 		
 		//sessions by application
 		localSessionsEnded = localStack.getSessionEndedByResultCodeAndApplication(ApplicationID.ACC);
 						
 		assertEquals(localSessionsEnded.size(),1);
 						
-		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),1L);
+		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),new Long(1L));
 						
 		localSessionsEnded = localStack.getSessionEndedByResultCodeAndApplication(ApplicationID.COMMON);
 						
@@ -524,8 +524,8 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),1);
 		assertEquals(localMessagesSent.size(),1);
 		
-		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),2L);
-		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),2L);
+		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),new Long(2L));
+		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),new Long(2L));
 				
 		localMessagesReceived = localStack.getMessagesReceivedByTypeAndApplication(ApplicationID.COMMON);
 		localMessagesSent = localStack.getMessagesSentByTypeAndApplication(ApplicationID.COMMON);
@@ -533,11 +533,11 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),3);
 		assertEquals(localMessagesSent.size(),3);
 				
-		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
 				
-		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
 				
 		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
@@ -550,7 +550,7 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localErrorsReceived.size(),1);
 		assertEquals(localErrorsSent.size(),0);
 				
-		assertEquals(localErrorsReceived.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),1L);
+		assertEquals(localErrorsReceived.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),new Long(1L));
 		
 		localErrorsReceived = localStack.getErrorsReceivedByTypeAndApplication(ApplicationID.COMMON);
 		localErrorsSent = localStack.getErrorsSentByTypeAndApplication(ApplicationID.COMMON);
@@ -566,8 +566,8 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),1);
 		assertEquals(localMessagesSent.size(),1);
 		
-		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),2L);
-		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),2L);
+		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),new Long(2L));
+		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),new Long(2L));
 		
 		localMessagesReceived = localStack.getLinkMessagesReceivedByTypeAndApplication(localLinkID, ApplicationID.COMMON);
 		localMessagesSent = localStack.getLinkMessagesSentByTypeAndApplication(localLinkID, ApplicationID.COMMON);
@@ -575,11 +575,11 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),3);
 		assertEquals(localMessagesSent.size(),3);
 		
-		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
 		
-		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
 		
 		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
@@ -591,7 +591,7 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localErrorsReceived.size(),1);
 		assertNull(localErrorsSent);
 		
-		assertEquals(localErrorsReceived.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),1L);
+		assertEquals(localErrorsReceived.get(ResultCodes.DIAMETER_UNABLE_TO_COMPLY),new Long(1L));
 		
 		localErrorsReceived = localStack.getLinkErrorsReceivedByTypeAndApplication(localLinkID, ApplicationID.COMMON);
 		localErrorsSent = localStack.getLinkErrorsSentByTypeAndApplication(localLinkID, ApplicationID.COMMON);
@@ -744,17 +744,17 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),4);
 		assertEquals(localMessagesSent.size(),4);
 						
-		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
 						
-		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
 						
 		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 						
-		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),2L);
+		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),new Long(2L));
 						
 		//sessions 
 		Map<String, Long> localIncomingSessions = localStack.getIncomingSessionsByApplication();
@@ -765,8 +765,8 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localOutgoingSessions.size(),1);
 		assertEquals(localSessionsEnded.size(),1);
 						
-		assertEquals(localOutgoingSessions.get(ApplicationID.ACC.name()),1L);
-		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_SESSION_TIMEOUT),1L);
+		assertEquals(localOutgoingSessions.get(ApplicationID.ACC.name()),new Long(1L));
+		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_SESSION_TIMEOUT),new Long(1L));
 						
 		//errors
 		Map<Long, Long> localErrorsReceived = localStack.getErrorsReceivedByType();
@@ -780,7 +780,7 @@ public class RfTest extends NetworkTestBase
 								
 		assertEquals(localSessionsEnded.size(),1);
 								
-		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_SESSION_TIMEOUT),1L);
+		assertEquals(localSessionsEnded.get(ResultCodes.DIAMETER_SESSION_TIMEOUT),new Long(1L));
 								
 		localSessionsEnded = localStack.getSessionEndedByResultCodeAndApplication(ApplicationID.COMMON);
 								
@@ -793,8 +793,8 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),1);
 		assertEquals(localMessagesSent.size(),1);
 				
-		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),2L);
-		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),1L);
+		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),new Long(2L));
+		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),new Long(1L));
 						
 		localMessagesReceived = localStack.getMessagesReceivedByTypeAndApplication(ApplicationID.COMMON);
 		localMessagesSent = localStack.getMessagesSentByTypeAndApplication(ApplicationID.COMMON);
@@ -802,11 +802,11 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),3);
 		assertEquals(localMessagesSent.size(),3);
 						
-		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
 						
-		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
 						
 		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
@@ -833,8 +833,8 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),1);
 		assertEquals(localMessagesSent.size(),1);
 				
-		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),2L);
+		assertEquals(localMessagesReceived.get(CommandCode.ACCOUNTING.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.ACCOUNTING.name()),new Long(2L));
 				
 		localMessagesReceived = localStack.getLinkMessagesReceivedByTypeAndApplication(localLinkID, ApplicationID.COMMON);
 		localMessagesSent = localStack.getLinkMessagesSentByTypeAndApplication(localLinkID, ApplicationID.COMMON);
@@ -842,11 +842,11 @@ public class RfTest extends NetworkTestBase
 		assertEquals(localMessagesReceived.size(),3);
 		assertEquals(localMessagesSent.size(),3);
 				
-		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.CAPABILITIES_EXCHANGE.name()),new Long(1L));
 				
-		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),1L);
-		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),1L);
+		assertEquals(localMessagesReceived.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
+		assertEquals(localMessagesSent.get(CommandCode.DISCONNECT_PEER.name()),new Long(1L));
 				
 		assertTrue(localMessagesReceived.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);
 		assertTrue(localMessagesSent.get(CommandCode.DEVICE_WATCHDOG.name())>=1L);

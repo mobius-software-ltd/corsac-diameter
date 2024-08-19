@@ -155,6 +155,9 @@ public class NetworkManagerImpl implements NetworkManager
 		if(oldLink!=null)
 			throw new DiameterException("Link with such id already exist", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);	
 		
+		if(logger.isDebugEnabled())
+			logger.debug("Adding link " + linkId + " for realm " + destinationRealm + ",host " + destinationHost + ",on local port " + localPort);
+			
 		ConcurrentHashMap<String, ConcurrentHashMap<String, DiameterLink>> realmMap = hostsMap.get(destinationRealm);
 		if(realmMap==null)
 		{
@@ -190,9 +193,15 @@ public class NetworkManagerImpl implements NetworkManager
 	@Override
 	public void removeLink(String linkId) throws DiameterException
 	{
+		if(logger.isDebugEnabled())
+			logger.debug("Removing link " + linkId);
+			
 		DiameterLink link = links.remove(linkId);
 		if(link != null)
 		{
+			if(logger.isDebugEnabled())
+				logger.debug("Removing link " + linkId + " for realm " + link.getDestinationRealm() + ",host " + link.getDestinationHost() + ",on local port " + link.getLocalPort());
+			
 			hostsMap.get(link.getDestinationRealm()).get(link.getDestinationHost()).remove(linkId);		
 			realmsMap.get(link.getDestinationRealm()).remove(linkId);
 			link.stop(true);
@@ -294,13 +303,29 @@ public class NetworkManagerImpl implements NetworkManager
 	
 	private ByteBuf sendMessage(DiameterMessage message, String destinationHost, String destinationRealm, AsyncCallback callback)
 	{
+		if(logger.isDebugEnabled())
+			logger.debug("Search for link for realm " + destinationRealm + ",host " + destinationHost + ",for message " + message.getClass().getName());
+		
 		if(destinationRealm==null)
+		{
+			if(logger.isDebugEnabled())
+				logger.debug("Destination realm is null,for message:" + message.getClass().getCanonicalName());
+			
 			callback.onError(new DiameterException("Can not route message without realm defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
+		}
 		else if(destinationHost==null)
 		{
+			if(logger.isDebugEnabled())
+				logger.debug("Destination host is null,looking for link for link for realm " + destinationRealm + ",for message " + message.getClass().getName());
+			
 			ConcurrentHashMap<String, DiameterLink> innerMap = realmsMap.get(destinationRealm);
 			if(innerMap==null || innerMap.size()==0)
+			{
+				if(logger.isDebugEnabled())
+					logger.debug("Got no map for realm  " + destinationRealm + ",for message:" + message.getClass().getCanonicalName());
+				
 				callback.onError(new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
+			}
 			else
 			{
 				DiameterLink resultLink = null;
@@ -315,21 +340,44 @@ public class NetworkManagerImpl implements NetworkManager
 				}
 				
 				if(resultLink!=null)
+				{
+					if(logger.isDebugEnabled())
+						logger.debug("Choosen link is not null for link for realm " + destinationRealm + ",host " + destinationHost + ",for message " + message.getClass().getName());
+					
 					resultLink.sendMessage(message, callback);
+				}
 				else
+				{
+					if(logger.isDebugEnabled())
+						logger.debug("Choosen link is null for link for realm " + destinationRealm + ",host " + destinationHost + ",for message " + message.getClass().getName());
+					
 					callback.onError(new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
+				}
 			}
 		}
 		else
 		{
+			if(logger.isDebugEnabled())
+				logger.debug("Destination host is not null looking for link for realm " + destinationRealm + ",host " + destinationHost + ",for message " + message.getClass().getName());
+			
 			ConcurrentHashMap<String, ConcurrentHashMap<String, DiameterLink>> realmMap = hostsMap.get(destinationRealm);
 			if(realmMap==null || realmMap.size()==0)
+			{
+				if(logger.isDebugEnabled())
+					logger.debug("Got no host map for realm  " + destinationRealm + ",for message:" + message.getClass().getCanonicalName());
+				
 				callback.onError(new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
+			}
 			else
 			{
 				ConcurrentHashMap<String, DiameterLink> innerMap = realmMap.get(destinationHost);
 				if(innerMap==null || innerMap.size()==0)
-					callback.onError(new DiameterException("Can not route message for realm " + destinationRealm + ", host , no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
+				{
+					if(logger.isDebugEnabled())
+						logger.debug("Got no links for realm  " + destinationRealm + ",host " + destinationHost + ",for message:" + message.getClass().getCanonicalName());
+					
+					callback.onError(new DiameterException("Can not route message for realm " + destinationRealm + ", host " + destinationHost + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
+				}
 				else
 				{
 					DiameterLink resultLink = null;
@@ -344,9 +392,19 @@ public class NetworkManagerImpl implements NetworkManager
 					}
 					
 					if(resultLink!=null)
+					{
+						if(logger.isDebugEnabled())
+							logger.debug("Choosen link is not null for link for realm " + destinationRealm + ",for message " + message.getClass().getName());
+						
 						return resultLink.sendMessage(message, callback);
+					}
 					else
+					{
+						if(logger.isDebugEnabled())
+							logger.debug("Choosen link is null for link for realm " + destinationRealm + ",for message " + message.getClass().getName());
+						
 						callback.onError(new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null));
+					}
 				}			
 			}
 		}
@@ -385,7 +443,12 @@ public class NetworkManagerImpl implements NetworkManager
 	private DiameterLink chooseRandomLink(DiameterMessage message, ConcurrentHashMap<String,DiameterLink> links, String destinationRealm) throws DiameterException
 	{
 		if(links.size()==0)
-    		throw new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
+		{
+			if(logger.isDebugEnabled())
+				logger.debug("There are no links in map for realm " + destinationRealm + ",for message " + message.getClass().getName());
+			
+			throw new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
+		}
     	
     	Iterator<DiameterLink> iterator=links.values().iterator();
     	int startEntry=wheel.incrementAndGet()%links.size();
@@ -399,7 +462,12 @@ public class NetworkManagerImpl implements NetworkManager
     		else
     		{
     			if(links.size()==0)
-            		throw new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
+    			{
+    				if(logger.isDebugEnabled())
+    					logger.debug("There are no links in map for realm " + destinationRealm + ",for message " + message.getClass().getName());
+    				
+    				throw new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
+    			}
             	
             	iterator=links.values().iterator();
             	
@@ -415,12 +483,22 @@ public class NetworkManagerImpl implements NetworkManager
     			if (currLink != null && currLink.isConnected() && currLink.canSendMessage(message))
     				return currLink;
 	            else
-	            	retries--;	            
+	            {
+	            	if(logger.isDebugEnabled())
+	    				logger.debug("Link " +  currLink.getID() + "  is not allowed for message " + message.getClass().getName() + ",is Connected:" + currLink.isConnected() + ",can send message:" + currLink.canSendMessage(message));
+	    			
+	    			retries--;	            
+	            }
     		}
     		else
     		{
     			if(links.size()==0)
-            		throw new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
+            	{
+    				if(logger.isDebugEnabled())
+    					logger.debug("There are no connected links in map for realm " + destinationRealm + ",for message " + message.getClass().getName());
+    				
+    				throw new DiameterException("Can not route message for realm " + destinationRealm + ", no links defined", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
+            	}
             	
             	iterator=links.values().iterator();
     		}

@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.test.mm10;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;

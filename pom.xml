@@ -23,9 +23,9 @@
 		<junit.version>4.11</junit.version>
 		<compiler.plugin.version>3.8.1</compiler.plugin.version>
 		<compile.source>1.8</compile.source>
-		<netty.version>4.1.53.Final</netty.version>		
-		<sctp.version>2.2.9</sctp.version>
-		<timers.version>1.0.0-30-SNAPSHOT</timers.version>		
+		<netty.version>4.1.63.Final</netty.version>		
+		<sctp.version>2.2.10</sctp.version>
+		<timers.version>1.0.0-31</timers.version>		
 		<cluster.version>8.0.0-39</cluster.version>
 	</properties>
 
@@ -94,7 +94,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.8.0</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>

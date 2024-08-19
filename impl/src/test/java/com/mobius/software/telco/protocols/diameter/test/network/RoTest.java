@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.test.network;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.atomic.AtomicLong;
 
