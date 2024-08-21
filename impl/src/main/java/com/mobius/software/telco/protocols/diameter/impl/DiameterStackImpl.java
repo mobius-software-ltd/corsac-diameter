@@ -177,14 +177,16 @@ public class DiameterStackImpl implements DiameterStack
 	
     static
     {
-    	for(CommandCode commandCode:CommandCode.values())
-    		allCommands.add(commandCode.name());
+    	for(ApplicationID applicationID:ApplicationID.values())
+    	{
+    		allApplications.add(applicationID.name());
+    		
+    		for(CommandCode commandCode:CommandCode.values())
+        		allCommands.add(applicationID.name() + "." + commandCode.name());                    	
+    	}
         
     	allCommands.add("UNKNOWN"); 
     	
-    	for(ApplicationID applicationID:ApplicationID.values())
-    		allApplications.add(applicationID.name());
-        
     	allApplications.add("UNKNOWN"); 
     }
     
