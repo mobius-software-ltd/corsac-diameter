@@ -1,4 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.s9;
+import java.io.Externalizable;
+
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
@@ -361,5 +363,23 @@ public class S9ServerSessionImpl implements S9ServerSession
 			return (byte)(authSession.getOtherFieldsByte() + 64);
 		else
 			return ccSession.getOtherFieldsByte();
+	}
+
+	@Override
+	public void setUserObject(Externalizable uo)
+	{
+		if(authSession!=null)
+			authSession.setUserObject(uo);
+		else
+			ccSession.setUserObject(uo);
+	}
+
+	@Override
+	public Externalizable getUserObject()
+	{
+		if(authSession!=null)
+			return authSession.getUserObject();
+		else
+			return ccSession.getUserObject();
 	}
 }

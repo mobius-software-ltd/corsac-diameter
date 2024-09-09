@@ -1,5 +1,7 @@
 package com.mobius.software.telco.protocols.diameter;
 
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,7 +27,7 @@ package com.mobius.software.telco.protocols.diameter;
 */
 public interface SessionListener
 {
-	void onTimeout();
+	void onTimeout(DiameterRequest lastRequest, DiameterSession session);
 	
-	void onIdleTimeout();
+	void onIdleTimeout(DiameterSession session);
 }

@@ -1,4 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.gi;
+import java.io.Externalizable;
+
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
@@ -362,5 +364,23 @@ public class GiClientSessionImpl implements GiClientSession
 			return (byte)(accSession.getOtherFieldsByte() + 64);
 		else
 			return authSession.getOtherFieldsByte();
+	}
+
+	@Override
+	public void setUserObject(Externalizable uo)
+	{
+		if(accSession!=null)
+			accSession.setUserObject(uo);
+		else
+			authSession.setUserObject(uo);
+	}
+
+	@Override
+	public Externalizable getUserObject()
+	{
+		if(accSession!=null)
+			return accSession.getUserObject();
+		else
+			return authSession.getUserObject();
 	}
 }

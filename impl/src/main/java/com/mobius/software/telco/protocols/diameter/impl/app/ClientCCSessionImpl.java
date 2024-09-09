@@ -22,6 +22,7 @@ import java.util.Collection;
 import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.app.ClientCCListener;
 import com.mobius.software.telco.protocols.diameter.app.ClientCCSession;
@@ -50,7 +51,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Dir
 public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends CreditControlAnswer,R2 extends ReAuthRequest,A2 extends ReAuthAnswer,R3 extends AbortSessionRequest,A3 extends AbortSessionAnswer,R4 extends SessionTerminationRequest,A4 extends SessionTerminationAnswer> extends DiameterSessionImpl implements ClientCCSession<R1,A2,A3,R4>
 {
 	private DiameterProvider<? extends ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>, ?, ?, ?, ?> provider;
-	private RetransmissionCallback retransmissionCallback=new RetransmissionCallback();
+	private RetransmissionCallback retransmissionCallback=new RetransmissionCallback(this);
 	
 	//for serialization
 	public ClientCCSessionImpl(Long applicationID)
@@ -502,7 +503,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 						
 							for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-								listener.onTimeout();
+								listener.onTimeout(getLastSendRequest(),this);
 						}
 						
 						@SuppressWarnings("unchecked")
@@ -526,6 +527,13 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 	
 	private class RetransmissionCallback implements AsyncCallback
 	{
+		private DiameterSession session;
+		
+		public RetransmissionCallback(DiameterSession session)
+		{
+			this.session = session;
+		}
+		
 		@Override
 		public void onSuccess()
 		{
@@ -544,7 +552,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 			
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-					listener.onTimeout();
+					listener.onTimeout(getLastSendRequest(),session);
 			}
 		}
 	}

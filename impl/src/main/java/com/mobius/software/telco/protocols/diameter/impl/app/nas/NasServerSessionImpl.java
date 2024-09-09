@@ -1,4 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.nas;
+import java.io.Externalizable;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -361,5 +363,23 @@ public class NasServerSessionImpl implements NasServerSession
 			return (byte)(accSession.getOtherFieldsByte() + 64);
 		else
 			return authSession.getOtherFieldsByte();
+	}
+
+	@Override
+	public void setUserObject(Externalizable uo)
+	{
+		if(accSession!=null)
+			accSession.setUserObject(uo);
+		else
+			authSession.setUserObject(uo);
+	}
+
+	@Override
+	public Externalizable getUserObject()
+	{
+		if(accSession!=null)
+			return accSession.getUserObject();
+		else
+			return authSession.getUserObject();
 	}
 }

@@ -18,8 +18,8 @@ package com.mobius.software.telco.protocols.diameter.test.network;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
@@ -35,6 +35,7 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.CommandCode;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -43,6 +44,7 @@ import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.app.rf.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.rf.RfClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.rf.AccountingRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
@@ -94,13 +96,13 @@ public class RfTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request, DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
@@ -204,13 +206,13 @@ public class RfTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request,DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
@@ -366,13 +368,13 @@ public class RfTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request, DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
@@ -637,13 +639,13 @@ public class RfTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request, DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}

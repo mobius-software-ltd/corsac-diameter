@@ -1,4 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl;
+import java.io.Externalizable;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -52,6 +53,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	private SessionStateEnum state;
 	private String remoteHost,remoteRealm;
 	private DiameterRequest lastSentRequest;
+	private Externalizable uo;
 	
 	private Boolean isRetry = false;
 	
@@ -92,6 +94,18 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	public void setSendTimerID(ClusteredID<?> id)
 	{
 		this.sendTimerID = id;
+	}
+	
+	@Override
+	public void setUserObject(Externalizable uo)
+	{
+		this.uo=uo;
+	}
+	
+	@Override
+	public Externalizable getUserObject()
+	{
+		return this.uo;
 	}
 	
 	@Override
@@ -249,7 +263,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 			while(iterator.hasNext())
 			{
 				Entry<?,?> currEntry = (Entry<?,?>)iterator.next();
-				((SessionListener)currEntry.getValue()).onTimeout();			
+				((SessionListener)currEntry.getValue()).onTimeout(getLastSendRequest(), this);			
 			}
 		}
 		
@@ -276,7 +290,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 			while(iterator.hasNext())
 			{
 				Entry<?,?> currEntry = (Entry<?,?>)iterator.next();
-				((SessionListener)currEntry.getValue()).onIdleTimeout();			
+				((SessionListener)currEntry.getValue()).onIdleTimeout(this);			
 			}				
 		}
 		

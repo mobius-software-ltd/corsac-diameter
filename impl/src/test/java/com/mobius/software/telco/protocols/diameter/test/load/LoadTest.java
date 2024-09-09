@@ -18,8 +18,8 @@ package com.mobius.software.telco.protocols.diameter.test.load;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -39,6 +39,7 @@ import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.CommandCode;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -49,6 +50,7 @@ import com.mobius.software.telco.protocols.diameter.app.mm10.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.mm10.MM10ClientSession;
 import com.mobius.software.telco.protocols.diameter.app.mm10.ServerListener;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.mm10.MessageProcessRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
@@ -116,13 +118,13 @@ public class LoadTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request,DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
@@ -138,13 +140,13 @@ public class LoadTest extends NetworkTestBase
 		serverProvider.setServerListener(listenerID, new ServerListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request,DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}

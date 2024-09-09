@@ -1,5 +1,7 @@
 package com.mobius.software.telco.protocols.diameter;
 
+import java.io.Externalizable;
+
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
@@ -54,6 +56,10 @@ public interface DiameterSession
 	void setSessionState(SessionStateEnum state);
 	
 	SessionStateEnum getSessionState();
+	
+	void setUserObject(Externalizable uo);
+	
+	Externalizable getUserObject();
 	
 	void requestReceived(DiameterRequest request,String linkID, AsyncCallback callback);
 	

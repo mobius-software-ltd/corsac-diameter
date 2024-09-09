@@ -30,6 +30,7 @@ import org.restcomm.cluster.ClusteredID;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
+import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.NetworkListener;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -38,6 +39,7 @@ import com.mobius.software.telco.protocols.diameter.app.SessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.app.ro.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.ro.RoClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.ro.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.ro.CreditControlAnswer;
@@ -95,13 +97,13 @@ public class RoTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request,DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
@@ -224,13 +226,13 @@ public class RoTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request,DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
@@ -452,13 +454,13 @@ public class RoTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request,DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
@@ -604,13 +606,13 @@ public class RoTest extends NetworkTestBase
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout()
+			public void onTimeout(DiameterRequest request,DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
 			
 			@Override
-			public void onIdleTimeout()
+			public void onIdleTimeout(DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
