@@ -20,7 +20,7 @@ package com.mobius.software.telco.protocols.diameter.commands.t4;
 
 import java.util.List;
 
-import com.mobius.software.telco.protocols.diameter.commands.commons.VendorSpecificRequest;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
@@ -32,7 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.rfc7944.DRMPEnum;
 *
 */
 
-public abstract interface T4Request extends VendorSpecificRequest
+public abstract interface T4Request extends DiameterRequest
 {
 	public DRMPEnum getDRMP();
 	 
@@ -45,4 +45,8 @@ public abstract interface T4Request extends VendorSpecificRequest
 	public List<SupportedFeatures> getSupportedFeatures();
 	 
 	void setSupportedFeatures(List<SupportedFeatures> value);
+	
+	public List<String> getRouteRecords();
+	
+	void setRouteRecords(List<String> value);
 }

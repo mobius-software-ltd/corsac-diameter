@@ -91,7 +91,7 @@ public class DeviceTriggerRequestImpl extends T4RequestImpl implements DeviceTri
 		super();
 	}
 	
-	public DeviceTriggerRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf smRPSMEA,ByteBuf payload) throws MissingAvpException, AvpNotSupportedException
+	public DeviceTriggerRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf smRPSMEA,ByteBuf payload) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
 		

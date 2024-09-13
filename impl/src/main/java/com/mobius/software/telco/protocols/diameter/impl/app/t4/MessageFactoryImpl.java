@@ -66,19 +66,18 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public DeliveryReportRequest createDeliveryReportRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf smRPSMEA,SMDeliveryOutcomeT4Enum smDeliveryOutcomeT4) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		DeliveryReportRequest request = new DeliveryReportRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, smRPSMEA, smDeliveryOutcomeT4); 
-		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
 	
 	@Override
 	public DeliveryReportAnswer createDeliveryReportAnswer(DeliveryReportRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		DeliveryReportAnswerImpl result = new  DeliveryReportAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
-		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 
@@ -95,20 +94,18 @@ public class MessageFactoryImpl implements MessageFactory
 	
 	public DeviceTriggerRequest createDeviceTriggerRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,UserIdentifier userIdentifier,ByteBuf smRPSMEA,ByteBuf payload) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
-		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		DeviceTriggerRequest request = new DeviceTriggerRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentifier, smRPSMEA, payload); 
-		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
 	
 	@Override
 	public DeviceTriggerAnswer createDeviceTriggerAnswer(DeviceTriggerRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
-		
+		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		DeviceTriggerAnswerImpl result = new  DeviceTriggerAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), AuthSessionStateEnum.NO_STATE_MAINTAINED);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
-		result.setVendorSpecificApplicationId(request.getVendorSpecificApplicationId());
+		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
 

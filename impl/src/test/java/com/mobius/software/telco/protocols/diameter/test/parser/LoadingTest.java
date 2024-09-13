@@ -185,7 +185,7 @@ public class LoadingTest
 		
 		//make sure classes are loaded
 		Class<?> clazz = com.mobius.software.telco.protocols.diameter.impl.commands.gx.CreditControlRequestImpl.class;
-		Class<?> avpClass = AcctApplicationIdImpl.class;
+		Class<?> avpClass = com.mobius.software.telco.protocols.diameter.impl.primitives.common.AcctApplicationIdImpl.class;
 		assertNotNull(clazz);
 		assertNotNull(avpClass);
 		

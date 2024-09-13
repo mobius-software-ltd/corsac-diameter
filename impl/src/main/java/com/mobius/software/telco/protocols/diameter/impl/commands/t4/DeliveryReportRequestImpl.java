@@ -67,11 +67,17 @@ public class DeliveryReportRequestImpl extends T4RequestImpl implements Delivery
 	protected DeliveryReportRequestImpl() 
 	{
 		super();
+		
+		setDestinationHostRequired(true);				
 	}
 	
 	public DeliveryReportRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,UserIdentifier userIdentifier,ByteBuf smRPSMEA,SMDeliveryOutcomeT4Enum smDeliveryOutcomeT4) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
+		
+		setDestinationHostRequired(true);
+		
+		setDestinationHost(destinationHost);
 		
 		setUserIdentifier(userIdentifier);
 		

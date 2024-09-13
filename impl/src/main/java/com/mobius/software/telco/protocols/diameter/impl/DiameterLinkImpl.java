@@ -713,7 +713,8 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			try
 			{
 				DiameterMessage message = parser.decode(buffer, rejectUnmandatoryAvps);
-				stack.getQueue().offerLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, buffer, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
+				if(message!=null)
+					stack.getQueue().offerLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, buffer, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
 			}
 			catch(DiameterException ex)
 			{
