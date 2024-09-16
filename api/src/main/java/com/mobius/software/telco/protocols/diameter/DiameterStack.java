@@ -20,6 +20,7 @@ package com.mobius.software.telco.protocols.diameter;
 
 import java.util.Map;
 
+import org.restcomm.cluster.ClusteredID;
 import org.restcomm.cluster.IDGenerator;
 
 import com.mobius.software.common.dal.timers.CountableQueue;
@@ -53,6 +54,8 @@ public interface DiameterStack
 	PeriodicQueuedTasks<Timer> getPeriodicQueue();
 	
 	IDGenerator<?> getIDGenerator();
+	
+	ClusteredID<?> generateID();
 	
 	Long getResponseTimeout();
 	

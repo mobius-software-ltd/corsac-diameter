@@ -88,23 +88,23 @@ import com.mobius.software.telco.protocols.diameter.impl.app.s6t.S6tProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.s7a.S7aProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s9.S9ProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s9a.S9aProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.sgd.SgdProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.sgmb.SgmbProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.s9atag.S9atagProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.sd.SdProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.slg.SlgProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.sgd.SgdProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.sgmb.SgmbProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.sh.ShProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.slg.SlgProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.slh.SlhProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.st.StProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.sta.StaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swa.SwaProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swd.SwdProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.sy.SyProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.swx.SwxProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.t6a.T6aProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.t4.T4ProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.tsp.TspProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.swm.SwmProviderImpl;
-import com.mobius.software.telco.protocols.diameter.impl.app.st.StProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.swx.SwxProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.sy.SyProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.t4.T4ProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.t6a.T6aProviderImpl;
+import com.mobius.software.telco.protocols.diameter.impl.app.tsp.TspProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
@@ -1507,5 +1507,11 @@ public class DiameterStackImpl implements DiameterStack
 	public Boolean isSessionLess()
 	{
 		return isSessionLess;
+	}
+
+	@Override
+	public ClusteredID<?> generateID()
+	{
+		return idGenerator.generateID();
 	}
 }
