@@ -139,6 +139,7 @@ public class DiameterE164AddressImpl extends DiameterOctetStringImpl implements 
             int d = Integer.parseInt(ds1, 16);
 
             b = (byte) (d & 0x0f);
+            b += 0xf0;
             buffer.writeByte(b);
         }
         
