@@ -33,6 +33,7 @@
 		<module>api</module>
 		<module>validator</module>
 		<module>impl</module>
+		<module>customccapp</module>
 	</modules>
 
 	<developers>

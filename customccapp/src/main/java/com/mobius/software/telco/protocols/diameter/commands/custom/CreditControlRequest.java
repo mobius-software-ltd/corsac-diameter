@@ -1,4 +1,4 @@
-package com.mobius.software.telco.protocols.diameter.commands.gy;
+package com.mobius.software.telco.protocols.diameter.commands.custom;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -18,12 +18,15 @@ package com.mobius.software.telco.protocols.diameter.commands.gy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import java.util.Date;
+
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
 
-
-@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
-public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
-{	
+@DiameterCommandDefinition(applicationId = 99999, commandCode = CommandCodes.CREDIT_CONTROL, request = true, proxyable = true, name="Credit-Control-Request")
+public interface CreditControlRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest
+{
+	public Date getEventTimestamp();
+	
+	void setEventTimestamp(Date value);
 }

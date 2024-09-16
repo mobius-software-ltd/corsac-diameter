@@ -1,6 +1,6 @@
-package com.mobius.software.telco.protocols.diameter.commands.gy;
+package com.mobius.software.telco.protocols.diameter.app.custom;
 /*
- * Mobius Software LTD
+ * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
  * by the @authors tag.
  *
@@ -17,13 +17,12 @@ package com.mobius.software.telco.protocols.diameter.commands.gy;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+import com.mobius.software.telco.protocols.diameter.app.ServerAuthSession;
+import com.mobius.software.telco.protocols.diameter.commands.custom.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.custom.CreditControlAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.custom.ReAuthRequest;
+import com.mobius.software.telco.protocols.diameter.commands.custom.SessionTerminationAnswer;
 
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
-import com.mobius.software.telco.protocols.diameter.CommandCodes;
-import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-
-
-@DiameterCommandDefinition(applicationId = ApplicationIDs.CREDIT_CONTROL, commandCode = CommandCodes.REAUTH, request = true, proxyable = true, name="Re-Auth-Request")
-public interface ReAuthRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest
-{	
+public interface CustomServerSession extends ServerAuthSession<CreditControlAnswer,ReAuthRequest,AbortSessionRequest,SessionTerminationAnswer>
+{
 }
