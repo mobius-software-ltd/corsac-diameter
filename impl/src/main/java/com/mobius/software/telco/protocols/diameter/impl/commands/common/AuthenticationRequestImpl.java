@@ -47,11 +47,21 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	
 	protected List<RouteRecord> routeRecords;
 	
+	private boolean routeRecordsAllowed = true;
+
+	private boolean authApplicationIdAllowed = true;
+	
 	protected AuthenticationRequestImpl() 
 	{
 		super();
 	}
-		
+	
+	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessonID) throws MissingAvpException, AvpNotSupportedException
+	{
+		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessonID);
+		authApplicationIdAllowed=false;
+	}
+	
 	public AuthenticationRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm,destinationHost,destinationRealm, isRetransmit, sessonID);
@@ -59,9 +69,17 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 		setAuthApplicationId(authApplicationId);
 	}
 
-	@Override
-	public List<String> getRouteRecords() 
+	protected void setRouteRecordsAllowed(boolean allowed) 
 	{
+		this.routeRecordsAllowed = allowed;
+	}
+	
+	@Override
+	public List<String> getRouteRecords() throws AvpNotSupportedException 
+	{
+		if(!routeRecordsAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RouteRecordImpl() } ));
+		
 		if(this.routeRecords==null)
 			return null;
 		else
@@ -75,8 +93,17 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	}
 
 	@Override
-	public void setRouteRecords(List<String> value) 
+	public void setRouteRecords(List<String> value) throws AvpNotSupportedException
 	{
+		if(!routeRecordsAllowed && value!=null && value.size()>0)
+		{
+			List<DiameterAvp> routeRecords = new ArrayList<DiameterAvp>();
+			for(String curr:value)
+				routeRecords.add(new RouteRecordImpl(curr, null, null));
+				
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", routeRecords );
+		}
+		
 		if(value == null || value.size()==0)
 			this.routeRecords = null;
 		else
@@ -85,11 +112,14 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 			for(String curr:value)
 				this.routeRecords.add(new RouteRecordImpl(curr, null, null));
 		}
-	}
+	}	
 
 	@Override
-	public Long getAuthApplicationId() 
+	public Long getAuthApplicationId() throws AvpNotSupportedException 
 	{
+		if(!authApplicationIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() } ));
+			
 		if(authApplicationId==null)
 			return null;
 		
@@ -97,8 +127,11 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	}
 
 	@Override
-	public void setAuthApplicationId(Long value) throws MissingAvpException 
+	public void setAuthApplicationId(Long value) throws AvpNotSupportedException, MissingAvpException 
 	{
+		if(!authApplicationIdAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl( value, null, null) }));
+		
 		if(value==null)
 			throw new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
@@ -114,7 +147,19 @@ public abstract class AuthenticationRequestImpl extends DiameterRequestWithSessi
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(authApplicationId==null)
+		if(!routeRecordsAllowed && routeRecords!=null && routeRecords.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(RouteRecord curr:routeRecords)
+				avps.add(curr);
+			
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps );
+		}
+
+		if(!authApplicationIdAllowed && authApplicationId!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { authApplicationId }));
+		
+		if(authApplicationIdAllowed && authApplicationId==null)
 			return new MissingAvpException("Auth-Application-Id is required", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() }));
 		
 		return super.validate();
