@@ -233,6 +233,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			}
 			catch(Exception ex)
 			{
+				logger.warn("An error occured while processing incoming request," + ex.getMessage(),ex);
 				callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 				return;
 			}
@@ -251,6 +252,7 @@ public class ServerAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			}
 			catch(Exception ex)
 			{
+				logger.warn("An error occured while processing incoming request," + ex.getMessage(),ex);
 				callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 				return;
 			}

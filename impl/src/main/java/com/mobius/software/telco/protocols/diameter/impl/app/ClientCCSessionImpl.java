@@ -270,6 +270,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			}
 			catch(Exception ex)
 			{
+				logger.warn("An error occured while processing incoming request," + ex.getMessage(),ex);
 				callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 				return;
 			}
@@ -286,6 +287,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			}
 			catch(Exception ex)
 			{
+				logger.warn("An error occured while processing incoming request," + ex.getMessage(),ex);
 				callback.onError(new DiameterException("Received unexpected request", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
 				return;
 			}

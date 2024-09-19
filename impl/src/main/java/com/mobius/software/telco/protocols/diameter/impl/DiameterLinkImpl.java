@@ -163,7 +163,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			if(localPort==null || localPort<1)
 				throw new DiameterException("The local port can not be null and should be positive", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 			
-			if(remotePort!=null && remotePort<1)
+			if(remotePort!=null && remotePort<0)
 				throw new DiameterException("The remote port should be positive or null", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 			
 			for(Server server:management.getServers())
