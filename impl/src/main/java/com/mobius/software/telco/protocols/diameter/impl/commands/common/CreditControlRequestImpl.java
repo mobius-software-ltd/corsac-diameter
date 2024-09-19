@@ -49,6 +49,14 @@ public abstract class CreditControlRequestImpl extends AuthenticationRequestImpl
 	{
 		super();
 	}
+	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessonID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws AvpNotSupportedException, MissingAvpException
+	{
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessonID);
+		
+		setCcRequestType(ccRequestType);
+		
+		setCcRequestNumber(ccRequestNumber);
+	}
 	
 	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessonID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws AvpNotSupportedException, MissingAvpException
 	{

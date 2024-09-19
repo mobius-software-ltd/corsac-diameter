@@ -108,9 +108,5 @@ public interface CreditControlRequest extends com.mobius.software.telco.protocol
 	
 	String getTGPPSGSNMCCMNC();
 	
-	void setTGPPSGSNMCCMNC(String value);
-	
-	public List<String> getRouteRecords();
-	
-	void setRouteRecords(List<String> value);	  	
+	void setTGPPSGSNMCCMNC(String value);	  	
 }

@@ -21,6 +21,7 @@ package com.mobius.software.telco.protocols.diameter.commands.commons;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 
@@ -32,13 +33,13 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessio
 
 public abstract interface AuthenticationRequest extends DiameterRequest
 {
-	public Long getAuthApplicationId();
+	public Long getAuthApplicationId() throws AvpNotSupportedException;
 	
-	void setAuthApplicationId(Long value) throws MissingAvpException;
+	void setAuthApplicationId(Long value) throws AvpNotSupportedException, MissingAvpException;
 	
-	public List<String> getRouteRecords();
+	public List<String> getRouteRecords() throws AvpNotSupportedException;
 	
-	void setRouteRecords(List<String> value);
+	void setRouteRecords(List<String> value) throws AvpNotSupportedException;
 	
 	AuthSessionStateEnum getAuthSessionState();	
 }

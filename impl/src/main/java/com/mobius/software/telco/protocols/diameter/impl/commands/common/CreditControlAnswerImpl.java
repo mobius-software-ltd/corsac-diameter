@@ -51,6 +51,15 @@ public abstract class CreditControlAnswerImpl extends AuthenticationAnswerImpl i
 		super();
 	}
 	
+	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws AvpNotSupportedException, MissingAvpException
+	{
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
+		
+		setCcRequestType(ccRequestType);
+		
+		setCcRequestNumber(ccRequestNumber);
+	}
+	
 	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);

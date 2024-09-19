@@ -15,6 +15,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.AuthA
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectHostUsageImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RedirectMaxCacheTimeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.RouteRecordImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHost;
@@ -58,6 +59,12 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	
 	private boolean authApplicationIdAllowed = true;
 	
+	private boolean redirectHostAllowed = true;
+	
+	private boolean redirectHostUsageAllowed = true;
+	
+	private boolean redirectMaxCacheTimeAllowed = true;
+	
 	protected AuthenticationAnswerImpl() 
 	{
 		super();
@@ -76,9 +83,28 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 		setAuthApplicationId(authApplicationId);		
 	}
 
-	@Override
-	public List<String> getRedirectHost() 
+	protected void setRedirectHostAllowed(boolean allowed) 
 	{
+		this.redirectHostAllowed = allowed;
+	}
+	
+	protected void setRedirectHostUsageAllowed(boolean allowed) 
+	{
+		this.redirectHostUsageAllowed = allowed;
+	}
+	
+	protected void setredirectMaxCacheTimeAllowed(boolean allowed) 
+	{
+		this.redirectMaxCacheTimeAllowed = allowed;
+	}
+	
+	@Override
+	public List<String> getRedirectHost() throws AvpNotSupportedException 
+	{
+
+		if(!redirectHostAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RouteRecordImpl() } ));
+		
 		if(this.redirectHost==null)
 			return null;
 		else
@@ -92,8 +118,17 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public void setRedirectHost(List<String> value) throws InvalidAvpValueException 
+	public void setRedirectHost(List<String> value) throws AvpNotSupportedException , InvalidAvpValueException 
 	{
+		if(!redirectHostAllowed && value!=null && value.size()>0)
+		{
+			List<DiameterAvp> routeRecords = new ArrayList<DiameterAvp>();
+			for(String curr:value)
+				routeRecords.add(new RouteRecordImpl(curr, null, null));
+				
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", routeRecords );
+		}
+		
 		if(value == null || value.size()==0)
 			this.redirectHost = null;
 		else
@@ -105,8 +140,11 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public RedirectHostUsageEnum getRedirectHostUsage() 
+	public RedirectHostUsageEnum getRedirectHostUsage() throws AvpNotSupportedException
 	{
+		if(!redirectHostUsageAllowed)
+		throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RedirectHostUsageImpl() } ));
+		
 		if(this.redirectHost == null)
 			return null;
 		
@@ -114,8 +152,11 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public void setRedirectHostUsage(RedirectHostUsageEnum value) 
+	public void setRedirectHostUsage(RedirectHostUsageEnum value) throws AvpNotSupportedException
 	{
+		if(!redirectHostUsageAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RedirectHostUsageImpl( value, null, null) } ));
+		
 		if(value==null)
 			this.redirectHostUsage = null;
 		else 
@@ -123,8 +164,11 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public Long getRedirectMaxCacheTime() 
+	public Long getRedirectMaxCacheTime() throws AvpNotSupportedException
 	{
+		if(!redirectMaxCacheTimeAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RedirectMaxCacheTimeImpl() } ));
+			
 		if(this.redirectMaxCacheTime==null)
 			return null;
 		
@@ -132,8 +176,11 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public void setRedirectMaxCacheTime(Long value) 
+	public void setRedirectMaxCacheTime(Long value) throws AvpNotSupportedException 
 	{
+		if(!redirectMaxCacheTimeAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RedirectMaxCacheTimeImpl(value, null, null) } ));
+			
 		if(value==null)
 			this.redirectMaxCacheTime = null;
 		else 
@@ -141,8 +188,11 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	}
 
 	@Override
-	public Long getAuthApplicationId() 
+	public Long getAuthApplicationId() throws AvpNotSupportedException 
 	{
+		if(!authApplicationIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new AuthApplicationIdImpl() } ));
+			
 		if(authApplicationId==null)
 			return null;
 		
@@ -164,6 +214,22 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	@DiameterValidate
 	public DiameterException validate()
 	{
+		if(!redirectHostAllowed && redirectHost!=null && redirectHost.size()>0)
+		{
+			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
+			for(RedirectHost curr:redirectHost)
+				avps.add(curr);
+			
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps );
+		}
+		
+		if(!redirectHostUsageAllowed && redirectHostUsage!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { redirectHostUsage }));
+		
+		if(!redirectMaxCacheTimeAllowed && redirectMaxCacheTime!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { redirectMaxCacheTime }));
+		
+		
 		if(!authApplicationIdAllowed && authApplicationId!=null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { authApplicationId }));
 		

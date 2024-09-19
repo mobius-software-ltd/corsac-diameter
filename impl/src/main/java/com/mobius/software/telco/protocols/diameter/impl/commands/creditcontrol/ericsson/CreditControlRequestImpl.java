@@ -117,7 +117,7 @@ public class CreditControlRequestImpl extends com.mobius.software.telco.protocol
 	{
 		super(originHost, originRealm,destinationHost, destinationRealm, isRetransmit, sessionID, 4L, ccRequestType, ccRequestNumber);
 		
-		setServiceContextId(serviceContextId);		
+		setServiceContextId(serviceContextId);	
 	}
 	
 	public CreditControlRequestImpl(String originHost,String originRealm,String destinationHost, String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId, String serviceContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException

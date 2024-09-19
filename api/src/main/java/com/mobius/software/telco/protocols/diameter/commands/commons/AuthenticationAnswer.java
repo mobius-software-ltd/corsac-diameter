@@ -34,19 +34,19 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 
 public abstract interface AuthenticationAnswer extends DiameterAnswer
 {
-	public Long getAuthApplicationId();
+	public Long getAuthApplicationId() throws AvpNotSupportedException;
 	
 	void setAuthApplicationId(Long value) throws AvpNotSupportedException, MissingAvpException;
 	
-	public List<String> getRedirectHost();
+	public List<String> getRedirectHost() throws AvpNotSupportedException;
 	
-	void setRedirectHost(List<String> value) throws InvalidAvpValueException;
+	void setRedirectHost(List<String> value) throws AvpNotSupportedException,InvalidAvpValueException;
 
-	public RedirectHostUsageEnum getRedirectHostUsage();
+	public RedirectHostUsageEnum getRedirectHostUsage()throws AvpNotSupportedException;;
 	
-	void setRedirectHostUsage(RedirectHostUsageEnum value);
+	void setRedirectHostUsage(RedirectHostUsageEnum value)throws AvpNotSupportedException;;
 	
-	public Long getRedirectMaxCacheTime();
+	public Long getRedirectMaxCacheTime()throws AvpNotSupportedException;;
 	
-	void setRedirectMaxCacheTime(Long value);
+	void setRedirectMaxCacheTime(Long value)throws AvpNotSupportedException;;
 }

@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectHo
 */
 public class RedirectHostUsageImpl extends DiameterEnumeratedImpl<RedirectHostUsageEnum> implements RedirectHostUsage
 {
-	protected RedirectHostUsageImpl() 
+	public RedirectHostUsageImpl() 
 	{
 		super();
 	}

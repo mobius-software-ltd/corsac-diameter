@@ -61,6 +61,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	
 	protected ExperimentalResult experimentalResult;
 	
+	private boolean errorMessageAllowed = true;
 	private boolean experimentalResultAllowed = true;
 	private boolean errorReportingHostAllowed = true;
 	
@@ -74,6 +75,11 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 		super(originHost, originRealm, isRetransmit);
 		
 		setResultCode(resultCode);
+	}
+	
+	protected void setErrorMessageAllowed(boolean allowed) 
+	{
+		this.errorMessageAllowed = allowed;
 	}
 
 	protected void setExperimentalResultAllowed(boolean allowed) 
@@ -134,8 +140,11 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public String getErrorMessage()
+	public String getErrorMessage() throws AvpNotSupportedException
 	{
+		if(!errorMessageAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorMessageImpl() }));
+		
 		if(errorMessage==null)
 			return null;
 		
@@ -143,8 +152,11 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	}
 	
 	@Override
-	public void setErrorMessage(String value)
+	public void setErrorMessage(String value) throws AvpNotSupportedException
 	{
+		if(!errorMessageAllowed && value!=null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorMessageImpl(value, null, null) }));
+		
 		if(value==null)
 			this.errorMessage = null;
 		else
@@ -225,6 +237,10 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	{
 		if(resultCode==null)
 			return new MissingAvpException("Result-Code is required", Arrays.asList(new DiameterAvp[] {new ResultCodeImpl() }));
+		
+		if(!errorMessageAllowed && errorMessage!=null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { errorMessage }));
+		
 		
 		if(!errorReportingHostAllowed && errorReportingHost!=null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { errorReportingHost }));
