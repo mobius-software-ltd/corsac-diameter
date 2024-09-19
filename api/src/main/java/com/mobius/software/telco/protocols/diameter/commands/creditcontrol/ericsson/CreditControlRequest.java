@@ -123,9 +123,5 @@ public interface CreditControlRequest extends com.mobius.software.telco.protocol
 	
 	public TerminationCauseEnum getTerminationCause();
 	
-	void setTerminationCause(TerminationCauseEnum value);
-	
-	public List<String> getRouteRecords();
-	
-	void setRouteRecords(List<String> value);	  	
+	void setTerminationCause(TerminationCauseEnum value);	  	
 }

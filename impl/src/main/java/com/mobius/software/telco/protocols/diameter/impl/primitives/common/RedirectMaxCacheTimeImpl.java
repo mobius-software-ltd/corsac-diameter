@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.RedirectMa
 */
 public class RedirectMaxCacheTimeImpl extends DiameterUnsigned32Impl implements RedirectMaxCacheTime
 {
-	protected RedirectMaxCacheTimeImpl() 
+	public RedirectMaxCacheTimeImpl() 
 	{
 		super();
 	}

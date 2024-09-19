@@ -9,15 +9,11 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import com.mobius.software.telco.protocols.diameter.ApplicationID;
-import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
-import com.mobius.software.telco.protocols.diameter.VendorIDs;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.t4.DeliveryReportRequestImpl;
-import com.mobius.software.telco.protocols.diameter.impl.primitives.common.VendorSpecificApplicationIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6m.UserIdentifierImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;

@@ -40,9 +40,9 @@ public interface DiameterAnswer extends DiameterMessage
 	
 	void setResultCode(Long value) throws MissingAvpException;
 	
-	public String getErrorMessage();
+	public String getErrorMessage() throws AvpNotSupportedException;
 	
-	void setErrorMessage(String value);
+	void setErrorMessage(String value) throws AvpNotSupportedException;
 	
 	public String getErrorReportingHost() throws AvpNotSupportedException;
 	

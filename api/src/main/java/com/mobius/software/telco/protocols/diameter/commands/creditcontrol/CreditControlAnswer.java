@@ -24,7 +24,6 @@ import java.util.List;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.CommandCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandDefinition;
-import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcSessionFailoverEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CheckBalanceResultEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CostInformation;
@@ -86,21 +85,21 @@ public interface CreditControlAnswer extends com.mobius.software.telco.protocols
 	
 	void setCcSessionFailover(CcSessionFailoverEnum value);
 	
-	public Long getCcSubSessionId() throws AvpNotSupportedException;
+	public Long getCcSubSessionId();
 	
-	void setCcSubSessionId(Long value) throws AvpNotSupportedException;
+	void setCcSubSessionId(Long value);
 	
-	public String getAcctMultiSessionId() throws AvpNotSupportedException;
+	public String getAcctMultiSessionId();
 	
-	void setAcctMultiSessionId(String value) throws AvpNotSupportedException;
+	void setAcctMultiSessionId(String value);
 	
-	public Date getEventTimestamp() throws AvpNotSupportedException;
+	public Date getEventTimestamp();
 	
-	void setEventTimestamp(Date value) throws AvpNotSupportedException;
+	void setEventTimestamp(Date value);
 	
-	public GrantedServiceUnit getGrantedServiceUnit() throws AvpNotSupportedException;
+	public GrantedServiceUnit getGrantedServiceUnit();
 	
-	void setGrantedServiceUnit(GrantedServiceUnit value) throws AvpNotSupportedException;
+	void setGrantedServiceUnit(GrantedServiceUnit value);
 	
 	public List<MultipleServicesCreditControl> getMultipleServicesCreditControl();
 	
@@ -110,24 +109,24 @@ public interface CreditControlAnswer extends com.mobius.software.telco.protocols
 	
 	void setCostInformation(CostInformation value);
 	
-	public FinalUnitIndication getFinalUnitIndication() throws AvpNotSupportedException;
+	public FinalUnitIndication getFinalUnitIndication();
 	
-	void setFinalUnitIndication(FinalUnitIndication value) throws AvpNotSupportedException;
+	void setFinalUnitIndication(FinalUnitIndication value);
 	
-	public QoSFinalUnitIndication getQosFinalUnitIndication() throws AvpNotSupportedException;
+	public QoSFinalUnitIndication getQosFinalUnitIndication();
 	
-	void setQosFinalUnitIndication(QoSFinalUnitIndication value) throws AvpNotSupportedException;
+	void setQosFinalUnitIndication(QoSFinalUnitIndication value);
 	
-	public CheckBalanceResultEnum getCheckBalanceResult() throws AvpNotSupportedException;
+	public CheckBalanceResultEnum getCheckBalanceResult();
 	
-	void setCheckBalanceResult(CheckBalanceResultEnum value) throws AvpNotSupportedException;
+	void setCheckBalanceResult(CheckBalanceResultEnum value);
 	
-	public Long getValidityTime() throws AvpNotSupportedException;
+	public Long getValidityTime();
 	
-	void setValidityTime(Long value) throws AvpNotSupportedException;
+	void setValidityTime(Long value);
 	
-	public List<String> getRouteRecords() throws AvpNotSupportedException;
+	public List<String> getRouteRecords();
 	
-	public void setRouteRecords(List<String> value) throws AvpNotSupportedException;
+	public void setRouteRecords(List<String> value);
 	
 }
