@@ -108,4 +108,6 @@ public class CommandCodes
 	public static final int MT_DATA = 8388734;
 	public static final int EVENT_CONFIGURATION = 8388735;
 	public static final int EVENT_REPORTING = 8388736;
+	
+	public static final int CHARGINGN_INTERROGATION = 16777214;
 }

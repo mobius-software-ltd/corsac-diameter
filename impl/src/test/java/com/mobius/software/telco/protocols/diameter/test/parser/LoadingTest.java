@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.cip.ChargingInterrogationRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.creditcontrol.CreditControlRequestImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.cxdx.LocationInfoRequestImpl;
@@ -24,6 +25,20 @@ import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 
 public class LoadingTest
 {
+	@Test
+	public void testCip() throws DiameterException
+	{		
+		DiameterParser diameterParser=new DiameterParser(this.getClass().getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
+		
+		//make sure classes are loaded
+		Class<?> clazz = ChargingInterrogationRequestImpl.class;
+		Class<?> avpClass = AcctApplicationIdImpl.class;
+		assertNotNull(clazz);
+		assertNotNull(avpClass);
+		
+		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));		
+	}
+	
 	@Test
 	public void testCommon() throws DiameterException
 	{		

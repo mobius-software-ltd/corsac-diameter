@@ -63,7 +63,7 @@ public enum CommandCode
 	NOTIFY(323),
 	ME_IDENTITY_CHECK(324),
 	MIP6(325),
-		
+	
 	PROVIDE_LOCATION(8388620),
 	LOCATION_REPORT(8388621),
 	LCS_ROUTING_INFO(8388622),
@@ -111,7 +111,9 @@ public enum CommandCode
 	MO_DATA(8388733),
 	MT_DATA(8388734),
 	EVENT_CONFIGURATION(8388735),
-	EVENT_REPORTING(8388736);
+	EVENT_REPORTING(8388736),
+	
+	CHARGINGN_INTERROGATION(16777214);
 	
 	private static final Map<Integer, CommandCode> intToTypeMap = new HashMap<Integer, CommandCode>();
 	static 

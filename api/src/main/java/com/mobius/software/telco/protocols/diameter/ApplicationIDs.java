@@ -42,7 +42,7 @@ public class ApplicationIDs
 	public static final int GMB = 16777223;
 	public static final int MM10 = 16777226;
 	public static final int E4 = 16777231;
-	public static final int MB2C = 16777335;
+	public static final int CIP = 16777232;
 	public static final int RX = 16777236;
 	public static final int GX = 16777238;
 	public static final int STA = 16777250;
@@ -67,6 +67,7 @@ public class ApplicationIDs
 	public static final int S15 = 16777318;
 	public static final int S9A = 16777319;
 	public static final int S9ATAG = 16777320;
+	public static final int MB2C = 16777335;
 	public static final int PC4A = 16777336;
 	public static final int PC6 = 16777340;
 	public static final int NP = 16777342;

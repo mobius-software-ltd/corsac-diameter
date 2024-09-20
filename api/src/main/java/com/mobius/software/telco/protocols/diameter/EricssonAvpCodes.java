@@ -20,7 +20,12 @@ package com.mobius.software.telco.protocols.diameter;
 
 public class EricssonAvpCodes
 {
+	public static final long ACCESS_INFORMATION =1063L;
+	public static final long CDR_INFORMATION =1064L;
+	public static final long CHARGING_CONTEXT_ID =1065L;
+	public static final long CHARGING_STATE_INFORMATION =1066L;
 	public static final long RESULT_CODE_EXTENSION = 1067L;
+	public static final long SERVICE_SESSION_ID =1068L;
 	public static final long ACCOUNT_LOCATION = 1073L;
 	public static final long SUBSCRIPTION_ID_LOCATION = 1074L;
 	public static final long OTHER_PARTY_ID = 1075L;
@@ -29,4 +34,8 @@ public class EricssonAvpCodes
 	public static final long OTHER_PARTY_ID_TYPE = 1078L;
 	public static final long SERVICE_PROVIDER_ID = 1081L;
 	public static final long TRAFFIC_CASE = 1082L;
+	public static final long CIP_IP_VERSION =1083L;
+	public static final long SERVICE_SETUP_RESULT =1135L;
+	public static final long SERVICE_SETUP_RESULT_REQUESTED =1136L;
+	public static final long SUBSCRIBER_INFORMATION =1189L;
 }
