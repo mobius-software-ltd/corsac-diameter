@@ -68,7 +68,7 @@ public class TDFSessionAnswerImpl extends VendorSpecificAnswerImpl implements TD
 	{
 		super();
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
+		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
 	
@@ -76,7 +76,7 @@ public class TDFSessionAnswerImpl extends VendorSpecificAnswerImpl implements TD
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
+		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
 	

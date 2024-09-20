@@ -68,7 +68,7 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	{
 		super();
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 		setUsernameAllowed(false);
 	}
 	
@@ -76,7 +76,7 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(false);	
+		setOriginStateIdAllowed(false);	
 		setUsernameAllowed(false);
 	}
 	

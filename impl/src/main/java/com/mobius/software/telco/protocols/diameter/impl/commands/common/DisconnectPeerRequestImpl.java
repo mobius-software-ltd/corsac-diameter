@@ -50,7 +50,7 @@ public class DisconnectPeerRequestImpl extends DiameterMessageBase implements Di
 		setSessionIdAllowed(false);
 		setProxyInfoAllowed(false);
 		setUsernameAllowed(false);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 	}
 		
 	public DisconnectPeerRequestImpl(String originHost,String originRealm,Boolean isRetransmit, DisconnectCauseEnum disconnectCause) throws MissingAvpException
@@ -59,7 +59,7 @@ public class DisconnectPeerRequestImpl extends DiameterMessageBase implements Di
 		setSessionIdAllowed(false);
 		setProxyInfoAllowed(false);
 		setUsernameAllowed(false);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 		
 		setDisconnectCause(disconnectCause);
 	}

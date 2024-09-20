@@ -104,7 +104,7 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 		this.usernameAllowed = allowed;
 	}
 
-	protected void setOriginStateIdAllowedAllowed(boolean allowed) 
+	protected void setOriginStateIdAllowed(boolean allowed) 
 	{
 		this.originStateIdAllowed = allowed;
 	}

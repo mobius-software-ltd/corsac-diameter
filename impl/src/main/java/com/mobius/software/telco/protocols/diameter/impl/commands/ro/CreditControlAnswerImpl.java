@@ -81,14 +81,14 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	protected CreditControlAnswerImpl() 
 	{
 		super();
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 		setUsernameAllowed(false);
 	}
 	
 	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 		setUsernameAllowed(false);
 	}
 	
