@@ -197,6 +197,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			}
 			catch(Exception ex)
 			{
+				logger.warn("An error occured while adding server association," + ex.getMessage(),ex);
 				throw new DiameterException("An error occured while establishing a peer", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 			}
 		}

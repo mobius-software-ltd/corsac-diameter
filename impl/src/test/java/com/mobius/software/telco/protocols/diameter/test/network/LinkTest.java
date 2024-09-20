@@ -130,6 +130,91 @@ public class LinkTest extends NetworkTestBase
 	}
 	
 	@Test
+	public void testAnyPortConnection() throws Exception
+	{
+		//we dont handle events here , only the connectivity
+		super.setupRemote(new EmptyServerRoSessionListener(),new EmptyServerRfSessionListener());
+		super.setupLocal();
+		
+		final AtomicLong ceaReceived=new AtomicLong(0L);
+		final AtomicLong dwaReceived=new AtomicLong(0L);
+		final AtomicLong dpaReceived=new AtomicLong(0L);
+		final AtomicLong otherReceived=new AtomicLong(0L);
+		
+		DiameterStack localStack = this.localStack;
+		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
+		{
+			@Override
+			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
+			{
+				if(message instanceof CapabilitiesExchangeAnswer)
+					ceaReceived.incrementAndGet();
+				else if(message instanceof DeviceWatchdogAnswer)
+					dwaReceived.incrementAndGet();
+				else if(message instanceof DisconnectPeerAnswer)
+					dpaReceived.incrementAndGet();
+				else
+					otherReceived.incrementAndGet();
+			}
+		});
+		
+		assertEquals(localStack.getNetworkManager().getLink(localLinkID).getPeerState(),PeerStateEnum.IDLE);
+		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isStarted());
+		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isConnected());
+		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isUp());
+		
+		try
+		{
+			Thread.sleep(reconnectTimeout * 2);
+		}
+		catch(InterruptedException ex)
+		{
+			
+		}
+		
+		assertEquals(localStack.getNetworkManager().getLink(localLinkID).getPeerState(),PeerStateEnum.OPEN);
+		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isConnected());
+		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isStarted());
+		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isUp());
+		
+		try
+		{
+			Thread.sleep(idleTimeout * 5);
+		}
+		catch(InterruptedException ex)
+		{
+			
+		}
+		
+		assertEquals(localStack.getNetworkManager().getLink(localLinkID).getPeerState(),PeerStateEnum.OPEN);
+		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isConnected());
+		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isStarted());
+		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isUp());
+		
+		super.stopLocal();
+		super.stopRemote();
+		
+		try
+		{
+			Thread.sleep(responseTimeout);
+		}
+		catch(InterruptedException ex)
+		{
+			
+		}
+		
+		assertEquals(localStack.getNetworkManager().getLink(localLinkID).getPeerState(),PeerStateEnum.IDLE);
+		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isConnected());
+		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isStarted());
+		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isUp());
+		
+		assertEquals(ceaReceived.get(), 1L);
+		assertEquals(dwaReceived.get(), 5L);
+		assertEquals(dpaReceived.get() , 1L);
+		assertEquals(otherReceived.get(), 0L);
+	}
+	
+	@Test
 	public void testReconnectConnection() throws Exception
 	{
 		//we dont handle events here , only the connectivity
