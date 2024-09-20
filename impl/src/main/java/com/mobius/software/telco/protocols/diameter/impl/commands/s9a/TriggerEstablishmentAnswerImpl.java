@@ -55,7 +55,7 @@ public class TriggerEstablishmentAnswerImpl extends AuthenticationAnswerImpl imp
 	{
 		super();
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
+		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
 	
@@ -63,7 +63,7 @@ public class TriggerEstablishmentAnswerImpl extends AuthenticationAnswerImpl imp
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);	
+		setOriginStateIdAllowed(true);	
 		setUsernameAllowed(false);
 	}
 	

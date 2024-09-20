@@ -93,7 +93,7 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 		this.redirectHostUsageAllowed = allowed;
 	}
 	
-	protected void setredirectMaxCacheTimeAllowed(boolean allowed) 
+	protected void setRedirectMaxCacheTimeAllowed(boolean allowed) 
 	{
 		this.redirectMaxCacheTimeAllowed = allowed;
 	}

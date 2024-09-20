@@ -42,7 +42,7 @@ public class DisconnectPeerAnswerImpl extends DiameterAnswerBase implements Disc
 		setSessionIdAllowed(false);
 		setProxyInfoAllowed(false);
 		setUsernameAllowed(false);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 	}
 	
 	public DisconnectPeerAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode) throws MissingAvpException
@@ -51,7 +51,7 @@ public class DisconnectPeerAnswerImpl extends DiameterAnswerBase implements Disc
 		setSessionIdAllowed(false);
 		setProxyInfoAllowed(false);
 		setUsernameAllowed(false);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 	}
 	
 	@DiameterOrder
