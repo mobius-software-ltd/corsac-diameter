@@ -49,7 +49,7 @@ public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnsw
 	{
 		super();
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
+		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
 	
@@ -57,7 +57,7 @@ public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnsw
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
+		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
 	

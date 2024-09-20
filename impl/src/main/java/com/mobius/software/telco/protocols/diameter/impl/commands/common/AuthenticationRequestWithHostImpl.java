@@ -40,6 +40,11 @@ public abstract class AuthenticationRequestWithHostImpl extends AuthenticationRe
 		super();	
 	}
 	
+	public AuthenticationRequestWithHostImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{	
+		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID);			
+	}
+	
 	public AuthenticationRequestWithHostImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, Long authApplicationId) throws MissingAvpException, AvpNotSupportedException
 	{	
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit,sessionID, authApplicationId);			

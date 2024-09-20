@@ -78,7 +78,7 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 	{
 		super();
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 		setUsernameAllowed(false);
 	}
 	
@@ -86,7 +86,7 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(false);
+		setOriginStateIdAllowed(false);
 		setUsernameAllowed(false);
 		
 		setAuthSessionState(authSessionState);

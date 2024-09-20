@@ -40,7 +40,7 @@ public class TSSFNotificationAnswerImpl extends StAnswerImpl implements TSSFNoti
 	{
 		super();
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
+		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
 	
@@ -48,7 +48,7 @@ public class TSSFNotificationAnswerImpl extends StAnswerImpl implements TSSFNoti
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 		setExperimentalResultAllowed(true);
-		setOriginStateIdAllowedAllowed(true);
+		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
 	
