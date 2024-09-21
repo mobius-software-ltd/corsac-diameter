@@ -63,7 +63,7 @@ import io.netty.buffer.ByteBuf;
 				[ CDR-Information ] //For one time event
  */
 
-@DiameterCommandDefinition(applicationId = ApplicationIDs.CIP, commandCode = CommandCodes.CHARGINGN_INTERROGATION, request = false, proxyable = true, name="Charging-Interrogation-Answer")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CIP, commandCode = CommandCodes.CHARGING_INTERROGATION, request = false, proxyable = true, name="Charging-Interrogation-Answer")
 public interface ChargingInterrogationAnswer extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlAnswer
 {
 	public VendorSpecificApplicationId getVendorSpecificApplicationId();

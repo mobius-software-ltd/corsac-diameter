@@ -71,7 +71,7 @@ import io.netty.buffer.ByteBuf;
 				[ Service-Identifier ] //For one time event
  */
 
-@DiameterCommandDefinition(applicationId = ApplicationIDs.CIP, commandCode = CommandCodes.CHARGINGN_INTERROGATION, request = true, proxyable = true, name="Charging-Interrogation-Request")
+@DiameterCommandDefinition(applicationId = ApplicationIDs.CIP, commandCode = CommandCodes.CHARGING_INTERROGATION, request = true, proxyable = true, name="Charging-Interrogation-Request")
 public interface ChargingInterrogationRequest extends com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest
 {
 	public VendorSpecificApplicationId getVendorSpecificApplicationId();
