@@ -113,7 +113,7 @@ public enum CommandCode
 	EVENT_CONFIGURATION(8388735),
 	EVENT_REPORTING(8388736),
 	
-	CHARGINGN_INTERROGATION(16777214);
+	CHARGING_INTERROGATION(16777214);
 	
 	private static final Map<Integer, CommandCode> intToTypeMap = new HashMap<Integer, CommandCode>();
 	static 
