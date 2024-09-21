@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorRepor
 */
 public class ErrorReportingHostImpl extends DiameterIdentityImpl implements ErrorReportingHost
 {
-	public ErrorReportingHostImpl() 
+	protected ErrorReportingHostImpl() 
 	{
 		super();
 	}

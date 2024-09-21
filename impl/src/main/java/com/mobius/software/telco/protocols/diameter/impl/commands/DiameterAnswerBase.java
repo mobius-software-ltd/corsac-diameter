@@ -143,7 +143,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	public String getErrorMessage() throws AvpNotSupportedException
 	{
 		if(!errorMessageAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorMessageImpl() }));
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorMessageImpl("", null, null) }));
 		
 		if(errorMessage==null)
 			return null;
@@ -167,7 +167,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	public String getErrorReportingHost() throws AvpNotSupportedException
 	{
 		if(!errorReportingHostAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorReportingHostImpl() }));
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ErrorReportingHostImpl("", null, null) }));
 		
 		if(errorReportingHost==null)
 			return null;
@@ -240,7 +240,6 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 		
 		if(!errorMessageAllowed && errorMessage!=null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { errorMessage }));
-		
 		
 		if(!errorReportingHostAllowed && errorReportingHost!=null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { errorReportingHost }));

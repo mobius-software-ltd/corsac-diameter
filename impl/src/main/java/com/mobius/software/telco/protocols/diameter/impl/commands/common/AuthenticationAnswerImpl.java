@@ -167,7 +167,7 @@ public abstract class AuthenticationAnswerImpl extends DiameterAnswerWithSession
 	public Long getRedirectMaxCacheTime() throws AvpNotSupportedException
 	{
 		if(!redirectMaxCacheTimeAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RedirectMaxCacheTimeImpl() } ));
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new RedirectMaxCacheTimeImpl(null, null, null) } ));
 			
 		if(this.redirectMaxCacheTime==null)
 			return null;

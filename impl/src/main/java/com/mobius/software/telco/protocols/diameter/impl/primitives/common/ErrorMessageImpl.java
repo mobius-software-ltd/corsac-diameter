@@ -28,7 +28,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ErrorMessa
 */
 public class ErrorMessageImpl extends DiameterUTF8StringImpl implements ErrorMessage
 {
-	public ErrorMessageImpl() 
+	protected ErrorMessageImpl() 
 	{
 		super();
 	}
