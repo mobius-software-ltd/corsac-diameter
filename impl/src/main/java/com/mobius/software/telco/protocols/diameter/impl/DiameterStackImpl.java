@@ -49,6 +49,7 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.impl.app.cip.ChargingInterrogationProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.CreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.ericsson.EricssonCreditControlProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.huawei.HuaweiCreditControlProviderImpl;
@@ -285,6 +286,11 @@ public class DiameterStackImpl implements DiameterStack
 					return nasProvider;
 				}
 				break;
+			case ApplicationIDs.CIP:
+				ChargingInterrogationProviderImpl cipProvider=new ChargingInterrogationProviderImpl(this, parentPackage.getName());
+				registeredProvidersByPackage.put(parentPackage.getName(), cipProvider);
+				registeredProvidersByClass.put(cipProvider.getClass(), cipProvider);
+				return cipProvider;
 			case ApplicationIDs.MOBILE_IPV4:
 				RFC4004ProviderImpl rfc4004Provider=new RFC4004ProviderImpl(this, parentPackage.getName());
 				registeredProvidersByPackage.put(parentPackage.getName(), rfc4004Provider);
