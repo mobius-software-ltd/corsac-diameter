@@ -76,7 +76,7 @@ public class MessageFactoryImpl implements MessageFactory
 	public ChargingInterrogationRequest createChargingInterrogationRequest(String originHost,String originRealm, String destinationRealm, String chargingContextId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber,List<SubscriptionId> subscriptionId) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		ChargingInterrogationRequest result = new ChargingInterrogationRequestImpl(originHost, originRealm, destinationRealm, false, chargingContextId, stack.generateNewSessionID(), ccRequestType, ccRequestNumber, subscriptionId);
+		ChargingInterrogationRequest result = new ChargingInterrogationRequestImpl(originHost, originRealm, destinationRealm, false, stack.generateNewSessionID(),chargingContextId, ccRequestType, ccRequestNumber, subscriptionId);
 		result.setVendorSpecificApplicationId(appId);
 		return result;
 	}
