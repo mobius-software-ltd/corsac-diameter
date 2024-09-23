@@ -268,12 +268,13 @@ public class ChargingInterrogationAnswerImpl extends com.mobius.software.telco.p
 	public List<DiameterAvp> getOrderedAVPs()
 	{
 		List<DiameterAvp> result=new ArrayList<DiameterAvp>();
+		result.add(vendorSpecificApplicationId);
 		result.add(sessionId);
 		result.add(resultCode);
 		result.add(originHost);
 		result.add(originRealm);
-		result.add(ccRequestType);
 		result.add(ccRequestNumber);
+		result.add(ccRequestType);
 		result.add(resultCodeExtension);
 		result.add(originStateId);
 		result.add(costInformation);
