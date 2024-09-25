@@ -225,8 +225,20 @@ public class DiameterStackImpl implements DiameterStack
 		Class<?> clazz = DiameterUTF8StringImpl.class;
 		clazz = CapabilitiesExchangeRequestImpl.class;
 		
-		Package commonPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common");
-		Package avpPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives");
+		Package commonPackage = null;
+		Package avpPackage = null;
+		if(classLoader==null) {
+			commonPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common");
+			avpPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives");
+		}
+		else {
+			ClassLoader originalLoader = Thread.currentThread().getContextClassLoader();
+			Thread.currentThread().setContextClassLoader(classLoader);
+			commonPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common");
+			avpPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives");
+			Thread.currentThread().setContextClassLoader(originalLoader);			
+		}
+		
 		logger.info("Common Package " + commonPackage);
 		logger.info("AVP Package " + avpPackage);
 		this.globalParser = new DiameterParser(classLoader, Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),avpPackage);
