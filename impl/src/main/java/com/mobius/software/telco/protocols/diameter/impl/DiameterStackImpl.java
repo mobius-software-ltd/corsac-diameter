@@ -28,6 +28,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.restcomm.cluster.ClusteredID;
 import org.restcomm.cluster.IDGenerator;
 
@@ -108,6 +110,8 @@ import com.mobius.software.telco.protocols.diameter.impl.app.t6a.T6aProviderImpl
 import com.mobius.software.telco.protocols.diameter.impl.app.tsp.TspProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerImpl;
 import com.mobius.software.telco.protocols.diameter.impl.commands.DiameterErrorAnswerWithSessionImpl;
+import com.mobius.software.telco.protocols.diameter.impl.commands.common.CapabilitiesExchangeRequestImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUTF8StringImpl;
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 
 /**
@@ -117,6 +121,8 @@ import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 */
 public class DiameterStackImpl implements DiameterStack
 {
+	public static Logger logger=LogManager.getLogger(DiameterStackImpl.class);
+	
 	public static final Long DEFAULT_RESPONSE_TIMEOUT = 60000L;
 	public static final Long DEFAULT_IDLE_TIMEOUT = 120000L;
 	
@@ -215,8 +221,16 @@ public class DiameterStackImpl implements DiameterStack
 		if(this.duplicateTimeout!=null)
 			this.duplicateTimeout = duplicateTimeout;
 		
-		this.globalParser = new DiameterParser(classLoader, Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
-		this.globalParser.registerApplication(classLoader, Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));
+		@SuppressWarnings("unused")
+		Class<?> clazz = DiameterUTF8StringImpl.class;
+		clazz = CapabilitiesExchangeRequestImpl.class;
+		
+		Package commonPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common");
+		Package avpPackage = Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives");
+		logger.info("Common Package " + commonPackage);
+		logger.info("AVP Package " + avpPackage);
+		this.globalParser = new DiameterParser(classLoader, Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class , DiameterErrorAnswerWithSessionImpl.class }),avpPackage);
+		this.globalParser.registerApplication(classLoader, commonPackage);
 		this.networkManager = new NetworkManagerImpl(this, workerThreads, idleTimeout, this.responseTimeout, reconnectTimeout);
 		this.stackID = idGenerator.generateID();
 	}
