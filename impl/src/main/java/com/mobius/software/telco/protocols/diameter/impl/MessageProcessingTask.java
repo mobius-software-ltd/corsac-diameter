@@ -221,6 +221,50 @@ public class MessageProcessingTask implements Task
 						}
 						else
 						{
+							if(matchedVendorSpecificApplicationIds!=null && matchedVendorSpecificApplicationIds.size()>0)
+							{
+								for(VendorSpecificApplicationId currVendorSpecificApplicationId:matchedVendorSpecificApplicationIds)
+								{
+									if(currVendorSpecificApplicationId.getAcctApplicationId()!=null)
+									{
+										Boolean hasApplicationId = false;
+										if(matchedAcctApplicationIds!=null)
+										{
+											for(Long currAcctApplicationId:matchedAcctApplicationIds)
+											{
+												if(currAcctApplicationId.equals(currVendorSpecificApplicationId.getAcctApplicationId()))
+												{
+													hasApplicationId = true;
+													break;
+												}
+											}
+										}
+										
+										if(!hasApplicationId)
+											matchedAcctApplicationIds.add(currVendorSpecificApplicationId.getAcctApplicationId());
+									}
+									
+									if(currVendorSpecificApplicationId.getAuthApplicationId()!=null)
+									{
+										Boolean hasApplicationId = false;
+										if(matchedAuthApplicationIds!=null)
+										{
+											for(Long currAuthApplicationId:matchedAuthApplicationIds)
+											{
+												if(currAuthApplicationId.equals(currVendorSpecificApplicationId.getAuthApplicationId()))
+												{
+													hasApplicationId = true;
+													break;
+												}
+											}
+										}
+										
+										if(!hasApplicationId)
+											matchedAuthApplicationIds.add(currVendorSpecificApplicationId.getAuthApplicationId());										
+									}
+								}
+							}
+							
 							remoteAcctApplicationIds.set(matchedAcctApplicationIds);
 							remoteAuthApplicationIds.set(matchedAuthApplicationIds);
 							remoteApplicationIds.set(matchedVendorSpecificApplicationIds);

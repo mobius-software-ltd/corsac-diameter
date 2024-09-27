@@ -548,7 +548,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			
 			Boolean found=false;
 			List<Long> remoteIds = remoteAuthApplicationIds.get();
-			if(remoteIds!=null)
+			if(remoteIds!=null && remoteIds.size()>0)
 			{
 				for(Long currApplicationId:remoteIds)
 				{
