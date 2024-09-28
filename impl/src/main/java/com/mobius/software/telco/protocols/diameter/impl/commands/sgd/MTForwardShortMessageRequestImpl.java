@@ -11,6 +11,7 @@ import com.mobius.software.telco.protocols.diameter.commands.sgd.MTForwardShortM
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.common.UserNameImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.MMENumberForMTSMSImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.s6a.SGSNNumberImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.sgd.MaximumRetransmissionTimeImpl;
@@ -86,13 +87,24 @@ public class MTForwardShortMessageRequestImpl extends SgdRequestImpl implements 
 		super();
 	}
 	
-	public MTForwardShortMessageRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException
+	public MTForwardShortMessageRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID,AuthSessionStateEnum authSessionState,String username,String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState);
+		
+		setUsername(username);
 		
 		setSCAddress(scAddress);
 		
 		setSMRPUI(smRPUI);
+	}
+	
+	@Override
+	public void setUsername(String value) throws MissingAvpException, AvpNotSupportedException
+	{
+		if(value==null)
+			throw new MissingAvpException("Username is required", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
+		
+		super.setUsername(value);
 	}
 	
 	@Override

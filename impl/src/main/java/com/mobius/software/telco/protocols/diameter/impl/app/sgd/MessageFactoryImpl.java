@@ -93,10 +93,10 @@ public class MessageFactoryImpl implements MessageFactory
 		return result;
 	}
 	
-	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
+	public MTForwardShortMessageRequest createMTForwardShortMessageRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, String username, String scAddress,ByteBuf smRPUI) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		MTForwardShortMessageRequest request = new MTForwardShortMessageRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, scAddress, smRPUI); 
+		MTForwardShortMessageRequest request = new MTForwardShortMessageRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, username, scAddress, smRPUI); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
