@@ -304,9 +304,58 @@ public class MessageProcessingTask implements Task
 						else
 						{
 							logger.info("Peer is up for " + association);
+							
 							remoteAcctApplicationIds.set(answer.getAcctApplicationIds());
 							remoteAuthApplicationIds.set(answer.getAuthApplicationIds());
 							remoteApplicationIds.set(answer.getVendorSpecificApplicationIds());
+							if(answer.getVendorSpecificApplicationIds()!=null && answer.getVendorSpecificApplicationIds().size()>0)
+							{
+								for(VendorSpecificApplicationId currVendorSpecificApplicationId:answer.getVendorSpecificApplicationIds())
+								{
+									if(currVendorSpecificApplicationId.getAcctApplicationId()!=null)
+									{
+										Boolean hasApplicationId = false;
+										if(remoteAcctApplicationIds.get()!=null)
+										{
+											for(Long currAcctApplicationId:remoteAcctApplicationIds.get())
+											{
+												if(currAcctApplicationId.equals(currVendorSpecificApplicationId.getAcctApplicationId()))
+												{
+													hasApplicationId = true;
+													break;
+												}
+											}
+										}
+										else
+											remoteAcctApplicationIds.set(new ArrayList<Long>());
+										
+										if(!hasApplicationId)
+											remoteAcctApplicationIds.get().add(currVendorSpecificApplicationId.getAcctApplicationId());
+									}
+									
+									if(currVendorSpecificApplicationId.getAuthApplicationId()!=null)
+									{
+										Boolean hasApplicationId = false;
+										if(remoteAuthApplicationIds.get()!=null)
+										{
+											for(Long currAuthApplicationId:remoteAuthApplicationIds.get())
+											{
+												if(currAuthApplicationId.equals(currVendorSpecificApplicationId.getAuthApplicationId()))
+												{
+													hasApplicationId = true;
+													break;
+												}
+											}
+										}
+										else
+											remoteAuthApplicationIds.set(new ArrayList<Long>());
+										
+										if(!hasApplicationId)
+											remoteAuthApplicationIds.get().add(currVendorSpecificApplicationId.getAuthApplicationId());										
+									}
+								}
+							}
+							
 							link.setPeerState(PeerStateEnum.OPEN);
 							link.resetInactivityTimer();
 						}
