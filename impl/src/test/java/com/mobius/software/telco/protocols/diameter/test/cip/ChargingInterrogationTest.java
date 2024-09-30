@@ -237,76 +237,83 @@ public class ChargingInterrogationTest extends NetworkTestBase
 		subscriptionId.add(sId);
 
 		ChargingInterrogationRequest request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.INITIAL_REQUEST,ccRequestNumber,subscriptionId);
+		ChargingInterrogationRequest secondrequest = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(), chargingContextId, CcRequestTypeEnum.UPDATE_REQUEST, ccRequestNumber, subscriptionId);
+		ChargingInterrogationRequest thirdrequest = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(), chargingContextId, CcRequestTypeEnum.TERMINATION_REQUEST, ccRequestNumber, subscriptionId);
+		
 		ChargingInterrogationClientSession clientSession = (ChargingInterrogationClientSession)provider.getSessionFactory().createClientSession(request);
 		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
-			public void onSuccess()
+		    public void onSuccess() 
 			{
+		        logger.info("The first request has been successfully processed");
+		        
+		        try
+				{
+					Thread.sleep(responseTimeout);
+				}
+				catch(InterruptedException ex)
+				{
+					
+				}
+				
+				assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
+				
+				clientSession.sendInitialRequest(secondrequest, new AsyncCallback() 
+				{
+				    @Override
+				    public void onSuccess()
+				    {
+				    	logger.info("The second request has been successfully processed.");
+				    	
+				    	try
+						{
+							Thread.sleep(responseTimeout);
+						}
+						catch(InterruptedException ex)
+						{
+							
+						}
+						
+						assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
+						
+						clientSession.sendInitialRequest(thirdrequest, new AsyncCallback() 
+						{
+						    @Override
+						    public void onSuccess()
+						    {
+						    	logger.info("The third request has been successfully processed.");
+
+						    }
+
+						    @Override
+						    public void onError(DiameterException ex) 
+						    {
+						        logger.error("Error sending the second request: " + ex.getMessage(), ex);
+						    }
+						});
+
+				    }
+
+				    @Override
+				    public void onError(DiameterException ex) 
+				    {
+				        logger.error("Error sending the second request: " + ex.getMessage(), ex);
+				    }
+				});
+				
 			}
-			
-			@Override
-			public void onError(DiameterException ex)
-			{
-				logger.error("An error occured while sending ChargingInterrogation Request," + ex.getMessage(),ex);
-			}
+
+		    @Override
+		    public void onError(DiameterException ex)
+		    {
+		        logger.error("An error occurred while sending ChargingInterrogation Request," + ex.getMessage(), ex);
+		    }
 		});
 		
 		try
 		{
-			Thread.sleep(responseTimeout);
-		}
-		catch(InterruptedException ex)
-		{
-			
-		}
-		
-		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
-		
-		request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.UPDATE_REQUEST,ccRequestNumber,subscriptionId);
-		clientSession.sendInitialRequest(request, new AsyncCallback()
-		{
-			@Override
-			public void onSuccess()
-			{
-			}
-			
-			@Override
-			public void onError(DiameterException ex)
-			{
-				logger.error("An error occured while sending Accounting Request," + ex.getMessage(),ex);
-			}
-		});
-		//make sure no timeout is processed
-		try
-		{
-			Thread.sleep(responseTimeout);
-		}
-		catch(InterruptedException ex)
-		{
-			
-		}
-		
-		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
-		
-		request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.TERMINATION_REQUEST,ccRequestNumber,subscriptionId);
-		clientSession.sendInitialRequest(request, new AsyncCallback()
-		{
-			@Override
-			public void onSuccess()
-			{
-			}
-			
-			@Override
-			public void onError(DiameterException ex)
-			{
-				logger.error("An error occured while sending Accounting Request," + ex.getMessage(),ex);
-			}
-		});
-		
-		try
-		{
-			Thread.sleep(responseTimeout);
+			Thread.sleep(responseTimeout * 3);
 		}
 		catch(InterruptedException ex)
 		{
