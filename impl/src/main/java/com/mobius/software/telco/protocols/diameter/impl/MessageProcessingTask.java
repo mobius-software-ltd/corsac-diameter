@@ -132,6 +132,7 @@ public class MessageProcessingTask implements Task
 								DiameterException exception = new DiameterException("invalid remote hostname in CER", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 								exception.setPartialMessage(request);
 								link.sendError(exception);
+								return;
 							}
 							catch(DiameterException ex2)
 							{
