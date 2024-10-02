@@ -246,6 +246,7 @@ public class ChargingInterrogationTest extends NetworkTestBase
 			@Override
 		    public void onSuccess() 
 			{
+				
 		        logger.info("The first request has been successfully processed");
 		        
 		        try
@@ -259,6 +260,13 @@ public class ChargingInterrogationTest extends NetworkTestBase
 				
 				assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
 				
+				Long InitialAnswerReceived = ciaReceived.get();
+				
+				if (InitialAnswerReceived == 1L)
+				{
+					
+				logger.info("The first response was received");
+					
 				clientSession.sendInitialRequest(secondrequest, new AsyncCallback() 
 				{
 				    @Override
@@ -277,6 +285,12 @@ public class ChargingInterrogationTest extends NetworkTestBase
 						
 						assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
 						
+						Long UpdateAnswerReceived = ciaReceived.get();
+						
+						if (UpdateAnswerReceived == 2L)
+						{
+							logger.info("The second response was received");
+							
 						clientSession.sendInitialRequest(thirdrequest, new AsyncCallback() 
 						{
 						    @Override
@@ -292,7 +306,14 @@ public class ChargingInterrogationTest extends NetworkTestBase
 						        logger.error("Error sending the second request: " + ex.getMessage(), ex);
 						    }
 						});
-
+						
+						}
+						
+						else
+						{
+							logger.error("Error the second reply was not received");
+						}
+						
 				    }
 
 				    @Override
@@ -301,6 +322,11 @@ public class ChargingInterrogationTest extends NetworkTestBase
 				        logger.error("Error sending the second request: " + ex.getMessage(), ex);
 				    }
 				});
+			} 
+				else
+				{
+					logger.error("Error the first reply was not received");
+				}
 				
 			}
 
