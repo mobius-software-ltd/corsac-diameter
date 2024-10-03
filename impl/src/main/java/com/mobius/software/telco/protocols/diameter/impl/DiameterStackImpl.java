@@ -349,14 +349,14 @@ public class DiameterStackImpl implements DiameterStack
 					registeredProvidersByClass.put(creditControlProvider.getClass(), creditControlProvider);
 					return creditControlProvider;
 				}
-				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.ericsson"))
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.creditcontrol.ericsson"))
 				{
 					EricssonCreditControlProviderImpl ericssonCreditControlProvider=new EricssonCreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), ericssonCreditControlProvider);
 					registeredProvidersByClass.put(ericssonCreditControlProvider.getClass(), ericssonCreditControlProvider);
 					return ericssonCreditControlProvider;
 				}
-				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.huawei"))
+				else if(parentPackage.getName().equals("com.mobius.software.telco.protocols.diameter.commands.creditcontrol.huawei"))
 				{
 					HuaweiCreditControlProviderImpl huaweiCreditControlProvider=new HuaweiCreditControlProviderImpl(this, parentPackage.getName());
 					registeredProvidersByPackage.put(parentPackage.getName(), huaweiCreditControlProvider);
