@@ -82,9 +82,9 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new ServiceParameterInfoImpl(serviceParameterType, serviceParameterValue);
 	}
 	
-	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication)
+	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl()
 	{
-		return new TGPPMultipleServicesCreditControlImpl(grantedServiceUnit, requestedServiceUnit, usedServiceUnit, serviceIdentifier, ratingGroup, gsuPoolReference, validityTime, resultCode, finalUnitIndication);
+		return new TGPPMultipleServicesCreditControlImpl();
 	}
 	
 	public UsedServiceUnit getUsedServiceUnit()

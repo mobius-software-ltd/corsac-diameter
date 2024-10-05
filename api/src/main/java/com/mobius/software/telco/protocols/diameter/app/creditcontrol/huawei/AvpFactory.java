@@ -94,7 +94,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.SMSCAd
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ScaleFactor;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SupplementaryService;
-import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBurstExchange;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TariffInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TimeStamps;
@@ -109,6 +108,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.Fin
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.FinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolReference;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.MultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.QoSFinalUnitIndication;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RedirectServer;
@@ -161,7 +161,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	
 	public ServiceInformation getServiceInformation();
 	
-	public TGPPMultipleServicesCreditControl getMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication);
+	public MultipleServicesCreditControl getMultipleServicesCreditControl();
 	
 	public UsedServiceUnit getUsedServiceUnit();
 	

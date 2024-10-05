@@ -136,8 +136,8 @@ public class DiameterAddressImpl extends DiameterOctetStringImpl implements Diam
 				StringBuilder digits = new StringBuilder();
 
 				int b;
-		        while (buffer.readableBytes() > 0) {
-		            b = buffer.readByte() & 0xff;
+		        while (value.readableBytes() > 0) {
+		            b = value.readByte() & 0xff;
 
 		            digits.append(Integer.toHexString(b & 0x0f));
 		            digits.append(Integer.toHexString((b & 0xf0) >> 4));
@@ -210,6 +210,41 @@ public class DiameterAddressImpl extends DiameterOctetStringImpl implements Diam
 			
 		ByteBuf buffer = Unpooled.buffer();
 		buffer.writeShort(DiameterAddressTypeEnum.E164.getValue());
+		
+		boolean odd= e164.length() % 2 != 0;
+        
+        int b = 0;
+
+        int count = odd ? e164.length() - 1 : e164.length();
+        
+        for (int i = 0; i < count - 1; i += 2) {
+            String ds1 = e164.substring(i, i + 1);
+            String ds2 = e164.substring(i + 1, i + 2);
+
+            int d1 = Integer.parseInt(ds1, 16);
+            int d2 = Integer.parseInt(ds2, 16);
+
+            b = (byte) (d2 << 4 | d1);
+            buffer.writeByte(b);
+        }
+
+        if (odd) {
+            String ds1 = e164.substring(count, count + 1);
+            int d = Integer.parseInt(ds1, 16);
+
+            b = (byte) (d & 0x0f);
+            buffer.writeByte(b);
+        }
+        
+        return buffer;
+	}
+	
+	public static ByteBuf getBytesWithoutHeader(String e164)
+	{
+		if(e164==null)
+			return Unpooled.EMPTY_BUFFER;
+			
+		ByteBuf buffer = Unpooled.buffer();
 		
 		boolean odd= e164.length() % 2 != 0;
         

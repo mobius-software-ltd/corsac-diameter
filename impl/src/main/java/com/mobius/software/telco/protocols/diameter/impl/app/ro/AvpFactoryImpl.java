@@ -75,6 +75,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.P
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RadioParameterSetInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RateElementImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RealTimeTariffInformationImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RecipientAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RecipientInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RecipientReceivedAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.RelatedIMSChargingIdentifierNodeImpl;
@@ -88,6 +89,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.S
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ServiceInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.ServiceSpecificInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.SupplementaryServiceImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPPMultipleServicesCreditControlImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TGPPOCSpecificReductionImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TWANUserLocationInfoImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.TalkBurstExchangeImpl;
@@ -99,8 +101,13 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.U
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.UnitCostImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.VCSInformationImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.accounting.WLANOperatorIdImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.CCMoneyImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GSUPoolReferenceImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.GrantedServiceUnitImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.RequestedServiceUnitImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.SubscriptionIdImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UnitValueImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontrol.UsedServiceUnitImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.ServerCapabilitiesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.cxdx.SupportedFeaturesImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.oma.DCDInformationImpl;
@@ -163,6 +170,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.ProSeI
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RadioParameterSetInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateElement;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RealTimeTariffInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientReceivedAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RelatedIMSChargingIdentifierNode;
@@ -176,6 +184,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.ScaleF
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SupplementaryService;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCSpecificReduction;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TWANUserLocationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBurstExchange;
@@ -187,10 +196,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.UWANUs
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UnitCost;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VCSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANOperatorId;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolReference;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerCapabilities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformation;
@@ -222,6 +236,36 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 	public TGPPOCSpecificReduction getTGPPOCSpecificReduction()
 	{
 		return new TGPPOCSpecificReductionImpl();
+	}
+	
+	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl()
+	{
+		return new TGPPMultipleServicesCreditControlImpl();
+	}
+	
+	public UsedServiceUnit getUsedServiceUnit()
+	{
+		return new UsedServiceUnitImpl();
+	}
+	
+	public RequestedServiceUnit getRequestedServiceUnit()
+	{
+		return new RequestedServiceUnitImpl();
+	}
+	
+	public GrantedServiceUnit getGrantedServiceUnit()
+	{
+		return new GrantedServiceUnitImpl();
+	}
+	
+	public GSUPoolReference getGSUPoolReference(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue) throws MissingAvpException
+	{
+		return new GSUPoolReferenceImpl(gsuPoolIdentifier, ccUnitType, unitValue);
+	}
+	
+	public CCMoney getCCMoney(UnitValue unitValue) throws MissingAvpException
+	{
+		return new CCMoneyImpl(unitValue);
 	}
 	
 	public ServiceInformation getServiceInformation()
@@ -553,6 +597,11 @@ public class AvpFactoryImpl extends com.mobius.software.telco.protocols.diameter
 		return new RecipientInfoImpl();
 	}
 			
+	public RecipientAddress getRecipientAddress()
+	{
+		return new RecipientAddressImpl();
+	}
+	
 	public RecipientReceivedAddress getRecipientReceivedAddress()
 	{
 		return new RecipientReceivedAddressImpl();

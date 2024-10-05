@@ -90,6 +90,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.ProSeI
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RadioParameterSetInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateElement;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RealTimeTariffInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientReceivedAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RelatedIMSChargingIdentifierNode;
@@ -472,6 +473,8 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 		
 	public RecipientInfo getRecipientInfo();
 		
+	public RecipientAddress getRecipientAddress();
+	
 	public RecipientReceivedAddress getRecipientReceivedAddress();
 			
 	public OriginatorReceivedAddress getOriginatorReceivedAddress();

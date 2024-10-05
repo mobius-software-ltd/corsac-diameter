@@ -20,12 +20,17 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
 
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CalledIMEI;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CalledService;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CallingIMEI;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CallingService;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.CallingVlrNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.DCS;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.DestAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.DestIMSI;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.FeeAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.FeeFixed;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.FeeFlag;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.FeeMsgNumber;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.FeeSingle;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.FeeType;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.MOMSCAddr;
@@ -36,6 +41,8 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.hua
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.OrigIMSI;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.OriginalCalledPartyId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.OriginalCalledPartyIdNature;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.OriginalGroup;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.OriginalMessageID;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.P2PSMSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.SMId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.huawei.SMLength;
@@ -72,15 +79,29 @@ public class P2PSMSInformationImpl extends DiameterAvpImpl implements P2PSMSInfo
 	
 	private DestAddress destAddress;
 	
+	private FeeAddress feeAddress;
+	
 	private FeeFlag feeFlag;
 	
 	private FeeType feeType;
+	
+	private FeeMsgNumber feeMsgNum;
 	
 	private FeeSingle feeSingle;
 	
 	private FeeFixed feeFixed;
 	
 	private MessagePid messagePid;
+	
+	private CallingService callingService;
+	
+	private CalledService calledService;
+	
+	private OriginalGroup originalGroup;
+	
+	private OriginalMessageID originalMessageID;
+	
+	private CallingVlrNumber callingVlrNumber;
 	
 	private OrigIMSI origIMSI;
 	
@@ -258,6 +279,24 @@ public class P2PSMSInformationImpl extends DiameterAvpImpl implements P2PSMSInfo
 	}			
 	
 	@Override
+	public String getFeeAddress()
+	{
+		if(feeAddress==null)
+			return null;
+		
+		return feeAddress.getString();
+	}
+	
+	@Override
+	public void setFeeAddress(String value)
+	{
+		if(value==null)
+			this.feeAddress = null;
+		else
+			this.feeAddress = new FeeAddressImpl(value);
+	}
+	
+	@Override
 	public Long getFeeFlag()
 	{
 		if(feeFlag==null)
@@ -292,6 +331,24 @@ public class P2PSMSInformationImpl extends DiameterAvpImpl implements P2PSMSInfo
 		else
 			this.feeType = new FeeTypeImpl(value, null, null);
 	}			
+	
+	@Override
+	public Long getFeeMsgNum()
+	{
+		if(feeMsgNum==null)
+			return null;
+		
+		return feeMsgNum.getUnsigned();
+	}
+	
+	@Override
+	public void setFeeMsgNum(Long value)
+	{
+		if(value==null)
+			this.feeMsgNum = null;
+		else
+			this.feeMsgNum = new FeeMsgNumImpl(value, null, null);
+	}
 	
 	@Override
 	public Long getFeeSingle()
@@ -345,6 +402,96 @@ public class P2PSMSInformationImpl extends DiameterAvpImpl implements P2PSMSInfo
 			this.messagePid = null;
 		else
 			this.messagePid = new MessagePidImpl(value, null, null);
+	}
+	
+	@Override
+	public void setOriginalGroup(Long value)
+	{
+		if(value==null)
+			this.originalGroup = null;
+		else
+			this.originalGroup = new OriginalGroupImpl(value, null, null);
+	}	
+	
+	@Override
+	public Long getOriginalGroup()
+	{
+		if(originalGroup==null)
+			return null;
+		
+		return originalGroup.getUnsigned();
+	}	
+	
+	@Override
+	public Long getCallingService()
+	{
+		if(callingService==null)
+			return null;
+		
+		return callingService.getUnsigned();
+	}
+	
+	@Override
+	public void setCallingService(Long value)
+	{
+		if(value==null)
+			this.callingService = null;
+		else
+			this.callingService = new CallingServiceImpl(value, null, null);
+	}
+	
+	@Override
+	public Long getCalledService()
+	{
+		if(calledService==null)
+			return null;
+		
+		return calledService.getUnsigned();
+	}
+	
+	@Override
+	public void setCalledService(Long value)
+	{
+		if(value==null)
+			this.calledService = null;
+		else
+			this.calledService = new CalledServiceImpl(value, null, null);
+	}	
+	
+	@Override
+	public Long getOriginalMessageID()
+	{
+		if(originalMessageID==null)
+			return null;
+		
+		return originalMessageID.getUnsigned();
+	}
+	
+	@Override
+	public void setOriginalMessageID(Long value)
+	{
+		if(value==null)
+			this.originalMessageID = null;
+		else
+			this.originalMessageID = new OriginalMessageIDImpl(value, null, null);
+	}
+	
+	@Override
+	public String getCallingVlrNumber()
+	{
+		if(callingVlrNumber==null)
+			return null;
+		
+		return callingVlrNumber.getString();
+	}
+	
+	@Override
+	public void setCallingVlrNumber(String value)
+	{
+		if(value==null)
+			this.callingVlrNumber = null;
+		else
+			this.callingVlrNumber = new CallingVlrNumberImpl(value);
 	}	
 	
 	@Override

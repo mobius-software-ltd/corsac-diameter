@@ -159,7 +159,7 @@ public class MessageProcessingTask implements Task
 						List<VendorSpecificApplicationId> matchedVendorSpecificApplicationIds = new ArrayList<VendorSpecificApplicationId>();
 						
 						List<Long> realAuthApplicationIds = request.getAuthApplicationIds();
-						List<Long> realAcctApplicationIds = request.getAuthApplicationIds();
+						List<Long> realAcctApplicationIds = request.getAcctApplicationIds();
 						List<VendorSpecificApplicationId> realVendorSpecificApplicationIds = request.getVendorSpecificApplicationIds();
 						
 						if(realAuthApplicationIds!=null)

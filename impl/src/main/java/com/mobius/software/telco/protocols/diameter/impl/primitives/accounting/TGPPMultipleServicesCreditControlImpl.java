@@ -121,37 +121,8 @@ public class TGPPMultipleServicesCreditControlImpl extends DiameterAvpImpl imple
 	
 	private RelatedTrigger relatedTrigger;
 	
-	protected TGPPMultipleServicesCreditControlImpl() 
+	public TGPPMultipleServicesCreditControlImpl()
 	{
-	}
-	
-	public TGPPMultipleServicesCreditControlImpl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication)
-	{
-		this.grantedServiceUnit = grantedServiceUnit;
-		
-		this.requestedServiceUnit = requestedServiceUnit;
-		
-		this.usedServiceUnit = usedServiceUnit;
-		
-		if(serviceIdentifier!=null && serviceIdentifier.size()>0)
-		{
-			this.serviceIdentifier = new ArrayList<ServiceIdentifier>(serviceIdentifier.size());
-			for(Long curr:serviceIdentifier)
-				this.serviceIdentifier.add(new ServiceIdentifierImpl(curr, null, null));
-		}
-		
-		if(ratingGroup != null)
-			this.ratingGroup = new RatingGroupImpl(ratingGroup, null, null);
-		
-		this.gsuPoolReference = gsuPoolReference;
-		
-		if(validityTime != null)
-			this.validityTime = new ValidityTimeImpl(validityTime, null, null);
-		
-		if(resultCode != null)
-			this.resultCode = new ResultCodeImpl(resultCode, null, null);
-		
-		this.finalUnitIndication = finalUnitIndication;
 	}
 	
 	@Override

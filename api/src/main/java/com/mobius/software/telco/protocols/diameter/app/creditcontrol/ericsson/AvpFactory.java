@@ -59,7 +59,7 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 {
 	public ServiceParameterInfo getServiceParameterInfo(Long serviceParameterType,ByteBuf serviceParameterValue) throws MissingAvpException;
 	
-	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl(GrantedServiceUnit grantedServiceUnit, RequestedServiceUnit requestedServiceUnit, List<UsedServiceUnit> usedServiceUnit, List<Long> serviceIdentifier, Long ratingGroup, List<GSUPoolReference> gsuPoolReference, Long validityTime, Long resultCode, FinalUnitIndication finalUnitIndication);
+	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl();
 	
 	public UsedServiceUnit getUsedServiceUnit();
 	

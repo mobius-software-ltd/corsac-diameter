@@ -76,6 +76,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.ProSeI
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RadioParameterSetInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RateElement;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RealTimeTariffInformation;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RecipientReceivedAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.RelatedIMSChargingIdentifierNode;
@@ -89,6 +90,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.ScaleF
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.ServiceSpecificInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.SupplementaryService;
+import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPMultipleServicesCreditControl;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TGPPOCSpecificReduction;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TWANUserLocationInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.TalkBurstExchange;
@@ -100,10 +102,15 @@ import com.mobius.software.telco.protocols.diameter.primitives.accounting.UWANUs
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.UnitCost;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.VCSInformation;
 import com.mobius.software.telco.protocols.diameter.primitives.accounting.WLANOperatorId;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcUnitTypeEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GSUPoolReference;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.GrantedServiceUnit;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.RequestedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionId;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.SubscriptionIdTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UnitValue;
+import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.UsedServiceUnit;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.ServerCapabilities;
 import com.mobius.software.telco.protocols.diameter.primitives.cxdx.SupportedFeatures;
 import com.mobius.software.telco.protocols.diameter.primitives.oma.DCDInformation;
@@ -124,6 +131,18 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 	public OCOLR getOCOLR(Long ocSequenceNumber, OCReportTypeEnum ocReportType) throws MissingAvpException;
 	
 	public TGPPOCSpecificReduction getTGPPOCSpecificReduction();
+	
+	public TGPPMultipleServicesCreditControl getTGPPMultipleServicesCreditControl();
+	
+	public UsedServiceUnit getUsedServiceUnit();
+	
+	public RequestedServiceUnit getRequestedServiceUnit();
+	
+	public GrantedServiceUnit getGrantedServiceUnit();
+	
+	public GSUPoolReference getGSUPoolReference(Long gsuPoolIdentifier,CcUnitTypeEnum ccUnitType,UnitValue unitValue) throws MissingAvpException;
+	
+	public CCMoney getCCMoney(UnitValue unitValue) throws MissingAvpException;
 	
 	public ServiceInformation getServiceInformation();
 	
@@ -265,6 +284,8 @@ public interface AvpFactory extends com.mobius.software.telco.protocols.diameter
 			
 	public RecipientInfo getRecipientInfo();
 			
+	public RecipientAddress getRecipientAddress();
+	
 	public RecipientReceivedAddress getRecipientReceivedAddress();
 				
 	public OriginatorReceivedAddress getOriginatorReceivedAddress();
