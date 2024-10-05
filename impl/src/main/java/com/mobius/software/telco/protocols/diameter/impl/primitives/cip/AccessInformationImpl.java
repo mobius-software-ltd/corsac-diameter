@@ -52,7 +52,7 @@ public class AccessInformationImpl extends DiameterGroupedAvpImpl implements Acc
 	
 	public Long getAuthApplicationId()
 	{
-		if(originHost == null)
+		if(authApplicationId == null)
 			return null;
 		
 		return authApplicationId.getUnsigned();
