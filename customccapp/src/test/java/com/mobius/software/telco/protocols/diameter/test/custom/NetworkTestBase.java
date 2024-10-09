@@ -68,8 +68,17 @@ public class NetworkTestBase
 		serverStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		CustomProviderImpl customProvider=new CustomProviderImpl(serverStack, "com.mobius.software.telco.protocols.diameter.commands.custom");
 		serverStack.registerCustomProvider(customProvider, Package.getPackage(customProvider.getPackageName()));
-		//in commercial you should get the stack through DiameterServerInterface, register customer provider there and add the application to known applications
+		//in commercial you should get the stack through DiameterServerInterface, and add the application to known applications, in stack created callback you should register custom provider
 		//Application.ALL_APPLICATIONS.add(new Application(99999, null, null, "CUSTOM",Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.custom"),Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom")))
+		//new DiameterStackCreatedCallback() 
+		//{			
+		//	@Override
+		//	public void stackCreated(DiameterStack stack) 
+		//	{
+		//		CustomProviderImpl customProvider=new CustomProviderImpl(stack, apiPackage.getName());		
+		//		stack.registerCustomProvider(customProvider, apiPackage);
+		//	}
+		//}
 		serverStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 13868,  InetAddress.getByName("127.0.0.1"), 4868, true, true, "127.0.0.1", "server.mobius-software.com", "127.0.0.1", "client.mobius-software.com", false);
 		serverStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(99999) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.custom"));
 		serverStack.getNetworkManager().startLink(localLinkID);		
@@ -90,8 +99,17 @@ public class NetworkTestBase
 		localStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		CustomProviderImpl customProvider=new CustomProviderImpl(localStack, "com.mobius.software.telco.protocols.diameter.commands.custom");
 		localStack.registerCustomProvider(customProvider, Package.getPackage(customProvider.getPackageName()));
-		//in commercial you should get the stack through DiameterServerInterface, register customer provider there and add the application to known applications
+		//in commercial you should get the stack through DiameterServerInterface, and add the application to known applications, in stack created callback you should register custom provider
 		//Application.ALL_APPLICATIONS.add(new Application(99999, null, null, "CUSTOM",Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.custom"),Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom")))
+		//new DiameterStackCreatedCallback() 
+		//{			
+		//	@Override
+		//	public void stackCreated(DiameterStack stack) 
+		//	{
+		//		CustomProviderImpl customProvider=new CustomProviderImpl(stack, apiPackage.getName());		
+		//		stack.registerCustomProvider(customProvider, apiPackage);
+		//	}
+		//}
 		localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868,  InetAddress.getByName("127.0.0.1"), 13868, false, true, "127.0.0.1", "client.mobius-software.com", "127.0.0.1", "server.mobius-software.com", false);
 		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(99999) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.custom"));
 		localStack.getNetworkManager().startLink(localLinkID);		
