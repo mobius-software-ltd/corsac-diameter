@@ -138,6 +138,88 @@ public class ChargingInterrogationTest extends NetworkTestBase
 			public void onInitialAnswer(ChargingInterrogationAnswer answer, ClientCCSession<ChargingInterrogationRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 				ciaReceivedByListener.incrementAndGet();
+				
+				if(ciaReceived.get() == 1L) 
+				{
+					
+				try{
+					
+					DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
+					
+					String chargingContextId = new String("chargingContextId");
+					Long ccRequestNumber = new Long(4);
+					String subscriptionIdData = new String("1234567");
+					
+					SubscriptionId sId = provider.getAvpFactory().getSubscriptionId(SubscriptionIdTypeEnum.END_USER_E164, subscriptionIdData);
+					List<SubscriptionId> subscriptionId = new ArrayList<>();
+					subscriptionId.add(sId);
+					
+					
+					ChargingInterrogationRequest updateRequest = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(), chargingContextId, CcRequestTypeEnum.UPDATE_REQUEST, ccRequestNumber, subscriptionId);
+					session.sendInitialRequest(updateRequest, new AsyncCallback()
+					{
+						@Override
+						public void onSuccess()
+						{
+							logger.info("The  Update request has been successfully processed.");
+							 
+						}
+						
+						@Override
+						public void onError(DiameterException ex)
+						{
+							logger.error("An error occured while sending Charging Interrogation Update Request," + ex.getMessage(),ex);
+						}
+					});
+					
+				}
+				catch(DiameterException ex)
+				{
+					logger.error("An error occured while sending Charging Interrogation Answer," + ex.getMessage(),ex);
+				}
+				
+				}
+				
+				else if(ciaReceived.get() == 2L) 
+				{
+					try
+					{
+						DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
+						
+						String chargingContextId = new String("chargingContextId");
+						Long ccRequestNumber = new Long(4);
+						String subscriptionIdData = new String("1234567");
+						
+						SubscriptionId sId = provider.getAvpFactory().getSubscriptionId(SubscriptionIdTypeEnum.END_USER_E164, subscriptionIdData);
+						List<SubscriptionId> subscriptionId = new ArrayList<>();
+						subscriptionId.add(sId);
+						
+						ChargingInterrogationRequest terminationRequest = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(), chargingContextId, CcRequestTypeEnum.TERMINATION_REQUEST, ccRequestNumber, subscriptionId);
+						session.sendInitialRequest(terminationRequest, new AsyncCallback()
+						{
+	
+								@Override
+							    public void onSuccess()
+							    {
+							    	logger.info("The Termination request has been successfully processed.");
+							    }
+	
+							    @Override
+							    public void onError(DiameterException ex) 
+							    {
+							        logger.error("An error occurred while sending third Charging Interrogation Termination Request," + ex.getMessage(), ex);
+							    }
+							});
+					}
+					
+					catch(DiameterException ex)
+					{
+						
+					}
+					
+						
+				}
+				
 			}
 			
 			@Override
@@ -189,7 +271,8 @@ public class ChargingInterrogationTest extends NetworkTestBase
 						@Override
 						public void onSuccess()
 						{
-							
+							 logger.info("The response was successfully sent"); 
+							 
 						}
 						
 						@Override
@@ -236,77 +319,28 @@ public class ChargingInterrogationTest extends NetworkTestBase
 		List<SubscriptionId> subscriptionId = new ArrayList<>();
 		subscriptionId.add(sId);
 
-		ChargingInterrogationRequest request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.INITIAL_REQUEST,ccRequestNumber,subscriptionId);
+		ChargingInterrogationRequest request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.EVENT_REQUEST,ccRequestNumber,subscriptionId);
+		
 		ChargingInterrogationClientSession clientSession = (ChargingInterrogationClientSession)provider.getSessionFactory().createClientSession(request);
 		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
-			public void onSuccess()
+		    public void onSuccess() 
 			{
+		        logger.info("The first request has been successfully processed"); 
 			}
-			
-			@Override
-			public void onError(DiameterException ex)
-			{
-				logger.error("An error occured while sending ChargingInterrogation Request," + ex.getMessage(),ex);
-			}
+
+		    @Override
+		    public void onError(DiameterException ex)
+		    {
+		        logger.error("An error occurred while sending Charging Interrogation Request," + ex.getMessage(), ex);
+		    }
+		   
 		});
 		
 		try
 		{
-			Thread.sleep(responseTimeout);
-		}
-		catch(InterruptedException ex)
-		{
-			
-		}
-		
-		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
-		
-		request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.UPDATE_REQUEST,ccRequestNumber,subscriptionId);
-		clientSession.sendInitialRequest(request, new AsyncCallback()
-		{
-			@Override
-			public void onSuccess()
-			{
-			}
-			
-			@Override
-			public void onError(DiameterException ex)
-			{
-				logger.error("An error occured while sending Accounting Request," + ex.getMessage(),ex);
-			}
-		});
-		//make sure no timeout is processed
-		try
-		{
-			Thread.sleep(responseTimeout);
-		}
-		catch(InterruptedException ex)
-		{
-			
-		}
-		
-		assertEquals(clientSession.getSessionState(),SessionStateEnum.OPEN);
-		
-		request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.TERMINATION_REQUEST,ccRequestNumber,subscriptionId);
-		clientSession.sendInitialRequest(request, new AsyncCallback()
-		{
-			@Override
-			public void onSuccess()
-			{
-			}
-			
-			@Override
-			public void onError(DiameterException ex)
-			{
-				logger.error("An error occured while sending Accounting Request," + ex.getMessage(),ex);
-			}
-		});
-		
-		try
-		{
-			Thread.sleep(responseTimeout);
+			Thread.sleep(responseTimeout * 2);
 		}
 		catch(InterruptedException ex)
 		{
@@ -358,4 +392,6 @@ public class ChargingInterrogationTest extends NetworkTestBase
 		assertEquals(timeoutReceived.get() , 0L);
 	}
 }
+
+
 	
