@@ -319,7 +319,7 @@ public class ChargingInterrogationTest extends NetworkTestBase
 		List<SubscriptionId> subscriptionId = new ArrayList<>();
 		subscriptionId.add(sId);
 
-		ChargingInterrogationRequest request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.EVENT_REQUEST,ccRequestNumber,subscriptionId);
+		ChargingInterrogationRequest request = provider.getMessageFactory().createChargingInterrogationRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationRealm(),chargingContextId,CcRequestTypeEnum.INITIAL_REQUEST,ccRequestNumber,subscriptionId);
 		
 		ChargingInterrogationClientSession clientSession = (ChargingInterrogationClientSession)provider.getSessionFactory().createClientSession(request);
 		clientSession.sendInitialRequest(request, new AsyncCallback()
