@@ -1,6 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives.gy;
 import java.util.ArrayList;
-import java.util.Date;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -77,15 +76,15 @@ public class UsedServiceUnitImpl extends RequestedServiceUnitImpl implements Use
 		}
 	}
 	
-	public Date getCCTime()
+	public Long getCCTime()
 	{
 		if(this.ccTime == null)
 			return null;
 		
-		return this.ccTime.getDateTime();
+		return this.ccTime.getUnsigned();
 	}
 	
-	public void setCCTime(Date value)
+	public void setCCTime(Long value)
 	{
 		if(value == null)
 			this.ccTime = null;

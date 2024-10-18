@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.primitives.gy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
-
 import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 
@@ -31,9 +29,9 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefin
 @DiameterAvpDefinition(code = AvpCodes.GRANTED_SERVICE_UNIT, vendorId = -1, name = "Granted-Service-Unit")
 public interface GrantedServiceUnit extends RequestedServiceUnit
 {	
-	Date getCCTime();
+	Long getCCTime();
 	
-	void setCCTime(Date value);
+	void setCCTime(Long value);
 	
 	Long getCCTotalOctets();
 	

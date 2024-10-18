@@ -18,9 +18,7 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
-
-import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterTimeImpl;
+import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterUnsigned32Impl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcTime;
 
 /**
@@ -28,7 +26,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcT
 * @author yulian oifa
 *
 */
-public class CcTimeImpl extends DiameterTimeImpl implements CcTime
+public class CcTimeImpl extends DiameterUnsigned32Impl implements CcTime
 {
 	protected CcTimeImpl() 
 	{
@@ -40,7 +38,7 @@ public class CcTimeImpl extends DiameterTimeImpl implements CcTime
 		super(minValue, maxValue);
 	}
 	
-	public CcTimeImpl(Date value,Long minValue,Long maxValue) 
+	public CcTimeImpl(Long value,Long minValue,Long maxValue) 
 	{
 		super(value, minValue, maxValue);
 	}

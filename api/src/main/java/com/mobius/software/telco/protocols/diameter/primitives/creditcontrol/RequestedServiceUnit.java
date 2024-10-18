@@ -18,8 +18,6 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
-
 import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
@@ -55,9 +53,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAv
 @DiameterAvpDefinition(code = AvpCodes.REQUESTED_SERVICE_UNIT, vendorId = -1, name = "Requested-Service-Unit")
 public interface RequestedServiceUnit extends DiameterGroupedAvp 
 {
-	Date getCCTime();
+	Long getCCTime();
 	
-	void setCCTime(Date value);
+	void setCCTime(Long value);
 	
 	CCMoney getCCMoney();
 	

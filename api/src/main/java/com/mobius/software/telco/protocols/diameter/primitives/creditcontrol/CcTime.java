@@ -20,7 +20,7 @@ package com.mobius.software.telco.protocols.diameter.primitives.creditcontrol;
 
 import com.mobius.software.telco.protocols.diameter.AvpCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterAvpDefinition;
-import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
+import com.mobius.software.telco.protocols.diameter.primitives.DiameterUnsigned32;
 
 /**
 *
@@ -34,6 +34,6 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
    the length of the requested, granted, or used time in seconds.
  */
 @DiameterAvpDefinition(code = AvpCodes.CC_TIME, vendorId = -1L, name = "Cc-Time")
-public interface CcTime extends DiameterTime
+public interface CcTime extends DiameterUnsigned32
 {
 }

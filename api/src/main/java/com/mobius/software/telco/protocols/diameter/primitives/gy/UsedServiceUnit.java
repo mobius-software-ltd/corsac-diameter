@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.primitives.gy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.AvpCodes;
@@ -45,9 +44,9 @@ public interface UsedServiceUnit extends RequestedServiceUnit
 
 	void setReportingReason(List<ReportingReasonEnum> value);  
 	
-	Date getCCTime();
+	Long getCCTime();
 	
-	void setCCTime(Date value);	
+	void setCCTime(Long value);	
 	
 	Long getCCTotalOctets();
 	

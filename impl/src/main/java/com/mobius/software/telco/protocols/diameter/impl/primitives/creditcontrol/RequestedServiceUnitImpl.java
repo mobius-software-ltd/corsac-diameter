@@ -18,7 +18,6 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives.creditcontr
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import java.util.Date;
 
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterGroupedAvpImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CCMoney;
@@ -52,15 +51,15 @@ public class RequestedServiceUnitImpl extends DiameterGroupedAvpImpl implements 
 	{		
 	}
 	
-	public Date getCCTime()
+	public Long getCCTime()
 	{
 		if(this.ccTime == null)
 			return null;
 		
-		return this.ccTime.getDateTime();
+		return this.ccTime.getUnsigned();
 	}
 	
-	public void setCCTime(Date value)
+	public void setCCTime(Long value)
 	{
 		if(value == null)
 			this.ccTime = null;
