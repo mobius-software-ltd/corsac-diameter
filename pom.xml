@@ -9,7 +9,7 @@
 	
 	<groupId>com.mobius-software.protocols.diameter</groupId>
 	<artifactId>diameter-parent</artifactId>
-	<version>10.0.0-11-java11</version>
+	<version>10.0.0-12-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 
@@ -188,7 +188,7 @@
 		<connection>scm:git:https://github.com/mobius-software-ltd/corsac-diameter.git</connection>
 		<developerConnection>scm:git:git@github.com:mobius-software-ltd/corsac-diameter.git</developerConnection>
 		<url>https://github.com/mobius-software-ltd/corsac-diameter</url>
-	  	<tag>diameter-parent-10.0.0-11-java11</tag>
+	  	<tag>HEAD</tag>
     </scm>
 	<!-- repositories -->
 	<repositories>
