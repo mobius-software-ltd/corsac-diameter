@@ -76,5 +76,8 @@ public class T4DeliveryReportTest
 		assertEquals(drr.getOriginRealm(),"ims.mnc001.mcc240.3gppnetwork.org");	
 		assertNotNull(drr.getSMRPSMEA());
 		assertEquals(drr.getSMRPSMEA().readableBytes(),5);
+		
+		System.out.println(diameterParser.printMessage(drr));	
+		
 	}
 }

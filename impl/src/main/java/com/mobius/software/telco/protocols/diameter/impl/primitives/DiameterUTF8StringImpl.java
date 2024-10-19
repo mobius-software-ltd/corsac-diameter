@@ -21,7 +21,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
 import java.nio.charset.Charset;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterUTF8String;
 
 import io.netty.buffer.ByteBuf;
@@ -67,6 +69,15 @@ public class DiameterUTF8StringImpl extends DiameterOctetStringImpl implements D
 			this.value = value.toString(ENCODING);
 		
 		return null;
+	}
+	
+	@DiameterPrint
+	public void print(StringBuilder sb) 
+	{
+		if(value==null)
+			DiameterParser.printMesage(sb, "");
+		else			
+			DiameterParser.printMesage(sb, value);		 		
 	}
 	
 	@Override

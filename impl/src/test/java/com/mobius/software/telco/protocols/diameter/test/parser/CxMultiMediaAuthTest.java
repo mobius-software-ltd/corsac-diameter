@@ -157,6 +157,8 @@ public class CxMultiMediaAuthTest
 		multimediaAuthRequestMessagePatched.readBytes(marData);
 		assertArrayEquals(marEncodedData, marData);
 		
+		System.out.println(diameterParser.printMessage(mar));
+		
 		multimediaAuthAnswerMessage.resetReaderIndex();
 		decodeMessage = diameterParser.decode(multimediaAuthAnswerMessage, false);
 		assertNotNull(decodeMessage);
@@ -210,5 +212,7 @@ public class CxMultiMediaAuthTest
 		byte[] eaaData = new byte[multimediaAuthAnswerMessagePatched.readableBytes()];
 		multimediaAuthAnswerMessagePatched.readBytes(eaaData);
 		assertArrayEquals(eaaEncodedData, eaaData);
+		
+		System.out.println(diameterParser.printMessage(maa));				
 	}
 }

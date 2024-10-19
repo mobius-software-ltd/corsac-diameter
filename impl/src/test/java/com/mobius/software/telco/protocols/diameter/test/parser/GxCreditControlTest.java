@@ -249,6 +249,8 @@ public class GxCreditControlTest
 		patchedCreditControlRequestMessage.readBytes(ccrData);
 		assertArrayEquals(ccrEncodedData, ccrData);
 		
+		System.out.println(diameterParser.printMessage(ccr));
+		
 		creditControlAnswerMessage.resetReaderIndex();
 		decodeMessage = diameterParser.decode(creditControlAnswerMessage, false);
 		assertNotNull(decodeMessage);
@@ -325,8 +327,10 @@ public class GxCreditControlTest
 		byte[] dwaEncodedData = new byte[encodedMessage.readableBytes()];
 		encodedMessage.readBytes(dwaEncodedData);
 		patchedCreditControlAnswerMessage.setIndex(0,patchedCreditControlAnswerMessage.writerIndex());
-		byte[] dwaData = new byte[patchedCreditControlAnswerMessage.readableBytes()];
-		patchedCreditControlAnswerMessage.readBytes(dwaData);
-		assertArrayEquals(dwaEncodedData, dwaData);
+		byte[] ccaData = new byte[patchedCreditControlAnswerMessage.readableBytes()];
+		patchedCreditControlAnswerMessage.readBytes(ccaData);
+		assertArrayEquals(dwaEncodedData, ccaData);
+		
+		System.out.println(diameterParser.printMessage(cca));		
 	}
 }

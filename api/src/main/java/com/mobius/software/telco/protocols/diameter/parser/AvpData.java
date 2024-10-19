@@ -33,6 +33,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 public class AvpData implements ChildData
 {
 	private Class<?> clazz;
+	private String name;
 	private Field field;
 	private List<AvpData> orderedAvpData;
 	private ConcurrentHashMap<DiameterAvpKey,AvpData> avpData;
@@ -41,13 +42,16 @@ public class AvpData implements ChildData
 	private Method encodeMethod;
 	private Method decodeMethod;
 	private Method lengthMethod;
+	private Method printMethod;
+	
 	private Long vendorID;
 	private Long avpID;
 	private Boolean isMust;
 	
-	public AvpData(Class<?> clazz,Field field,Long vendorID, Long avpID, Boolean isMust, Method validateMethod, Method orderMethod, Method encodeMethod, Method decodeMethod, Method lengthMethod)
+	public AvpData(Class<?> clazz,String name,Field field,Long vendorID, Long avpID, Boolean isMust, Method validateMethod, Method orderMethod, Method encodeMethod, Method decodeMethod, Method lengthMethod,Method printMethod)
 	{
 		this.clazz = clazz;
+		this.name = name;
 		this.field = field;
 		this.vendorID = vendorID;
 		this.avpID = avpID;
@@ -56,7 +60,20 @@ public class AvpData implements ChildData
 		this.encodeMethod = encodeMethod;
 		this.decodeMethod = decodeMethod;
 		this.lengthMethod = lengthMethod;
+		this.printMethod = printMethod;
 	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
 
 	public Method getValidateMethod()
 	{
@@ -108,6 +125,16 @@ public class AvpData implements ChildData
 		this.lengthMethod = lengthMethod;
 	}	
 	
+	public Method getPrintMethod()
+	{
+		return printMethod;
+	}
+
+	public void setPrintMethod(Method printMethod)
+	{
+		this.printMethod = printMethod;
+	}
+
 	public void setOrderedAvpData(List<AvpData> orderedAvpData)
 	{
 		this.orderedAvpData = orderedAvpData;

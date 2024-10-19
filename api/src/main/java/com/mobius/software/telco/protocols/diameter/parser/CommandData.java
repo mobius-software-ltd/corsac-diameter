@@ -32,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvpKey;
 public class CommandData implements ChildData
 {
 	private List<AvpData> orderedAvpData;
+	private String name;
 	private ConcurrentHashMap<DiameterAvpKey,AvpData> avpData;
 	private Class<?> clazz;
 	private Integer commandCode;
@@ -41,15 +42,26 @@ public class CommandData implements ChildData
 	private Boolean isRequest;
 	private Boolean isProxyable;
 	
-	public CommandData(Class<?> clazz,Integer commandCode, Long applicationID, Method validateMethod,Method orderMethod,Boolean isRequest,Boolean isProxyable)
+	public CommandData(Class<?> clazz,String name,Integer commandCode, Long applicationID, Method validateMethod,Method orderMethod,Boolean isRequest,Boolean isProxyable)
 	{
 		this.clazz = clazz;
+		this.name = name;
 		this.commandCode = commandCode;
 		this.applicationID = applicationID;
 		this.validateMethod = validateMethod;
 		this.orderMethod = orderMethod;
 		this.isProxyable = isProxyable;
 		this.isRequest = isRequest;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 
 	public Method getValidateMethod()

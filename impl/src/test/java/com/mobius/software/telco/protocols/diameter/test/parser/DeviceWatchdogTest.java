@@ -66,6 +66,8 @@ public class DeviceWatchdogTest
 		deviceWatchdogRequestMessage.readBytes(dwrData);
 		assertArrayEquals(dwrEncodedData, dwrData);
 		
+		System.out.println(diameterParser.printMessage(dwr));	
+		
 		deviceWatchdogAnswerMessage.resetReaderIndex();
 		decodeMessage = diameterParser.decode(deviceWatchdogAnswerMessage, false);
 		assertNotNull(decodeMessage);
@@ -92,5 +94,7 @@ public class DeviceWatchdogTest
 		byte[] dwaData = new byte[deviceWatchdogAnswerMessage.readableBytes()];
 		deviceWatchdogAnswerMessage.readBytes(dwaData);
 		assertArrayEquals(dwaEncodedData, dwaData);
+		
+		System.out.println(diameterParser.printMessage(dwa));		
 	}
 }

@@ -5,8 +5,10 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterEncode;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import io.netty.buffer.ByteBuf;
+import java.lang.StringBuilder;
 
 public class GoodPrimitive implements AvpInterface 
 {
@@ -22,5 +24,9 @@ public class GoodPrimitive implements AvpInterface
 	
 	@DiameterEncode
 	public void encode(ByteBuf buffer) {		
+	}
+	
+	@DiameterPrint
+	public void print(StringBuilder sb) {		
 	}
 }

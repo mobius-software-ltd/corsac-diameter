@@ -1,9 +1,12 @@
 package com.mobius.software.telco.protocols.diameter.impl.primitives;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 
 import io.netty.buffer.ByteBuf;
@@ -39,6 +42,7 @@ public class DiameterTimeImpl extends DiameterUnsigned32Impl implements Diameter
 	
 	private Date date;
 	
+	private static SimpleDateFormat sf=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	//required for parser
 	public DiameterTimeImpl() 
 	{
@@ -58,6 +62,15 @@ public class DiameterTimeImpl extends DiameterUnsigned32Impl implements Diameter
 	public Date getDateTime() 
 	{
 		return date;
+	}
+	
+	@DiameterPrint
+	public void print(StringBuilder sb) 
+	{
+		if(date==null)
+			DiameterParser.printMesage(sb, "");
+		else			
+			DiameterParser.printMesage(sb, sf.format(date));		 		
 	}
 
 	@DiameterDecode

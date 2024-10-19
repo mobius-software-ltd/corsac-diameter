@@ -25,6 +25,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterEncode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 
@@ -58,6 +59,7 @@ import io.netty.buffer.ByteBuf;
 @SupportedAnnotationTypes( { "*" } )
 public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 	private static final String EXPECTED_ENCODE_DECODE_PARAM=ByteBuf.class.getCanonicalName();
+	private static final String EXPECTED_PRINT_PARAM=StringBuilder.class.getCanonicalName();
 	private static final String EXPECTED_INTEGER_PARAM=Integer.class.getCanonicalName();
 	private static final String EXPECTED_COMMAND_PARAM=DiameterCommandDefinition.class.getCanonicalName();
 	private static final String EXPECTED_AVP_PARAM=DiameterAvpDefinition.class.getCanonicalName();
@@ -112,6 +114,7 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 				Integer validateTags=0;
 				Integer lengthTags=0;
 				Integer encodeTags=0;
+				Integer printTags=0;
 				Integer decodeTags=0;
 				Integer orderTags=0;
 				
@@ -153,6 +156,19 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 						}
 					}
 					
+					DiameterPrint print=method.getAnnotation(DiameterPrint.class);
+					if(print!=null) {
+						printTags+=1;	
+						
+						if(params.size()!=1)
+							processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Element '%s' is annotated as @DiameterCommandDefinition, however its method %s annoted with @DiameterPrint should have one parameter", className, method.getSimpleName()));
+						else {
+							String realParamName=((TypeElement)processingEnv.getTypeUtils().asElement(params.get(0).asType())).getQualifiedName().toString();
+							if(!realParamName.equals(EXPECTED_PRINT_PARAM))
+									processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Element '%s' is annotated as @DiameterCommandDefinition, however its method %s annoted with @DiameterPrint should have one parameter with type %s", className, method.getSimpleName(), EXPECTED_PRINT_PARAM));
+						}
+					}
+					
 					DiameterDecode decode=method.getAnnotation(DiameterDecode.class);
 					if(decode!=null) {
 						decodeTags+=1;					
@@ -183,6 +199,9 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 				if(encodeTags>1)
 					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterCommandDefinition, however has multiple methods found with DiameterEncode annotation", className));
 					
+				if(printTags>1)
+					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterCommandDefinition, however has multiple methods found with DiameterPrint annotation", className));
+					
 				if(decodeTags>1)
 						processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterCommandDefinition, however has multiple methods found with DiameterDecode annotation", className));
 				
@@ -191,6 +210,9 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 				
 				if(encodeTags!=0)
 					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterCommandDefinition, however has method found with DiameterEncode annotation", className));
+				
+				if(printTags!=0)
+					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterCommandDefinition, however has method found with DiameterPrint annotation", className));
 				
 				if(decodeTags!=0)
 					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterCommandDefinition, however has method found with DiameterDecode annotation", className));
@@ -234,6 +256,7 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 				Integer validateTags=0;
 				Integer lengthTags=0;
 				Integer encodeTags=0;
+				Integer printTags=0;
 				Integer decodeTags=0;
 				Integer orderTags=0;
 				
@@ -314,6 +337,20 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 						}
 					}
 					
+					DiameterPrint print=method.getAnnotation(DiameterPrint.class);
+					if(print!=null) {
+						//we may have multiple print for example for AsciiString/OctetString
+						printTags=1;	
+						
+						if(params.size()!=1)
+							processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Element '%s' is annotated as @DiameterAvpDefinition, however its method %s annoted with @DiameterPrint should have one parameter", className, method.getSimpleName()));
+						else {
+							String realParamName=((TypeElement)processingEnv.getTypeUtils().asElement(params.get(0).asType())).getQualifiedName().toString();
+							if(!realParamName.equals(EXPECTED_PRINT_PARAM))
+									processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Element '%s' is annotated as @DiameterAvpDefinition, however its method %s annoted with @DiameterPrint should have one parameter with type %s", className, method.getSimpleName(), EXPECTED_PRINT_PARAM));
+						}
+					}
+					
 					DiameterDecode decode=method.getAnnotation(DiameterDecode.class);
 					if(decode!=null) {
 						//we may have multiple decode for example for AsciiString/OctetString
@@ -345,6 +382,9 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 				if(encodeTags>1)
 					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterAvpDefinition, however has multiple methods found with DiameterEncode annotation", className));
 					
+				if(printTags>1)
+					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterAvpDefinition, however has multiple methods found with DiameterPrint annotation", className));
+					
 				if(decodeTags>1)
 						processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterAvpDefinition, however has multiple methods found with DiameterDecode annotation", className));
 				
@@ -353,6 +393,9 @@ public class DiameterTagAnnotationProcessor extends AbstractProcessor {
 				
 				if(!hasChildAvps && encodeTags==0)
 					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterAvpDefinition, however no method found with DiameterEncode annotation", className));
+				
+				if(!hasChildAvps && printTags==0)
+					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterAvpDefinition, however no method found with DiameterPrint annotation", className));
 				
 				if(!hasChildAvps && decodeTags==0)
 					processingEnv.getMessager().printMessage( Diagnostic.Kind.ERROR,String.format( "Class '%s' is annotated as @DiameterAvpDefinition, however no method found with DiameterDecode annotation", className));

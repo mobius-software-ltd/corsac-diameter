@@ -23,11 +23,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterAsciiStringImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterRuleAddressImpl;
 import com.mobius.software.telco.protocols.diameter.impl.primitives.DiameterRulePortsImpl;
+import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterQosAction;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterRuleAddress;
@@ -168,6 +170,16 @@ public class DiameterQosFilterRuleImpl extends DiameterAsciiStringImpl implement
 		}
 		
 		return null;
+	}
+	
+	@DiameterPrint
+	public void print(StringBuilder sb) 
+	{
+		String rule=getRule();
+		if(rule==null)
+			DiameterParser.printMesage(sb, "");
+		else			
+			DiameterParser.printMesage(sb, rule);		 		
 	}
 		
 	@Override

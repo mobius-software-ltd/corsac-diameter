@@ -81,6 +81,8 @@ public class S13MEIdentityCheckTest
 		assertEquals(msisdn.getAddress(),"249123499991");
 		assertNotNull(mer.getRouteRecords());
 		assertEquals(mer.getRouteRecords().size(),1);
-		assertEquals(mer.getRouteRecords().get(0),"psdscscf01.ims.mnc007.mcc634.3gppnetwork.org");		
+		assertEquals(mer.getRouteRecords().get(0),"psdscscf01.ims.mnc007.mcc634.3gppnetwork.org");	
+		
+		System.out.println(diameterParser.printMessage(mer));
 	}
 }

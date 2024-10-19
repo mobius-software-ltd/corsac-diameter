@@ -32,6 +32,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterEncode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterOrder;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterErrorAnswer;
@@ -103,7 +104,7 @@ public class DiameterParser
 					orderMethod = method;
 			}
 			
-			CommandData newCommand = new CommandData(clazz, 0, 0L, validateMethod, orderMethod, false, true);
+			CommandData newCommand = new CommandData(clazz, "ERROR-MESSAGE", 0, 0L, validateMethod, orderMethod, false, true);
 			commandsMap.put(clazz, newCommand);
 			buildAvpList(newCommand, 0L, false, 0, clazz);	
 		}
@@ -270,8 +271,17 @@ public class DiameterParser
 							childAvps.add(currAvp);
 					}
 				}
-			}
-			
+			}			
+		}
+		
+		for(DiameterAvp curr:childAvps)
+		{
+			if(curr!=null)
+				encode(result, curr, isError);
+		}
+		
+		if(commandData.getOrderMethod()==null)
+		{
 			Map<DiameterAvpKey,List<DiameterUnknownAvp>> optionalAvps = message.getOptionalAvps();
 			if(optionalAvps!=null)
 			{
@@ -286,12 +296,6 @@ public class DiameterParser
 					}
 				}
 			}
-		}
-		
-		for(DiameterAvp curr:childAvps)
-		{
-			if(curr!=null)
-				encode(result, curr, isError);
 		}
 		
 		return result;
@@ -557,6 +561,557 @@ public class DiameterParser
 					}
 				}
 			}
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public String printMessage(DiameterMessage message) throws DiameterException
+	{
+		CommandData commandData = commandsMap.get(message.getClass());
+		if(commandData==null)
+			throw new DiameterException("Can not encode class " + message.getClass().getCanonicalName() + " since it has not been registered yet with parser", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+		
+		Boolean isError = false;
+		if((message instanceof DiameterAnswer))
+			isError = ((DiameterAnswer)message).getIsError();
+		
+		Integer commandLength = getLength(message, commandData.getAvpOrderedData()) + 20;
+		StringBuilder result = new StringBuilder();
+		
+		//in case of logger,etc, should not having anything in first line
+		result.append(System.getProperty("line.separator"));
+		
+		printSeparatorLines(result, 1);
+		printMesage(result, commandData.getName().toUpperCase(), ' ');
+		printSeparatorLines(result, 1);
+		
+		printLineStart(result);
+		//version
+		printMesage(result, String.valueOf(1), 8);
+		
+		printItemSeparator(result);
+		
+		//length
+		printMesage(result, String.valueOf(commandLength), 24);
+		
+		printLineEnd(result);
+		printSeparatorLines(result, 1);
+		printLineStart(result);
+		
+		//command flags
+		if(commandData.getIsRequest()!=null && commandData.getIsRequest())
+			result.append("R");
+		else
+			result.append(".");
+		
+		if(message.getIsProxyable()!=null)
+		{
+			if(message.getIsProxyable())
+				result.append("P");
+			else
+				result.append(".");
+		}
+		else if(commandData.getIsProxyable()!=null)
+		{
+			if(commandData.getIsProxyable())
+				result.append("P");
+			else
+				result.append(".");
+		}
+		
+		if(isError!=null && isError)
+			result.append("E");
+		else
+			result.append(".");
+		
+		if(message.getIsRetransmit()!=null && message.getIsRetransmit())
+			result.append("T");
+		else
+			result.append(".");
+		
+		printMesage(result, "", 4);
+		
+		printItemSeparator(result);
+		
+		if(message instanceof DiameterErrorAnswer)
+			printMesage(result, ((DiameterErrorAnswer)message).getCommandCode().toString(), 24);
+			//command code
+		else
+			//command code
+			printMesage(result, commandData.getCommandCode().toString(), 24);
+		
+		printLineEnd(result);
+		printSeparatorLines(result, 1);
+		
+		if(message instanceof DiameterErrorAnswer)	
+			//application ID
+			printMesage(result, ((DiameterErrorAnswer)message).getApplicationId().toString(),35);
+		else
+			//application ID
+			printMesage(result, commandData.getApplicationID().toString(),35);
+		
+		printSeparatorLines(result, 1);
+		
+		//hop by hop identifier
+		if(message.getHopByHopIdentifier()!=null)
+			printMesage(result, message.getHopByHopIdentifier().toString(),35);
+		else
+			printMesage(result, "0",35);
+		
+		printSeparatorLines(result, 1);
+		
+		//end by end identifier
+		if(message.getEndToEndIdentifier()!=null)
+			printMesage(result, message.getEndToEndIdentifier().toString(),35);
+		else
+			printMesage(result, "0",35);
+		
+		printSeparatorLines(result, 1);
+		
+		//now avps
+		List<DiameterAvp> childAvps = null;
+		if(commandData.getOrderMethod()!=null)
+		{
+			try
+			{
+				childAvps = (List<DiameterAvp>)commandData.getOrderMethod().invoke(message);
+			}
+			catch(IllegalAccessException ex)
+			{
+				throw new DiameterException("Can not get child avps for class " + message.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+			}
+			catch(InvocationTargetException ex)
+			{
+				if(ex.getTargetException()!=null && ex.getTargetException() instanceof DiameterException)
+					throw (DiameterException)ex.getTargetException();
+				
+				throw new DiameterException("Can not get child avps for class " + message.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+			}
+		}
+		else
+		{
+			childAvps = new ArrayList<DiameterAvp>();
+			if(commandData.getAvpOrderedData()!=null)
+			{
+				for(AvpData curr:commandData.getAvpOrderedData())
+				{
+					curr.getField().setAccessible(true);
+					if(curr.getField().getType().isAssignableFrom(List.class))
+					{
+						List currList = null;
+						try
+						{
+							currList = (List)curr.getField().get(message);
+						}
+						catch(IllegalAccessException ex)
+						{
+							throw new DiameterException("Can not get child avp for class " + message.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+						}
+						
+						if(currList!=null)
+						{
+							for(Object currAvp:currList)
+								childAvps.add((DiameterAvp)currAvp);
+						}
+					}
+					else
+					{
+						DiameterAvp currAvp = null;
+						try
+						{
+							currAvp = (DiameterAvp)curr.getField().get(message);
+						}
+						catch(IllegalAccessException ex)
+						{
+							throw new DiameterException("Can not get child avp for class " + message.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+						}
+						
+						if(currAvp!=null)
+							childAvps.add(currAvp);
+					}
+				}
+			}
+		}
+		
+		for(DiameterAvp curr:childAvps)
+		{
+			if(curr!=null)
+				printAvp(result, curr, isError, 1);
+		}
+		
+
+		if(commandData.getOrderMethod()==null)
+		{
+			Map<DiameterAvpKey,List<DiameterUnknownAvp>> optionalAvps = message.getOptionalAvps();
+			if(optionalAvps!=null)
+			{
+				Iterator<Entry<DiameterAvpKey,List<DiameterUnknownAvp>>> iterator = optionalAvps.entrySet().iterator();
+				while(iterator.hasNext())
+				{
+					Entry<DiameterAvpKey,List<DiameterUnknownAvp>> currEntry = iterator.next();
+					if(currEntry.getValue()!=null)
+					{
+						for(DiameterUnknownAvp unknownAvp : currEntry.getValue())
+							printAvp(result, unknownAvp, isError , 1);
+					}
+				}
+			}
+		}
+		
+		return result.toString();
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void printAvp(StringBuilder result,DiameterAvp avp, Boolean isError,int separatorLines) throws DiameterException
+	{
+		if(separatorLines>1)
+			printSeparatorLines(result, separatorLines-1);
+		
+		if(avp instanceof DiameterUnknownAvp)
+		{
+			DiameterUnknownAvp unknownAvp = (DiameterUnknownAvp)avp;
+			
+			printMesage(result, "UNKNOWN-AVP", ' ');
+			printSeparatorLines(result, separatorLines);
+			
+			Integer avpLength = unknownAvp.getLength() + 8;
+			if(unknownAvp.getVendorID()!=null && unknownAvp.getVendorID()>0)
+				avpLength += 4;
+			
+			//avp code
+			printMesage(result, unknownAvp.getAvpCode().toString(), 35);
+			
+			printSeparatorLines(result, 1);
+			printLineStart(result);
+			
+			//avp flags
+			if(unknownAvp.getVendorID()!=null && unknownAvp.getVendorID()>0)
+				result.append("V");
+			else
+				result.append(".");
+			
+			if(unknownAvp.getIsMust()!=null && unknownAvp.getIsMust())
+				result.append("M");
+			else
+				result.append(".");
+			
+			if(unknownAvp.getIsProtected()!=null && unknownAvp.getIsProtected())
+				result.append("P");
+			else
+				result.append(".");
+			
+			printMesage(result, "", 5);
+			printItemSeparator(result);
+			
+			//length
+			printMesage(result, avpLength.toString(), 24);
+			
+			printLineEnd(result);
+			printSeparatorLines(result, 1);
+			
+			//vendor ID
+			if(unknownAvp.getVendorID()!=null && unknownAvp.getVendorID()>0)
+				printMesage(result, unknownAvp.getVendorID().toString(), 35);
+			else
+				printMesage(result, "", 35);
+			
+			printSeparatorLines(result, 1);
+			
+			//now data
+			printMesage(result, toHex(unknownAvp.getValue()), 35);	
+			printSeparatorLines(result, 1);
+		}
+		else
+		{
+			AvpData avpData = avpsMap.get(avp.getClass());
+			if(avpData==null)
+				throw new DiameterException("Can not encode class " + avp.getClass().getCanonicalName() + " since it has not been registered yet with parser", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+			
+			printMesage(result, avpData.getName().toUpperCase(), ' ');
+			printSeparatorLines(result, separatorLines);
+			
+			Integer avpLength = 0;
+			List<DiameterAvp> childAvps = null;
+			if(avpData.getOrderMethod()!=null)
+			{
+				try
+				{
+					childAvps = (List<DiameterAvp>)avpData.getOrderMethod().invoke(avp);
+				}
+				catch(IllegalAccessException ex)
+				{
+					throw new DiameterException("Can not get child avps for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+				}
+				catch(InvocationTargetException ex)
+				{
+					if(ex.getTargetException()!=null && ex.getTargetException() instanceof DiameterException)
+						throw (DiameterException)ex.getTargetException();
+					
+					throw new DiameterException("Can not get child avps for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+				}
+				
+				//lets calculate length of all child AVPs
+				if(childAvps!=null)
+				{
+					for(DiameterAvp curr:childAvps)
+					{
+						if(curr instanceof DiameterUnknownAvp)
+						{
+							avpLength += ((DiameterUnknownAvp)curr).getLength() + 8;
+							if(((DiameterUnknownAvp)curr).getVendorID()!=null && ((DiameterUnknownAvp)curr).getVendorID()>0)
+								avpLength += 4;
+							
+						}
+						else
+						{
+							avpLength += getLength(curr) + 8;
+							AvpData childData = avpsMap.get(curr.getClass());
+							if(childData != null && childData.getVendorID()!=null && childData.getVendorID()>0)
+								avpLength += 4;															
+						}
+						
+						if((avpLength%4) != 0)
+							avpLength += (4 - (avpLength%4));						
+					}
+				}
+				
+				//group header itslef
+				avpLength = avpLength + 8;
+			}
+			else if(avp instanceof DiameterUnknownAvp)
+				avpLength = ((DiameterUnknownAvp)avp).getLength() + 8;
+			else
+				avpLength = getLength(avp) + 8;
+			
+			if(avpData.getVendorID()!=null && avpData.getVendorID()>0)
+				avpLength += 4;
+			
+			printMesage(result, avpData.getAvpID().toString(), 35);
+			
+			printSeparatorLines(result, 1);
+			printLineStart(result);
+			
+			//avp flags
+			if(avpData.getVendorID()!=null && avpData.getVendorID()>0)
+				result.append("V");
+			else
+				result.append(".");
+			
+			if(avp.getIsMust()!=null)
+			{
+				if(avp.getIsMust())
+					result.append("M");
+				else
+					result.append(".");
+			}
+			else if(avpData.getIsMust()!=null && avpData.getIsMust())
+				result.append("M");
+			else
+				result.append(".");
+			
+			if(avp.getIsProtected()!=null && avp.getIsProtected())
+				result.append("P");
+			else
+				result.append(".");
+			
+			printMesage(result, "", 5);
+			printItemSeparator(result);
+			
+			//length
+			printMesage(result, avpLength.toString(), 24);
+			
+			printLineEnd(result);
+			printSeparatorLines(result, 1);
+			
+			//vendor ID
+			if(avpData.getVendorID()!=null && avpData.getVendorID()>0)
+				printMesage(result, avpData.getVendorID().toString(), 35);
+			else
+				printMesage(result, "", 35);
+			
+			printSeparatorLines(result, 1);
+			
+			//now data
+			if(avpData.getPrintMethod()!=null)
+			{
+				try
+				{
+					avpData.getPrintMethod().invoke(avp, result);
+				}
+				catch(IllegalAccessException ex)
+				{
+					throw new DiameterException("Can not execute encode for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+				}
+				catch(InvocationTargetException ex)
+				{
+					logger.warn("Can not execute encode for class, " + avp.getClass().getCanonicalName() + ", error " + ex.getMessage(), ex);
+					if(ex.getTargetException()!=null && ex.getTargetException() instanceof DiameterException)
+						throw (DiameterException)ex.getTargetException();
+					
+					throw new DiameterException("Can not execute encode for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+				}	
+				
+				printSeparatorLines(result, 1);
+			}
+			else
+			{
+				//or child avps either taken from order method or through iteration of properties
+				if(childAvps==null && avpData.getAvpOrderedData()!=null)
+				{
+					childAvps = new ArrayList<DiameterAvp>();
+					for(AvpData curr:avpData.getAvpOrderedData())
+					{
+						curr.getField().setAccessible(true);
+						if(curr.getField().getType().isAssignableFrom(List.class))
+						{
+							List currList = null;
+							try
+							{
+								currList = (List)curr.getField().get(avp);
+							}
+							catch(IllegalAccessException ex)
+							{
+								throw new DiameterException("Can not get child avp for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+							}
+							
+							if(currList!=null)
+							{
+								for(Object currAvp:currList)
+									childAvps.add((DiameterAvp)currAvp);
+							}
+						}
+						else
+						{
+							DiameterAvp currAvp = null;
+							try
+							{
+								currAvp = (DiameterAvp)curr.getField().get(avp);
+							}
+							catch(IllegalAccessException ex)
+							{
+								throw new DiameterException("Can not get child avp for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+							}
+							
+							if(currAvp!=null)
+								childAvps.add(currAvp);
+						}
+					}																		
+				}
+				
+				if(childAvps!=null)
+				{
+					for(DiameterAvp curr:childAvps)
+					{
+						if(curr!=null)
+							printAvp(result, curr, isError, separatorLines+1);
+					}
+				}
+				
+				//optional AVPs
+				if(avp instanceof DiameterGroupedAvp)
+				{
+					DiameterGroupedAvp groupedAvp = (DiameterGroupedAvp)avp;
+					Map<DiameterAvpKey,List<DiameterUnknownAvp>> optionalAvps = groupedAvp.getOptionalAvps();
+					if(optionalAvps!=null)
+					{
+						Iterator<Entry<DiameterAvpKey,List<DiameterUnknownAvp>>> iterator = optionalAvps.entrySet().iterator();
+						while(iterator.hasNext())
+						{
+							Entry<DiameterAvpKey,List<DiameterUnknownAvp>> currEntry = iterator.next();
+							if(currEntry.getValue()!=null)
+							{
+								for(DiameterUnknownAvp unknownAvp : currEntry.getValue())
+									printAvp(result, unknownAvp, isError, separatorLines+1);
+							}
+						}
+					}
+				}
+				
+				if(avp instanceof FailedAvp)
+				{
+					FailedAvp failedAvp = (FailedAvp)avp;
+					Map<DiameterAvpKey,List<DiameterAvp>> knownAvps = failedAvp.getKnownAvps();
+					if(knownAvps!=null)
+					{
+						Iterator<Entry<DiameterAvpKey,List<DiameterAvp>>> iterator = knownAvps.entrySet().iterator();
+						while(iterator.hasNext())
+						{
+							Entry<DiameterAvpKey,List<DiameterAvp>> currEntry = iterator.next();
+							if(currEntry.getValue()!=null)
+							{
+								for(DiameterAvp unknownAvp : currEntry.getValue())
+									printAvp(result, unknownAvp, isError, separatorLines+1);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private static void printLineStart(StringBuilder sb)
+	{
+		sb.append("|");
+	}
+	
+	private static void printItemSeparator(StringBuilder sb)
+	{
+		sb.append("|");
+	}
+	
+	private static void printLineEnd(StringBuilder sb)
+	{
+		sb.append("|");
+		sb.append(System.getProperty("line.separator"));
+	}
+	
+	public static void printMesage(StringBuilder sb,String message)
+	{
+		printMesage(sb, message, 35);
+	}
+	
+	public static void printMesage(StringBuilder sb,String message, char spacer)
+	{
+		printMesage(sb, message, spacer, 35);
+	}
+	
+	private static void printMesage(StringBuilder sb,String message,int length)
+	{
+		printMesage(sb,message,'.',length);
+	}
+	
+	private static void printMesage(StringBuilder sb,String message,char spacer, int length)
+	{
+		while(message.length()>33)
+		{
+			printLineStart(sb);
+			sb.append(message.substring(0,33));
+			printLineEnd(sb);
+			message=message.substring(33);
+		}
+		
+		int usedChars=0;
+		if(length==35)
+		{
+			printLineStart(sb);
+			usedChars=2;
+		}
+		
+		sb.append(message);
+		
+		for(int i=0;i<length-message.length()-usedChars;i++)
+			sb.append(spacer);
+				
+		if(length==35)
+			printLineEnd(sb);				
+	}
+	
+	private static void printSeparatorLines(StringBuilder sb,Integer lines)
+	{
+		for(int i=0;i<lines;i++)
+		{	
+			sb.append("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+			sb.append(System.getProperty("line.separator"));
 		}
 	}
 	
@@ -1138,6 +1693,7 @@ public class DiameterParser
 			if(commandDefition!=null)
 			{
 				Long applicationID = commandDefition.applicationId();
+				String name = commandDefition.name();
 				Integer commandCode = commandDefition.commandCode();
 				Boolean isRequest = commandDefition.request();
 				Boolean isProxyable = commandDefition.proxyable();
@@ -1165,7 +1721,7 @@ public class DiameterParser
 						orderMethod = method;
 				}
 					
-				CommandData newCommand = new CommandData(clazz,commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
+				CommandData newCommand = new CommandData(clazz, name, commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
 				oldCommand = commandsMapping.putIfAbsent(identifier, newCommand);
 				if(oldCommand!=null)
 					throw new DiameterException("The command " + commandCode +  " is already registered for application " + applicationID, null, null, null);
@@ -1186,6 +1742,7 @@ public class DiameterParser
 			{
 				Long applicationID = commandDefition.applicationId();
 				Integer commandCode = commandDefition.commandCode();
+				String name = commandDefition.name();
 				Boolean isRequest = commandDefition.request();
 				Boolean isProxyable = commandDefition.proxyable();
 				ConcurrentHashMap<CommandIdentifier,CommandData> commandsMapping = interfacesMapping.get(applicationID);
@@ -1220,7 +1777,7 @@ public class DiameterParser
 						orderMethod = method;
 				}
 					
-				CommandData newCommand = new CommandData(clazz,commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
+				CommandData newCommand = new CommandData(clazz, name, commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
 				oldCommand = commandsMapping.putIfAbsent(identifier, newCommand);
 				if(oldCommand!=null)
 					throw new DiameterException("The command " + commandCode +  " is already registered for application " + applicationID, null, null, null);
@@ -1289,7 +1846,7 @@ public class DiameterParser
 						}
 						
 						Method[] methods=implementationType.getMethods();
-						Method orderMethod = null, validateMethod = null, lengthMethod = null, encodeMethod = null, decodeMethod = null;
+						Method orderMethod = null, validateMethod = null, lengthMethod = null, encodeMethod = null, decodeMethod = null, printMethod = null;
 						for(Method method:methods) 
 						{
 							DiameterOrder orderMethodAnnotation=method.getAnnotation(DiameterOrder.class);
@@ -1311,9 +1868,13 @@ public class DiameterParser
 							DiameterDecode decodeMethodAnnotation=method.getAnnotation(DiameterDecode.class);
 							if(decodeMethodAnnotation!=null && decodeMethod==null)
 								decodeMethod = method;
+							
+							DiameterPrint printMethodAnnotation=method.getAnnotation(DiameterPrint.class);
+							if(printMethodAnnotation!=null && printMethod==null)
+								printMethod = method;
 						}
 						
-						AvpData avpData = new AvpData(implementationType, field, avpDefition.vendorId(), avpDefition.code(), avpDefition.must(), validateMethod, orderMethod, encodeMethod, decodeMethod, lengthMethod);
+						AvpData avpData = new AvpData(implementationType, avpDefition.name(), field, avpDefition.vendorId(), avpDefition.code(), avpDefition.must(), validateMethod, orderMethod, encodeMethod, decodeMethod, lengthMethod, printMethod);
 						oldAvp = avpMapping.putIfAbsent(key, avpData);
 						if(oldAvp!=null)
 						{
@@ -1527,5 +2088,21 @@ public class DiameterParser
 		}
 		
 		return result;
+	}
+	
+	public static String toHex(ByteBuf buffer)
+	{
+		StringBuilder sb=new StringBuilder();
+		int count=0;
+		while(buffer.readableBytes()>0) 
+		{
+			sb.append(String.format("%02X", buffer.readByte()));		    
+			count++;
+			
+			if(count%16==0)
+				sb.append(".");					    
+		}
+		
+		return sb.toString();
 	}
 }

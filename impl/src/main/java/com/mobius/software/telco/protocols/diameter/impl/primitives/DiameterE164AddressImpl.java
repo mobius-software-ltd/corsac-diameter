@@ -19,7 +19,9 @@ package com.mobius.software.telco.protocols.diameter.impl.primitives;
  */
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
+import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterE164Address;
 
 import io.netty.buffer.ByteBuf;
@@ -75,6 +77,15 @@ public class DiameterE164AddressImpl extends DiameterOctetStringImpl implements 
 		}
 		
 		return null;
+	}
+	
+	@DiameterPrint
+	public void print(StringBuilder sb) 
+	{
+		if(value==null)
+			DiameterParser.printMesage(sb, "");
+		else			
+			DiameterParser.printMesage(sb, value);		 		
 	}
 	
 	@Override

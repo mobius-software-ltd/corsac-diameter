@@ -25,8 +25,10 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpValueException;
+import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddress;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAddressTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
@@ -152,6 +154,31 @@ public class DiameterAddressImpl extends DiameterOctetStringImpl implements Diam
 		}
 		
 		return null;
+	}
+	
+	@DiameterPrint
+	public void print(StringBuilder sb) 
+	{
+		if(addressType==null)
+			DiameterParser.printMesage(sb, "");
+		else			
+		{
+			switch (addressType)
+			{
+				case IPV4:
+				case IPV6:
+					DiameterParser.printMesage(sb, value.getHostAddress());
+					break;
+				case E164:
+					DiameterParser.printMesage(sb, e164);
+					break;
+				default:
+					ByteBuf value=getValue();
+					if(value!=null)
+						DiameterParser.printMesage(sb, DiameterParser.toHex(value));
+					break;
+			}			
+		}
 	}
 	
 	@Override

@@ -5,9 +5,11 @@ import java.util.Arrays;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterDecode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterEncode;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterLength;
+import com.mobius.software.telco.protocols.diameter.annotations.DiameterPrint;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.InvalidAvpLengthException;
+import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterOctetString;
 
@@ -105,6 +107,15 @@ public class DiameterOctetStringImpl extends DiameterAvpImpl implements Diameter
 		value.resetReaderIndex();
 		if(padding.length>0)
 			buffer.writeBytes(padding);		
+	}
+	
+	@DiameterPrint
+	public void print(StringBuilder sb) 
+	{
+		if(value==null)
+			DiameterParser.printMesage(sb, "");
+		else			
+			DiameterParser.printMesage(sb, DiameterParser.toHex(value));		 		
 	}
 	
 	@DiameterDecode

@@ -116,6 +116,8 @@ public class EAPTest
 		eapRequestMessagePatched.readBytes(eapData);
 		assertArrayEquals(eapEncodedData, eapData);
 		
+		System.out.println(diameterParser.printMessage(eapr));
+		
 		eapAnswerMessage.resetReaderIndex();
 		decodeMessage = diameterParser.decode(eapAnswerMessage, false);
 		assertNotNull(decodeMessage);
@@ -147,8 +149,11 @@ public class EAPTest
 		byte[] eaaEncodedData = new byte[encodedMessage.readableBytes()];
 		encodedMessage.readBytes(eaaEncodedData);
 		eapAnswerMessagePatched.setIndex(0,eapAnswerMessagePatched.writerIndex());
-		byte[] dwaData = new byte[eapAnswerMessagePatched.readableBytes()];
-		eapAnswerMessagePatched.readBytes(dwaData);
-		assertArrayEquals(eaaEncodedData, dwaData);
+		byte[] eapaData = new byte[eapAnswerMessagePatched.readableBytes()];
+		eapAnswerMessagePatched.readBytes(eapaData);
+		assertArrayEquals(eaaEncodedData, eapaData);
+		
+		System.out.println(diameterParser.printMessage(eapa));
+		
 	}
 }
