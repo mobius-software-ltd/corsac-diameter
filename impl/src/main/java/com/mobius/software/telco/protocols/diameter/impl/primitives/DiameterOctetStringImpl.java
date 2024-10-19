@@ -115,7 +115,7 @@ public class DiameterOctetStringImpl extends DiameterAvpImpl implements Diameter
 		if(value==null)
 			DiameterParser.printMesage(sb, "");
 		else			
-			DiameterParser.printMesage(sb, DiameterParser.toHex(value));		 		
+			DiameterParser.printMesage(sb, DiameterParser.toHex(getValue()));		 		
 	}
 	
 	@DiameterDecode
