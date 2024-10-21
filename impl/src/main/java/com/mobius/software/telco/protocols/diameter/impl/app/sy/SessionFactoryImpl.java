@@ -20,12 +20,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sy;
 
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.sy.ClientListener;
-import com.mobius.software.telco.protocols.diameter.app.sy.SyClientSession;
-import com.mobius.software.telco.protocols.diameter.app.sy.SyServerSession;
 import com.mobius.software.telco.protocols.diameter.app.sy.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.sy.SessionFactory;
+import com.mobius.software.telco.protocols.diameter.app.sy.SyClientSession;
+import com.mobius.software.telco.protocols.diameter.app.sy.SyServerSession;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
-import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
 public class SessionFactoryImpl implements SessionFactory
@@ -45,18 +44,6 @@ public class SessionFactoryImpl implements SessionFactory
 
 	@Override
 	public SyServerSession createServerSession(SpendingLimitRequest request) throws AvpNotSupportedException
-	{
-		return new SyServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
-	}
-	
-	@Override
-	public SyClientSession createClientSession(SpendingStatusNotificationRequest request) throws AvpNotSupportedException
-	{
-		return new SyClientSessionImpl(request.getSessionId(), request.getDestinationHost(), request.getDestinationRealm(),provider);
-	}
-	
-	@Override
-	public SyServerSession createServerSession(SpendingStatusNotificationRequest request) throws AvpNotSupportedException
 	{
 		return new SyServerSessionImpl(request.getSessionId(), request.getOriginHost(), request.getOriginRealm(),provider);
 	}

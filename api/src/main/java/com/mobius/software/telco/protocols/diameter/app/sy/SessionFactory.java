@@ -18,16 +18,11 @@ package com.mobius.software.telco.protocols.diameter.app.sy;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
 public interface SessionFactory
 {
-	public SyClientSession createClientSession(SpendingStatusNotificationRequest request) throws AvpNotSupportedException;	
-	
-	public SyServerSession createServerSession(SpendingStatusNotificationRequest request) throws AvpNotSupportedException;		
-
 	public SyClientSession createClientSession(SpendingLimitRequest request) throws AvpNotSupportedException;	
 	
 	public SyServerSession createServerSession(SpendingLimitRequest request) throws AvpNotSupportedException;		
