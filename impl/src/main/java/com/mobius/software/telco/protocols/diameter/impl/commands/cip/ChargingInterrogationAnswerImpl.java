@@ -281,7 +281,7 @@ public class ChargingInterrogationAnswerImpl extends com.mobius.software.telco.p
 		result.add(eventTimestamp);
 		result.add(chargingStateInformation);
 		result.add(cipIPVersion);
-		result.add(subscriberInformation );
+		result.add(subscriberInformation);
 		result.add(failedAvp);
 		
 		if(optionalAvps!=null)
@@ -295,6 +295,7 @@ public class ChargingInterrogationAnswerImpl extends com.mobius.software.telco.p
 		
 		result.add(checkBalanceResult);
 		result.add(grantedServiceUnit);
+		result.add(cdrInformation);
 		
 		return result;
 	}
