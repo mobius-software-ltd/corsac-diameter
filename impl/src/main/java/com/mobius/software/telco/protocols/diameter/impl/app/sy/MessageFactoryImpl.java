@@ -104,7 +104,7 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public SpendingStatusNotificationAnswer createSpendingStatusNotificationAnswer(SpendingStatusNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
-		SpendingStatusNotificationAnswerImpl result = new SpendingStatusNotificationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId);
+		SpendingStatusNotificationAnswerImpl result = new SpendingStatusNotificationAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
 		return result;
@@ -114,7 +114,7 @@ public class MessageFactoryImpl implements MessageFactory
 	@Override
 	public SpendingStatusNotificationAnswer createSpendingStatusNotificationAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode,String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
-		SpendingStatusNotificationAnswerImpl result = new SpendingStatusNotificationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, authApplicationId);
+		SpendingStatusNotificationAnswerImpl result = new SpendingStatusNotificationAnswerImpl(originHost, originRealm, false, resultCode,  sessionID);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
 		return result;

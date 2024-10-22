@@ -25,7 +25,7 @@ import com.mobius.software.telco.protocols.diameter.app.sy.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.sy.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.sy.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.sy.SyRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
@@ -42,7 +42,7 @@ public class SyProviderImpl extends DiameterProviderImpl<ClientListener, ServerL
 	{		
 		try
 		{
-			if(message instanceof SyRequest)
+			if(message instanceof SpendingLimitRequest)
 				return new SyServerSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
 		

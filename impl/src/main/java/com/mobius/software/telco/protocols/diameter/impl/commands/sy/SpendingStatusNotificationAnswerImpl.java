@@ -41,9 +41,9 @@ public class SpendingStatusNotificationAnswerImpl extends SyAnswerImpl implement
 		super();
 	}
 	
-	public SpendingStatusNotificationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
+	public SpendingStatusNotificationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws AvpNotSupportedException, MissingAvpException
 	{
-		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
+		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
 	}
 	
 	@DiameterOrder

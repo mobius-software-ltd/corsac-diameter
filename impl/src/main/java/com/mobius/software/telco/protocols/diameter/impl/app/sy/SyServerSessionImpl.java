@@ -87,8 +87,7 @@ public class SyServerSessionImpl extends ServerAuthSessionImpl<SpendingLimitRequ
 					try
 					{
 						SpendingStatusNotificationAnswer castedAnswer = (SpendingStatusNotificationAnswer)answer;						
-						setSessionState(SessionStateEnum.IDLE);
-						terminate(castedAnswer.getResultCode());
+						setSessionState(SessionStateEnum.OPEN);
 						if(listeners!=null)
 						{
 							for(ServerAuthListener<SpendingLimitRequest, SpendingLimitAnswer, ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> listener:listeners)

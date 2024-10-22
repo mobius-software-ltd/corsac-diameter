@@ -39,7 +39,6 @@ import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitAns
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingLimitRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sy.SpendingStatusNotificationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.sy.SyAnswer;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpException;
@@ -47,7 +46,7 @@ import com.mobius.software.telco.protocols.diameter.impl.app.ClientAuthSessionIm
 
 public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequest, SpendingLimitAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> implements SyClientSession
 {
-	private DiameterProvider<? extends ClientAuthListener<SpendingLimitRequest, SyAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider;
+	private DiameterProvider<? extends ClientAuthListener<SpendingLimitRequest,SpendingLimitAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider;
 	
 	public SyClientSessionImpl()
 	{
@@ -57,6 +56,7 @@ public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequ
 	public SyClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<SpendingLimitRequest,SpendingLimitAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.SY),remoteHost, remoteRealm, provider);
+		this.provider = provider;
 	}
 	
 	@SuppressWarnings("unchecked")
