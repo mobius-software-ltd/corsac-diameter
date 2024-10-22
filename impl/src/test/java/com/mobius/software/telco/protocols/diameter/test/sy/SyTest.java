@@ -333,8 +333,7 @@ public class SyTest extends NetworkTestBase
 				
 				try
 				{
-					SpendingStatusNotificationRequest ssnr = serverProvider.getMessageFactory().createSpendingStatusNotificationRequest(serverLink.getLocalHost(), serverLink.getLocalRealm(), serverLink.getDestinationHost(), serverLink.getDestinationRealm());
-					ssnr.setSessionId(session.getID());
+					SpendingStatusNotificationRequest ssnr = serverProvider.getMessageFactory().createSpendingStatusNotificationRequest(serverLink.getLocalHost(), serverLink.getLocalRealm(), serverLink.getDestinationHost(), serverLink.getDestinationRealm(), session.getID());
 					((SyServerSession)session).sendStatusNotificationRequest(ssnr, new AsyncCallback()
 					{
 						@Override

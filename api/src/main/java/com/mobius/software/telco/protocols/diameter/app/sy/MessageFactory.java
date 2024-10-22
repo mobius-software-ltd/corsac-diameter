@@ -43,7 +43,9 @@ public interface MessageFactory
 	
 	public SpendingLimitAnswer createSpendingLimitAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	
-	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException;	
+	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(SpendingLimitRequest initialRequest, Long hopByHopIdentifier, Long endToEndIdentifier) throws MissingAvpException, AvpNotSupportedException;	
+	
+	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, String sessionID) throws MissingAvpException, AvpNotSupportedException;	
 	
 	public SpendingStatusNotificationAnswer createSpendingStatusNotificationAnswer(SpendingStatusNotificationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 	

@@ -96,9 +96,18 @@ public class MessageFactoryImpl implements MessageFactory
 		return result;
 	}
 	
-	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm) throws MissingAvpException, AvpNotSupportedException
+	@Override
+	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(SpendingLimitRequest request, Long hopByHopIdentifier, Long endToEndIdentifier) throws MissingAvpException, AvpNotSupportedException
 	{
-		return new SpendingStatusNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), applicationId);
+		SpendingStatusNotificationRequest result = new SpendingStatusNotificationRequestImpl(request.getDestinationHost(), request.getDestinationRealm(), request.getOriginHost(),request.getOriginRealm(), false, request.getSessionId(),authApplicationId);
+		result.setHopByHopIdentifier(hopByHopIdentifier);
+		result.setEndToEndIdentifier(endToEndIdentifier);
+		return result;
+	}
+	
+	public SpendingStatusNotificationRequest createSpendingStatusNotificationRequest(String originHost,String originRealm,String destinationHost, String destinationRealm, String sessionID) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new SpendingStatusNotificationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId);
 	}
 	
 	@Override
