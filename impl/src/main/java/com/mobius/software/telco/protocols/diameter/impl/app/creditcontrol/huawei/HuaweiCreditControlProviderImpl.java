@@ -18,6 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.huaw
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.creditcontrol.huawei.AvpFactory;
@@ -32,6 +35,8 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
 public class HuaweiCreditControlProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
+	public static Logger logger=LogManager.getLogger(HuaweiCreditControlProviderImpl.class);
+	
 	public HuaweiCreditControlProviderImpl(DiameterStack stack,String packageName)
 	{
 		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
@@ -48,6 +53,7 @@ public class HuaweiCreditControlProviderImpl extends DiameterProviderImpl<Client
 		}
 		catch(DiameterException ex)
 		{			
+			logger.warn("An error occured while creating new session," + ex.getMessage(),ex);
 		}
 		
 		return null;

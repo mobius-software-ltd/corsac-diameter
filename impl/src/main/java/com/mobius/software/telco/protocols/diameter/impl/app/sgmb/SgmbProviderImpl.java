@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.sgmb;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -31,6 +34,8 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
 public class SgmbProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
+	public static Logger logger=LogManager.getLogger(SgmbProviderImpl.class);
+	
 	public SgmbProviderImpl(DiameterStack stack,String packageName)
 	{
 		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
@@ -45,9 +50,9 @@ public class SgmbProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 			if(message instanceof ReAuthRequest)
 				return new SgmbClientSessionImpl(message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 		}
-		
 		catch(DiameterException ex)
 		{			
+			logger.warn("An error occured while creating new session," + ex.getMessage(),ex);
 		}
 		
 		return null;

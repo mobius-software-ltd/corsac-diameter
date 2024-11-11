@@ -18,6 +18,9 @@ package com.mobius.software.telco.protocols.diameter.impl.app.pc4a;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.pc4a.AvpFactory;
@@ -32,6 +35,8 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
 public class PC4AProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
+	public static Logger logger=LogManager.getLogger(PC4AProviderImpl.class);
+	
 	public PC4AProviderImpl(DiameterStack stack,String packageName)
 	{
 		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
@@ -48,6 +53,7 @@ public class PC4AProviderImpl extends DiameterProviderImpl<ClientListener, Serve
 		}
 		catch(DiameterException ex)
 		{			
+			logger.warn("An error occured while creating new session," + ex.getMessage(),ex);
 		}
 		
 		return null;

@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.rfc5778a;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -25,13 +28,15 @@ import com.mobius.software.telco.protocols.diameter.app.rfc5778a.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.rfc5778a.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.rfc5778a.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Request;
 import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.commands.rfc5778a.MIP6Request;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
 public class Rfc5778aProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
+	public static Logger logger=LogManager.getLogger(Rfc5778aProviderImpl.class);
+	
 	public Rfc5778aProviderImpl(DiameterStack stack,String packageName)
 	{
 		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
@@ -46,11 +51,11 @@ public class Rfc5778aProviderImpl extends DiameterProviderImpl<ClientListener, S
 			if(message instanceof MIP6Request)
 				return new Rfc5778aClientSessionImpl(true,message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
 			else if(message instanceof AccountingRequest)
-				return new Rfc5778aClientSessionImpl(false,message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);
-			
+				return new Rfc5778aClientSessionImpl(false,message.getSessionId(), message.getOriginHost(), message.getOriginRealm(), this);			
 		}
 		catch(DiameterException ex)
 		{			
+			logger.warn("An error occured while creating new session," + ex.getMessage(),ex);
 		}
 		
 		return null;

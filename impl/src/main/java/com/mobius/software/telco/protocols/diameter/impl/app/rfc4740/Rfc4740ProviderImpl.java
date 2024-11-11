@@ -1,4 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.rfc4740;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -31,6 +34,8 @@ import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 
 public class Rfc4740ProviderImpl extends DiameterProviderImpl<ClientListener, ServerListener, AvpFactory, MessageFactory, SessionFactory>
 {
+	public static Logger logger=LogManager.getLogger(Rfc4740ProviderImpl.class);
+	
 	public Rfc4740ProviderImpl(DiameterStack stack,String packageName)
 	{
 		super(stack, new AvpFactoryImpl(), new MessageFactoryImpl(stack), packageName);
@@ -47,6 +52,7 @@ public class Rfc4740ProviderImpl extends DiameterProviderImpl<ClientListener, Se
 		}
 		catch(DiameterException ex)
 		{			
+			logger.warn("An error occured while creating new session," + ex.getMessage(),ex);
 		}
 		
 		return null;

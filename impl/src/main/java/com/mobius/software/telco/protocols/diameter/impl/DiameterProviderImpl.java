@@ -157,6 +157,9 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			session=getNewSession((DiameterRequest)message);
 			if(session!=null)
 			{
+				if(logger.isDebugEnabled())
+					logger.debug(String.format("New session is not null in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
+				
 				if(session.getApplicationID()!=null)
 				{
 					ApplicationID applicationID = ApplicationID.fromInt(session.getApplicationID().intValue());
@@ -165,6 +168,11 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 				}
 				
 				getStack().getSessionStorage().storeSession(session);
+			}
+			else
+			{
+				if(logger.isDebugEnabled())
+					logger.debug(String.format("New session is null in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
 			}
 		}
 		else

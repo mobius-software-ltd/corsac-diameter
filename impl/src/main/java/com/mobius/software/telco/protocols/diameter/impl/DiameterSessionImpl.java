@@ -50,7 +50,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	private Long applicationID;
 	private ClusteredID<?> idleTimerID;
 	private ClusteredID<?> sendTimerID;
-	private SessionStateEnum state = SessionStateEnum.IDLE;
+	private SessionStateEnum state = null;
 	private String remoteHost,remoteRealm;
 	private DiameterRequest lastSentRequest;
 	private Externalizable uo;
