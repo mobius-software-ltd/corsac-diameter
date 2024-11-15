@@ -46,7 +46,12 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterEnumerate
 	12 Completion of Communication to Busy Subscriber (CCBS)
 	13 Completion of Communications on No Reply (CCNR)
 	14 Malicious Communication Identification (MCID)
-	15 Customized Alerting Tone (CAT) 
+	15 Customized Alerting Tone (CAT)
+	16 Closed User Group (CUG)
+	17 Personal Network management (PNM)
+	18 Customized Ringing Signal (CRS)
+	19 Advice of Charge (AoC)
+	20 Explicit Communication Transfer (ECT) 
  */
 @DiameterAvpDefinition(code = TgppAvpCodes.MMTEL_SERVICE_TYPE, vendorId = VendorIDs.TGPP_ID, name = "MMTel-SService-Type")
 public interface MMTelSServiceType extends DiameterEnumerated<MMTelSServiceTypeEnum>
