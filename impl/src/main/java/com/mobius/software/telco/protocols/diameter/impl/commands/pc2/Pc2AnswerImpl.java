@@ -90,7 +90,7 @@ public abstract class Pc2AnswerImpl extends AuthenticationAnswerImpl implements 
 	@Override
 	public void setProSeRequestType(ProSeRequestTypeEnum value) throws MissingAvpException 
 	{
-		if(proSeRequestType==null)
+		if(value==null)
 			throw new MissingAvpException("ProSe-Request-Type is required", Arrays.asList(new DiameterAvp[] { new ProSeRequestTypeImpl() }));
 		
 		this.proSeRequestType = new ProSeRequestTypeImpl(value, null, null);
