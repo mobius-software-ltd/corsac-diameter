@@ -47,6 +47,11 @@ import com.mobius.software.telco.protocols.diameter.primitives.IntegerEnum;
 	13 Completion of Communications on No Reply (CCNR)
 	14 Malicious Communication Identification (MCID)
 	15 Customized Alerting Tone (CAT) 
+	16 Closed User Group (CUG)
+	17 Personal Network management (PNM)
+	18 Customized Ringing Signal (CRS)
+	19 Advice of Charge (AoC)
+	20 Explicit Communication Transfer (ECT)
  */
 public enum MMTelSServiceTypeEnum implements IntegerEnum
 {
