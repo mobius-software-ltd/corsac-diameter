@@ -242,7 +242,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				if(answer.getIsError()==null || !answer.getIsError())
 					setSessionState(SessionStateEnum.DISCONNECTED);
 				
-				answerSent(answer, null, callback);
+				answerSent(answer, null, callback);				
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);	
 			}
 		});			

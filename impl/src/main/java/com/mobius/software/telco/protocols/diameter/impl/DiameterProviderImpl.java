@@ -27,6 +27,7 @@ import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.telco.protocols.diameter.ApplicationID;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
+import com.mobius.software.telco.protocols.diameter.DiameterLink;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
 import com.mobius.software.telco.protocols.diameter.DiameterStack;
@@ -157,6 +158,16 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			session=getNewSession((DiameterRequest)message);
 			if(session!=null)
 			{
+				DiameterLink originalLink = stack.getNetworkManager().getLink(linkID);
+				if(originalLink!=null)
+				{
+					if(originalLink.getDestinationHost()!=null)
+						session.setRemoteHost(originalLink.getDestinationHost());
+					
+					if(originalLink.getDestinationRealm()!=null)
+						session.setRemoteRealm(originalLink.getDestinationRealm());
+				}
+				
 				if(logger.isDebugEnabled())
 					logger.debug(String.format("New session is not null in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
 				

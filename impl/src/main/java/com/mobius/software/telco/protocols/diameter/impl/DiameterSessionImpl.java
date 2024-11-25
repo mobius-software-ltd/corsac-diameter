@@ -220,7 +220,8 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	{
 		this.state = state;
 	}
-
+	
+	
 	@Override
 	public String getRemoteHost()
 	{
