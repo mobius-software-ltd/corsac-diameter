@@ -29,48 +29,22 @@ import com.mobius.software.telco.protocols.diameter.primitives.DiameterTime;
 */
 /*
  * 
-   8.27.  Tariff-Change-Usage AVP
+   8.20.  Tariff-Time-Change AVP
 
-   The Tariff-Change-Usage AVP (AVP Code 452) is of type Enumerated and
-   defines whether units are used before or after a tariff change, or
-   whether the units straddled a tariff change during the reporting
-   period.  Omission of this AVP means that no tariff change has
-   occurred.
+   The Tariff-Time-Change AVP (AVP Code 451) is of type Time.  It is
+   sent from the server to the client and includes the time in seconds
+   since January 1, 1900, 00:00 UTC, when the tariff of the service will
+   be changed.
 
-   In addition, when present in Answer messages as part of the Multiple-
-   Services-Credit-Control AVP, this AVP defines whether units are
-   allocated to be used before or after a tariff change event.
+   The tariff change mechanism is optional for the client and server,
+   and it is not used for time-based services defined in section 5.  If
+   a client does not support the tariff time change mechanism, it MUST
+   treat Tariff-Time-Change AVP in the answer message as an incorrect
+   CCA answer.  In this case, the client terminates the credit-control
+   session and indicates in the Termination-Cause AVP reason
+   DIAMETER_BAD_ANSWER.
 
-   When the Tariff-Time-Change AVP is present, omission of this AVP in
-   Answer messages means that the single-quota mechanism applies.
-
-   Tariff-Change-Usage can be set to one of the following values:
-
-   UNIT_BEFORE_TARIFF_CHANGE   0
-
-   When present in the Multiple-Services-Credit-Control AVP, this value
-   indicates the amount of units allocated for use before a tariff
-   change occurs.
-
-   When present in the Used-Service-Unit AVP, this value indicates the
-   amount of resource units used before a tariff change had occurred.
-   
-    UNIT_AFTER_TARIFF_CHANGE    1
-
-   When present in the Multiple-Services-Credit-Control AVP, this value
-   indicates the amount of units allocated for use after a tariff change
-   occurs.
-
-   When present in the Used-Service-Unit AVP, this value indicates the
-   amount of resource units used after a tariff change had occurred.
-
-   UNIT_INDETERMINATE          2
-
-   This value is to be used only in the Used-Service-Unit AVP and
-   indicates the amount of resource units that straddle the tariff
-   change (e.g., the metering process reports to the credit-control
-   client in blocks of n octets, and one block straddled the tariff
-   change).
+   Omission of this AVP means that no tariff change is to be reported.
  */
 @DiameterAvpDefinition(code = AvpCodes.TARIFF_TIME_CHANGE, vendorId = -1L, name = "Tariff-Time-Change")
 public interface TariffTimeChange extends DiameterTime
