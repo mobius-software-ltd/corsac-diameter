@@ -736,7 +736,7 @@ public class DiameterLinkImpl implements DiameterLink,AssociationListener
 			Integer currMessageIndex = buffer.readerIndex();
 			if(currMessageIndex.equals(preMessageIndex))
 			{
-				//we will loop if we will continue , lets drop the packet remainings
+				//we will loop if we will continue , lets wait for remaining part of packet
 				return;
 			}
 		}

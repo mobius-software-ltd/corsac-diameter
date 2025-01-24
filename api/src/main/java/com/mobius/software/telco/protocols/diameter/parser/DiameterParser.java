@@ -1285,6 +1285,7 @@ public class DiameterParser
 		if(message.readableBytes()<4)
 			return null;
 		
+		message.markReaderIndex();
 		//reading version;
 		int version = message.readUnsignedByte();
 		
@@ -1304,7 +1305,10 @@ public class DiameterParser
 			
 		//check if has all message in buffer
 		if(message.readableBytes()<(messageLength-4))
+		{
+			message.resetReaderIndex();
 			return null;
+		}
 		
 		if(version!=1)
 		{			
