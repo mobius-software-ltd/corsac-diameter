@@ -612,7 +612,9 @@ public class MessageProcessingTask implements Task
 			//lets try to release the buffer in case its not released yet
 			try
 			{
-				buffer.release();	
+				//for tcp no release is required
+				if(buffer!=null)
+					buffer.release();	
 			}
 			catch(Exception ex)
 			{

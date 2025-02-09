@@ -24,7 +24,7 @@
 		<compiler.plugin.version>3.8.1</compiler.plugin.version>
 		<compile.source>1.8</compile.source>
 		<netty.version>4.1.63.Final</netty.version>		
-		<sctp.version>2.2.10</sctp.version>
+		<sctp.version>2.2.11</sctp.version>
 		<timers.version>1.0.0-31</timers.version>		
 		<cluster.version>8.0.0-39</cluster.version>
 	</properties>
