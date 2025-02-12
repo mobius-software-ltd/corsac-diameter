@@ -52,70 +52,71 @@ import com.mobius.software.telco.protocols.diameter.commands.custom.SessionTermi
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.app.custom.CustomProviderImpl;
 import com.mobius.software.telco.protocols.diameter.primitives.creditcontrol.CcRequestTypeEnum;
+
 /**
-*
-* @author yulian oifa
-*
-*/
+ *
+ * @author yulian oifa
+ *
+ */
 public class CustomTest extends NetworkTestBase
 {
 	protected static final String localListenerID = "1";
 	private static final Logger logger = LogManager.getLogger(CustomTest.class);
-	
+
 	@Test
 	public void testEvent() throws Exception
 	{
-		super.setupRemote(0L,0L);
-		super.setupLocal(0L,0L);
-		
-		final AtomicLong ccaReceived=new AtomicLong(0L);
-		final AtomicLong ccaReceivedByListener=new AtomicLong(0L);
-		final AtomicLong ccrReceived=new AtomicLong(0L);
-		final AtomicLong ccrReceivedByListener=new AtomicLong(0L);
-		final AtomicLong timeoutReceived=new AtomicLong(0L);
-		
+		super.setupRemote(0L, 0L);
+		super.setupLocal(0L, 0L);
+
+		final AtomicLong ccaReceived = new AtomicLong(0L);
+		final AtomicLong ccaReceivedByListener = new AtomicLong(0L);
+		final AtomicLong ccrReceived = new AtomicLong(0L);
+		final AtomicLong ccrReceivedByListener = new AtomicLong(0L);
+		final AtomicLong timeoutReceived = new AtomicLong(0L);
+
 		DiameterStack localStack = this.localStack;
 		DiameterStack serverStack = this.serverStack;
-		
+
 		localStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
 			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
-				if(message instanceof CreditControlAnswer)
-					ccaReceived.incrementAndGet();				
+				if (message instanceof CreditControlAnswer)
+					ccaReceived.incrementAndGet();
 			}
 		});
-		
+
 		serverStack.getNetworkManager().addNetworkListener(localListenerID, new NetworkListener()
 		{
 			@Override
 			public void onMessage(DiameterMessage message, String linkID, AsyncCallback callback)
 			{
-				if(message instanceof CreditControlRequest)
-					ccrReceived.incrementAndGet();				
+				if (message instanceof CreditControlRequest)
+					ccrReceived.incrementAndGet();
 			}
 		});
-		
+
 		try
 		{
 			Thread.sleep(reconnectTimeout * 2);
 		}
-		catch(InterruptedException ex)
+		catch (InterruptedException ex)
 		{
-			
+
 		}
-		
-		CustomProviderImpl provider = (CustomProviderImpl)localStack.getProvider(Long.valueOf(99999), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom"));
-		ClusteredID<?> listenerID=generator.generateID();
+
+		CustomProviderImpl provider = (CustomProviderImpl) localStack.getProvider(Long.valueOf(99999), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom"));
+		ClusteredID<?> listenerID = generator.generateID();
 		provider.setClientListener(listenerID, new ClientListener()
 		{
 			@Override
-			public void onTimeout(DiameterRequest request,DiameterSession session)
+			public void onTimeout(DiameterRequest request, DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
 			public void onIdleTimeout(DiameterSession session)
 			{
@@ -123,43 +124,39 @@ public class CustomTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID,
-					AsyncCallback callback)
+			public void onInitialAnswer(CreditControlAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
 				ccaReceivedByListener.incrementAndGet();
 			}
 
 			@Override
-			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID,
-					AsyncCallback callback)
+			public void onReauthRequest(ReAuthRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
-				
+
 			}
 
 			@Override
-			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session,
-					String linkID, AsyncCallback callback)
+			public void onSessionTerminationAnswer(SessionTerminationAnswer answer, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
-				
+
 			}
 
 			@Override
-			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID,
-					AsyncCallback callback)
+			public void onAbortSessionRequest(AbortSessionRequest request, ClientCCSession<CreditControlRequest, ReAuthAnswer, AbortSessionAnswer, SessionTerminationRequest> session, String linkID, AsyncCallback callback)
 			{
-				
+
 			}
 		});
-		
-		CustomProviderImpl serverProvider = (CustomProviderImpl)serverStack.getProvider(Long.valueOf(99999), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom"));
+
+		CustomProviderImpl serverProvider = (CustomProviderImpl) serverStack.getProvider(Long.valueOf(99999), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.custom"));
 		serverProvider.setServerListener(listenerID, new ServerListener()
 		{
 			@Override
-			public void onTimeout(DiameterRequest request,DiameterSession session)
+			public void onTimeout(DiameterRequest request, DiameterSession session)
 			{
 				timeoutReceived.incrementAndGet();
 			}
-			
+
 			@Override
 			public void onIdleTimeout(DiameterSession session)
 			{
@@ -167,11 +164,10 @@ public class CustomTest extends NetworkTestBase
 			}
 
 			@Override
-			public void onInitialRequest(CreditControlRequest request, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session, String linkID,
-					AsyncCallback callback)
+			public void onInitialRequest(CreditControlRequest request, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session, String linkID, AsyncCallback callback)
 			{
 				ccrReceivedByListener.incrementAndGet();
-				CreditControlRequest ccr=(CreditControlRequest)request;
+				CreditControlRequest ccr = (CreditControlRequest) request;
 				try
 				{
 					CreditControlAnswer cca = serverProvider.getMessageFactory().createCreditControlAnswer(ccr, ccr.getHopByHopIdentifier(), ccr.getEndToEndIdentifier(), ResultCodes.DIAMETER_SUCCESS);
@@ -180,102 +176,93 @@ public class CustomTest extends NetworkTestBase
 						@Override
 						public void onSuccess()
 						{
-							
+
 						}
-						
+
 						@Override
 						public void onError(DiameterException ex)
 						{
-							logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
+							logger.error("An error occured while sending Message Process Answer," + ex.getMessage(), ex);
 						}
 					});
 				}
-				catch(DiameterException ex)
+				catch (DiameterException ex)
 				{
-					logger.error("An error occured while sending Message Process Answer," + ex.getMessage(),ex);
+					logger.error("An error occured while sending Message Process Answer," + ex.getMessage(), ex);
 				}
 			}
 
 			@Override
-			public void onReauthAnswer(ReAuthAnswer answer, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session, String linkID,
-					AsyncCallback callback)
+			public void onReauthAnswer(ReAuthAnswer answer, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session, String linkID, AsyncCallback callback)
 			{
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
-			public void onSessionTerminationRequest(SessionTerminationRequest request, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session,
-					String linkID, AsyncCallback callback)
+			public void onSessionTerminationRequest(SessionTerminationRequest request, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session, String linkID, AsyncCallback callback)
 			{
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
-			public void onAbortSessionAnswer(AbortSessionAnswer answer, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session, String linkID,
-					AsyncCallback callback)
+			public void onAbortSessionAnswer(AbortSessionAnswer answer, ServerCCSession<CreditControlAnswer, ReAuthRequest, AbortSessionRequest, SessionTerminationAnswer> session, String linkID, AsyncCallback callback)
 			{
-				// TODO Auto-generated method stub
-				
 			}
 		});
-		
-		//usually its not needed to get link, here we use it to read hosts/realms
+
+		// usually its not needed to get link, here we use it to read hosts/realms
 		DiameterLink localLink = localStack.getNetworkManager().getLink(localLinkID);
 		CreditControlRequest request = provider.getMessageFactory().createCreditControlRequest(localLink.getLocalHost(), localLink.getLocalRealm(), localLink.getDestinationHost(), localLink.getDestinationRealm(), CcRequestTypeEnum.TERMINATION_REQUEST, 1L);
-		СustomClientSession clientSession = (СustomClientSession)provider.getSessionFactory().createClientSession(request);
+		СustomClientSession clientSession = (СustomClientSession) provider.getSessionFactory().createClientSession(request);
 		clientSession.sendInitialRequest(request, new AsyncCallback()
 		{
 			@Override
 			public void onSuccess()
 			{
 			}
-			
+
 			@Override
 			public void onError(DiameterException ex)
 			{
-				logger.error("An error occured while sending Message Process Request," + ex.getMessage(),ex);
+				logger.error("An error occured while sending Message Process Request," + ex.getMessage(), ex);
 			}
 		});
-		
+
 		try
 		{
 			Thread.sleep(responseTimeout);
 		}
-		catch(InterruptedException ex)
+		catch (InterruptedException ex)
 		{
-			
+
 		}
-		
-		assertEquals(clientSession.getSessionState(),SessionStateEnum.IDLE);
-		
-		//make sure no timeout is processed
+
+		assertEquals(clientSession.getSessionState(), SessionStateEnum.IDLE);
+
+		// make sure no timeout is processed
 		try
 		{
 			Thread.sleep(idleTimeout * 2);
 		}
-		catch(InterruptedException ex)
+		catch (InterruptedException ex)
 		{
-			
+
 		}
-		
+
 		super.stopLocal();
 		super.stopRemote();
-		
+
 		try
 		{
 			Thread.sleep(responseTimeout);
 		}
-		catch(InterruptedException ex)
+		catch (InterruptedException ex)
 		{
-			
+
 		}
-		
-		assertEquals(ccaReceived.get() , 1L);
-		assertEquals(ccaReceivedByListener.get() , 1L);
-		assertEquals(ccrReceived.get() , 1L);
-		assertEquals(ccrReceivedByListener.get() , 1L);
-		assertEquals(timeoutReceived.get() , 0L);
-	}		
+
+		assertEquals(ccaReceived.get(), 1L);
+		assertEquals(ccaReceivedByListener.get(), 1L);
+		assertEquals(ccrReceived.get(), 1L);
+		assertEquals(ccrReceivedByListener.get(), 1L);
+		assertEquals(timeoutReceived.get(), 0L);
+	}
 }
