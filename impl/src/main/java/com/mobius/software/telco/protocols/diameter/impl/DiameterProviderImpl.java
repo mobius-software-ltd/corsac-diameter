@@ -47,8 +47,8 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 {
 	public static Logger logger=LogManager.getLogger(DiameterProviderImpl.class);
 	
-	private ConcurrentHashMap<ClusteredID<?>,L1> clientListenersMap=new ConcurrentHashMap<ClusteredID<?>,L1>();
-	private ConcurrentHashMap<ClusteredID<?>,L2> serverListenersMap=new ConcurrentHashMap<ClusteredID<?>,L2>();
+	private ConcurrentHashMap<String,L1> clientListenersMap=new ConcurrentHashMap<String,L1>();
+	private ConcurrentHashMap<String,L2> serverListenersMap=new ConcurrentHashMap<String,L2>();
 	
 	private A avpFactory;
 	private M messageFactory;
@@ -90,17 +90,29 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	@Override
 	public void setClientListener(ClusteredID<?> listenerID, L1 listener)
 	{
+		clientListenersMap.put(listenerID.toString(), listener);
+	}
+	
+	@Override
+	public void setClientListener(String listenerID, L1 listener)
+	{
 		clientListenersMap.put(listenerID, listener);
 	}
 
 	@Override
 	public void removeClientListener(ClusteredID<?> listenerID)
 	{
+		clientListenersMap.remove(listenerID.toString());
+	}
+	
+	@Override
+	public void removeClientListener(String listenerID)
+	{
 		clientListenersMap.remove(listenerID);
 	}
 
 	@Override
-	public Map<ClusteredID<?>, L1> getClientListeners()
+	public Map<String, L1> getClientListeners()
 	{
 		return clientListenersMap;
 	}
@@ -108,17 +120,29 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 	@Override
 	public void setServerListener(ClusteredID<?> listenerID, L2 listener)
 	{
+		serverListenersMap.put(listenerID.toString(), listener);
+	}
+	
+	@Override
+	public void setServerListener(String listenerID, L2 listener)
+	{
 		serverListenersMap.put(listenerID, listener);
 	}
 
 	@Override
 	public void removeServerListener(ClusteredID<?> listenerID)
 	{
+		serverListenersMap.remove(listenerID.toString());
+	}
+	
+	@Override
+	public void removeServerListener(String listenerID)
+	{
 		serverListenersMap.remove(listenerID);
 	}
 
 	@Override
-	public Map<ClusteredID<?>, L2> getServerListeners()
+	public Map<String, L2> getServerListeners()
 	{
 		return serverListenersMap;
 	}
