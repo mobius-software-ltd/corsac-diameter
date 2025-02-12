@@ -40,15 +40,23 @@ public interface DiameterProvider<L1 extends SessionListener,L2 extends SessionL
 	
 	void setClientListener(ClusteredID<?> listenerID, L1 listener);
 	
+	void setClientListener(String listenerID, L1 listener);
+	
 	void setServerListener(ClusteredID<?> listenerID, L2 listener);
+	
+	void setServerListener(String listenerID, L2 listener);
 	
 	void removeClientListener(ClusteredID<?> listenerID);
 	
+	void removeClientListener(String listenerID);
+	
 	void removeServerListener(ClusteredID<?> listenerID);
 	
-	Map<ClusteredID<?>,L1> getClientListeners();
+	void removeServerListener(String listenerID);
 	
-	Map<ClusteredID<?>,L2> getServerListeners();
+	Map<String,L1> getClientListeners();
+	
+	Map<String,L2> getServerListeners();
 	
 	DiameterStack getStack();	
 	
