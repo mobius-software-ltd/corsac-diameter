@@ -1565,8 +1565,8 @@ public class DiameterParser
 			
 			if(currentAvp == null)
 			{
-				//set optional if possible as octet string
-				if(isMandatory)
+				//set optional if possible as octet string , ignore mandatory for FailedAvp
+				if(isMandatory && !(parent instanceof FailedAvp))
 					throw new DiameterException("The message has mandory bit set for " + avpCode + ",however avp is not know for local parser", null , ResultCodes.DIAMETER_AVP_UNSUPPORTED, null);
 				else 
 				{
