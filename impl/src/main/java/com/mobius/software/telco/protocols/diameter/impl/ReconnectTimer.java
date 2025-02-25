@@ -56,10 +56,13 @@ public class ReconnectTimer implements Timer
 			{
 				case IDLE:
 				case CER_SENT:
-					link.sendCER();
+					if(link.isStarted())
+						link.sendCER();	
+					else
+						link.resetReconnectTimer();
 					break;
 				default:
-					break;				
+					break;
 			}
 			
 			if(callback!=null)

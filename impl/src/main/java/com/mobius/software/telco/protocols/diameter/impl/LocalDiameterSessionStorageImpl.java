@@ -146,14 +146,8 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 			return;
 		}
 		
-		IdleCheckTimer idleTimer = idleMap.get(session.getIdleTimerID());
-		if(idleTimer != null)
-		{
-			idleTimer.restart(idleTime);
-			stack.getPeriodicQueue().store(idleTimer.getRealTimestamp(), idleTimer);
-		}
-		else
-			startIdleTimer(session, idleTime);
+		stopIdleTimer(session.getIdleTimerID());
+		startIdleTimer(session, idleTime);		
 	}
 
 	@Override
