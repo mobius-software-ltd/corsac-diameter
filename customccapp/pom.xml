@@ -37,17 +37,7 @@
 			<groupId>com.mobius-software.protocols.sctp</groupId>
 			<artifactId>sctp-impl</artifactId>
 			<version>${sctp.version}</version>
-		</dependency>	
-		<dependency>
-			<groupId>com.mobius-software.cluster</groupId>
-			<artifactId>cache-core</artifactId>
-			<version>${cluster.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mobius-software.cluster</groupId>
-			<artifactId>timers</artifactId>
-			<version>${cluster.version}</version>
-		</dependency>	
+		</dependency>			
 		<dependency>
 		    <groupId>org.mobicents.diameter</groupId>
 		    <artifactId>jdiameter-impl</artifactId>		    

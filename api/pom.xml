@@ -36,16 +36,16 @@
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>${netty.version}</version>
-		</dependency>			
-		<dependency>
-			<groupId>com.mobius-software.cluster</groupId>
-			<artifactId>cache-spi</artifactId>
-			<version>${cluster.version}</version>
 		</dependency>
         <dependency>
 			<groupId>com.mobius-software</groupId>
 			<artifactId>mobius-timers</artifactId>
 			<version>${timers.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mobius-software.cluster</groupId>
+			<artifactId>cache-spi</artifactId>
+			<version>${cluster.version}</version>
 		</dependency>
 	</dependencies>
 
