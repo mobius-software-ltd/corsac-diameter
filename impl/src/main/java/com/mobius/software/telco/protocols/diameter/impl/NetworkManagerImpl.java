@@ -225,43 +225,58 @@ public class NetworkManagerImpl implements NetworkManager
 		if(link==null)
 			throw new DiameterException("Link with such id doesnt exist", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 		
-		link.sendDPR(DisconnectCauseEnum.REBOOTING, new AsyncCallback()
-		{
-			@Override
-			public void onSuccess()
+		if (link.isUp())
+			link.sendDPR(DisconnectCauseEnum.REBOOTING, new AsyncCallback()
 			{
-				logger.info("The link " + linkId + " has stopped succesfully");
-				try
+				@Override
+				public void onSuccess()
 				{
-					link.stop(false);
+					logger.info("The link " + linkId + " has stopped succesfully");
+					try
+					{
+						link.stop(false);
+					}
+					catch(DiameterException ex)
+					{
+						logger.warn("An error occured while disconnecting," + ex.getMessage());
+					}
+					
+					if(callback!=null)
+						callback.onSuccess();
 				}
-				catch(DiameterException ex)
+				
+				@Override
+				public void onError(DiameterException ex)
 				{
 					logger.warn("An error occured while disconnecting," + ex.getMessage());
+					
+					try
+					{
+						link.stop(false);
+					}
+					catch(DiameterException ex2)
+					{
+						logger.warn("An error occured while disconnecting," + ex2.getMessage());
+					}
+					
+					if(callback!=null)
+						callback.onError(ex);
 				}
-				
-				if(callback!=null)
-					callback.onSuccess();
+			});
+		else {
+			logger.info("The link " + linkId + " has stopped succesfully without sending DPR");
+			try
+			{
+				link.stop(false);
 			}
-			
-			@Override
-			public void onError(DiameterException ex)
+			catch(DiameterException ex)
 			{
 				logger.warn("An error occured while disconnecting," + ex.getMessage());
-				
-				try
-				{
-					link.stop(false);
-				}
-				catch(DiameterException ex2)
-				{
-					logger.warn("An error occured while disconnecting," + ex2.getMessage());
-				}
-				
-				if(callback!=null)
-					callback.onError(ex);
 			}
-		});
+
+			if (callback != null)
+				callback.onSuccess();
+		}
 	}
 
 	@Override
