@@ -146,4 +146,6 @@ public interface DiameterStack
     DiameterParser getGlobalParser();
     
     Boolean isSessionLess();
+
+	Boolean isNewIncomingSessionAllowed();
 }
