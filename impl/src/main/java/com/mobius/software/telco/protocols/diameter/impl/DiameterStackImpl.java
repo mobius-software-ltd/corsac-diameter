@@ -273,6 +273,7 @@ public class DiameterStackImpl implements DiameterStack
 		registeredProvidersByClass.putIfAbsent(provider.getClass(), provider);
 	}
 	
+	@Override
 	public DiameterProvider<?,?,?,?,?> getProvider(Class<?> providerClass)
 	{
 		return registeredProvidersByClass.get(providerClass);
@@ -1525,11 +1526,13 @@ public class DiameterStackImpl implements DiameterStack
 		return this.classLoader;
 	}
 	
+	@Override
 	public void registerGlobalApplication(Package providerPackageName, Package packageName) throws DiameterException
 	{
 		globalParser.registerGlobalApplication(classLoader, providerPackageName, packageName);
 	}
 	
+	@Override
 	public DiameterParser getGlobalParser()
 	{
 		return globalParser;
@@ -1545,5 +1548,10 @@ public class DiameterStackImpl implements DiameterStack
 	public ClusteredID<?> generateID()
 	{
 		return idGenerator.generateID();
+	}
+
+	@Override
+	public Boolean isNewIncomingSessionAllowed() {
+		return true;
 	}
 }

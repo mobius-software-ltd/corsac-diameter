@@ -173,12 +173,18 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 			return;
 		}
 		
+		if (!stack.isNewIncomingSessionAllowed()) {
+			callback.onError(new DiameterException("The number of created incoming sessions exceeed the license limit", null, ResultCodes.DIAMETER_TOO_BUSY, null));
+			return;
+		}
+
 		DiameterSession session = this.getStack().getSessionStorage().getSession(sessionID, this);
 		if(session==null && (message instanceof DiameterRequest))
 		{
 			if(logger.isDebugEnabled())
 				logger.debug(String.format("Getting new session for message %s in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
 			
+
 			session=getNewSession((DiameterRequest)message);
 			if(session!=null)
 			{
@@ -203,18 +209,10 @@ public abstract class DiameterProviderImpl<L1 extends SessionListener, L2 extend
 				}
 				
 				getStack().getSessionStorage().storeSession(session);
-			}
-			else
-			{
-				if(logger.isDebugEnabled())
-					logger.debug(String.format("New session is null in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
-			}
-		}
-		else
-		{
-			if(logger.isDebugEnabled())
-				logger.debug(String.format("Processing message %s in existing session in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
-		}	
+			} else if(logger.isDebugEnabled())
+				logger.debug(String.format("New session is null in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));
+		} else if(logger.isDebugEnabled())
+			logger.debug(String.format("Processing message %s in existing session in provider %s", message.getClass().getCanonicalName(), getClass().getCanonicalName()));	
 			
 		if(session==null)
 		{
