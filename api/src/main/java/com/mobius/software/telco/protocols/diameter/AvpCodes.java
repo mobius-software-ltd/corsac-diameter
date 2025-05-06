@@ -301,17 +301,20 @@ public class AvpCodes
 	public static final long ACCOUNTING_REALTIME_REQUIRED = 483L;
 	public static final long ACCOUNTING_RECORD_NUMBER = 485L;
 	public static final long MIP6_AGENT_INFO = 486L;
+	public static final long MIP_CAREOF_ADDRESS = 487L;
+	public static final long MIP_AUTHENTICATOR = 488L;
 	public static final long MIP_MAC_MOBILITY_DATA = 489L;
 	public static final long MIP_TIMEOUT = 490L;
 	public static final long MIP_MN_HA_SPI = 491L;
 	public static final long MIP_MN_HA_MSA = 492L;
 	public static final long SERVICE_SELECTION = 493L;
+	public static final long MIP6_AUTH_MODE = 494L;
 	public static final long TMOD1 = 495L;
 	public static final long TOKEN_RATE = 496L;
 	public static final long BUCKET_DEPTH = 497L;
 	public static final long PEAK_TRAFFIC_RATE = 498L;
 	public static final long MINIMUM_POLICED_UNIT = 499L;
-	
+
 	public static final long MAXIMUM_PACKET_SIZE = 500L;
 	public static final long TMOD2 = 501L;
 	public static final long BANDWIDTH = 502L;
@@ -397,9 +400,7 @@ public class AvpCodes
 	public static final long KEY_LIFETIME = 584L;
 	public static final long KEY_SPI = 585L;
 	public static final long KEY_NAME = 586L;
-	public static final long MIP_CAREOF_ADDRESS = 587L;
-	public static final long MIP_AUTHENTICATOR = 588L;
-	public static final long MIP6_AUTH_MODE = 594L;
+	
 	
 	public static final long ERP_RK_REQUEST = 618L;
 	public static final long ERP_REALM = 619L;
