@@ -4,7 +4,7 @@ import java.util.Collection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -54,23 +54,16 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 			return;
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 				terminate(answer.getResultCode());
 			}
-		});					
+		}, this.getID()));					
 	}
 	
 	@Override

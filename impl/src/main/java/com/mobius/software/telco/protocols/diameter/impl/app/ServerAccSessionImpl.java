@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -70,26 +70,25 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			return;
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
-		{
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
+		{	
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				Boolean shouldKeepOpen=true;
 				
 				if(answer.getIsError()!=null && answer.getIsError())
+				{
 					shouldKeepOpen=false;
+				}
 				else if(answer.getAccountingRecordType()!=null && answer.getAccountingRecordType()==AccountingRecordTypeEnum.EVENT_RECORD)
+				{
 					shouldKeepOpen=false;
+				}
 				else if(answer.getAccountingRecordType()!=null && answer.getAccountingRecordType()==AccountingRecordTypeEnum.STOP_RECORD)
+				{
 					shouldKeepOpen=false;
+				}
 				
 				if(!shouldKeepOpen)
 				{	
@@ -102,14 +101,16 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 					
 					Long newTime = null;
 					if(answer.getAcctInterimInterval()!=null)
+					{
 						newTime = answer.getAcctInterimInterval()*1000L;
+					}
 					
 					answerSent(answer, newTime, callback);
 				}
 				
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
-		});					
+		}, this.getID()));					
 	}
 	
 	@Override
@@ -126,7 +127,9 @@ public class ServerAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				Collection<ServerAccListener<R1, A1>> listeners = (Collection<ServerAccListener<R1, A1>>) provider.getServerListeners().values();
 				
 				for(ServerAccListener<R1, A1> listener:listeners)
+				{
 					listener.onAccountingRequest(castedRequest, this, linkID,callback);
+				}
 			}
 		}
 		catch(Exception ex)

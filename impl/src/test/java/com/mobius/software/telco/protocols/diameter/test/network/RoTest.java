@@ -709,7 +709,7 @@ public class RoTest extends NetworkTestBase
 		
 		try
 		{
-			Thread.sleep(responseTimeout);
+			Thread.sleep(responseTimeout + 500);
 		}
 		catch(InterruptedException ex)
 		{

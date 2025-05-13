@@ -27,6 +27,7 @@ import com.mobius.software.common.dal.timers.CountableQueue;
 import com.mobius.software.common.dal.timers.PeriodicQueuedTasks;
 import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.common.dal.timers.Timer;
+import com.mobius.software.common.dal.timers.WorkerPool;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
@@ -49,9 +50,7 @@ public interface DiameterStack
 	
 	void registerCustomProvider(DiameterProvider<?,?,?,?,?> provider,Package parentPackage);
 	
-	CountableQueue<Task> getQueue();
-	
-	PeriodicQueuedTasks<Timer> getPeriodicQueue();
+	WorkerPool getWorkerPool();
 	
 	IDGenerator<?> getIDGenerator();
 	

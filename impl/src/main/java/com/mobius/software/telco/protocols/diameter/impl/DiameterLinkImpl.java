@@ -551,7 +551,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 	}
 
 	private ByteBuf sendMessageInternally(DiameterMessage message, AsyncCallback callback)
-	{
+	{		
 		if (message.getOriginHost() == null)
 		{
 			try
@@ -627,7 +627,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 	public void sendEncodedMessage(ByteBuf buffer, AsyncCallback callback)
 	{
 		try
-		{
+		{			
 			PayloadData payloadData = new PayloadData(buffer.readableBytes(), buffer, true, false, DIAMETER_SCTP_PROTOCOL_IDENTIFIER, wheel.incrementAndGet() % maxStreams);
 			association.send(payloadData);
 			lastActivity.set(System.currentTimeMillis());
@@ -641,7 +641,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 
 	@Override
 	public void onPayload(Association association, PayloadData payloadData)
-	{
+	{		
 		if (logger.isDebugEnabled())
 			logger.debug(String.format("Diameter Message received on link=%s %s", this.getID(), payloadData));
 
@@ -661,16 +661,27 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 			message = null;
 			try
 			{
-				message = parser.decode(buffer, rejectUnmandatoryAvps);
+				message = parser.decode(buffer, rejectUnmandatoryAvps);			
 				if (message != null)
 				{
+					String sessionID = null;
+					try
+					{
+						sessionID = message.getSessionId();
+					}
+					catch(DiameterException ex)
+					{
+						// sessionless messages are for the link itself
+						sessionID = linkId;
+					}
+					
 					if (association.getIpChannelType() == IpChannelType.TCP)
 					{
-						stack.getQueue().offerLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, null, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
+						stack.getWorkerPool().addTaskLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, null, sessionID, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
 						buffer.discardReadBytes();
 					}
 					else
-						stack.getQueue().offerLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, buffer, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
+						stack.getWorkerPool().addTaskLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, buffer, sessionID, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
 				}
 			}
 			catch (DiameterException ex)
@@ -994,7 +1005,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 	}
 
 	public void sendDWR()
-	{
+	{		
 		DeviceWatchdogRequest dwr = null;
 		try
 		{
@@ -1105,7 +1116,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 				public void onSuccess()
 				{
 					disconnectTimer.startTimer(inactivityTimeout, callback);
-					stack.getPeriodicQueue().store(disconnectTimer.getRealTimestamp(), disconnectTimer);
+					stack.getWorkerPool().getPeriodicQueue().store(disconnectTimer.getRealTimestamp(), disconnectTimer);
 				}
 
 				@Override
@@ -1224,16 +1235,16 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 
 	@Override
 	public void resetInactivityTimer()
-	{
+	{		
 		inactivityTimer.resetTimer();
-		stack.getPeriodicQueue().store(inactivityTimer.getRealTimestamp(), inactivityTimer);
+		stack.getWorkerPool().getPeriodicQueue().store(inactivityTimer.getRealTimestamp(), inactivityTimer);
 	}
 
 	@Override
 	public void resetReconnectTimer()
 	{
 		reconnectTimer.startTimer(reconnectTimeout, null);
-		stack.getPeriodicQueue().store(reconnectTimer.getRealTimestamp(), reconnectTimer);
+		stack.getWorkerPool().getPeriodicQueue().store(reconnectTimer.getRealTimestamp(), reconnectTimer);
 	}
 
 	@Override

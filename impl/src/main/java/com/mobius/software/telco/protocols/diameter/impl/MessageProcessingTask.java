@@ -31,7 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.restcomm.protocols.api.Association;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterAnswerData;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;
@@ -62,7 +62,7 @@ import io.netty.buffer.ByteBuf;
 * @author yulian oifa
 *
 */
-public class MessageProcessingTask implements Task
+public class MessageProcessingTask extends RunnableTask
 {
 	public static Logger logger=LogManager.getLogger(DiameterLinkImpl.class);
 	
@@ -76,7 +76,6 @@ public class MessageProcessingTask implements Task
 	private AtomicReference<List<Long>> remoteAcctApplicationIds;
 	private AtomicLong lastActivity;
 	private AtomicBoolean waitingForDWA;
-	private Long startTime = System.currentTimeMillis();
 	private ConcurrentHashMap<String, NetworkListener> genericListeners;
 	
 	private AsyncCallback dummyCallback = new AsyncCallback()
@@ -92,8 +91,10 @@ public class MessageProcessingTask implements Task
 		}
 	};
 	
-	public MessageProcessingTask(DiameterStack stack,DiameterLink link,ConcurrentHashMap<String, NetworkListener> genericListeners,AtomicLong lastActivity,AtomicBoolean waitingForDWA,Association association,ByteBuf buffer,DiameterMessage message,AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds,AtomicReference<List<Long>> remoteAuthApplicationIds,AtomicReference<List<Long>> remoteAcctApplicationIds)
+	public MessageProcessingTask(DiameterStack stack,DiameterLink link,ConcurrentHashMap<String, NetworkListener> genericListeners,AtomicLong lastActivity,AtomicBoolean waitingForDWA,Association association,ByteBuf buffer,String sessionID,DiameterMessage message,AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds,AtomicReference<List<Long>> remoteAuthApplicationIds,AtomicReference<List<Long>> remoteAcctApplicationIds)
 	{
+		super(null, sessionID);
+		
 		this.stack = stack;
 		this.buffer = buffer;
 		this.message = message;		
@@ -109,15 +110,17 @@ public class MessageProcessingTask implements Task
 
 	@Override
 	public void execute()
-	{
+	{		
 		try
 		{
 			lastActivity.set(System.currentTimeMillis());
 			stack.messageReceived(message, link.getID());
 			
 			if(logger.isDebugEnabled())
+			{
 				logger.debug(String.format("Processing Incoming Message received on link=%s %s", link.getID(), message.getClass().getCanonicalName()));
-			
+			}
+						
 			if(message instanceof CapabilitiesExchangeRequest)
 			{
 				switch(link.getPeerState())
@@ -242,7 +245,9 @@ public class MessageProcessingTask implements Task
 										}
 										
 										if(!hasApplicationId)
+										{
 											matchedAcctApplicationIds.add(currVendorSpecificApplicationId.getAcctApplicationId());
+										}
 									}
 									
 									if(currVendorSpecificApplicationId.getAuthApplicationId()!=null)
@@ -261,7 +266,9 @@ public class MessageProcessingTask implements Task
 										}
 										
 										if(!hasApplicationId)
-											matchedAuthApplicationIds.add(currVendorSpecificApplicationId.getAuthApplicationId());										
+										{
+											matchedAuthApplicationIds.add(currVendorSpecificApplicationId.getAuthApplicationId());
+										}										
 									}
 								}
 							}
@@ -328,10 +335,14 @@ public class MessageProcessingTask implements Task
 											}
 										}
 										else
+										{
 											remoteAcctApplicationIds.set(new ArrayList<Long>());
+										}
 										
 										if(!hasApplicationId)
+										{
 											remoteAcctApplicationIds.get().add(currVendorSpecificApplicationId.getAcctApplicationId());
+										}
 									}
 									
 									if(currVendorSpecificApplicationId.getAuthApplicationId()!=null)
@@ -349,10 +360,14 @@ public class MessageProcessingTask implements Task
 											}
 										}
 										else
+										{
 											remoteAuthApplicationIds.set(new ArrayList<Long>());
+										}
 										
 										if(!hasApplicationId)
-											remoteAuthApplicationIds.get().add(currVendorSpecificApplicationId.getAuthApplicationId());										
+										{
+											remoteAuthApplicationIds.get().add(currVendorSpecificApplicationId.getAuthApplicationId());
+										}										
 									}
 								}
 							}
@@ -400,6 +415,8 @@ public class MessageProcessingTask implements Task
 				switch(link.getPeerState())
 				{
 					case OPEN:
+						// TODO: Overview changes
+						link.resetInactivityTimer();
 						waitingForDWA.set(false);
 						break;
 					case CER_SENT:
@@ -456,24 +473,34 @@ public class MessageProcessingTask implements Task
 				if(stack.isSessionLess()==null || !stack.isSessionLess())
 				{
 					if(logger.isDebugEnabled())
+					{
 						logger.debug(String.format("Processing message %s received on link=%s as statefull", message.getClass().getCanonicalName(), link.getID()));
+					}
 					
 					DiameterCommandDefinition commandDef = DiameterParser.getCommandDefinition(message.getClass());
 					if(commandDef==null)
+					{
 						//should not happen , just in case 
 						logger.warn("Can find the command definition for " + message.getClass());
+					}
 					else
 					{
 						if(logger.isDebugEnabled())
+						{
 							logger.debug(String.format("checking the package name for message %s received on link=%s", message.getClass().getCanonicalName(), link.getID()));
+						}
 						
 						Package packageName = null;
 						try
 						{
 							if((message instanceof AccountingRequest) || (message instanceof AccountingAnswer))
+							{
 								packageName = link.getPackage(commandDef.applicationId(), false);
-							else 
+							}
+							else
+							{
 								packageName = link.getPackage(commandDef.applicationId(), true);
+							}
 						}
 						catch(Exception ex)
 						{
@@ -483,7 +510,9 @@ public class MessageProcessingTask implements Task
 						if(packageName == null)
 						{
 							if(logger.isDebugEnabled())
+							{
 								logger.debug(String.format("No package has been found message %s received on link=%s , application id %s", message.getClass().getCanonicalName(), link.getID(), String.valueOf(commandDef.applicationId())));
+							}
 							
 							try
 							{
@@ -498,7 +527,9 @@ public class MessageProcessingTask implements Task
 						}
 						
 						if(logger.isDebugEnabled())
+						{
 							logger.debug(String.format("checking for duplicates for message %s received on link=%s , application id %s", message.getClass().getCanonicalName(), link.getID(), String.valueOf(commandDef.applicationId())));
+						}
 						
 						try
 						{
@@ -526,7 +557,9 @@ public class MessageProcessingTask implements Task
 									}
 									
 									if(logger.isDebugEnabled())
+									{
 										logger.debug(String.format("Duplicate message %s detected on link=%s", message.getClass().getCanonicalName(), link.getID()));
+									}
 									
 									return;																
 								}
@@ -538,13 +571,17 @@ public class MessageProcessingTask implements Task
 						}
 						
 						if(logger.isDebugEnabled())
+						{
 							logger.debug(String.format("checking for provider for message %s received on link=%s , application id %s", message.getClass().getCanonicalName(), link.getID(), String.valueOf(commandDef.applicationId())));
+						}
 						
 						DiameterProvider<?, ?, ?, ?, ?> provider = stack.getProvider(commandDef.applicationId(), packageName);
 						if(provider == null)
 						{
 							if(logger.isDebugEnabled())
+							{
 								logger.debug(String.format("No provider has been found for message %s on link=%s", message.getClass().getCanonicalName(), link.getID()));
+							}
 							
 							try
 							{
@@ -560,7 +597,9 @@ public class MessageProcessingTask implements Task
 						else
 						{
 							if(logger.isDebugEnabled())
+							{
 								logger.debug(String.format("Delivering message %s received on link=%s to provider %s", message.getClass().getCanonicalName(), link.getID() , provider.getClass().getCanonicalName()));
+							}
 							
 							provider.onMessage(message, link.getID(), new AsyncCallback()
 							{
@@ -576,7 +615,9 @@ public class MessageProcessingTask implements Task
 									logger.warn("An error occured while delivering incoming message " + ex.getMessage() + " from " + association, ex);
 									
 									if(ex.getPartialMessage()==null)
+									{
 										ex.setPartialMessage(message);
+									}
 									
 									try
 									{
@@ -614,18 +655,14 @@ public class MessageProcessingTask implements Task
 			{
 				//for tcp no release is required
 				if(buffer!=null)
-					buffer.release();	
+				{
+					buffer.release();
+				}	
 			}
 			catch(Exception ex)
 			{
 				
 			}
 		}
-	}
-
-	@Override
-	public long getStartTime()
-	{
-		return startTime;
 	}
 }	

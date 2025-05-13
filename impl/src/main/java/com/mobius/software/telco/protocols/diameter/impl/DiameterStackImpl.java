@@ -37,6 +37,7 @@ import com.mobius.software.common.dal.timers.CountableQueue;
 import com.mobius.software.common.dal.timers.PeriodicQueuedTasks;
 import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.common.dal.timers.Timer;
+import com.mobius.software.common.dal.timers.WorkerPool;
 import com.mobius.software.telco.protocols.diameter.ApplicationID;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
@@ -157,8 +158,7 @@ public class DiameterStackImpl implements DiameterStack
 	private Long duplicateTimeout = 0L;
 	private Long duplicatesCheckPeriod = 0L;
 	
-	private CountableQueue<Task> queue;
-	private PeriodicQueuedTasks<Timer> periodicQueue;
+	private WorkerPool workerPool;
 	private IDGenerator<?> idGenerator;
 	
 	private AtomicLong sessionCounter=new AtomicLong();
@@ -197,13 +197,12 @@ public class DiameterStackImpl implements DiameterStack
     	allApplications.add("UNKNOWN"); 
     }
     
-	protected DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess) throws Exception
+	protected DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator, WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess) throws Exception
 	{
 		this.isSessionLess = sessionLess;
 		this.classLoader = classLoader;
 		this.idGenerator = idGenerator;
-		this.queue = queue;
-		this.periodicQueue = periodicQueue;
+		this.workerPool = workerPool;
 		this.localHost = localHost;
 		this.productName = productName;
 		this.vendorId = vendorId;
@@ -247,17 +246,17 @@ public class DiameterStackImpl implements DiameterStack
 		this.stackID = idGenerator.generateID();
 	}
     
-    public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
+    public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod) throws Exception
 	{
-    	this(classLoader, idGenerator, queue, periodicQueue, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
+    	this(classLoader, idGenerator, workerPool, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
     	
     	sessionStorage = new LocalDiameterSessionStorageImpl(this);
 		incomingRequestsStorage = new LocalIncomingRequestsStorageImpl(this);				
 	}
 	
-	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,CountableQueue<Task> queue, PeriodicQueuedTasks<Timer> periodicQueue,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess, DiameterSessionStorage sessionStorage, IncomingRequestsStorage incomingRequestsStorage) throws Exception
+	public DiameterStackImpl(ClassLoader classLoader, IDGenerator<?> idGenerator,WorkerPool workerPool,int workerThreads,String localHost, String productName, Long vendorId,Long firmwareRevision, Long idleTimeout, Long responseTimeout, Long reconnectTimeout, Long duplicateTimeout, Long duplicatesCheckPeriod, Boolean sessionLess, DiameterSessionStorage sessionStorage, IncomingRequestsStorage incomingRequestsStorage) throws Exception
 	{
-		this(classLoader, idGenerator, queue, periodicQueue, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
+		this(classLoader, idGenerator, workerPool, workerThreads, localHost, productName, vendorId, firmwareRevision, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatesCheckPeriod, false);
     	
     	this.sessionStorage = sessionStorage;
 		this.incomingRequestsStorage = incomingRequestsStorage;		
@@ -1509,15 +1508,9 @@ public class DiameterStackImpl implements DiameterStack
 	}
 
 	@Override
-	public CountableQueue<Task> getQueue()
+	public WorkerPool getWorkerPool()
 	{
-		return queue;
-	}
-
-	@Override
-	public PeriodicQueuedTasks<Timer> getPeriodicQueue()
-	{
-		return periodicQueue;
+		return this.workerPool;
 	}
 
 	@Override

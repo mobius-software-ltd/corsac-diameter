@@ -1,5 +1,6 @@
 package com.mobius.software.telco.protocols.diameter;
 
+import com.mobius.software.common.dal.timers.TaskCallback;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 
 /*
@@ -25,9 +26,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 * @author yulian oifa
 *
 */
-public interface AsyncCallback
+public interface AsyncCallback extends TaskCallback<DiameterException>
 {
-	void onSuccess(); 
-
-	void onError(DiameterException ex);	
 }

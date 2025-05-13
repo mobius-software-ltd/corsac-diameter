@@ -1,7 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.sy;
 import java.util.Collection;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -78,7 +78,9 @@ public class SyServerSessionImpl extends ServerAuthSessionImpl<SpendingLimitRequ
 		{
 			Collection<ServerAuthListener<SpendingLimitRequest, SpendingLimitAnswer, ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>> listeners = null;
 			if(provider.getServerListeners()!=null)
+			{
 				listeners = (Collection<ServerAuthListener<SpendingLimitRequest, SpendingLimitAnswer, ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>>) provider.getServerListeners().values();
+			}
 			
 			if(request instanceof SpendingStatusNotificationRequest)
 			{
@@ -91,7 +93,9 @@ public class SyServerSessionImpl extends ServerAuthSessionImpl<SpendingLimitRequ
 						if(listeners!=null)
 						{
 							for(ServerAuthListener<SpendingLimitRequest, SpendingLimitAnswer, ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> listener:listeners)
+							{
 								((ServerListener)listener).onSpendingStatusNotificationAnswer(castedAnswer, this, linkID,callback);
+							}
 						}
 					}
 					catch(Exception ex)
@@ -103,10 +107,14 @@ public class SyServerSessionImpl extends ServerAuthSessionImpl<SpendingLimitRequ
 				}
 			}
 			else
+			{
 				super.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);
+			}
 		}
-		else 
+		else
+		{
 			super.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);
+		}
 	}
 	
 	@Override
@@ -118,17 +126,10 @@ public class SyServerSessionImpl extends ServerAuthSessionImpl<SpendingLimitRequ
 			return;
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				setSessionState(SessionStateEnum.PENDING);
 				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
@@ -144,9 +145,10 @@ public class SyServerSessionImpl extends ServerAuthSessionImpl<SpendingLimitRequ
 				}
 				
 				setLastSentRequest(request);
+				
 				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
-		});				
+		}, this.getID()));				
 	}
 }

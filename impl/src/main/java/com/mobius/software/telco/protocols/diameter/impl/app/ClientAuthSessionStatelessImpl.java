@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -79,17 +79,10 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable() 
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				setSessionState(SessionStateEnum.PENDING);
 				DiameterRequest oldRequest=getLastSendRequest();
@@ -97,7 +90,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				requestSent(oldRequest==null, request, callback);
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
-		});		
+		}, this.getID()));		
 	}
 	
 	@Override
@@ -125,7 +118,9 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 		{
 			Collection<ClientAuthStatelessListener<R1,A1>> listeners = null;
 			if(provider.getClientListeners()!=null)
+			{
 				listeners = (Collection<ClientAuthStatelessListener<R1,A1>>) provider.getClientListeners().values();
+			}
 			
 			try
 			{
@@ -139,7 +134,9 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 					if(listeners!=null)
 					{
 						for(ClientAuthStatelessListener<R1,A1> listener:listeners)
+						{
 							listener.onInitialAnswer(castedAnswer, this, linkID, callback);
+						}
 					}
 				}
 			}
@@ -149,8 +146,10 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				return;
 			}
 		}
-		else 
-			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
+		else
+		{
+			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
+		}		
 	}
 
 	@Override
