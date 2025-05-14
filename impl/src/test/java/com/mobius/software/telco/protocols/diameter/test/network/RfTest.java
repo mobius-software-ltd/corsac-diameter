@@ -715,13 +715,13 @@ public class RfTest extends NetworkTestBase
 		//make sure timeout is processed
 		try
 		{
-			Thread.sleep(idleTimeout * 2);
+			Thread.sleep(idleTimeout * 3);
 		}
 		catch(InterruptedException ex)
 		{
 			
 		}
-		
+				
 		super.stopLocal();
 		super.stopRemote();
 		

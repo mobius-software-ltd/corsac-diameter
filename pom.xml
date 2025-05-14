@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.mobius-software</groupId>
 		<artifactId>mobius-public-parent</artifactId>
-		<version>1.0.9</version>
+		<version>1.0.12</version>
 	</parent>
 	
 	<groupId>com.mobius-software.protocols.diameter</groupId>
@@ -113,7 +113,7 @@
 			</activation>
     		<properties>
     			<sctp.version>2.2.14</sctp.version>
-				<timers.version>1.0.0-33</timers.version>    
+				<timers.version>1.0.0-34</timers.version>    
 				<cluster.version>8.0.0-47</cluster.version>       
     		</properties>
     		<build>
@@ -135,7 +135,7 @@
     		<id>java11</id>
     		<properties>
     			<sctp.version>2.2.14-java11</sctp.version>
-				<timers.version>1.0.0-33-java11</timers.version> 
+				<timers.version>1.0.0-34-java11</timers.version> 
 				<cluster.version>8.0.0-47-java11</cluster.version>             
     		</properties>
     		<build>

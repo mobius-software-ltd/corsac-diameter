@@ -109,13 +109,13 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 			
 			idleTimer = idleMap.putIfAbsent(session.getIdleTimerID(), newTimer);
 			if(idleTimer==null)
-				stack.getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
+				stack.getWorkerPool().addTimer(newTimer);
 		}
 	}
 
 	@Override
 	public void stopSendTimer(ClusteredID<?> timerID)
-	{
+	{		
 		SendTimer sendTimer = sendMap.remove(timerID);
 		if(sendTimer != null)
 			sendTimer.stop();
@@ -133,7 +133,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 			SendTimer newTimer=new SendTimer(session, stack.getResponseTimeout());
 			sendTimer = sendMap.putIfAbsent(session.getSendTimerID(), newTimer);
 			if(sendTimer==null)
-				stack.getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
+				stack.getWorkerPool().getPeriodicQueue().store(newTimer.getRealTimestamp(), newTimer);
 		}
 	}
 
@@ -154,7 +154,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 	public void restartSendTimer(DiameterSession session)
 	{
 		if(session.getSendTimerID()==null)
-		{
+		{			
 			startSendTimer(session);
 			return;
 		}
@@ -163,7 +163,7 @@ public class LocalDiameterSessionStorageImpl implements DiameterSessionStorage
 		if(sendTimer != null)
 		{
 			sendTimer.restart();
-			stack.getPeriodicQueue().store(sendTimer.getRealTimestamp(), sendTimer);
+			stack.getWorkerPool().addTimer(sendTimer);
 		}
 		else
 			startSendTimer(session);

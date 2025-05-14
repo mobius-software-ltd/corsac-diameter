@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
@@ -91,17 +91,10 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				setSessionState(SessionStateEnum.PENDING);
 				if(!isRetry()) 
@@ -125,7 +118,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				
 				provider.getStack().sendRequest(request, callback);
 			}
-		});						
+		}, this.getID()));						
 	}
 
 	@Override
@@ -146,22 +139,15 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
-		});				
+		}, this.getID()));				
 	}
 
 	@Override
@@ -182,17 +168,10 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				setSessionState(SessionStateEnum.DISCONNECTED);
 				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
@@ -211,7 +190,7 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
-		});			
+		}, this.getID()));			
 	}
 
 	@Override
@@ -232,25 +211,20 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				if(answer.getIsError()==null || !answer.getIsError())
+				{
 					setSessionState(SessionStateEnum.DISCONNECTED);
+				}
 				
 				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 			}
-		});			
+		}, this.getID()));			
 	}
 	
 	@Override
@@ -266,7 +240,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				@SuppressWarnings("unchecked")
 				R2 castedRequest = (R2)request;
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-					listener.onReauthRequest(castedRequest, this, linkID, callback);	
+				{
+					listener.onReauthRequest(castedRequest, this, linkID, callback);
+				}	
 			}
 			catch(Exception ex)
 			{
@@ -283,7 +259,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				@SuppressWarnings("unchecked")
 				R3 castedRequest = (R3)request;
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
-					listener.onAbortSessionRequest(castedRequest, this, linkID, callback);	
+				{
+					listener.onAbortSessionRequest(castedRequest, this, linkID, callback);
+				}	
 			}
 			catch(Exception ex)
 			{
@@ -319,7 +297,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 		{
 			Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = null;
 			if(provider.getClientListeners()!=null)
+			{
 				listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
+			}
 			
 			if(request instanceof SessionTerminationRequest)
 			{
@@ -334,7 +314,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						if(listeners!=null)
 						{
 							for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+							{
 								listener.onSessionTerminationAnswer(castedAnswer, this, linkID, callback);
+							}
 						}
 					}
 					catch(Exception ex)
@@ -356,7 +338,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 						try
 						{
 							if(castedAnswer.getValidityTime()!=null)
+							{
 								newTime = castedAnswer.getValidityTime()*1000L;
+							}
 						}
 						catch(DiameterException ex)
 						{
@@ -370,7 +354,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							if(listeners!=null)
 							{
 								for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+								{
 									listener.onInitialAnswer(castedAnswer, this, linkID, callback);
+								}
 							}
 						}
 						else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
@@ -382,7 +368,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+									{
 										listener.onInitialAnswer(castedAnswer, this, linkID, callback);
+									}
 								}
 							}
 							else
@@ -392,7 +380,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+									{
 										listener.onInitialAnswer(castedAnswer, this, linkID, callback);
+									}
 								}
 							}
 						}
@@ -407,11 +397,13 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 									{
 										case DIRECT_DEBITING:
 											if(castedAnswer.getResultCode()>=4000L && castedAnswer.getResultCode()<5000L)
+											{
 												if(castedAnswer.getDirectDebitingFailureHandling()!=null && castedAnswer.getDirectDebitingFailureHandling()==DirectDebitingFailureHandlingEnum.CONTINUE)
 												{
 													request.setIsRetransmit(true);
 													shouldRetry = true;
 												}
+											}
 											break;
 										case REFUND_ACCOUNT:
 											if(castedAnswer.getResultCode()>=4000L && castedAnswer.getResultCode()<5000L)
@@ -435,7 +427,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+									{
 										listener.onInitialAnswer(castedAnswer, this, linkID, callback);
+									}
 								}
 							}
 							else
@@ -444,7 +438,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 								if(listeners!=null)
 								{
 									for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+									{
 										listener.onInitialAnswer(castedAnswer, this, linkID,callback);
+									}
 								}
 								
 								R1 realRequest=(R1)request;
@@ -461,8 +457,10 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				}
 			}
 		}
-		else 
-			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
+		else
+		{
+			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
+		}		
 	}
 	
 	@Override
@@ -505,7 +503,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 							Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 						
 							for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+							{
 								listener.onTimeout(getLastSendRequest(),this);
+							}
 						}
 						
 						@SuppressWarnings("unchecked")
@@ -554,7 +554,9 @@ public class ClientCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 				Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>> listeners = (Collection<ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4>>) provider.getClientListeners().values();
 			
 				for(ClientCCListener<R1,A1,R2,A2,R3,A3,R4,A4> listener:listeners)
+				{
 					listener.onTimeout(getLastSendRequest(),session);
+				}
 			}
 		}
 	}

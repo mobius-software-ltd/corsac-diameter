@@ -197,7 +197,7 @@ public abstract class DiameterSessionImpl implements DiameterSession
 	
 	@Override
 	public void terminate(Long resultCode)
-	{
+	{		
 		stopIdleTimer();
 		stopSendTimer();
 		this.provider.getStack().getSessionStorage().removeSession(this.sessionID);

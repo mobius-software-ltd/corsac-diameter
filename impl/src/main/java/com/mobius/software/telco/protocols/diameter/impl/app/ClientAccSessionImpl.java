@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -83,17 +83,10 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				setSessionState(SessionStateEnum.PENDING);
 				if(!isRetry()) 
@@ -105,7 +98,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
-		});				
+		}, this.getID()));				
 	}
 	
 	@Override
@@ -139,12 +132,16 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				
 				Collection<ClientAccListener<R1, A1>> listeners = null;
 				if(provider.getClientListeners()!=null)
+				{
 					listeners = (Collection<ClientAccListener<R1, A1>>) provider.getClientListeners().values();
+				}
 				
 				if(getSessionState()==SessionStateEnum.PENDING)
 				{
 					if(((AccountingRequest)request).getAcctInterimInterval()!=null)
+					{
 						newTime = ((AccountingRequest)request).getAcctInterimInterval()*1000L;
+					}
 					
 					if(((AccountingRequest)request).getAccountingRecordType()!=null && ((AccountingRequest)request).getAccountingRecordType()==AccountingRecordTypeEnum.STOP_RECORD)
 					{
@@ -153,7 +150,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						if(listeners!=null)
 						{
 							for(ClientAccListener<R1, A1> listener:listeners)
+							{
 								listener.onAccountingResponse(castedAnswer, this, linkID,callback);
+							}
 						}
 					}
 					else if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())
@@ -165,7 +164,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
+								{
 									listener.onAccountingResponse(castedAnswer, this, linkID,callback);
+								}
 							}
 						}
 						else
@@ -175,7 +176,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
+								{
 									listener.onAccountingResponse(castedAnswer, this, linkID,callback);
+								}
 							}
 						}
 					}
@@ -188,7 +191,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							try
 							{
 								if(((AccountingRequest)request).getAccountingRealtimeRequired()!=null && ((AccountingRequest)request).getAccountingRealtimeRequired()==AccountingRealtimeRequiredEnum.GRANT_AND_LOSE)
+								{
 									shouldProcessLocally = true;
+								}
 							}
 							catch(AvpNotSupportedException ex)
 							{
@@ -202,7 +207,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 								if(listeners!=null)
 								{
 									for(ClientAccListener<R1, A1> listener:listeners)
+									{
 										listener.onAccountingResponse(castedAnswer, this, linkID,callback);
+									}
 								}
 								
 								processed = true;
@@ -217,7 +224,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 							if(listeners!=null)
 							{
 								for(ClientAccListener<R1, A1> listener:listeners)
-									listener.onAccountingResponse(castedAnswer, this, linkID, callback);													
+								{
+									listener.onAccountingResponse(castedAnswer, this, linkID, callback);
+								}													
 							}
 						}
 					}
@@ -229,8 +238,10 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				return;
 			}		
 		}
-		else 
-			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
+		else
+		{
+			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
+		}		
 	}
 	
 	@Override
@@ -268,7 +279,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						try
 						{
 							if(((AccountingRequest)request).getAccountingRealtimeRequired()!=null && ((AccountingRequest)request).getAccountingRealtimeRequired()!=AccountingRealtimeRequiredEnum.DELIVER_AND_GRANT)
+							{
 								shouldResend = true;
+							}
 						}
 						catch(AvpNotSupportedException ex2)
 						{
@@ -276,7 +289,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 						}
 					}
 					else
+					{
 						shouldResend=true;
+					}
 				}
 				
 				//does not really matters since will be changed right away to PENDING again
@@ -295,7 +310,9 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				}
 			}
 			else
+			{
 				realCallback.onError(ex);
+			}
 		}		
 	}
 }

@@ -1,4 +1,5 @@
 package com.mobius.software.telco.protocols.diameter.impl;
+
 /*
  * Mobius Software LTD
  * Copyright 2019 - 2023, Mobius Software LTD and individual contributors
@@ -22,68 +23,64 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.mobius.software.common.dal.timers.RunnableTimer;
 import com.mobius.software.common.dal.timers.Timer;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
+
 /**
-*
-* @author yulian oifa
-*
-*/
-public class IdleCheckTimer implements Timer 
+ *
+ * @author yulian oifa
+ *
+ */
+public class IdleCheckTimer extends RunnableTimer
 {
-	public static Logger logger=LogManager.getLogger(IdleCheckTimer.class);
-	
-	private long startTime;
+	public static Logger logger = LogManager.getLogger(IdleCheckTimer.class);
+
 	private AtomicLong timestamp;
 	private long timeout;
 	private DiameterSession session;
-	
-	public IdleCheckTimer(DiameterSession session,long timeout)
+
+	public IdleCheckTimer(DiameterSession session, long timeout)
 	{
-		this.startTime=System.currentTimeMillis();		
-		this.session=session;
-		this.timeout=timeout;
+		super(null, System.currentTimeMillis() + timeout, session.getID());
+		
+		this.session = session;
+		this.timeout = timeout;
 		this.timestamp = new AtomicLong(System.currentTimeMillis() + timeout);
 	}
 
 	@Override
-	public void execute() 
-	{
-		if(timestamp.get()<Long.MAX_VALUE)
-		{			
+	public void execute()
+	{		
+		if (timestamp.get() < Long.MAX_VALUE)
+		{
 			logger.error("Session " + session.getID() + " is idle");
 			session.onIdleTimeout();
 		}
 	}
 
 	@Override
-	public long getStartTime() 
-	{
-		return startTime;
-	}
-
-	@Override
-	public Long getRealTimestamp() 
+	public Long getRealTimestamp()
 	{
 		return timestamp.get();
 	}
 
 	@Override
-	public void stop() 
+	public void stop()
 	{
 		timestamp.set(Long.MAX_VALUE);
 	}
-	
+
 	public void restart()
 	{
 		this.timestamp.set(System.currentTimeMillis() + timeout);
 	}
-	
+
 	public void restart(Long idleTime)
 	{
-		if(idleTime!=null)
+		if (idleTime != null)
 			timeout = idleTime;
-		
+
 		this.timestamp.set(System.currentTimeMillis() + timeout);
 	}
 }
