@@ -52,24 +52,24 @@ public class InactivityTimer implements Timer
 		this.lastActivity = lastActivity;
 		this.waitingForDWA = waitingForDWA;
 		this.inactivityTimeout=inactivityTimeout;
-		this.responseTimeout=responseTimeout;
+		this.responseTimeout=responseTimeout+10;
 	}
 
 	@Override
 	public void execute() 
-	{		
+	{
 		if(timestamp.get()<Long.MAX_VALUE)
-		{
+		{			
 			if(waitingForDWA.get() && this.lastDWRSent<(System.currentTimeMillis()-responseTimeout))
 			{
 				link.setPeerState(PeerStateEnum.IDLE);
-				link.sendCER();				
+				link.sendCER();
 			}
 			
 			switch(link.getPeerState())
 			{
 				case OPEN:
-					if(this.lastActivity.get()<(System.currentTimeMillis()-inactivityTimeout))
+					if(this.lastActivity.get()<=(System.currentTimeMillis()-inactivityTimeout))
 					{				
 						this.lastDWRSent = System.currentTimeMillis();
 						this.lastActivity.set(System.currentTimeMillis());
@@ -81,7 +81,7 @@ public class InactivityTimer implements Timer
 					break;				
 			}
 			
-			resetTimer();
+			// resetTimer();
 			link.resetInactivityTimer();
 		}						
 	}
@@ -99,7 +99,7 @@ public class InactivityTimer implements Timer
 	}
 
 	public void resetTimer()
-	{
+	{		
 		logger.debug("Reseting inactivity timer for link " +  link.getID() + " To " + (System.currentTimeMillis() + responseTimeout));
 		this.timestamp.set(System.currentTimeMillis() + responseTimeout);		
 	}

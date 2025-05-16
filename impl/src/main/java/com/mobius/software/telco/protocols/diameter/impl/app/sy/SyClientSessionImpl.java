@@ -1,7 +1,7 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.sy;
 import java.util.Collection;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -65,7 +65,9 @@ public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequ
 	{
 		Collection<ClientAuthListener<SpendingLimitRequest, SpendingLimitAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>> listeners = null;
 		if(provider.getClientListeners()!=null)
+		{
 			listeners = (Collection<ClientAuthListener<SpendingLimitRequest, SpendingLimitAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>>) provider.getClientListeners().values();
+		}
 		
 		if(request instanceof SpendingStatusNotificationRequest)
 		{
@@ -79,7 +81,9 @@ public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequ
 				if(listeners!=null)
 				{
 					for(ClientAuthListener<SpendingLimitRequest, SpendingLimitAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> listener:listeners)
+					{
 						((ClientListener)listener).onSpendingStatusNotificationRequest(castedRequest, this, linkID, callback);
+					}
 				}
 			}
 			catch(Exception ex)
@@ -90,7 +94,9 @@ public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequ
 			}
 		}
 		else
+		{
 			super.requestReceived(request, linkID, callback);
+		}
 	}
 	
 	@Override
@@ -111,17 +117,10 @@ public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequ
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				if(answer.getIsError()!=null && answer.getIsError())
 				{	
@@ -132,6 +131,6 @@ public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequ
 				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);		
 			}
-		});		
+		}, this.getID()));		
 	}
 }

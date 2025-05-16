@@ -65,7 +65,7 @@ public class NetworkTestBase
 		@SuppressWarnings("unused")
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.custom.CreditControlRequestImpl.class;
 		
-		serverStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
+		serverStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		CustomProviderImpl customProvider=new CustomProviderImpl(serverStack, "com.mobius.software.telco.protocols.diameter.commands.custom");
 		serverStack.registerCustomProvider(customProvider, Package.getPackage(customProvider.getPackageName()));
 		//in commercial you should get the stack through DiameterServerInterface, and add the application to known applications, in stack created callback you should register custom provider
@@ -96,7 +96,7 @@ public class NetworkTestBase
 		@SuppressWarnings("unused")
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.custom.CreditControlRequestImpl.class;
 		
-		localStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
+		localStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		CustomProviderImpl customProvider=new CustomProviderImpl(localStack, "com.mobius.software.telco.protocols.diameter.commands.custom");
 		localStack.registerCustomProvider(customProvider, Package.getPackage(customProvider.getPackageName()));
 		//in commercial you should get the stack through DiameterServerInterface, and add the application to known applications, in stack created callback you should register custom provider

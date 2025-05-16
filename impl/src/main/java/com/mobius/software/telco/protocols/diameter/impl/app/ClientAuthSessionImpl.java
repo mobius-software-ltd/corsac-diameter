@@ -19,7 +19,7 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
  */
 import java.util.Collection;
 
-import com.mobius.software.common.dal.timers.Task;
+import com.mobius.software.common.dal.timers.RunnableTask;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -85,17 +85,10 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				setSessionState(SessionStateEnum.PENDING);
 				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
@@ -111,11 +104,11 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				}
 				
 				DiameterRequest oldRequest=getLastSendRequest();
-				setLastSentRequest(request);	
+				setLastSentRequest(request);
 				requestSent(oldRequest==null, request, callback);
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
-		});						
+		}, this.getID()));						
 	}
 
 	@Override
@@ -136,17 +129,10 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				if(answer.getIsError()!=null && answer.getIsError())
 				{	
@@ -157,7 +143,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);		
 			}
-		});		
+		}, this.getID()));		
 	}
 
 	@Override
@@ -178,17 +164,10 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				setSessionState(SessionStateEnum.DISCONNECTED);
 				if(request.getDestinationRealm()==null && getRemoteRealm()!=null)
@@ -206,7 +185,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
-		});			
+		}, this.getID()));			
 	}
 
 	@Override
@@ -227,25 +206,20 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 			//will not happen
 		}
 		
-		final Long startTime = System.currentTimeMillis();
-		provider.getStack().getQueue().offerLast(new Task()
-		{
+		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
+		{	
 			@Override
-			public long getStartTime()
-			{
-				return startTime;
-			}
-			
-			@Override
-			public void execute()
+			public void run()
 			{
 				if(answer.getIsError()==null || !answer.getIsError())
+				{
 					setSessionState(SessionStateEnum.DISCONNECTED);
+				}
 				
 				answerSent(answer, null, callback);				
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);	
 			}
-		});			
+		}, this.getID()));			
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -254,7 +228,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 	{
 		Collection<ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>> listeners = null;
 		if(provider.getClientListeners()!=null)
+		{
 			listeners = (Collection<ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>>) provider.getClientListeners().values();
+		}
 		
 		if(request instanceof ReAuthRequest)
 		{
@@ -265,7 +241,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				if(listeners!=null)
 				{
 					for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+					{
 						listener.onReauthRequest(castedRequest, this, linkID, callback);
+					}
 				}
 			}
 			catch(Exception ex)
@@ -282,7 +260,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				R3 castedRequest = (R3)request;
 				super.requestReceived(request, linkID, callback);
 				for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
-					listener.onAbortSessionRequest(castedRequest, this, linkID, callback);	
+				{
+					listener.onAbortSessionRequest(castedRequest, this, linkID, callback);
+				}	
 			}
 			catch(Exception ex)
 			{
@@ -317,7 +297,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 		{
 			Collection<ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>> listeners = null;
 			if(provider.getClientListeners()!=null)
+			{
 				listeners = (Collection<ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4>>) provider.getClientListeners().values();
+			}
 			
 			if(request instanceof SessionTerminationRequest)
 			{
@@ -332,7 +314,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 						if(listeners!=null)
 						{
 							for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+							{
 								listener.onSessionTerminationAnswer(castedAnswer, this, linkID, callback);
+							}
 						}
 					}
 					catch(Exception ex)
@@ -358,7 +342,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 							if(listeners!=null)
 							{
 								for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+								{
 									listener.onInitialAnswer(castedAnswer, this, linkID, callback);
+								}
 							}
 						}
 						else
@@ -368,7 +354,9 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 							if(listeners!=null)
 							{
 								for(ClientAuthListener<R1, A1,R2, A2, R3, A3, R4, A4> listener:listeners)
+								{
 									listener.onInitialAnswer(castedAnswer, this, linkID, callback);
+								}
 							}
 						}
 					}
@@ -380,8 +368,10 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				}
 			}
 		}
-		else 
-			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));		
+		else
+		{
+			callback.onError(new DiameterException("Received unexpected answer", null, ResultCodes.DIAMETER_COMMAND_UNSUPPORTED, null));
+		}		
 	}
 
 	@Override

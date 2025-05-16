@@ -53,7 +53,7 @@ public class LocalIncomingCleanupTimer implements Timer
 		if(stack.getDuplicatesTimeout()!=null && stack.getDuplicatesTimeout()>0 && stack.getDuplicatesCheckPeriod()!=null && stack.getDuplicatesCheckPeriod()>0)
 		{
 			this.timestamp = new AtomicLong(System.currentTimeMillis() + stack.getDuplicatesCheckPeriod());
-			stack.getPeriodicQueue().store(this.getRealTimestamp(), this);
+			stack.getWorkerPool().getPeriodicQueue().store(this.getRealTimestamp(), this);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class LocalIncomingCleanupTimer implements Timer
 			if(stack.getDuplicatesTimeout()!=null && stack.getDuplicatesTimeout()>0 && stack.getDuplicatesCheckPeriod()!=null && stack.getDuplicatesCheckPeriod()>0)
 			{
 				this.timestamp = new AtomicLong(System.currentTimeMillis() + stack.getDuplicatesCheckPeriod());
-				stack.getPeriodicQueue().store(this.getRealTimestamp(), this);	
+				stack.getWorkerPool().getPeriodicQueue().store(this.getRealTimestamp(), this);	
 			}
 		}
 	}

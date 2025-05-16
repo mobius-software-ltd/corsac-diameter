@@ -222,7 +222,7 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	
 	@Override
 	public String getSessionId() throws AvpNotSupportedException
-	{
+	{		
 		if(!sessionIdAllowed)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() } ));
 		

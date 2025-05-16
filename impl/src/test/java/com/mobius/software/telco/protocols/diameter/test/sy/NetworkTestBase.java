@@ -42,7 +42,7 @@ public class NetworkTestBase
 {
 	protected DiameterStack serverStack;
 	protected DiameterStack localStack;
-	private WorkerPool workerPool;
+	protected WorkerPool workerPool;
 	protected IDGenerator<?> generator = new UUIDGenerator();
 	
 	protected Long idleTimeout = 5000L;
@@ -65,7 +65,7 @@ public class NetworkTestBase
 		@SuppressWarnings("unused")
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.sy.SpendingStatusNotificationRequestImpl.class;
 		
-		serverStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
+		serverStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		if(isAnyPort)
 			serverStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 0,  InetAddress.getByName("127.0.0.1"), 4868, true, true, "127.0.0.1", "server.mobius-software.com", "127.0.0.1", "client.mobius-software.com", false);
 		else
@@ -87,7 +87,7 @@ public class NetworkTestBase
 		@SuppressWarnings("unused")
 		Class<?> roClazz = com.mobius.software.telco.protocols.diameter.impl.commands.sy.SpendingStatusNotificationRequestImpl.class;
 		
-		localStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool.getQueue(), workerPool.getPeriodicQueue(), 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
+		localStack=new DiameterStackImpl(this.getClass().getClassLoader(), generator, workerPool, 4, "client.mobius-software.com", "Mobius Diameter", 0L, 10L, idleTimeout, responseTimeout, reconnectTimeout, duplicateTimeout, duplicatePeriod);
 		localStack.getNetworkManager().addLink(localLinkID, InetAddress.getByName("127.0.0.1"), 4868,  InetAddress.getByName("127.0.0.1"), 13868, false, true, "127.0.0.1", "client.mobius-software.com", "127.0.0.1", "server.mobius-software.com", false);
 		localStack.getNetworkManager().registerApplication(localLinkID, Arrays.asList(new VendorSpecificApplicationId[] {}), Arrays.asList(new Long[] { new Long(ApplicationIDs.SY) }), Arrays.asList(new Long[] {}), Package.getPackage("com.mobius.software.telco.protocols.diameter.commands.sy"), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.sy"));
 		localStack.getNetworkManager().startLink(localLinkID);		

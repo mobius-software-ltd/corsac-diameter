@@ -94,7 +94,8 @@ public class LinkTest extends NetworkTestBase
 		
 		try
 		{
-			Thread.sleep(idleTimeout * 5);
+			// TODO: Overview changes (+500)
+			Thread.sleep(idleTimeout * 5 + 500);
 		}
 		catch(InterruptedException ex)
 		{
@@ -191,6 +192,8 @@ public class LinkTest extends NetworkTestBase
 		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isStarted());
 		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isUp());
 		
+		Thread.sleep(500);
+		
 		super.stopLocal();
 		super.stopRemote();
 		
@@ -270,7 +273,7 @@ public class LinkTest extends NetworkTestBase
 		
 		try
 		{
-			Thread.sleep(reconnectTimeout * 2);
+			Thread.sleep(reconnectTimeout * 2 + 500);
 		}
 		catch(InterruptedException ex)
 		{
@@ -380,11 +383,13 @@ public class LinkTest extends NetworkTestBase
 			
 		}
 		
+		Thread.sleep(500);
+
 		assertEquals(localStack.getNetworkManager().getLink(localLinkID).getPeerState(),PeerStateEnum.IDLE);
 		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isConnected());
 		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isStarted());
 		assertTrue(localStack.getNetworkManager().getLink(localLinkID).isUp());
-		
+
 		super.stopLocal();
 		super.stopRemote();
 		
