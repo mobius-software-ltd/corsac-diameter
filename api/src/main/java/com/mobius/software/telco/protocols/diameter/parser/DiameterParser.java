@@ -1982,7 +1982,8 @@ public class DiameterParser
 							{
 								String className = entryName.replace('/', '.').substring(0, entryName.length() - 6);
 								Class<?> clazz = Class.forName(className);
-								classes.add(clazz);
+								if(recurse || clazz.getPackage().equals(packageName))
+									classes.add(clazz);								
 							}
 						}
 					}
