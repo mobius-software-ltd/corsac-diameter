@@ -7,7 +7,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
@@ -1690,112 +1695,145 @@ public class DiameterParser
 		else
 			return;
 		
-		List<Class<?>> classes=loadClasses(classLoader, packageName);
-		for(Class<?> clazz:classes)
+		List<Class<?>> jarClasses=loadClassesWithJar(classLoader, packageName, false);
+		List<Class<?>> compilerClasses=loadClassesWithCompiler(classLoader, packageName, false);
+		ConcurrentHashMap<String,Boolean> usedClasses=new ConcurrentHashMap<String, Boolean>();
+		
+		for(Class<?> clazz:jarClasses)
 		{
-			DiameterCommandDefinition commandDefition = getCommandDefinition(clazz);						
-			if(commandDefition!=null)
+			registerGlobalCommand(commandsMapping,clazz);
+			usedClasses.put(clazz.getCanonicalName(), true);
+		}
+		
+		for(Class<?> clazz:compilerClasses)
+		{
+			if(usedClasses.putIfAbsent(clazz.getCanonicalName(), true) == null)
+				registerGlobalCommand(commandsMapping,clazz);		
+		}
+	}
+	
+	private void registerGlobalCommand(ConcurrentHashMap<CommandIdentifier,CommandData> commandsMapping, Class<?> clazz) throws DiameterException
+	{
+		DiameterCommandDefinition commandDefition = getCommandDefinition(clazz);						
+		if(commandDefition!=null)
+		{
+			Long applicationID = commandDefition.applicationId();
+			String name = commandDefition.name();
+			Integer commandCode = commandDefition.commandCode();
+			Boolean isRequest = commandDefition.request();
+			Boolean isProxyable = commandDefition.proxyable();
+			
+			CommandIdentifier identifier = new CommandIdentifier(commandCode, isRequest);
+			CommandData oldCommand = commandsMapping.get(identifier);
+			if(oldCommand!=null)
 			{
-				Long applicationID = commandDefition.applicationId();
-				String name = commandDefition.name();
-				Integer commandCode = commandDefition.commandCode();
-				Boolean isRequest = commandDefition.request();
-				Boolean isProxyable = commandDefition.proxyable();
-				
-				CommandIdentifier identifier = new CommandIdentifier(commandCode, isRequest);
-				CommandData oldCommand = commandsMapping.get(identifier);
-				if(oldCommand!=null)
-				{
-					if(isRequest!=null && isRequest)
-						throw new DiameterException("The request " + commandCode +  " is already registered for application " + applicationID, null, null, null);
-					else
-						throw new DiameterException("The answer " + commandCode +  " is already registered for application " + applicationID, null, null, null);
-				}
-					
-				Method[] methods=clazz.getMethods();
-				Method validateMethod = null, orderMethod = null;
-				for(Method method:methods) 
-				{
-					DiameterValidate validateMethodAnnotation=method.getAnnotation(DiameterValidate.class);
-					if(validateMethodAnnotation!=null && validateMethod==null)
-						validateMethod = method;
-						
-					DiameterOrder orderMethodAnnotation=method.getAnnotation(DiameterOrder.class);
-					if(orderMethodAnnotation!=null && orderMethod==null)
-						orderMethod = method;
-				}
-					
-				CommandData newCommand = new CommandData(clazz, name, commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
-				oldCommand = commandsMapping.putIfAbsent(identifier, newCommand);
-				if(oldCommand!=null)
-					throw new DiameterException("The command " + commandCode +  " is already registered for application " + applicationID, null, null, null);
-					
-				commandsMap.put(clazz, newCommand);
-				buildAvpList(newCommand, applicationID, isRequest, commandCode, clazz);				
+				if(isRequest!=null && isRequest)
+					throw new DiameterException("The request " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+				else
+					throw new DiameterException("The answer " + commandCode +  " is already registered for application " + applicationID, null, null, null);
 			}
+				
+			Method[] methods=clazz.getMethods();
+			Method validateMethod = null, orderMethod = null;
+			for(Method method:methods) 
+			{
+				DiameterValidate validateMethodAnnotation=method.getAnnotation(DiameterValidate.class);
+				if(validateMethodAnnotation!=null && validateMethod==null)
+					validateMethod = method;
+					
+				DiameterOrder orderMethodAnnotation=method.getAnnotation(DiameterOrder.class);
+				if(orderMethodAnnotation!=null && orderMethod==null)
+					orderMethod = method;
+			}
+				
+			CommandData newCommand = new CommandData(clazz, name, commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
+			oldCommand = commandsMapping.putIfAbsent(identifier, newCommand);
+			if(oldCommand!=null)
+				throw new DiameterException("The command " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+				
+			commandsMap.put(clazz, newCommand);
+			buildAvpList(newCommand, applicationID, isRequest, commandCode, clazz);				
 		}
 	}
 	
 	public void registerApplication(ClassLoader classLoader, Package packageName) throws DiameterException
 	{
-		List<Class<?>> classes=loadClasses(classLoader, packageName);
-		for(Class<?> clazz:classes)
+		List<Class<?>> jarClasses=loadClassesWithJar(classLoader, packageName, false);
+		List<Class<?>> compilerClasses=loadClassesWithCompiler(classLoader, packageName, false);
+		ConcurrentHashMap<String,Boolean> usedClasses=new ConcurrentHashMap<String, Boolean>();
+		
+		for(Class<?> clazz:jarClasses)
 		{
-			DiameterCommandDefinition commandDefition = getCommandDefinition(clazz);						
-			if(commandDefition!=null)
+			registerCommand(clazz);
+			usedClasses.put(clazz.getCanonicalName(), true);
+		}
+		
+		for(Class<?> clazz:compilerClasses)
+		{
+			if(usedClasses.putIfAbsent(clazz.getCanonicalName(), true) == null)
+				registerCommand(clazz);			
+		}
+	}
+	
+	private void registerCommand(Class<?> clazz) throws DiameterException
+	{
+		DiameterCommandDefinition commandDefition = getCommandDefinition(clazz);						
+		if(commandDefition!=null)
+		{
+			Long applicationID = commandDefition.applicationId();
+			Integer commandCode = commandDefition.commandCode();
+			String name = commandDefition.name();
+			Boolean isRequest = commandDefition.request();
+			Boolean isProxyable = commandDefition.proxyable();
+			ConcurrentHashMap<CommandIdentifier,CommandData> commandsMapping = interfacesMapping.get(applicationID);
+			if(commandsMapping==null)
 			{
-				Long applicationID = commandDefition.applicationId();
-				Integer commandCode = commandDefition.commandCode();
-				String name = commandDefition.name();
-				Boolean isRequest = commandDefition.request();
-				Boolean isProxyable = commandDefition.proxyable();
-				ConcurrentHashMap<CommandIdentifier,CommandData> commandsMapping = interfacesMapping.get(applicationID);
-				if(commandsMapping==null)
-				{
-					commandsMapping = new ConcurrentHashMap<CommandIdentifier,CommandData>();
-					ConcurrentHashMap<CommandIdentifier,CommandData> oldMapping = interfacesMapping.putIfAbsent(applicationID, commandsMapping);
-					if(oldMapping!=null)
-						commandsMapping = oldMapping;
-				}
-				
-				CommandIdentifier identifier = new CommandIdentifier(commandCode, isRequest);
-				CommandData oldCommand = commandsMapping.get(identifier);
-				if(oldCommand!=null)
-				{
-					if(isRequest!=null && isRequest)
-						throw new DiameterException("The request " + commandCode +  " is already registered for application " + applicationID, null, null, null);
-					else
-						throw new DiameterException("The answer " + commandCode +  " is already registered for application " + applicationID, null, null, null);
-				}
-					
-				Method[] methods=clazz.getMethods();
-				Method validateMethod = null, orderMethod = null;
-				for(Method method:methods) 
-				{
-					DiameterValidate validateMethodAnnotation=method.getAnnotation(DiameterValidate.class);
-					if(validateMethodAnnotation!=null && validateMethod==null)
-						validateMethod = method;
-						
-					DiameterOrder orderMethodAnnotation=method.getAnnotation(DiameterOrder.class);
-					if(orderMethodAnnotation!=null && orderMethod==null)
-						orderMethod = method;
-				}
-					
-				CommandData newCommand = new CommandData(clazz, name, commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
-				oldCommand = commandsMapping.putIfAbsent(identifier, newCommand);
-				if(oldCommand!=null)
-					throw new DiameterException("The command " + commandCode +  " is already registered for application " + applicationID, null, null, null);
-					
-				commandsMap.put(clazz, newCommand);
-				buildAvpList(newCommand, applicationID, isRequest, commandCode, clazz);				
+				commandsMapping = new ConcurrentHashMap<CommandIdentifier,CommandData>();
+				ConcurrentHashMap<CommandIdentifier,CommandData> oldMapping = interfacesMapping.putIfAbsent(applicationID, commandsMapping);
+				if(oldMapping!=null)
+					commandsMapping = oldMapping;
 			}
+			
+			CommandIdentifier identifier = new CommandIdentifier(commandCode, isRequest);
+			CommandData oldCommand = commandsMapping.get(identifier);
+			if(oldCommand!=null)
+			{
+				if(isRequest!=null && isRequest)
+					throw new DiameterException("The request " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+				else
+					throw new DiameterException("The answer " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+			}
+				
+			Method[] methods=clazz.getMethods();
+			Method validateMethod = null, orderMethod = null;
+			for(Method method:methods) 
+			{
+				DiameterValidate validateMethodAnnotation=method.getAnnotation(DiameterValidate.class);
+				if(validateMethodAnnotation!=null && validateMethod==null)
+					validateMethod = method;
+					
+				DiameterOrder orderMethodAnnotation=method.getAnnotation(DiameterOrder.class);
+				if(orderMethodAnnotation!=null && orderMethod==null)
+					orderMethod = method;
+			}
+				
+			CommandData newCommand = new CommandData(clazz, name, commandCode, applicationID, validateMethod, orderMethod, isRequest, isProxyable);
+			oldCommand = commandsMapping.putIfAbsent(identifier, newCommand);
+			if(oldCommand!=null)
+				throw new DiameterException("The command " + commandCode +  " is already registered for application " + applicationID, null, null, null);
+				
+			commandsMap.put(clazz, newCommand);
+			buildAvpList(newCommand, applicationID, isRequest, commandCode, clazz);				
 		}
 	}
 	
 	public void registerAvps(ClassLoader classLoader, Package parentPackageName) throws DiameterException
 	{
-		List<Class<?>> classes=loadAllClasses(classLoader, parentPackageName);
-		for(Class<?> clazz:classes)
+		List<Class<?>> jarClasses=loadClassesWithJar(classLoader, parentPackageName, true);
+		List<Class<?>> compilerClasses=loadClassesWithCompiler(classLoader, parentPackageName, true);
+		ConcurrentHashMap<String,Boolean> usedClasses=new ConcurrentHashMap<String, Boolean>();
+		
+		for(Class<?> clazz:jarClasses)
 		{
 			Class<?> avpDefinition = getAvpDefinitionClass(clazz);						
 			if(avpDefinition!=null)
@@ -1804,6 +1842,22 @@ public class DiameterParser
 				if(oldClass!=null)
 					throw new DiameterException("The class " + avpDefinition.getCanonicalName() +  " already has registered implementation", null, null, null);						
 			}
+			
+			usedClasses.put(clazz.getCanonicalName(), true);
+		}
+		
+		for(Class<?> clazz:compilerClasses)
+		{
+			Class<?> avpDefinition = getAvpDefinitionClass(clazz);						
+			if(avpDefinition!=null)
+			{
+				if(usedClasses.putIfAbsent(clazz.getCanonicalName(), true) == null)
+				{
+					Class<?> oldClass = avpImplementationsMap.putIfAbsent(avpDefinition, clazz);
+					if(oldClass!=null)
+						throw new DiameterException("The class " + avpDefinition.getCanonicalName() +  " already has registered implementation", null, null, null);
+				}
+			}			
 		}
 	}
 	
@@ -1899,8 +1953,51 @@ public class DiameterParser
 		parentStorage.setAvpData(avpMapping);
 		parentStorage.setOrderedAvpData(orderedAvpData);
 	}
+ 
+	public static List<Class<?>> loadClassesWithJar(ClassLoader classLoader, Package packageName, boolean recurse) throws DiameterException
+	{
+		List<Class<?>> classes = new ArrayList<>();
+		try
+		{
+			String path = packageName.getName().replace('.', '/');
+	 
+			Enumeration<URL> resources = classLoader.getResources(path);
+	 
+			while (resources.hasMoreElements())
+			{
+				URL resource = resources.nextElement();
+				String protocol = resource.getProtocol();
+	 
+				if ("jar".equals(protocol))
+				{
+					String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!"));
+					try (JarFile jarFile = new JarFile(URLDecoder.decode(jarPath, "UTF-8")))
+					{
+						Enumeration<JarEntry> entries = jarFile.entries();
+						while (entries.hasMoreElements())
+						{
+							JarEntry entry = entries.nextElement();
+							String entryName = entry.getName();
+							if (entryName.startsWith(path) && entryName.endsWith(".class") && !entryName.contains("$"))
+							{
+								String className = entryName.replace('/', '.').substring(0, entryName.length() - 6);
+								Class<?> clazz = Class.forName(className);
+								classes.add(clazz);
+							}
+						}
+					}
+				}
+			}
+		}
+		catch(IOException | ClassNotFoundException ex)
+		{
+			throw new DiameterException("Package " + packageName.getName() + " can not be loaded", null, null, null);
+		}
+
+		return classes;
+	}  
 	
-	public static List<Class<?>> loadClasses(ClassLoader classLoader, Package packageName) throws DiameterException
+	public static List<Class<?>> loadClassesWithCompiler(ClassLoader classLoader, Package packageName, boolean recurse) throws DiameterException
 	{		
 		List<Class<?>> result = new ArrayList<Class<?>>();
 
@@ -1910,8 +2007,7 @@ public class DiameterParser
 		StandardLocation location = StandardLocation.CLASS_PATH;
 		Set<JavaFileObject.Kind> kinds = new HashSet<>();
 		kinds.add(JavaFileObject.Kind.CLASS);
-		boolean recurse = false;
-
+		
 		Iterable<JavaFileObject> list = null;
 		try
 		{
@@ -1944,53 +2040,7 @@ public class DiameterParser
 		}	
 		
 		return result;
-	}
-	
-	public static List<Class<?>> loadAllClasses(ClassLoader classLoader, Package rootPackage) throws DiameterException
-	{				
-		List<Class<?>> result = new ArrayList<Class<?>>();
-
-		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
-
-		StandardLocation location = StandardLocation.CLASS_PATH;
-		Set<JavaFileObject.Kind> kinds = new HashSet<>();
-		kinds.add(JavaFileObject.Kind.CLASS);
-		boolean recurse = true;
-
-		Iterable<JavaFileObject> list = null;
-		try
-		{
-			list = fileManager.list(location, rootPackage.getName(), kinds, recurse);
-		}
-		catch(IOException ex)
-		{
-			throw new DiameterException("Package " + rootPackage.getName() + " can not be loaded", null, null, null);
-		}
-		
-		String pkgName = rootPackage.getName();
-		String pkgPath = pkgName.replace('.', '/');
-	 	
-		for (JavaFileObject classFile : list) {
-			String name = classFile.getName();
-			int startIndex = name.indexOf(pkgPath);
-			int endIndex = name.indexOf(".class");
-			String className = name.substring(startIndex,endIndex).replace("/", ".");
-			
-			Class<?> clazz;
-			try
-			{
-				clazz = classLoader.loadClass(className);
-				result.add(clazz);
-			} 
-			catch (ClassNotFoundException e)
-			{
-				throw new DiameterException("Can not load class " + className, null, null, null);
-			}				
-		}	
-		
-		return result;
-	}
+	}		
 	
 	public static DiameterAvpDefinition getAvpDefinition(Class<?> clazz)
 	{
