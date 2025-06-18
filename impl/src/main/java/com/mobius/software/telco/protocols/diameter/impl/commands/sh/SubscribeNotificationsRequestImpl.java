@@ -93,11 +93,12 @@ public class SubscribeNotificationsRequestImpl extends ShRequestImpl implements 
 		super();
 	}
 	
-	public SubscribeNotificationsRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException
+	public SubscribeNotificationsRequestImpl(String originHost,String originRealm,String destinationHost,String destinationRealm,Boolean isRetransmit, String sessionID, AuthSessionStateEnum authSessionState, UserIdentity userIdentity,SubsReqTypeEnum subsReqType, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, destinationHost, destinationRealm, isRetransmit, sessionID, authSessionState, userIdentity);		
 		
 		setDataReference(dataReference);
+		setSubsReqType(subsReqType);
 	}
 	
 	public List<ByteBuf> getServiceIndication()
@@ -168,11 +169,11 @@ public class SubscribeNotificationsRequestImpl extends ShRequestImpl implements 
 		return subsReqType.getEnumerated(SubsReqTypeEnum.class);
 	}
 	
-	public void setSubsReqType(SubsReqTypeEnum value)
+	public void setSubsReqType(SubsReqTypeEnum value) throws MissingAvpException
 	{
 		if(value == null)
-			this.subsReqType = null;
-		else
+			throw new MissingAvpException("SubsReqType is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
+			
 			this.subsReqType = new SubsReqTypeImpl(value, null, null);
 	}
 	
@@ -191,8 +192,7 @@ public class SubscribeNotificationsRequestImpl extends ShRequestImpl implements 
 	public void setDataReference(List<DataReferenceEnum> value) throws MissingAvpException
 	{
 		if(value==null || value.size()==0)
-			throw new MissingAvpException("Data-Reference is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }))
-;
+			throw new MissingAvpException("Data-Reference is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
 			
 		this.dataReference = new ArrayList<DataReference>();
 		for(DataReferenceEnum curr:value)
@@ -294,7 +294,8 @@ public class SubscribeNotificationsRequestImpl extends ShRequestImpl implements 
 	{
 		if(dataReference == null || dataReference.size()==0)
 			return new MissingAvpException("Data-Reference is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
-		
+		if(subsReqType == null)
+			return new MissingAvpException("SubsReqType is required is required", Arrays.asList(new DiameterAvp[] { new DataReferenceImpl() }));
 		return super.validate();
 	}
 	
