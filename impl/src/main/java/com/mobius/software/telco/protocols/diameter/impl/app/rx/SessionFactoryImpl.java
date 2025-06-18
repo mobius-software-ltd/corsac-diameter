@@ -24,7 +24,7 @@ import com.mobius.software.telco.protocols.diameter.app.rx.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.app.rx.ClientListener;
 import com.mobius.software.telco.protocols.diameter.app.rx.RxClientSession;
 import com.mobius.software.telco.protocols.diameter.app.rx.RxServerSession;
-import com.mobius.software.telco.protocols.diameter.commands.gq.AARequest;
+import com.mobius.software.telco.protocols.diameter.commands.rx.AARequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
 public class SessionFactoryImpl implements SessionFactory

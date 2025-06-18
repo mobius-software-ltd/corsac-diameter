@@ -29,7 +29,7 @@ import com.mobius.software.telco.protocols.diameter.app.rx.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.app.rx.ServerListener;
 import com.mobius.software.telco.protocols.diameter.app.rx.SessionFactory;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
-import com.mobius.software.telco.protocols.diameter.commands.gq.AARequest;
+import com.mobius.software.telco.protocols.diameter.commands.rx.AARequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.DiameterProviderImpl;
 

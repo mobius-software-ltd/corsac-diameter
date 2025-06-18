@@ -47,6 +47,7 @@ import com.mobius.software.telco.protocols.diameter.impl.primitives.common.Vendo
 import com.mobius.software.telco.protocols.diameter.primitives.common.AuthSessionStateEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.DataReferenceEnum;
+import com.mobius.software.telco.protocols.diameter.primitives.sh.SubsReqTypeEnum;
 import com.mobius.software.telco.protocols.diameter.primitives.sh.UserIdentity;
 
 import io.netty.buffer.ByteBuf;
@@ -132,10 +133,10 @@ public class MessageFactoryImpl implements MessageFactory
 		return result;
 	}
 	
-	public SubscribeNotificationsRequest createSubscribeNotificationsRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
+	public SubscribeNotificationsRequest createSubscribeNotificationsRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, SubsReqTypeEnum subsReqType, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
-		SubscribeNotificationsRequest request = new SubscribeNotificationsRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentity, dataReference); 
+		SubscribeNotificationsRequest request = new SubscribeNotificationsRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentity, subsReqType, dataReference); 
 		request.setVendorSpecificApplicationId(appId);
 		return request;
 	}
@@ -161,7 +162,7 @@ public class MessageFactoryImpl implements MessageFactory
 		return result;
 	}
 	
-	public UserDataRequest createRegistrationUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
+	public UserDataRequest createUserDataRequest(String originHost,String originRealm,String destinationHost,String destinationRealm, UserIdentity userIdentity, List<DataReferenceEnum> dataReference) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException
 	{
 		VendorSpecificApplicationId appId = new VendorSpecificApplicationIdImpl(VendorIDs.TGPP_ID, applicationId, null);
 		UserDataRequest request = new UserDataRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, stack.generateNewSessionID(), AuthSessionStateEnum.NO_STATE_MAINTAINED, userIdentity, dataReference);

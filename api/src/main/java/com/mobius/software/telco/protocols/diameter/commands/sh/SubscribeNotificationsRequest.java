@@ -91,7 +91,7 @@ public interface SubscribeNotificationsRequest extends ShRequest
 	
 	public SubsReqTypeEnum getSubsReqType();
 	
-	void setSubsReqType(SubsReqTypeEnum value);
+	void setSubsReqType(SubsReqTypeEnum value) throws MissingAvpException;
 	
 	public List<DataReferenceEnum> getDataReference();
 	 
