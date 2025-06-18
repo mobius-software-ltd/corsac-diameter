@@ -25,52 +25,62 @@ import com.mobius.software.telco.protocols.diameter.exceptions.MissingAvpExcepti
 import com.mobius.software.telco.protocols.diameter.primitives.DiameterGroupedAvp;
 import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 
+import io.netty.buffer.ByteBuf;
+
 /**
-*
-* @author yulian oifa
-*
-*/
+ *
+ * @author yulian oifa
+ *
+ */
 public interface DiameterMessage extends DiameterGroupedAvp
 {
+	public ByteBuf getBuffer();
+
+	void setBuffer(ByteBuf value);
+
+	void retain();
+
+	void release();
+
 	public Boolean getIsRetransmit();
-	
+
 	public Boolean getIsProxyable();
-	
+
 	public Long getHopByHopIdentifier();
-	
+
 	public Long getEndToEndIdentifier();
-	
+
 	void setIsRetransmit(Boolean value);
-	
+
 	void setIsProxyable(Boolean value);
-	
+
 	void setHopByHopIdentifier(Long value);
-	
+
 	void setEndToEndIdentifier(Long value);
-	
+
 	public String getOriginHost();
-	
+
 	void setOriginHost(String value) throws MissingAvpException;
-	
+
 	public String getOriginRealm();
-	
+
 	void setOriginRealm(String value) throws MissingAvpException;
-	
+
 	public String getSessionId() throws AvpNotSupportedException;
-	
+
 	void setSessionId(String value) throws AvpNotSupportedException, MissingAvpException;
-	
+
 	public Long getOriginStateId() throws AvpNotSupportedException;
-	
-	void setOriginStateId(Long value) throws AvpNotSupportedException;	
-	
+
+	void setOriginStateId(Long value) throws AvpNotSupportedException;
+
 	public String getUsername() throws AvpNotSupportedException;
-	
+
 	void setUsername(String value) throws AvpNotSupportedException, MissingAvpException;
-	
+
 	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException;
-	
-	void setProxyInfo(List<ProxyInfo> value) throws AvpNotSupportedException;	
-	
+
+	void setProxyInfo(List<ProxyInfo> value) throws AvpNotSupportedException;
+
 	void addProxyInfo(ProxyInfo proxyInfo) throws AvpNotSupportedException;
 }

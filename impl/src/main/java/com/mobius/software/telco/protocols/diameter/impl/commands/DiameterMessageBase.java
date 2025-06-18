@@ -28,6 +28,9 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.ProxyInfo;
 import com.mobius.software.telco.protocols.diameter.primitives.common.SessionId;
 import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.util.ReferenceCountUtil;
+
 /*
  * Mobius Software LTD, Open Source Cloud Communications
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -48,197 +51,224 @@ import com.mobius.software.telco.protocols.diameter.primitives.common.UserName;
  */
 
 /**
-*
-* @author yulian oifa
-*
-*/
+ *
+ * @author yulian oifa
+ *
+ */
 public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl implements DiameterMessage
 {
 	private Boolean isRetransmit;
 	private Boolean isProxyable;
 	private Long hopByHopIdentifier;
 	private Long endToEndIdentifier;
-	
+	private ByteBuf buffer;
+
 	protected SessionId sessionId;
-	
+
 	protected OriginHost originHost;
-	
+
 	protected OriginRealm originRealm;
-	
+
 	protected OriginStateId originStateId;
-	
+
 	protected UserName username;
-	
+
 	protected List<ProxyInfo> proxyInfo;
-	
+
 	private boolean sessionIdAllowed = true;
 	private boolean proxyInfoAllowed = true;
 	private boolean originStateIdAllowed = true;
 	private boolean usernameAllowed = true;
-	
-	protected DiameterMessageBase() 
+
+	protected DiameterMessageBase()
 	{
 	}
-	
-	public DiameterMessageBase(String originHost,String originRealm,Boolean isRetransmit) throws MissingAvpException
+
+	public DiameterMessageBase(String originHost, String originRealm, Boolean isRetransmit) throws MissingAvpException
 	{
-		this.isRetransmit=isRetransmit;
-		
+		this.isRetransmit = isRetransmit;
+
 		setOriginHost(originHost);
-		
+
 		setOriginRealm(originRealm);
 	}
 
-	protected void setSessionIdAllowed(boolean allowed) 
+	protected void setSessionIdAllowed(boolean allowed)
 	{
 		this.sessionIdAllowed = allowed;
 	}
 
-	protected void setProxyInfoAllowed(boolean allowed) 
+	protected void setProxyInfoAllowed(boolean allowed)
 	{
 		this.proxyInfoAllowed = allowed;
 	}
 
-	protected void setUsernameAllowed(boolean allowed) 
+	protected void setUsernameAllowed(boolean allowed)
 	{
 		this.usernameAllowed = allowed;
 	}
 
-	protected void setOriginStateIdAllowed(boolean allowed) 
+	protected void setOriginStateIdAllowed(boolean allowed)
 	{
 		this.originStateIdAllowed = allowed;
 	}
-	
+
 	@Override
-	public Map<DiameterAvpKey, List<DiameterUnknownAvp>> getOptionalAvps() 
+	public Map<DiameterAvpKey, List<DiameterUnknownAvp>> getOptionalAvps()
 	{
 		return optionalAvps;
 	}
 
 	@Override
-	public List<DiameterUnknownAvp> getOptionalAvps(DiameterAvpKey avpKey) 
+	public List<DiameterUnknownAvp> getOptionalAvps(DiameterAvpKey avpKey)
 	{
 		return optionalAvps.get(avpKey);
 	}
 
 	@Override
-	public void addOptionalAvp(DiameterAvpKey avpKey, DiameterUnknownAvp avp) 
+	public void addOptionalAvp(DiameterAvpKey avpKey, DiameterUnknownAvp avp)
 	{
 		List<DiameterUnknownAvp> currList = optionalAvps.get(avpKey);
-		if(currList==null)
+		if (currList == null)
 		{
-			currList=new ArrayList<DiameterUnknownAvp>();
-			List<DiameterUnknownAvp> oldAvps=optionalAvps.putIfAbsent(avpKey, currList);
-			if(oldAvps!=null)
+			currList = new ArrayList<DiameterUnknownAvp>();
+			List<DiameterUnknownAvp> oldAvps = optionalAvps.putIfAbsent(avpKey, currList);
+			if (oldAvps != null)
 				currList = oldAvps;
 		}
-		
+
 		currList.add(avp);
 	}
 
 	@Override
-	public Boolean getIsRetransmit() 
+	public ByteBuf getBuffer()
+	{
+		return this.buffer;
+	}
+
+	@Override
+	public void setBuffer(ByteBuf buffer)
+	{
+		this.buffer = buffer;
+	}
+
+	@Override
+	public void retain()
+	{
+		if (buffer != null)
+			ReferenceCountUtil.retain(buffer);
+	}
+
+	@Override
+	public void release()
+	{
+		if (buffer != null)
+			ReferenceCountUtil.release(buffer);
+	}
+
+	@Override
+	public Boolean getIsRetransmit()
 	{
 		return isRetransmit;
 	}
 
 	@Override
-	public Boolean getIsProxyable() 
+	public Boolean getIsProxyable()
 	{
 		return isProxyable;
 	}
 
 	@Override
-	public Long getHopByHopIdentifier() 
+	public Long getHopByHopIdentifier()
 	{
 		return hopByHopIdentifier;
 	}
 
 	@Override
-	public Long getEndToEndIdentifier() 
+	public Long getEndToEndIdentifier()
 	{
 		return endToEndIdentifier;
 	}
 
 	@Override
-	public void setIsRetransmit(Boolean value) 
+	public void setIsRetransmit(Boolean value)
 	{
 		this.isRetransmit = value;
 	}
 
 	@Override
-	public void setIsProxyable(Boolean value) 
+	public void setIsProxyable(Boolean value)
 	{
 		this.isProxyable = value;
 	}
 
 	@Override
-	public void setHopByHopIdentifier(Long value) 
+	public void setHopByHopIdentifier(Long value)
 	{
 		this.hopByHopIdentifier = value;
 	}
 
 	@Override
-	public void setEndToEndIdentifier(Long value) 
+	public void setEndToEndIdentifier(Long value)
 	{
 		this.endToEndIdentifier = value;
 	}
 
 	@Override
-	public String getOriginHost() 
+	public String getOriginHost()
 	{
-		if(originHost == null)
+		if (originHost == null)
 			return null;
-		
+
 		return originHost.getIdentity();
 	}
 
 	@Override
-	public void setOriginHost(String value) throws MissingAvpException 
+	public void setOriginHost(String value) throws MissingAvpException
 	{
-		if(value==null)
+		if (value == null)
 			throw new MissingAvpException("Origin-Host is required", Arrays.asList(new DiameterAvp[] { new OriginHostImpl() }));
-			
+
 		this.originHost = new OriginHostImpl(value, null, null);
 	}
 
 	@Override
-	public String getOriginRealm() 
+	public String getOriginRealm()
 	{
-		if(originRealm == null)
+		if (originRealm == null)
 			return null;
-		
+
 		return originRealm.getIdentity();
 	}
 
 	@Override
-	public void setOriginRealm(String value) throws MissingAvpException 
+	public void setOriginRealm(String value) throws MissingAvpException
 	{
-		if(value==null)
+		if (value == null)
 			throw new MissingAvpException("Origin-Realm is required", Arrays.asList(new DiameterAvp[] { new OriginRealmImpl() }));
-			
+
 		this.originRealm = new OriginRealmImpl(value, null, null);
 	}
-	
+
 	@Override
 	public String getSessionId() throws AvpNotSupportedException
-	{		
-		if(!sessionIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() } ));
-		
-		if(sessionId == null)
+	{
+		if (!sessionIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new SessionIdImpl() }));
+
+		if (sessionId == null)
 			return null;
-		
+
 		return sessionId.getString();
 	}
-	
+
 	@Override
 	public void setSessionId(String value) throws AvpNotSupportedException, MissingAvpException
 	{
-		if(!sessionIdAllowed && value!=null)
+		if (!sessionIdAllowed && value != null)
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new SessionIdImpl(value, null, null) }));
-		
-		if(value == null)
+
+		if (value == null)
 			this.sessionId = null;
 		else
 			this.sessionId = new SessionIdImpl(value, null, null);
@@ -247,89 +277,89 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	@Override
 	public Long getOriginStateId() throws AvpNotSupportedException
 	{
-		if(!originStateIdAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new OriginStateIdImpl() } ));
-		
-		if(originStateId==null)
+		if (!originStateIdAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new OriginStateIdImpl() }));
+
+		if (originStateId == null)
 			return null;
-		
+
 		return originStateId.getUnsigned();
 	}
-	
+
 	@Override
 	public void setOriginStateId(Long value) throws AvpNotSupportedException
 	{
-		if(!originStateIdAllowed && value!=null)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new OriginStateIdImpl(value, null, null) } ));
-		
-		if(value==null)
+		if (!originStateIdAllowed && value != null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new OriginStateIdImpl(value, null, null) }));
+
+		if (value == null)
 			this.originStateId = null;
 		else
 			this.originStateId = new OriginStateIdImpl(value, null, null);
 	}
 
 	@Override
-	public String getUsername() throws AvpNotSupportedException 
+	public String getUsername() throws AvpNotSupportedException
 	{
-		if(!usernameAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UserNameImpl() } ));
-		
-		if(this.username==null)
+		if (!usernameAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UserNameImpl() }));
+
+		if (this.username == null)
 			return null;
-		
+
 		return this.username.getString();
 	}
 
 	@Override
-	public void setUsername(String value) throws AvpNotSupportedException, MissingAvpException 
+	public void setUsername(String value) throws AvpNotSupportedException, MissingAvpException
 	{
-		if(!usernameAllowed && value!=null)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UserNameImpl(value, null, null) } ));
-		
-		if(value==null)
+		if (!usernameAllowed && value != null)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new UserNameImpl(value, null, null) }));
+
+		if (value == null)
 			this.username = null;
 		else
 			this.username = new UserNameImpl(value, null, null);
 	}
-	
+
 	@Override
-	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException 
+	public List<ProxyInfo> getProxyInfo() throws AvpNotSupportedException
 	{
-		if(!proxyInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ProxyInfoImpl() } ));
-		
+		if (!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ProxyInfoImpl() }));
+
 		return proxyInfo;
 	}
 
 	@Override
 	public void setProxyInfo(List<ProxyInfo> value) throws AvpNotSupportedException
 	{
-		if(!proxyInfoAllowed && value!=null && value.size()>0)
+		if (!proxyInfoAllowed && value != null && value.size() > 0)
 		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(ProxyInfo curr:value)
+			List<DiameterAvp> avps = new ArrayList<DiameterAvp>();
+			for (ProxyInfo curr : value)
 				avps.add(curr);
-			
+
 			throw new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
 		}
-		
+
 		this.proxyInfo = value;
 	}
-	
-	@Override
-	public void addProxyInfo(ProxyInfo value) throws AvpNotSupportedException 
-	{
-		if(!proxyInfoAllowed)
-			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ProxyInfoImpl() } ));
-		
-		if(this.proxyInfo==null)
-			this.proxyInfo=new ArrayList<ProxyInfo>();			
-		
-		this.proxyInfo.add(value);
-	}	
 
 	@Override
-	public int hashCode() 
+	public void addProxyInfo(ProxyInfo value) throws AvpNotSupportedException
+	{
+		if (!proxyInfoAllowed)
+			throw new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { new ProxyInfoImpl() }));
+
+		if (this.proxyInfo == null)
+			this.proxyInfo = new ArrayList<ProxyInfo>();
+
+		this.proxyInfo.add(value);
+	}
+
+	@Override
+	public int hashCode()
 	{
 		final int prime = 31;
 		int result = 1;
@@ -344,110 +374,110 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 
 	@Override
-	public boolean equals(Object obj) 
+	public boolean equals(Object obj)
 	{
 		if (this == obj)
 			return true;
-		
+
 		if (obj == null)
 			return false;
-		
+
 		if (getClass() != obj.getClass())
 			return false;
-		
+
 		DiameterMessageBase other = (DiameterMessageBase) obj;
-		if (endToEndIdentifier == null) 
+		if (endToEndIdentifier == null)
 		{
 			if (other.endToEndIdentifier != null)
 				return false;
-		} 
+		}
 		else if (!endToEndIdentifier.equals(other.endToEndIdentifier))
 			return false;
-		
-		if (hopByHopIdentifier == null) 
+
+		if (hopByHopIdentifier == null)
 		{
 			if (other.hopByHopIdentifier != null)
 				return false;
-		} 
+		}
 		else if (!hopByHopIdentifier.equals(other.hopByHopIdentifier))
 			return false;
-		
-		if (isRetransmit == null) 
+
+		if (isRetransmit == null)
 		{
 			if (other.isRetransmit != null)
 				return false;
-		} 
+		}
 		else if (!isRetransmit.equals(other.isRetransmit))
 			return false;
-		
-		if (optionalAvps == null) 
+
+		if (optionalAvps == null)
 		{
 			if (other.optionalAvps != null)
 				return false;
-		} 
+		}
 		else if (!optionalAvps.equals(other.optionalAvps))
 			return false;
-		
-		if (originHost == null) 
+
+		if (originHost == null)
 		{
 			if (other.originHost != null)
 				return false;
-		} 
+		}
 		else if (!originHost.equals(other.originHost))
 			return false;
-		
-		if (originRealm == null) 
+
+		if (originRealm == null)
 		{
 			if (other.originRealm != null)
 				return false;
-		} 
+		}
 		else if (!originRealm.equals(other.originRealm))
 			return false;
-		
-		if (sessionId == null) 
+
+		if (sessionId == null)
 		{
 			if (other.sessionId != null)
 				return false;
-		} 
+		}
 		else if (!sessionId.equals(other.sessionId))
 			return false;
-		
+
 		return true;
-	}	
-	
+	}
+
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(hopByHopIdentifier==null)
+		if (hopByHopIdentifier == null)
 			return new DiameterException("Hop by hop identifier not set", null, ResultCodes.DIAMETER_INVALID_HDR_BITS, null);
-		
-		if(endToEndIdentifier==null)
+
+		if (endToEndIdentifier == null)
 			return new DiameterException("End to end identifier not set", null, ResultCodes.DIAMETER_INVALID_HDR_BITS, null);
-		
-		if(originHost==null)
+
+		if (originHost == null)
 			return new MissingAvpException("Origin-Host is required", Arrays.asList(new DiameterAvp[] { new OriginHostImpl() }));
-		
-		if(originRealm==null)
+
+		if (originRealm == null)
 			return new MissingAvpException("Origin-Realm is required", Arrays.asList(new DiameterAvp[] { new OriginRealmImpl() }));
-		
-		if(!sessionIdAllowed && sessionId!=null)
+
+		if (!sessionIdAllowed && sessionId != null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { sessionId }));
-		
-		if(!proxyInfoAllowed && proxyInfo!=null && proxyInfo.size()>0)
+
+		if (!proxyInfoAllowed && proxyInfo != null && proxyInfo.size() > 0)
 		{
-			List<DiameterAvp> avps=new ArrayList<DiameterAvp>();
-			for(ProxyInfo curr:proxyInfo)
+			List<DiameterAvp> avps = new ArrayList<DiameterAvp>();
+			for (ProxyInfo curr : proxyInfo)
 				avps.add(curr);
-			
+
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", avps);
 		}
-		
-		if(!originStateIdAllowed && originStateId!=null)
+
+		if (!originStateIdAllowed && originStateId != null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { originStateId }));
-		
-		if(!usernameAllowed && username!=null)
-			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { username } ));
-		
+
+		if (!usernameAllowed && username != null)
+			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { username }));
+
 		return null;
 	}
 }
