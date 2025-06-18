@@ -18,7 +18,7 @@ package com.mobius.software.telco.protocols.diameter.app.rx;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import com.mobius.software.telco.protocols.diameter.commands.gq.AARequest;
+import com.mobius.software.telco.protocols.diameter.commands.rx.AARequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 
 public interface SessionFactory
