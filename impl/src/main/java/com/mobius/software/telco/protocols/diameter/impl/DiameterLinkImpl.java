@@ -675,13 +675,8 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 						sessionID = linkId;
 					}
 					
-					if (association.getIpChannelType() == IpChannelType.TCP)
-					{
-						stack.getWorkerPool().addTaskLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, null, sessionID, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
-						buffer.discardReadBytes();
-					}
-					else
-						stack.getWorkerPool().addTaskLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, buffer, sessionID, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
+					Boolean discardBytes = (association.getIpChannelType() == IpChannelType.TCP); 
+					stack.getWorkerPool().addTaskLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, buffer, sessionID, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds, discardBytes));
 				}
 			}
 			catch (DiameterException ex)

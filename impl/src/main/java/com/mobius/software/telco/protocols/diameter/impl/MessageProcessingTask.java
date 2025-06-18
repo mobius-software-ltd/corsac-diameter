@@ -77,6 +77,7 @@ public class MessageProcessingTask extends RunnableTask
 	private AtomicLong lastActivity;
 	private AtomicBoolean waitingForDWA;
 	private ConcurrentHashMap<String, NetworkListener> genericListeners;
+	private Boolean discardBytes;
 	
 	private AsyncCallback dummyCallback = new AsyncCallback()
 	{
@@ -91,7 +92,7 @@ public class MessageProcessingTask extends RunnableTask
 		}
 	};
 	
-	public MessageProcessingTask(DiameterStack stack,DiameterLink link,ConcurrentHashMap<String, NetworkListener> genericListeners,AtomicLong lastActivity,AtomicBoolean waitingForDWA,Association association,ByteBuf buffer,String sessionID,DiameterMessage message,AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds,AtomicReference<List<Long>> remoteAuthApplicationIds,AtomicReference<List<Long>> remoteAcctApplicationIds)
+	public MessageProcessingTask(DiameterStack stack,DiameterLink link,ConcurrentHashMap<String, NetworkListener> genericListeners,AtomicLong lastActivity,AtomicBoolean waitingForDWA,Association association,ByteBuf buffer,String sessionID,DiameterMessage message,AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds,AtomicReference<List<Long>> remoteAuthApplicationIds,AtomicReference<List<Long>> remoteAcctApplicationIds, Boolean discardBytes)
 	{
 		super(null, sessionID);
 		
@@ -106,6 +107,7 @@ public class MessageProcessingTask extends RunnableTask
 		this.remoteApplicationIds = remoteApplicationIds;
 		this.remoteAuthApplicationIds = remoteAuthApplicationIds;
 		this.remoteAcctApplicationIds = remoteAcctApplicationIds;
+		this.discardBytes = discardBytes;
 	}
 
 	@Override
@@ -654,10 +656,10 @@ public class MessageProcessingTask extends RunnableTask
 			try
 			{
 				//for tcp no release is required
-				if(buffer!=null)
-				{
-					buffer.release();
-				}	
+				if(discardBytes)
+					buffer.discardReadBytes();
+				else
+					buffer.release();				
 			}
 			catch(Exception ex)
 			{
