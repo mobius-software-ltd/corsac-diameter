@@ -114,7 +114,7 @@
     		<properties>
     			<sctp.version>2.2.14</sctp.version>
 				<timers.version>1.0.0-35</timers.version>    
-				<cluster.version>8.0.0-48</cluster.version>       
+				<cluster.version>8.0.0-50</cluster.version>       
     		</properties>
     		<build>
 				<plugins>
@@ -136,7 +136,7 @@
     		<properties>
     			<sctp.version>2.2.14-java11</sctp.version>
 				<timers.version>1.0.0-35-java11</timers.version> 
-				<cluster.version>8.0.0-48-java11</cluster.version>             
+				<cluster.version>8.0.0-50-java11</cluster.version>             
     		</properties>
     		<build>
 				<plugins>
