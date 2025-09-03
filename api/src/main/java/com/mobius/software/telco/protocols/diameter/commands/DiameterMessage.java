@@ -36,7 +36,7 @@ public interface DiameterMessage extends DiameterGroupedAvp
 {
 	public ByteBuf getBuffer();
 
-	void setBuffer(ByteBuf value);
+	void setBuffer(ByteBuf value, Boolean isCountable);
 
 	void retain();
 

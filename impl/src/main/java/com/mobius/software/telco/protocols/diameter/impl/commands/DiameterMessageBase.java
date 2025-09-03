@@ -63,6 +63,7 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	private Long hopByHopIdentifier;
 	private Long endToEndIdentifier;
 	private ByteBuf buffer;
+	private Boolean isCountable;
 	
 	protected SessionId sessionId;
 
@@ -148,7 +149,7 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	}
 
 	@Override
-	public void setBuffer(ByteBuf buffer)
+	public void setBuffer(ByteBuf buffer, Boolean isCountable)
 	{
 		this.buffer = buffer;
 	}
@@ -156,14 +157,14 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	@Override
 	public void retain()
 	{
-		if (buffer != null)
+		if (buffer != null && isCountable)
 			ReferenceCountUtil.retain(buffer);		
 	}
 
 	@Override
 	public void release()
 	{
-		if (buffer != null)
+		if (buffer != null && isCountable)
 			ReferenceCountUtil.release(buffer);		
 	}
 
