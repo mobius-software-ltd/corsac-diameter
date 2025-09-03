@@ -94,7 +94,6 @@ public class LinkTest extends NetworkTestBase
 		
 		try
 		{
-			// TODO: Overview changes (+500)
 			Thread.sleep(idleTimeout * 5 + 500);
 		}
 		catch(InterruptedException ex)

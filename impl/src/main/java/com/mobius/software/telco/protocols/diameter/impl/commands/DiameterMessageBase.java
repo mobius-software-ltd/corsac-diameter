@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
 import com.mobius.software.telco.protocols.diameter.annotations.DiameterValidate;
@@ -62,7 +63,7 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	private Long hopByHopIdentifier;
 	private Long endToEndIdentifier;
 	private ByteBuf buffer;
-
+	
 	protected SessionId sessionId;
 
 	protected OriginHost originHost;
@@ -156,14 +157,14 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	public void retain()
 	{
 		if (buffer != null)
-			ReferenceCountUtil.retain(buffer);
+			ReferenceCountUtil.retain(buffer);		
 	}
 
 	@Override
 	public void release()
 	{
 		if (buffer != null)
-			ReferenceCountUtil.release(buffer);
+			ReferenceCountUtil.release(buffer);		
 	}
 
 	@Override

@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.restcomm.cluster.ClusteredID;
 
 import com.mobius.software.common.dal.timers.RunnableTimer;
-import com.mobius.software.common.dal.timers.Timer;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterLink;

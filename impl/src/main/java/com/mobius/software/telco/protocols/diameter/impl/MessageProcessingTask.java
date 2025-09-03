@@ -55,8 +55,6 @@ import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException
 import com.mobius.software.telco.protocols.diameter.parser.DiameterParser;
 import com.mobius.software.telco.protocols.diameter.primitives.common.VendorSpecificApplicationId;
 
-import io.netty.buffer.ByteBuf;
-
 /**
 *
 * @author yulian oifa
@@ -66,7 +64,6 @@ public class MessageProcessingTask extends RunnableTask
 {
 	public static Logger logger=LogManager.getLogger(DiameterLinkImpl.class);
 	
-	private ByteBuf buffer;
 	private DiameterMessage message;
 	private DiameterStack stack;
 	private DiameterLink link;	
@@ -77,7 +74,6 @@ public class MessageProcessingTask extends RunnableTask
 	private AtomicLong lastActivity;
 	private AtomicBoolean waitingForDWA;
 	private ConcurrentHashMap<String, NetworkListener> genericListeners;
-	private Boolean discardBytes;
 	
 	private AsyncCallback dummyCallback = new AsyncCallback()
 	{
@@ -92,12 +88,11 @@ public class MessageProcessingTask extends RunnableTask
 		}
 	};
 	
-	public MessageProcessingTask(DiameterStack stack,DiameterLink link,ConcurrentHashMap<String, NetworkListener> genericListeners,AtomicLong lastActivity,AtomicBoolean waitingForDWA,Association association,ByteBuf buffer,String sessionID,DiameterMessage message,AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds,AtomicReference<List<Long>> remoteAuthApplicationIds,AtomicReference<List<Long>> remoteAcctApplicationIds, Boolean discardBytes)
+	public MessageProcessingTask(DiameterStack stack,DiameterLink link,ConcurrentHashMap<String, NetworkListener> genericListeners,AtomicLong lastActivity,AtomicBoolean waitingForDWA,Association association,String sessionID,DiameterMessage message,AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds,AtomicReference<List<Long>> remoteAuthApplicationIds,AtomicReference<List<Long>> remoteAcctApplicationIds)
 	{
 		super(null, sessionID);
 		
 		this.stack = stack;
-		this.buffer = buffer;
 		this.message = message;		
 		this.link = link;		
 		this.genericListeners=genericListeners;
@@ -107,7 +102,6 @@ public class MessageProcessingTask extends RunnableTask
 		this.remoteApplicationIds = remoteApplicationIds;
 		this.remoteAuthApplicationIds = remoteAuthApplicationIds;
 		this.remoteAcctApplicationIds = remoteAcctApplicationIds;
-		this.discardBytes = discardBytes;
 	}
 
 	@Override
@@ -417,7 +411,6 @@ public class MessageProcessingTask extends RunnableTask
 				switch(link.getPeerState())
 				{
 					case OPEN:
-						// TODO: Overview changes
 						link.resetInactivityTimer();
 						waitingForDWA.set(false);
 						break;
@@ -655,15 +648,11 @@ public class MessageProcessingTask extends RunnableTask
 			//lets try to release the buffer in case its not released yet
 			try
 			{
-				//for tcp no release is required
-				if(discardBytes)
-					buffer.discardReadBytes();
-				else
-					buffer.release();				
+				message.release();						
 			}
 			catch(Exception ex)
 			{
-				
+				logger.warn("An error occured while releasing buffer, it may cause OOM " + ex.getMessage(),ex);
 			}
 		}
 	}

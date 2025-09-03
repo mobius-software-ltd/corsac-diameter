@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.impl.app;
 import java.util.Collection;
 
 import com.mobius.software.common.dal.timers.RunnableTask;
-import com.mobius.software.common.dal.timers.Task;
 import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.ResultCodes;
@@ -185,7 +184,6 @@ public class ServerCCSessionImpl<R1 extends CreditControlRequest,A1 extends Cred
 			return;
 		}
 		
-		final Long startTime = System.currentTimeMillis();
 		provider.getStack().getWorkerPool().addTaskLast(new RunnableTask(new Runnable()
 		{	
 			@Override

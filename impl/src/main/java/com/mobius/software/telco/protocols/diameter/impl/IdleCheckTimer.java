@@ -24,7 +24,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mobius.software.common.dal.timers.RunnableTimer;
-import com.mobius.software.common.dal.timers.Timer;
 import com.mobius.software.telco.protocols.diameter.DiameterSession;
 
 /**
