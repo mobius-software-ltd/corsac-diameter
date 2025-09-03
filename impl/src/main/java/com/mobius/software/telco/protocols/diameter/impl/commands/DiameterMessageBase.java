@@ -152,6 +152,7 @@ public abstract class DiameterMessageBase extends DiameterGroupedAvpImpl impleme
 	public void setBuffer(ByteBuf buffer, Boolean isCountable)
 	{
 		this.buffer = buffer;
+		this.isCountable = isCountable;
 	}
 
 	@Override
