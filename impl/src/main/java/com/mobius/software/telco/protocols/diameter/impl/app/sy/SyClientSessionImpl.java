@@ -131,6 +131,6 @@ public class SyClientSessionImpl extends ClientAuthSessionImpl<SpendingLimitRequ
 				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);		
 			}
-		}, this.getID()));		
+		}, this.getID(), "SyClientOutgoingStatusNoticiationAnswerTask"));		
 	}
 }

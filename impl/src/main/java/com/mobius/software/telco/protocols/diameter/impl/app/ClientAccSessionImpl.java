@@ -98,7 +98,7 @@ public class ClientAccSessionImpl<R1 extends AccountingRequest,A1 extends Accoun
 				
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
-		}, this.getID()));				
+		}, this.getID(), "ClientAccOutgoingAccountingRequestTask"));
 	}
 	
 	@Override

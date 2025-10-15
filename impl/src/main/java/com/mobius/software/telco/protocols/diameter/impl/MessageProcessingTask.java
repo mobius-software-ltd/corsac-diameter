@@ -90,7 +90,7 @@ public class MessageProcessingTask extends RunnableTask
 	
 	public MessageProcessingTask(DiameterStack stack,DiameterLink link,ConcurrentHashMap<String, NetworkListener> genericListeners,AtomicLong lastActivity,AtomicBoolean waitingForDWA,Association association,String sessionID,DiameterMessage message,AtomicReference<List<VendorSpecificApplicationId>> remoteApplicationIds,AtomicReference<List<Long>> remoteAuthApplicationIds,AtomicReference<List<Long>> remoteAcctApplicationIds)
 	{
-		super(null, sessionID);
+		super(null, sessionID, "DiameterMessageProcessingTask");
 		
 		this.stack = stack;
 		this.message = message;		

@@ -90,4 +90,10 @@ public class DisconnectTimer implements Timer
 		this.timestamp.set(startTime + newTimeout);
 		this.callback = callback;
 	}
+
+	@Override
+	public String printTaskDetails()
+	{
+		return "Task name: DiameterDisconnectTimerTask";
+	}
 }

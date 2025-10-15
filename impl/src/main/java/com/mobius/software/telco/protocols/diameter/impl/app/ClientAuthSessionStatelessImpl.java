@@ -90,7 +90,7 @@ public class ClientAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				requestSent(oldRequest==null, request, callback);
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
-		}, this.getID()));		
+		}, this.getID(), "ClientAuthStatelessOutgoingInitialRequestTask"));
 	}
 	
 	@Override

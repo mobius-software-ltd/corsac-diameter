@@ -230,7 +230,7 @@ public class SyTest extends NetworkTestBase
 							logger.error("An error occured while sending STR," + ex.getMessage(), ex);
 						}
 					}
-				}, startTime + 500, session.getID()));
+				}, startTime + 500, session.getID(), "SyTestOutgoingTerminationRequestTask"));
 			}
 		});
 
@@ -352,7 +352,7 @@ public class SyTest extends NetworkTestBase
 							logger.error("An error occured while sending SSNR," + ex.getMessage(), ex);
 						}
 					}
-				}, startTime + 1000, session.getID()));
+				}, startTime + 1000, session.getID(), "SyTestOutgoingSpendingStatusNotificationRequestTask"));
 			}
 		});
 

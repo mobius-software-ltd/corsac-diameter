@@ -104,4 +104,10 @@ public class LocalIncomingCleanupTimer implements Timer
 	{
 		timestamp.set(Long.MAX_VALUE);
 	}
+
+	@Override
+	public String printTaskDetails()
+	{
+		return "Task name: DiameterLocalIncomingCleanupTimer";
+	}
 }
