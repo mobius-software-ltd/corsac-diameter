@@ -41,7 +41,7 @@ public class IdleCheckTimer extends RunnableTimer
 
 	public IdleCheckTimer(DiameterSession session, long timeout)
 	{
-		super(null, System.currentTimeMillis() + timeout, session.getID());
+		super(null, System.currentTimeMillis() + timeout, session.getID(), "DiameterIdleCheckTimer");
 		
 		this.session = session;
 		this.timeout = timeout;

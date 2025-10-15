@@ -108,7 +108,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				requestSent(oldRequest==null, request, callback);
 				provider.getStack().sendRequest(request, new CallbackWrapper(callback));
 			}
-		}, this.getID()));						
+		}, this.getID(), "ClientAuthOutgoingInitialRequestTask"));
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				answerSent(answer, null, callback);
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);		
 			}
-		}, this.getID()));		
+		}, this.getID(), "ClientAuthOutgoingReauthAnswerTask"));
 	}
 
 	@Override
@@ -185,7 +185,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
-		}, this.getID()));			
+		}, this.getID(), "ClientAuthOutgoingSessionTerminationRequestTask"));
 	}
 
 	@Override
@@ -219,7 +219,7 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				answerSent(answer, null, callback);				
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);	
 			}
-		}, this.getID()));			
+		}, this.getID(), "ClientAuthAbortSessionAnswerTask"));
 	}
 	
 	@SuppressWarnings("unchecked")

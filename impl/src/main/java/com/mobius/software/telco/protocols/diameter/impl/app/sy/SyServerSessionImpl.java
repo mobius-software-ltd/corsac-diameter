@@ -149,6 +149,6 @@ public class SyServerSessionImpl extends ServerAuthSessionImpl<SpendingLimitRequ
 				requestSent(false, request, callback);
 				provider.getStack().sendRequest(request, callback);
 			}
-		}, this.getID()));				
+		}, this.getID(), "SyServerOutgoingStatusNoticiationRequestTask"));
 	}
 }

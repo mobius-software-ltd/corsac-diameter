@@ -63,7 +63,7 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				provider.getStack().sendAnswer(answer, getRemoteHost(), getRemoteRealm(), callback);
 				terminate(answer.getResultCode());
 			}
-		}, this.getID()));					
+		}, this.getID(), "ServerAuthStatelessOutgoingInitialAnswerTask"));
 	}
 	
 	@Override
@@ -79,7 +79,9 @@ public class ServerAuthSessionStatelessImpl<R1 extends DiameterRequest,A1 extend
 				@SuppressWarnings("unchecked")
 				Collection<ServerAuthStatelessListener<R1,A1>> listeners = (Collection<ServerAuthStatelessListener<R1,A1>>) provider.getServerListeners().values();
 				for(ServerAuthStatelessListener<R1,A1> listener:listeners)
+				{
 					listener.onInitialRequest(castedRequest, this, linkID,callback);
+				}
 			}
 		}
 		catch(Exception ex)

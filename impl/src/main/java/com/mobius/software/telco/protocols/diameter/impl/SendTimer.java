@@ -41,7 +41,7 @@ public class SendTimer extends RunnableTimer
 
 	public SendTimer(DiameterSession session, long timeout)
 	{
-		super(null, System.currentTimeMillis() + timeout, session.getID());
+		super(null, System.currentTimeMillis() + timeout, session.getID(), "DiameterSendTimer");
 
 		this.session = session;
 		this.timeout = timeout;

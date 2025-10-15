@@ -94,4 +94,10 @@ public class ReconnectTimer implements Timer
 		this.timestamp.set(startTime + newTimeout);
 		this.callback = callback;
 	}
+
+	@Override
+	public String printTaskDetails()
+	{
+		return "Task name: DiameterReconnectTimer";
+	}
 }
