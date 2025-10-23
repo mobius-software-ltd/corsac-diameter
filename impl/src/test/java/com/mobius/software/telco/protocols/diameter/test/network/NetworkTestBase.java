@@ -87,7 +87,7 @@ public class NetworkTestBase
 	
 	public void setupLocal() throws Exception
 	{
-		workerPool = new WorkerPool();
+		workerPool = new WorkerPool("Diameter");
 		workerPool.start(4);
 
 		//classes area needed to allow proper loading of packages, otherwise compiler may not see them
@@ -105,7 +105,7 @@ public class NetworkTestBase
 	
 	public void setupLocalWithImproperApplications() throws Exception
 	{
-		workerPool = new WorkerPool();
+		workerPool = new WorkerPool("Diameter");
 		workerPool.start(4);
 
 		//classes area needed to allow proper loading of packages, otherwise compiler may not see them

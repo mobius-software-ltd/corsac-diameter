@@ -57,7 +57,7 @@ public class NetworkTestBase
 		
 		if(workerPool==null)
 		{
-			workerPool = new WorkerPool();
+			workerPool = new WorkerPool("Diameter");
 			workerPool.start(4);
 		}
 		
@@ -75,7 +75,7 @@ public class NetworkTestBase
 	{
 		if(workerPool==null)
 		{
-			workerPool = new WorkerPool();
+			workerPool = new WorkerPool("Diameter");
 			workerPool.start(4);
 		}
 		
