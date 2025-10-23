@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>diameter-parent</artifactId>
 		<groupId>com.mobius-software.protocols.diameter</groupId>
-		<version>10.0.0-32-java11</version>
+		<version>10.0.0-33-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>validator</artifactId>
