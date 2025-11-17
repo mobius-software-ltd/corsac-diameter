@@ -88,20 +88,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.8.0</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			</plugin>			
 		</plugins>
 	</build>
 
@@ -153,6 +140,52 @@
 				</plugins>
 			</build>			
     	</profile>
+    	<!-- profile>
+    		<id>java21</id>
+    		<properties>
+    			<sctp.version>2.2.14-java11</sctp.version>
+				<timers.version>1.0.0-39-java11</timers.version> 
+				<cluster.version>8.0.0-50-java11</cluster.version>             
+    		</properties>
+    		<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>${compiler.plugin.version}</version>
+						<configuration>
+							<source>21</source>
+							<target>21</target>
+							<debug>21</debug>
+							<release>21</release>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>			
+    	</profile>
+    	<profile>
+    		<id>java25</id>
+    		<properties>
+    			<sctp.version>2.2.14-java11</sctp.version>
+				<timers.version>1.0.0-39-java11</timers.version> 
+				<cluster.version>8.0.0-50-java11</cluster.version>             
+    		</properties>
+    		<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>${compiler.plugin.version}</version>
+						<configuration>
+							<source>25</source>
+							<target>25</target>
+							<debug>25</debug>
+							<release>25</release>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>			
+    	</profile -->
 		<profile>
 			<id>src</id>
 			<build>
@@ -175,6 +208,9 @@
 		</profile>
 		<profile>
 			<id>docs</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
