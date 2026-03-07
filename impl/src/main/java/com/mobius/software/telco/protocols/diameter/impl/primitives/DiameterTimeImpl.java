@@ -57,6 +57,7 @@ public class DiameterTimeImpl extends DiameterUnsigned32Impl implements Diameter
 	public DiameterTimeImpl(Date value,Long minValue,Long maxValue) 
 	{
 		super(fromDate(value), minValue, maxValue);
+		this.date = value;	
 	}
 
 	public Date getDateTime() 
