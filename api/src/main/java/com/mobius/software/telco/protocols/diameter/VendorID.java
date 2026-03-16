@@ -40,7 +40,8 @@ public enum VendorID
 	ETSI(13019),
 	CABLE_LABS(4491),
 	HUAWEI(2011),
-	ONEM2M(45687);	
+	ONEM2M(45687),
+	AMDOCS(11580);	
 	
 	private static final Map<Integer, VendorID> intToTypeMap = new HashMap<Integer, VendorID>();
 	static 
