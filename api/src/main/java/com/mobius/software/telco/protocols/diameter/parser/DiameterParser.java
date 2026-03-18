@@ -570,6 +570,255 @@ public class DiameterParser
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public String toXML(DiameterMessage message) throws DiameterException
+	{
+		CommandData commandData = commandsMap.get(message.getClass());
+		if(commandData==null)
+			throw new DiameterException("Can not encode class " + message.getClass().getCanonicalName() + " since it has not been registered yet with parser", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+		
+		Boolean isError = false;
+		if((message instanceof DiameterAnswer))
+			isError = ((DiameterAnswer)message).getIsError();
+		
+		StringBuilder result = new StringBuilder();
+		
+		result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+		result.append("<message name=\"").append(commandData.getName()).append("\"");
+		
+		if(message instanceof DiameterErrorAnswer) 
+		{
+			result.append(" commandCode=\"").append(((DiameterErrorAnswer)message).getCommandCode()).append("\"");
+			result.append(" applicationId=\"").append(((DiameterErrorAnswer)message).getApplicationId()).append("\"");
+		} 
+		else 
+		{
+			result.append(" commandCode=\"").append(commandData.getCommandCode()).append("\"");
+			result.append(" applicationId=\"").append(commandData.getApplicationID()).append("\"");
+		}
+		result.append(">\n");
+		
+		List<DiameterAvp> childAvps = null;
+		if(commandData.getOrderMethod()!=null)
+		{
+			try
+			{
+				childAvps = (List<DiameterAvp>)commandData.getOrderMethod().invoke(message);
+			}
+			catch(Exception ex)
+			{
+				throw new DiameterException("Can not get child avps for class " + message.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+			}
+		}
+		else
+		{
+			childAvps = new ArrayList<DiameterAvp>();
+			if(commandData.getAvpOrderedData()!=null)
+			{
+				for(AvpData curr:commandData.getAvpOrderedData())
+				{
+					curr.getField().setAccessible(true);
+					try
+					{
+						if(curr.getField().getType().isAssignableFrom(List.class))
+						{
+							List currList = (List)curr.getField().get(message);
+							if(currList!=null)
+							{
+								for(Object currAvp:currList)
+									childAvps.add((DiameterAvp)currAvp);
+							}
+						}
+						else
+						{
+							DiameterAvp currAvp = (DiameterAvp)curr.getField().get(message);
+							if(currAvp!=null)
+								childAvps.add(currAvp);
+						}
+					}
+					catch(Exception ex)
+					{
+						throw new DiameterException("Can not get child avp for class " + message.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+					}
+				}
+			}
+		}
+		
+		for(DiameterAvp curr:childAvps)
+		{
+			if(curr!=null)
+				avpToXML(result, curr, isError, 1);
+		}
+		
+		if(commandData.getOrderMethod()==null)
+		{
+			Map<DiameterAvpKey,List<DiameterUnknownAvp>> optionalAvps = message.getOptionalAvps();
+			if(optionalAvps!=null)
+			{
+				for(Entry<DiameterAvpKey,List<DiameterUnknownAvp>> currEntry : optionalAvps.entrySet())
+				{
+					if(currEntry.getValue()!=null)
+					{
+						for(DiameterUnknownAvp unknownAvp : currEntry.getValue())
+							avpToXML(result, unknownAvp, isError , 1);
+					}
+				}
+			}
+		}
+		
+		result.append("</message>\n");
+		return result.toString();
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void avpToXML(StringBuilder result, DiameterAvp avp, Boolean isError, int indentLevel) throws DiameterException
+	{
+		StringBuilder indent = new StringBuilder();
+		for(int i = 0; i < indentLevel; i++) indent.append("  ");
+		
+		if(avp instanceof DiameterUnknownAvp)
+		{
+			DiameterUnknownAvp unknownAvp = (DiameterUnknownAvp)avp;
+			Long code = unknownAvp.getAvpCode();
+			
+			Long rawVendor = unknownAvp.getVendorID();
+			Long vendor = (rawVendor != null && rawVendor > 0) ? rawVendor : 0L;
+			
+			String name = "UndefinedAvp-" + code;
+			String value = toHex(unknownAvp.getValue());
+			
+			result.append(indent).append("<avp name=\"").append(name).append("\" code=\"").append(code).append("\" vendor=\"").append(vendor).append("\" value=\"").append(value).append("\" />\n");
+		}
+		else
+		{
+			AvpData avpData = avpsMap.get(avp.getClass());
+			if(avpData==null)
+				throw new DiameterException("Can not encode class " + avp.getClass().getCanonicalName() + " since it has not been registered yet with parser", null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);
+			
+			String name = avpData.getName();
+			Long code = avpData.getAvpID();
+			
+			Long rawVendor = avpData.getVendorID();
+			Long vendor = (rawVendor != null && rawVendor > 0) ? rawVendor : 0L;
+			
+			if(avpData.getPrintMethod() != null)
+			{
+				StringBuilder valueBuilder = new StringBuilder();
+				try
+				{
+					avpData.getPrintMethod().invoke(avp, valueBuilder);
+				}
+				catch(Exception ex)
+				{
+					logger.warn("Can not execute print for class, " + avp.getClass().getCanonicalName() + ", error " + ex.getMessage(), ex);
+					throw new DiameterException("Can not execute print for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+				}
+				
+				// Proses Pembersihan String (Membuang baris baru, delimiter tabel, dan titik padding)
+				String rawValue = valueBuilder.toString();
+				rawValue = rawValue.replaceAll("[\\r\\n]", "");
+				rawValue = rawValue.replace("|", "");
+				rawValue = rawValue.replaceAll("\\.+$", "");
+				
+				String value = rawValue.trim().replace("\"", "&quot;").replace("<", "&lt;").replace(">", "&gt;");
+				
+				result.append(indent).append("<avp name=\"").append(name).append("\" code=\"").append(code).append("\" vendor=\"").append(vendor).append("\" value=\"").append(value).append("\" />\n");
+			}
+			else
+			{
+				result.append(indent).append("<avp name=\"").append(name).append("\" code=\"").append(code).append("\" vendor=\"").append(vendor).append("\">\n");
+				
+				List<DiameterAvp> childAvps = null;
+				if(avpData.getOrderMethod() != null)
+				{
+					try
+					{
+						childAvps = (List<DiameterAvp>)avpData.getOrderMethod().invoke(avp);
+					}
+					catch(Exception ex)
+					{
+						throw new DiameterException("Can not get child avps for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+					}
+				}
+				else if(avpData.getAvpOrderedData() != null)
+				{
+					childAvps = new ArrayList<DiameterAvp>();
+					for(AvpData curr:avpData.getAvpOrderedData())
+					{
+						curr.getField().setAccessible(true);
+						try
+						{
+							if(curr.getField().getType().isAssignableFrom(List.class))
+							{
+								List currList = (List)curr.getField().get(avp);
+								if(currList!=null)
+								{
+									for(Object currAvp:currList)
+										childAvps.add((DiameterAvp)currAvp);
+								}
+							}
+							else
+							{
+								DiameterAvp currAvp = (DiameterAvp)curr.getField().get(avp);
+								if(currAvp!=null)
+									childAvps.add(currAvp);
+							}
+						}
+						catch(Exception ex)
+						{
+							throw new DiameterException("Can not get child avp for class " + avp.getClass().getCanonicalName(), null , ResultCodes.DIAMETER_UNABLE_TO_COMPLY, null);						
+						}
+					}
+				}
+				
+				if(childAvps != null)
+				{
+					for(DiameterAvp curr : childAvps)
+					{
+						if(curr != null)
+							avpToXML(result, curr, isError, indentLevel + 1);
+					}
+				}
+				
+				if(avp instanceof DiameterGroupedAvp)
+				{
+					DiameterGroupedAvp groupedAvp = (DiameterGroupedAvp)avp;
+					Map<DiameterAvpKey,List<DiameterUnknownAvp>> optionalAvps = groupedAvp.getOptionalAvps();
+					if(optionalAvps != null)
+					{
+						for(Entry<DiameterAvpKey,List<DiameterUnknownAvp>> currEntry : optionalAvps.entrySet())
+						{
+							if(currEntry.getValue() != null)
+							{
+								for(DiameterUnknownAvp unknown : currEntry.getValue())
+									avpToXML(result, unknown, isError, indentLevel + 1);
+							}
+						}
+					}
+				}
+				
+				if(avp instanceof FailedAvp)
+				{
+					FailedAvp failedAvp = (FailedAvp)avp;
+					Map<DiameterAvpKey,List<DiameterAvp>> knownAvps = failedAvp.getKnownAvps();
+					if(knownAvps != null)
+					{
+						for(Entry<DiameterAvpKey,List<DiameterAvp>> currEntry : knownAvps.entrySet())
+						{
+							if(currEntry.getValue() != null)
+							{
+								for(DiameterAvp known : currEntry.getValue())
+									avpToXML(result, known, isError, indentLevel + 1);
+							}
+						}
+					}
+				}
+				
+				result.append(indent).append("</avp>\n");
+			}
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String printMessage(DiameterMessage message) throws DiameterException
 	{
 		CommandData commandData = commandsMap.get(message.getClass());
