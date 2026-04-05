@@ -46,7 +46,7 @@ public class T4DeliveryReportTest
 		ByteBuf encodedMessage = diameterParser.encode(drr);
 		byte[] drrEncodedData = new byte[encodedMessage.readableBytes()];
 		encodedMessage.readBytes(drrEncodedData);
-		DiameterMessage message = diameterParser.decode(Unpooled.wrappedBuffer(drrEncodedData), true);
+		DiameterMessage message = diameterParser.decode(Unpooled.wrappedBuffer(drrEncodedData), true, true);
 		assertTrue(message instanceof DeliveryReportRequestImpl);
 		drr=(DeliveryReportRequestImpl)message;
 		drr.setHopByHopIdentifier(new Long(0x1c90dc0dL));

@@ -46,7 +46,7 @@ public class S13MEIdentityCheckTest
 		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.s13"));
 		
 		meIdentityCheckRequestMessage.resetReaderIndex();
-		DiameterMessage decodeMessage = diameterParser.decode(meIdentityCheckRequestMessage, false);
+		DiameterMessage decodeMessage = diameterParser.decode(meIdentityCheckRequestMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof MEIdentityCheckRequest);
 		MEIdentityCheckRequest mer = (MEIdentityCheckRequest)decodeMessage;

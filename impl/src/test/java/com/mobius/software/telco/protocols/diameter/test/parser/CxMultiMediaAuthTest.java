@@ -114,7 +114,7 @@ public class CxMultiMediaAuthTest
 		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.cxdx"));
 		
 		multimediaAuthRequestMessage.resetReaderIndex();
-		DiameterMessage decodeMessage = diameterParser.decode(multimediaAuthRequestMessage, false);
+		DiameterMessage decodeMessage = diameterParser.decode(multimediaAuthRequestMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof MultimediaAuthRequest);
 		MultimediaAuthRequest mar = (MultimediaAuthRequest)decodeMessage;
@@ -160,7 +160,7 @@ public class CxMultiMediaAuthTest
 		System.out.println(diameterParser.printMessage(mar));
 		
 		multimediaAuthAnswerMessage.resetReaderIndex();
-		decodeMessage = diameterParser.decode(multimediaAuthAnswerMessage, false);
+		decodeMessage = diameterParser.decode(multimediaAuthAnswerMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof MultimediaAuthAnswer);
 		MultimediaAuthAnswer maa = (MultimediaAuthAnswer)decodeMessage;

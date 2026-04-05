@@ -1280,12 +1280,12 @@ public class DiameterParser
 			return getLength(parent, avpData.getAvpOrderedData());	
 	}
 	
-	public DiameterMessage decode(ByteBuf message, Boolean rejectUnmandatoryAvps) throws DiameterException
+	public DiameterMessage decode(ByteBuf message, Boolean rejectUnmandatoryAvps, Boolean rejectMandatoryAvps) throws DiameterException
 	{
-		return decode(message, rejectUnmandatoryAvps, false, null);
+		return decode(message, rejectUnmandatoryAvps, rejectMandatoryAvps, false, null);
 	}
 	
-	public DiameterMessage decode(ByteBuf message, Boolean rejectUnmandatoryAvps, Boolean isGlobal, String packageName) throws DiameterException
+	public DiameterMessage decode(ByteBuf message, Boolean rejectUnmandatoryAvps, Boolean rejectMandatoryAvps, Boolean isGlobal, String packageName) throws DiameterException
 	{
 		if(message.readableBytes()<4)
 			return null;
@@ -1461,7 +1461,7 @@ public class DiameterParser
 		
 		try
 		{
-			decode(message, diameterMessage, isError, commandData.getAvpData(), messageLength-20, rejectUnmandatoryAvps);
+			decode(message, diameterMessage, isError, commandData.getAvpData(), messageLength-20, rejectUnmandatoryAvps, rejectMandatoryAvps);
 		}
 		catch(DiameterException ex)
 		{
@@ -1527,7 +1527,7 @@ public class DiameterParser
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void decode(ByteBuf message,DiameterAvp parent,Boolean isError,ConcurrentHashMap<DiameterAvpKey,AvpData> childAvps,Integer length, Boolean rejectUnmandatoryAvps) throws DiameterException
+	public void decode(ByteBuf message,DiameterAvp parent,Boolean isError,ConcurrentHashMap<DiameterAvpKey,AvpData> childAvps,Integer length, Boolean rejectUnmandatoryAvps, Boolean rejectMandatoryAvps) throws DiameterException
 	{
 		while(length>0 && message.readableBytes()>=length)
 		{
@@ -1572,7 +1572,14 @@ public class DiameterParser
 			{
 				//set optional if possible as octet string , ignore mandatory for FailedAvp
 				if(isMandatory && !(parent instanceof FailedAvp))
-					throw new DiameterException("The message has mandory bit set for " + avpCode + ",however avp is not know for local parser", null , ResultCodes.DIAMETER_AVP_UNSUPPORTED, null);
+				{
+					if(rejectMandatoryAvps==null || rejectMandatoryAvps)
+						throw new DiameterException("The message has mandory bit set for " + avpCode + ",however avp is not know for local parser", null , ResultCodes.DIAMETER_AVP_UNSUPPORTED, null);
+					else if(!(parent instanceof DiameterGroupedAvp))
+						throw new DiameterException("The message has " + avpCode + ",however parent element is not grouped and therefore does not have optional AVPs", null , ResultCodes.DIAMETER_AVP_UNSUPPORTED, null);
+										
+					((DiameterGroupedAvp)parent).addOptionalAvp(key, message.readSlice(remainingLength.intValue()), isProtected);
+				}
 				else 
 				{
 					if(rejectUnmandatoryAvps!=null && rejectUnmandatoryAvps)
@@ -1624,7 +1631,7 @@ public class DiameterParser
 					}
 				}
 				else
-					decode(message, avp, isError, currentAvp.getAvpData(), remainingLength, rejectUnmandatoryAvps);
+					decode(message, avp, isError, currentAvp.getAvpData(), remainingLength, rejectUnmandatoryAvps, rejectMandatoryAvps);
 				
 				//lets validate the structure if has validation
 				if(!isError && currentAvp.getValidateMethod()!=null)

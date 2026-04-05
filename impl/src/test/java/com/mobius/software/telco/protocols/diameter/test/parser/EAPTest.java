@@ -81,7 +81,7 @@ public class EAPTest
 		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.eap"));
 		
 		eapRequestMessage.resetReaderIndex();
-		DiameterMessage decodeMessage = diameterParser.decode(eapRequestMessage, false);
+		DiameterMessage decodeMessage = diameterParser.decode(eapRequestMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof EAPRequest);
 		EAPRequest eapr = (EAPRequest)decodeMessage;
@@ -119,7 +119,7 @@ public class EAPTest
 		System.out.println(diameterParser.printMessage(eapr));
 		
 		eapAnswerMessage.resetReaderIndex();
-		decodeMessage = diameterParser.decode(eapAnswerMessage, false);
+		decodeMessage = diameterParser.decode(eapAnswerMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof EAPAnswer);
 		EAPAnswer eapa = (EAPAnswer)decodeMessage;

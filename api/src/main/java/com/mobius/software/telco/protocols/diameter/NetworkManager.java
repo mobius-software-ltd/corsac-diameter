@@ -37,6 +37,8 @@ public interface NetworkManager
 {
 	void addLink(String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps) throws DiameterException;
 	
+	void addLink(String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps, Boolean rejectMandatoryAvps) throws DiameterException;
+	
 	void removeLink(String linkId) throws DiameterException;
 	
 	void startLink(String linkId) throws DiameterException;

@@ -43,7 +43,7 @@ public class DeviceWatchdogTest
 		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.common"));
 		
 		deviceWatchdogRequestMessage.resetReaderIndex();
-		DiameterMessage decodeMessage = diameterParser.decode(deviceWatchdogRequestMessage, false);
+		DiameterMessage decodeMessage = diameterParser.decode(deviceWatchdogRequestMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof DeviceWatchdogRequest);
 		DeviceWatchdogRequest dwr = (DeviceWatchdogRequest)decodeMessage;
@@ -69,7 +69,7 @@ public class DeviceWatchdogTest
 		System.out.println(diameterParser.printMessage(dwr));	
 		
 		deviceWatchdogAnswerMessage.resetReaderIndex();
-		decodeMessage = diameterParser.decode(deviceWatchdogAnswerMessage, false);
+		decodeMessage = diameterParser.decode(deviceWatchdogAnswerMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof DeviceWatchdogAnswer);
 		DeviceWatchdogAnswer dwa = (DeviceWatchdogAnswer)decodeMessage;

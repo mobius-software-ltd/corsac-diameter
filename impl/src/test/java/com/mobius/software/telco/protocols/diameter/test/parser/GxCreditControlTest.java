@@ -146,7 +146,7 @@ public class GxCreditControlTest
 		diameterParser.registerApplication(this.getClass().getClassLoader(), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.commands.gx"));
 		
 		creditControlRequestMessage.resetReaderIndex();
-		DiameterMessage decodeMessage = diameterParser.decode(creditControlRequestMessage, false);
+		DiameterMessage decodeMessage = diameterParser.decode(creditControlRequestMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof CreditControlRequest);
 		CreditControlRequest ccr = (CreditControlRequest)decodeMessage;
@@ -252,7 +252,7 @@ public class GxCreditControlTest
 		System.out.println(diameterParser.printMessage(ccr));
 		
 		creditControlAnswerMessage.resetReaderIndex();
-		decodeMessage = diameterParser.decode(creditControlAnswerMessage, false);
+		decodeMessage = diameterParser.decode(creditControlAnswerMessage, false, false);
 		assertNotNull(decodeMessage);
 		assertTrue(decodeMessage instanceof CreditControlAnswer);
 		CreditControlAnswer cca = (CreditControlAnswer)decodeMessage;

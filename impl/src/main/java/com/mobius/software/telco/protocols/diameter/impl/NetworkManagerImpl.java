@@ -146,11 +146,17 @@ public class NetworkManagerImpl implements NetworkManager
 	@Override
 	public void addLink(String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps) throws DiameterException
 	{
+		addLink(linkId, remoteAddress, remotePort, localAddress, localPort, isServer, isSctp, localHost, localRealm, destinationHost, destinationRealm, rejectUnmandatoryAvps, true);
+	}
+	
+	@Override
+	public void addLink(String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps, Boolean rejectMandatoryAvps) throws DiameterException
+	{
 		DiameterLink link = this.links.get(linkId);
 		if(link!=null)
 			throw new DiameterException("Link with such id already exist", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 		
-		link = new DiameterLinkImpl(stack, transportManagement, genericListeners, linkId, remoteAddress, remotePort, localAddress, localPort, isServer, isSctp, localHost, localRealm, destinationHost, destinationRealm, rejectUnmandatoryAvps,idleTimeout, responseTimeout, reconnectTimeout);
+		link = new DiameterLinkImpl(stack, transportManagement, genericListeners, linkId, remoteAddress, remotePort, localAddress, localPort, isServer, isSctp, localHost, localRealm, destinationHost, destinationRealm, rejectUnmandatoryAvps, rejectMandatoryAvps, idleTimeout, responseTimeout, reconnectTimeout);
 		DiameterLink oldLink = this.links.putIfAbsent(linkId, link);
 		if(oldLink!=null)
 			throw new DiameterException("Link with such id already exist", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);	

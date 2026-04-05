@@ -35,7 +35,7 @@ public class FailedAvpTest
 
 		byte[] testPayload = hexStringToByteArray(bad);
 		
-		DiameterMessage message = parser.decode(Unpooled.wrappedBuffer(testPayload), false);
+		DiameterMessage message = parser.decode(Unpooled.wrappedBuffer(testPayload), false, true);
 		assertNotNull(message);
 	}
 
