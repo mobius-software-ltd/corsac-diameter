@@ -684,7 +684,10 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 						sessionID = linkId;
 					}
 					
-					message.setBuffer(buffer, association.getIpChannelType() != IpChannelType.TCP);
+					if(association.getIpChannelType() == IpChannelType.TCP)
+						buffer.retain();
+					
+					message.setBuffer(buffer, true);
 					stack.getWorkerPool().addTaskLast(new MessageProcessingTask(stack, this, genericListeners, lastActivity, waitingForDWA, association, sessionID, message, remoteApplicationIds, remoteAuthApplicationIds, remoteAcctApplicationIds));
 				}
 			}
@@ -708,7 +711,13 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 		
 		//resetting buffer, since there is no separate buffer for reach message and therefore it can not be released separately
 		if (hadMessage && association.getIpChannelType() == IpChannelType.TCP && buffer.readableBytes()==0)
+		{
+			//in general we had 1 retain + number of messages
+			//we release 1 here and 1 for each message
+			//so either last message processed on here it would be released;
+			buffer.release();
 			tcpBuffer = Unpooled.buffer().alloc().compositeBuffer();
+		}
 	}
 
 	public void registerApplication(List<VendorSpecificApplicationId> vendorApplicationIds, List<Long> authApplicationIds, List<Long> acctApplicationIds, Package providerPackageName, Package packageName) throws DiameterException
