@@ -88,7 +88,20 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>			
+			</plugin>	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.8.0</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>		
 		</plugins>
 	</build>
 
@@ -208,9 +221,6 @@
 		</profile>
 		<profile>
 			<id>docs</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<build>
 				<plugins>
 					<plugin>
