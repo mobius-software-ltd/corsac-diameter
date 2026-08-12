@@ -79,26 +79,7 @@ public class DiameterTimeImpl extends DiameterUnsigned32Impl implements Diameter
 	{
 		super.decode(buffer, length);
 		Long value = getUnsigned();
-		if(value!=null)
-		{
-			value = value & 0x0FFFFFFFFL;
-			// Era 0
-	        // - NTP Timestamp 3520800000 to 4294967295
-	        // - Jul 28 00:00:00 UTC 2011 to Feb 7 06:28:15 UTC 2036
-	        // - UNIX Timestamp 1311811200 to 2085978495
-			// Era 1
-	        // - NTP Timestamp 0 to 3520799999
-	        // - Feb 7 06:28:16 UTC 2036 to Sep 3 06:28:15 UTC 2147
-	        // - Unix Timestamp 2085978496 to 5606778495
-	        
-			if( value >= MAX_ERA_SECONDS )
-				value = value - EPOCH_SHIFT;
-	        else
-	        	value = value + SECOND_ERA_START;
-	        
-			this.date = new Date(value * 1000L);
-		}
-		
+		date = toDate(value);
 		return null;
 	}
 	
@@ -124,6 +105,31 @@ public class DiameterTimeImpl extends DiameterUnsigned32Impl implements Diameter
 			return false;
 		
 		return true;
+	}
+	
+	public static Date toDate(Long value)
+	{
+		if(value!=null)
+		{
+			value = value & 0x0FFFFFFFFL;
+			// Era 0
+	        // - NTP Timestamp 3520800000 to 4294967295
+	        // - Jul 28 00:00:00 UTC 2011 to Feb 7 06:28:15 UTC 2036
+	        // - UNIX Timestamp 1311811200 to 2085978495
+			// Era 1
+	        // - NTP Timestamp 0 to 3520799999
+	        // - Feb 7 06:28:16 UTC 2036 to Sep 3 06:28:15 UTC 2147
+	        // - Unix Timestamp 2085978496 to 5606778495
+	        
+			if( value >= MAX_ERA_SECONDS )
+				value = value - EPOCH_SHIFT;
+	        else
+	        	value = value + SECOND_ERA_START;
+	        
+			return new Date(value * 1000L);
+		}
+		
+		return null;
 	}
 	
 	public static Long fromDate(Date date)
