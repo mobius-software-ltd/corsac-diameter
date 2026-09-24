@@ -107,6 +107,14 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 			}
 		}
 		
+		if(isError==null && experimentalResult!=null && experimentalResult.getExperimentalResultCode()!=null)
+		{
+			if(experimentalResult.getExperimentalResultCode()>=3000)
+				this.isError = true;
+			else
+				this.isError = false;
+		}
+		
 		return isError;
 	}
 	
@@ -235,8 +243,8 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(resultCode==null)
-			return new MissingAvpException("Result-Code is required", Arrays.asList(new DiameterAvp[] {new ResultCodeImpl() }));
+		if(resultCode==null && experimentalResult==null)
+			return new MissingAvpException("Result-Code or Expirimental Result is required", Arrays.asList(new DiameterAvp[] {new ResultCodeImpl() }));
 		
 		if(!errorMessageAllowed && errorMessage!=null)
 			return new AvpNotSupportedException("This AVP is not supported for select command/application", Arrays.asList(new DiameterAvp[] { errorMessage }));
