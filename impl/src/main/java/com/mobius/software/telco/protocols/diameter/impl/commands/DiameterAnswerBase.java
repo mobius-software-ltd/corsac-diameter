@@ -115,10 +115,6 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 				this.isError = false;
 		}
 		
-		//no status , assuming it error
-		if(isError==null)
-			return true;
-		
 		return isError;
 	}
 	
@@ -247,7 +243,7 @@ public abstract class DiameterAnswerBase extends DiameterMessageBase implements 
 	@DiameterValidate
 	public DiameterException validate()
 	{
-		if(resultCode==null && (experimentalResult==null || experimentalResult.getExperimentalResultCode()==null))
+		if(resultCode==null && experimentalResult==null)
 			return new MissingAvpException("Result-Code or Expirimental Result is required", Arrays.asList(new DiameterAvp[] {new ResultCodeImpl() }));
 		
 		if(!errorMessageAllowed && errorMessage!=null)
