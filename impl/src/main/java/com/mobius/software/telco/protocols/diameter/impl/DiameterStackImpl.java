@@ -47,6 +47,7 @@ import com.mobius.software.telco.protocols.diameter.annotations.DiameterCommandD
 import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
+import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
 import com.mobius.software.telco.protocols.diameter.exceptions.DiameterException;
 import com.mobius.software.telco.protocols.diameter.impl.app.cip.ChargingInterrogationProviderImpl;
 import com.mobius.software.telco.protocols.diameter.impl.app.creditcontrol.CreditControlProviderImpl;
@@ -1104,16 +1105,30 @@ public class DiameterStackImpl implements DiameterStack
 			DiameterAnswer answer=(DiameterAnswer)message;
 			if(answer.getIsError())
 			{
-				counter = errorsReceivedByType.get(answer.getResultCode());
-				if(counter == null)
+				Long resultCode = answer.getResultCode();
+				try
 				{
-					counter = new AtomicLong(0);
-					AtomicLong oldCounter = errorsReceivedByType.putIfAbsent(answer.getResultCode(), counter);
-					if(oldCounter != null)
-						counter = oldCounter;
+					if(resultCode == null && answer.getExperimentalResult()!=null && answer.getExperimentalResult().getExperimentalResultCode()!=null)
+						resultCode = answer.getExperimentalResult().getExperimentalResultCode();
 				}
+				catch(AvpNotSupportedException ex)
+				{
+					
+				}				
 				
-				counter.incrementAndGet();
+				if(resultCode!=null)
+				{
+					counter = errorsReceivedByType.get(resultCode);
+					if(counter == null)
+					{
+						counter = new AtomicLong(0);
+						AtomicLong oldCounter = errorsReceivedByType.putIfAbsent(resultCode, counter);
+						if(oldCounter != null)
+							counter = oldCounter;
+					}
+					
+					counter.incrementAndGet();
+				}
 			}
 		}
 		
@@ -1184,45 +1199,59 @@ public class DiameterStackImpl implements DiameterStack
 						errorsReceivedByType = oldMap;								
 				}
 				
-				counter = errorsReceivedByType.get(answer.getResultCode());
-				if(counter == null)
+				Long resultCode = answer.getResultCode();
+				try
 				{
-					counter = new AtomicLong(0);
-					AtomicLong oldCounter = errorsReceivedByType.putIfAbsent(answer.getResultCode(), counter);
-					if(oldCounter != null)
-						counter = oldCounter;
+					if(resultCode == null && answer.getExperimentalResult()!=null && answer.getExperimentalResult().getExperimentalResultCode()!=null)
+						resultCode = answer.getExperimentalResult().getExperimentalResultCode();
 				}
-				
-				counter.incrementAndGet();
-				
-				ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
-				if(errorsReceivedByTypeAndApplication == null)
+				catch(AvpNotSupportedException ex)
 				{
-					errorsReceivedByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
-					ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsReceivedByLinkTypeAndApplication.putIfAbsent(linkID, errorsReceivedByTypeAndApplication);
-					if(oldMap!=null)
-						errorsReceivedByTypeAndApplication = oldMap;								
-				}
+					
+				}		
 				
-				errorsReceivedByType = errorsReceivedByTypeAndApplication.get(applicationID);
-				if(errorsReceivedByType == null)
+				if(resultCode!=null)
 				{
-					errorsReceivedByType = new ConcurrentHashMap<Long, AtomicLong>();
-					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsReceivedByTypeAndApplication.putIfAbsent(applicationID, errorsReceivedByType);
-					if(oldMap!=null)
-						errorsReceivedByType = oldMap;								
-				}
+					counter = errorsReceivedByType.get(resultCode);
+					if(counter == null)
+					{
+						counter = new AtomicLong(0);
+						AtomicLong oldCounter = errorsReceivedByType.putIfAbsent(resultCode, counter);
+						if(oldCounter != null)
+							counter = oldCounter;
+					}
+					
+					counter.incrementAndGet();
 				
-				counter = errorsReceivedByType.get(answer.getResultCode());
-				if(counter == null)
-				{
-					counter = new AtomicLong(0);
-					AtomicLong oldCounter = errorsReceivedByType.putIfAbsent(answer.getResultCode(), counter);
-					if(oldCounter != null)
-						counter = oldCounter;
+					ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsReceivedByTypeAndApplication = errorsReceivedByLinkTypeAndApplication.get(linkID);
+					if(errorsReceivedByTypeAndApplication == null)
+					{
+						errorsReceivedByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
+						ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsReceivedByLinkTypeAndApplication.putIfAbsent(linkID, errorsReceivedByTypeAndApplication);
+						if(oldMap!=null)
+							errorsReceivedByTypeAndApplication = oldMap;								
+					}
+					
+					errorsReceivedByType = errorsReceivedByTypeAndApplication.get(applicationID);
+					if(errorsReceivedByType == null)
+					{
+						errorsReceivedByType = new ConcurrentHashMap<Long, AtomicLong>();
+						ConcurrentHashMap<Long, AtomicLong> oldMap = errorsReceivedByTypeAndApplication.putIfAbsent(applicationID, errorsReceivedByType);
+						if(oldMap!=null)
+							errorsReceivedByType = oldMap;								
+					}
+					
+					counter = errorsReceivedByType.get(resultCode);
+					if(counter == null)
+					{
+						counter = new AtomicLong(0);
+						AtomicLong oldCounter = errorsReceivedByType.putIfAbsent(resultCode, counter);
+						if(oldCounter != null)
+							counter = oldCounter;
+					}
+					
+					counter.incrementAndGet();
 				}
-				
-				counter.incrementAndGet();
 			}
 		}
 	}
@@ -1272,16 +1301,30 @@ public class DiameterStackImpl implements DiameterStack
 			DiameterAnswer answer=(DiameterAnswer)message;
 			if(answer.getIsError())
 			{
-				counter = errorsSentByType.get(answer.getResultCode());
-				if(counter == null)
+				Long resultCode = answer.getResultCode();
+				try
 				{
-					counter = new AtomicLong(0);
-					AtomicLong oldCounter = errorsSentByType.putIfAbsent(answer.getResultCode(), counter);
-					if(oldCounter != null)
-						counter = oldCounter;
+					if(resultCode == null && answer.getExperimentalResult()!=null && answer.getExperimentalResult().getExperimentalResultCode()!=null)
+						resultCode = answer.getExperimentalResult().getExperimentalResultCode();
 				}
+				catch(AvpNotSupportedException ex)
+				{
+					
+				}	
 				
-				counter.incrementAndGet();
+				if(resultCode!=null)
+				{
+					counter = errorsSentByType.get(resultCode);
+					if(counter == null)
+					{
+						counter = new AtomicLong(0);
+						AtomicLong oldCounter = errorsSentByType.putIfAbsent(resultCode, counter);
+						if(oldCounter != null)
+							counter = oldCounter;
+					}
+					
+					counter.incrementAndGet();
+				}
 			}
 		}
 		
@@ -1343,65 +1386,79 @@ public class DiameterStackImpl implements DiameterStack
 			DiameterAnswer answer=(DiameterAnswer)message;
 			if(answer.getIsError())
 			{
-				counter = errorsSentByType.get(answer.getResultCode());
-				if(counter == null)
+				Long resultCode = answer.getResultCode();
+				try
 				{
-					counter = new AtomicLong(0);
-					AtomicLong oldCounter = errorsSentByType.putIfAbsent(answer.getResultCode(), counter);
-					if(oldCounter != null)
-						counter = oldCounter;
+					if(resultCode == null && answer.getExperimentalResult()!=null && answer.getExperimentalResult().getExperimentalResultCode()!=null)
+						resultCode = answer.getExperimentalResult().getExperimentalResultCode();
 				}
-				
-				counter.incrementAndGet();
-				
-				ConcurrentHashMap<Long, AtomicLong> errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
-				if(errorsSentByType == null)
+				catch(AvpNotSupportedException ex)
 				{
-					errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
-					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(applicationID, errorsSentByType);
-					if(oldMap!=null)
-						errorsSentByType = oldMap;								
-				}
+					
+				}	
 				
-				counter = errorsSentByType.get(answer.getResultCode());
-				if(counter == null)
+				if(resultCode!=null)
 				{
-					counter = new AtomicLong(0);
-					AtomicLong oldCounter = errorsSentByType.putIfAbsent(answer.getResultCode(), counter);
-					if(oldCounter != null)
-						counter = oldCounter;
+					counter = errorsSentByType.get(resultCode);
+					if(counter == null)
+					{
+						counter = new AtomicLong(0);
+						AtomicLong oldCounter = errorsSentByType.putIfAbsent(resultCode, counter);
+						if(oldCounter != null)
+							counter = oldCounter;
+					}
+					
+					counter.incrementAndGet();
+					
+					ConcurrentHashMap<Long, AtomicLong> errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
+					if(errorsSentByType == null)
+					{
+						errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
+						ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(applicationID, errorsSentByType);
+						if(oldMap!=null)
+							errorsSentByType = oldMap;								
+					}
+					
+					counter = errorsSentByType.get(resultCode);
+					if(counter == null)
+					{
+						counter = new AtomicLong(0);
+						AtomicLong oldCounter = errorsSentByType.putIfAbsent(resultCode, counter);
+						if(oldCounter != null)
+							counter = oldCounter;
+					}
+					
+					counter.incrementAndGet();
+					
+					ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
+					if(errorsSentByTypeAndApplication == null)
+					{
+						errorsSentByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
+						ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsSentByLinkTypeAndApplication.putIfAbsent(linkID, errorsSentByTypeAndApplication);
+						if(oldMap!=null)
+							errorsSentByTypeAndApplication = oldMap;								
+					}
+					
+					errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
+					if(errorsSentByType == null)
+					{
+						errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
+						ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(applicationID, errorsSentByType);
+						if(oldMap!=null)
+							errorsSentByType = oldMap;								
+					}
+					
+					counter = errorsSentByType.get(resultCode);
+					if(counter == null)
+					{
+						counter = new AtomicLong(0);
+						AtomicLong oldCounter = errorsSentByType.putIfAbsent(resultCode, counter);
+						if(oldCounter != null)
+							counter = oldCounter;
+					}
+					
+					counter.incrementAndGet();
 				}
-				
-				counter.incrementAndGet();
-				
-				ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> errorsSentByTypeAndApplication = errorsSentByLinkTypeAndApplication.get(linkID);
-				if(errorsSentByTypeAndApplication == null)
-				{
-					errorsSentByTypeAndApplication = new ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>>();
-					ConcurrentHashMap<ApplicationID,ConcurrentHashMap<Long, AtomicLong>> oldMap = errorsSentByLinkTypeAndApplication.putIfAbsent(linkID, errorsSentByTypeAndApplication);
-					if(oldMap!=null)
-						errorsSentByTypeAndApplication = oldMap;								
-				}
-				
-				errorsSentByType = errorsSentByTypeAndApplication.get(applicationID);
-				if(errorsSentByType == null)
-				{
-					errorsSentByType = new ConcurrentHashMap<Long, AtomicLong>();
-					ConcurrentHashMap<Long, AtomicLong> oldMap = errorsSentByTypeAndApplication.putIfAbsent(applicationID, errorsSentByType);
-					if(oldMap!=null)
-						errorsSentByType = oldMap;								
-				}
-				
-				counter = errorsSentByType.get(answer.getResultCode());
-				if(counter == null)
-				{
-					counter = new AtomicLong(0);
-					AtomicLong oldCounter = errorsSentByType.putIfAbsent(answer.getResultCode(), counter);
-					if(oldCounter != null)
-						counter = oldCounter;
-				}
-				
-				counter.incrementAndGet();
 			}
 		}
 	}
