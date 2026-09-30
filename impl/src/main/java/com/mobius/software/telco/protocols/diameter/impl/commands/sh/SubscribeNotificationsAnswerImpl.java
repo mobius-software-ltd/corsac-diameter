@@ -68,13 +68,11 @@ public class SubscribeNotificationsAnswerImpl extends ShAnswerImpl implements Su
 	protected SubscribeNotificationsAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public SubscribeNotificationsAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 	
 	public String getWildcardedPublicIdentity()

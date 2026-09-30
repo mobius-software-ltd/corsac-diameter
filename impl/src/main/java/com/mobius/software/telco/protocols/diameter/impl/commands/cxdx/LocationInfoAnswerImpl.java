@@ -67,13 +67,11 @@ public class LocationInfoAnswerImpl extends CxDxAnswerImpl implements LocationIn
 	protected LocationInfoAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public LocationInfoAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 	
 	public OCSupportedFeatures getOCSupportedFeatures()

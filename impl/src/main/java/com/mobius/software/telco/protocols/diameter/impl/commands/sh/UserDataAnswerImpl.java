@@ -63,13 +63,11 @@ public class UserDataAnswerImpl extends ShAnswerImpl implements UserDataAnswer
 	protected UserDataAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public UserDataAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 	
 	public String getWildcardedPublicIdentity()

@@ -65,13 +65,11 @@ public class ProfileUpdateAnswerImpl extends ShAnswerImpl implements ProfileUpda
 	protected ProfileUpdateAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public ProfileUpdateAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 	
 	public String getWildcardedPublicIdentity()

@@ -79,13 +79,11 @@ public class UserDataAnswerImpl extends E4AnswerImpl implements UserDataAnswer
 	protected UserDataAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 	}
 	
 	public UserDataAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(true);
 	}
 	
 	public GloballyUniqueAddress getGloballyUniqueAddress()

@@ -97,7 +97,6 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	protected CreditControlAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
@@ -105,7 +104,6 @@ public class CreditControlAnswerImpl extends com.mobius.software.telco.protocols
 	public CreditControlAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId, CcRequestTypeEnum ccRequestType, Long ccRequestNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId, ccRequestType, ccRequestNumber);
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(true);	
 		setUsernameAllowed(false);
 	}

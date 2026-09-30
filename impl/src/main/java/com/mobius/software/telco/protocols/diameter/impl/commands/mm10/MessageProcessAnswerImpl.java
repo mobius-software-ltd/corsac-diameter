@@ -77,7 +77,6 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 	protected MessageProcessAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(false);
 		setUsernameAllowed(false);
 	}
@@ -85,7 +84,6 @@ public class MessageProcessAnswerImpl extends VendorSpecificAnswerImpl implement
 	public MessageProcessAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(false);
 		setUsernameAllowed(false);
 		

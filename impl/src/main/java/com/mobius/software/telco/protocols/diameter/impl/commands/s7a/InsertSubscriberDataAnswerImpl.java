@@ -40,13 +40,11 @@ public class InsertSubscriberDataAnswerImpl extends S7aAnswerImpl implements Ins
 	protected InsertSubscriberDataAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public InsertSubscriberDataAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 	
 	@DiameterOrder

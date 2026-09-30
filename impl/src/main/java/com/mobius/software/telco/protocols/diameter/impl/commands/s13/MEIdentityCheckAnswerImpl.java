@@ -45,13 +45,11 @@ public class MEIdentityCheckAnswerImpl extends S13AnswerImpl implements MEIdenti
 	protected MEIdentityCheckAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public MEIdentityCheckAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 		
 	@Override

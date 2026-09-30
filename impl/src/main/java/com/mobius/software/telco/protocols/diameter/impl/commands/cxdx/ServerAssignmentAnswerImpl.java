@@ -88,13 +88,11 @@ public class ServerAssignmentAnswerImpl extends CxDxAnswerImpl implements Server
 	protected ServerAssignmentAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public ServerAssignmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 	
 	public OCSupportedFeatures getOCSupportedFeatures()

@@ -64,14 +64,11 @@ public class MultimediaAuthAnswerImpl extends SwxAnswerImpl implements Multimedi
 	protected MultimediaAuthAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public MultimediaAuthAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,AuthSessionStateEnum authSessionState, String username) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
-		
 		setUsername(username);
 	}
 	

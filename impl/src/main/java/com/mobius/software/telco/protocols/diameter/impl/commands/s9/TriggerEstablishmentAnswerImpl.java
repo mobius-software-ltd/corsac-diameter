@@ -59,7 +59,6 @@ public class TriggerEstablishmentAnswerImpl extends AuthenticationAnswerImpl imp
 	protected TriggerEstablishmentAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
@@ -67,7 +66,6 @@ public class TriggerEstablishmentAnswerImpl extends AuthenticationAnswerImpl imp
 	public TriggerEstablishmentAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, Long authApplicationId) throws AvpNotSupportedException, MissingAvpException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authApplicationId);
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(true);	
 		setUsernameAllowed(false);
 	}

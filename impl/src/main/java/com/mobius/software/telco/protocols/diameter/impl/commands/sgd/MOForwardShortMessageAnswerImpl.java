@@ -53,13 +53,11 @@ public class MOForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MO
 	protected MOForwardShortMessageAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 	}
 	
 	public MOForwardShortMessageAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(true);
 	}
 		
 	@Override

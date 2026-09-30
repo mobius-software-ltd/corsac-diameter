@@ -51,13 +51,11 @@ public class UpdateVCSGLocationAnswerImpl extends S7aAnswerImpl implements Updat
 	protected UpdateVCSGLocationAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(false);
 	}
 	
 	public UpdateVCSGLocationAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(false);
 	}
 		
 	@Override

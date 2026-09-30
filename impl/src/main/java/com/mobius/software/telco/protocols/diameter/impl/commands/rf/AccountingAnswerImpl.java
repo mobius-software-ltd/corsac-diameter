@@ -40,7 +40,6 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	protected AccountingAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 		setVendorSpecificApplicationIdAllowed(false);
 		setAccountingSubSessionIdAllowed(false);
 		setAcctSessionIdAllowed(false);
@@ -51,7 +50,6 @@ public class AccountingAnswerImpl extends com.mobius.software.telco.protocols.di
 	public AccountingAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID, AccountingRecordTypeEnum accountingRecordType, Long accountingRecordNumber) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, accountingRecordType, accountingRecordNumber);
-		setExperimentalResultAllowed(true);
 		setVendorSpecificApplicationIdAllowed(false);
 		setAccountingSubSessionIdAllowed(false);
 		setAcctSessionIdAllowed(false);

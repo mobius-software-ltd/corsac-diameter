@@ -48,7 +48,6 @@ public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnsw
 	protected TDFSessionAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}
@@ -56,7 +55,6 @@ public class TDFSessionAnswerImpl extends StAnswerImpl implements TDFSessionAnsw
 	public TDFSessionAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID);
-		setExperimentalResultAllowed(true);
 		setOriginStateIdAllowed(true);
 		setUsernameAllowed(false);
 	}

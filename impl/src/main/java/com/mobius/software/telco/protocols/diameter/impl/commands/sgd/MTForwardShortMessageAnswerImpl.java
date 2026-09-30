@@ -64,13 +64,11 @@ public class MTForwardShortMessageAnswerImpl extends SgdAnswerImpl implements MT
 	protected MTForwardShortMessageAnswerImpl() 
 	{
 		super();
-		setExperimentalResultAllowed(true);
 	}
 	
 	public MTForwardShortMessageAnswerImpl(String originHost,String originRealm,Boolean isRetransmit, Long resultCode, String sessionID,  AuthSessionStateEnum authSessionState) throws MissingAvpException, AvpNotSupportedException
 	{
 		super(originHost, originRealm, isRetransmit, resultCode, sessionID, authSessionState);
-		setExperimentalResultAllowed(true);
 	}
 	
 	@Override
