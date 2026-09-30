@@ -147,6 +147,12 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
+	public SessionTerminationRequest creatSessionTerminationRequest(EAPRequest request, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
+	{
+		return  new SessionTerminationRequestImpl(request.getOriginHost(), request.getOriginRealm(), request.getDestinationHost(), request.getDestinationRealm(), false, request.getSessionId(), applicationId, terminationCause);
+	}
+
+	@Override
 	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		SessionTerminationAnswer result = new SessionTerminationAnswerImpl(request.getOriginHost(), request.getOriginRealm(), false, resultCode, request.getSessionId());

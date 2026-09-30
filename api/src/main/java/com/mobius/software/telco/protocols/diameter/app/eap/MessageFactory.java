@@ -24,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswe
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
+import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -56,6 +57,8 @@ public interface MessageFactory
 	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
 	
 	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationRealm,String destinationHost, String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
+	
+	public SessionTerminationRequest creatSessionTerminationRequest(EAPRequest request,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	
 	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	
