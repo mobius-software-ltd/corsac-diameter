@@ -24,7 +24,6 @@ import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswe
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationRequest;
-import com.mobius.software.telco.protocols.diameter.commands.creditcontrol.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
 import com.mobius.software.telco.protocols.diameter.exceptions.AvpNotSupportedException;
@@ -40,17 +39,21 @@ public interface MessageFactory
 {
 	public EAPRequest createEAPRequest(String originHost,String originRealm,String destinationRealm, String sessionid,AuthRequestTypeEnum authRequestType, ByteBuf eapPayload) throws MissingAvpException, AvpNotSupportedException;
 	
-	public EAPAnswer createEAPAnswer(EAPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode,Long authApplicationId,AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
+	public EAPAnswer createEAPAnswer(EAPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode,AuthRequestTypeEnum authRequestType) throws MissingAvpException, AvpNotSupportedException, AvpOccursTooManyTimesException;
 	
-	public EAPAnswer createEAPAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID,Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
+	public EAPAnswer createEAPAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode, String sessionID,AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException;	
 
 	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
+	
+	public ReAuthRequest createReAuthRequest(EAPRequest initialRequest,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
 	
 	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;		
 	
 	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
 	
 	public AbortSessionRequest createAbortSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID) throws MissingAvpException, AvpNotSupportedException;
+	
+	public AbortSessionRequest createAbortSessionRequest(EAPRequest request) throws MissingAvpException, AvpNotSupportedException;
 	
 	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	

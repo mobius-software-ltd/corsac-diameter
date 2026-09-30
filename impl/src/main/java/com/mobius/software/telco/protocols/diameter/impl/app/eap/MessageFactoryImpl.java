@@ -75,18 +75,18 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 	
 	
-	public EAPAnswer createEAPAnswer(EAPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	public EAPAnswer createEAPAnswer(EAPRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
-		EAPAnswerImpl result = new  EAPAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), authApplicationId, authRequestType);
+		EAPAnswerImpl result = new  EAPAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId(), applicationId, authRequestType);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
 		return result;
 	}
 
 	@Override
-	public EAPAnswer createEAPAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID,Long authApplicationId, AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
+	public EAPAnswer createEAPAnswer(String originHost, String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID,AuthRequestTypeEnum authRequestType) throws AvpOccursTooManyTimesException, MissingAvpException, AvpNotSupportedException
 	{
-		EAPAnswerImpl result = new  EAPAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, authApplicationId, authRequestType);
+		EAPAnswerImpl result = new  EAPAnswerImpl(originHost, originRealm, false, resultCode,  sessionID, applicationId, authRequestType);
 		result.setHopByHopIdentifier(hopByHopIdentifier);
 		result.setEndToEndIdentifier(endToEndIdentifier);
 		return result;
@@ -96,6 +96,12 @@ public class MessageFactoryImpl implements MessageFactory
 	public ReAuthRequest createReAuthRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new ReAuthRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId, reAuthRequestType);
+	}
+	
+	@Override
+	public ReAuthRequest createReAuthRequest(EAPRequest initialRequest, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new ReAuthRequestImpl(initialRequest.getDestinationHost(), initialRequest.getDestinationRealm(), initialRequest.getOriginHost(), initialRequest.getOriginRealm(), false, initialRequest.getSessionId(), applicationId, reAuthRequestType);
 	}
 
 	@Override
@@ -120,6 +126,12 @@ public class MessageFactoryImpl implements MessageFactory
 	public AbortSessionRequest createAbortSessionRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID) throws MissingAvpException, AvpNotSupportedException
 	{
 		return new AbortSessionRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId);
+	}
+
+	@Override
+	public AbortSessionRequest createAbortSessionRequest(EAPRequest request) throws MissingAvpException, AvpNotSupportedException
+	{
+		return new AbortSessionRequestImpl(request.getDestinationHost(), request.getDestinationRealm(), request.getOriginHost(), request.getOriginRealm(), false, request.getSessionId(), applicationId);
 	}
 
 	@Override
