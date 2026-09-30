@@ -23,7 +23,6 @@ import com.mobius.software.telco.protocols.diameter.DiameterStack;
 import com.mobius.software.telco.protocols.diameter.app.eap.MessageFactory;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
@@ -100,12 +99,6 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public ReAuthRequest createReAuthRequest(CreditControlRequest initialRequest, ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException
-	{
-		return new ReAuthRequestImpl(initialRequest.getDestinationHost(), initialRequest.getDestinationRealm(), initialRequest.getOriginHost(), initialRequest.getOriginRealm(), false, initialRequest.getSessionId(), applicationId, reAuthRequestType);
-	}
-
-	@Override
 	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		ReAuthAnswerImpl result = new ReAuthAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
@@ -130,12 +123,6 @@ public class MessageFactoryImpl implements MessageFactory
 	}
 
 	@Override
-	public AbortSessionRequest createAbortSessionRequest(CreditControlRequest request) throws MissingAvpException, AvpNotSupportedException
-	{
-		return new AbortSessionRequestImpl(request.getDestinationHost(), request.getDestinationRealm(), request.getOriginHost(), request.getOriginRealm(), false, request.getSessionId(), applicationId);
-	}
-
-	@Override
 	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode) throws MissingAvpException, AvpNotSupportedException
 	{
 		AbortSessionAnswerImpl result = new AbortSessionAnswerImpl(request.getDestinationHost(), request.getDestinationRealm(), false, resultCode, request.getSessionId());
@@ -157,12 +144,6 @@ public class MessageFactoryImpl implements MessageFactory
 	public SessionTerminationRequest createSessionTerminationRequest(String originHost, String originRealm, String destinationHost, String destinationRealm, String sessionID, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
 	{
 		return  new SessionTerminationRequestImpl(originHost, originRealm, destinationHost, destinationRealm, false, sessionID, applicationId, terminationCause);
-	}
-
-	@Override
-	public SessionTerminationRequest creatSessionTerminationRequest(CreditControlRequest request, TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException
-	{
-		return  new SessionTerminationRequestImpl(request.getOriginHost(), request.getOriginRealm(), request.getDestinationHost(), request.getDestinationRealm(), false, request.getSessionId(), applicationId, terminationCause);
 	}
 
 	@Override

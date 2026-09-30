@@ -20,7 +20,6 @@ package com.mobius.software.telco.protocols.diameter.app.eap;
 
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
-import com.mobius.software.telco.protocols.diameter.commands.commons.CreditControlRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.SessionTerminationAnswer;
@@ -46,23 +45,17 @@ public interface MessageFactory
 
 	public ReAuthRequest createReAuthRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
 	
-	public ReAuthRequest createReAuthRequest(CreditControlRequest initialRequest,ReAuthRequestTypeEnum reAuthRequestType) throws MissingAvpException, AvpNotSupportedException;
-	
 	public ReAuthAnswer createReAuthAnswer(ReAuthRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;		
 	
 	public ReAuthAnswer createReAuthAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
 	
 	public AbortSessionRequest createAbortSessionRequest(String originHost,String originRealm,String destinationHost,String destinationRealm,String sessionID) throws MissingAvpException, AvpNotSupportedException;
 	
-	public AbortSessionRequest createAbortSessionRequest(CreditControlRequest request) throws MissingAvpException, AvpNotSupportedException;
-	
 	public AbortSessionAnswer createAbortSessionAnswer(AbortSessionRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	
 	public AbortSessionAnswer createAbortSessionAnswer(String originHost,String originRealm, Long hopByHopIdentifier, Long endToEndIdentifier, Long resultCode, String sessionID) throws MissingAvpException, AvpNotSupportedException;		
 	
 	public SessionTerminationRequest createSessionTerminationRequest(String originHost,String originRealm,String destinationRealm,String destinationHost, String sessionID,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
-	
-	public SessionTerminationRequest creatSessionTerminationRequest(CreditControlRequest request,TerminationCauseEnum terminationCause) throws MissingAvpException, AvpNotSupportedException;
 	
 	public SessionTerminationAnswer createSessionTerminationAnswer(SessionTerminationRequest request, Long hopByHopIdentifier, Long endToEndIdentifier,Long resultCode) throws MissingAvpException, AvpNotSupportedException;
 	
