@@ -179,7 +179,7 @@ public class LocationInfoRequestImpl extends CxDxRequestWithHostBase implements 
 		
 		result.add(publicIdentity);
 		result.add(userAuthorizationType);
-		result.add(sessionId);
+		result.add(sessionPriority);
 		
 		if(optionalAvps!=null)
 		{
