@@ -221,7 +221,16 @@ public class GiClientSessionImpl implements GiClientSession
 		if(accSession!=null)
 			accSession.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);	
 		else
+		{
+			if(answer instanceof AAAnswer)
+			{
+				AAAnswer realAnswer = (AAAnswer)answer;
+				if(realAnswer!=null && realAnswer.getSessionTimeout()!=null)
+					idleTime = realAnswer.getSessionTimeout() * 1000L;
+			}
+			
 			authSession.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);	
+		}
 	}
 
 	@Override

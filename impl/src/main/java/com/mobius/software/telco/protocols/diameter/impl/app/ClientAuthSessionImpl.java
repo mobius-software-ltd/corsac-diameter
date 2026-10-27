@@ -332,7 +332,6 @@ public class ClientAuthSessionImpl<R1 extends DiameterRequest,A1 extends Diamete
 				try
 				{
 					A1 castedAnswer = (A1)answer;
-					
 					if(getSessionState()==SessionStateEnum.PENDING)
 					{
 						if(castedAnswer.getResultCode()!=null && !castedAnswer.getIsError())

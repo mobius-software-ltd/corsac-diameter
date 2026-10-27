@@ -18,11 +18,14 @@ package com.mobius.software.telco.protocols.diameter.impl.app.sta;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.app.sta.StaClientSession;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sta.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sta.AbortSessionRequest;
+import com.mobius.software.telco.protocols.diameter.commands.sta.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sta.ReAuthAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.sta.ReAuthRequest;
 import com.mobius.software.telco.protocols.diameter.commands.sta.SessionTerminationAnswer;
@@ -41,5 +44,18 @@ public class StaClientSessionImpl extends ClientAuthSessionImpl<StaRequest, StaA
 	public StaClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<StaRequest, StaAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.STA),remoteHost, remoteRealm, provider);
+	}
+	
+	@Override
+	public void answerReceived(DiameterAnswer answer, Long idleTime, Boolean stopSendTimer, String linkID, AsyncCallback callback)
+	{
+		if(answer instanceof EAPAnswer)
+		{
+			EAPAnswer realAnswer = (EAPAnswer)answer;
+			if(realAnswer!=null && realAnswer.getSessionTimeout()!=null)
+				idleTime = realAnswer.getSessionTimeout() * 1000L;
+		}
+		
+		super.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);
 	}
 }

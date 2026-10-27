@@ -406,8 +406,7 @@ public class LinkTest extends NetworkTestBase
 		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isStarted());
 		assertFalse(localStack.getNetworkManager().getLink(localLinkID).isUp());
 		
-		assertTrue(ceaReceived.get() <= 6L);
-		assertTrue(ceaReceived.get() >= 5L);
+		assertEquals(ceaReceived.get(), 1L);
 		assertEquals(dwaReceived.get(), 0L);
 		assertEquals(dpaReceived.get() , 0L);
 		assertEquals(otherReceived.get(), 0L);

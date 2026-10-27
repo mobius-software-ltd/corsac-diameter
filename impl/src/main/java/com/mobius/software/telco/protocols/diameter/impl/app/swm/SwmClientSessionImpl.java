@@ -18,9 +18,12 @@ package com.mobius.software.telco.protocols.diameter.impl.app.swm;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.app.swm.SwmClientSession;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.sta.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swm.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swm.ReAuthAnswer;
@@ -41,5 +44,18 @@ public class SwmClientSessionImpl extends ClientAuthSessionImpl<SwmRequest, SwmA
 	public SwmClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<SwmRequest, SwmAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.SWM),remoteHost, remoteRealm, provider);
+	}
+	
+	@Override
+	public void answerReceived(DiameterAnswer answer, Long idleTime, Boolean stopSendTimer, String linkID, AsyncCallback callback)
+	{
+		if(answer instanceof EAPAnswer)
+		{
+			EAPAnswer realAnswer = (EAPAnswer)answer;
+			if(realAnswer!=null && realAnswer.getSessionTimeout()!=null)
+				idleTime = realAnswer.getSessionTimeout() * 1000L;
+		}
+		
+		super.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);
 	}
 }

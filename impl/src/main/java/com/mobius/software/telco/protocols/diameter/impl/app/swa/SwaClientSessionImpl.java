@@ -18,9 +18,11 @@ package com.mobius.software.telco.protocols.diameter.impl.app.swa;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 import com.mobius.software.telco.protocols.diameter.DiameterProvider;
 import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.app.swa.SwaClientSession;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swa.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.swa.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.swa.ReAuthAnswer;
@@ -41,5 +43,18 @@ public class SwaClientSessionImpl extends ClientAuthSessionImpl<EAPRequest, EAPA
 	public SwaClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<EAPRequest, EAPAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer>, ?, ?, ?, ?> provider)
 	{
 		super(sessionID,Long.valueOf(ApplicationIDs.STA),remoteHost, remoteRealm, provider);
+	}
+	
+	@Override
+	public void answerReceived(DiameterAnswer answer, Long idleTime, Boolean stopSendTimer, String linkID, AsyncCallback callback)
+	{
+		if(answer instanceof EAPAnswer)
+		{
+			EAPAnswer realAnswer = (EAPAnswer)answer;
+			if(realAnswer!=null && realAnswer.getSessionTimeout()!=null)
+				idleTime = realAnswer.getSessionTimeout() * 1000L;
+		}
+		
+		super.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);
 	}
 }

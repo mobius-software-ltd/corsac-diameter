@@ -123,7 +123,8 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 	private AtomicLong lastActivity = new AtomicLong(System.currentTimeMillis());
 	private AtomicBoolean waitingForDWA = new AtomicBoolean(false);
 	private ConcurrentHashMap<String, NetworkListener> genericListeners;
-
+	private Boolean isServer;
+	
 	public DiameterLinkImpl(DiameterStack stack, Management management, ConcurrentHashMap<String, NetworkListener> genericListeners, String linkId, InetAddress remoteAddress, Integer remotePort, InetAddress localAddress, Integer localPort, Boolean isServer, Boolean isSctp, String localHost, String localRealm, String destinationHost, String destinationRealm, Boolean rejectUnmandatoryAvps, Long inactivityTimeout, Long responseTimeout, Long reconnectTimeout) throws DiameterException
 	{
 		this(stack, management, genericListeners, linkId, remoteAddress, remotePort, localAddress, localPort, isServer, isSctp, localHost, localRealm, destinationHost, destinationRealm, rejectUnmandatoryAvps, true, inactivityTimeout, responseTimeout, reconnectTimeout);
@@ -134,6 +135,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 		this.parser = new DiameterParser(stack.getClassLoader(), Arrays.asList(new Class<?>[] { DiameterErrorAnswerImpl.class, DiameterErrorAnswerWithSessionImpl.class }), Package.getPackage("com.mobius.software.telco.protocols.diameter.impl.primitives"));
 		this.genericListeners = genericListeners;
 		this.linkId = linkId;
+		this.isServer=isServer;
 		if (remoteAddress == null)
 			throw new DiameterException("The remote address can not be null", null, ResultCodes.DIAMETER_UNKNOWN_PEER, null);
 		if (localAddress == null)
@@ -1260,8 +1262,11 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 	@Override
 	public void resetReconnectTimer()
 	{
-		reconnectTimer.startTimer(reconnectTimeout, null);
-		stack.getWorkerPool().getPeriodicQueue().store(reconnectTimer.getRealTimestamp(), reconnectTimer);
+		if(isServer!=null && isServer)
+		{
+			reconnectTimer.startTimer(reconnectTimeout, null);
+			stack.getWorkerPool().getPeriodicQueue().store(reconnectTimer.getRealTimestamp(), reconnectTimer);
+		}
 	}
 
 	@Override

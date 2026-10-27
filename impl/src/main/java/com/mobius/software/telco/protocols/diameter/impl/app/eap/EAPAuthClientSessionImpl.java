@@ -1,5 +1,6 @@
 package com.mobius.software.telco.protocols.diameter.impl.app.eap;
 import com.mobius.software.telco.protocols.diameter.ApplicationIDs;
+import com.mobius.software.telco.protocols.diameter.AsyncCallback;
 /*
  * Mobius Software LTD
  * Copyright 2023, Mobius Software LTD and individual contributors
@@ -23,6 +24,7 @@ import com.mobius.software.telco.protocols.diameter.app.ClientAuthListener;
 import com.mobius.software.telco.protocols.diameter.app.eap.EAPAuthClientSession;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.eap.EAPRequest;
+import com.mobius.software.telco.protocols.diameter.commands.DiameterAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AbortSessionRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.ReAuthAnswer;
@@ -41,5 +43,18 @@ public class EAPAuthClientSessionImpl extends ClientAuthSessionImpl<EAPRequest, 
 	public EAPAuthClientSessionImpl(String sessionID, String remoteHost, String remoteRealm, DiameterProvider<? extends ClientAuthListener<EAPRequest, EAPAnswer,ReAuthRequest,ReAuthAnswer,AbortSessionRequest,AbortSessionAnswer,SessionTerminationRequest,SessionTerminationAnswer> , ?, ?, ?, ?> provider)
 	{
 		super(sessionID, Long.valueOf(ApplicationIDs.EAP),  remoteHost, remoteRealm, provider);
+	}
+	
+	@Override
+	public void answerReceived(DiameterAnswer answer, Long idleTime, Boolean stopSendTimer, String linkID, AsyncCallback callback)
+	{
+		if(answer instanceof EAPAnswer)
+		{
+			EAPAnswer realAnswer = (EAPAnswer)answer;
+			if(realAnswer!=null && realAnswer.getSessionTimeout()!=null)
+				idleTime = realAnswer.getSessionTimeout() * 1000L;
+		}
+		
+		super.answerReceived(answer, idleTime, stopSendTimer, linkID, callback);
 	}
 }
