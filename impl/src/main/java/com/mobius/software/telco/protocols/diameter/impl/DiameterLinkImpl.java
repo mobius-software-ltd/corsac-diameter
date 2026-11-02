@@ -51,6 +51,8 @@ import com.mobius.software.telco.protocols.diameter.commands.DiameterMessage;
 import com.mobius.software.telco.protocols.diameter.commands.DiameterRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.AccountingRequest;
+import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationAnswer;
+import com.mobius.software.telco.protocols.diameter.commands.commons.AuthenticationRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeAnswer;
 import com.mobius.software.telco.protocols.diameter.commands.commons.CapabilitiesExchangeRequest;
 import com.mobius.software.telco.protocols.diameter.commands.commons.DeviceWatchdogAnswer;
@@ -373,20 +375,32 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 			logger.debug("Checking if link " + getID() + "  can send message " + message.getClass().getName());
 		if (!getPeerState().equals(PeerStateEnum.OPEN))
 			return false;
-		DiameterCommandDefinition commandDefintion = DiameterParser.getCommandDefinition(message.getClass());
-		if (commandDefintion == null)
+		
+		DiameterCommandDefinition defaultCommandDefintion = DiameterParser.getCommandDefinition(message.getClass());
+		if (defaultCommandDefintion == null)
 			return false;
+		
 		if (message instanceof AccountingRequest || message instanceof AccountingAnswer)
 		{
 			if (logger.isDebugEnabled())
 				logger.debug("It is accounting message " + message.getClass().getName());
+			
+			Long applicationId = null;
+			if (message instanceof AccountingRequest)
+				applicationId = ((AccountingRequest)message).getAcctApplicationId();
+			else
+				applicationId = ((AccountingAnswer)message).getAcctApplicationId();
+			
+			if(applicationId == null)
+				applicationId = defaultCommandDefintion.applicationId();
+			
 			Boolean found = false;
 			List<Long> remoteIds = remoteAcctApplicationIds.get();
 			if (remoteIds != null)
 			{
 				for (Long currApplicationId : remoteIds)
 				{
-					if (currApplicationId.equals(commandDefintion.applicationId()))
+					if (currApplicationId.equals(applicationId))
 					{
 						if (logger.isDebugEnabled())
 							logger.debug("Acct application id matching, application id " + currApplicationId);
@@ -395,7 +409,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 					else
 					{
 						if (logger.isDebugEnabled())
-							logger.debug("Acct application id not matching, remote id " + currApplicationId + ",message acct id " + commandDefintion.applicationId());
+							logger.debug("Acct application id not matching, remote id " + currApplicationId + ",message acct id " + applicationId);
 					}
 				}
 			}
@@ -411,18 +425,19 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 		{
 			if (logger.isDebugEnabled())
 				logger.debug("It is vendor specific message " + message.getClass().getName());
-			VendorSpecificApplicationId appId = null;
+			VendorSpecificApplicationId vendorAppId = null;
 			if (message instanceof VendorSpecificRequest)
-				appId = ((VendorSpecificRequest) message).getVendorSpecificApplicationId();
+				vendorAppId = ((VendorSpecificRequest) message).getVendorSpecificApplicationId();
 			else
-				appId = ((VendorSpecificAnswer) message).getVendorSpecificApplicationId();
+				vendorAppId = ((VendorSpecificAnswer) message).getVendorSpecificApplicationId();
+			
 			Boolean found = false;
 			List<VendorSpecificApplicationId> remoteVendorIds = remoteApplicationIds.get();
-			if (remoteVendorIds != null && appId != null)
+			if (remoteVendorIds != null && vendorAppId != null)
 			{
 				for (VendorSpecificApplicationId currApplicationId : remoteVendorIds)
 				{
-					if (sameVendorSpecificApplicationId(appId, currApplicationId))
+					if (sameVendorSpecificApplicationId(vendorAppId, currApplicationId))
 					{
 						found = true;
 						break;
@@ -430,7 +445,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 					else
 					{
 						if (logger.isDebugEnabled())
-							logger.debug("Vendor id not matching Ids remote vendor id[" + currApplicationId.getVendorId() + "," + currApplicationId.getAuthApplicationId() + "," + currApplicationId.getAcctApplicationId() + "],message vendor id[" + appId.getVendorId() + "," + appId.getAuthApplicationId() + "," + appId.getAcctApplicationId() + "]");
+							logger.debug("Vendor id not matching Ids remote vendor id[" + currApplicationId.getVendorId() + "," + currApplicationId.getAuthApplicationId() + "," + currApplicationId.getAcctApplicationId() + "],message vendor id[" + vendorAppId.getVendorId() + "," + vendorAppId.getAuthApplicationId() + "," + vendorAppId.getAcctApplicationId() + "]");
 					}
 				}
 			}
@@ -439,11 +454,11 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 				if (logger.isDebugEnabled())
 					logger.debug("No vendor specific application Ids for link " + getID());
 			}
-			if (!found && appId != null)
+			if (!found && vendorAppId != null)
 			{
 				if (logger.isDebugEnabled())
 					logger.debug("No vendor application id has been found trying to check based on auth/acct application id message " + message.getClass().getName());
-				if (appId.getAcctApplicationId() != null)
+				if (vendorAppId.getAcctApplicationId() != null)
 				{
 					if (logger.isDebugEnabled())
 						logger.debug("Checking based on acct application id message " + message.getClass().getName());
@@ -452,7 +467,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 					{
 						for (Long currApplicationId : remoteIds)
 						{
-							if (currApplicationId.equals(commandDefintion.applicationId()))
+							if (currApplicationId.equals(vendorAppId.getAcctApplicationId()))
 							{
 								if (logger.isDebugEnabled())
 									logger.debug("Acct application id matching, application id " + currApplicationId);
@@ -461,7 +476,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 							else
 							{
 								if (logger.isDebugEnabled())
-									logger.debug("Acct application id not matching, remote id " + currApplicationId + ",message acct id " + commandDefintion.applicationId());
+									logger.debug("Acct application id not matching, remote id " + currApplicationId + ",message acct id " + vendorAppId.getAcctApplicationId());
 							}
 						}
 					}
@@ -471,7 +486,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 							logger.debug("Remote acct application ids are empty for link " + getID());
 					}
 				}
-				else if (appId.getAuthApplicationId() != null)
+				else if (vendorAppId.getAuthApplicationId() != null)
 				{
 					if (logger.isDebugEnabled())
 						logger.debug("Checking based on auth application id message " + message.getClass().getName());
@@ -480,7 +495,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 					{
 						for (Long currApplicationId : remoteIds)
 						{
-							if (currApplicationId.equals(commandDefintion.applicationId()))
+							if (currApplicationId.equals(vendorAppId.getAuthApplicationId()))
 							{
 								if (logger.isDebugEnabled())
 									logger.debug("Auth application id matching, application id " + currApplicationId);
@@ -489,7 +504,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 							else
 							{
 								if (logger.isDebugEnabled())
-									logger.debug("Auth application id not matching, remote id " + currApplicationId + ",message acct id " + commandDefintion.applicationId());
+									logger.debug("Auth application id not matching, remote id " + currApplicationId + ",message acct id " + vendorAppId.getAuthApplicationId());
 							}
 						}
 					}
@@ -506,6 +521,22 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 		}
 		else
 		{
+			Long applicationId = null;
+			try
+			{
+				if (message instanceof AuthenticationRequest)
+					applicationId = ((AuthenticationRequest)message).getAuthApplicationId();
+				else if(message instanceof AuthenticationAnswer)
+					applicationId = ((AuthenticationAnswer)message).getAuthApplicationId();
+			}
+			catch(AvpNotSupportedException ex)
+			{
+				
+			}
+			
+			if(applicationId == null)
+				applicationId = defaultCommandDefintion.applicationId();
+			
 			if (logger.isDebugEnabled())
 				logger.debug("It is authentication message " + message.getClass().getName());
 			Boolean found = false;
@@ -514,7 +545,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 			{
 				for (Long currApplicationId : remoteIds)
 				{
-					if (currApplicationId.equals(commandDefintion.applicationId()))
+					if (currApplicationId.equals(applicationId))
 					{
 						if (logger.isDebugEnabled())
 							logger.debug("Auth application id matching, application id " + currApplicationId);
@@ -523,7 +554,7 @@ public class DiameterLinkImpl implements DiameterLink, AssociationListener
 					else
 					{
 						if (logger.isDebugEnabled())
-							logger.debug("Auth application id not matching, remote id " + currApplicationId + ",message acct id " + commandDefintion.applicationId());
+							logger.debug("Auth application id not matching, remote id " + currApplicationId + ",message auth id " + applicationId);
 					}
 				}
 			}
